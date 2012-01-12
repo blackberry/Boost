@@ -1,0 +1,53 @@
+
+# Copyright 2006-2008 Daniel James.
+# Distributed under the Boost Software License, Version 1.0. (See accompanying
+# file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
+import testing ;
+
+project unordered-test/unordered
+    : requirements
+        <warnings>all
+        <toolset>intel:<warnings>on
+        <toolset>gcc:<cxxflags>"-pedantic -Wstrict-aliasing -fstrict-aliasing -Wextra -Wsign-promo -Wunused-parameter -Wconversion"
+        <toolset>darwin:<cxxflags>"-pedantic -Wstrict-aliasing -fstrict-aliasing -Wextra -Wsign-promo -Wunused-parameter -Wconversion"
+        #<toolset>gcc:<define>_GLIBCXX_DEBUG
+        #<toolset>darwin:<define>_GLIBCXX_DEBUG
+        #<toolset>msvc:<warnings-as-errors>on
+        #<toolset>gcc:<warnings-as-errors>on
+        #<toolset>darwin:<warnings-as-errors>on
+    ;
+
+test-suite unordered
+    :
+        [ run fwd_set_test.cpp ]
+        [ run fwd_map_test.cpp ]
+        [ run allocator_traits.cpp ]
+        [ run minimal_allocator.cpp ]
+        [ run compile_set.cpp ]
+        [ run compile_map.cpp ]
+        [ run link_test_1.cpp link_test_2.cpp ]
+        [ run incomplete_test.cpp ]
+        [ run simple_tests.cpp ]
+        [ run equivalent_keys_tests.cpp ]
+        [ run constructor_tests.cpp ]
+        [ run copy_tests.cpp ]
+        [ run move_tests.cpp ]
+        [ run assign_tests.cpp ]
+        [ run insert_tests.cpp ]
+        [ run insert_tests.cpp : :
+            : <define>BOOST_UNORDERED_DEPRECATED_PAIR_CONSTRUCT
+            : insert_deprecated ]
+        [ run insert_stable_tests.cpp ]
+        [ run unnecessary_copy_tests.cpp ]
+        [ run erase_tests.cpp ]
+        [ run erase_equiv_tests.cpp ]
+        [ run find_tests.cpp ]
+        [ run at_tests.cpp ]
+        [ run bucket_tests.cpp ]
+        [ run load_factor_tests.cpp ]
+        [ run rehash_tests.cpp ]
+        [ run equality_tests.cpp ]
+        [ run equality_deprecated.cpp ]
+        [ run swap_tests.cpp ]
+    ;

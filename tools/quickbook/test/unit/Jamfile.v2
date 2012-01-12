@@ -1,0 +1,17 @@
+#
+#   Copyright (c) 2011 Daniel James
+#
+#   Distributed under the Boost Software License, Version 1.0. (See
+#   accompanying file LICENSE_1_0.txt or copy at
+#   http://www.boost.org/LICENSE_1_0.txt)
+#
+
+import testing ;
+
+project quickbook-unit-tests
+    : requirements <include>../../src <warnings>all
+    ;
+
+run values_test.cpp ../../src/values.cpp ;
+run post_process_test.cpp ../../src/post_process.cpp ../../src/id_generator.cpp ;
+run iterator_tests.cpp ../../src/values.cpp ;

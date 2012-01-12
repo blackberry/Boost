@@ -1,0 +1,20 @@
+
+#
+#   Copyright (c) 2011 Daniel James
+#
+#   Distributed under the Boost Software License, Version 1.0. (See
+#   accompanying file LICENSE_1_0.txt or copy at
+#   http://www.boost.org/LICENSE_1_0.txt)
+#
+
+# Just checking that expect-errors works as advertised.
+
+project quickook/tests/command-line ;
+
+import quickbook-testing : quickbook-test quickbook-fail-test quickbook-error-test ;
+
+test-suite command-line.test :
+    [ quickbook-fail-test error-fail : : <testing.arg>--expect-errors ]
+    [ quickbook-error-test error1 ]
+    [ quickbook-error-test error2 ]
+    ;
