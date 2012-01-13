@@ -217,7 +217,7 @@ if [ os.name ] = NT
 actions piecemeal archive
 {
     $(RM) "$(<)"
-    ar rc "$(<)" "$(>)"
+    "$(CONFIG_COMMAND)" -A "$(<)" "$(>)"
 }
 
 

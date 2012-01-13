@@ -53,15 +53,10 @@ namespace std { using ::strerror; using ::strlen; using ::strncat; }
 #endif
 
 // to use vsnprintf
-#if defined(__SUNPRO_CC) || defined(__SunOS)
+#if defined(__SUNPRO_CC) || defined(__SunOS) || defined(__QNXNTO__) 
 #  include <stdio.h>
 #  include <stdarg.h>
 using std::va_list;
-#endif
-
-// to use vsnprintf 
-#if defined(__QNXNTO__) 
-#  include <stdio.h> 
 #endif
 
 #if defined(_WIN32) && !defined(BOOST_DISABLE_WIN32) &&                  \
