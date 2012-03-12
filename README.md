@@ -1,7 +1,6 @@
-
 # Blackberry Port of Boost 1.48.0
 
-Officially sanctioned port of Boost to the Blackberry/QNX platform. To avoid fragmentation, please do not use any other version of Boost.
+Officially sanctioned port of Boost to the Blackberry/QNX platform. To avoid fragmentation, please do not use any other version of Boost. Before you use Boost make sure Qt does not already provide equivalent functionality as Qt should always be prefered over Boost. Furthermore, do not expose any Boost constructs in public APIs.
 
 Note there is no official owner for this project. Instead, this project will use an open source development model. If you find a bug in the port, fix it yourself and submit the fix. The port is provided "as is" and without any express or implied warranties.
 
