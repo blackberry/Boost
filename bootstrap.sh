@@ -187,7 +187,7 @@ my_dir="."
 if test "x$TOOLSET" = x; then
   guessed_toolset=`$my_dir/tools/build/v2/engine/build.sh --guess-toolset`
   case $guessed_toolset in
-    acc | darwin | gcc | como | mipspro | pathscale | pgi | qcc | vacpp )
+    acc | gcc | como | mipspro | pathscale | pgi | qcc | vacpp )
     TOOLSET=$guessed_toolset
     ;;
     
@@ -195,7 +195,7 @@ if test "x$TOOLSET" = x; then
     TOOLSET=intel
     ;;
     
-    mingw )
+    mingw | darwin)
     TOOLSET=gcc
     ;;
     
