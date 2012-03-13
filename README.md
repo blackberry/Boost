@@ -2,11 +2,7 @@
 
 Officially sanctioned port of Boost to the Blackberry/QNX platform. To avoid fragmentation, please do not use any other version of Boost. Before you use Boost make sure Qt does not already provide equivalent functionality as Qt should always be prefered over Boost. Furthermore, do not expose any Boost constructs in public APIs.
 
-Note there is no official owner for this project. Instead, this project will use an open source development model. If you find a bug in the port, fix it yourself and submit the fix. The port is provided "as is" and without any express or implied warranties.
-
-No Boost shared libraries will be made available on the Blackberry/QNX platform. Anyone that needs a Boost library must use a static version of said library. Since most of Boost exists solely in header files, hopefully, not too many people will need Boost libraries.
-
-Don't like how things are run? Volunteer to become the project owner.
+Please direct all inquiries about Boost to Steven Chan (schan@rim.com).
 
 ### Prerequisites
 
