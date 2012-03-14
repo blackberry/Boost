@@ -142,8 +142,13 @@ static int lcmp( LIST * t, LIST * s )
 
     while ( !status && ( t || s ) )
     {
+#if defined __QNX__
+        char *st = t ? t->string : (char *)"";
+        char *ss = s ? s->string : (char *)"";
+#else
         char *st = t ? t->string : "";
         char *ss = s ? s->string : "";
+#endif
 
         status = strcmp( st, ss );
 
