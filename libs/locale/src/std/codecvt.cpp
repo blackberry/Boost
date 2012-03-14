@@ -11,6 +11,9 @@
 #include <boost/locale/util.hpp>
 #include "all_generator.hpp"
 #include <vector>
+#if defined __QNX__
+#include <wchar.h> //defines mbstate_t
+#endif
 namespace boost {
 namespace locale {
 namespace impl_std {

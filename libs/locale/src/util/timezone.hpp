@@ -10,6 +10,9 @@
 #include <string>
 #include <stdlib.h>
 #include <string.h>
+#if defined __QNX__
+#include <time.h> // for time_t
+#endif
 namespace boost {
 namespace locale {
 namespace util {
