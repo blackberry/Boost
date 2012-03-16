@@ -1,1 +1,21 @@
-using qcc : : qcc -Vgcc_ntoarmv7le ;
+using qcc 
+# Version
+    :
+# C++-compile-command
+    : qcc -Vgcc_ntoarmv7le
+# Compiler options
+    : <compileflags>"-D__QNX__ -D__QNXNTO__ -D__PLAYBOOK__ -I$QNX_TARGET/usr/include"
+        <linkflags>"-L$QNX_TARGET/armle-v7/usr/lib -L$QNX_TARGET/armle-v7/lib"
+    ;
+
+# Python configuration
+using python 
+# Version
+    : 3.2 
+# Command or prefix
+    : 
+# Includes
+    # The include path is provided as an option to bjam
+    : <include>""
+# Libs
+    ;
