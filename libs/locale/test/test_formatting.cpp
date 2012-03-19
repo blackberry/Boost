@@ -31,6 +31,10 @@ int main()
 
 #include <unicode/uversion.h>
 
+#if defined __QNX__
+#include <time.h> // for time_t
+#endif
+
 using namespace boost::locale;
 
 //#define TEST_DEBUG
