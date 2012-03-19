@@ -13,7 +13,17 @@ void do_nothing(boost::thread::id* my_id)
 boost::thread make_thread_move_return(boost::thread::id* the_id)
 {
     boost::thread t(do_nothing,the_id);
+#if defined __QNX__
+    // This gets rid of the initial error but results in 
+    // "error: 'boost::thread::thread(boost::thread&)' is private" 
+    // but at least this matches the behaviour on Linux 
+    // (see test_thread_return_local.cpp)
+    boost::detail::thread_move_t<boost::thread> tm (t);
+    boost::thread t_res = boost::thread(tm);
+    return t_res;
+#else
     return boost::move(t);
+#endif
 }
 
 void test_move_from_function_move_return()
