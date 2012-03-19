@@ -77,6 +77,10 @@ derives_std_boost_exception:
         {
         return wh_;
         }
+
+#if defined __QNX__
+    ~derives_std_boost_exception() throw() {}
+#endif
     };
 
 struct
