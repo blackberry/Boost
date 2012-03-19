@@ -289,7 +289,11 @@ private:
         this->context_.results_ptr_ = &what;
         this->context_.traits_ = impl.traits_.get();
         this->mark_count_ = impl.mark_count_ + 1;
+#if defined __QNX__
+        this->sub_matches_ = this->extras_->sub_match_stack_.push_sequence(total_mark_count, sub_match_impl(begin_), detail::fill_var);
+#else
         this->sub_matches_ = this->extras_->sub_match_stack_.push_sequence(total_mark_count, sub_match_impl(begin_), detail::fill);
+#endif
         this->sub_matches_ += impl.hidden_mark_count_;
 
         // initialize the match_results struct
