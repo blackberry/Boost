@@ -5,7 +5,8 @@ using qcc
     : QCC -Vgcc_ntoarmv7le_cpp
 # Compiler options
     # Add -Wno-psabi to prevent this from being output: "note: the mangling of 'va_list' has changed in GCC 4.4"
-    : <compileflags>"-D__QNX__ -D__QNXNTO__ -D__PLAYBOOK__ -I$QNX_TARGET/usr/include -Wno-psabi"
+    # Add -D__USE_ISOC99 for rounding control mechanism (boost/numeric/interval/hw_rounding.hpp)
+    : <compileflags>"-D__QNX__ -D__QNXNTO__ -D__PLAYBOOK__ -D__USE_ISOC99 -I$QNX_TARGET/usr/include -Wno-psabi"
         <linkflags>"-L$QNX_TARGET/armle-v7/usr/lib -L$QNX_TARGET/armle-v7/lib"
     ;
 
