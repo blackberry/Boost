@@ -53,6 +53,11 @@ int main()
 
     // wchar_t
 
+#if defined __QNX__
+// For some reason QNX defines it as -WCHAR_MAX - 1
+#define WCHAR_MIN 0
+#endif
+
 #if !defined(BOOST_NO_CWCHAR) && defined(WCHAR_MAX) && defined(WCHAR_MIN)
 
 // Version prior to VC8 didn't allow WCHAR_MAX in #if expressions
