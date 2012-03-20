@@ -44,6 +44,9 @@ using std::endl;
 using std::ofstream;
 using std::ifstream;
 using std::string;
+#if defined __QNX__
+using std::isspace;
+#endif
 
 int
 main()
