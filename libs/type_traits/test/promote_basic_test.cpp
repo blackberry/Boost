@@ -53,7 +53,7 @@ int main()
 
     // wchar_t
 
-#if defined __QNX__
+#if defined(__QNX__)
 // For some reason QNX defines it as -WCHAR_MAX - 1
 #define WCHAR_MIN 0
 #endif

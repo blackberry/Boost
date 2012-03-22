@@ -21,7 +21,7 @@ my_exception:
         {
         return "my_exception";
         }
-#if defined __QNX__
+#if defined(__QNX__)
     ~my_exception() throw() {}
 #endif
     };

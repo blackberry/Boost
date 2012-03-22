@@ -119,7 +119,7 @@ int main()
         std::cout << "- From UTF-8" << std::endl;
 
 
-#if defined __QNX__
+#if defined(__QNX__)
         std::auto_ptr<base_converter> temp = create_utf8_converter();
         cvt = temp;
 #else
@@ -241,7 +241,7 @@ int main()
 
         std::cout << "Test windows-1255" << std::endl;
 
-#if defined __QNX__
+#if defined(__QNX__)
         std::auto_ptr<base_converter> temp2 = create_simple_converter("windows-1255");
         cvt = temp2;
 #else
@@ -275,7 +275,7 @@ int main()
         #ifdef BOOST_LOCALE_WITH_ICU
         std::cout << "Testing Shift-JIS using ICU/uconv" << std::endl;
 
-#if defined __QNX__
+#if defined(__QNX__)
         std::auto_ptr<base_converter> temp3 = boost::locale::impl_icu::create_uconv_converter("Shift-JIS");
         cvt = temp3;
 #else

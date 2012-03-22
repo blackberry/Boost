@@ -414,7 +414,7 @@ public:
         {
             extras_type &extras = this->get_extras_();
             std::size_t size = that.sub_matches_.size();
-#if defined __QNX__
+#if defined(__QNX__)
             detail::sub_match_impl<BidiIter> *sub_matches = extras.sub_match_stack_.push_sequence(size, detail::sub_match_impl<BidiIter>(*that.base_), detail::fill_var);
 #else
             detail::sub_match_impl<BidiIter> *sub_matches = extras.sub_match_stack_.push_sequence(size, detail::sub_match_impl<BidiIter>(*that.base_), detail::fill);

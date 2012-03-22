@@ -22,7 +22,7 @@ test_exception:
     virtual boost::exception,
     virtual std::exception
     {
-#if defined __QNX__
+#if defined(__QNX__)
         ~test_exception() throw () {}
 #endif
     };

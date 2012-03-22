@@ -31,7 +31,7 @@ int main()
 
 #include <unicode/uversion.h>
 
-#if defined __QNX__
+#if defined(__QNX__)
 #include <time.h> // for time_t
 #endif
 

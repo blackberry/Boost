@@ -133,7 +133,7 @@ namespace impl_icu {
     {
         std::auto_ptr<util::base_converter> cvt;
         if(conv::impl::normalize_encoding(encoding.c_str())=="utf8")
-#if defined __QNX__
+#if defined(__QNX__)
         {
             std::auto_ptr<util::base_converter> temp = util::create_utf8_converter();
             cvt = temp; 
@@ -142,7 +142,7 @@ namespace impl_icu {
             cvt = util::create_utf8_converter(); 
 #endif
         else {
-#if defined __QNX__
+#if defined(__QNX__)
             std::auto_ptr<util::base_converter> temp = util::create_simple_converter(encoding);
             cvt = temp; 
 #else
@@ -150,7 +150,7 @@ namespace impl_icu {
 #endif
             if(!cvt.get()) {
                 try {
-#if defined __QNX__
+#if defined(__QNX__)
                     std::auto_ptr<util::base_converter> temp = create_uconv_converter(encoding);
                     cvt = temp; 
 #else

@@ -162,7 +162,7 @@ private:
     template<typename ValueType>
     iter_type do_real_put (iter_type out, std::ios_base &ios, char_type fill, ValueType val) const
     {
-#if defined __QNX__
+#if defined(__QNX__)
         formatter_ptr formatter = formatter_type::create(ios,loc_,enc_);
 
         if(use_parent<ValueType>(ios,val) || formatter.get() == 0) {
@@ -286,7 +286,7 @@ private:
     template<typename ValueType>
     iter_type do_real_get(iter_type in,iter_type end,std::ios_base &ios,std::ios_base::iostate &err,ValueType &val) const
     {
-#if defined __QNX__
+#if defined(__QNX__)
         formatter_ptr formatter = formatter_type::create(ios,loc_,enc_);
         stream_type *stream_ptr = dynamic_cast<stream_type *>(&ios);
 

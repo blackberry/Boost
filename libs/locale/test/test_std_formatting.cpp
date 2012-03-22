@@ -32,7 +32,7 @@ int main()
 #  pragma warning(disable : 4996)
 #endif
 
-#if defined __QNX__
+#if defined(__QNX__)
 #include <time.h> // for time_t
 #endif
 

@@ -29,7 +29,7 @@
 #include "pixel.hpp"
 #include "step_iterator.hpp"
 
-#if defined __QNX__
+#if defined(__QNX__)
 #include <stddef.h> // for ptrdiff_t
 #endif
 

@@ -21,7 +21,7 @@
 namespace boost { namespace xpressive { namespace detail
 {
 
-#if defined __QNX__
+#if defined(__QNX__)
 // fill conflicts with std::fill()
 struct fill_t {} const fill_var = {};
 #else

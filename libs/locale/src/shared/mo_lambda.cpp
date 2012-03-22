@@ -290,7 +290,7 @@ namespace { // anon
     };
 
 
-#if defined __QNX__
+#if defined(__QNX__)
     #define BINARY_EXPR(expr,hexpr,list)                            \
         plural_ptr expr()                                           \
         {                                                           \
@@ -346,7 +346,7 @@ namespace { // anon
             plural_ptr op;
             if(t.next()=='(') {
                 t.get();
-#if defined __QNX__
+#if defined(__QNX__)
                 plural_ptr temp=cond_expr();
                 if((op=temp).get()==0)
 #else
@@ -375,7 +375,7 @@ namespace { // anon
             static int level_unary[]={3,'-','!','~'};
             if(is_in(t.next(),level_unary)) {
                 int op=t.get();
-#if defined __QNX__
+#if defined(__QNX__)
                 plural_ptr temp=un_expr();
                 if((op1=temp).get()==0) 
 #else
@@ -411,7 +411,7 @@ namespace { // anon
 
         plural_ptr cond_expr()
         {
-#if defined __QNX__
+#if defined(__QNX__)
             plural_ptr case1,case2;
             plural_ptr cond=l1();
             if(cond.get()==0)
@@ -422,7 +422,7 @@ namespace { // anon
                 return plural_ptr();
             if(t.next()=='?') {
                 t.get();
-#if defined __QNX__
+#if defined(__QNX__)
                 plural_ptr temp1=cond_expr();
                 case1=temp1;
                 if(case1.get()==0)
@@ -432,7 +432,7 @@ namespace { // anon
                     return plural_ptr();
                 if(t.get()!=':')
                     return plural_ptr();
-#if defined __QNX__
+#if defined(__QNX__)
                 plural_ptr temp2=cond_expr();
                 case2=temp2;
                 if(case2.get()==0)
