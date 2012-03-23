@@ -321,7 +321,12 @@ private:
             IntType k = static_cast<IntType>(floor((2*btrd.a/us + btrd.b)*u + btrd.c));
             if(k < 0 || k > _t) continue;
             v = v*btrd.alpha/(btrd.a/(us*us) + btrd.b);
+#if defined(__QNX__)
+            // Call to abs() is ambiguous 
+            RealType km = (int)abs((int)(k - m));
+#else
             RealType km = abs(k - m);
+#endif
             if(km <= 15) {
                 RealType f = 1;
                 if(m < k) {
