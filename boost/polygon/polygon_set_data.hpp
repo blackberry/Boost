@@ -15,6 +15,12 @@
 
 namespace boost { namespace polygon {
 
+#if defined(__QNX__)
+using std::atan2;
+using std::cos;
+using std::sin;
+using std::sqrt;
+#endif
 
   // utility function to round coordinate types down
   // rounds down for both negative and positive numbers

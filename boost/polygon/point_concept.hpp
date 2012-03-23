@@ -12,6 +12,9 @@
 #include "point_traits.hpp"
 
 namespace boost { namespace polygon{
+#if defined(__QNX__)
+  using std::sqrt;
+#endif
   struct point_concept {};
  
   template <typename T>

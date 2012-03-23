@@ -13,6 +13,10 @@
 #include "polygon_sort_adaptor.hpp"
 namespace boost { namespace polygon{
 
+#if defined(__QNX__)
+using std::rand;
+#endif
+
   template <typename Unit>
   class line_intersection : public scanline_base<Unit> {
   private:
