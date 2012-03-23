@@ -42,6 +42,10 @@ Tests for output from various units, name, symbol and raw formats, and automatic
 #define BOOST_TEST_MAIN
 #include <boost/test/unit_test.hpp>
 
+#if defined(__QNX__)
+using std::pow;
+#endif
+
 struct meter_base_unit : boost::units::base_unit<meter_base_unit, boost::units::length_dimension, 1> {
     static const char* name() { return("meter"); }
     static const char* symbol() { return("m"); }
