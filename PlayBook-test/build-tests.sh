@@ -18,16 +18,16 @@ BJAM=$BOOST_DIR/bjam
 PYTHON_SRC=/home/chung/dev/product-rim/trunk/tools/python-3.2
 
 pushd $BOOST_DIR/libs
-pwd
 for TDIR in `cat $TEST_DIR/test.list | grep -v '#'` ; do
-pwd
-    pushd $TDIR
-    $BJAM \
-        include="$PYTHON_SRC/Include:$PYTHON_SRC" \
-        --prefix=$PREFIX \
-        --user-config=$BOOST_DIR/blackberry-armv7le-config.jam \
-        --layout=system toolset=qcc target-os=qnxnto \
-        c++-template-depth=900
-    popd
+    if [ -d $TDIR ] ; then
+        pushd $TDIR
+        $BJAM -a \
+            include="$PYTHON_SRC/Include:$PYTHON_SRC" \
+            --prefix=$PREFIX \
+            --user-config=$BOOST_DIR/blackberry-armv7le-config.jam \
+            --layout=system toolset=qcc target-os=qnxnto \
+            c++-template-depth=900
+        popd
+    fi
 done
 popd
