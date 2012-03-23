@@ -10,6 +10,10 @@
 
 #include <boost/math/tr1.hpp>
 
+#if defined(__QNX__)
+#include <tr1/math.h>
+#endif
+
 unsigned errors = 0;
 
 void check_close_f(float v1, float v2, float tol, int line)
@@ -143,8 +147,13 @@ void test_values_f(const char* name)
    check_close_f(tgammaf(-3.125), 1.1668538708507675587790157356605097019141636072094f, 5000 * eps, __LINE__);
 
 #ifdef BOOST_HAS_LONG_LONG
+#if defined(__QNX__)
+   check(llroundf(2.5f) == 3L, __LINE__);
+   check(llroundf(2.25f) == 2L, __LINE__);
+#else
    check(llroundf(2.5f) == 3fL, __LINE__);
    check(llroundf(2.25f) == 2fL, __LINE__);
+#endif
 #endif
    check(lroundf(2.5f) == 3.0f, __LINE__);
    check(lroundf(2.25f) == 2.0f, __LINE__);
