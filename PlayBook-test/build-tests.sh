@@ -26,7 +26,8 @@ pwd
         include="$PYTHON_SRC/Include:$PYTHON_SRC" \
         --prefix=$PREFIX \
         --user-config=$BOOST_DIR/blackberry-armv7le-config.jam \
-        --layout=system toolset=qcc target-os=qnxnto
+        --layout=system toolset=qcc target-os=qnxnto \
+        c++-template-depth=900
     popd
 done
 popd
