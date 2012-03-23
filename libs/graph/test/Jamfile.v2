@@ -17,6 +17,11 @@ path-constant CYCLE_RATIO_INPUT_FILE : ./cycle_ratio_s382.90.dot ;
 
 path-constant METIS_INPUT_FILE : ./weighted_graph.gr ;
 
+project
+  : requirements
+    <library>/boost/regex//boost_regex
+  ;
+
 test-suite graph_test :
     # test_graphs will eventually defined a framework for testing the structure
     # and implementation of graph data structures and adaptors.
