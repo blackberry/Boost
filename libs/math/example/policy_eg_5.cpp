@@ -43,11 +43,21 @@ int main()
 {
    errno = 0;
    cout << "Result of tgamma(30000) is: "
+#if defined(__QNX__)
+   // Pick one of the overloaded tgamma functions to use  
+      << tgammaf(30000) << endl;
+#else
       << tgamma(30000) << endl;
+#endif
       // tgamma in unnamed namespace in this translation unit (file) only.
    cout << "errno = " << errno << endl;
    cout << "Result of tgamma(-10) is: "
+#if defined(__QNX__)
+   // Pick one of the overloaded tgamma functions to use  
+      << tgammaf(-10) << endl;
+#else
       << tgamma(-10) << endl;
+#endif
    cout << "errno = " << errno << endl;
    // Default tgamma policy would throw an exception, and abort.
 }

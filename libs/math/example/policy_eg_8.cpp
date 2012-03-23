@@ -115,7 +115,12 @@ int main()
    cout << "Result of erf_inv(-10) is: "
       << erf_inv(-10) << endl;
    cout << "Result of tgamma(-10) is: "
+#if defined(__QNX__)
+   // Pick one of the overloaded tgamma functions to use  
+      << tgammaf(-10) << endl;
+#else
       << tgamma(-10) << endl;
+#endif
 }
 
 /*`

@@ -262,10 +262,20 @@ int main()
       << erf_inv(-10) << std::endl << endl;
    // Raise a pole error:
    cout << "Result of tgamma(-10) is: "
+#if defined(__QNX__)
+   // Pick one of the overloaded tgamma functions to use  
+      << tgammaf(-10) << std::endl << endl;
+#else
       << tgamma(-10) << std::endl << endl;
+#endif
    // Raise an overflow error:
    cout << "Result of tgamma(3000) is: "
+#if defined(__QNX__)
+   // Pick one of the overloaded tgamma functions to use  
+      << tgammaf(3000) << std::endl << endl;
+#else
       << tgamma(3000) << std::endl << endl;
+#endif
    // Raise an underflow error:
    cout << "Result of tgamma(-190.5) is: "
       << tgamma(-190.5) << std::endl << endl;
