@@ -16,6 +16,10 @@
 #include <boost/mpl/multiplies.hpp>
 #undef BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS
 
+#if defined(__QNX__)
+using std::pow;
+#endif
+
 struct test_impl
 {
     typedef void result_type;
