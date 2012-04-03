@@ -1704,7 +1704,11 @@ charT basic_regex_parser<charT, traits>::unescape_character()
          int i = this->m_traits.toi(m_position, m_end, 16);
          if((m_position == m_end)
             || (i < 0)
+#if defined(__QNX__)
+            || ((std::numeric_limits<charT>::is_specialized) && ((unsigned int)i > (unsigned int)(std::numeric_limits<charT>::max)()))
+#else
             || ((std::numeric_limits<charT>::is_specialized) && (i > (int)(std::numeric_limits<charT>::max)()))
+#endif
             || (this->m_traits.syntax_type(*m_position) != regex_constants::syntax_close_brace))
          {
             // Rewind to start of escape:
