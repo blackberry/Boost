@@ -456,10 +456,17 @@ public:
     {
         std::ios_base::fmtflags oldflags =
             os.flags(os.dec | os.fixed | os.left); 
+#if defined(__QNX__)
+        // Ensure the number will match after converting back from the textual representation
+        int oldprec = os.precision(1);
+#endif
         for(unsigned int j = 0; j < f.long_lag; ++j)
             os << (f.compute(j) * f._modulus) << ' ';
         os << (f.carry * f._modulus);
         os.flags(oldflags);
+#if defined(__QNX__)
+        os.precision(oldprec);
+#endif
         return os;
     }
     
