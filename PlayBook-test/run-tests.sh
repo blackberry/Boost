@@ -11,7 +11,7 @@ BOOST_DIR=`pwd`/..
 cd $BOOST_DIR
 
 # Use the same list of test directories that the build script uses
-for TDIR in `cat $TEST_DIR/test-needed.list | grep -v '#'` ; do
+for TDIR in `cat $TEST_DIR/test.list | grep -v '#'` ; do
     # Get the base path of the tests
     EXE_DIR=`echo $TDIR | sed -e 's|^.\/\(.\+\)$|bin.v2\/libs\/\1|'`
     find $EXE_DIR -perm -001 -type f -a ! -name 'libboost_*' > $TEST_DIR/find-exe.list
