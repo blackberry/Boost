@@ -14,7 +14,7 @@ cd $BOOST_DIR
 for TDIR in `cat $TEST_DIR/test-needed.list | grep -v '#'` ; do
     # Get the base path of the tests
     EXE_DIR=`echo $TDIR | sed -e 's|^.\/\(.\+\)$|bin.v2\/libs\/\1|'`
-    find $EXE_DIR -perm -001 -type f > $TEST_DIR/find-exe.list
+    find $EXE_DIR -perm -001 -type f -a ! -name 'libboost_*' > $TEST_DIR/find-exe.list
     for EXE_PATH in `cat $TEST_DIR/find-exe.list | grep -v '#'` ; do
         LIB_DIR=`echo $TDIR | sed -e 's|^.\/\(.\+\)$|libs\/\1|'`
         
