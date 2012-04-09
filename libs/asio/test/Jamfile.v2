@@ -8,6 +8,9 @@
 import os ;
 import feature ;
 
+# Needed to get tests for QNX compiling on Linux
+lib socket ;
+
 if [ os.name ] = SOLARIS
 {
   lib socket ;
@@ -41,9 +44,12 @@ project
     <library>/boost/thread//boost_thread
     <library>/boost/regex//boost_regex
     <library>/boost/test//boost_test_exec_monitor
+# Needed to get tests for QNX compiling on Linux
+    <target-os>qnxnto:<library>socket
     <define>BOOST_ALL_NO_LIB=1
     <threading>multi
-    <os>LINUX:<define>_XOPEN_SOURCE=600
+# Needed to get tests for QNX compiling on Linux
+#    <os>LINUX:<define>_XOPEN_SOURCE=600
     <os>LINUX:<define>_GNU_SOURCE=1
     <os>SOLARIS:<define>_XOPEN_SOURCE=500
     <os>SOLARIS:<define>__EXTENSIONS__
