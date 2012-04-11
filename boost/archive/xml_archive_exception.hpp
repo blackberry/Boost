@@ -46,6 +46,9 @@ public:
         const char * e1 = NULL,
         const char * e2 = NULL
     );
+#if defined(__QNX__)
+    ~xml_archive_exception() throw () {};
+#endif
 };
 
 }// namespace archive
