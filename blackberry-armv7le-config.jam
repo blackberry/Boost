@@ -1,26 +1,27 @@
 using qcc 
 # Version
     :
+
 # C++-compile-command
     : $QNX_HOST/usr/bin/QCC -Vgcc_ntoarmv7le_cpp
+
 # Compiler options
     : <compileflags>"-D__QNX__"
         <compileflags>"-D__QNXNTO__"
         <compileflags>"-D__PLAYBOOK__"
+
     # Add -D__USE_ISOC99 for rounding control mechanism (boost/numeric/interval/hw_rounding.hpp)
         <compileflags>"-D__USE_ISOC99"
         <compileflags>"-I$QNX_TARGET/usr/include"
-    # Add include paths to ABI and TR1 headers - commented because it breaks compilation for tests in libs/tr1/test
-#        <compileflags>"-I$QNX_TARGET/usr/include/c++/4.4.2"
-#        <compileflags>"-I$QNX_TARGET/usr/include/c++/4.4.2/arm-unknown-nto-qnx6.5.0eabi"
+
     # Prevent this from being output: "note: the mangling of 'va_list' has changed in GCC 4.4"
         <compileflags>"-Wno-psabi"
+
     # Add -fPIC to link without error to LibTestNativeLibTuTest.o (for statechart tests)
         <compileflags>"-fPIC"
+
     # Requested by BBM team
         <compileflags>"-fno-strict-aliasing"
-    # Add libstdc++ for compiling asio tests (they were getting unresolved std libraries at link time) - commented 
-    # because it causes tests to segfault
-#        <linkflags>"-L$QNX_TARGET/armle-v7/usr/lib -L$QNX_TARGET/armle-v7/lib -lstdc++"
+
         <linkflags>"-L$QNX_TARGET/armle-v7/usr/lib -L$QNX_TARGET/armle-v7/lib"
     ;
