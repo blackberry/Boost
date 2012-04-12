@@ -19,16 +19,27 @@ fi
 BJAM=$BOOST_DIR/bjam
 
 pushd $BOOST_DIR/libs
-for TDIR in `cat $TEST_DIR/test.list | grep -v '#'` ; do
-    if [ -d $TDIR ] ; then
-        pushd $TDIR
-        $BJAM -a \
-            --prefix=$PREFIX \
-            --user-config=$BOOST_DIR/blackberry-armv7le-config.jam \
-            --layout=system toolset=qcc target-os=qnxnto \
-            c++-template-depth=900 \
-            variant=debug link=shared threading=multi
-        popd
-    fi
+for CPU in x86 arm ; do
+    if [ "$CPU" == "x86" ] ; then
+        CONFIG=$BOOST_DIR/blackberry-x86-config.jam
+    elif [ "$CPU" == "arm" ] ; then
+        CONFIG=$BOOST_DIR/blackberry-armv7le-config.jam
+    else
+        echo "Unrecognized CPU ($CPU)."
+        exit
+    fi 
+ 
+    for TDIR in `cat $TEST_DIR/test.list | grep -v '#'` ; do
+        if [ -d $TDIR ] ; then
+            pushd $TDIR
+            $BJAM -a \
+                --prefix=$PREFIX/$CPU \
+                --user-config=$CONFIG \
+                --layout=system toolset=qcc target-os=qnxnto \
+                c++-template-depth=900 \
+                variant=debug link=shared threading=multi
+            popd
+        fi
+    done
 done
 popd
