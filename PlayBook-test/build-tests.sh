@@ -32,7 +32,7 @@ for CPU in x86 arm ; do
     for TDIR in `cat $TEST_DIR/test.list | grep -v '#'` ; do
         if [ -d $TDIR ] ; then
             pushd $TDIR
-            $BJAM \
+            $BJAM -a \
                 --prefix=$PREFIX/$CPU \
                 --user-config=$CONFIG \
                 --layout=system toolset=qcc target-os=qnxnto \

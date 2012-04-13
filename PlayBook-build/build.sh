@@ -31,7 +31,7 @@ for CPU in arm x86 ; do
     fi 
 
     for VARIANT in debug release ; do
-        ./bjam stage \
+        ./bjam -a stage \
             --stagedir=$PREFIX/$CPU/$VARIANT \
             --with-date_time \
             --with-filesystem \
