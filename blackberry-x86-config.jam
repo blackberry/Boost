@@ -23,5 +23,11 @@ using qcc
     # Requested by BBM team
         <compileflags>"-fno-strict-aliasing"
 
+    # Endianness
+        <compileflags>"-D_LITTLE_ENDIAN"
+
+    # Functions like sync_val_compare_and_swap and sync_fetch_and_add aren't available
+        <compileflags>"-DBOOST_SP_NO_SYNC"
+
         <linkflags>"-L$QNX_TARGET/x86/usr/lib -L$QNX_TARGET/x86/lib"
     ;
