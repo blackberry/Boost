@@ -69,6 +69,34 @@ UTF_SOURCES =
   xml_report_formatter
   ;
 
+lib boost_prg_exec_monitor 
+  : # sources
+    $(PRG_EXEC_MON_SOURCES).cpp 
+  : # requirements
+  : # default build
+  : # usage-requirements
+    <link>shared:<define>BOOST_TEST_DYN_LINK=1
+  ;
+
+lib boost_test_exec_monitor
+  : # sources
+    $(TEST_EXEC_MON_SOURCES).cpp
+  : # requirements
+    <link>static
+  : # default build
+  : # usage-requirements
+    <link>shared:<define>BOOST_TEST_DYN_LINK=1
+  ;
+
+lib boost_unit_test_framework
+  : # sources
+    $(UTF_SOURCES).cpp
+  : # requirements
+  : # default build
+  : # usage-requirements
+    <link>shared:<define>BOOST_TEST_DYN_LINK=1
+  ;
+
 lib boost_test
   : # sources
     $(PRG_EXEC_MON_SOURCES).cpp 
@@ -88,5 +116,8 @@ alias included : : : :
                    <toolset>msvc:<asynch-exceptions>on
        ;
 
-boost-install boost_test ;
+boost-install boost_prg_exec_monitor 
+              boost_test_exec_monitor
+              boost_unit_test_framework
+              boost_test ;
           

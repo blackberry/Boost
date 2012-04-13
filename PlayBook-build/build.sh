@@ -18,6 +18,7 @@ if [ ! -f ./bjam ] ; then
     ./bootstrap.sh
 fi
 
+
 # Build the libraries required by RIM teams
 for CPU in arm x86 ; do
     if [ "$CPU" == "x86" ] ; then
@@ -28,21 +29,6 @@ for CPU in arm x86 ; do
         echo "Unrecognized CPU ($CPU)."
         exit
     fi 
-
-    pushd $BOOST_DIR/libs/test/build
-    # Build libboost_test
-    cp Jamfile-rim.v2 Jamfile.v2
-    $BOOST_DIR/bjam -a stage \
-        --user-config=$CONFIG \
-        --layout=system toolset=qcc target-os=qnxnto \
-        variant=debug link=shared threading=multi
-
-        # Copy needed library files to real staging dir (don't move them because asio tests need to link against them there)
-        cp stage/libboost_test.so* $PREFIX/$CPU/debug/lib
-
-    # Restore original Jamfile
-    cp Jamfile-orig.v2 Jamfile.v2
-    popd
 
     for VARIANT in debug release ; do
         ./bjam -a stage \
@@ -55,6 +41,7 @@ for CPU in arm x86 ; do
             --with-regex \
             --with-system \
             --with-thread \
+            --with-test \
             --user-config=$CONFIG \
             --layout=system toolset=qcc target-os=qnxnto \
             variant=$VARIANT link=shared threading=multi runtime-link=shared
