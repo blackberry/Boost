@@ -43,7 +43,7 @@ for CPU in arm x86 ; do
             --with-thread \
             --with-test \
             --user-config=$CONFIG \
-            --layout=system toolset=qcc target-os=qnxnto \
+            --layout=system toolset=qcc target-os=qnxnto architecture=$CPU \
             variant=$VARIANT link=shared threading=multi runtime-link=shared
     done
 

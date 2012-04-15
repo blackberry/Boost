@@ -35,7 +35,7 @@ for CPU in x86 arm ; do
             $BJAM -a \
                 --prefix=$PREFIX/$CPU \
                 --user-config=$CONFIG \
-                --layout=system toolset=qcc target-os=qnxnto \
+                --layout=system toolset=qcc target-os=qnxnto architecture=$CPU \
                 c++-template-depth=900 \
                 variant=debug link=shared threading=multi
             popd
