@@ -5,6 +5,22 @@
 # Use "./run-tests.sh 2>1 > run-tests.out" to redirect both stdout and
 # stderr to an output file
 
+usage()
+{
+    echo "$0 <arm|x86>"
+}
+
+if [ $# -ne 1 ] ; then
+    usage
+    exit
+fi
+
+ARCH=$1
+if [ "$ARCH" != "arm" ] && [ "$ARCH" != "x86" ] ; then
+    usage
+    exit
+fi
+
 TEST_DIR=`pwd`
 BOOST_DIR=`pwd`/..
 
@@ -15,7 +31,7 @@ for TDIR in `cat $TEST_DIR/test.list | grep -v '#'` ; do
     # Get the base path of the tests
     EXE_DIR=`echo $TDIR | sed -e 's|^.\/\(.\+\)$|bin.v2\/libs\/\1|'`
     find $EXE_DIR -perm -001 -type f -a ! -name 'libboost_*' > $TEST_DIR/find-exe.list
-    for EXE_PATH in `cat $TEST_DIR/find-exe.list | grep -v '#'` ; do
+    for EXE_PATH in `cat $TEST_DIR/find-exe.list | grep -v '#' | grep $ARCH` ; do
         LIB_DIR=`echo $TDIR | sed -e 's|^.\/\(.\+\)$|libs\/\1|'`
         
         # Find executable files in the dir
