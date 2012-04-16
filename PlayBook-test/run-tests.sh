@@ -50,3 +50,5 @@ for TDIR in `cat $TEST_DIR/test.list | grep -v '#'` ; do
     done
 done
 cd $TEST_DIR
+
+echo "Test script completed."
