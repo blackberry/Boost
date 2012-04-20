@@ -1,0 +1,137 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/20.2/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.rim.bb.platform</groupId>
+    <artifactId>boost</artifactId>
+    <version>1.48.0-SNAPSHOT</version>
+    <name>${project.artifactId}-${project.version}</name>
+    <packaging>bbsys</packaging>
+
+    <parent>
+        <groupId>com.rim.bb.platform</groupId>
+        <artifactId>bb10-base</artifactId>
+        <version>1.0</version>
+    </parent>
+	
+<properties>
+        <qt.version>4.8.0-r3-RIM</qt.version>
+    </properties>
+
+       <dependencies>
+        <dependency>
+            <groupId>net.rim.internal.tools.full-stage</groupId>
+            <artifactId>host</artifactId>
+            <version>1.4.0-trunk-SNAPSHOT</version>
+            <classifier>${build.host}</classifier>
+            <type>tar.gz</type>
+            <scope>devstage</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.rim.internal.tools.full-stage</groupId>
+            <artifactId>target</artifactId>
+            <version>1.4.0-trunk-SNAPSHOT</version>
+            <classifier>qnx6</classifier>
+            <type>tar.gz</type>
+            <scope>devstage</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+      <directory>build</directory>
+        <plugins>
+            <plugin>
+                <groupId>net.rim.maven.plugins</groupId>
+                <artifactId>bbsys-maven-plugin</artifactId>
+                <version>1.8</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <tools>tools</tools>
+                    <testlibs>testlibs</testlibs>
+                    <overrides>overrides</overrides>
+                    <devstage>devstage</devstage>
+                    <stage>boost-stage</stage>
+                    <libraries>
+                        <library>
+                            <scope>tools</scope>
+                            <path>build/tools</path>
+                            <clean>false</clean>
+                            <download>true</download>
+                            <ignore>false</ignore>
+                        </library>
+                        <library>
+                            <scope>overrides</scope>
+                            <path>overrides</path>
+                            <clean>true</clean>
+                            <download>true</download>
+                            <ignore>false</ignore>
+                        </library>
+                        <library>
+                            <scope>devstage</scope>
+                            <path>devstage</path>
+                            <clean>false</clean>
+                            <download>true</download>
+                            <ignore>false</ignore>
+                        </library>
+                        <library>
+                            <scope>mingw</scope>
+                            <path>build/tools/mingw</path>
+                            <clean>false</clean>
+                            <download>true</download>
+                            <ignore>false</ignore>
+                        </library>
+                        <library>
+                            <scope>testlibs</scope>
+                            <path>build/testlibs/${build.host}/qt</path>
+                            <clean>true</clean>
+                            <download>true</download>
+                            <ignore>false</ignore>
+                        </library>
+                        <library>
+                            <scope>makefile</scope>
+                            <path>${project.build.directory}/config</path>
+                            <clean>false</clean>
+                            <download>true</download>
+                        </library>
+                    </libraries>
+                </configuration>
+            </plugin>
+          <plugin>
+            <groupId>org.codehaus.gmaven</groupId>
+            <artifactId>gmaven-plugin</artifactId>
+            <version>1.3</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>execute</goal>
+                </goals>
+                <phase>validate</phase>
+                <configuration>
+                  <source> <![CDATA[
+                     def bindir = new File( project.basedir , "devstage/host/linux/x86/usr/bin");
+                     def qcc = new File( bindir , "QCC" );
+		     if ( ! qcc.exists() ) { 
+                         ant.exec( dir:bindir , executable:"ln" ) { ant.arg( line:"-s qcc QCC" ); } 
+                     }
+                   ]]>
+                  </source>
+                </configuration>
+              </execution>
+              <execution>
+                <id>prepare-package</id>
+                <goals>
+                  <goal>execute</goal>
+                </goals>
+                <phase>prepare-package</phase>
+                <configuration>
+                  <source> <![CDATA[
+		     // ant.copy( todir: armdir ) { fileset( dir:armsrc , includes:"**/*.so" , excludes:"**/*.a" ) };
+                   ]]>
+                  </source>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+    </build>
+</project>
