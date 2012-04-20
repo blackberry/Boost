@@ -1,8 +1,13 @@
 #!/bin/bash
 
+# NOTE: To use the script, you have to "source" it into your shell
+
 # Get absolute path of script
 SCRIPT_PATH=$PWD/$BASH_SOURCE
 SCRIPT_DIR=`dirname $SCRIPT_PATH`
+
+# Download project dependencies
+mvn -s dev-settings.xml validate
 
 # Set environment variables for QNX toolchain
 export QNX_TARGET="$SCRIPT_DIR/devstage/target/qnx6"
