@@ -21,7 +21,6 @@ include ../../../../rim_preset.mk
 define PINFO
 PINFO DESCRIPTION=Boost.Thread library
 endef
-INSTALLDIR=usr/lib
 
 NAME=boost_thread
 

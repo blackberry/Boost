@@ -19,7 +19,6 @@ include ../../../../rim_preset.mk
 define PINFO
 PINFO DESCRIPTION=Boost.Program_options library
 endef
-INSTALLDIR=usr/lib
 
 NAME=boost_program_options
 

@@ -1,5 +1,6 @@
 # Pre-set make macros common to the recursive makefiles
 SO_VERSION=1.48.0
+INSTALLDIR=usr/lib
 
 CCFLAGS += BOOST_ALL_DYN_LINK=1
 

@@ -22,7 +22,6 @@ include ../../../../rim_preset.mk
 define PINFO
 PINFO DESCRIPTION=Boost.Date_Time library
 endef
-INSTALLDIR=usr/lib
 
 NAME=boost_date_time
 

@@ -24,7 +24,6 @@ include ../../../../rim_preset.mk
 define PINFO
 PINFO DESCRIPTION=Boost.Testest library
 endef
-INSTALLDIR=usr/lib
 
 NAME=boost_test
 
