@@ -7,6 +7,6 @@ ifeq ($(filter g,$(VARIANT_LIST)),g)
 else
   # Non-debug build.
   #
-  # Enable optimizations suitable for modern C++.
-  CCFLAGS += -O3
+  # Optimize for size
+  CCFLAGS += -Os
 endif
