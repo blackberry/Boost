@@ -41,9 +41,9 @@ for TDIR in `cat $TEST_DIR/test.list | grep -v '#'` ; do
             echo "LIB_DIR ($LIB_DIR) not found for $EXE_PATH"
             continue
         fi 
-        EXE_CMD="$BOOST_DIR/$EXE_PATH"
+        EXE_CMD="LD_DEBUG=all LD_LIBRARY_PATH=../../../PlayBook-build/boost-stage/armle-v7/usr/lib $BOOST_DIR/$EXE_PATH"
         echo "Running $EXE_CMD"
-        $EXE_CMD
+        eval $EXE_CMD
         RET=$?
         echo "$EXE_CMD returned $RET"
         cd $BOOST_DIR
