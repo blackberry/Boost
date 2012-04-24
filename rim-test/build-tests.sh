@@ -7,7 +7,7 @@
 : ${QNX_TARGET:?"Error: QNX_TARGET environment variable is not set."}
 
 BOOST_DIR=`pwd`/..
-PREFIX=$BOOST_DIR/PlayBook-build/boost-install
+PREFIX=$BOOST_DIR/rim-build/boost-install
 if [ ! -d $PREFIX ] ; then
     mkdir -p $PREFIX
 fi
@@ -25,18 +25,18 @@ BJAM=$BOOST_DIR/bjam
 PATTERN='\(\S\+\)\(\.a\)'
 for FILE in `cat libfiles-arm-static.list` ; do
     DEBUG_NAME=`basename $FILE | sed -e "s|$PATTERN|\1_g\2|"`
-    cp ../PlayBook-build/boost-stage/armle-v7/usr/lib/$DEBUG_NAME ../$FILE
+    cp ../rim-build/boost-stage/armle-v7/usr/lib/$DEBUG_NAME ../$FILE
 done
 
 PATTERN='\(\S\+\)\(\.so\.\S\+\)'
 for FILE in `cat libfiles-arm-dynamic.list` ; do
     DEBUG_NAME=`basename $FILE | sed -e "s|$PATTERN|\1_g\2|"`
-    cp ../PlayBook-build/boost-stage/armle-v7/usr/lib/$DEBUG_NAME ../$FILE
+    cp ../rim-build/boost-stage/armle-v7/usr/lib/$DEBUG_NAME ../$FILE
 done
 
 #for FILE in `cat libfiles-x86.list` ; do
 #    DEBUG_NAME=`basename $FILE | sed -e "s|$PATTERN|\1_g\2|"`
-#    echo "cp ../PlayBook-build/boost-stage/x86/usr/lib/$DEBUG_NAME $FILE"
+#    echo "cp ../rim-build/boost-stage/x86/usr/lib/$DEBUG_NAME $FILE"
 #done
 
 pushd $BOOST_DIR/libs

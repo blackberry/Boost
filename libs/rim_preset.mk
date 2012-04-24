@@ -9,7 +9,6 @@ CCFLAGS += -fPIC
 
 CCFLAGS += -D__QNX__
 CCFLAGS += -D__QNXNTO__
-CCFLAGS += -D__PLAYBOOK__
 
 # Add -D__USE_ISOC99 for rounding control mechanism (boost/numeric/interval/hw_rounding.hpp)
 CCFLAGS += -D__USE_ISOC99
