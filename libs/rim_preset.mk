@@ -2,7 +2,7 @@
 SO_VERSION=1.48.0
 INSTALLDIR=usr/lib
 
-CCFLAGS += BOOST_ALL_DYN_LINK=1
+CCFLAGS += -DBOOST_ALL_DYN_LINK=1
 
 # Avoid error when linking the test program
 CCFLAGS += -fPIC
@@ -21,6 +21,3 @@ CCFLAGS += -fno-strict-aliasing
 
 # Functions like sync_val_compare_and_swap and sync_fetch_and_add aren't available
 CCFLAGS += -DBOOST_SP_NO_SYNC
-
-# Other flags
-CCFLAGS += -D_LITTLE_ENDIAN

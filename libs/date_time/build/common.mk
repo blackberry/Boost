@@ -14,8 +14,8 @@ EXTRA_SRCVPATH+=$(PRODUCT_ROOT)/src/posix_time
 EXTRA_INCVPATH+=$(PRODUCT_ROOT)/../..
 
 # Use same flags from Jamfile to make a shared library
-CCFLAGS += DATE_TIME_INLINE
-CCFLAGS += BOOST_DATE_TIME_DYN_LINK=1
+CCFLAGS += -DDATE_TIME_INLINE
+CCFLAGS += -DBOOST_DATE_TIME_DYN_LINK=1
 
 include ../../../../rim_preset.mk
 

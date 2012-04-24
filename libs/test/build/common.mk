@@ -12,7 +12,7 @@ EXTRA_SRCVPATH+=$(PRODUCT_ROOT)/src
 EXTRA_INCVPATH+=$(PRODUCT_ROOT)/../..
 
 # Use same flags from Jamfile to make a shared library
-CCFLAGS += BOOST_TEST_DYN_LINK=1 
+CCFLAGS += -DBOOST_TEST_DYN_LINK=1 
 
 # Skip the files that are not part of the unit test framework
 EXCLUDE_OBJS += \

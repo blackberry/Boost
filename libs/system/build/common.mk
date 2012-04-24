@@ -12,7 +12,7 @@ EXTRA_SRCVPATH+=$(PRODUCT_ROOT)/src
 EXTRA_INCVPATH+=$(PRODUCT_ROOT)/../..
 
 # Use same flags from Jamfile to make a shared library
-CCFLAGS += BOOST_SYSTEM_DYN_LINK
+CCFLAGS += -DBOOST_SYSTEM_DYN_LINK
 
 include ../../../../rim_preset.mk
 
