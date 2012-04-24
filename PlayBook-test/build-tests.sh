@@ -22,8 +22,14 @@ TEST_DIR=`pwd`
 
 BJAM=$BOOST_DIR/bjam
 
-PATTERN='\(\S\+\)\(\(\.so\)\.\S\+\)'
-for FILE in `cat libfiles-arm.list` ; do
+PATTERN='\(\S\+\)\(\.a\)'
+for FILE in `cat libfiles-arm-static.list` ; do
+    DEBUG_NAME=`basename $FILE | sed -e "s|$PATTERN|\1_g\2|"`
+    cp ../PlayBook-build/boost-stage/armle-v7/usr/lib/$DEBUG_NAME ../$FILE
+done
+
+PATTERN='\(\S\+\)\(\.so\.\S\+\)'
+for FILE in `cat libfiles-arm-dynamic.list` ; do
     DEBUG_NAME=`basename $FILE | sed -e "s|$PATTERN|\1_g\2|"`
     cp ../PlayBook-build/boost-stage/armle-v7/usr/lib/$DEBUG_NAME ../$FILE
 done
