@@ -70,7 +70,13 @@ if [ ! -d $BOOST_DIR/bin.v2 ] ; then
 fi
 
 echo_action "Replacing libraries in $BOOST_DIR/bin.v2"
-for FILE in `cat bjam-libs.list` ; do
+
+# Find bjam-generated libraries that need to be replaced with rmake ones
+pushd $BOOST_DIR
+find ./bin.v2 -type f -name "libboost*" > $TEST_DIR/found-bjam-libs.list
+popd
+
+for FILE in `cat $TEST_DIR/found-bjam-libs.list` ; do
     if [ `echo "$FILE" | grep -c 'architecture-arm'` -eq 1 ] ; then
         ARCH_DIR='armle-v7'
     elif [ `echo "$FILE" | grep -c 'architecture-x86'` -eq 1 ] ; then
@@ -91,7 +97,7 @@ for FILE in `cat bjam-libs.list` ; do
     RMAKE_FILE="../rim-build/boost-stage/$ARCH_DIR/usr/lib/$DEBUG_NAME"
     
     if [ ! -f $RMAKE_FILE ] ; then
-        echo "Library not found: $RMAKE_FILE"
+        error_exit "Library not found: $RMAKE_FILE"
     else
         # Omit -p option so that the timestamp gets updated
         ${QNX_HOST}/usr/bin/qnx_cp -fcv $RMAKE_FILE ../$FILE
