@@ -10,6 +10,30 @@ usage()
     echo "$0 <arm|x86>"
 }
 
+# Return the arg the test requires
+get_arg_for_test()
+{
+    local TEST_NAME=$1 
+    local TESTS_NEEDING_ARGS="\
+    parsers_test_dll,config_test.cfg \
+    required_test,required_test.cfg \
+    parsers_test,config_test.cfg \
+    required_test_dll,required_test.cfg"
+
+    local TEST_PAIR
+    local ARG_TEST_NAME
+    local ARG_NAME
+    local PATTERN='^\(.\+\),\(.\+\)$'
+    for TEST_PAIR in $TESTS_NEEDING_ARGS ; do
+        ARG_TEST_NAME=`echo $TEST_PAIR | sed -e "s|$PATTERN|\1|"`
+        ARG_NAME=`echo $TEST_PAIR | sed -e "s|$PATTERN|\2|"`
+        if [ "$ARG_TEST_NAME" = "$TEST_NAME" ] ; then
+            echo "$ARG_NAME"
+            break
+        fi 
+    done
+}
+
 if [ $# -ne 1 ] ; then
     usage
     exit
@@ -19,6 +43,12 @@ ARCH=$1
 if [ "$ARCH" != "arm" ] && [ "$ARCH" != "x86" ] ; then
     usage
     exit
+fi
+
+if [ "$ARCH" = "arm" ] ; then
+    CPU_DIR='armle-v7'
+elif [ "$ARCH" = "x86" ] ; then
+    CPU_DIR='x86'
 fi
 
 TEST_DIR=`pwd`
@@ -41,7 +71,15 @@ for TDIR in `cat $TEST_DIR/test.list | grep -v '#'` ; do
             echo "LIB_DIR ($LIB_DIR) not found for $EXE_PATH"
             continue
         fi 
-        EXE_CMD="LD_DEBUG=all LD_LIBRARY_PATH=../../../rim-build/boost-stage/armle-v7/usr/lib $BOOST_DIR/$EXE_PATH"
+
+        CMD="get_arg_for_test `basename $EXE_PATH`"
+        ARG=`eval $CMD`
+
+        EXE_CMD="LD_LIBRARY_PATH=$BOOST_DIR/rim-build/boost-stage/$CPU_DIR/usr/lib $BOOST_DIR/$EXE_PATH $ARG"
+        
+        # Debug loading of libraries
+        #EXE_CMD="LD_DEBUG=all $EXE_CMD"
+
         echo "Running $EXE_CMD"
         eval $EXE_CMD
         RET=$?
