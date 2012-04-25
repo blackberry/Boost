@@ -2,8 +2,6 @@
 SO_VERSION=1.48.0
 INSTALLDIR=usr/lib
 
-CCFLAGS += -DBOOST_ALL_DYN_LINK=1
-
 # Avoid error when linking the test program
 CCFLAGS += -fPIC
 
