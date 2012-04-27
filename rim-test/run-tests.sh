@@ -75,11 +75,8 @@ for TDIR in `cat $TEST_DIR/test.list | grep -v '#'` ; do
         CMD="get_arg_for_test `basename $EXE_PATH`"
         ARG=`eval $CMD`
 
-        EXE_CMD="LD_LIBRARY_PATH=$BOOST_DIR/rim-build/boost-stage/$CPU_DIR/usr/lib $BOOST_DIR/$EXE_PATH $ARG"
+        EXE_CMD="$BOOST_DIR/$EXE_PATH $ARG"
         
-        # Debug loading of libraries
-        #EXE_CMD="LD_DEBUG=all $EXE_CMD"
-
         echo "Running $EXE_CMD"
         eval $EXE_CMD
         RET=$?
