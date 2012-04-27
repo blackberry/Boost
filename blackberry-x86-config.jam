@@ -2,8 +2,8 @@ using qcc
 # Version
     :
 
-# C++-compile-command
-    : $QNX_HOST/usr/bin/QCC -Vgcc_ntox86_cpp
+# C++-compile-command (use GNU C++ libraries)
+    : $QNX_HOST/usr/bin/QCC -Vgcc_ntox86 -Y _gpp
 
 # Compiler options
     : <compileflags>"-D__QNX__"

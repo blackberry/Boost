@@ -2,8 +2,8 @@ using qcc
 # Version
     :
 
-# C++-compile-command
-    : $QNX_HOST/usr/bin/QCC -Vgcc_ntoarmv7le_cpp
+# C++-compile-command (use GNU C++ libraries)
+    : $QNX_HOST/usr/bin/QCC -Vgcc_ntoarmv7le -Y _gpp
 
 # Compiler options
     : <compileflags>"-D__QNX__"

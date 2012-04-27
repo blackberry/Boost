@@ -18,10 +18,6 @@ echo_action()
 }
 
 BOOST_DIR=`pwd`/..
-PREFIX=$BOOST_DIR/rim-build/boost-install
-if [ ! -d $PREFIX ] ; then
-    mkdir -p $PREFIX
-fi
 
 pushd $BOOST_DIR
 if [ ! -f ./bjam ] ; then
@@ -36,7 +32,7 @@ BJAM=$BOOST_DIR/bjam
 do_build()
 {
     pushd $BOOST_DIR/libs
-    for CPU in x86 arm ; do
+    for CPU in arm x86 ; do
         if [ "$CPU" == "x86" ] ; then
             CONFIG=$BOOST_DIR/blackberry-x86-config.jam
         elif [ "$CPU" == "arm" ] ; then
@@ -51,7 +47,7 @@ do_build()
                 # Don't use -a option with bjam as that will cause it 
                 # to build the libraries differently from how rmake generates them
                 $BJAM \
-                    --prefix=$PREFIX/$CPU \
+                    -j 4 \
                     --user-config=$CONFIG \
                     --layout=system toolset=qcc target-os=qnxnto architecture=$CPU \
                     c++-template-depth=900 \
@@ -63,47 +59,5 @@ do_build()
     popd
 }
 
-# Do a build if the binaries weren't built yet
-if [ ! -d $BOOST_DIR/bin.v2 ] ; then
-    echo_action "Doing initial build of tests"
-    do_build
-fi
-
-echo_action "Replacing libraries in $BOOST_DIR/bin.v2"
-
-# Find bjam-generated libraries that need to be replaced with rmake ones
-pushd $BOOST_DIR
-find ./bin.v2 -type f -name "libboost*" > $TEST_DIR/found-bjam-libs.list
-popd
-
-for FILE in `cat $TEST_DIR/found-bjam-libs.list` ; do
-    if [ `echo "$FILE" | grep -c 'architecture-arm'` -eq 1 ] ; then
-        ARCH_DIR='armle-v7'
-    elif [ `echo "$FILE" | grep -c 'architecture-x86'` -eq 1 ] ; then
-        ARCH_DIR='x86'
-    else
-        error_exit "Unknown arch: $ARCH"
-    fi
-    if [ `echo "$FILE" | grep -c 'link-static'` -eq 1 ] ; then
-        STATIC=1
-        PATTERN='\(\S\+\)\(\.a\)'
-    else
-        STATIC=0
-        PATTERN='\(\S\+\)\(\.so\.\S\+\)'
-    fi
-
-    # Only use debug libraries
-    DEBUG_NAME=`basename $FILE | sed -e "s|$PATTERN|\1_g\2|"`
-    RMAKE_FILE="../rim-build/boost-stage/$ARCH_DIR/usr/lib/$DEBUG_NAME"
-    
-    if [ ! -f $RMAKE_FILE ] ; then
-        error_exit "Library not found: $RMAKE_FILE"
-    else
-        # Omit -p option so that the timestamp gets updated
-        ${QNX_HOST}/usr/bin/qnx_cp -fcv $RMAKE_FILE ../$FILE
-    fi
-done
-
-# Build again to link with the rmake-generated libraries
-echo_action "Building tests so that they link with rmake-generated libraries"
+echo_action "Building tests"
 do_build

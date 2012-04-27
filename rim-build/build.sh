@@ -8,11 +8,19 @@
 SCRIPT_PATH=$PWD/$BASH_SOURCE
 SCRIPT_DIR=`dirname $SCRIPT_PATH`
 
+# Set to Python source location when building Python library
+PYTHON_SRC_DIR=""
+
 pushd $SCRIPT_DIR
 
 usage()
 {
-    echo "$0 <install|hinstall|clean>"
+    echo "$0 <install|clean>"
+}
+
+echo_action()
+{
+    echo "===> $1"
 }
 
 build()
@@ -45,6 +53,7 @@ build()
         fi 
 
         for VARIANT in debug release ; do
+            echo_action "Building $CPU $VARIANT"
             if [ "$ARG" == "install" ] ; then
                 # bjam will append the lib directory
                 BJAM_ARGS="stage --stagedir=$PREFIX/$CPU_DIR/$VARIANT"
@@ -52,55 +61,42 @@ build()
                 BJAM_ARGS="--clean"
             fi
 
-            ./bjam $BJAM_ARGS \
+            if [ "$VARIANT" == "release" ] ; then
+                BJAM_ARGS="$BJAM_ARGS optimization=space"
+            fi
+
+            if [ "$PYTHON_SRC_DIR" != "" ] && [ -d $PYTHON_SRC_DIR ] ; then
+                BJAM_ARGS="$BJAM_ARGS include=$PYTHON_SRC_DIR:$PYTHON_SRC_DIR/Include --with-python"
+            fi
+
+            ./bjam -a  $BJAM_ARGS \
+                -j 4 \
+                --with-chrono \
                 --with-date_time \
+                --with-exception \
                 --with-filesystem \
-                --disable-filesystem2 \
+                --with-graph \
+                --with-graph_parallel \
+                --with-iostreams \
+                --with-locale \
+                --with-math \
+                --with-mpi \
                 --with-program_options \
                 --with-random \
                 --with-regex \
+                --with-serialization \
+                --with-signals \
                 --with-system \
-                --with-thread \
                 --with-test \
+                --with-thread \
+                --with-timer \
+                --with-wave \
                 --user-config=$CONFIG \
                 --layout=system toolset=qcc target-os=qnxnto architecture=$CPU \
-                variant=$VARIANT link=shared threading=multi runtime-link=shared \
-                optimization=space
-
-            # Move libs from temp dirs to real dirs
-            # Need to add "_g" to the name of debug libs because they are installed in 
-            # the same dir as the release libs
-            if [ "$ARG" == "install" ] ; then
-                if [ "$VARIANT" == "debug" ]; then 
-                    pushd $PREFIX/$CPU_DIR/$VARIANT/lib
-                    PATTERN='\(\S\+\)\(\(\.so\)\.\S\+\)'
-                    for FILE in `ls lib* | grep -v _g | grep '\.so\.'` ; do
-                        DEBUG_FILE=`echo $FILE | sed -e "s|$PATTERN|\1_g\2|"`
-                        SYMLINK=`echo $FILE | sed -e "s|$PATTERN|\1_g\3|"`
-                        mv $FILE $DEBUG_FILE
-                        ln -s $DEBUG_FILE $SYMLINK
-                    done
-                    popd
-                fi
-                DEST_DIR="$PREFIX/$CPU_DIR/usr/lib"
-                if [ ! -d $DEST_DIR ] ; then
-                    mkdir -p $DEST_DIR
-                fi
-                mv $PREFIX/$CPU_DIR/$VARIANT/lib/lib* $DEST_DIR
-                rm -rf $PREFIX/$CPU_DIR/$VARIANT
-            fi
+                variant=$VARIANT link=shared threading=multi runtime-link=shared
         done
     done
     popd
-}
-
-hinstall()
-{
-    # Copy needed header files to staging dir
-    echo "Copying include files"
-    for INC_FILE in `cat headers.txt` ; do
-        ${QNX_HOST}/usr/bin/qnx_cp -fpc ${BOOST_DIR}/${INC_FILE} ${PREFIX}/usr/include/${INC_FILE}
-    done
 }
 
 #########################################################
@@ -113,14 +109,14 @@ if [ $# -lt 1 ] ; then
 fi
 
 ACTION=$1
-if [ "$ACTION" != "install" ] && [ "$ACTION" != "hinstall" ] && [ "$ACTION" != "clean" ] ; then
+if [ "$ACTION" != "install" ] && [ "$ACTION" != "clean" ] ; then
     usage
     exit
 fi
 
 BOOST_DIR="`pwd`/.."
 
-PREFIX=`pwd`/boost-stage/target/qnx6
+PREFIX=`pwd`/boost-stage
 if [ ! -d $PREFIX ] ; then
     mkdir -p $PREFIX
 fi
@@ -128,12 +124,6 @@ fi
 if [ "$ACTION" == "install" ] ; then
     echo "build $ACTION"
     build "$ACTION"
-    hinstall
-fi
-
-if [ "$ACTION" == "hinstall" ] ; then
-    echo "build hinstall"
-    hinstall
 fi
 
 if [ "$ACTION" == "clean" ] ; then
