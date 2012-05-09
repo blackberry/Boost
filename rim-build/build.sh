@@ -69,7 +69,7 @@ build()
                 BJAM_ARGS="$BJAM_ARGS include=$PYTHON_SRC_DIR:$PYTHON_SRC_DIR/Include --with-python"
             fi
 
-            ./bjam -a  $BJAM_ARGS \
+            ./bjam $BJAM_ARGS \
                 -j 4 \
                 --with-chrono \
                 --with-date_time \
