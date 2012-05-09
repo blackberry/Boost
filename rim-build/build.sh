@@ -69,8 +69,11 @@ build()
                 BJAM_ARGS="$BJAM_ARGS include=$PYTHON_SRC_DIR:$PYTHON_SRC_DIR/Include --with-python"
             fi
 
+            # Disable builds with ICU because the ICU libraries are linked against Dinkumware libraries.
+            # This will cause crashes because GNU and Dinkumware libraries cannot be mixed.
             ./bjam $BJAM_ARGS \
                 -j 4 \
+                --disable-icu \
                 --with-chrono \
                 --with-date_time \
                 --with-exception \

@@ -46,8 +46,12 @@ do_build()
                 pushd $TDIR
                 # Don't use -a option with bjam as that will cause it 
                 # to build the libraries differently from how rmake generates them
-                $BJAM \
+                #
+                # Disable builds with ICU because the ICU libraries are linked against Dinkumware libraries.
+                # This will cause crashes because GNU and Dinkumware libraries cannot be mixed.
+                $BJAM  \
                     -j 4 \
+                    --disable-icu \
                     --user-config=$CONFIG \
                     --layout=system toolset=qcc target-os=qnxnto architecture=$CPU \
                     c++-template-depth=900 \
