@@ -44,9 +44,6 @@ do_build()
         for TDIR in `cat $TEST_DIR/test.list | grep -v '#'` ; do
             if [ -d $TDIR ] ; then
                 pushd $TDIR
-                # Don't use -a option with bjam as that will cause it 
-                # to build the libraries differently from how rmake generates them
-                #
                 # Disable builds with ICU because the ICU libraries are linked against Dinkumware libraries.
                 # This will cause crashes because GNU and Dinkumware libraries cannot be mixed.
                 $BJAM  \
