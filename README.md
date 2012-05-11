@@ -1,8 +1,6 @@
 # Blackberry Port of Boost 1.48.0
 
-Officially sanctioned port of Boost to the Blackberry/QNX platform. To avoid fragmentation, please do not use any other version of Boost. Before you use Boost make sure Qt does not already provide equivalent functionality as Qt should always be prefered over Boost. Furthermore, do not expose any Boost constructs in public APIs.
-
-Please direct all inquiries about Boost to Steven Chan (schan@rim.com).
+Port of Boost to the BlackBerry 10 platform.
 
 Ported libraries:
 
@@ -20,13 +18,13 @@ Ported headers:
 
 Note: there a few unresolved test failures involving `Boost.Date_Time` and `Boost.Regex` See the "Known issues with tests" section.
 
-### Prerequisites
+## Prerequisites
 
 - Blackberry Native SDK (NDK) for Tablet OS
 
-### Build Instructions
+## Build Instructions
 
-1. Open a command prompt.
+1. Open a command prompt (building from Linux and Windows works; Mac has not been tested).
 2. Execute bbndk-env.bat or bbndk-env.sh from root of NDK install.
 3. Navigate to local boost repo.
 4. Change to the rim-build directory. Run the build.sh script using this command:
@@ -39,7 +37,7 @@ Note: there a few unresolved test failures involving `Boost.Date_Time` and `Boos
 
     Use `./build.sh clean` to clean the build.
 
-### Test Instructions
+## Test Instructions
 
 1. Change to the rim-test directory.
 2. Run the build-tests.sh script which will invoke bjam on each test directory read from the test.list file. You can choose to skip some tests by commenting them out with a "#". The build script will build and attempt to run the tests. The test failures can be ignored since they aren't being run on a BB 10 device.
@@ -86,10 +84,16 @@ Failures for Boost.Regex:
     bin.v2/libs/regex/test/regex_regress_threaded.test/qcc/debug/architecture-arm/target-os-qnxnto/threading-multi/regex_regress_threaded
     bin.v2/libs/regex/test/regex_regress.test/qcc/debug/architecture-arm/target-os-qnxnto/threading-multi/regex_regress
 
-### Notes
+## Repository Committers
 
-- Building from Linux and Windows works. Mac not tested.
+* [Eduardo Pelegri-Llopart](https://github.com/pelegri)
+* [Clifford Hung](https://github.com/hungc)
 
-### TODO
 
-- Port other headers and libraries
+## Bug Reporting and Feature Requests
+
+If you find a bug or have an enhancement request, simply file an [Issue](https://github.com/blackberry/Boost/issues) and send a message (via github messages) to the Committers to the project to let them know that you have filed an [Issue](https://github.com/blackberry/Boost/issues).
+
+## Disclaimer
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
