@@ -1,6 +1,24 @@
 # Blackberry Port of Boost 1.48.0
 
-Port of Boost to the Blackberry platform for use with GNU C++ libraries.
+Officially sanctioned port of Boost to the Blackberry/QNX platform. To avoid fragmentation, please do not use any other version of Boost. Before you use Boost make sure Qt does not already provide equivalent functionality as Qt should always be prefered over Boost. Furthermore, do not expose any Boost constructs in public APIs.
+
+Please direct all inquiries about Boost to Steven Chan (schan@rim.com).
+
+Ported libraries:
+
+- *Boost.Date_Time
+- Boost.Filesystem
+- Boost.Program_options
+- Boost.Random
+- *Boost.Regex
+- Boost.System
+- Boost.Thread
+
+Ported headers:
+
+- Listed in boost/include/headers.txt
+
+Note: there a few unresolved test failures involving `Boost.Date_Time` and `Boost.Regex` See the "Known issues with tests" section.
 
 ### Prerequisites
 
@@ -8,37 +26,70 @@ Port of Boost to the Blackberry platform for use with GNU C++ libraries.
 
 ### Build Instructions
 
-1. Open a Linux command prompt.
-2. Source bbndk-env.sh from the root of NDK install.
-3. Navigate to local boost repo and go into the rim-build directory.
-4. Run the build script: "build.sh install". This will generate
-    and install release and debug libraries for ARM and X86 in the 
-    rim-build/boost-stage directory.
+1. Open a command prompt.
+2. Execute bbndk-env.bat or bbndk-env.sh from root of NDK install.
+3. Navigate to local boost repo.
+4. Change to the rim-build directory. Run the build.sh script using this command:
+
+        ./build.sh install
+
+    This will invoke the bjam executable to build the libraries in subdirectories of bin.v2 as well as copy them to a staging directory (under rim-build/boost-stage).
+
+    All the libraries are compiled, not just the ported ones. The Boost.Python library can be enabled by setting the `PYTHON_SRC_DIR` variable in build.sh to the Python source location.
+
+    Use `./build.sh clean` to clean the build.
+
+### Test Instructions
+
+1. Change to the rim-test directory.
+2. Run the build-tests.sh script which will invoke bjam on each test directory read from the test.list file. You can choose to skip some tests by commenting them out with a "#". The build script will build and attempt to run the tests. The test failures can be ignored since they aren't being run on a BB 10 device.
+3. The test binaries can either be copied over to a device in development mode (using scp) or the top-level boost directory can be NFS-mounted on the device. It will be easier to recompile and rerun tests with the latter setup but some of the filesystem tests may fail due to issues with NFS. NFS setup instructions are below.
+4. To run the tests, go to /accounts/devuser/boost and run the run-tests.sh script:
+
+        ./run-tests.sh 2> run.err > run.out &
+
+    The tail command to observe the progress of the tests, e.g. `tail -f run.out`.
+
+### NFS setup for Ubuntu Linux and PlayBook over USB (optional)
+
+1. On your Linux machine, obtain the packages to install the NFS server:
+
+        sudo apt-get install nfs-kernel-server nfs-common portmap
+
+2. Edit the NFS exports file as follows:
+
+        sudo vi /etc/exports
+
+3. Add the following line:
+
+        <Path to boost repo> 169.254.0.1(rw,all_squash,async,insecure,no_subtree_check,anonuid=<UID>,anongid=<GID>)
+
+4. Make the NFS server reread the configuration:
+
+        sudo service nfs-kernel-server reload
+
+5. On the PlayBook, issue the following command to mount the NFS-exported directory:
+
+        fs-nfs3 169.254.0.2:<Path to boost repo on server> /accounts/devuser/boost
+
+### Known issues with tests
+
+Some of the filesystem tests may fail when run from an NFS mount.
+
+Failures for Boost.Date_Time:
+
+    bin.v2/libs/date_time/test/teststreams.test/qcc/debug/architecture-arm/target-os-qnxnto/threading-multi/teststreams
+
+Failures for Boost.Regex:
+
+    bin.v2/libs/regex/test/regex_regress_recursive.test/qcc/debug/architecture-arm/target-os-qnxnto/threading-multi/regex_regress_recursive
+    bin.v2/libs/regex/test/regex_regress_threaded.test/qcc/debug/architecture-arm/target-os-qnxnto/threading-multi/regex_regress_threaded
+    bin.v2/libs/regex/test/regex_regress.test/qcc/debug/architecture-arm/target-os-qnxnto/threading-multi/regex_regress
 
 ### Notes
 
-- Boost libraries that are required for your application need to be included in your BAR file. Any Boost libraries
-    that may be found on the device will be using Dinkumware C++ libraries and are not compatible with GNU C++ libraries.
-
-- The following libraries compile and the tests pass (with a few exceptions noted below) on ARM and X86:
-    date_time
-    filesystem
-    program_options
-    random
-    regex
-    system
-    thread
-
-- Building from Linux works. Windows and Mac not tested.
-
-### Known compilation and test failures for ported libraries:
-
-- boost/libs/thread/test/test_thread_return_local.cpp fails to compile but the same
-error happens on Linux (gcc-4.6.1)
-- boost/bin.v2/libs/optional/test/optional_test_ref.test fails with the same error as on Linux
-- boost/bin.v2/libs/program_options/test/qcc/debug/link-static/target-os-qnxnto/test_convert fails with the same output as on Linux
-- boost/bin.v2/libs/ptr_container/test/serialization.test/qcc/debug/target-os-qnxnto/serialization fails with the same output as on Linux
+- Building from Linux and Windows works. Mac not tested.
 
 ### TODO
 
-- Fix compilation and test errors for other libraries.
+- Port other headers and libraries
