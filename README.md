@@ -44,9 +44,9 @@ Ported headers:
 3. The test binaries can either be copied over to a device in development mode (using scp) or the top-level boost directory can be NFS-mounted on the device. It will be easier to recompile and rerun tests with the latter setup but some of the filesystem tests may fail due to issues with NFS. NFS setup instructions are below.
 4. To run the tests, go to /accounts/devuser/boost and run the run-tests.sh script:
 
-        ./run-tests.sh 2> run.err > run.out &
+        ./run-tests.sh <arm|x86> 2> run.err > run.out &
 
-    The tail command to observe the progress of the tests, e.g. `tail -f run.out`.
+    Use the tail command to observe the progress of the tests, e.g. `tail -f run.out`.
 
 ### NFS setup for Ubuntu Linux and PlayBook over USB (optional)
 
