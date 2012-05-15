@@ -59,8 +59,14 @@ void posix_thread::start_thread(func_base* arg)
 
 void* boost_asio_detail_posix_thread_function(void* arg)
 {
+#if defined(__QNX__)
+  // PR 155585: Fix possible uninitialized delete
+  posix_thread::auto_func_base_ptr func;
+  func.ptr = static_cast<posix_thread::func_base*>(arg);
+#else
   posix_thread::auto_func_base_ptr func = {
       static_cast<posix_thread::func_base*>(arg) };
+#endif
   func.ptr->run();
   return 0;
 }
