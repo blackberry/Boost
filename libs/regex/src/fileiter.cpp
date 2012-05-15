@@ -779,7 +779,12 @@ struct _fi_priv_data
 
 _fi_priv_data::_fi_priv_data(const char* p)
 {
+#if defined(__QNX__)
+   // PR 155591: Prevent memory corruption
+   strlcpy(root, p, MAX_PATH);
+#else
    std::strcpy(root, p);
+#endif
    mask = root;
    while(*mask) ++mask;
    while((mask > root) && (*mask != *_fi_sep) && (*mask != *_fi_sep_alt)) --mask;
