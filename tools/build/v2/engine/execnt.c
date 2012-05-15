@@ -676,7 +676,12 @@ static char * * string_to_args( char const * string )
 
     /* Use strncat() because it appends a trailing nul. */
     *dst = 0;
+#if defined(__QNX__)
+    // PR 155594: Call proper strcat function
+    strlcat( dst, src, sizeof(dst) );
+#else
     strncat( dst, src, src_len );
+#endif
 
     argv[ 2 ] = 0;
 

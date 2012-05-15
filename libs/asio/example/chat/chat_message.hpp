@@ -67,7 +67,12 @@ public:
   {
     using namespace std; // For strncat and atoi.
     char header[header_length + 1] = "";
+#if defined(__QNX__)
+    // PR 155594: Call proper strcat function
+    strlcat(header, data_, header_length + 1);
+#else
     strncat(header, data_, header_length);
+#endif
     body_length_ = atoi(header);
     if (body_length_ > max_body_length)
     {
