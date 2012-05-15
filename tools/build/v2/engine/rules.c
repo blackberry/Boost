@@ -645,8 +645,14 @@ static char * global_rule_name( RULE * r )
 
     {
         char name[4096] = "";
+#if defined(__QNX__)
+        // PR 155594: Call proper strcat function
+        strlcat( name, r->module->name, sizeof( name ) );
+        strlcat( name, r->name, sizeof( name ) );
+#else
         strncat( name, r->module->name, sizeof( name ) - 1 );
         strncat( name, r->name, sizeof( name ) - 1 );
+#endif
         return newstr( name);
     }
 }

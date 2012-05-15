@@ -337,7 +337,12 @@ public:
       std::string passwd = (*callback)(static_cast<std::size_t>(size),
           purpose ? context_base::for_writing : context_base::for_reading);
       *buf = '\0';
+#if defined(__QNX__)
+      // PR 155594: Call proper strcat function
+      strlcat(buf, passwd.c_str(), sizeof(buf));
+#else
       strncat(buf, passwd.c_str(), size);
+#endif
       return strlen(buf);
     }
 
