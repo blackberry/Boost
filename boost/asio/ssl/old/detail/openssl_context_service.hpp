@@ -339,7 +339,9 @@ public:
       *buf = '\0';
 #if defined(__QNX__)
       // PR 155594: Call proper strcat function
-      strlcat(buf, passwd.c_str(), sizeof(buf));
+      // Note: size is the size of the provided buffer buf
+      // See http://www.openssl.org/docs/ssl/SSL_CTX_set_default_passwd_cb.html
+      strlcat(buf, passwd.c_str(), size);
 #else
       strncat(buf, passwd.c_str(), size);
 #endif
