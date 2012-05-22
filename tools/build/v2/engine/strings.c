@@ -66,7 +66,12 @@ static void string_reserve_internal( string* self, size_t capacity )
     {
         self->value = (char*)BJAM_MALLOC_ATOMIC( capacity + JAM_STRING_MAGIC_SIZE );
         self->value[0] = 0;
+#if defined(__QNX__)
+        // PR 155594: Call proper strcat function
+        strlcat( self->value, self->opt, capacity + JAM_STRING_MAGIC_SIZE );
+#else
         strncat( self->value, self->opt, sizeof(self->opt) );
+#endif
         assert( strlen( self->value ) <= self->capacity ); /* This is a regression test */
     }
     else
