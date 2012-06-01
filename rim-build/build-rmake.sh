@@ -75,7 +75,7 @@ build()
     if [ "$CPU" == "" ] ; then
         CPU_OPT=""
     else
-        CPU_OPT="CPULIST=\"$CPU\""
+        CPU_OPT="CPULIST=$CPU"
     fi
 
     if [ "$DEBUG_BUILD" == "true" ] ; then
@@ -86,7 +86,7 @@ build()
         PREFIX_OPT="INSTALL_ROOT_nto=$PREFIX"
     fi
 
-    make $BUILD_TYPE $CPU_OPT $DEBUG_OPT $PREFIX_OPT
+    make -j 4 $BUILD_TYPE $CPU_OPT $DEBUG_OPT $PREFIX_OPT
 
     popd
 }
