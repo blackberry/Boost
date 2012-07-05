@@ -660,6 +660,11 @@ template <class charT, class traits>
 bool basic_regex_parser<charT, traits>::parse_extended_escape()
 {
    ++m_position;
+   if(m_position == m_end)
+   {
+      fail(regex_constants::error_escape, m_position - m_base, "Incomplete escape sequence found.");
+      return false;
+   }
    bool negate = false; // in case this is a character class escape: \w \d etc
    switch(this->m_traits.escape_syntax_type(*m_position))
    {
@@ -2093,6 +2098,14 @@ insert_recursion:
          return false;
       }
       v = this->m_traits.toi(m_position, m_end, 10);
+       if(m_position == m_end)
+       {
+          // Rewind to start of (? sequence:
+          --m_position;
+          while(this->m_traits.syntax_type(*m_position) != regex_constants::syntax_open_mark) --m_position;
+          fail(regex_constants::error_perl_extension, m_position - m_base);
+          return false;
+       }
       if(*m_position == charT('R'))
       {
          if(++m_position == m_end)
