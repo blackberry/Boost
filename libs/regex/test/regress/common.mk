@@ -11,9 +11,9 @@ EXTRA_SRCVPATH+=$(PROJECT_ROOT)/
 
 EXTRA_INCVPATH+=$(PRODUCT_ROOT)/../../..
 
-EXTRA_LIBVPATH+=/home/chung/dev/boost/libs/regex/build/arm/a-le-v7-g
-EXTRA_LIBVPATH+=/home/chung/dev/boost/libs/thread/build/arm/a-le-v7-g
-EXTRA_LIBVPATH+=/home/chung/dev/boost/libs/system/build/arm/a-le-v7-g
+EXTRA_LIBVPATH+=$(PROJECT_ROOT)/../../build/arm/a-le-v7-g
+EXTRA_LIBVPATH+=$(PROJECT_ROOT)/../../../thread/build/arm/a-le-v7-g
+EXTRA_LIBVPATH+=$(PROJECT_ROOT)/../../../system/build/arm/a-le-v7-g
 EXTRA_LIBVPATH+=$(PRODUCT_ROOT)/recursive/arm/a-le-v7-g
 
 # Use same flags from Jamfile to make a shared library
