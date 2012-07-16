@@ -1012,8 +1012,14 @@ evaluate_rule(
              && rule->procedure != 0 && strcmp( rulename, rule->procedure->rulename ) )
         {
             char buf[256] = "";
+#if defined(__QNX__)
+            // PR 155594: Call proper strcat function
+            strlcat( buf, rule->module->name, sizeof( buf ) );
+            strlcat( buf, rule->name, sizeof( buf ) );
+#else
             strncat( buf, rule->module->name, sizeof( buf ) - 1 );
             strncat( buf, rule->name, sizeof( buf ) - 1 );
+#endif
             debug_compile( 1, buf, frame );
         }
         else

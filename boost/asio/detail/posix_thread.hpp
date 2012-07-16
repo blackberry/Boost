@@ -64,6 +64,10 @@ private:
   struct auto_func_base_ptr
   {
     func_base* ptr;
+#if defined(__QNX__)
+    // PR 155585: Fix possible uninitialized delete
+    auto_func_base_ptr() { ptr = 0; }
+#endif
     ~auto_func_base_ptr() { delete ptr; }
   };
 

@@ -616,6 +616,9 @@ int maxline()
 static char * * string_to_args( char const * string )
 {
     int            src_len;
+#if defined(__QNX__)
+    int            dst_len;
+#endif
     int            in_quote;
     char         * line;
     char   const * src;
@@ -631,6 +634,9 @@ static char * * string_to_args( char const * string )
         --src_len;
 
     /* Copy the input string into a buffer we can modify. */
+#if defined(__QNX__)
+    dst_len = src_len + 1;
+#endif
     line = (char *)BJAM_MALLOC_ATOMIC( src_len + 1 );
     if ( !line )
         return 0;
@@ -676,7 +682,12 @@ static char * * string_to_args( char const * string )
 
     /* Use strncat() because it appends a trailing nul. */
     *dst = 0;
+#if defined(__QNX__)
+    // PR 155594: Call proper strcat function
+    strlcat( dst, src, dst_len );
+#else
     strncat( dst, src, src_len );
+#endif
 
     argv[ 2 ] = 0;
 
