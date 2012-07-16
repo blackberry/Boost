@@ -11,11 +11,6 @@ EXTRA_SRCVPATH+=$(PROJECT_ROOT)/
 
 EXTRA_INCVPATH+=$(PRODUCT_ROOT)/../../..
 
-EXTRA_LIBVPATH+=$(PROJECT_ROOT)/../../build/arm/a-le-v7-g
-EXTRA_LIBVPATH+=$(PROJECT_ROOT)/../../../thread/build/arm/a-le-v7-g
-EXTRA_LIBVPATH+=$(PROJECT_ROOT)/../../../system/build/arm/a-le-v7-g
-EXTRA_LIBVPATH+=$(PRODUCT_ROOT)/recursive/arm/a-le-v7-g
-
 # Use same flags from Jamfile to make a shared library
 CCFLAGS += -DBOOST_REGEX_DYN_LINK=1
 CCFLAGS += -DBOOST_HAS_ICU=1 
@@ -30,9 +25,6 @@ CCFLAGS += -DBOOST_REGEX_NON_RECURSIVE=1
 
 # Check if the test still crashes with this defined
 #CCFLAGS += -DBOOST_NO_EXCEPTIONS=1
-
-LIBPREF_boost_regex_g = -Bstatic
-LIBPOST_boost_regex_recursive_g= -Bdynamic
 
 include ../../../../../rim_preset.mk
 
@@ -52,13 +44,57 @@ include $(MKFILES_ROOT)/qtargets.mk
 include ../../../../../rim_postset.mk
 
 # This allows for dynamic linking without static libraries being present
-LIBS+=boost_regex_g
-LIBS+=boost_thread_g
-LIBS+=boost_system_g
-LIBS+=boost_regex_recursive_g
 LIBS+=icuuc
 LIBS+=icui18n
 LIBS+=icudata
 LIBS+=m
 
+# Use the QNX build system's $(VARIANT_LIST) to determine whether to use
+# debugging libraries, etc.
+ifeq ($(filter g,$(VARIANT_LIST)),g)
+    LIBS+=boost_regex_g
+    LIBS+=boost_thread_g
+    LIBS+=boost_system_g
+    LIBS+=boost_regex_recursive_g
+    LIBPREF_boost_regex_g = -Bstatic
+    LIBPOST_boost_regex_recursive_g = -Bdynamic
+else
+    # Non-debug build.
+    LIBS+=boost_regex
+    LIBS+=boost_thread
+    LIBS+=boost_system
+    LIBS+=boost_regex_recursive
+    LIBPREF_boost_regex = -Bstatic
+    LIBPOST_boost_regex_recursive = -Bdynamic
+endif
+
+ifeq ($(CPU),arm)
+    ifeq ($(filter g,$(VARIANT_LIST)),g)
+        EXTRA_LIBVPATH+=$(PROJECT_ROOT)/../../build/$(CPU)/a-le-v7-g
+        EXTRA_LIBVPATH+=$(PROJECT_ROOT)/../../../thread/build/$(CPU)/a-le-v7-g
+        EXTRA_LIBVPATH+=$(PROJECT_ROOT)/../../../system/build/$(CPU)/a-le-v7-g
+        EXTRA_LIBVPATH+=$(PRODUCT_ROOT)/recursive/$(CPU)/a-le-v7-g
+    else
+        # Non-debug build.
+        EXTRA_LIBVPATH+=$(PROJECT_ROOT)/../../build/$(CPU)/a-le-v7
+        EXTRA_LIBVPATH+=$(PROJECT_ROOT)/../../../thread/build/$(CPU)/a-le-v7
+        EXTRA_LIBVPATH+=$(PROJECT_ROOT)/../../../system/build/$(CPU)/a-le-v7
+        EXTRA_LIBVPATH+=$(PRODUCT_ROOT)/recursive/$(CPU)/a-le-v7
+    endif
+else
+    ifeq ($(CPU),x86)
+        ifeq ($(filter g,$(VARIANT_LIST)),g)
+            EXTRA_LIBVPATH+=$(PROJECT_ROOT)/../../build/$(CPU)/a-g
+            EXTRA_LIBVPATH+=$(PROJECT_ROOT)/../../../thread/build/$(CPU)/a-g
+            EXTRA_LIBVPATH+=$(PROJECT_ROOT)/../../../system/build/$(CPU)/a-g
+            EXTRA_LIBVPATH+=$(PRODUCT_ROOT)/recursive/$(CPU)/a-g
+        else
+            # Non-debug build.
+            EXTRA_LIBVPATH+=$(PROJECT_ROOT)/../../build/$(CPU)/a
+            EXTRA_LIBVPATH+=$(PROJECT_ROOT)/../../../thread/build/$(CPU)/a
+            EXTRA_LIBVPATH+=$(PROJECT_ROOT)/../../../system/build/$(CPU)/a
+            EXTRA_LIBVPATH+=$(PRODUCT_ROOT)/recursive/$(CPU)/a
+        endif
+    endif
+endif
 
