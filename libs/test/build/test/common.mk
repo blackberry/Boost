@@ -11,9 +11,6 @@ EXTRA_SRCVPATH+=$(PRODUCT_ROOT)/../src
 
 EXTRA_INCVPATH+=$(PRODUCT_ROOT)/../../..
 
-# Use same flags from Jamfile to make a shared library
-CCFLAGS += -DBOOST_TEST_DYN_LINK=1 
-
 # Skip the files that are not part of the unit test framework
 EXCLUDE_OBJS += \
   cpp_main.o \
@@ -34,3 +31,8 @@ include $(MKFILES_ROOT)/qtargets.mk
 #####################################
 
 include ../../../../../rim_postset.mk
+
+ifeq ($(filter so,$(VARIANT_LIST)),so)
+    # Use same flags from Jamfile to make a shared library
+    CCFLAGS += -DBOOST_TEST_DYN_LINK=1 
+endif

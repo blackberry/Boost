@@ -13,9 +13,7 @@ EXTRA_SRCVPATH+=$(PRODUCT_ROOT)/src/posix_time
 
 EXTRA_INCVPATH+=$(PRODUCT_ROOT)/../..
 
-# Use same flags from Jamfile to make a shared library
 CCFLAGS += -DDATE_TIME_INLINE
-CCFLAGS += -DBOOST_DATE_TIME_DYN_LINK=1
 
 include ../../../../rim_preset.mk
 
@@ -32,3 +30,8 @@ include $(MKFILES_ROOT)/qtargets.mk
 #####################################
 
 include ../../../../rim_postset.mk
+
+ifeq ($(filter so,$(VARIANT_LIST)),so)
+    # Use same flags from Jamfile to make a shared library
+    CCFLAGS += -DBOOST_DATE_TIME_DYN_LINK=1
+endif
