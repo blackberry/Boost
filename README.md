@@ -2,6 +2,8 @@
 
 Port of Boost to the BlackBerry 10 platform.
 
+The source must be compiled to obtain the libraries (both static and dynamic are built). Package the libraries with your application because the Boost libraries will not be provided through the BlackBerry NDK.
+
 Ported libraries:
 
 - Boost.Date_Time
