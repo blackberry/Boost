@@ -43,12 +43,6 @@ include $(MKFILES_ROOT)/qtargets.mk
 
 include ../../../../../rim_postset.mk
 
-# This allows for dynamic linking without static libraries being present
-LIBS+=icuuc
-LIBS+=icui18n
-LIBS+=icudata
-LIBS+=m
-
 # Use the QNX build system's $(VARIANT_LIST) to determine whether to use
 # debugging libraries, etc.
 ifeq ($(filter g,$(VARIANT_LIST)),g)
@@ -67,6 +61,12 @@ else
     LIBPREF_boost_regex = -Bstatic
     LIBPOST_boost_regex_recursive = -Bdynamic
 endif
+
+# Adding to LIBS in this section allows for dynamic linking without static libraries being present
+LIBS+=icuuc
+LIBS+=icui18n
+LIBS+=icudata
+LIBS+=m
 
 ifeq ($(CPU),arm)
     ifeq ($(filter g,$(VARIANT_LIST)),g)
