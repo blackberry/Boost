@@ -37,6 +37,9 @@ Ported headers:
 
     Use `make clean` to clean the build.
 
+5. A shell script (rim-build/build-rmake.sh) can be used to do builds with INSTALL_ROOT_nto set as in step 4. For example, to do a build and install of debug ARM libraries, run the following command from the rim-build directory:
+        ./build-rmake.sh -t install -c arm -d
+
 ## Test Instructions
 
 1. Change to the rim-test directory.
