@@ -15,7 +15,7 @@ pushd $SCRIPT_DIR
 
 usage()
 {
-    echo "$0 <install|clean>"
+    echo "$0 <install|clean> <static|dynamic>"
 }
 
 echo_action()
@@ -25,8 +25,6 @@ echo_action()
 
 build()
 {
-    ARG=$1
-
     if [ "$ACTION" == "clean" ] ; then
         if [ "$PREFIX" != "/" ] && [ -n $PREFIX ] ; then
             rm -rf $PREFIX
@@ -38,8 +36,7 @@ build()
         ./bootstrap.sh
     fi
 
-    # Build the libraries required by RIM teams
-    # and install them to staging dir
+    # Build the libraries and install them to staging dir
     for CPU in arm x86 ; do
         if [ "$CPU" == "x86" ] ; then
             CONFIG=$BOOST_DIR/blackberry-x86-config.jam
@@ -54,10 +51,10 @@ build()
 
         for VARIANT in debug release ; do
             echo_action "Building $CPU $VARIANT"
-            if [ "$ARG" == "install" ] ; then
+            if [ "$ACTION" == "install" ] ; then
                 # bjam will append the lib directory
                 BJAM_ARGS="stage --stagedir=$PREFIX/$CPU_DIR/$VARIANT"
-            elif [ "$ARG" == "clean" ] ; then
+            elif [ "$ACTION" == "clean" ] ; then
                 BJAM_ARGS="--clean"
             fi
 
@@ -96,7 +93,7 @@ build()
                 --with-wave \
                 --user-config=$CONFIG \
                 --layout=system toolset=qcc target-os=qnxnto architecture=$CPU \
-                variant=$VARIANT link=shared threading=multi runtime-link=shared
+                variant=$VARIANT link=$LINK_TYPE threading=multi runtime-link=shared
         done
     done
     popd
@@ -117,6 +114,12 @@ if [ "$ACTION" != "install" ] && [ "$ACTION" != "clean" ] ; then
     exit
 fi
 
+LINK_TYPE=$2
+if [ "$LINK_TYPE" != "static" ] && [ "$LINK_TYPE" != "dynamic" ] ; then
+    usage
+    exit
+fi
+
 BOOST_DIR="`pwd`/.."
 
 PREFIX=`pwd`/boost-stage
@@ -124,12 +127,5 @@ if [ ! -d $PREFIX ] ; then
     mkdir -p $PREFIX
 fi
 
-if [ "$ACTION" == "install" ] ; then
-    echo "build $ACTION"
-    build "$ACTION"
-fi
-
-if [ "$ACTION" == "clean" ] ; then
-    echo "build $ACTION"
-    build "$ACTION"
-fi
+echo "build $ACTION $LINK_TYPE"
+build
