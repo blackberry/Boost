@@ -27,15 +27,15 @@ Note: there a few unresolved test failures involving `Boost.Date_Time` and `Boos
 1. Open a command prompt (building from Linux and Windows works; Mac has not been tested).
 2. Execute bbndk-env.bat or bbndk-env.sh from root of NDK install.
 3. Navigate to local boost repo.
-4. Change to the rim-build directory. Run the build.sh script using this command:
+4. Change to the rim-build directory. The build.sh script can build static or dynamic libraries. For example, to build dynamic libraries, use this command:
 
-        ./build.sh install
+        ./build.sh install dynamic
 
     This will invoke the bjam executable to build the libraries in subdirectories of bin.v2 as well as copy them to a staging directory (under rim-build/boost-stage).
 
     All the libraries are compiled, not just the ported ones. The Boost.Python library can be enabled by setting the `PYTHON_SRC_DIR` variable in build.sh to the Python source location.
 
-    Use `./build.sh clean` to clean the build.
+    Use `./build.sh clean <static|dynamic>` to clean the build.
 
 ## Test Instructions
 
