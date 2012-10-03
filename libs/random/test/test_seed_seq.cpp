@@ -5,7 +5,7 @@
  * accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
  *
- * $Id: test_seed_seq.cpp 74867 2011-10-09 23:13:31Z steven_watanabe $
+ * $Id: test_seed_seq.cpp 79771 2012-07-27 18:15:55Z jewillco $
  */
 
 #include <boost/random/seed_seq.hpp>
@@ -94,7 +94,7 @@ BOOST_AUTO_TEST_CASE(test_seed_seq) {
     BOOST_CHECK_EQUAL_COLLECTIONS(
         &param[0], &param[0] + 4, &expected_param[0], &expected_param[0] + 4);
     
-#ifndef BOOST_NO_INITIALIZER_LISTS
+#ifndef BOOST_NO_CXX11_HDR_INITIALIZER_LIST
     std::fill_n(&store32[0], 10, 0);
     std::fill_n(&store64[0], 10, 0);
     std::fill_n(&param[0], 3, 0);

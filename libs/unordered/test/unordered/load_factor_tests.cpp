@@ -4,9 +4,10 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 #include "../helpers/prefix.hpp"
-
 #include <boost/unordered_set.hpp>
 #include <boost/unordered_map.hpp>
+#include "../helpers/postfix.hpp"
+
 #include "../helpers/test.hpp"
 #include <boost/limits.hpp>
 #include "../helpers/random_values.hpp"
@@ -19,7 +20,7 @@
 namespace load_factor_tests
 {
 
-test::seed_t seed(783656);
+test::seed_t initialize_seed(783656);
 
 template <class X>
 void set_load_factor_tests(X* = 0)

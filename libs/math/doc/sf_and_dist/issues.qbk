@@ -67,12 +67,14 @@ it's not clear how to solve this issue, or if it's ever likely
 to be an real problem in practice - especially as most other implementations
 don't support this domain either (Medium Priority).
 
-[h4 Inverse Hyperbolic Functions]
+[h4 Owen's T Function]
 
-* These functions are inherited from previous Boost versions,
-before __log1p became widely available.  Would they be better expressed
-in terms of this function?  This is probably only an issue
-for very high precision types (Low Priority).
+There is a problem area at arbitrary precision when ['a] is very close to 1.  However, note that
+the value for ['T(h, 1)] is well known and easy to compute, and if we replaced the
+['a[super k]] terms in series T1, T2 or T4 by ['(a[super k] - 1)] then we would have the
+difference between ['T(h, a)] and ['T(h, 1)].  Unfortunately this doesn't improve the
+convergence of those series in that area.  It certainly looks as though a new series in terms
+of ['(1-a)[super k]] is both possible and desirable in this area, but it remains elusive at present.
 
 [h4 Jocobi elliptic functions]
 

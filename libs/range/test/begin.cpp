@@ -18,7 +18,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/test/test_tools.hpp>
-#include <boost/test/included/unit_test_framework.hpp>
+#include <boost/test/included/unit_test.hpp>
 
 namespace mock_std
 {
@@ -104,12 +104,12 @@ namespace
     }
 }
 
-using boost::unit_test_framework::test_suite;
+using boost::unit_test::test_suite;
 
-boost::unit_test_framework::test_suite*
+boost::unit_test::test_suite*
 init_unit_test_suite( int argc, char* argv[] )
 {
-    boost::unit_test_framework::test_suite* test = BOOST_TEST_SUITE( "Range Test Suite - begin() ADL namespace barrier" );
+    boost::unit_test::test_suite* test = BOOST_TEST_SUITE( "Range Test Suite - begin() ADL namespace barrier" );
 
     test->add( BOOST_TEST_CASE( &test_range_begin ) );
 

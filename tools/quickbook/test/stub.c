@@ -7,6 +7,12 @@
     http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
 
+/*`
+This should appear when =stub.c= is included.
+
+[foo_c]
+*/
+
 /*[foo_c */
     /*`
     This is the C [*['foo]] function.

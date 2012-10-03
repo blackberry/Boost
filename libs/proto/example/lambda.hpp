@@ -1,9 +1,16 @@
 #ifndef BOOST_PP_IS_ITERATING
+    ///////////////////////////////////////////////////////////////////////////////
+    //  Copyright 2008 Eric Niebler. Distributed under the Boost
+    //  Software License, Version 1.0. (See accompanying file
+    //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+    //
+    // This example contains a full-featured reimplementation of the old,
+    // now-deprecated Boost Lambda Library (BLL) on top of Boost.Proto. It
+    // is necessarily complex to accomodate all the quirks and inconsistencies
+    // of that old library, but it is a good example of how to build a
+    // complete and full-featured EDLS using Proto.
     #ifndef BOOST_LAMBDA_HPP_EAN_04_19_2008
     #define BOOST_LAMBDA_HPP_EAN_04_19_2008
-
-    #define BOOST_PROTO_MAX_ARITY 10
-    #define BOOST_PROTO_MAX_FUNCTION_CALL_ARITY 5
 
     #include <iosfwd>
     #include <typeinfo>
@@ -17,7 +24,6 @@
     #include <boost/mpl/next_prior.hpp>
     #include <boost/mpl/min_max.hpp>
     #include <boost/mpl/assert.hpp>
-    #include <boost/mpl/apply_wrap.hpp>
     #include <boost/preprocessor.hpp>
     #include <boost/utility/enable_if.hpp>
     #include <boost/utility/result_of.hpp>
@@ -26,9 +32,6 @@
     #include <boost/type_traits/remove_reference.hpp>
     #include <boost/type_traits/remove_const.hpp>
     #include <boost/type_traits/is_same.hpp>
-    #include <boost/type_traits/is_abstract.hpp>
-    #include <boost/type_traits/is_array.hpp>
-    #include <boost/type_traits/is_function.hpp>
     #include <boost/proto/proto.hpp>
 
     #ifndef BOOST_LAMBDA_MAX_ARITY
@@ -102,27 +105,6 @@
               , proto::otherwise<proto::fold<proto::_, mpl::true_(), mpl::and_<proto::_state, IsNullary>()> >
             >
         {};
-        
-        struct at : proto::callable
-        {
-            template<class Sig>
-            struct result;
-
-            template<class This, class Cont, class Int>
-            struct result<This(Cont, Int)>
-              : fusion::result_of::at<
-                    typename remove_reference<Cont>::type
-                  , typename remove_reference<Int>::type
-                >
-            {};
-
-            template<typename Cont, typename Int>
-            typename fusion::result_of::at<Cont, Int>::type
-            operator ()(Cont &cont, Int const &) const
-            {
-                return fusion::at<Int>(cont);
-            }
-        };
 
         struct Eval;
 
@@ -268,7 +250,7 @@
         {
             template<typename Expr, typename State, typename Data, long Arity, typename BackTag>
             struct impl2;
-            
+
             #define M0(Z, N, DATA)                                                                  \
                 case proto::tag_of<typename proto::result_of::child_c<Expr, N>::type>::type::value: \
                     Eval()(proto::child_c<N>(expr), state, data);                                   \
@@ -350,23 +332,23 @@
                 throw e;
             }
         };
-        
+
         struct unwrap_ref : proto::callable
         {
             template<typename Sig>
             struct result;
-            
+
             template<typename This, typename T>
             struct result<This(reference_wrapper<T>)>
             {
-                typedef T &type;                
+                typedef T &type;
             };
-            
+
             template<typename This, typename T>
             struct result<This(T &)>
               : result<This(T)>
             {};
-            
+
             template<typename T>
             T &operator()(reference_wrapper<T> const &ref) const
             {
@@ -429,7 +411,7 @@
           : proto::or_<
                 proto::when<
                     proto::terminal<placeholder<proto::_> >
-                  , at(proto::_data, proto::_value)
+                  , proto::functional::at(proto::_data, proto::_value)
                 >
               , proto::when<
                     proto::terminal<exception_placeholder>
@@ -490,58 +472,29 @@
 
         using exprns_::llexpr;
 
-        template<typename T>
-        struct is_stream
-        {
-        private:
-            static T &t;
-            typedef char yes_type;
-            typedef char (&no_type)[2];
-            static no_type test_is_stream(...);
-            template<typename Char, typename Traits>
-            static yes_type test_is_stream(std::basic_istream<Char, Traits> &);
-            template<typename Char, typename Traits>
-            static yes_type test_is_stream(std::basic_ostream<Char, Traits> &);
-        public:
-            typedef bool value_type;
-            static const bool value = sizeof(yes_type == sizeof(test_is_stream(t)));
-            typedef mpl::bool_<value> type;
-        };
-
-        // These terminal types are always stored by reference
-        template<typename Value>
-        struct store_by_ref
-          : mpl::or_<
-                is_abstract<Value>
-              , is_array<Value>
-              , is_function<Value>
-              , is_stream<Value>
-            >
-        {};
-
-        // Wrap expressions in lambda::llexpr<>, and hold children nodes
-        // and some terminal types by value.
+        // Wrap expressions in lambda::llexpr<>.
         struct Generator
-          : proto::or_<
-                proto::when<
-                    proto::and_<
-                        proto::terminal<proto::_>
-                      , proto::if_<store_by_ref<proto::_value>()>
-                    >
-                  , proto::pod_generator<llexpr>(proto::_)
-                >
-              , proto::otherwise<
-                    proto::compose_generators<
-                        proto::by_value_generator
-                      , proto::pod_generator<llexpr>
-                    >(proto::_)
-                >
-            >
+          : proto::pod_generator<llexpr>
         {};
 
+        // The domain for the lambda library.
         struct lldomain
-          : proto::domain<Generator, Grammar>
-        {};
+          : proto::domain<Generator, Grammar, proto::default_domain>
+        {
+            // Make all terminals and children held by value instead of by reference.
+            // Proto::domain<>::as_expr<> holds everything it can by value; the only
+            // exceptions are function types, abstract types, and iostreams.
+            template<typename T>
+            struct as_child
+              : proto_base_domain::as_expr<T>
+            {};
+
+            // The exception is arrays, which should still be held by reference
+            template<typename T, std::size_t N>
+            struct as_child<T[N]>
+              : proto_base_domain::as_child<T[N]>
+            {};
+        };
 
         template<typename Sig>
         struct llresult;
@@ -653,7 +606,7 @@
         {
             template<typename Sig>
             struct result;
-            
+
             template<typename This, typename T>
             struct result<This(T &)>
             {
@@ -745,7 +698,7 @@
         {
             typedef llexpr<typename proto::terminal<T &>::type> type;
         };
-        
+
         template<typename T>
         llexpr<typename proto::terminal<T &>::type> const
         var(T &t)
@@ -776,7 +729,7 @@
         {
             typedef llexpr<typename proto::terminal<T const &>::type> type;
         };
-        
+
         template<typename T>
         llexpr<typename proto::terminal<T const &>::type> const
         constant_ref(T const &t)
@@ -1142,7 +1095,7 @@
         {
             return t;
         }
-        
+
         #define M1(N, typename_A, A_const_ref, A_const_ref_a, ref_a)                                \
         template<typename_A(N)>                                                                     \
         typename proto::result_of::make_expr<                                                       \
@@ -1741,7 +1694,7 @@
         }
 
     }}
-    
+
     namespace boost
     {
         template<typename Expr>

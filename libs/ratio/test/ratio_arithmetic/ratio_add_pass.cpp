@@ -20,6 +20,12 @@
 
 void test()
 {
+  {
+  typedef boost::ratio<0> R1;
+  typedef boost::ratio<0> R2;
+  typedef boost::ratio_add<R1, R2> R;
+  BOOST_RATIO_STATIC_ASSERT(R::num == 0 && R::den == 1, NOTHING, ());
+  }
     {
     typedef boost::ratio<1, 1> R1;
     typedef boost::ratio<1, 1> R2;

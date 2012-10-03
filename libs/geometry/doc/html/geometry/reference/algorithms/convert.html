@@ -4,7 +4,7 @@
 <title>convert</title>
 <link rel="stylesheet" href="../../../../../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
-<link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Geometry 1.0">
+<link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Geometry">
 <link rel="up" href="../algorithms.html" title="Algorithms">
 <link rel="prev" href="clear.html" title="clear">
 <link rel="next" href="convex_hull.html" title="convex_hull">
@@ -27,7 +27,7 @@
 <a name="geometry.reference.algorithms.convert"></a><a class="link" href="convert.html" title="convert">convert</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="id844879"></a>
+          <a class="indexterm" name="id846614"></a>
 Converts one geometry to another geometry.
         </p>
 <h6>
@@ -136,36 +136,582 @@ Converts one geometry to another geometry.
           <span><a name="geometry.reference.algorithms.convert.header"></a></span><a class="link" href="convert.html#geometry.reference.algorithms.convert.header">Header</a>
         </h6>
 <p>
+          Either
+        </p>
+<p>
+          <code class="computeroutput"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>
+        </p>
+<p>
+          Or
+        </p>
+<p>
           <code class="computeroutput"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">/</span><span class="identifier">algorithms</span><span class="special">/</span><span class="identifier">convert</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>
         </p>
-<div class="tip"><table border="0" summary="Tip">
+<h6>
+<a name="geometry.reference.algorithms.convert.h4"></a>
+          <span><a name="geometry.reference.algorithms.convert.conformance"></a></span><a class="link" href="convert.html#geometry.reference.algorithms.convert.conformance">Conformance</a>
+        </h6>
+<p>
+          The function convert is not defined by OGC.
+        </p>
+<h6>
+<a name="geometry.reference.algorithms.convert.h5"></a>
+          <span><a name="geometry.reference.algorithms.convert.supported_geometries"></a></span><a class="link" href="convert.html#geometry.reference.algorithms.convert.supported_geometries">Supported
+          geometries</a>
+        </h6>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+                </th>
+<th>
+                  <p>
+                    Point
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Segment
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Box
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Linestring
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Ring
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Polygon
+                  </p>
+                </th>
+<th>
+                  <p>
+                    MultiPoint
+                  </p>
+                </th>
+<th>
+                  <p>
+                    MultiLinestring
+                  </p>
+                </th>
+<th>
+                  <p>
+                    MultiPolygon
+                  </p>
+                </th>
+</tr></thead>
+<tbody>
 <tr>
-<td rowspan="2" align="center" valign="top" width="25"><img alt="[Tip]" src="../../../../../../../doc/src/images/tip.png"></td>
-<th align="left">Tip</th>
+<td>
+                  <p>
+                    Point
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
 </tr>
-<tr><td align="left" valign="top"><p>
-            convert is not defined within OGC or ISO
-          </p></td></tr>
+<tr>
+<td>
+                  <p>
+                    Segment
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Box
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Linestring
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Ring
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Polygon
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    MultiPoint
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    MultiLinestring
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    MultiPolygon
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+</tr>
+</tbody>
 </table></div>
-<div class="tip"><table border="0" summary="Tip">
+<div class="note"><table border="0" summary="Note">
 <tr>
-<td rowspan="2" align="center" valign="top" width="25"><img alt="[Tip]" src="../../../../../../../doc/src/images/tip.png"></td>
-<th align="left">Tip</th>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../../../../../doc/src/images/note.png"></td>
+<th align="left">Note</th>
 </tr>
 <tr><td align="left" valign="top"><p>
-            convert is modelled as source -&gt; target (where assign is modelled
-            as target := source)
+            In this status matrix above: columns are source types and rows are target
+            types. So a box can be converted to a ring, polygon or multi-polygon,
+            but not vice versa.
           </p></td></tr>
 </table></div>
 <h6>
-<a name="geometry.reference.algorithms.convert.h4"></a>
+<a name="geometry.reference.algorithms.convert.h6"></a>
           <span><a name="geometry.reference.algorithms.convert.complexity"></a></span><a class="link" href="convert.html#geometry.reference.algorithms.convert.complexity">Complexity</a>
         </h6>
 <p>
           Linear
         </p>
 <h6>
-<a name="geometry.reference.algorithms.convert.h5"></a>
+<a name="geometry.reference.algorithms.convert.h7"></a>
           <span><a name="geometry.reference.algorithms.convert.example"></a></span><a class="link" href="convert.html#geometry.reference.algorithms.convert.example">Example</a>
         </h6>
 <p>
@@ -210,7 +756,6 @@ Converts one geometry to another geometry.
 
     <span class="keyword">return</span> <span class="number">0</span><span class="special">;</span>
 <span class="special">}</span>
-
 </pre>
 <p>
         </p>
@@ -223,17 +768,28 @@ point: (1, 1)
 point tuples: (1, 1)
 </pre>
 <h6>
-<a name="geometry.reference.algorithms.convert.h6"></a>
+<a name="geometry.reference.algorithms.convert.h8"></a>
           <span><a name="geometry.reference.algorithms.convert.see_also"></a></span><a class="link" href="convert.html#geometry.reference.algorithms.convert.see_also">See
           also</a>
         </h6>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
               <a class="link" href="assign/assign.html" title="assign">assign</a>
             </li></ul></div>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../../../../../doc/src/images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            convert is modelled as source -&gt; target (where assign is modelled
+            as target := source)
+          </p></td></tr>
+</table></div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2011 Barend Gehrels, Bruno Lalande, Mateusz Loskot<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2009-2012 Barend
+      Gehrels, Bruno Lalande, Mateusz Loskot<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

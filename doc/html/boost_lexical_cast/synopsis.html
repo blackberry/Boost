@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../boost_lexical_cast.html" title="Chapter&#160;14.&#160;Boost.Lexical_Cast 1.0">
+<link rel="up" href="../boost_lexical_cast.html" title="Chapter&#160;15.&#160;Boost.Lexical_Cast 1.0">
 <link rel="prev" href="examples.html" title="Examples">
 <link rel="next" href="frequently_asked_questions.html" title="Frequently Asked Questions">
 </head>
@@ -83,14 +83,61 @@
           </li>
 </ul></div>
 <p>
-        The character type of the underlying stream is assumed to be char unless
-        either the Source or the Target requires wide-character streaming, in which
-        case the underlying stream uses <code class="computeroutput"><span class="keyword">wchar_t</span></code>.
-        Source types that require wide-character streaming are <code class="computeroutput"><span class="keyword">wchar_t</span></code>,
-        <code class="computeroutput"><span class="keyword">wchar_t</span> <span class="special">*</span></code>,
-        and <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">wstring</span></code>. Target types that require wide-character
-        streaming are <code class="computeroutput"><span class="keyword">wchar_t</span></code> and <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">wstring</span></code>.
+        The character type of the underlying stream is assumed to be <code class="computeroutput"><span class="keyword">char</span></code> unless either the <code class="computeroutput"><span class="identifier">Source</span></code>
+        or the <code class="computeroutput"><span class="identifier">Target</span></code> requires wide-character
+        streaming, in which case the underlying stream uses <code class="computeroutput"><span class="keyword">wchar_t</span></code>,
+        <code class="computeroutput"><span class="identifier">char16_t</span></code> or <code class="computeroutput"><span class="identifier">char32_t</span></code>. Wide-character streaming is currently
+        detected for:
       </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+            Single character: <code class="computeroutput"><span class="keyword">wchar_t</span></code>,
+            <code class="computeroutput"><span class="identifier">char16_t</span></code>, <code class="computeroutput"><span class="identifier">char32_t</span></code>
+          </li>
+<li class="listitem">
+            Arrays of characters: <code class="computeroutput"><span class="keyword">wchar_t</span>
+            <span class="special">*</span></code>, <code class="computeroutput"><span class="identifier">char16_t</span>
+            <span class="special">*</span></code>, <code class="computeroutput"><span class="identifier">char32_t</span>
+            <span class="special">*</span></code>, <code class="computeroutput"><span class="keyword">const</span>
+            <span class="keyword">wchar_t</span> <span class="special">*</span></code>,
+            <code class="computeroutput"><span class="keyword">const</span> <span class="identifier">char16_t</span>
+            <span class="special">*</span></code>, <code class="computeroutput"><span class="keyword">const</span>
+            <span class="identifier">char32_t</span> <span class="special">*</span></code>
+          </li>
+<li class="listitem">
+            Strings: <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span></code>, <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">containers</span><span class="special">::</span><span class="identifier">basic_string</span></code>
+          </li>
+<li class="listitem">
+            <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">iterator_range</span><span class="special">&lt;</span><span class="identifier">WideCharPtr</span><span class="special">&gt;</span></code>,
+            where <code class="computeroutput"><span class="identifier">WideCharPtr</span></code> is
+            a pointer to wide-character or pointer to const wide-character
+          </li>
+<li class="listitem">
+            <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="identifier">CharT</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code>
+            and <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="identifier">CharT</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code>,
+            <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">CharT</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code> and <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">CharT</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code>
+          </li>
+</ul></div>
+<div class="important"><table border="0" summary="Important">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Important]" src="../../../doc/src/images/important.png"></td>
+<th align="left">Important</th>
+</tr>
+<tr><td align="left" valign="top">
+<p>
+          Many compilers and runtime libraries fail to make conversions using new
+          Unicode characters. Make sure that the following code compiles and outputs
+          nonzero values, before using new types:
+</p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span>
+    <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">lexical_cast</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">u32string</span><span class="special">&gt;(</span><span class="number">1.0</span><span class="special">).</span><span class="identifier">size</span><span class="special">()</span>
+    <span class="special">&lt;&lt;</span> <span class="string">"  "</span>
+    <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">lexical_cast</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">u16string</span><span class="special">&gt;(</span><span class="number">1.0</span><span class="special">).</span><span class="identifier">size</span><span class="special">();</span>
+</pre>
+<p>
+        </p>
+</td></tr>
+</table></div>
 <p>
         Where a higher degree of control is required over conversions, <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">stringstream</span></code>
         and <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">wstringstream</span></code> offer a more appropriate
@@ -117,7 +164,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2000-2005 Kevlin Henney<br>Copyright &#169; 2006-2010 Alexander Nasonov<br>Copyright &#169; 2011 Antony Polukhin<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2000-2005 Kevlin Henney<br>Copyright &#169; 2006-2010 Alexander Nasonov<br>Copyright &#169; 2011, 2012 Antony Polukhin<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

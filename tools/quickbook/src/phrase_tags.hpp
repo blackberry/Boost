@@ -22,12 +22,20 @@ namespace quickbook
         (footnote)
         (escape)
         (break_mark)
+        (role)
     )
     
     QUICKBOOK_VALUE_NAMED_TAGS(source_mode_tags, 0x550,
         ((cpp)("c++"))
         ((python)("python"))
         ((teletype)("teletype"))
+    )
+
+    QUICKBOOK_VALUE_TAGS(code_tags, 0x560,
+        (code_block)
+        (inline_code)
+        (inline_code_block)
+        (next_source_mode)
     )
 }
 

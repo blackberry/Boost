@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -9,16 +9,28 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <boost/container/detail/config_begin.hpp>
 #include <boost/container/slist.hpp>
+#include <memory>
 #include "dummy_test_allocator.hpp"
 #include "movable_int.hpp"
 #include "list_test.hpp"
+#include "propagate_allocator_test.hpp"
 #include "emplace_test.hpp"
 
 using namespace boost::container;
 
+namespace boost {
+namespace container {
+
 //Explicit instantiation to detect compilation errors
-template class boost::container::slist<test::movable_and_copyable_int, 
+template class boost::container::slist<test::movable_and_copyable_int,
+   test::simple_allocator<test::movable_and_copyable_int> >;
+
+template class boost::container::slist<test::movable_and_copyable_int,
    test::dummy_test_allocator<test::movable_and_copyable_int> >;
+
+template class boost::container::slist<test::movable_and_copyable_int,
+   std::allocator<test::movable_and_copyable_int> >;
+}}
 
 typedef slist<int> MyList;
 typedef slist<test::movable_int> MyMoveList;
@@ -75,6 +87,9 @@ int main ()
 
    if(!boost::container::test::test_emplace
       < slist<test::EmplaceInt>, Options>())
+      return 1;
+
+   if(!boost::container::test::test_propagate_allocator<slist>())
       return 1;
 }
 

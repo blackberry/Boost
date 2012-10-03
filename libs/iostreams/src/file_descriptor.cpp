@@ -263,7 +263,15 @@ std::streamsize file_descriptor_impl::read(char* s, std::streamsize n)
 #ifdef BOOST_IOSTREAMS_WINDOWS
     DWORD result;
     if (!::ReadFile(handle_, s, n, &result, NULL))
-        throw_system_failure("failed reading");
+    {
+        // report EOF if the write-side of a pipe has been closed
+        if (GetLastError() == ERROR_BROKEN_PIPE)
+        {
+            result = 0;
+        }
+        else
+            throw_system_failure("failed reading");
+    }
     return result == 0 ? -1 : static_cast<std::streamsize>(result);
 #else // #ifdef BOOST_IOSTREAMS_WINDOWS
     errno = 0;

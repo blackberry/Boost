@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../interprocess.html" title="Chapter&#160;11.&#160;Boost.Interprocess">
+<link rel="up" href="../interprocess.html" title="Chapter&#160;12.&#160;Boost.Interprocess">
 <link rel="prev" href="streams.html" title="Direct iostream formatting: vectorstream and bufferstream">
 <link rel="next" href="architecture.html" title="Architecture and internals">
 </head>
@@ -69,12 +69,12 @@
       </p>
 <pre class="programlisting"><span class="comment">//!The intrusive_ptr class template stores a pointer to an object</span>
 <span class="comment">//!with an embedded reference count. intrusive_ptr is parameterized on</span>
-<span class="comment">//!T (the type of the object pointed to) and VoidPointer(a void pointer type </span>
+<span class="comment">//!T (the type of the object pointed to) and VoidPointer(a void pointer type</span>
 <span class="comment">//!that defines the type of pointer that intrusive_ptr will store).</span>
 <span class="comment">//!intrusive_ptr&lt;T, void *&gt; defines a class with a T* member whereas</span>
 <span class="comment">//!intrusive_ptr&lt;T, offset_ptr&lt;void&gt; &gt; defines a class with a offset_ptr&lt;T&gt; member.</span>
 <span class="comment">//!Relies on unqualified calls to:</span>
-<span class="comment">//! </span>
+<span class="comment">//!</span>
 <span class="comment">//!void intrusive_ptr_add_ref(T * p);</span>
 <span class="comment">//!void intrusive_ptr_release(T * p);</span>
 <span class="comment">//!</span>
@@ -203,14 +203,14 @@
         how the pointer passed to the scoped_ptr must be destroyed. Also, the <code class="computeroutput"><span class="identifier">pointer</span></code> typedef of the deleter will specify
         the pointer type stored by scoped_ptr.
       </p>
-<pre class="programlisting"><span class="comment">//!scoped_ptr stores a pointer to a dynamically allocated object. </span>
+<pre class="programlisting"><span class="comment">//!scoped_ptr stores a pointer to a dynamically allocated object.</span>
 <span class="comment">//!The object pointed to is guaranteed to be deleted, either on destruction</span>
 <span class="comment">//!of the scoped_ptr, or via an explicit reset. The user can avoid this</span>
 <span class="comment">//!deletion using release().</span>
-<span class="comment">//!scoped_ptr is parameterized on T (the type of the object pointed to) and </span>
+<span class="comment">//!scoped_ptr is parameterized on T (the type of the object pointed to) and</span>
 <span class="comment">//!Deleter (the functor to be executed to delete the internal pointer).</span>
-<span class="comment">//!The internal pointer will be of the same pointer type as typename </span>
-<span class="comment">//!Deleter::pointer type (that is, if typename Deleter::pointer is </span>
+<span class="comment">//!The internal pointer will be of the same pointer type as typename</span>
+<span class="comment">//!Deleter::pointer type (that is, if typename Deleter::pointer is</span>
 <span class="comment">//!offset_ptr&lt;void&gt;, the internal pointer will be offset_ptr&lt;T&gt;).</span>
 <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Deleter</span><span class="special">&gt;</span>
 <span class="keyword">class</span> <span class="identifier">scoped_ptr</span><span class="special">;</span>
@@ -441,7 +441,7 @@
 <p>
         To simplify this usage, <code class="computeroutput"><a class="link" href="../boost/interprocess/shared_ptr.html" title="Class template shared_ptr">boost::interprocess::shared_ptr</a></code>
         header offers a shared pointer definition helper class (<code class="computeroutput"><a class="link" href="../boost/interprocess/managed_shared_ptr.html" title="Struct template managed_shared_ptr">managed_shared_ptr</a></code>)
-        and a function (<code class="computeroutput"><a class="link" href="../boost/interprocess/make_managed_shared_ptr_id974002.html" title="Function template make_managed_shared_ptr">make_managed_shared_ptr</a></code>)
+        and a function (<code class="computeroutput"><a class="link" href="../boost/interprocess/make_managed_sha_id1000089.html" title="Function template make_managed_shared_ptr">make_managed_shared_ptr</a></code>)
         to easily construct a shared pointer from a type allocated in a managed segment
         with an allocator that will allocate the reference count also in the managed
         segment and a deleter that will erase the object from the segment.
@@ -738,7 +738,7 @@
       <span class="comment">//Now insert all values</span>
       <span class="keyword">for</span><span class="special">(</span><span class="keyword">int</span> <span class="identifier">i</span> <span class="special">=</span> <span class="number">0</span><span class="special">;</span> <span class="identifier">i</span> <span class="special">&lt;</span> <span class="number">100</span><span class="special">;</span> <span class="special">++</span><span class="identifier">i</span><span class="special">){</span>
          <span class="identifier">unique_ptr_type</span> <span class="identifier">p</span><span class="special">(</span><span class="identifier">make_managed_unique_ptr</span><span class="special">(</span><span class="identifier">file</span><span class="special">.</span><span class="identifier">construct</span><span class="special">&lt;</span><span class="identifier">MyType</span><span class="special">&gt;(</span><span class="identifier">anonymous_instance</span><span class="special">)(</span><span class="identifier">i</span><span class="special">),</span> <span class="identifier">file</span><span class="special">));</span>
-         <span class="identifier">unique_vector</span><span class="special">-&gt;</span><span class="identifier">push_back</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">interprocess</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">p</span><span class="special">));</span>
+         <span class="identifier">unique_vector</span><span class="special">-&gt;</span><span class="identifier">push_back</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">p</span><span class="special">));</span>
          <span class="identifier">assert</span><span class="special">(</span><span class="identifier">unique_vector</span><span class="special">-&gt;</span><span class="identifier">back</span><span class="special">()-&gt;</span><span class="identifier">number_</span> <span class="special">==</span> <span class="identifier">i</span><span class="special">);</span>
       <span class="special">}</span>
 
@@ -748,7 +748,7 @@
 
       <span class="comment">//Pass ownership of all values to the list</span>
       <span class="keyword">for</span><span class="special">(</span><span class="keyword">int</span> <span class="identifier">i</span> <span class="special">=</span> <span class="number">99</span><span class="special">;</span> <span class="special">!</span><span class="identifier">unique_vector</span><span class="special">-&gt;</span><span class="identifier">empty</span><span class="special">();</span> <span class="special">--</span><span class="identifier">i</span><span class="special">){</span>
-         <span class="identifier">unique_list</span><span class="special">-&gt;</span><span class="identifier">push_front</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">interprocess</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">unique_vector</span><span class="special">-&gt;</span><span class="identifier">back</span><span class="special">()));</span>
+         <span class="identifier">unique_list</span><span class="special">-&gt;</span><span class="identifier">push_front</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">unique_vector</span><span class="special">-&gt;</span><span class="identifier">back</span><span class="special">()));</span>
          <span class="comment">//The unique ptr of the vector is now empty...</span>
          <span class="identifier">assert</span><span class="special">(</span><span class="identifier">unique_vector</span><span class="special">-&gt;</span><span class="identifier">back</span><span class="special">()</span> <span class="special">==</span> <span class="number">0</span><span class="special">);</span>
          <span class="identifier">unique_vector</span><span class="special">-&gt;</span><span class="identifier">pop_back</span><span class="special">();</span>
@@ -788,7 +788,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2005-2010 Ion Gaztanaga<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2005-2011 Ion Gaztanaga<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

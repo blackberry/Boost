@@ -30,6 +30,8 @@ class Base
    
    virtual Base *clone() const
    {  return new Base(*this);  }
+
+   virtual ~Base(){}
 };
 
 class Member

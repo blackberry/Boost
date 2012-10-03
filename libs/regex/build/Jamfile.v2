@@ -15,7 +15,7 @@ local disable-icu = [ MATCH (--disable-icu) : [ modules.peek : ARGV ] ] ;
 rule path_options ( properties * )
 {
     local result ;
-    if <address-model>64 in $(properties)
+    if <address-model>64 in $(properties) && <toolset>msvc in $(properties) 
     {
     	result = <search>$(ICU_PATH)/bin64 <search>$(ICU_PATH)/lib64 ;
     }
@@ -48,17 +48,21 @@ if ! $(disable-icu)
    }
    else
    {
-      lib icuuc : :                                           <link>shared <runtime-link>shared <conditional>@path_options ;
-      lib icuuc : : <toolset>msvc <variant>debug <name>icuucd <link>shared <runtime-link>shared <conditional>@path_options ;
+      lib icuuc : :                                                               <link>shared <runtime-link>shared <conditional>@path_options ;
+      lib icuuc : : <toolset>msvc                     <variant>debug <name>icuucd <link>shared <runtime-link>shared <conditional>@path_options ;
+      lib icuuc : : <toolset>intel <target-os>windows <variant>debug <name>icuucd <link>shared <runtime-link>shared <conditional>@path_options ;
       lib icuuc : : <name>this_is_an_invalid_library_name ;
 
-      lib icudt : : <name>icudata               <link>shared <runtime-link>shared <conditional>@path_options ;
-      lib icudt : : <name>icudt   <toolset>msvc <link>shared <runtime-link>shared <conditional>@path_options ;
+      lib icudt : : <name>icudata                                   <link>shared <runtime-link>shared <conditional>@path_options ;
+      lib icudt : : <name>icudt   <toolset>msvc                     <link>shared <runtime-link>shared <conditional>@path_options ;
+      lib icudt : : <name>icudt   <toolset>intel <target-os>windows <link>shared <runtime-link>shared <conditional>@path_options ;
       lib icudt : : <name>this_is_an_invalid_library_name ;
 
-      lib icuin : :                                <name>icui18n <link>shared <runtime-link>shared <conditional>@path_options ;
-      lib icuin : : <toolset>msvc <variant>debug   <name>icuind  <link>shared <runtime-link>shared <conditional>@path_options ;
-      lib icuin : : <toolset>msvc <variant>release <name>icuin   <link>shared <runtime-link>shared <conditional>@path_options ;
+      lib icuin : :                                                    <name>icui18n <link>shared <runtime-link>shared <conditional>@path_options ;
+      lib icuin : : <toolset>msvc                     <variant>debug   <name>icuind  <link>shared <runtime-link>shared <conditional>@path_options ;
+      lib icuin : : <toolset>msvc                     <variant>release <name>icuin   <link>shared <runtime-link>shared <conditional>@path_options ;
+      lib icuin : : <toolset>intel <target-os>windows <variant>debug   <name>icuind  <link>shared <runtime-link>shared <conditional>@path_options ;
+      lib icuin : : <toolset>intel <target-os>windows <variant>release <name>icuin   <link>shared <runtime-link>shared <conditional>@path_options ;
       lib icuin : : <name>this_is_an_invalid_library_name ;
 
       if $(ICU_PATH)
@@ -144,6 +148,7 @@ lib boost_regex : ../src/$(SOURCES) icu_options
     ;
 
 boost-install boost_regex ;
+
 
 
 

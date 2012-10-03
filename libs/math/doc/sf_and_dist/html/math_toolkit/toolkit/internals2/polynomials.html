@@ -22,16 +22,15 @@
 <div class="spirit-nav">
 <a accesskey="p" href="../internals2.html"><img src="../../../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../internals2.html"><img src="../../../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="minimax.html"><img src="../../../../../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
-<div class="section">
+<div class="section math_toolkit_toolkit_internals2_polynomials">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="math_toolkit.toolkit.internals2.polynomials"></a><a class="link" href="polynomials.html" title="Polynomials">Polynomials</a>
 </h4></div></div></div>
-<a name="math_toolkit.toolkit.internals2.polynomials.synopsis"></a><h5>
-<a name="math_toolkit.toolkit.internals2.polynomials.synopsis-heading"></a>
-          <a class="link" href="polynomials.html#math_toolkit.toolkit.internals2.polynomials.synopsis">Synopsis</a>
+<h5>
+<a name="math_toolkit.toolkit.internals2.polynomials.h0"></a>
+          <span><a name="math_toolkit.toolkit.internals2.polynomials.synopsis"></a></span><a class="link" href="polynomials.html#math_toolkit.toolkit.internals2.polynomials.synopsis">Synopsis</a>
         </h5>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">math</span><span class="special">/</span><span class="identifier">tools</span><span class="special">/</span><span class="identifier">polynomial</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 </pre>
@@ -53,7 +52,7 @@
    <span class="identifier">polynomial</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">U</span><span class="special">*</span> <span class="identifier">data</span><span class="special">,</span> <span class="keyword">unsigned</span> <span class="identifier">order</span><span class="special">);</span>
    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">U</span><span class="special">&gt;</span>
    <span class="identifier">polynomial</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">U</span><span class="special">&amp;</span> <span class="identifier">point</span><span class="special">);</span>
-   
+
    <span class="comment">// access:</span>
    <span class="identifier">size_type</span> <span class="identifier">size</span><span class="special">()</span><span class="keyword">const</span><span class="special">;</span>
    <span class="identifier">size_type</span> <span class="identifier">degree</span><span class="special">()</span><span class="keyword">const</span><span class="special">;</span>
@@ -97,14 +96,14 @@
 <span class="identifier">polynomial</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">operator</span> <span class="special">*</span> <span class="special">(</span><span class="keyword">const</span> <span class="identifier">U</span><span class="special">&amp;</span> <span class="identifier">a</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">polynomial</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&amp;</span> <span class="identifier">b</span><span class="special">);</span>
 
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">charT</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">traits</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span>
-<span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_ostream</span><span class="special">&lt;</span><span class="identifier">charT</span><span class="special">,</span> <span class="identifier">traits</span><span class="special">&gt;&amp;</span> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span> 
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_ostream</span><span class="special">&lt;</span><span class="identifier">charT</span><span class="special">,</span> <span class="identifier">traits</span><span class="special">&gt;&amp;</span> <span class="keyword">operator</span> <span class="special">&lt;&lt;</span>
    <span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_ostream</span><span class="special">&lt;</span><span class="identifier">charT</span><span class="special">,</span> <span class="identifier">traits</span><span class="special">&gt;&amp;</span> <span class="identifier">os</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">polynomial</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;&amp;</span> <span class="identifier">poly</span><span class="special">);</span>
 
 <span class="special">}}}</span> <span class="comment">// namespaces</span>
 </pre>
-<a name="math_toolkit.toolkit.internals2.polynomials.description"></a><h5>
-<a name="math_toolkit.toolkit.internals2.polynomials.description-heading"></a>
-          <a class="link" href="polynomials.html#math_toolkit.toolkit.internals2.polynomials.description">Description</a>
+<h5>
+<a name="math_toolkit.toolkit.internals2.polynomials.h1"></a>
+          <span><a name="math_toolkit.toolkit.internals2.polynomials.description"></a></span><a class="link" href="polynomials.html#math_toolkit.toolkit.internals2.polynomials.description">Description</a>
         </h5>
 <p>
           This is a fairly trivial class for polynomial manipulation.
@@ -123,7 +122,7 @@
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
 <td align="right"><div class="copyright-footer">Copyright &#169; 2006-2010 John Maddock, Paul A. Bristow, Hubert Holin, Xiaogang Zhang, Bruno
-      Lalande, Johan R&#229;de, Gautam Sewani and Thijs van den Berg<p>
+      Lalande, Johan R&#229;de, Gautam Sewani, Thijs van den Berg and Benjamin Sobotta<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

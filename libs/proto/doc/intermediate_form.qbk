@@ -23,7 +23,7 @@
     Understanding and Introspecting Expressions]
 [/================================================================================]
 
-By now, you know a bit about how to build a front-end for your DSEL "compiler" -- you can define terminals and functions that generate expression templates. But we haven't said anything about the expression templates themselves. What do they look like? What can you do with them? In this section we'll see.
+By now, you know a bit about how to build a front-end for your EDSL "compiler" -- you can define terminals and functions that generate expression templates. But we haven't said anything about the expression templates themselves. What do they look like? What can you do with them? In this section we'll see.
 
 [/=========================]
 [heading The [^expr<>] Type]
@@ -287,7 +287,7 @@ There are also _result_of_child_, _result_of_left_, and _result_of_right_ metafu
 [section Deep-copying Expressions]
 [/===============================]
 
-When you build an expression template with Proto, all the intermediate child nodes are held /by reference/. The avoids needless copies, which is crucial if you want your DSEL to perform well at runtime. Naturally, there is a danger if the temporary objects go out of scope before you try to evaluate your expression template. This is especially a problem in C++0x with the new `decltype` and `auto` keywords. Consider:
+When you build an expression template with Proto, all the intermediate child nodes are held /by reference/. The avoids needless copies, which is crucial if you want your EDSL to perform well at runtime. Naturally, there is a danger if the temporary objects go out of scope before you try to evaluate your expression template. This is especially a problem in C++0x with the new `decltype` and `auto` keywords. Consider:
 
     // OOPS: "ex" is left holding dangling references
     auto ex = proto::lit(1) + 2;
@@ -322,7 +322,7 @@ When deep-copying an expression tree, all intermediate nodes and all terminals a
 [section Debugging Expressions]
 [/============================]
 
-Proto provides a utility for pretty-printing expression trees that comes in very handy when you're trying to debug your DSEL. It's called _display_expr_, and you pass it the expression to print and optionally, an `std::ostream` to which to send the output. Consider:
+Proto provides a utility for pretty-printing expression trees that comes in very handy when you're trying to debug your EDSL. It's called _display_expr_, and you pass it the expression to print and optionally, an `std::ostream` to which to send the output. Consider:
 
     // Use display_expr() to pretty-print an expression tree
     proto::display_expr(
@@ -661,7 +661,7 @@ Expression trees can have a very rich and complicated structure. Often, you need
 [section:patterns Finding Patterns in Expressions]
 [/===============================================]
 
-Imagine your DSEL is a miniature I/O facility, with iostream operations that execute lazily. You might want expressions representing input operations to be processed by one function, and output operations to be processed by a different function. How would you do that?
+Imagine your EDSL is a miniature I/O facility, with iostream operations that execute lazily. You might want expressions representing input operations to be processed by one function, and output operations to be processed by a different function. How would you do that?
 
 The answer is to write patterns (a.k.a, /grammars/) that match the structure of input and output expressions. Proto provides utilities for defining the grammars, and the _matches_ template for checking whether a given expression type matches the grammar.
 
@@ -829,7 +829,7 @@ Now, `CharString` does not match array types, only character string pointers.
 
 The inverse problem is a little trickier: what if you wanted to match all character  arrays, but not character pointers? As mentioned above, the expression `as_expr("hello")` has the type `proto::terminal< char const[ 6 ] >::type`. If you wanted to match character arrays of arbitrary size, you could use `proto::N`, which is an array-size wildcard. The following grammar would match any string literal: `proto::terminal< char const[ proto::N ] >`.
 
-Sometimes you need even more wiggle room when matching terminals. For example, maybe you're building a calculator DSEL and you want to allow any terminals that are convertible to `double`. For that, Proto provides the _convertible_to_ template. You can use it as: `proto::terminal< proto::convertible_to< double > >`.
+Sometimes you need even more wiggle room when matching terminals. For example, maybe you're building a calculator EDSL and you want to allow any terminals that are convertible to `double`. For that, Proto provides the _convertible_to_ template. You can use it as: `proto::terminal< proto::convertible_to< double > >`.
 
 There is one more way you can perform a fuzzy match on terminals. Consider the problem of trying to match a `std::complex<>` terminal. You can easily match a `std::complex<float>` or a `std::complex<double>`, but how would you match any instantiation of `std::complex<>`? You can use `proto::_` here to solve this problem. Here is the grammar to match any `std::complex<>` instantiation:
 
@@ -892,7 +892,7 @@ Let's illustrate how to use _switch_ by first writing a big grammar with _or_ an
         >
     {};
 
-The above might be the grammar to a more elaborate calculator DSEL. Notice that since there are more than eight sub-grammars, we had to chain the sub-grammars with a nested _or_ -- not very nice.
+The above might be the grammar to a more elaborate calculator EDSL. Notice that since there are more than eight sub-grammars, we had to chain the sub-grammars with a nested _or_ -- not very nice.
 
 The idea behind _switch_ is to dispatch based on an expression's tag type to a sub-grammar that handles expressions of that type. To use _switch_, you define a struct with a nested `case_<>` template, specialized on tag types. The above grammar can be expressed using _switch_ as follows. It is described below.
 
@@ -1056,24 +1056,24 @@ Here's a hint: the first template parameter to `proto::nary_expr<>` represents t
 [endsect]
 
 [/=============================]
-[section Defining DSEL Grammars]
+[section Defining EDSL Grammars]
 [/=============================]
 
-In this section we'll see how to use Proto to define a grammar for your DSEL and  use it to validate expression templates, giving short, readable compile-time errors  for invalid expressions.
+In this section we'll see how to use Proto to define a grammar for your EDSL and  use it to validate expression templates, giving short, readable compile-time errors  for invalid expressions.
 
 [tip You might think that this is a backwards way of doing things. ["If Proto let 
 me select which operators to overload, my users wouldn't be able to create invalid 
 expressions in the first place, and I wouldn't need a grammar at all!] That may be 
 true, but there are reasons for preferring to do things this way.
 
-First, it lets you develop your DSEL rapidly -- all the operators are there for you 
+First, it lets you develop your EDSL rapidly -- all the operators are there for you 
 already! -- and worry about invalid syntax later.
 
 Second, it might be the case that some operators are only allowed in certain 
-contexts within your DSEL. This is easy to express with a grammar, and hard to do 
+contexts within your EDSL. This is easy to express with a grammar, and hard to do 
 with straight operator overloading.
 
-Third, using a DSEL grammar to flag invalid expressions can often yield better 
+Third, using an EDSL grammar to flag invalid expressions can often yield better 
 errors than manually selecting the overloaded operators.
 
 Fourth, the grammar can be used for more than just validation. You can use your 
@@ -1084,7 +1084,7 @@ If none of the above convinces you, you actually /can/ use Proto to control whic
 operators are overloaded within your domain. And to do it, you need to define a 
 grammar!]
 
-In a previous section, we used Proto to define a DSEL for a lazily evaluated calculator that allowed any combination of placeholders, floating-point literals, addition, subtraction, multiplication, division and grouping. If we were to write the grammar for this DSEL in [@http://en.wikipedia.org/wiki/Extended_Backus_Naur_Form EBNF], it might look like this:
+In a previous section, we used Proto to define an EDSL for a lazily evaluated calculator that allowed any combination of placeholders, floating-point literals, addition, subtraction, multiplication, division and grouping. If we were to write the grammar for this EDSL in [@http://en.wikipedia.org/wiki/Extended_Backus_Naur_Form EBNF], it might look like this:
 
 [pre
 group       ::= '(' expression ')'
@@ -1094,7 +1094,7 @@ expression  ::= term (('+' term) | ('-' term))*
 ]
 
 This captures the syntax, associativity and precedence rules of a calculator.
-Writing the grammar for our calculator DSEL using Proto is /even simpler/.
+Writing the grammar for our calculator EDSL using Proto is /even simpler/.
 Since we are using C++ as the host language, we are bound to the associativity
 and precedence rules for the C++ operators. Our grammar can assume them. Also,
 in C++ grouping is already handled for us with the use of parenthesis, so we

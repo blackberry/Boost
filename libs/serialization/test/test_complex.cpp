@@ -12,18 +12,24 @@
 
 #include <cstddef> // NULL
 #include <cstdlib> // rand
-#include <limits> 
-#include <boost/config.hpp>
-
 #include <cstdio> // remove
+#include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
+#include <boost/limits.hpp>
+
 #if defined(BOOST_NO_STDC_NAMESPACE)
-namespace std{ 
+namespace std{
+    using ::rand; 
+    using ::fabs; 
     using ::remove;
-#ifndef UNDER_CE    
-    using ::numeric_limits;
-#endif
+    #if BOOST_WORKAROUND(BOOST_MSVC, >= 1400) && !defined(UNDER_CE)
+        using ::numeric_limits;
+    #endif
 }
 #endif
+
+#include <boost/config.hpp>
+#include <boost/limits.hpp> 
 
 #include "test_tools.hpp"
 #include <boost/preprocessor/stringize.hpp>

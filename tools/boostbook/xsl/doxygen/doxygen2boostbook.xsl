@@ -1170,6 +1170,10 @@
         </xsl:attribute>
       </xsl:if>
 
+      <xsl:if test="@explicit = 'yes'">
+        <xsl:attribute name="specifiers">explicit</xsl:attribute>
+      </xsl:if>
+
       <!-- Conversion type -->
       <type>
         <xsl:value-of select="substring-after(name/text(), 'operator ')"/>

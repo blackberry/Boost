@@ -1,6 +1,6 @@
 // Copyright (C) 2007-8 Anthony Williams
 //
-//  Distributed under the Boost Software License, Version 1.0. (See accompanying 
+//  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #include <boost/thread/thread.hpp>
 #include <boost/test/unit_test.hpp>
@@ -40,7 +40,7 @@ void test_thread_function_one_argument()
 struct callable_no_args
 {
     static bool called;
-    
+
     void operator()() const
     {
         called=true;
@@ -61,7 +61,7 @@ struct callable_noncopyable_no_args:
     boost::noncopyable
 {
     static bool called;
-    
+
     void operator()() const
     {
         called=true;
@@ -73,7 +73,7 @@ bool callable_noncopyable_no_args::called=false;
 void test_thread_callable_object_ref_no_arguments()
 {
     callable_noncopyable_no_args func;
-    
+
     boost::thread callable(boost::ref(func));
     callable.join();
     BOOST_CHECK(callable_noncopyable_no_args::called);
@@ -83,7 +83,7 @@ struct callable_one_arg
 {
     static bool called;
     static int called_arg;
-    
+
     void operator()(int arg) const
     {
         called=true;
@@ -112,7 +112,7 @@ struct callable_multiple_arg
     static std::string called_three_arg1;
     static std::vector<int> called_three_arg2;
     static int called_three_arg3;
-    
+
     void operator()(int arg1,double arg2) const
     {
         called_two=true;
@@ -145,8 +145,10 @@ void test_thread_callable_object_multiple_arguments()
     }
 
     callable_multiple_arg func;
-    
-    boost::thread callable3(func,"hello",x,1.2);
+    // Avoid
+    // boost/bind/bind.hpp(392) : warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
+
+    boost::thread callable3(func,"hello",x,1);
     callable3.join();
     BOOST_CHECK(callable_multiple_arg::called_three);
     BOOST_CHECK_EQUAL(callable_multiple_arg::called_three_arg1,"hello");
@@ -155,11 +157,11 @@ void test_thread_callable_object_multiple_arguments()
     {
         BOOST_CHECK_EQUAL(callable_multiple_arg::called_three_arg2.at(j),x[j]);
     }
-    
+
     BOOST_CHECK_EQUAL(callable_multiple_arg::called_three_arg3,1);
 
     double const dbl=1.234;
-    
+
     boost::thread callable2(func,19,dbl);
     callable2.join();
     BOOST_CHECK(callable_multiple_arg::called_two);
@@ -176,7 +178,7 @@ struct X
         function_called(false),
         arg_value(0)
     {}
-    
+
 
     void f0()
     {
@@ -193,7 +195,7 @@ struct X
 void test_thread_member_function_no_arguments()
 {
     X x;
-    
+
     boost::thread function(&X::f0,&x);
     function.join();
     BOOST_CHECK(x.function_called);
@@ -209,9 +211,9 @@ void test_thread_member_function_one_argument()
 }
 
 
-boost::unit_test_framework::test_suite* init_unit_test_suite(int, char*[])
+boost::unit_test::test_suite* init_unit_test_suite(int, char*[])
 {
-    boost::unit_test_framework::test_suite* test =
+    boost::unit_test::test_suite* test =
         BOOST_TEST_SUITE("Boost.Threads: thread launching test suite");
 
     test->add(BOOST_TEST_CASE(test_thread_function_no_arguments));
@@ -223,4 +225,18 @@ boost::unit_test_framework::test_suite* init_unit_test_suite(int, char*[])
     test->add(BOOST_TEST_CASE(test_thread_member_function_no_arguments));
     test->add(BOOST_TEST_CASE(test_thread_member_function_one_argument));
     return test;
+}
+
+void remove_unused_warning()
+{
+
+  //../../../boost/test/results_collector.hpp:40:13: warning: unused function 'first_failed_assertion' [-Wunused-function]
+  //(void)boost::unit_test::first_failed_assertion;
+
+  //../../../boost/test/tools/floating_point_comparison.hpp:304:25: warning: unused variable 'check_is_close' [-Wunused-variable]
+  //../../../boost/test/tools/floating_point_comparison.hpp:326:25: warning: unused variable 'check_is_small' [-Wunused-variable]
+  (void)boost::test_tools::check_is_close;
+  (void)boost::test_tools::check_is_small;
+
+
 }

@@ -20,10 +20,11 @@ a `char const(&)[13]`, `"Hello, World"`.
 
 [heading Lazy Evaluation]
 
-Confused? `val(3)` is a unary function, you say? Yes it is. However, read
-carefully: /"evaluates to a nullary function"/. `val(3)` evaluates to (returns) a
-nullary function. Aha! `val(3)` returns a function! So, since `val(3)` returns a
-function, you can invoke it. Example:
+Confused? `val` is a unary function and `val(3)` invokes it, you say?
+Yes. However, read carefully: /"evaluates to a nullary function"/.
+`val(3)` evaluates to (returns) a nullary function. Aha! `val(3)`
+returns a function! So, since `val(3)` returns a function, you can
+invoke it. Example:
 
     std::cout << val(3)() << std::endl;
 

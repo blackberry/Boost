@@ -101,7 +101,7 @@ struct calculator_expression
       : base_type(expr)
     {}
 
-    BOOST_PROTO_EXTENDS_USING_ASSIGN(calculator_expression)
+    BOOST_PROTO_EXTENDS_USING_ASSIGN(calculator_expression<Expr>)
 
     // Override operator () to evaluate the expression
     double operator ()() const

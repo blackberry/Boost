@@ -8,6 +8,9 @@
   -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="1.0">
+
+  <xsl:param name="template.param.brief" select="false()"/>
+  
   <!-- Determine the length of a template header synopsis -->
   <xsl:template name="template.synopsis.length">
     <xsl:variable name="text">
@@ -235,7 +238,7 @@
     <xsl:param name="parameters" select="template-type-parameter|template-varargs|template-nontype-parameter"/>
 
     <xsl:choose>
-      <xsl:when test="$parameters/purpose">
+      <xsl:when test="$parameters/purpose and $template.param.brief">
         <xsl:call-template name="template.reference.parameters.comments">
           <xsl:with-param name="indentation" select="$indentation"/>
           <xsl:with-param name="highlight" select="$highlight"/>

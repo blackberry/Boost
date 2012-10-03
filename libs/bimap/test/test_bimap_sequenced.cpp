@@ -81,6 +81,9 @@ void test_bimap()
         test_sequence_container(b.left , left_data);
         test_sequence_container(b.right,right_data);
 
+        test_mapped_container(b.left );
+        test_mapped_container(b.right);
+
         bm_type c;
 
         // Test assign

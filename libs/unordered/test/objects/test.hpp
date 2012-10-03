@@ -22,11 +22,14 @@ namespace test
     class hash;
     class less;
     class equal_to;
-    template <class T> class allocator;
+    template <class T> class allocator1;
+    template <class T> class allocator2;
     object generate(object const*);
     implicitly_convertible generate(implicitly_convertible const*);
-    
-    class object : private globally_counted_object
+
+    inline void ignore_variable(void const*) {}
+
+    class object : private counted_object
     {
         friend class hash;
         friend class equal_to;
@@ -64,7 +67,7 @@ namespace test
         }
     };
 
-    class implicitly_convertible : private globally_counted_object
+    class implicitly_convertible : private counted_object
     {
         int tag1_, tag2_;
     public:
@@ -183,13 +186,100 @@ namespace test
         }
     };
 
+    // allocator1 and allocator2 are pretty similar.
+    // allocator1 only has the old fashioned 'construct' method and has
+    // a few less typedefs
+
     template <class T>
-    class allocator
+    class allocator1
+    {
+    public:
+        int tag_;
+
+        typedef T value_type;
+
+        template <class U> struct rebind { typedef allocator1<U> other; };
+
+        explicit allocator1(int t = 0) : tag_(t)
+        {
+            detail::tracker.allocator_ref();
+        }
+
+        template <class Y> allocator1(allocator1<Y> const& x)
+            : tag_(x.tag_)
+        {
+            detail::tracker.allocator_ref();
+        }
+
+        allocator1(allocator1 const& x)
+            : tag_(x.tag_)
+        {
+            detail::tracker.allocator_ref();
+        }
+
+        ~allocator1()
+        {
+            detail::tracker.allocator_unref();
+        }
+
+        T* allocate(std::size_t n) {
+            T* ptr(static_cast<T*>(::operator new(n * sizeof(T))));
+            detail::tracker.track_allocate((void*) ptr, n, sizeof(T), tag_);
+            return ptr;
+        }
+
+        T* allocate(std::size_t n, void const* u)
+        {
+            T* ptr(static_cast<T*>(::operator new(n * sizeof(T))));
+            detail::tracker.track_allocate((void*) ptr, n, sizeof(T), tag_);
+            return ptr;
+        }
+
+        void deallocate(T* p, std::size_t n)
+        {
+            detail::tracker.track_deallocate((void*) p, n, sizeof(T), tag_);
+            ::operator delete((void*) p);
+        }
+
+        void construct(T* p, T const& t) {
+            // Don't count constructions here as it isn't always called.
+            //detail::tracker.track_construct((void*) p, sizeof(T), tag_);
+            new(p) T(t);
+        }
+
+        void destroy(T* p) {
+            //detail::tracker.track_destroy((void*) p, sizeof(T), tag_);
+            p->~T();
+
+            // Work around MSVC buggy unused parameter warning.
+            ignore_variable(&p);
+        }
+
+        bool operator==(allocator1 const& x) const
+        {
+            return tag_ == x.tag_;
+        }
+
+        bool operator!=(allocator1 const& x) const
+        {
+            return tag_ != x.tag_;
+        }
+
+        enum {
+            is_select_on_copy = false,
+            is_propagate_on_swap = false,
+            is_propagate_on_assign = false,
+            is_propagate_on_move = false
+        };
+    };
+
+    template <class T>
+    class allocator2
     {
 # ifdef BOOST_NO_MEMBER_TEMPLATE_FRIENDS
     public:
 # else
-        template <class> friend class allocator;
+        template <class> friend class allocator2;
 # endif
         int tag_;
     public:
@@ -201,26 +291,26 @@ namespace test
         typedef T const& const_reference;
         typedef T value_type;
 
-        template <class U> struct rebind { typedef allocator<U> other; };
+        template <class U> struct rebind { typedef allocator2<U> other; };
 
-        explicit allocator(int t = 0) : tag_(t)
+        explicit allocator2(int t = 0) : tag_(t)
         {
             detail::tracker.allocator_ref();
         }
         
-        template <class Y> allocator(allocator<Y> const& x)
+        template <class Y> allocator2(allocator2<Y> const& x)
             : tag_(x.tag_)
         {
             detail::tracker.allocator_ref();
         }
 
-        allocator(allocator const& x)
+        allocator2(allocator2 const& x)
             : tag_(x.tag_)
         {
             detail::tracker.allocator_ref();
         }
 
-        ~allocator()
+        ~allocator2()
         {
             detail::tracker.allocator_unref();
         }
@@ -259,10 +349,10 @@ namespace test
             new(p) T(t);
         }
 
-#if defined(BOOST_UNORDERED_STD_FORWARD_MOVE)
-        template<class... Args> void construct(T* p, Args&&... args) {
+#if !defined(BOOST_NO_VARIADIC_TEMPLATES)
+        template<class... Args> void construct(T* p, BOOST_FWD_REF(Args)... args) {
             detail::tracker.track_construct((void*) p, sizeof(T), tag_);
-            new(p) T(std::forward<Args>(args)...);
+            new(p) T(boost::forward<Args>(args)...);
         }
 #endif
 
@@ -275,12 +365,12 @@ namespace test
             return (std::numeric_limits<size_type>::max)();
         }
 
-        bool operator==(allocator const& x) const
+        bool operator==(allocator2 const& x) const
         {
             return tag_ == x.tag_;
         }
 
-        bool operator!=(allocator const& x) const
+        bool operator!=(allocator2 const& x) const
         {
             return tag_ != x.tag_;
         }
@@ -294,7 +384,14 @@ namespace test
     };
 
     template <class T>
-    bool equivalent_impl(allocator<T> const& x, allocator<T> const& y,
+    bool equivalent_impl(allocator1<T> const& x, allocator1<T> const& y,
+        test::derived_type)
+    {
+        return x == y;
+    }
+
+    template <class T>
+    bool equivalent_impl(allocator2<T> const& x, allocator2<T> const& y,
         test::derived_type)
     {
         return x == y;

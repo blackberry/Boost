@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -60,17 +60,17 @@ int main ()
    {
       //Now test move semantics
       managed_heap_memory original(memsize);
-      managed_heap_memory move_ctor(boost::interprocess::move(original));
+      managed_heap_memory move_ctor(boost::move(original));
       managed_heap_memory move_assign;
-      move_assign = boost::interprocess::move(move_ctor);
+      move_assign = boost::move(move_ctor);
       original.swap(move_assign);
    }
    {
       //Now test move semantics
       managed_external_buffer original(create_only, static_buffer, memsize);
-      managed_external_buffer move_ctor(boost::interprocess::move(original));
+      managed_external_buffer move_ctor(boost::move(original));
       managed_external_buffer move_assign;
-      move_assign = boost::interprocess::move(move_ctor);
+      move_assign = boost::move(move_ctor);
       original.swap(move_assign);
    }
 
@@ -83,13 +83,13 @@ int main ()
    //Test move semantics
    {
       wmanaged_external_buffer user_default;
-      wmanaged_external_buffer temp_external(boost::interprocess::move(user_buffer));
-      user_default = boost::interprocess::move(temp_external);
-      user_buffer  = boost::interprocess::move(user_default);
+      wmanaged_external_buffer temp_external(boost::move(user_buffer));
+      user_default = boost::move(temp_external);
+      user_buffer  = boost::move(user_default);
       wmanaged_heap_memory heap_default;
-      wmanaged_heap_memory temp_heap(boost::interprocess::move(heap_buffer));
-      heap_default = boost::interprocess::move(temp_heap);
-      heap_buffer  = boost::interprocess::move(heap_default);
+      wmanaged_heap_memory temp_heap(boost::move(heap_buffer));
+      heap_default = boost::move(temp_heap);
+      heap_buffer  = boost::move(heap_default);
    }
 
    //Initialize memory
@@ -201,7 +201,7 @@ int main ()
    heaplist->merge(otherheaplist, std::greater<int>());
    stdlist->merge(otherstdlist, std::greater<int>());
    if(!CheckEqual(userlist, stdlist, heaplist)) return 1;
-   
+  
    user_buffer.destroy<MyUserList>(L"MyUserList");
    delete stdlist;
 
@@ -212,10 +212,10 @@ int main ()
       }
    }
    catch(boost::interprocess::bad_alloc &){}
-   
+  
    MyHeapList::size_type heap_list_size = heaplist->size();
 
-   //Copy heap buffer to another 
+   //Copy heap buffer to another
    const char *insert_beg = static_cast<char*>(heap_buffer.get_address());
    const char *insert_end = insert_beg + heap_buffer.get_size();
    std::vector<char> grow_copy (insert_beg, insert_end);
@@ -246,7 +246,7 @@ int main ()
    }
    catch(boost::interprocess::bad_alloc &){}
 
-   MyUserList::size_type user_list_size = userlist->size();  
+   MyUserList::size_type user_list_size = userlist->size(); 
 
    if(user_list_size <= heap_list_size){
       return 1;

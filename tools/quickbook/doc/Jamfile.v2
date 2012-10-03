@@ -10,7 +10,7 @@
 
 project boost/quickbook/doc ;
 
-import boostbook : boostbook ;
+using boostbook ;
 using quickbook ;
 
 xml quickbook : quickbook.qbk ;
@@ -22,10 +22,6 @@ boostbook standalone
         quickbook
     :
         <xsl:param>boost.root=../../../..
-        <xsl:param>generate.section.toc.level=3
-        <xsl:param>chunk.section.depth=1
-        <xsl:param>chunk.first.sections=1
-
         #<xsl:param>callout.graphics.path=../../images/callouts//
         <format>pdf:<xsl:param>img.src.path=$(images)/
         <format>pdf:<xsl:param>boost.url.prefix=http://www.boost.org/doc/libs/release/doc/html

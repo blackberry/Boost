@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -22,7 +22,7 @@ using namespace boost::interprocess;
 shared_memory_object get_shared_memory_mapping()
 {
    shared_memory_object sh;
-   return shared_memory_object(boost::interprocess::move(sh));
+   return shared_memory_object(boost::move(sh));
 }
 
 int main ()
@@ -59,7 +59,7 @@ int main ()
                               ,FileSize - FileSize/2
                               ,0);
 
-         //Fill two regions with a pattern   
+         //Fill two regions with a pattern  
          unsigned char *filler = static_cast<unsigned char*>(region.get_address());
          for(std::size_t i = 0
             ;i < FileSize/2
@@ -73,7 +73,11 @@ int main ()
             ;++i){
             *filler++ = static_cast<unsigned char>(i);
          }
-         if(!region.flush()){
+         if(!region.flush(0, 0, false)){
+            return 1;
+         }
+
+         if(!region2.flush(0, 0, true)){
             return 1;
          }
       }
@@ -172,9 +176,9 @@ int main ()
       {
          //Now test move semantics
          shared_memory_object mapping(open_only, process_id.c_str(), read_write);
-         shared_memory_object move_ctor(boost::interprocess::move(mapping));
+         shared_memory_object move_ctor(boost::move(mapping));
          shared_memory_object move_assign;
-         move_assign = boost::interprocess::move(move_ctor);
+         move_assign = boost::move(move_ctor);
          shared_memory_object ret(get_shared_memory_mapping());
       }
    }

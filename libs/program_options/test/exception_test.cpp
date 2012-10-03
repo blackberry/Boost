@@ -63,7 +63,7 @@ void test_unknown_option()
    catch (unknown_option& e)
    {
       BOOST_CHECK_EQUAL(e.get_option_name(), "-f");      
-      BOOST_CHECK_EQUAL(string(e.what()), "unknown option -f");
+      BOOST_CHECK_EQUAL(string(e.what()), "unrecognised option '-f'");
    }
 }
 
@@ -94,8 +94,8 @@ void test_multiple_values()
       //   because: untyped_value always has one value and this is filtered before reach specific
       //   validation and parsing
       //
-      BOOST_CHECK_EQUAL(e.get_option_name(), "cfgfile");      
-      BOOST_CHECK_EQUAL(string(e.what()), "in option 'cfgfile': multiple values not allowed");
+      BOOST_CHECK_EQUAL(e.get_option_name(), "--cfgfile");      
+      BOOST_CHECK_EQUAL(string(e.what()), "option '--cfgfile' only takes a single argument");
    }
 }
 
@@ -118,8 +118,8 @@ void test_multiple_occurrences()
    }
    catch (multiple_occurrences& e)
    {
-      BOOST_CHECK_EQUAL(e.get_option_name(), "cfgfile");      
-      BOOST_CHECK_EQUAL(string(e.what()), "multiple occurrences");
+      BOOST_CHECK_EQUAL(e.get_option_name(), "--cfgfile");      
+      BOOST_CHECK_EQUAL(string(e.what()), "option '--cfgfile' cannot be specified more than once");
    }
 }
 
@@ -145,7 +145,7 @@ void test_missing_value()
    catch (invalid_command_line_syntax& e)
    {
       BOOST_CHECK_EQUAL(e.kind(), invalid_syntax::missing_parameter);
-      BOOST_CHECK_EQUAL(e.tokens(), "cfgfile");
+      BOOST_CHECK_EQUAL(e.tokens(), "--cfgfile");
    }
 }
 

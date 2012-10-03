@@ -49,7 +49,7 @@ bool test_node_pool<NodePool>::allocate_then_deallocate(NodePool &pool)
    if((pool.get_real_num_node() - 1) != pool.num_free_nodes()){
       return false;
    }
-   
+  
    //Now deallocate all and check again
    for(std::size_t i = 0; i < num_alloc; ++i){
        pool.deallocate_node(nodes[i]);
@@ -59,7 +59,7 @@ bool test_node_pool<NodePool>::allocate_then_deallocate(NodePool &pool)
    if(4*pool.get_real_num_node() != pool.num_free_nodes()){
       return false;
    }
-   
+  
    pool.deallocate_free_blocks();
 
    if(0 != pool.num_free_nodes()){
@@ -92,7 +92,7 @@ bool test_node_pool<NodePool>::deallocate_free_blocks(NodePool &pool)
    if(0 != pool.num_free_nodes()){
       return false;
    }
-   
+  
    //Now deallocate one of each block per iteration
    for(std::size_t node_i = 0; node_i < nodes_per_block; ++node_i){
       //Deallocate a node per block
@@ -104,7 +104,7 @@ bool test_node_pool<NodePool>::deallocate_free_blocks(NodePool &pool)
       if(max_blocks*(node_i+1) != pool.num_free_nodes()){
          return false;
       }
-      
+     
       //Now try to deallocate free blocks
       pool.deallocate_free_blocks();
 

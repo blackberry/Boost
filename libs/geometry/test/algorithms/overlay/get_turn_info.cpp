@@ -1,7 +1,7 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 // Unit Test
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -47,7 +47,11 @@ void test_with_point(std::string const& caseid,
     typedef std::vector<turn_info> tp_vector;
     turn_info model;
     tp_vector info;
-    bg::detail::overlay::get_turn_info<P, P, turn_info>::apply(pi, pj, pk, qi, qj, qk,
+    bg::detail::overlay::get_turn_info
+        <
+            P, P, turn_info,
+            bg::detail::overlay::assign_null_policy
+        >::apply(pi, pj, pk, qi, qj, qk,
         model, std::back_inserter(info));
 
 
@@ -803,14 +807,12 @@ void test_all()
             4, 3,   2, 3,   0, 3, // q
             method_touch, 2, 3, "xx");
 
-    /***
-    TODO, work this out further / check this
-    // Case where
-    test_both<P, double>("issue_buffer_mill",
-            5.1983614873206241 , 6.7259025813913107 , 5.0499999999999998 , 6.4291796067500622 , 5.1983614873206241 , 6.7259025813913107, // p
-            5.0499999999999998 , 6.4291796067500622 , 5.0499999999999998 , 6.4291796067500622 , 5.1983614873206241 , 6.7259025813913107, // q
-            method_collinear, 2, 0, "tt");
-    ***/
+    // BSG 2012-05-26 to be decided what's the problem here and what it tests... 
+    // Anyway, test results are not filled out.
+    //test_both<P, double>("issue_buffer_mill",
+    //        5.1983614873206241 , 6.7259025813913107 , 5.0499999999999998 , 6.4291796067500622 , 5.1983614873206241 , 6.7259025813913107, // p
+    //        5.0499999999999998 , 6.4291796067500622 , 5.0499999999999998 , 6.4291796067500622 , 5.1983614873206241 , 6.7259025813913107, // q
+    //        method_collinear, 2, 0, "tt");
 
 }
 

@@ -16,12 +16,12 @@
 #pragma warning(pop)
 #endif
 
-#include <boost/mpl/assert.hpp>
-#include <boost/mpl/bool.hpp>
+#include <boost/static_assert.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/limits.hpp>
+#include <boost/utility/swap.hpp>
 #include "../helpers/check_return_type.hpp"
 
 typedef long double comparison_type;
@@ -54,42 +54,38 @@ void container_test(X& r, T const&)
 
     // value_type
 
-    BOOST_MPL_ASSERT((boost::is_same<T, value_type>));
+    BOOST_STATIC_ASSERT((boost::is_same<T, value_type>::value));
     boost::function_requires<boost::CopyConstructibleConcept<X> >();
 
     // reference_type / const_reference_type
 
-    BOOST_MPL_ASSERT((boost::is_same<T&, reference>));
-    BOOST_MPL_ASSERT((boost::is_same<T const&, const_reference>));
+    BOOST_STATIC_ASSERT((boost::is_same<T&, reference>::value));
+    BOOST_STATIC_ASSERT((boost::is_same<T const&, const_reference>::value));
 
     // iterator
 
     boost::function_requires<boost::InputIteratorConcept<iterator> >();
-    BOOST_MPL_ASSERT((boost::is_same<T, iterator_value_type>));
-    BOOST_MPL_ASSERT((boost::is_convertible<iterator, const_iterator>));
+    BOOST_STATIC_ASSERT((boost::is_same<T, iterator_value_type>::value));
+    BOOST_STATIC_ASSERT((boost::is_convertible<iterator, const_iterator>::value));
 
     // const_iterator
 
     boost::function_requires<boost::InputIteratorConcept<const_iterator> >();
-    BOOST_MPL_ASSERT((boost::is_same<T, const_iterator_value_type>));
+    BOOST_STATIC_ASSERT((boost::is_same<T, const_iterator_value_type>::value));
 
     // difference_type
 
-    BOOST_MPL_ASSERT((boost::mpl::bool_<
-                std::numeric_limits<difference_type>::is_signed>));
-    BOOST_MPL_ASSERT((boost::mpl::bool_<
-                std::numeric_limits<difference_type>::is_integer>));
-    BOOST_MPL_ASSERT((boost::is_same<difference_type,
-                iterator_difference_type>));
-    BOOST_MPL_ASSERT((boost::is_same<difference_type,
-                const_iterator_difference_type>));
+    BOOST_STATIC_ASSERT(std::numeric_limits<difference_type>::is_signed);
+    BOOST_STATIC_ASSERT(std::numeric_limits<difference_type>::is_integer);
+    BOOST_STATIC_ASSERT((boost::is_same<difference_type,
+                iterator_difference_type>::value));
+    BOOST_STATIC_ASSERT((boost::is_same<difference_type,
+                const_iterator_difference_type>::value));
 
     // size_type
 
-    BOOST_MPL_ASSERT_NOT((boost::mpl::bool_<
-                std::numeric_limits<size_type>::is_signed>));
-    BOOST_MPL_ASSERT((boost::mpl::bool_<
-                std::numeric_limits<size_type>::is_integer>));
+    BOOST_STATIC_ASSERT(!std::numeric_limits<size_type>::is_signed);
+    BOOST_STATIC_ASSERT(std::numeric_limits<size_type>::is_integer);
 
     // size_type can represent any non-negative value type of difference_type
     // I'm not sure about either of these tests...
@@ -183,7 +179,7 @@ void unordered_set_test(X&, Key const&)
     typedef BOOST_DEDUCED_TYPENAME X::value_type value_type;
     typedef BOOST_DEDUCED_TYPENAME X::key_type key_type;
 
-    BOOST_MPL_ASSERT((boost::is_same<value_type, key_type>));
+    BOOST_STATIC_ASSERT((boost::is_same<value_type, key_type>::value));
 }
 
 template <class X, class Key, class T>
@@ -192,8 +188,8 @@ void unordered_map_test(X& r, Key const& k, T const& v)
     typedef BOOST_DEDUCED_TYPENAME X::value_type value_type;
     typedef BOOST_DEDUCED_TYPENAME X::key_type key_type;
 
-    BOOST_MPL_ASSERT((
-        boost::is_same<value_type, std::pair<key_type const, T> >));
+    BOOST_STATIC_ASSERT((
+        boost::is_same<value_type, std::pair<key_type const, T> >::value));
 
     r.insert(std::pair<Key const, T>(k, v));
 
@@ -312,36 +308,36 @@ void unordered_test(X& x, Key& k, Hash& hf, Pred& eq)
         boost::iterator_reference<const_local_iterator>::type
         const_local_iterator_reference;
 
-    BOOST_MPL_ASSERT((boost::is_same<Key, key_type>));
+    BOOST_STATIC_ASSERT((boost::is_same<Key, key_type>::value));
     //boost::function_requires<boost::CopyConstructibleConcept<key_type> >();
     //boost::function_requires<boost::AssignableConcept<key_type> >();
 
-    BOOST_MPL_ASSERT((boost::is_same<Hash, hasher>));
+    BOOST_STATIC_ASSERT((boost::is_same<Hash, hasher>::value));
     test::check_return_type<std::size_t>::equals(hf(k));
 
-    BOOST_MPL_ASSERT((boost::is_same<Pred, key_equal>));
+    BOOST_STATIC_ASSERT((boost::is_same<Pred, key_equal>::value));
     test::check_return_type<bool>::convertible(eq(k, k));
 
     boost::function_requires<boost::InputIteratorConcept<local_iterator> >();
-    BOOST_MPL_ASSERT((boost::is_same<local_iterator_category,
-        iterator_category>));
-    BOOST_MPL_ASSERT((boost::is_same<local_iterator_difference,
-        iterator_difference>));
-    BOOST_MPL_ASSERT((boost::is_same<local_iterator_pointer,
-        iterator_pointer>));
-    BOOST_MPL_ASSERT((boost::is_same<local_iterator_reference,
-        iterator_reference>));
+    BOOST_STATIC_ASSERT((boost::is_same<local_iterator_category,
+        iterator_category>::value));
+    BOOST_STATIC_ASSERT((boost::is_same<local_iterator_difference,
+        iterator_difference>::value));
+    BOOST_STATIC_ASSERT((boost::is_same<local_iterator_pointer,
+        iterator_pointer>::value));
+    BOOST_STATIC_ASSERT((boost::is_same<local_iterator_reference,
+        iterator_reference>::value));
 
     boost::function_requires<
         boost::InputIteratorConcept<const_local_iterator> >();
-    BOOST_MPL_ASSERT((boost::is_same<const_local_iterator_category,
-        const_iterator_category>));
-    BOOST_MPL_ASSERT((boost::is_same<const_local_iterator_difference,
-        const_iterator_difference>));
-    BOOST_MPL_ASSERT((boost::is_same<const_local_iterator_pointer,
-        const_iterator_pointer>));
-    BOOST_MPL_ASSERT((boost::is_same<const_local_iterator_reference,
-        const_iterator_reference>));
+    BOOST_STATIC_ASSERT((boost::is_same<const_local_iterator_category,
+        const_iterator_category>::value));
+    BOOST_STATIC_ASSERT((boost::is_same<const_local_iterator_difference,
+        const_iterator_difference>::value));
+    BOOST_STATIC_ASSERT((boost::is_same<const_local_iterator_pointer,
+        const_iterator_pointer>::value));
+    BOOST_STATIC_ASSERT((boost::is_same<const_local_iterator_reference,
+        const_iterator_reference>::value));
 
     X(10, hf, eq);
     X a(10, hf, eq);

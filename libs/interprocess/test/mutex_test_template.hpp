@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -26,9 +26,9 @@
 #include "boost_interprocess_check.hpp"
 #include "util.hpp"
 #include <boost/thread/thread.hpp>
-#include <iostream>
 #include <boost/interprocess/sync/scoped_lock.hpp>
 #include <boost/date_time/posix_time/posix_time_types.hpp>
+#include <iostream>
 
 namespace boost { namespace interprocess { namespace test {
 
@@ -219,7 +219,7 @@ void timed_lock_and_sleep(void *arg, M &sm)
 {
    data<M> *pdata = static_cast<data<M>*>(arg);
    boost::posix_time::ptime pt(delay(pdata->m_secs));
-   boost::interprocess::scoped_lock<M> 
+   boost::interprocess::scoped_lock<M>
       l (sm, boost::interprocess::defer_lock);
    if (l.timed_lock(pt)){
       boost::thread::sleep(xsecs(2*BaseSeconds));
@@ -228,58 +228,40 @@ void timed_lock_and_sleep(void *arg, M &sm)
    }
 }
 
-template<bool SameObject, typename M>
+template<typename M>
 void test_mutex_lock()
 {
    shared_val = 0;
-   
-   M m1, m2;
-   M *pm1, *pm2;
-
-   if(SameObject){
-      pm1 = pm2 = &m1;
-   }
-   else{
-      pm1 = &m1;
-      pm2 = &m2;
-   }
+  
+   M mtx;
 
    data<M> d1(1);
    data<M> d2(2);
 
    // Locker one launches, holds the lock for 2*BaseSeconds seconds.
-   boost::thread tm1(thread_adapter<M>(&lock_and_sleep, &d1, *pm1));
+   boost::thread tm1(thread_adapter<M>(&lock_and_sleep, &d1, mtx));
 
    //Wait 1*BaseSeconds
    boost::thread::sleep(xsecs(1*BaseSeconds));
 
    // Locker two launches, but it won't hold the lock for 2*BaseSeconds seconds.
-   boost::thread tm2(thread_adapter<M>(&lock_and_sleep, &d2, *pm2));
+   boost::thread tm2(thread_adapter<M>(&lock_and_sleep, &d2, mtx));
 
    //Wait completion
    tm1.join();
    boost::thread::sleep(xsecs(1*BaseSeconds));
    tm2.join();
 
-   assert(d1.m_value == 1);
-   assert(d2.m_value == 2);
+   BOOST_INTERPROCES_CHECK(d1.m_value == 1);
+   BOOST_INTERPROCES_CHECK(d2.m_value == 2);
 }
 
-template<bool SameObject, typename M>
+template<typename M>
 void test_mutex_lock_timeout()
 {
    shared_val = 0;
-   
-   M m1, m2;
-   M *pm1, *pm2;
-
-   if(SameObject){
-      pm1 = pm2 = &m1;
-   }
-   else{
-      pm1 = &m1;
-      pm2 = &m2;
-   }
+  
+   M mtx;
 
    int wait_time_s = BOOST_INTERPROCESS_TIMEOUT_WHEN_LOCKING_DURATION_MS / 1000;
    if (wait_time_s == 0 )
@@ -289,97 +271,79 @@ void test_mutex_lock_timeout()
    data<M> d2(2, wait_time_s * 2);
 
    // Locker one launches, and holds the lock for wait_time_s * 2 seconds.
-   boost::thread tm1(thread_adapter<M>(&lock_and_sleep, &d1, *pm1));
+   boost::thread tm1(thread_adapter<M>(&lock_and_sleep, &d1, mtx));
 
    //Wait 1*BaseSeconds
    boost::thread::sleep(xsecs(wait_time_s));
 
    // Locker two launches, and attempts to hold the lock for wait_time_s * 2 seconds.
-   boost::thread tm2(thread_adapter<M>(&lock_and_catch_errors, &d2, *pm2));
+   boost::thread tm2(thread_adapter<M>(&lock_and_catch_errors, &d2, mtx));
 
    //Wait completion
    tm1.join();
    boost::thread::sleep(xsecs(1*BaseSeconds));
    tm2.join();
 
-   assert(d1.m_value == 1);
-   assert(d2.m_value == -1);
-   assert(d1.m_error == no_error);
-   assert(d2.m_error == boost::interprocess::timeout_when_locking_error);
+   BOOST_INTERPROCES_CHECK(d1.m_value == 1);
+   BOOST_INTERPROCES_CHECK(d2.m_value == -1);
+   BOOST_INTERPROCES_CHECK(d1.m_error == no_error);
+   BOOST_INTERPROCES_CHECK(d2.m_error == boost::interprocess::timeout_when_locking_error);
 }
 
-template<bool SameObject, typename M>
+template<typename M>
 void test_mutex_try_lock()
 {
    shared_val = 0;
 
-   M m1, m2;
-   M *pm1, *pm2;
-
-   if(SameObject){
-      pm1 = pm2 = &m1;
-   }
-   else{
-      pm1 = &m1;
-      pm2 = &m2;
-   }
+   M mtx;
 
    data<M> d1(1);
    data<M> d2(2);
 
    // Locker one launches, holds the lock for 2*BaseSeconds seconds.
-   boost::thread tm1(thread_adapter<M>(&try_lock_and_sleep, &d1, *pm1));
+   boost::thread tm1(thread_adapter<M>(&try_lock_and_sleep, &d1, mtx));
 
    //Wait 1*BaseSeconds
    boost::thread::sleep(xsecs(1*BaseSeconds));
 
    // Locker two launches, but it should fail acquiring the lock
-   boost::thread tm2(thread_adapter<M>(&try_lock_and_sleep, &d2, *pm2));
+   boost::thread tm2(thread_adapter<M>(&try_lock_and_sleep, &d2, mtx));
 
    //Wait completion
    tm1.join();
    tm2.join();
    //Only the first should succeed locking
-   assert(d1.m_value == 1);
-   assert(d2.m_value == -1);
+   BOOST_INTERPROCES_CHECK(d1.m_value == 1);
+   BOOST_INTERPROCES_CHECK(d2.m_value == -1);
 }
 
-template<bool SameObject, typename M>
+template<typename M>
 void test_mutex_timed_lock()
 
 {
    shared_val = 0;
 
-   M m1, m2;
-   M *pm1, *pm2;
-
-   if(SameObject){
-      pm1 = pm2 = &m1;
-   }
-   else{
-      pm1 = &m1;
-      pm2 = &m2;
-   }
+   M mtx, m2;
 
    data<M> d1(1, 2*BaseSeconds);
    data<M> d2(2, 2*BaseSeconds);
 
    // Locker one launches, holds the lock for 2*BaseSeconds seconds.
-   boost::thread tm1(thread_adapter<M>(&timed_lock_and_sleep, &d1, *pm1));
+   boost::thread tm1(thread_adapter<M>(&timed_lock_and_sleep, &d1, mtx));
 
    //Wait 1*BaseSeconds
    boost::thread::sleep(xsecs(1*BaseSeconds));
 
    // Locker two launches, holds the lock for 2*BaseSeconds seconds.
-   boost::thread tm2(thread_adapter<M>(&timed_lock_and_sleep, &d2, *pm2));
+   boost::thread tm2(thread_adapter<M>(&timed_lock_and_sleep, &d2, mtx));
 
    //Wait completion
    tm1.join();
    tm2.join();
 
    //Both should succeed locking
-   assert(d1.m_value == 1);
-   assert(d2.m_value == 2);
+   BOOST_INTERPROCES_CHECK(d1.m_value == 1);
+   BOOST_INTERPROCES_CHECK(d2.m_value == 2);
 }
 
 template <typename M>
@@ -392,7 +356,7 @@ inline void test_all_lock()
    test_trylock<M>()();
    std::cout << "test_timedlock<" << typeid(M).name() << ">" << std::endl;
    test_timedlock<M>()();
-} 
+}
 
 template <typename M>
 inline void test_all_recursive_lock()
@@ -402,15 +366,15 @@ inline void test_all_recursive_lock()
    test_recursive_lock<M>()();
 }
 
-template<bool SameObject, typename M>
+template<typename M>
 void test_all_mutex()
 {
    std::cout << "test_mutex_lock<" << typeid(M).name() << ">" << std::endl;
-   test_mutex_lock<SameObject, M>();
+   test_mutex_lock<M>();
    std::cout << "test_mutex_try_lock<" << typeid(M).name() << ">" << std::endl;
-   test_mutex_try_lock<SameObject, M>();
+   test_mutex_try_lock<M>();
    std::cout << "test_mutex_timed_lock<" << typeid(M).name() << ">" << std::endl;
-   test_mutex_timed_lock<SameObject, M>();
+   test_mutex_timed_lock<M>();
 }
 
 }}}   //namespace boost { namespace interprocess { namespace test {

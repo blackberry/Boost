@@ -54,3 +54,38 @@ BOOST_AUTO_TEST_CASE(ticket_5559_Denis)
     BOOST_CHECK_EQUAL(q1, q1+q5);
 }
 
+//------------------------------------------------------------------------------
+// Ticket #6095 Marvin Sielenkemper
+//------------------------------------------------------------------------------
+BOOST_AUTO_TEST_CASE(ticket_6095_Marvin_Sielenkemper_isEmptyTest)
+{
+    typedef int                         Value;
+    typedef boost::icl::interval<Value> Interval;
+    typedef std::numeric_limits<Value>  Limits;
+
+    Value const max((Limits::max)());
+
+    Interval::interval_type piff = Interval::open(max,     max);
+
+    BOOST_CHECK(!icl::is_empty(Interval::open(max - 2, max)));
+    BOOST_CHECK( icl::is_empty(Interval::open(max - 1, max)));
+    BOOST_CHECK( icl::is_empty(Interval::open(max,     max)));
+}
+
+BOOST_AUTO_TEST_CASE(ticket_6095_Marvin_Sielenkemper_totalRangeTest)
+{
+    typedef int                                                              Value;
+    typedef boost::icl::interval<Value>                                      Interval;
+    typedef std::numeric_limits<Value>                                       Limits;
+    typedef boost::icl::interval_map<Value, int, boost::icl::total_enricher> Container;
+
+    Value const min((Limits::min)());
+    Value const max((Limits::max)());
+
+    boost::icl::interval_map<Value, int, boost::icl::total_enricher> intervals;
+
+    intervals += std::make_pair(Interval::closed(min, max), 0);
+    intervals += std::make_pair(Interval::right_open(0, 10),  3);
+
+    BOOST_CHECK_EQUAL(intervals.iterative_size(), 3);
+}

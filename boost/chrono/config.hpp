@@ -13,6 +13,14 @@
 
 #include <boost/config.hpp>
 
+#if !defined BOOST_CHRONO_VERSION
+#define BOOST_CHRONO_VERSION 1
+#else
+#if BOOST_CHRONO_VERSION!=1  && BOOST_CHRONO_VERSION!=2
+#error "BOOST_CHRONO_VERSION must be 1 or 2"
+#endif
+#endif
+
 #if defined(BOOST_CHRONO_SOURCE) && !defined(BOOST_USE_WINDOWS_H)
 #define BOOST_USE_WINDOWS_H
 #endif
@@ -62,12 +70,8 @@
 # if defined( BOOST_CHRONO_POSIX_API )
 #   define BOOST_CHRONO_HAS_PROCESS_CLOCKS
 #   include <time.h>  //to check for CLOCK_REALTIME and CLOCK_MONOTONIC and _POSIX_THREAD_CPUTIME
-#   if defined(CLOCK_REALTIME)
-#     if defined(CLOCK_MONOTONIC)
-#        define BOOST_CHRONO_HAS_CLOCK_STEADY
-#     endif
-#   else
-#     error <time.h> does not supply CLOCK_REALTIME
+#   if defined(CLOCK_MONOTONIC)
+#      define BOOST_CHRONO_HAS_CLOCK_STEADY
 #   endif
 #   if defined(_POSIX_THREAD_CPUTIME) && !defined(BOOST_DISABLE_THREADS)
 #     define BOOST_CHRONO_HAS_THREAD_CLOCK
@@ -81,6 +85,10 @@
 #     undef BOOST_CHRONO_HAS_THREAD_CLOCK
 #     undef BOOST_CHRONO_THREAD_CLOCK_IS_STEADY
 #   endif
+#   if defined(__HP_aCC) && defined(__hpux)
+#     undef BOOST_CHRONO_HAS_THREAD_CLOCK
+#     undef BOOST_CHRONO_THREAD_CLOCK_IS_STEADY
+#   endif
 # endif
 
 #if defined(BOOST_CHRONO_THREAD_DISABLED) && defined(BOOST_CHRONO_HAS_THREAD_CLOCK)
@@ -88,6 +96,7 @@
 #undef BOOST_CHRONO_THREAD_CLOCK_IS_STEADY
 #endif
 
+//#undef BOOST_CHRONO_HAS_PROCESS_CLOCKS
 
 // unicode support  ------------------------------//
 
@@ -97,30 +106,17 @@
 #define BOOST_CHRONO_HAS_UNICODE_SUPPORT 1
 #endif
 
-//  define constexpr related macros  ------------------------------//
-
-#if defined(BOOST_NO_CONSTEXPR)
-#define BOOST_CHRONO_CONSTEXPR
-#define BOOST_CHRONO_CONSTEXPR_OR_CONST const
-#define BOOST_CHRONO_CONST_REF const&
-#else
-#define BOOST_CHRONO_CONSTEXPR constexpr
-#define BOOST_CHRONO_CONSTEXPR_OR_CONST constexpr
-#define BOOST_CHRONO_CONST_REF
-#endif
-
+#if ! defined BOOST_NOEXCEPT
 #if defined(BOOST_NO_NOEXCEPT)
-#define BOOST_CHRONO_NOEXCEPT
+#define BOOST_NOEXCEPT
 #else
-#define BOOST_CHRONO_NOEXCEPT noexcept
+#define BOOST_NOEXCEPT noexcept
 #endif
-
-#define BOOST_CHRONO_STATIC_CONSTEXPR  static BOOST_CHRONO_CONSTEXPR_OR_CONST
-
+#endif
 
 #ifdef BOOST_CHRONO_HEADER_ONLY
 #define BOOST_CHRONO_INLINE inline
-#define BOOST_CHRONO_STATIC
+#define BOOST_CHRONO_STATIC inline
 #define BOOST_CHRONO_DECL
 
 #else
@@ -147,7 +143,6 @@
 #define BOOST_CHRONO_DECL
 #endif
 
-
 //#define  BOOST_CHRONO_DONT_PROVIDE_HYBRID_ERROR_HANDLING
 
 //  enable automatic library variant selection  ------------------------------//
@@ -171,4 +166,3 @@
 #endif  // auto-linking disabled
 #endif // BOOST_CHRONO_HEADER_ONLY
 #endif // BOOST_CHRONO_CONFIG_HPP
-

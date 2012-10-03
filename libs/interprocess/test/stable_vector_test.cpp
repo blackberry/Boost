@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -29,33 +29,8 @@
 
 using namespace boost::interprocess;
 
-//Explicit instantiation to detect compilation errors
-//template class stable_vector<test::movable_and_copyable_int, 
-   //test::dummy_test_allocator<test::movable_and_copyable_int> >;
-
-class recursive_vector
-{
-   public:
-   int id_;
-   stable_vector<recursive_vector> vector_;
-};
-
-void recursive_vector_test()//Test for recursive types
-{
-   stable_vector<recursive_vector> recursive_vector_vector;
-}
-
 int main()
 {
-   recursive_vector_test();
-   {
-      //Now test move semantics
-      stable_vector<recursive_vector> original;
-      stable_vector<recursive_vector> move_ctor(boost::interprocess::move(original));
-      stable_vector<recursive_vector> move_assign;
-      move_assign = boost::interprocess::move(move_ctor);
-      move_assign.swap(original);
-   }
    typedef allocator<int, managed_shared_memory::segment_manager> ShmemAllocator;
    typedef stable_vector<int, ShmemAllocator> MyVector;
 

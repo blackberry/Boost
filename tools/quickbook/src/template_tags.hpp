@@ -19,6 +19,7 @@ namespace quickbook
         (identifier)
         (block)
         (phrase)
+        (snippet)
     )
 }
 

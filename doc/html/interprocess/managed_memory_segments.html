@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../interprocess.html" title="Chapter&#160;11.&#160;Boost.Interprocess">
+<link rel="up" href="../interprocess.html" title="Chapter&#160;12.&#160;Boost.Interprocess">
 <link rel="prev" href="synchronization_mechanisms.html" title="Synchronization mechanisms">
 <link rel="next" href="allocators_containers.html" title="Allocators, containers and memory allocation algorithms">
 </head>
@@ -224,10 +224,10 @@
           shared memory specializations:
         </p>
 <pre class="programlisting"><span class="comment">//!Defines a managed shared memory with c-strings as keys for named objects,</span>
-<span class="comment">//!the default memory algorithm (with process-shared mutexes, </span>
+<span class="comment">//!the default memory algorithm (with process-shared mutexes,</span>
 <span class="comment">//!and offset_ptr as internal pointers) as memory allocation algorithm</span>
 <span class="comment">//!and the default index type as the index.</span>
-<span class="comment">//!This class allows the shared memory to be mapped in different base </span>
+<span class="comment">//!This class allows the shared memory to be mapped in different base</span>
 <span class="comment">//!in different processes</span>
 <span class="keyword">typedef</span>
    <span class="identifier">basic_managed_shared_memory</span><span class="special">&lt;</span><span class="keyword">char</span>
@@ -236,10 +236,10 @@
    <span class="identifier">managed_shared_memory</span><span class="special">;</span>
 
 <span class="comment">//!Defines a managed shared memory with wide strings as keys for named objects,</span>
-<span class="comment">//!the default memory algorithm (with process-shared mutexes, </span>
+<span class="comment">//!the default memory algorithm (with process-shared mutexes,</span>
 <span class="comment">//!and offset_ptr as internal pointers) as memory allocation algorithm</span>
 <span class="comment">//!and the default index type as the index.</span>
-<span class="comment">//!This class allows the shared memory to be mapped in different base </span>
+<span class="comment">//!This class allows the shared memory to be mapped in different base</span>
 <span class="comment">//!in different processes</span>
 <span class="keyword">typedef</span>
    <span class="identifier">basic_managed_shared_memory</span><span class="special">&lt;</span><span class="keyword">wchar_t</span>
@@ -259,10 +259,10 @@
           and want to use raw pointers internally instead of offset pointers, <span class="bold"><strong>Boost.Interprocess</strong></span> defines the following types:
         </p>
 <pre class="programlisting"><span class="comment">//!Defines a managed shared memory with c-strings as keys for named objects,</span>
-<span class="comment">//!the default memory algorithm (with process-shared mutexes, </span>
+<span class="comment">//!the default memory algorithm (with process-shared mutexes,</span>
 <span class="comment">//!and offset_ptr as internal pointers) as memory allocation algorithm</span>
 <span class="comment">//!and the default index type as the index.</span>
-<span class="comment">//!This class allows the shared memory to be mapped in different base </span>
+<span class="comment">//!This class allows the shared memory to be mapped in different base</span>
 <span class="comment">//!in different processes*/</span>
 <span class="keyword">typedef</span> <span class="identifier">basic_managed_shared_memory</span>
    <span class="special">&lt;</span><span class="keyword">char</span>
@@ -271,10 +271,10 @@
 <span class="identifier">fixed_managed_shared_memory</span><span class="special">;</span>
 
 <span class="comment">//!Defines a managed shared memory with wide strings as keys for named objects,</span>
-<span class="comment">//!the default memory algorithm (with process-shared mutexes, </span>
+<span class="comment">//!the default memory algorithm (with process-shared mutexes,</span>
 <span class="comment">//!and offset_ptr as internal pointers) as memory allocation algorithm</span>
 <span class="comment">//!and the default index type as the index.</span>
-<span class="comment">//!This class allows the shared memory to be mapped in different base </span>
+<span class="comment">//!This class allows the shared memory to be mapped in different base</span>
 <span class="comment">//!in different processes</span>
 <span class="keyword">typedef</span> <span class="identifier">basic_managed_shared_memory</span>
    <span class="special">&lt;</span><span class="keyword">wchar_t</span>
@@ -379,13 +379,13 @@
 <p>
           Windows users might also want to use native windows shared memory instead
           of the portable <code class="computeroutput"><a class="link" href="../boost/interprocess/shared_memory_object.html" title="Class shared_memory_object">shared_memory_object</a></code>
-          managed memory. This is achieved through the <code class="computeroutput"><a class="link" href="../boost/interprocess/basic_managed_windows_s_id966871.html" title="Class template basic_managed_windows_shared_memory">basic_managed_windows_shared_memory</a></code>
+          managed memory. This is achieved through the <code class="computeroutput"><a class="link" href="../boost/interprocess/basic_managed_win_id993101.html" title="Class template basic_managed_windows_shared_memory">basic_managed_windows_shared_memory</a></code>
           class. To use it just include:
         </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">interprocess</span><span class="special">/</span><span class="identifier">managed_windows_shared_memory</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 </pre>
 <p>
-          This class has the same interface as <code class="computeroutput"><a class="link" href="../boost/interprocess/basic_managed_shared_me_id966525.html" title="Class template basic_managed_shared_memory">basic_managed_shared_memory</a></code>
+          This class has the same interface as <code class="computeroutput"><a class="link" href="../boost/interprocess/basic_managed_sha_id992762.html" title="Class template basic_managed_shared_memory">basic_managed_shared_memory</a></code>
           but uses native windows shared memory. Note that this managed class has
           the same lifetime issues as the windows shared memory: when the last process
           attached to the windows shared memory is detached from the memory (or ends/crashes)
@@ -406,18 +406,18 @@
 <p>
           Unix users might also want to use XSI (system V) instead of the portable
           <code class="computeroutput"><a class="link" href="../boost/interprocess/shared_memory_object.html" title="Class shared_memory_object">shared_memory_object</a></code>
-          managed memory. This is achieved through the <code class="computeroutput"><a class="link" href="../boost/interprocess/basic_managed_xsi_share_id967202.html" title="Class template basic_managed_xsi_shared_memory">basic_managed_xsi_shared_memory</a></code>
+          managed memory. This is achieved through the <code class="computeroutput"><a class="link" href="../boost/interprocess/basic_managed_xsi_id993432.html" title="Class template basic_managed_xsi_shared_memory">basic_managed_xsi_shared_memory</a></code>
           class. To use it just include:
         </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">interprocess</span><span class="special">/</span><span class="identifier">managed_xsi_shared_memory</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 </pre>
 <p>
-          This class has nearly the same interface as <code class="computeroutput"><a class="link" href="../boost/interprocess/basic_managed_shared_me_id966525.html" title="Class template basic_managed_shared_memory">basic_managed_shared_memory</a></code>
+          This class has nearly the same interface as <code class="computeroutput"><a class="link" href="../boost/interprocess/basic_managed_sha_id992762.html" title="Class template basic_managed_shared_memory">basic_managed_shared_memory</a></code>
           but uses XSI shared memory as backend.
         </p>
 </div>
 <p>
-        For more information about managed XSI shared memory capabilities, see <code class="computeroutput"><a class="link" href="../boost/interprocess/basic_managed_xsi_share_id967202.html" title="Class template basic_managed_xsi_shared_memory">basic_managed_xsi_shared_memory</a></code>
+        For more information about managed XSI shared memory capabilities, see <code class="computeroutput"><a class="link" href="../boost/interprocess/basic_managed_xsi_id993432.html" title="Class template basic_managed_xsi_shared_memory">basic_managed_xsi_shared_memory</a></code>
         class reference.
       </p>
 </div>
@@ -445,7 +445,7 @@
         </p>
 <pre class="programlisting"><span class="comment">//Named object creation managed memory segment</span>
 <span class="comment">//All objects are constructed in the memory-mapped file</span>
-<span class="comment">//   Names are c-strings, </span>
+<span class="comment">//   Names are c-strings,</span>
 <span class="comment">//   Default memory management algorithm(rbtree_best_fit with no mutexes)</span>
 <span class="comment">//   Name-object mappings are stored in the default index type (flat_map)</span>
 <span class="keyword">typedef</span> <span class="identifier">basic_managed_mapped_file</span> <span class="special">&lt;</span>
@@ -456,7 +456,7 @@
 
 <span class="comment">//Named object creation managed memory segment</span>
 <span class="comment">//All objects are constructed in the memory-mapped file</span>
-<span class="comment">//   Names are wide-strings, </span>
+<span class="comment">//   Names are wide-strings,</span>
 <span class="comment">//   Default memory management algorithm(rbtree_best_fit with no mutexes)</span>
 <span class="comment">//   Name-object mappings are stored in the default index type (flat_map)</span>
 <span class="keyword">typedef</span> <span class="identifier">basic_managed_mapped_file</span><span class="special">&lt;</span>
@@ -685,29 +685,29 @@
 <pre class="programlisting"><span class="comment">//!Allocates and constructs an object of type MyType (throwing version)</span>
 <span class="identifier">MyType</span> <span class="special">*</span><span class="identifier">ptr</span> <span class="special">=</span> <span class="identifier">managed_memory_segment</span><span class="special">.</span><span class="identifier">construct</span><span class="special">&lt;</span><span class="identifier">MyType</span><span class="special">&gt;(</span><span class="string">"Name"</span><span class="special">)</span> <span class="special">(</span><span class="identifier">par1</span><span class="special">,</span> <span class="identifier">par2</span><span class="special">...);</span>
 
-<span class="comment">//!Allocates and constructs an array of objects of type MyType (throwing version) </span>
+<span class="comment">//!Allocates and constructs an array of objects of type MyType (throwing version)</span>
 <span class="comment">//!Each object receives the same parameters (par1, par2, ...)</span>
 <span class="identifier">MyType</span> <span class="special">*</span><span class="identifier">ptr</span> <span class="special">=</span> <span class="identifier">managed_memory_segment</span><span class="special">.</span><span class="identifier">construct</span><span class="special">&lt;</span><span class="identifier">MyType</span><span class="special">&gt;(</span><span class="string">"Name"</span><span class="special">)[</span><span class="identifier">count</span><span class="special">](</span><span class="identifier">par1</span><span class="special">,</span> <span class="identifier">par2</span><span class="special">...);</span>
 
-<span class="comment">//!Tries to find a previously created object. If not present, allocates </span>
+<span class="comment">//!Tries to find a previously created object. If not present, allocates</span>
 <span class="comment">//!and constructs an object of type MyType (throwing version)</span>
 <span class="identifier">MyType</span> <span class="special">*</span><span class="identifier">ptr</span> <span class="special">=</span> <span class="identifier">managed_memory_segment</span><span class="special">.</span><span class="identifier">find_or_construct</span><span class="special">&lt;</span><span class="identifier">MyType</span><span class="special">&gt;(</span><span class="string">"Name"</span><span class="special">)</span> <span class="special">(</span><span class="identifier">par1</span><span class="special">,</span> <span class="identifier">par2</span><span class="special">...);</span>
 
-<span class="comment">//!Tries to find a previously created object. If not present, allocates and </span>
-<span class="comment">//!constructs an array of objects of type MyType (throwing version). Each object </span>
+<span class="comment">//!Tries to find a previously created object. If not present, allocates and</span>
+<span class="comment">//!constructs an array of objects of type MyType (throwing version). Each object</span>
 <span class="comment">//!receives the same parameters (par1, par2, ...)</span>
 <span class="identifier">MyType</span> <span class="special">*</span><span class="identifier">ptr</span> <span class="special">=</span> <span class="identifier">managed_memory_segment</span><span class="special">.</span><span class="identifier">find_or_construct</span><span class="special">&lt;</span><span class="identifier">MyType</span><span class="special">&gt;(</span><span class="string">"Name"</span><span class="special">)[</span><span class="identifier">count</span><span class="special">](</span><span class="identifier">par1</span><span class="special">,</span> <span class="identifier">par2</span><span class="special">...);</span>
 
-<span class="comment">//!Allocates and constructs an array of objects of type MyType (throwing version) </span>
+<span class="comment">//!Allocates and constructs an array of objects of type MyType (throwing version)</span>
 <span class="comment">//!Each object receives parameters returned with the expression (*it1++, *it2++,... )</span>
 <span class="identifier">MyType</span> <span class="special">*</span><span class="identifier">ptr</span> <span class="special">=</span> <span class="identifier">managed_memory_segment</span><span class="special">.</span><span class="identifier">construct_it</span><span class="special">&lt;</span><span class="identifier">MyType</span><span class="special">&gt;(</span><span class="string">"Name"</span><span class="special">)[</span><span class="identifier">count</span><span class="special">](</span><span class="identifier">it1</span><span class="special">,</span> <span class="identifier">it2</span><span class="special">...);</span>
 
-<span class="comment">//!Tries to find a previously created object. If not present, allocates and constructs </span>
-<span class="comment">//!an array of objects of type MyType (throwing version).  Each object receives  </span>
+<span class="comment">//!Tries to find a previously created object. If not present, allocates and constructs</span>
+<span class="comment">//!an array of objects of type MyType (throwing version).  Each object receives</span>
 <span class="comment">//!parameters returned with the expression (*it1++, *it2++,... )</span>
 <span class="identifier">MyType</span> <span class="special">*</span><span class="identifier">ptr</span> <span class="special">=</span> <span class="identifier">managed_memory_segment</span><span class="special">.</span><span class="identifier">find_or_construct_it</span><span class="special">&lt;</span><span class="identifier">MyType</span><span class="special">&gt;(</span><span class="string">"Name"</span><span class="special">)[</span><span class="identifier">count</span><span class="special">](</span><span class="identifier">it1</span><span class="special">,</span> <span class="identifier">it2</span><span class="special">...);</span>
 
-<span class="comment">//!Tries to find a previously created object. Returns a pointer to the object and the </span>
+<span class="comment">//!Tries to find a previously created object. Returns a pointer to the object and the</span>
 <span class="comment">//!count (if it is not an array, returns 1). If not present, the returned pointer is 0</span>
 <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span><span class="identifier">MyType</span> <span class="special">*,</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;</span> <span class="identifier">ret</span> <span class="special">=</span> <span class="identifier">managed_memory_segment</span><span class="special">.</span><span class="identifier">find</span><span class="special">&lt;</span><span class="identifier">MyType</span><span class="special">&gt;(</span><span class="string">"Name"</span><span class="special">);</span>
 
@@ -809,7 +809,7 @@
           That is, the mutex type used to synchronize named/unique allocations is
           defined by the <code class="computeroutput"><span class="identifier">MemoryAlgorithm</span><span class="special">::</span><span class="identifier">mutex_family</span><span class="special">::</span><span class="identifier">recursive_mutex_type</span></code>
           type. For shared memory, and memory mapped file based managed segments
-          this recursive mutex is defined as <code class="computeroutput"><a class="link" href="../boost/interprocess/interprocess_recursive__id977749.html" title="Class interprocess_recursive_mutex">interprocess_recursive_mutex</a></code>.
+          this recursive mutex is defined as <code class="computeroutput"><a class="link" href="../boost/interprocess/interprocess_rec_id1003782.html" title="Class interprocess_recursive_mutex">interprocess_recursive_mutex</a></code>.
         </p>
 <p>
           If two processes can call:
@@ -887,7 +887,7 @@
         </p>
 <pre class="programlisting"><span class="comment">//This managed memory segment can allocate objects with:</span>
 <span class="comment">// -&gt; a wchar_t string as key</span>
-<span class="comment">// -&gt; boost::interprocess::rbtree_best_fit with process-shared mutexes </span>
+<span class="comment">// -&gt; boost::interprocess::rbtree_best_fit with process-shared mutexes</span>
 <span class="comment">//       as memory allocation algorithm.</span>
 <span class="comment">// -&gt; boost::interprocess::map&lt;...&gt; as the index to store name/object mappings</span>
 <span class="comment">//</span>
@@ -1457,7 +1457,7 @@
 <p>
 </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">interprocess</span><span class="special">/</span><span class="identifier">managed_shared_memory</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
-<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">interprocess</span><span class="special">/</span><span class="identifier">detail</span><span class="special">/</span><span class="identifier">move</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span> <span class="comment">//boost::interprocess::move</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">interprocess</span><span class="special">/</span><span class="identifier">detail</span><span class="special">/</span><span class="identifier">move</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span> <span class="comment">//boost::move</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">cassert</span><span class="special">&gt;//</span><span class="identifier">assert</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">cstring</span><span class="special">&gt;//</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">memset</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="keyword">new</span><span class="special">&gt;</span>    <span class="comment">//std::nothrow</span>
@@ -1508,7 +1508,7 @@
       <span class="identifier">sizes</span><span class="special">[</span><span class="identifier">i</span><span class="special">]</span> <span class="special">=</span> <span class="identifier">i</span><span class="special">*</span><span class="number">3</span><span class="special">;</span>
 
    <span class="identifier">chain</span> <span class="special">=</span> <span class="identifier">managed_shm</span><span class="special">.</span><span class="identifier">allocate_many</span><span class="special">(</span><span class="identifier">sizes</span><span class="special">,</span> <span class="number">10</span><span class="special">);</span>
-   <span class="identifier">managed_shm</span><span class="special">.</span><span class="identifier">deallocate_many</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">interprocess</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">chain</span><span class="special">));</span>
+   <span class="identifier">managed_shm</span><span class="special">.</span><span class="identifier">deallocate_many</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">chain</span><span class="special">));</span>
    <span class="keyword">return</span> <span class="number">0</span><span class="special">;</span>
 <span class="special">}</span>
 </pre>
@@ -2085,7 +2085,7 @@
 
 <span class="comment">//Named object creation managed memory segment</span>
 <span class="comment">//All objects are constructed in a user provided buffer</span>
-<span class="comment">//   Names are c-strings, </span>
+<span class="comment">//   Names are c-strings,</span>
 <span class="comment">//   Default memory management algorithm</span>
 <span class="comment">//    (rbtree_best_fit with no mutexes and relative pointers)</span>
 <span class="comment">//   Name-object mappings are stored in the default index type (flat_map)</span>
@@ -2097,7 +2097,7 @@
 
 <span class="comment">//Named object creation managed memory segment</span>
 <span class="comment">//All objects are constructed in a user provided buffer</span>
-<span class="comment">//   Names are wide-strings, </span>
+<span class="comment">//   Names are wide-strings,</span>
 <span class="comment">//   Default memory management algorithm</span>
 <span class="comment">//    (rbtree_best_fit with no mutexes and relative pointers)</span>
 <span class="comment">//   Name-object mappings are stored in the default index type (flat_map)</span>
@@ -2181,7 +2181,7 @@
           can also be used to place STL compatible containers in the user segment.
         </p>
 <p>
-          <code class="computeroutput"><a class="link" href="../boost/interprocess/basic_managed_external__id965873.html" title="Class template basic_managed_external_buffer">basic_managed_external_buffer</a></code>
+          <code class="computeroutput"><a class="link" href="../boost/interprocess/basic_managed_ext_id992111.html" title="Class template basic_managed_external_buffer">basic_managed_external_buffer</a></code>
           can be also useful to build small databases for embedded systems limiting
           the size of the used memory to a predefined memory chunk, instead of letting
           the database fragment the heap memory.
@@ -2211,7 +2211,7 @@
 
 <span class="comment">//Named object creation managed memory segment</span>
 <span class="comment">//All objects are constructed in a single buffer allocated via new[]</span>
-<span class="comment">//   Names are c-strings, </span>
+<span class="comment">//   Names are c-strings,</span>
 <span class="comment">//   Default memory management algorithm</span>
 <span class="comment">//    (rbtree_best_fit with no mutexes and relative pointers)</span>
 <span class="comment">//   Name-object mappings are stored in the default index type (flat_map)</span>
@@ -2223,7 +2223,7 @@
 
 <span class="comment">//Named object creation managed memory segment</span>
 <span class="comment">//All objects are constructed in a single buffer allocated via new[]</span>
-<span class="comment">//   Names are wide-strings, </span>
+<span class="comment">//   Names are wide-strings,</span>
 <span class="comment">//   Default memory management algorithm</span>
 <span class="comment">//    (rbtree_best_fit with no mutexes and relative pointers)</span>
 <span class="comment">//   Name-object mappings are stored in the default index type (flat_map)</span>
@@ -2239,7 +2239,7 @@
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">interprocess</span><span class="special">/</span><span class="identifier">managed_heap_memory</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 </pre>
 <p>
-          The use is exactly the same as <code class="computeroutput"><a class="link" href="../boost/interprocess/basic_managed_external__id965873.html" title="Class template basic_managed_external_buffer">basic_managed_external_buffer</a></code>,
+          The use is exactly the same as <code class="computeroutput"><a class="link" href="../boost/interprocess/basic_managed_ext_id992111.html" title="Class template basic_managed_external_buffer">basic_managed_external_buffer</a></code>,
           except that memory is created by the managed memory segment itself using
           dynamic (new/delete) memory.
         </p>
@@ -2307,7 +2307,7 @@
       <span class="comment">//memory is full</span>
    <span class="special">}</span>
 
-   <span class="comment">//Let's obtain the new size of the list      </span>
+   <span class="comment">//Let's obtain the new size of the list    </span>
    <span class="identifier">MyList</span><span class="special">::</span><span class="identifier">size_type</span> <span class="identifier">new_size</span> <span class="special">=</span> <span class="identifier">mylist</span><span class="special">-&gt;</span><span class="identifier">size</span><span class="special">();</span>
 
    <span class="identifier">assert</span><span class="special">(</span><span class="identifier">new_size</span> <span class="special">&gt;</span> <span class="identifier">old_size</span><span class="special">);</span>
@@ -2364,12 +2364,12 @@
         </p>
 <p>
 </p>
-<pre class="programlisting"><span class="comment">//This test creates a in memory data-base using Interprocess machinery and </span>
-<span class="comment">//serializes it through a message queue. Then rebuilds the data-base in </span>
+<pre class="programlisting"><span class="comment">//This test creates a in memory data-base using Interprocess machinery and</span>
+<span class="comment">//serializes it through a message queue. Then rebuilds the data-base in</span>
 <span class="comment">//another buffer and checks it against the original data-base</span>
 <span class="keyword">bool</span> <span class="identifier">test_serialize_db</span><span class="special">()</span>
 <span class="special">{</span>
-   <span class="comment">//Typedef data to create a Interprocess map   </span>
+   <span class="comment">//Typedef data to create a Interprocess map  </span>
    <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;</span> <span class="identifier">MyPair</span><span class="special">;</span>
    <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">less</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;</span>   <span class="identifier">MyLess</span><span class="special">;</span>
    <span class="keyword">typedef</span> <span class="identifier">node_allocator</span><span class="special">&lt;</span><span class="identifier">MyPair</span><span class="special">,</span> <span class="identifier">managed_external_buffer</span><span class="special">::</span><span class="identifier">segment_manager</span><span class="special">&gt;</span>
@@ -2405,7 +2405,7 @@
       <span class="keyword">if</span><span class="special">(!</span><span class="identifier">map1</span><span class="special">)</span>
          <span class="keyword">return</span> <span class="keyword">false</span><span class="special">;</span>
 
-      <span class="comment">//Fill map1 until is full </span>
+      <span class="comment">//Fill map1 until is full</span>
       <span class="keyword">try</span><span class="special">{</span>
          <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">i</span> <span class="special">=</span> <span class="number">0</span><span class="special">;</span>
          <span class="keyword">while</span><span class="special">(</span><span class="number">1</span><span class="special">){</span>
@@ -2421,7 +2421,7 @@
       <span class="identifier">message_queue</span><span class="special">::</span><span class="identifier">size_type</span> <span class="identifier">total_recvd</span> <span class="special">=</span> <span class="number">0</span><span class="special">;</span>
       <span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="identifier">priority</span><span class="special">;</span>
 
-      <span class="comment">//Send whole first buffer through the mq1, read it </span>
+      <span class="comment">//Send whole first buffer through the mq1, read it</span>
       <span class="comment">//through mq2 to the second buffer</span>
       <span class="keyword">while</span><span class="special">(</span><span class="number">1</span><span class="special">){</span>
          <span class="comment">//Send a fragment of buffer1 through mq1</span>
@@ -2444,7 +2444,7 @@
          <span class="special">}</span>
       <span class="special">}</span>
 
-      <span class="comment">//The buffer will contain a copy of the original database </span>
+      <span class="comment">//The buffer will contain a copy of the original database</span>
       <span class="comment">//so let's interpret the buffer with managed_external_buffer</span>
       <span class="identifier">managed_external_buffer</span> <span class="identifier">db_destiny</span><span class="special">(</span><span class="identifier">open_only</span><span class="special">,</span> <span class="special">&amp;</span><span class="identifier">buffer_destiny</span><span class="special">[</span><span class="number">0</span><span class="special">],</span> <span class="identifier">BufferSize</span><span class="special">);</span>
 
@@ -2490,7 +2490,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2005-2010 Ion Gaztanaga<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2005-2011 Ion Gaztanaga<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

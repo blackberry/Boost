@@ -464,7 +464,7 @@ namespace chrono {
          explicit duration(const Rep2& r
 #if (defined(BOOST_MSVC) && (BOOST_MSVC == 1500)) || defined(__IBMCPP__)
 #else
-	 , typename boost::enable_if <
+   , typename boost::enable_if <
                     boost::mpl::and_ <   
                         boost::is_convertible<Rep2, rep>,
                         boost::mpl::or_ <
@@ -477,7 +477,7 @@ namespace chrono {
                     >
                 >::type* = 0
 #endif
-	 )
+   )
                   : rep_(r) { }
         ~duration() {} //= default;
         duration(const duration& rhs) : rep_(rhs.rep_) {} // = default;
@@ -492,7 +492,7 @@ namespace chrono {
          duration(const duration<Rep2, Period2>& d
 #if (defined(BOOST_MSVC) && (BOOST_MSVC == 1500)) || defined(__IBMCPP__)
 #else
-		, typename boost::enable_if <
+    , typename boost::enable_if <
                     boost::mpl::or_ < 
                         treat_as_floating_point<rep>,
                         boost::mpl::and_ < 
@@ -502,7 +502,7 @@ namespace chrono {
                     >
                 >::type* = 0
 #endif
-		)
+    )
 //~ #ifdef        __GNUC__
             // GCC 4.2.4 refused to accept a definition at this point,
             // yet both VC++ 9.0 SP1 and Intel ia32 11.0 accepted the definition

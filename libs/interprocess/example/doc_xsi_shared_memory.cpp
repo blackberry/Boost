@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2006-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2006-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
       xsi_shared_memory shm (create_only, key, 1000);
 
       //Remove shared memory on destruction
-      struct shm_remove 
+      struct shm_remove
       {
          int shmid_;
          shm_remove(int shmid) : shmid_(shmid){}

@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2007-2009
+// (C) Copyright Ion Gaztanaga  2007-2012
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -13,7 +13,7 @@
 #include <boost/intrusive/slist.hpp>
 #include <boost/intrusive/rbtree.hpp>
 #include <boost/intrusive/hashtable.hpp>
-#include <boost/pointer_to_other.hpp>
+#include <boost/intrusive/pointer_traits.hpp>
 #include <functional>
 #include <vector>
 
@@ -40,31 +40,32 @@ const int NumElements = 100;
 template<class NodeTraits>
 struct external_traits
 {
-   typedef NodeTraits                           node_traits;
-   typedef typename node_traits::node           node;
-   typedef typename node_traits::node_ptr       node_ptr;
-   typedef typename node_traits::const_node_ptr const_node_ptr;
-   typedef MyClass                              value_type;
-   typedef typename boost::pointer_to_other
-      <node_ptr, MyClass>::type                 pointer; 
-   typedef typename boost::pointer_to_other
-      <node_ptr, const MyClass>::type           const_pointer;
+   typedef NodeTraits                              node_traits;
+   typedef typename node_traits::node              node;
+   typedef typename node_traits::node_ptr          node_ptr;
+   typedef typename node_traits::const_node_ptr    const_node_ptr;
+   typedef MyClass                                 value_type;
+   typedef typename pointer_traits<node_ptr>::
+      template rebind_pointer<MyClass>::type       pointer;
+   typedef typename pointer_traits<node_ptr>::
+      template rebind_pointer
+         <const MyClass>::type                     const_pointer;
    static const link_mode_type link_mode =      normal_link;
 
    external_traits(pointer values, std::size_t NumElem)
       :  values_(values),  node_array_(NumElem)
    {}
 
-   node_ptr to_node_ptr (value_type &value) 
+   node_ptr to_node_ptr (value_type &value)
    {  return (&node_array_[0]) + (&value - values_); }
 
-   const_node_ptr to_node_ptr (const value_type &value) const 
+   const_node_ptr to_node_ptr (const value_type &value) const
    {  return &node_array_[0] + (&value - values_); }
 
    pointer to_value_ptr(node_ptr n)
    {  return values_ + (n - &node_array_[0]); }
 
-   const_pointer to_value_ptr(const_node_ptr n) const 
+   const_pointer to_value_ptr(const_node_ptr n) const
    {  return values_ + (n - &node_array_[0]); }
 
    pointer  values_;

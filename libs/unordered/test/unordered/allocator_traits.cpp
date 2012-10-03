@@ -3,10 +3,10 @@
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
-#include <boost/unordered/detail/allocator_helpers.hpp>
+#include <boost/unordered/detail/allocate.hpp>
 #include <boost/detail/lightweight_test.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/mpl/assert.hpp>
+#include <boost/static_assert.hpp>
 #include <boost/limits.hpp>
 
 // Boilerplate
@@ -90,11 +90,16 @@ void test_empty_allocator()
 {
     typedef empty_allocator<int> allocator;
     typedef boost::unordered::detail::allocator_traits<allocator> traits;
-    BOOST_MPL_ASSERT((boost::is_same<traits::size_type, std::size_t>));
-    BOOST_MPL_ASSERT((boost::is_same<traits::difference_type, std::ptrdiff_t>));
-    BOOST_MPL_ASSERT((boost::is_same<traits::pointer, int*>));
-    BOOST_MPL_ASSERT((boost::is_same<traits::const_pointer, int const*>));
-    BOOST_MPL_ASSERT((boost::is_same<traits::value_type, int>));
+#if BOOST_UNORDERED_USE_ALLOCATOR_TRAITS == 1
+    BOOST_STATIC_ASSERT((boost::is_same<traits::size_type,
+        std::make_unsigned<std::ptrdiff_t>::type>::value));
+#else
+    BOOST_STATIC_ASSERT((boost::is_same<traits::size_type, std::size_t>::value));
+#endif
+    BOOST_STATIC_ASSERT((boost::is_same<traits::difference_type, std::ptrdiff_t>::value));
+    BOOST_STATIC_ASSERT((boost::is_same<traits::pointer, int*>::value));
+    BOOST_STATIC_ASSERT((boost::is_same<traits::const_pointer, int const*>::value));
+    BOOST_STATIC_ASSERT((boost::is_same<traits::value_type, int>::value));
     BOOST_TEST(!traits::propagate_on_container_copy_assignment::value);
     BOOST_TEST(!traits::propagate_on_container_move_assignment::value);
     BOOST_TEST(!traits::propagate_on_container_swap::value);
@@ -123,11 +128,16 @@ void test_allocator1()
 {
     typedef allocator1<int> allocator;
     typedef boost::unordered::detail::allocator_traits<allocator> traits;
-    BOOST_MPL_ASSERT((boost::is_same<traits::size_type, std::size_t>));
-    BOOST_MPL_ASSERT((boost::is_same<traits::difference_type, std::ptrdiff_t>));
-    BOOST_MPL_ASSERT((boost::is_same<traits::pointer, int*>));
-    BOOST_MPL_ASSERT((boost::is_same<traits::const_pointer, int const*>));
-    BOOST_MPL_ASSERT((boost::is_same<traits::value_type, int>));
+#if BOOST_UNORDERED_USE_ALLOCATOR_TRAITS == 1
+    BOOST_STATIC_ASSERT((boost::is_same<traits::size_type,
+        std::make_unsigned<std::ptrdiff_t>::type>::value));
+#else
+    BOOST_STATIC_ASSERT((boost::is_same<traits::size_type, std::size_t>::value));
+#endif
+    BOOST_STATIC_ASSERT((boost::is_same<traits::difference_type, std::ptrdiff_t>::value));
+    BOOST_STATIC_ASSERT((boost::is_same<traits::pointer, int*>::value));
+    BOOST_STATIC_ASSERT((boost::is_same<traits::const_pointer, int const*>::value));
+    BOOST_STATIC_ASSERT((boost::is_same<traits::value_type, int>::value));
     BOOST_TEST(traits::propagate_on_container_copy_assignment::value);
     BOOST_TEST(traits::propagate_on_container_move_assignment::value);
     BOOST_TEST(traits::propagate_on_container_swap::value);
@@ -164,11 +174,11 @@ void test_allocator2()
 {
     typedef allocator2<int> allocator;
     typedef boost::unordered::detail::allocator_traits<allocator> traits;
-    BOOST_MPL_ASSERT((boost::is_same<traits::size_type, std::size_t>));
-    BOOST_MPL_ASSERT((boost::is_same<traits::difference_type, std::ptrdiff_t>));
-    BOOST_MPL_ASSERT((boost::is_same<traits::pointer, int*>));
-    BOOST_MPL_ASSERT((boost::is_same<traits::const_pointer, int const*>));
-    BOOST_MPL_ASSERT((boost::is_same<traits::value_type, int>));
+    BOOST_STATIC_ASSERT((boost::is_same<traits::size_type, std::size_t>::value));
+    BOOST_STATIC_ASSERT((boost::is_same<traits::difference_type, std::ptrdiff_t>::value));
+    BOOST_STATIC_ASSERT((boost::is_same<traits::pointer, int*>::value));
+    BOOST_STATIC_ASSERT((boost::is_same<traits::const_pointer, int const*>::value));
+    BOOST_STATIC_ASSERT((boost::is_same<traits::value_type, int>::value));
     BOOST_TEST(!traits::propagate_on_container_copy_assignment::value);
     BOOST_TEST(!traits::propagate_on_container_move_assignment::value);
     BOOST_TEST(!traits::propagate_on_container_swap::value);
@@ -184,6 +194,20 @@ struct ptr
     
     ptr(void* v) : value_((T*) v) {}
     T& operator*() const { return *value_; }
+};
+
+template <>
+struct ptr<void>
+{
+    void* value_;
+    ptr(void* v) : value_(v) {}
+};
+
+template <>
+struct ptr<const void>
+{
+    void const* value_;
+    ptr(void const* v) : value_(v) {}
 };
 
 template <typename T>
@@ -209,11 +233,11 @@ void test_allocator3()
 {
     typedef allocator3<int> allocator;
     typedef boost::unordered::detail::allocator_traits<allocator> traits;
-    BOOST_MPL_ASSERT((boost::is_same<traits::size_type, unsigned short>));
-    BOOST_MPL_ASSERT((boost::is_same<traits::difference_type, std::ptrdiff_t>));
-    BOOST_MPL_ASSERT((boost::is_same<traits::pointer, ptr<int> >));
-    BOOST_MPL_ASSERT((boost::is_same<traits::const_pointer, ptr<int const> >));
-    BOOST_MPL_ASSERT((boost::is_same<traits::value_type, int>));
+    BOOST_STATIC_ASSERT((boost::is_same<traits::size_type, unsigned short>::value));
+    BOOST_STATIC_ASSERT((boost::is_same<traits::difference_type, std::ptrdiff_t>::value));
+    BOOST_STATIC_ASSERT((boost::is_same<traits::pointer, ptr<int> >::value));
+    BOOST_STATIC_ASSERT((boost::is_same<traits::const_pointer, ptr<int const> >::value));
+    BOOST_STATIC_ASSERT((boost::is_same<traits::value_type, int>::value));
     BOOST_TEST(traits::propagate_on_container_copy_assignment::value);
     BOOST_TEST(!traits::propagate_on_container_move_assignment::value);
     BOOST_TEST(!traits::propagate_on_container_swap::value);

@@ -31,7 +31,7 @@ using namespace boost;
 
 unit_test::test_suite *init_unit_test_suite(int, char *[])
 {
-    unit_test_framework::test_suite *suite =
+    unit_test::test_suite *suite =
         BOOST_TEST_SUITE("lexical_cast float types unit test");
     suite->add(BOOST_TEST_CASE(&test_conversion_from_to_float));
     suite->add(BOOST_TEST_CASE(&test_conversion_from_to_double));
@@ -237,7 +237,7 @@ void test_converion_to_float_types()
     CHECK_CLOSE_ABS_DIFF(-10101.0E-011, test_t);
     CHECK_CLOSE_ABS_DIFF(-10101093, test_t);
     CHECK_CLOSE_ABS_DIFF(10101093, test_t);
-    
+
     CHECK_CLOSE_ABS_DIFF(-.34, test_t);
     CHECK_CLOSE_ABS_DIFF(.34, test_t);
     CHECK_CLOSE_ABS_DIFF(.34e10, test_t);
@@ -261,6 +261,7 @@ void test_converion_to_float_types()
     BOOST_CHECK_THROW(lexical_cast<test_t>(".e"), bad_lexical_cast);
     BOOST_CHECK_THROW(lexical_cast<test_t>(".11111111111111111111111111111111111111111111111111111111111111111111ee"), bad_lexical_cast);
     BOOST_CHECK_THROW(lexical_cast<test_t>(".11111111111111111111111111111111111111111111111111111111111111111111e-"), bad_lexical_cast);
+    BOOST_CHECK_THROW(lexical_cast<test_t>("."), bad_lexical_cast);
 
     BOOST_CHECK_THROW(lexical_cast<test_t>("-B"), bad_lexical_cast);
     BOOST_CHECK_THROW(lexical_cast<test_t>("0xB"), bad_lexical_cast);
@@ -276,6 +277,7 @@ void test_converion_to_float_types()
     BOOST_CHECK_THROW(lexical_cast<test_t>("-"), bad_lexical_cast);
     BOOST_CHECK_THROW(lexical_cast<test_t>('\0'), bad_lexical_cast);
     BOOST_CHECK_THROW(lexical_cast<test_t>('-'), bad_lexical_cast);
+    BOOST_CHECK_THROW(lexical_cast<test_t>('.'), bad_lexical_cast);
 }
 
 template <class T>

@@ -1,9 +1,9 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 // Unit Test
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -27,16 +27,16 @@
 #include <boost/geometry/geometries/polygon.hpp>
 
 
-#include <boost/geometry/domains/gis/io/wkt/read_wkt.hpp>
+#include <boost/geometry/io/wkt/read.hpp>
 
 
 
 
 template <typename P>
 void test_ring(std::string const& wkt,
-    int expected_main_count,
-    int expected_interior_ring_count,
-    int expected_first_interior_count)
+    std::size_t expected_main_count,
+    std::size_t expected_interior_ring_count,
+    std::size_t expected_first_interior_count)
 {
     typedef bg::model::polygon<P> the_polygon;
     typedef typename bg::ring_type<the_polygon>::type the_ring;
@@ -48,7 +48,7 @@ void test_ring(std::string const& wkt,
     the_ring ext = bg::exterior_ring(poly);
     the_interior rings = bg::interior_rings(poly);
 
-    BOOST_CHECK_EQUAL(bg::num_interior_rings(poly), std::size_t(expected_interior_ring_count));
+    BOOST_CHECK_EQUAL(bg::num_interior_rings(poly), expected_interior_ring_count);
     BOOST_CHECK_EQUAL(boost::size(rings), expected_interior_ring_count);
     BOOST_CHECK_EQUAL(boost::size(ext), expected_main_count);
     if (boost::size(rings))

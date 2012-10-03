@@ -41,7 +41,7 @@
 
 <P>Here <CODE>io::stream_buffer&lt;my_device&gt;</CODE> is a derived class of <CODE>std::basic_streambuf</CODE>, and <CODE>io::stream&lt;my_device&gt;</CODE> is a derived class of <CODE>std::basic_istream</CODE>, <CODE>std::basic_ostream</CODE> or <CODE>std::basic_iostream</CODE> depending on the <A HREF="../guide/modes.html">mode</A> of my_device, <I>i.e.</I>, depending on which of the fundamental i/o operations <A HREF="../functions/read.html"><CODE>read</CODE></A>, <A HREF="../functions/write.html"><CODE>write</CODE></A> and <A HREF="../functions/seek.html"><CODE>seek</CODE></A> it supports.
 
-<P>The template <CODE>io::stream</CODE> is provided as a convenience. It's always possibly to avoid <CODE>io::stream</CODE> and simply use <CODE>io::stream_buffer</CODE> together with one of the standard library stream templates. <I>E.g.</I>, 
+<P>The template <CODE>io::stream</CODE> is provided as a convenience. It's always possible to avoid <CODE>io::stream</CODE> and simply use <CODE>io::stream_buffer</CODE> together with one of the standard library stream templates. <I>E.g.</I>, 
 
 <PRE CLASS="broken_ie"><SPAN CLASS='preprocessor'>#include</SPAN> <SPAN CLASS='literal'>&lt;ostream&gt;</SPAN>
 <SPAN CLASS='preprocessor'>#include</SPAN> <A CLASS="HEADER" HREF="../../../../boost/iostreams/device/file.hpp"><SPAN CLASS='literal'>&lt;boost/iostreams/device/file.hpp&gt;</SPAN></A>

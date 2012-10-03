@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -8,8 +8,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef BOOST_CONTAINERS_CONTAINERS_FWD_HPP
-#define BOOST_CONTAINERS_CONTAINERS_FWD_HPP
+#ifndef BOOST_CONTAINER_CONTAINER_FWD_HPP
+#define BOOST_CONTAINER_CONTAINER_FWD_HPP
 
 #if (defined _MSC_VER) && (_MSC_VER >= 1200)
 #  pragma once
@@ -21,43 +21,22 @@
 
 /// @cond
 
-namespace boost{ 
-namespace intrusive{ 
+namespace boost{
+namespace intrusive{
    //Create namespace to avoid compilation errors
 }}
 
-namespace boost{ namespace container{ namespace containers_detail{
+namespace boost{ namespace container{ namespace container_detail{
 
 namespace bi = boost::intrusive;
 
 }}}
 
-#ifndef _LIBCPP_VERSION
-
-namespace std {
-
-template <class T>
-class allocator;
-
-template <class T>
-struct less;
-
-template <class T1, class T2>
-struct pair;
-
-template <class CharType> 
-struct char_traits;
-
-}  //namespace std {
-
-#else 
-
-#include <utility> 
-#include <memory> 
-#include <functional> 
-#include <iosfwd> 
- 
-#endif
+#include <utility>
+#include <memory>
+#include <functional>
+#include <iosfwd>
+#include <string>
 
 /// @endcond
 
@@ -148,31 +127,27 @@ class flat_multimap;
 //basic_string class
 template <class CharT
          ,class Traits = std::char_traits<CharT>
-         ,class A  = std::allocator<CharT> > 
+         ,class A  = std::allocator<CharT> >
 class basic_string;
 
 //! Type used to tag that the input range is
 //! guaranteed to be ordered
-struct ordered_range_impl_t {};
+struct ordered_range_t
+{};
 
 //! Type used to tag that the input range is
 //! guaranteed to be ordered and unique
-struct ordered_unique_range_impl_t{};
-
-/// @cond
-
-typedef ordered_range_impl_t * ordered_range_t;
-typedef ordered_unique_range_impl_t *ordered_unique_range_t;
-
-/// @endcond
+struct ordered_unique_range_t
+   : public ordered_range_t
+{};
 
 //! Value used to tag that the input range is
 //! guaranteed to be ordered
-static const ordered_range_t ordered_range = 0;
+static const ordered_range_t ordered_range = ordered_range_t();
 
 //! Value used to tag that the input range is
 //! guaranteed to be ordered and unique
-static const ordered_unique_range_t ordered_unique_range = 0;
+static const ordered_unique_range_t ordered_unique_range = ordered_unique_range_t();
 
 /// @cond
 
@@ -195,4 +170,4 @@ struct dummy
 
 }}  //namespace boost { namespace container {
 
-#endif //#ifndef BOOST_CONTAINERS_CONTAINERS_FWD_HPP
+#endif //#ifndef BOOST_CONTAINER_CONTAINER_FWD_HPP

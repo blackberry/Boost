@@ -129,7 +129,7 @@ void pointer_constructor()
       boost::interprocess::offset_ptr<X> p = new X;
       BOOST_TEST(p->use_count() == 0);
 
-      intrusive_ptr_add_ref(get_pointer(p));
+      intrusive_ptr_add_ref(p.get());
       BOOST_TEST(p->use_count() == 1);
 
       boost::interprocess::intrusive_ptr<X, VP> px(p, false);
@@ -249,37 +249,21 @@ void test()
       boost::interprocess::intrusive_ptr<X, VP> px;
       BOOST_TEST(px? false: true);
       BOOST_TEST(!px);
-
-#if defined(BOOST_NO_ARGUMENT_DEPENDENT_LOOKUP)
-      using boost::get_pointer;
-#endif
-
-      BOOST_TEST(get_pointer(px) == px.get());
    }
 
    {
       boost::interprocess::intrusive_ptr<X, VP> px(0);
       BOOST_TEST(px? false: true);
       BOOST_TEST(!px);
-
-#if defined(BOOST_NO_ARGUMENT_DEPENDENT_LOOKUP)
-      using boost::get_pointer;
-#endif
-
-      BOOST_TEST(get_pointer(px) == px.get());
    }
 
    {
-#if defined(BOOST_NO_ARGUMENT_DEPENDENT_LOOKUP)
-      using boost::get_pointer;
-#endif
       boost::interprocess::intrusive_ptr<X, VP> px
          (boost::interprocess::offset_ptr<X>(new X));
       BOOST_TEST(px? true: false);
       BOOST_TEST(!!px);
-      BOOST_TEST(&*px == get_pointer(px.get()));
+      BOOST_TEST(&*px == boost::interprocess::ipcdetail::to_raw_pointer(px.get()));
       BOOST_TEST(px.operator ->() == px.get());
-      BOOST_TEST(get_pointer(px) == px.get());
    }
 }
 
@@ -472,12 +456,12 @@ namespace n_report_1
 {
 
 class foo: public N::base
-{ 
+{
    public:
 
    foo(): m_self(this)
    {
-   } 
+   }
 
    void suicide()
    {
@@ -487,13 +471,13 @@ class foo: public N::base
    private:
 
    boost::interprocess::intrusive_ptr<foo, VP> m_self;
-}; 
+};
 
 void test()
 {
    boost::interprocess::offset_ptr<foo> foo_ptr = new foo;
    foo_ptr->suicide();
-} 
+}
 
 } // namespace n_report_1
 

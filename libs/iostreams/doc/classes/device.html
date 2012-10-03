@@ -26,7 +26,7 @@
 <H2>Description</H2>
 
 <P>
-    The class template <CODE>device</CODE>, its subcass <CODE>wdevice</CODE> and their specializations <CODE>source</CODE>, <CODE>sink</CODE>, <CODE>wsource</CODE> and <CODE>wsink</CODE> are provided by the Iostreams library to ease the definitions of new models of the various <A HREF="../guide/concepts.html#device_concepts">Device Concepts</A>. These templates and <CODE>typedef</CODE>s are inteded to be used as base classes for user-defined Devices. They supply the member types <CODE>char_type</CODE> and <CODE>category</CODE> used by the Iostreams library.
+    The class template <CODE>device</CODE>, its subclass <CODE>wdevice</CODE> and their specializations <CODE>source</CODE>, <CODE>sink</CODE>, <CODE>wsource</CODE> and <CODE>wsink</CODE> are provided by the Iostreams library to ease the definitions of new models of the various <A HREF="../guide/concepts.html#device_concepts">Device Concepts</A>. These templates and <CODE>typedef</CODE>s are intended to be used as base classes for user-defined Devices. They supply the member types <CODE>char_type</CODE> and <CODE>category</CODE> used by the Iostreams library.
 </P>
 <P>
     The supplied <CODE>category</CODE> member is convertible to <A HREF="../guide/traits.html#category_tags"><CODE>closable_tag</CODE></A> and to <A HREF="../guide/traits.html#category_tags"><CODE>localizable_tag</CODE></A>. This allows users to define models of the concepts <A HREF="../concepts/closable.html">Closable</A> and <A HREF="../concepts/closable.html">Localizable</A> simply by providing definitions of member functions <CODE>close</CODE> and <CODE>imbue</CODE>.

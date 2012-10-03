@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -19,7 +19,7 @@
 #include <boost/interprocess/detail/utilities.hpp>
 #include <boost/interprocess/creation_tags.hpp>
 #include <boost/interprocess/detail/os_file_functions.hpp>
-#include <boost/interprocess/detail/move.hpp>
+#include <boost/move/move.hpp>
 #include <string>    //std::string
 
 //!\file
@@ -41,27 +41,27 @@ class file_mapping
    //!Does not throw
    file_mapping();
 
-   //!Opens a file mapping of file "filename", starting in offset 
-   //!"file_offset", and the mapping's size will be "size". The mapping 
+   //!Opens a file mapping of file "filename", starting in offset
+   //!"file_offset", and the mapping's size will be "size". The mapping
    //!can be opened for read-only "read_only" or read-write "read_write"
    //!modes. Throws interprocess_exception on error.
    file_mapping(const char *filename, mode_t mode);
 
-   //!Moves the ownership of "moved"'s file mapping object to *this. 
-   //!After the call, "moved" does not represent any file mapping object. 
+   //!Moves the ownership of "moved"'s file mapping object to *this.
+   //!After the call, "moved" does not represent any file mapping object.
    //!Does not throw
    file_mapping(BOOST_RV_REF(file_mapping) moved)
       :  m_handle(file_handle_t(ipcdetail::invalid_file()))
    {  this->swap(moved);   }
 
    //!Moves the ownership of "moved"'s file mapping to *this.
-   //!After the call, "moved" does not represent any file mapping. 
+   //!After the call, "moved" does not represent any file mapping.
    //!Does not throw
    file_mapping &operator=(BOOST_RV_REF(file_mapping) moved)
    {
-      file_mapping tmp(boost::interprocess::move(moved));
+      file_mapping tmp(boost::move(moved));
       this->swap(tmp);
-      return *this;  
+      return *this; 
    }
 
    //!Swaps to file_mappings.
@@ -100,21 +100,21 @@ class file_mapping
    /// @endcond
 };
 
-inline file_mapping::file_mapping() 
+inline file_mapping::file_mapping()
    :  m_handle(file_handle_t(ipcdetail::invalid_file()))
 {}
 
-inline file_mapping::~file_mapping() 
+inline file_mapping::~file_mapping()
 {  this->priv_close(); }
 
 inline const char *file_mapping::get_name() const
 {  return m_filename.c_str(); }
 
 inline void file_mapping::swap(file_mapping &other)
-{  
+{ 
    std::swap(m_handle, other.m_handle);
    std::swap(m_mode, other.m_mode);
-   m_filename.swap(other.m_filename);   
+   m_filename.swap(other.m_filename);  
 }
 
 inline mapping_handle_t file_mapping::get_mapping_handle() const

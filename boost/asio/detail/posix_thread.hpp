@@ -2,7 +2,7 @@
 // detail/posix_thread.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -64,10 +64,6 @@ private:
   struct auto_func_base_ptr
   {
     func_base* ptr;
-#if defined(__QNX__)
-    // PR 155585: Fix possible uninitialized delete
-    auto_func_base_ptr() { ptr = 0; }
-#endif
     ~auto_func_base_ptr() { delete ptr; }
   };
 

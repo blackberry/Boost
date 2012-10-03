@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2006-2009.
+// (C) Copyright Ion Gaztanaga  2006-2012.
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -22,7 +22,7 @@ template<class T, class O1, class O2, class O3, class O4>
 #else
 template<class T, class ...Options>
 #endif
-struct has_insert_before<boost::intrusive::treap_set<T, 
+struct has_insert_before<boost::intrusive::treap_set<T,
    #if !defined (BOOST_INTRUSIVE_VARIADIC_TEMPLATES)
    O1, O2, O3, O4
    #else
@@ -38,7 +38,7 @@ template<class T, class O1, class O2, class O3, class O4>
 #else
 template<class T, class ...Options>
 #endif
-struct is_treap<boost::intrusive::treap_set<T, 
+struct is_treap<boost::intrusive::treap_set<T,
    #if !defined (BOOST_INTRUSIVE_VARIADIC_TEMPLATES)
    O1, O2, O3, O4
    #else
@@ -159,7 +159,7 @@ class test_main_template<VoidPointer, false>
    }
 };
 
-int main( int, char* [] ) 
+int main( int, char* [] )
 {
    test_main_template<void*, false>()();
    test_main_template<boost::intrusive::smart_ptr<void>, false>()();

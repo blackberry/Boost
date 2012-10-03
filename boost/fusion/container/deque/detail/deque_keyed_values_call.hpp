@@ -1,5 +1,5 @@
 /*=============================================================================
-    Copyright (c) 2005-2011 Joel de Guzman
+    Copyright (c) 2005-2012 Joel de Guzman
     Copyright (c) 2005-2006 Dan Marsden
 
     Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -8,6 +8,10 @@
 #if !defined(BOOST_PP_IS_ITERATING)
 #if !defined(BOOST_FUSION_SEQUENCE_DEQUE_DETAIL_DEQUE_KEYED_VALUES_CALL_04122006_2211)
 #define BOOST_FUSION_SEQUENCE_DEQUE_DETAIL_DEQUE_KEYED_VALUES_CALL_04122006_2211
+
+#if defined(BOOST_FUSION_HAS_CPP11_DEQUE)
+#error "C++03 only! This file should not have been included"
+#endif
 
 #include <boost/preprocessor/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_shifted_params.hpp>

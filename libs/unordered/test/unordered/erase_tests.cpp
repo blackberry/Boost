@@ -4,9 +4,10 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 #include "../helpers/prefix.hpp"
-
 #include <boost/unordered_set.hpp>
 #include <boost/unordered_map.hpp>
+#include "../helpers/postfix.hpp"
+
 #include "../helpers/test.hpp"
 #include <boost/next_prior.hpp>
 #include "../objects/test.hpp"
@@ -20,7 +21,7 @@
 namespace erase_tests
 {
 
-test::seed_t seed(85638);
+test::seed_t initialize_seed(85638);
 
 template <class Container>
 void erase_tests1(Container*,
@@ -195,16 +196,16 @@ void erase_tests1(Container*,
 
 boost::unordered_set<test::object,
     test::hash, test::equal_to,
-    test::allocator<test::object> >* test_set;
+    test::allocator1<test::object> >* test_set;
 boost::unordered_multiset<test::object,
     test::hash, test::equal_to,
-    test::allocator<test::object> >* test_multiset;
+    test::allocator2<test::object> >* test_multiset;
 boost::unordered_map<test::object, test::object,
     test::hash, test::equal_to,
-    test::allocator<test::object> >* test_map;
+    test::allocator1<test::object> >* test_map;
 boost::unordered_multimap<test::object, test::object,
     test::hash, test::equal_to,
-    test::allocator<test::object> >* test_multimap;
+    test::allocator2<test::object> >* test_multimap;
 
 using test::default_generator;
 using test::generate_collisions;

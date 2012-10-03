@@ -333,7 +333,7 @@ namespace minimal
         typedef std::size_t size_type;
         typedef std::ptrdiff_t difference_type;
         typedef void_ptr void_pointer;
-        typedef void_const_ptr void_const_pointer;
+        typedef void_const_ptr const_void_pointer;
         typedef ptr<T> pointer;
         typedef const_ptr<T> const_pointer;
         typedef T& reference;
@@ -367,9 +367,9 @@ namespace minimal
 
         void construct(T* p, T const& t) { new((void*)p) T(t); }
 
-#if defined(BOOST_UNORDERED_STD_FORWARD_MOVE)
-        template<class... Args> void construct(T* p, Args&&... args) {
-            new((void*)p) T(std::forward<Args>(args)...);
+#if !defined(BOOST_NO_VARIADIC_TEMPLATES)
+        template<class... Args> void construct(T* p, BOOST_FWD_REF(Args)... args) {
+            new((void*)p) T(boost::forward<Args>(args)...);
         }
 #endif
 
@@ -439,9 +439,9 @@ namespace minimal
 
         void construct(T* p, T const& t) { new((void*)p) T(t); }
 
-#if defined(BOOST_UNORDERED_STD_FORWARD_MOVE)
-        template<class... Args> void construct(T* p, Args&&... args) {
-            new((void*)p) T(std::forward<Args>(args)...);
+#if !defined(BOOST_NO_VARIADIC_TEMPLATES)
+        template<class... Args> void construct(T* p, BOOST_FWD_REF(Args)... args) {
+            new((void*)p) T(boost::forward<Args>(args)...);
         }
 #endif
 

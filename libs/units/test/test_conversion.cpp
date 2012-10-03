@@ -82,6 +82,8 @@ BOOST_AUTO_TEST_CASE(test_conversion) {
     bu::quantity<bu::si::force> F5(20 * bu::cgs::dyne);
     BOOST_UNITS_CHECK_CLOSE(F5.value(), 2.0e-4);
 
+    // same type
+    BOOST_CHECK_EQUAL(boost::units::conversion_factor(si_length(), si_length()), 1.0);
 }
 
 BOOST_AUTO_TEST_CASE(test_dimensionless_conversions) {

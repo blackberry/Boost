@@ -1,6 +1,6 @@
 // Copyright (C) 2007 Anthony Williams
 //
-//  Distributed under the Boost Software License, Version 1.0. (See accompanying 
+//  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 #include <boost/thread/thread.hpp>
 #include <boost/test/unit_test.hpp>
@@ -61,7 +61,7 @@ void test_thread_ids_have_a_total_order()
     BOOST_CHECK((t3.get_id()<t.get_id()) == (t.get_id()>=t3.get_id()));
     BOOST_CHECK((t2.get_id()<t3.get_id()) == (t3.get_id()>=t2.get_id()));
     BOOST_CHECK((t3.get_id()<t2.get_id()) == (t2.get_id()>=t3.get_id()));
-    
+
     BOOST_CHECK((t.get_id()<=t2.get_id()) == (t2.get_id()>t.get_id()));
     BOOST_CHECK((t2.get_id()<=t.get_id()) == (t.get_id()>t2.get_id()));
     BOOST_CHECK((t.get_id()<=t3.get_id()) == (t3.get_id()>t.get_id()));
@@ -111,7 +111,7 @@ void test_thread_ids_have_a_total_order()
     BOOST_CHECK(!(default_id > t.get_id()));
     BOOST_CHECK(!(default_id > t2.get_id()));
     BOOST_CHECK(!(default_id > t3.get_id()));
-    
+
     BOOST_CHECK(!(default_id >= t.get_id()));
     BOOST_CHECK(!(default_id >= t2.get_id()));
     BOOST_CHECK(!(default_id >= t3.get_id()));
@@ -120,7 +120,7 @@ void test_thread_ids_have_a_total_order()
     t2.join();
     t3.join();
 }
-    
+
 void get_thread_id(boost::thread::id* id)
 {
     *id=boost::this_thread::get_id();
@@ -135,9 +135,9 @@ void test_thread_id_of_running_thread_returned_by_this_thread_get_id()
     BOOST_CHECK(id==t_id);
 }
 
-boost::unit_test_framework::test_suite* init_unit_test_suite(int, char*[])
+boost::unit_test::test_suite* init_unit_test_suite(int, char*[])
 {
-    boost::unit_test_framework::test_suite* test =
+    boost::unit_test::test_suite* test =
         BOOST_TEST_SUITE("Boost.Threads: thread move test suite");
 
     test->add(BOOST_TEST_CASE(test_thread_id_for_default_constructed_thread_is_default_constructed_id));
@@ -146,4 +146,17 @@ boost::unit_test_framework::test_suite* init_unit_test_suite(int, char*[])
     test->add(BOOST_TEST_CASE(test_thread_ids_have_a_total_order));
     test->add(BOOST_TEST_CASE(test_thread_id_of_running_thread_returned_by_this_thread_get_id));
     return test;
+}
+
+void remove_unused_warning()
+{
+
+  //../../../boost/test/results_collector.hpp:40:13: warning: unused function 'first_failed_assertion' [-Wunused-function]
+  //(void)boost::unit_test::first_failed_assertion;
+
+  //../../../boost/test/tools/floating_point_comparison.hpp:304:25: warning: unused variable 'check_is_close' [-Wunused-variable]
+  //../../../boost/test/tools/floating_point_comparison.hpp:326:25: warning: unused variable 'check_is_small' [-Wunused-variable]
+  (void)boost::test_tools::check_is_close;
+  (void)boost::test_tools::check_is_small;
+
 }

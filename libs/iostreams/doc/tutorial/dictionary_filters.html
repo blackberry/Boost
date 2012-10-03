@@ -27,11 +27,11 @@
 <H2>2.2.6. Dictionary Filters</H2>
 
 <P>
-    A <SPAN CLASS='term'>dictionary filter</SPAN> is a Filter which peforms text substitution in the following manner. It maintains a collection of pairs of strings whose first components are words and whose second components represent replacement text &#8212; I'll call such a collection a <SPAN CLASS='term'>dictionary</SPAN>, and refer to the pairs it contains as <SPAN CLASS='term'>definitions</SPAN>.  When a dictionary filter encounters a word which appears as the first component of a definition, it forwards the replacement text instead of the original word. Other words, whitespace and punctuation are forwarded unchanged. 
+    A <SPAN CLASS='term'>dictionary filter</SPAN> is a Filter which performs text substitution in the following manner. It maintains a collection of pairs of strings whose first components are words and whose second components represent replacement text &#8212; I'll call such a collection a <SPAN CLASS='term'>dictionary</SPAN>, and refer to the pairs it contains as <SPAN CLASS='term'>definitions</SPAN>.  When a dictionary filter encounters a word which appears as the first component of a definition, it forwards the replacement text instead of the original word. Other words, whitespace and punctuation are forwarded unchanged. 
 </P>
 
 <P>
-    The basic algorithm is as follows.: You examine characters one at a time, appending them to a string which I'll call the <SPAN CLASS='term'>current word</SPAN>. When you encounter a non-alphabetic character, you consult the dictionary to determine whether the current word appears as the first component of a definition. If it does, you forward the replacement text followed by the non-alphabetic character. Otherwise, you forward the current word followed by the non-alphabetic character. When the end-of-stream is reached, you consult the dictionary again and forward either the curent word or its replacement, as appropriate.
+    The basic algorithm is as follows: You examine characters one at a time, appending them to a string which I'll call the <SPAN CLASS='term'>current word</SPAN>. When you encounter a non-alphabetic character, you consult the dictionary to determine whether the current word appears as the first component of a definition. If it does, you forward the replacement text followed by the non-alphabetic character. Otherwise, you forward the current word followed by the non-alphabetic character. When the end-of-stream is reached, you consult the dictionary again and forward either the curent word or its replacement, as appropriate.
 </P>
 
 <P>
@@ -59,7 +59,7 @@
 } } } <SPAN CLASS="comment">// End namespace boost::iostreams:example</SPAN></PRE>
 
 <P>
-    The member function <CODE>add</CODE> converts <CODE>key</CODE> to lower case then added the pair <CODE>key</CODE>, <CODE>value</CODE> to the dictionary. The member function <CODE>replace</CODE> searches for a definition whose first component is equal to the result of converting <CODE>key</CODE> to lower case. If it finds such a definition, it assigns the replacement text to <CODE>key</CODE>, adjusting the case of the first character to match the case of the first character of <CODE>key</CODE>. Otherwise, it does nothing.
+    The member function <CODE>add</CODE> converts <CODE>key</CODE> to lower case and adds the pair <CODE>key</CODE>, <CODE>value</CODE> to the dictionary. The member function <CODE>replace</CODE> searches for a definition whose first component is equal to the result of converting <CODE>key</CODE> to lower case. If it finds such a definition, it assigns the replacement text to <CODE>key</CODE>, adjusting the case of the first character to match the case of the first character of <CODE>key</CODE>. Otherwise, it does nothing.
 </P>
 
 <A NAME="dictionary_stdio_filter"></A>

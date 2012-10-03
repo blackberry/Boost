@@ -10,10 +10,11 @@
 #define BOOST_QUICKBOOK_DETAIL_INPUT_PATH_HPP
 
 #include <boost/config.hpp>
-#include <boost/filesystem/v3/path.hpp>
+#include <boost/filesystem/path.hpp>
 #include <string>
 #include <stdexcept>
 #include <iostream>
+#include "fwd.hpp"
 
 #if defined(__cygwin__) || defined(__CYGWIN__)
 #   define QUICKBOOK_CYGWIN_PATHS 1
@@ -65,17 +66,47 @@ namespace quickbook
         typedef std::string input_string;
 #endif
 
+        // A light wrapper around C++'s streams that gets things right
+        // in the quickbook context.
+        //
+        // This is far from perfect but it fixes some issues.
+        struct ostream
+        {
 #if QUICKBOOK_WIDE_STREAMS
-        typedef std::wostream ostream;
-        typedef std::wstring stream_string;
+            typedef std::wostream base_ostream;
+            typedef std::wios base_ios;
+            typedef std::wstring string;
 #else
-        typedef std::ostream ostream;
-        typedef std::string stream_string;
+            typedef std::ostream base_ostream;
+            typedef std::ios base_ios;
+            typedef std::string string;
 #endif
+            base_ostream& base;
+
+            explicit ostream(base_ostream& x) : base(x) {}
+
+            // C strings should always be ascii.
+            ostream& operator<<(char);
+            ostream& operator<<(char const*);
+
+            // std::string should be UTF-8 (what a mess!)
+            ostream& operator<<(std::string const&);
+
+            // Other value types.
+            ostream& operator<<(int x);
+            ostream& operator<<(unsigned int x);
+            ostream& operator<<(long x);
+            ostream& operator<<(unsigned long x);
+            ostream& operator<<(fs::path const&);
+
+            // Modifiers
+            ostream& operator<<(base_ostream& (*)(base_ostream&));
+            ostream& operator<<(base_ios& (*)(base_ios&));
+        };
+
 
         std::string input_to_utf8(input_string const&);
         fs::path input_to_path(input_string const&);
-        stream_string path_to_stream(fs::path const&);
     
         std::string path_to_generic(fs::path const&);
         fs::path generic_to_path(std::string const&);
@@ -91,29 +122,8 @@ namespace quickbook
         ostream& outerr();
         ostream& outerr(fs::path const& file, int line = -1);
         ostream& outwarn(fs::path const& file, int line = -1);
-        
-        struct utf8_proxy
-        {
-            std::string value;
-            
-            explicit utf8_proxy(std::string const& v) : value(v) {}
-        };
-
-        void write_utf8(ostream& out, std::string const&);
-        
-        inline ostream& operator<<(ostream& out, utf8_proxy const& p) {
-            write_utf8(out, p.value);
-            return out;
-        }
-
-        inline utf8_proxy utf8(std::string const& value) {
-            return utf8_proxy(value);
-        }
-
-        template <typename It>
-        inline utf8_proxy utf8(It begin, It end) {
-            return utf8_proxy(std::string(begin, end));
-        }
+        ostream& outerr(file_ptr const&, string_iterator);
+        ostream& outwarn(file_ptr const&, string_iterator);
     }
 }
 

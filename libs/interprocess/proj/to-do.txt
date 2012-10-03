@@ -8,6 +8,15 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
+Remove std::iterator_traits and use pointer_traits
+
+What values should take shared memory allocators:
+
+propagate_on_container_copy_assignment
+propagate_on_container_move_assignment
+propagate_on_container_swap
+
+
 
 //////////////////////////////////////////////////////////////////////////////
 Platform conformance
@@ -111,7 +120,7 @@ All Fine
 -> map::node_ptr p = m.create_node(my_special_cheap_key_value, mv1, mv2);
 //We would need to unconst-cast...
 const_cast<Key&>(p->first) = modify( p->second );
-m.insert( boost::move(p) ); 
+m.insert( boost::move(p) );
 
 ->  I found some bug in the interprocess library. I use
  boost::interprocess::managed_mapped_file class and
@@ -155,7 +164,7 @@ LOCK
       }
     }
   }
-  
+ 
 
 UNLOCK
   if (fixing_mode){
@@ -239,3 +248,4 @@ MyRobustMutexLockFile()
 }
 
 ipcdetail::intermodule_singleton<MyRobustMutexLockFile>::get();
+

@@ -4,7 +4,7 @@
 <title>simplify</title>
 <link rel="stylesheet" href="../../../../../../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
-<link rel="home" href="../../../../index.html" title="Chapter&#160;1.&#160;Geometry 1.0">
+<link rel="home" href="../../../../index.html" title="Chapter&#160;1.&#160;Geometry">
 <link rel="up" href="../simplify.html" title="simplify">
 <link rel="prev" href="simplify_4_with_strategy.html" title="simplify (with strategy)">
 <link rel="next" href="../sym_difference.html" title="sym_difference">
@@ -27,7 +27,7 @@
 <a name="geometry.reference.algorithms.simplify.simplify_3"></a><a class="link" href="simplify_3.html" title="simplify">simplify</a>
 </h5></div></div></div>
 <p>
-            <a class="indexterm" name="id890616"></a>
+            <a class="indexterm" name="id901827"></a>
 Simplify a geometry.
           </p>
 <h6>
@@ -161,6 +161,53 @@ Simplify a geometry.
           </p>
 <h6>
 <a name="geometry.reference.algorithms.simplify.simplify_3.h3"></a>
+            <span><a name="geometry.reference.algorithms.simplify.simplify_3.conformance"></a></span><a class="link" href="simplify_3.html#geometry.reference.algorithms.simplify.simplify_3.conformance">Conformance</a>
+          </h6>
+<p>
+            The function simplify is not defined by OGC.
+          </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../../../../../../doc/src/images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+              PostGIS contains an algorithm with the same name and the same functionality.
+              See the <a href="http://www.postgis.org/docs/ST_Simplify.html" target="_top">PostGIS
+              documentation</a>.
+            </p></td></tr>
+</table></div>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../../../../../../doc/src/images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+              SQL Server contains an algorithm Reduce() with the same functionality.
+              See the <a href="http://msdn.microsoft.com/en-us/library/bb933814.aspx" target="_top">MSDN
+              documentation</a>.
+            </p></td></tr>
+</table></div>
+<h6>
+<a name="geometry.reference.algorithms.simplify.simplify_3.h4"></a>
+            <span><a name="geometry.reference.algorithms.simplify.simplify_3.behavior"></a></span><a class="link" href="simplify_3.html#geometry.reference.algorithms.simplify.simplify_3.behavior">Behavior</a>
+          </h6>
+<p>
+            Simplification is done using <a href="http://en.wikipedia.org/wiki/Ramer%E2%80%93Douglas%E2%80%93Peucker_algorithm" target="_top">Douglas-Peucker</a>
+            (if the default strategy is used).
+          </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../../../../../../doc/src/images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+              Geometries might become invalid by using simplify. The simplification
+              process might create self-intersections.
+            </p></td></tr>
+</table></div>
+<h6>
+<a name="geometry.reference.algorithms.simplify.simplify_3.h5"></a>
             <span><a name="geometry.reference.algorithms.simplify.simplify_3.examples"></a></span><a class="link" href="simplify_3.html#geometry.reference.algorithms.simplify.simplify_3.examples">Examples</a>
           </h6>
 <p>
@@ -197,7 +244,6 @@ Simplify a geometry.
 
     <span class="keyword">return</span> <span class="number">0</span><span class="special">;</span>
 <span class="special">}</span>
-
 </pre>
 <p>
           </p>
@@ -222,7 +268,7 @@ Simplify a geometry.
 simplified: ((1.1, 1.1), (3.1, 3.1), (4.9, 1.1), (3.1, 1.9))
 </pre>
 <h6>
-<a name="geometry.reference.algorithms.simplify.simplify_3.h4"></a>
+<a name="geometry.reference.algorithms.simplify.simplify_3.h6"></a>
             <span><a name="geometry.reference.algorithms.simplify.simplify_3.image_s_"></a></span><a class="link" href="simplify_3.html#geometry.reference.algorithms.simplify.simplify_3.image_s_">Image(s)</a>
           </h6>
 <p>
@@ -231,7 +277,8 @@ simplified: ((1.1, 1.1), (3.1, 3.1), (4.9, 1.1), (3.1, 1.9))
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2011 Barend Gehrels, Bruno Lalande, Mateusz Loskot<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2009-2012 Barend
+      Gehrels, Bruno Lalande, Mateusz Loskot<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

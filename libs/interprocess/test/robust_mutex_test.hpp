@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2010-2010. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2010-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -37,7 +37,7 @@ int robust_mutex_test(int argc, char *argv[])
       std::cout << "robust mutex recovery test" << std::endl;
 
       //Remove shared memory on construction and destruction
-      class shm_remove 
+      class shm_remove
       {
          public:
          shm_remove(){ shared_memory_object::remove
@@ -45,6 +45,7 @@ int robust_mutex_test(int argc, char *argv[])
          ~shm_remove(){ shared_memory_object::remove
             (::boost::interprocess::test::get_process_id_name()); }
       } remover;
+      (void)remover;
 
       //Construct managed shared memory
       managed_shared_memory segment(create_only, get_process_id_name(), 65536);
@@ -68,7 +69,7 @@ int robust_mutex_test(int argc, char *argv[])
       while(!*go_ahead){
          ipcdetail::thread_yield();
       }
-      
+     
       std::cout << "... recovering mutex[0]" << std::endl;
       //First try to recover lock[0], put into consistent
       //state and relock it again

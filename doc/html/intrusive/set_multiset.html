@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../intrusive.html" title="Chapter&#160;12.&#160;Boost.Intrusive">
+<link rel="up" href="../intrusive.html" title="Chapter&#160;13.&#160;Boost.Intrusive">
 <link rel="prev" href="list.html" title="Intrusive doubly linked list: list">
 <link rel="next" href="unordered_set_unordered_multiset.html" title="Semi-Intrusive unordered associative containers: unordered_set, unordered_multiset">
 </head>
@@ -224,9 +224,9 @@
    <span class="identifier">BaseSet</span> <span class="identifier">baseset</span><span class="special">;</span>
    <span class="identifier">MemberMultiset</span> <span class="identifier">membermultiset</span><span class="special">;</span>
 
-   <span class="comment">//Check that size optimization is activated in the base hook </span>
+   <span class="comment">//Check that size optimization is activated in the base hook</span>
    <span class="identifier">assert</span><span class="special">(</span><span class="keyword">sizeof</span><span class="special">(</span><span class="identifier">set_base_hook</span><span class="special">&lt;</span><span class="identifier">optimize_size</span><span class="special">&lt;</span><span class="keyword">true</span><span class="special">&gt;</span> <span class="special">&gt;)</span> <span class="special">==</span> <span class="number">3</span><span class="special">*</span><span class="keyword">sizeof</span><span class="special">(</span><span class="keyword">void</span><span class="special">*));</span>
-   <span class="comment">//Check that size optimization is deactivated in the member hook </span>
+   <span class="comment">//Check that size optimization is deactivated in the member hook</span>
    <span class="identifier">assert</span><span class="special">(</span><span class="keyword">sizeof</span><span class="special">(</span><span class="identifier">set_member_hook</span><span class="special">&lt;&gt;)</span> <span class="special">&gt;</span> <span class="number">3</span><span class="special">*</span><span class="keyword">sizeof</span><span class="special">(</span><span class="keyword">void</span><span class="special">*));</span>
 
    <span class="comment">//Now insert them in the reverse order in the base hook set</span>
@@ -258,7 +258,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2005 Olaf Krzikalla<br>Copyright &#169; 2006-2010 Ion Gaztanaga<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2005 Olaf Krzikalla<br>Copyright &#169; 2006-2012 Ion Gaztanaga<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

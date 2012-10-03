@@ -35,37 +35,41 @@
 <span class="keyword">class</span> <a class="link" href="back_move_insert_iterator.html" title="Class template back_move_insert_iterator">back_move_insert_iterator</a> <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
   <span class="comment">// types</span>
-  <span class="keyword">typedef</span> <span class="identifier">C</span> <a name="boost.back_move_insert_iterator.container_type"></a><span class="identifier">container_type</span><span class="special">;</span>
+  <span class="keyword">typedef</span> <span class="identifier">C</span>             <a name="boost.back_move_insert_iterator.container_type"></a><span class="identifier">container_type</span><span class="special">;</span>
+  <span class="keyword">typedef</span> <span class="identifier">C</span><span class="special">::</span><span class="identifier">value_type</span> <a name="boost.back_move_insert_iterator.value_type"></a><span class="identifier">value_type</span><span class="special">;</span>    
+  <span class="keyword">typedef</span> <span class="identifier">C</span><span class="special">::</span><span class="identifier">reference</span>  <a name="boost.back_move_insert_iterator.reference"></a><span class="identifier">reference</span><span class="special">;</span>     
 
   <span class="comment">// <a class="link" href="back_move_insert_iterator.html#boost.back_move_insert_iteratorconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <span class="keyword">explicit</span> <a class="link" href="back_move_insert_iterator.html#id1069793-bb"><span class="identifier">back_move_insert_iterator</span></a><span class="special">(</span><span class="identifier">C</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  back_move_insert_iterator&amp; <a class="link" href="back_move_insert_iterator.html#id1069802-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="keyword">typename</span> <span class="identifier">C</span><span class="special">::</span><span class="identifier">reference</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">explicit</span> <a class="link" href="back_move_insert_iterator.html#id1108639-bb"><span class="identifier">back_move_insert_iterator</span></a><span class="special">(</span><span class="identifier">C</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  back_move_insert_iterator&amp; <a class="link" href="back_move_insert_iterator.html#id1108648-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="identifier">reference</span><span class="special">)</span><span class="special">;</span>
+  back_move_insert_iterator&amp; <a class="link" href="back_move_insert_iterator.html#id1108655-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="identifier">value_type</span> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="back_move_insert_iterator.html#id1069753-bb">public member functions</a></span>
-  <a class="link" href="back_move_insert_iterator.html" title="Class template back_move_insert_iterator">back_move_insert_iterator</a> <span class="special">&amp;</span> <a class="link" href="back_move_insert_iterator.html#id1069756-bb"><span class="keyword">operator</span><span class="special">*</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="back_move_insert_iterator.html" title="Class template back_move_insert_iterator">back_move_insert_iterator</a> <span class="special">&amp;</span> <a class="link" href="back_move_insert_iterator.html#id1069766-bb"><span class="keyword">operator</span><span class="special">++</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="back_move_insert_iterator.html" title="Class template back_move_insert_iterator">back_move_insert_iterator</a> <span class="special">&amp;</span> <a class="link" href="back_move_insert_iterator.html#id1069777-bb"><span class="keyword">operator</span><span class="special">++</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="back_move_insert_iterator.html#id1108599-bb">public member functions</a></span>
+  <a class="link" href="back_move_insert_iterator.html" title="Class template back_move_insert_iterator">back_move_insert_iterator</a> <span class="special">&amp;</span> <a class="link" href="back_move_insert_iterator.html#id1108602-bb"><span class="keyword">operator</span><span class="special">*</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="back_move_insert_iterator.html" title="Class template back_move_insert_iterator">back_move_insert_iterator</a> <span class="special">&amp;</span> <a class="link" href="back_move_insert_iterator.html#id1108613-bb"><span class="keyword">operator</span><span class="special">++</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="back_move_insert_iterator.html" title="Class template back_move_insert_iterator">back_move_insert_iterator</a> <span class="special">&amp;</span> <a class="link" href="back_move_insert_iterator.html#id1108623-bb"><span class="keyword">operator</span><span class="special">++</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="id2365687"></a><h2>Description</h2>
+<a name="id2470278"></a><h2>Description</h2>
 <p>A move insert iterator that move constructs elements at the back of a container </p>
 <div class="refsect2">
-<a name="id2365694"></a><h3>
+<a name="id2470285"></a><h3>
 <a name="boost.back_move_insert_iteratorconstruct-copy-destruct"></a><code class="computeroutput">back_move_insert_iterator</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><span class="keyword">explicit</span> <a name="id1069793-bb"></a><span class="identifier">back_move_insert_iterator</span><span class="special">(</span><span class="identifier">C</span> <span class="special">&amp;</span> x<span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout">back_move_insert_iterator&amp; <a name="id1069802-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="keyword">typename</span> <span class="identifier">C</span><span class="special">::</span><span class="identifier">reference</span> x<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">explicit</span> <a name="id1108639-bb"></a><span class="identifier">back_move_insert_iterator</span><span class="special">(</span><span class="identifier">C</span> <span class="special">&amp;</span> x<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout">back_move_insert_iterator&amp; <a name="id1108648-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="identifier">reference</span> x<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout">back_move_insert_iterator&amp; <a name="id1108655-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="identifier">value_type</span> <span class="special">&amp;&amp;</span> x<span class="special">)</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="id2365816"></a><h3>
-<a name="id1069753-bb"></a><code class="computeroutput">back_move_insert_iterator</code> public member functions</h3>
+<a name="id2470438"></a><h3>
+<a name="id1108599-bb"></a><code class="computeroutput">back_move_insert_iterator</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><a class="link" href="back_move_insert_iterator.html" title="Class template back_move_insert_iterator">back_move_insert_iterator</a> <span class="special">&amp;</span> <a name="id1069756-bb"></a><span class="keyword">operator</span><span class="special">*</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a class="link" href="back_move_insert_iterator.html" title="Class template back_move_insert_iterator">back_move_insert_iterator</a> <span class="special">&amp;</span> <a name="id1069766-bb"></a><span class="keyword">operator</span><span class="special">++</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a class="link" href="back_move_insert_iterator.html" title="Class template back_move_insert_iterator">back_move_insert_iterator</a> <span class="special">&amp;</span> <a name="id1069777-bb"></a><span class="keyword">operator</span><span class="special">++</span><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a class="link" href="back_move_insert_iterator.html" title="Class template back_move_insert_iterator">back_move_insert_iterator</a> <span class="special">&amp;</span> <a name="id1108602-bb"></a><span class="keyword">operator</span><span class="special">*</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a class="link" href="back_move_insert_iterator.html" title="Class template back_move_insert_iterator">back_move_insert_iterator</a> <span class="special">&amp;</span> <a name="id1108613-bb"></a><span class="keyword">operator</span><span class="special">++</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a class="link" href="back_move_insert_iterator.html" title="Class template back_move_insert_iterator">back_move_insert_iterator</a> <span class="special">&amp;</span> <a name="id1108623-bb"></a><span class="keyword">operator</span><span class="special">++</span><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 </div>

@@ -2,7 +2,7 @@
 // detail/win_iocp_io_service.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -26,13 +26,13 @@
 #include <boost/asio/detail/op_queue.hpp>
 #include <boost/asio/detail/scoped_ptr.hpp>
 #include <boost/asio/detail/socket_types.hpp>
-#include <boost/asio/detail/timer_op.hpp>
+#include <boost/asio/detail/thread.hpp>
 #include <boost/asio/detail/timer_queue_base.hpp>
 #include <boost/asio/detail/timer_queue_fwd.hpp>
 #include <boost/asio/detail/timer_queue_set.hpp>
+#include <boost/asio/detail/wait_op.hpp>
 #include <boost/asio/detail/win_iocp_io_service_fwd.hpp>
 #include <boost/asio/detail/win_iocp_operation.hpp>
-#include <boost/asio/detail/thread.hpp>
 
 #include <boost/asio/detail/push_options.hpp>
 
@@ -40,7 +40,7 @@ namespace boost {
 namespace asio {
 namespace detail {
 
-class timer_op;
+class wait_op;
 
 class win_iocp_io_service
   : public boost::asio::detail::service_base<win_iocp_io_service>
@@ -135,6 +135,22 @@ public:
   BOOST_ASIO_DECL void post_deferred_completions(
       op_queue<win_iocp_operation>& ops);
 
+  // Request invocation of the given operation using the thread-private queue
+  // and return immediately. Assumes that work_started() has not yet been
+  // called for the operation.
+  void post_private_immediate_completion(win_iocp_operation* op)
+  {
+    post_immediate_completion(op);
+  }
+
+  // Request invocation of the given operation using the thread-private queue
+  // and return immediately. Assumes that work_started() was previously called
+  // for the operation.
+  void post_private_deferred_completion(win_iocp_operation* op)
+  {
+    post_deferred_completion(op);
+  }
+
   // Process unfinished operations as part of a shutdown_service operation.
   // Assumes that work_started() was previously called for the operations.
   BOOST_ASIO_DECL void abandon_operations(op_queue<operation>& ops);
@@ -169,7 +185,7 @@ public:
   template <typename Time_Traits>
   void schedule_timer(timer_queue<Time_Traits>& queue,
       const typename Time_Traits::time_type& time,
-      typename timer_queue<Time_Traits>::per_timer_data& timer, timer_op* op);
+      typename timer_queue<Time_Traits>::per_timer_data& timer, wait_op* op);
 
   // Cancel the timer associated with the given token. Returns the number of
   // handlers that have been posted or dispatched.

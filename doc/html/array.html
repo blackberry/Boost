@@ -31,7 +31,7 @@
 </h3></div></div>
 <div><p class="copyright">Copyright &#169; 2001-2004 Nicolai M. Josuttis</p></div>
 <div><div class="legalnotice">
-<a name="id1031305"></a><p>Distributed under the Boost Software License, Version 1.0.
+<a name="id1031580"></a><p>Distributed under the Boost Software License, Version 1.0.
       (See accompanying file <code class="filename">LICENSE_1_0.txt</code> or copy at 
       <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
@@ -78,6 +78,10 @@
 <p>Note that this class is suggested to be part of the next
     Technical Report, which will extend the C++ Standard (see
     <a href="http://std.dkuug.dk/jtc1/sc22/wg21/docs/papers/2003/n1548.htm" target="_top">http://std.dkuug.dk/jtc1/sc22/wg21/docs/papers/2003/n1548.htm</a>).</p>
+<p>Update: <code class="computeroutput">std::array</code> is (as of C++11) part of the C++ standard.
+    The differences between <code class="computeroutput">boost::array</code> and <code class="computeroutput">std::array</code> are minimal.
+    If you are using C++11, you should consider using <code class="computeroutput">std::array</code> instead of <code class="computeroutput">boost::array</code>.
+    </p>
 <p>Class <code class="computeroutput"><a class="link" href="boost/array.html" title="Class template array">array</a></code> fulfills most
     but not all of the requirements of "reversible containers" (see
     Section 23.1, [lib.container.requirements] of the C++
@@ -88,9 +92,9 @@
 <li class="listitem">No constructors are provided.</li>
 <li class="listitem">Elements may have an undetermined initial value (see <a class="xref" href="array/rationale.html" title="Design Rationale">the section called &#8220;Design Rationale&#8221;</a>).</li>
 <li class="listitem">
-<code class="computeroutput"><a class="link" href="boost/array.html#boost.array.swap_id424239">swap</a></code>() has no constant complexity.</li>
+<code class="computeroutput"><a class="link" href="boost/array.html#boost.array.swap_id428907">swap</a></code>() has no constant complexity.</li>
 <li class="listitem">
-<code class="computeroutput"><a class="link" href="boost/array.html#id427651-bb">size</a></code>() is always constant, based on the second template argument of the type.</li>
+<code class="computeroutput"><a class="link" href="boost/array.html#id428558-bb">size</a></code>() is always constant, based on the second template argument of the type.</li>
 <li class="listitem">The container provides no allocator support.</li>
 </ul></div>
 <p>
@@ -99,16 +103,16 @@
       </p>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc" compact>
 <li class="listitem">
-<code class="computeroutput"><a class="link" href="boost/array.html#id427810-bb">front</a></code>() and <code class="computeroutput"><a class="link" href="boost/array.html#id427844-bb">back</a></code>() are provided.</li>
+<code class="computeroutput"><a class="link" href="boost/array.html#id428717-bb">front</a></code>() and <code class="computeroutput"><a class="link" href="boost/array.html#id428750-bb">back</a></code>() are provided.</li>
 <li class="listitem">
-<code class="computeroutput"><a class="link" href="boost/array.html#id427705-bb">operator[]</a></code> and <code class="computeroutput"><a class="link" href="boost/array.html#id427758-bb">at</a></code>() are provided.</li>
+<code class="computeroutput"><a class="link" href="boost/array.html#id428612-bb">operator[]</a></code> and <code class="computeroutput"><a class="link" href="boost/array.html#id428665-bb">at</a></code>() are provided.</li>
 </ul></div>
 <p>
     </p>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: March 29, 2011 at 22:04:24 +0100</small></p></td>
+<td align="left"><p><small>Last revised: June 14, 2012 at 17:01:03 +0100</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>

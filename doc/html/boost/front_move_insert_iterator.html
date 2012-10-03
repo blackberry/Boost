@@ -35,37 +35,41 @@
 <span class="keyword">class</span> <a class="link" href="front_move_insert_iterator.html" title="Class template front_move_insert_iterator">front_move_insert_iterator</a> <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
   <span class="comment">// types</span>
-  <span class="keyword">typedef</span> <span class="identifier">C</span> <a name="boost.front_move_insert_iterator.container_type"></a><span class="identifier">container_type</span><span class="special">;</span>
+  <span class="keyword">typedef</span> <span class="identifier">C</span>             <a name="boost.front_move_insert_iterator.container_type"></a><span class="identifier">container_type</span><span class="special">;</span>
+  <span class="keyword">typedef</span> <span class="identifier">C</span><span class="special">::</span><span class="identifier">value_type</span> <a name="boost.front_move_insert_iterator.value_type"></a><span class="identifier">value_type</span><span class="special">;</span>    
+  <span class="keyword">typedef</span> <span class="identifier">C</span><span class="special">::</span><span class="identifier">reference</span>  <a name="boost.front_move_insert_iterator.reference"></a><span class="identifier">reference</span><span class="special">;</span>     
 
   <span class="comment">// <a class="link" href="front_move_insert_iterator.html#boost.front_move_insert_iteratorconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <span class="keyword">explicit</span> <a class="link" href="front_move_insert_iterator.html#id1069870-bb"><span class="identifier">front_move_insert_iterator</span></a><span class="special">(</span><span class="identifier">C</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  front_move_insert_iterator&amp; <a class="link" href="front_move_insert_iterator.html#id1069878-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="keyword">typename</span> <span class="identifier">C</span><span class="special">::</span><span class="identifier">reference</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">explicit</span> <a class="link" href="front_move_insert_iterator.html#id1108734-bb"><span class="identifier">front_move_insert_iterator</span></a><span class="special">(</span><span class="identifier">C</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  front_move_insert_iterator&amp; <a class="link" href="front_move_insert_iterator.html#id1108742-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="identifier">reference</span><span class="special">)</span><span class="special">;</span>
+  front_move_insert_iterator&amp; <a class="link" href="front_move_insert_iterator.html#id1108749-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="identifier">value_type</span> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="front_move_insert_iterator.html#id1069829-bb">public member functions</a></span>
-  <a class="link" href="front_move_insert_iterator.html" title="Class template front_move_insert_iterator">front_move_insert_iterator</a> <span class="special">&amp;</span> <a class="link" href="front_move_insert_iterator.html#id1069833-bb"><span class="keyword">operator</span><span class="special">*</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="front_move_insert_iterator.html" title="Class template front_move_insert_iterator">front_move_insert_iterator</a> <span class="special">&amp;</span> <a class="link" href="front_move_insert_iterator.html#id1069843-bb"><span class="keyword">operator</span><span class="special">++</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="front_move_insert_iterator.html" title="Class template front_move_insert_iterator">front_move_insert_iterator</a> <span class="special">&amp;</span> <a class="link" href="front_move_insert_iterator.html#id1069854-bb"><span class="keyword">operator</span><span class="special">++</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="front_move_insert_iterator.html#id1108693-bb">public member functions</a></span>
+  <a class="link" href="front_move_insert_iterator.html" title="Class template front_move_insert_iterator">front_move_insert_iterator</a> <span class="special">&amp;</span> <a class="link" href="front_move_insert_iterator.html#id1108697-bb"><span class="keyword">operator</span><span class="special">*</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="front_move_insert_iterator.html" title="Class template front_move_insert_iterator">front_move_insert_iterator</a> <span class="special">&amp;</span> <a class="link" href="front_move_insert_iterator.html#id1108707-bb"><span class="keyword">operator</span><span class="special">++</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="front_move_insert_iterator.html" title="Class template front_move_insert_iterator">front_move_insert_iterator</a> <span class="special">&amp;</span> <a class="link" href="front_move_insert_iterator.html#id1108718-bb"><span class="keyword">operator</span><span class="special">++</span></a><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="id2366344"></a><h2>Description</h2>
+<a name="id2471062"></a><h2>Description</h2>
 <p>A move insert iterator that move constructs elements int the front of a container </p>
 <div class="refsect2">
-<a name="id2366352"></a><h3>
+<a name="id2471070"></a><h3>
 <a name="boost.front_move_insert_iteratorconstruct-copy-destruct"></a><code class="computeroutput">front_move_insert_iterator</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><span class="keyword">explicit</span> <a name="id1069870-bb"></a><span class="identifier">front_move_insert_iterator</span><span class="special">(</span><span class="identifier">C</span> <span class="special">&amp;</span> x<span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout">front_move_insert_iterator&amp; <a name="id1069878-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="keyword">typename</span> <span class="identifier">C</span><span class="special">::</span><span class="identifier">reference</span> x<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">explicit</span> <a name="id1108734-bb"></a><span class="identifier">front_move_insert_iterator</span><span class="special">(</span><span class="identifier">C</span> <span class="special">&amp;</span> x<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout">front_move_insert_iterator&amp; <a name="id1108742-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="identifier">reference</span> x<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout">front_move_insert_iterator&amp; <a name="id1108749-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="identifier">value_type</span> <span class="special">&amp;&amp;</span> x<span class="special">)</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="id2366472"></a><h3>
-<a name="id1069829-bb"></a><code class="computeroutput">front_move_insert_iterator</code> public member functions</h3>
+<a name="id2471223"></a><h3>
+<a name="id1108693-bb"></a><code class="computeroutput">front_move_insert_iterator</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><a class="link" href="front_move_insert_iterator.html" title="Class template front_move_insert_iterator">front_move_insert_iterator</a> <span class="special">&amp;</span> <a name="id1069833-bb"></a><span class="keyword">operator</span><span class="special">*</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a class="link" href="front_move_insert_iterator.html" title="Class template front_move_insert_iterator">front_move_insert_iterator</a> <span class="special">&amp;</span> <a name="id1069843-bb"></a><span class="keyword">operator</span><span class="special">++</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><a class="link" href="front_move_insert_iterator.html" title="Class template front_move_insert_iterator">front_move_insert_iterator</a> <span class="special">&amp;</span> <a name="id1069854-bb"></a><span class="keyword">operator</span><span class="special">++</span><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a class="link" href="front_move_insert_iterator.html" title="Class template front_move_insert_iterator">front_move_insert_iterator</a> <span class="special">&amp;</span> <a name="id1108697-bb"></a><span class="keyword">operator</span><span class="special">*</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a class="link" href="front_move_insert_iterator.html" title="Class template front_move_insert_iterator">front_move_insert_iterator</a> <span class="special">&amp;</span> <a name="id1108707-bb"></a><span class="keyword">operator</span><span class="special">++</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a class="link" href="front_move_insert_iterator.html" title="Class template front_move_insert_iterator">front_move_insert_iterator</a> <span class="special">&amp;</span> <a name="id1108718-bb"></a><span class="keyword">operator</span><span class="special">++</span><span class="special">(</span><span class="keyword">int</span><span class="special">)</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 </div>

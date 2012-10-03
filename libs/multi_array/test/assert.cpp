@@ -23,10 +23,18 @@
 #include <stdexcept>
 
 namespace boost {
+
   void assertion_failed(char const* expr, char const* function,
                         char const* file, long line) {
     throw std::runtime_error(expr);
   }
+
+  void assertion_failed_msg(char const * expr, char const * msg,
+                            char const * function,
+                            char const * file, long line) {
+    throw std::runtime_error(msg);
+  }
+
 } // namespace boost
 
 using namespace boost;

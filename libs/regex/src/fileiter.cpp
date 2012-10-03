@@ -19,6 +19,7 @@
 
 #define BOOST_REGEX_SOURCE
 
+#include <boost/config.hpp>
 #include <climits>
 #include <stdexcept>
 #include <string>
@@ -779,12 +780,7 @@ struct _fi_priv_data
 
 _fi_priv_data::_fi_priv_data(const char* p)
 {
-#if defined(__QNX__)
-   // PR 155591: Prevent memory corruption
-   strlcpy(root, p, MAX_PATH);
-#else
    std::strcpy(root, p);
-#endif
    mask = root;
    while(*mask) ++mask;
    while((mask > root) && (*mask != *_fi_sep) && (*mask != *_fi_sep_alt)) --mask;
@@ -881,6 +877,7 @@ _fi_find_handle _fi_FindFirstFile(const char* lpFileName, _fi_find_data* lpFindF
    {
       if(_fi_FindNextFile(dat, lpFindFileData))
          return dat;
+      closedir(h);
    }
    delete dat;
    return 0;

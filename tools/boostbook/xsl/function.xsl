@@ -803,6 +803,8 @@
     <xsl:apply-templates select="description/*"/>
 
     <xsl:if test="parameter/description|signature/parameter/description|
+                  template/template-type-parameter/purpose|
+                  template/template-nontype-parameter/purpose|
                   requires|effects|postconditions|returns|throws|complexity|
                   notes|rationale">
       <variablelist spacing="compact">
@@ -830,6 +832,37 @@
                       </term>
                       <listitem>
                         <xsl:apply-templates select="description/*"/>
+                      </listitem>
+                    </varlistentry>
+                  </xsl:if>
+                </xsl:for-each>
+              </variablelist>
+            </listitem>
+          </varlistentry>
+        </xsl:if>
+
+        <!-- Document template parameters -->
+        <xsl:if test="template/template-type-parameter/purpose|
+                      template/template-nontype-parameter/purpose">
+          <varlistentry>
+            <term>Template Parameters:</term>
+            <listitem>
+              <variablelist spacing="compact">
+                <xsl:processing-instruction name="dbhtml">
+                  list-presentation="table"
+                </xsl:processing-instruction>
+                <xsl:for-each select="template/template-type-parameter|
+                      template/template-nontype-parameter">
+                  <xsl:sort select="attribute::name"/>
+                  <xsl:if test="purpose">
+                    <varlistentry>
+                      <term>
+                        <xsl:call-template name="monospaced">
+                          <xsl:with-param name="text" select="@name"/>
+                        </xsl:call-template>
+                      </term>
+                      <listitem>
+                        <xsl:apply-templates select="purpose/*"/>
                       </listitem>
                     </varlistentry>
                   </xsl:if>

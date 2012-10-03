@@ -62,7 +62,7 @@ namespace boost { namespace fusion {
 
             template<typename Seq>
             typename result<endpoints(Seq const&)>::type
-            operator()(Seq const& seq)
+            operator()(Seq const& seq) const
             {
                 return fusion::advance<M>(fusion::begin(seq));
             }

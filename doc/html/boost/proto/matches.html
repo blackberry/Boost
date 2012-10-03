@@ -35,7 +35,7 @@
 <span class="keyword">struct</span> <a class="link" href="matches.html" title="Struct template matches">matches</a> <span class="special">:</span> <span class="keyword"></span> mpl::bool_&lt;<em class="replaceable"><code>true-or-false</code></em>&gt; <span class="special">{</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="id2698549"></a><h2>Description</h2>
+<a name="id2818474"></a><h2>Description</h2>
 <p>
             <code class="computeroutput">proto::matches&lt;Expr, Grammar&gt;</code> inherits from
             <code class="computeroutput">mpl::true_</code> if
@@ -178,15 +178,17 @@
 <li class="listitem"><p>
                   An expression <code class="computeroutput">E</code> matches
                   <code class="computeroutput">
-                    <a class="link" href="switch_.html" title="Struct template switch_">proto::switch_</a>&lt;C&gt;
+                    <a class="link" href="switch_.html" title="Struct template switch_">proto::switch_</a>&lt;C, T&gt;
                   </code> if
-                  <code class="computeroutput">E</code> matches <code class="computeroutput">C::case_&lt;E::proto_tag&gt;</code>.
+                  <code class="computeroutput">E</code> matches <code class="computeroutput">C::case_&lt;boost::result_of&lt;<a class="link" href="when.html" title="Struct template when">proto::when</a>&lt;<a class="link" href="_.html" title="Struct _">proto::_</a>,T&gt;(E)&gt;::type&gt;</code>.
+                  Note: <code class="computeroutput">T</code> defaults to <code class="computeroutput"><a class="link" href="tag_of.html" title="Struct template tag_of">proto::tag_of</a>&lt;<a class="link" href="_.html" title="Struct _">proto::_</a>&gt;()</code>
                 </p></li>
 </ul></div>
 <p>
           </p>
 <p>
-            A terminal expression
+            A terminal expression can trivially match the grammar <a class="link" href="_.html" title="Struct _">proto::_</a>. In addition,
+            a terminal expression
             <code class="computeroutput">
               <a class="link" href="basic_expr.html" title="Struct template basic_expr">proto::basic_expr</a>&lt;AT,
               <a class="link" href="term.html" title="Struct template term">proto::term</a>&lt;A&gt; &gt;

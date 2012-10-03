@@ -38,32 +38,32 @@
   <span class="keyword">typedef</span> <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span> <span class="identifier">weighted_sample</span><span class="special">,</span> <span class="identifier">weighted_sample</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">result_type</span> <a name="boost.accumulators.impl.weighted_skewness_impl.result_type"></a><span class="identifier">result_type</span><span class="special">;</span>    
 
   <span class="comment">// <a class="link" href="weighted_skewness_impl.html#boost.accumulators.impl.weighted_skewness_implconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="weighted_skewness_impl.html#id574704-bb"><span class="identifier">weighted_skewness_impl</span></a><span class="special">(</span><span class="identifier">dont_care</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="weighted_skewness_impl.html#id575834-bb"><span class="identifier">weighted_skewness_impl</span></a><span class="special">(</span><span class="identifier">dont_care</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="weighted_skewness_impl.html#id574680-bb">public member functions</a></span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Args<span class="special">&gt;</span> <span class="identifier">result_type</span> <a class="link" href="weighted_skewness_impl.html#id574684-bb"><span class="identifier">result</span></a><span class="special">(</span><span class="identifier">Args</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="weighted_skewness_impl.html#id575811-bb">public member functions</a></span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Args<span class="special">&gt;</span> <span class="identifier">result_type</span> <a class="link" href="weighted_skewness_impl.html#id575814-bb"><span class="identifier">result</span></a><span class="special">(</span><span class="identifier">Args</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="id973564"></a><h2>Description</h2>
+<a name="id973844"></a><h2>Description</h2>
 <p>The skewness of a sample distribution is defined as the ratio of the 3rd central moment and the <span class="inlinemediaobject"><img src="../../../images/accumulators/form_52.png"></span>-th power $ of the 2nd central moment (the variance) of the samples. The skewness can also be expressed by the simple moments:</p>
 <div class="equation">
-<a name="id973594"></a><p class="title"><b>Equation&#160;1.29.&#160;</b></p>
+<a name="id973874"></a><p class="title"><b>Equation&#160;1.29.&#160;</b></p>
 <div class="equation-contents"><div class="mediaobject" align="center"><img src="../../../images/accumulators/form_53.png" align="middle"></div></div>
 </div>
 <p><br class="equation-break"></p>
 <p>where <span class="inlinemediaobject"><img src="../../../images/accumulators/form_14.png"></span> are the <span class="inlinemediaobject"><img src="../../../images/accumulators/form_15.png"></span>-th moment and <span class="inlinemediaobject"><img src="../../../images/accumulators/form_16.png"></span> the mean (first moment) of the <span class="inlinemediaobject"><img src="../../../images/accumulators/form_17.png"></span> samples.</p>
 <p>The skewness estimator for weighted samples is formally identical to the estimator for unweighted samples, except that the weighted counterparts of all measures it depends on are to be taken. </p>
 <div class="refsect2">
-<a name="id973708"></a><h3>
+<a name="id973988"></a><h3>
 <a name="boost.accumulators.impl.weighted_skewness_implconstruct-copy-destruct"></a><code class="computeroutput">weighted_skewness_impl</code> 
         public
        construct/copy/destruct</h3>
-<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><a name="id574704-bb"></a><span class="identifier">weighted_skewness_impl</span><span class="special">(</span><span class="identifier">dont_care</span><span class="special">)</span><span class="special">;</span></pre></li></ol></div>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><a name="id575834-bb"></a><span class="identifier">weighted_skewness_impl</span><span class="special">(</span><span class="identifier">dont_care</span><span class="special">)</span><span class="special">;</span></pre></li></ol></div>
 </div>
 <div class="refsect2">
-<a name="id973763"></a><h3>
-<a name="id574680-bb"></a><code class="computeroutput">weighted_skewness_impl</code> public member functions</h3>
-<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Args<span class="special">&gt;</span> <span class="identifier">result_type</span> <a name="id574684-bb"></a><span class="identifier">result</span><span class="special">(</span><span class="identifier">Args</span> <span class="keyword">const</span> <span class="special">&amp;</span> args<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li></ol></div>
+<a name="id974043"></a><h3>
+<a name="id575811-bb"></a><code class="computeroutput">weighted_skewness_impl</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Args<span class="special">&gt;</span> <span class="identifier">result_type</span> <a name="id575814-bb"></a><span class="identifier">result</span><span class="special">(</span><span class="identifier">Args</span> <span class="keyword">const</span> <span class="special">&amp;</span> args<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li></ol></div>
 </div>
 </div>
 </div>

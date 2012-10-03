@@ -4,7 +4,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
+#include <boost/concept/assert.hpp>
 #include <boost/graph/adjacency_iterator.hpp>
 #include <boost/graph/dijkstra_shortest_paths.hpp>
 #include <boost/graph/graph_concepts.hpp>
@@ -92,6 +92,12 @@ struct edge_weight_map;
 namespace boost {
   template<>
   struct property_map< ring_graph, edge_weight_t > {
+    typedef edge_weight_map type;
+    typedef edge_weight_map const_type;
+  };
+
+  template<>
+  struct property_map< const ring_graph, edge_weight_t > {
     typedef edge_weight_map type;
     typedef edge_weight_map const_type;
   };
@@ -374,7 +380,7 @@ edges_size_type num_edges(const ring_graph& g) {
 // AdjacencyMatrix valid expressions
 std::pair<edge_descriptor, bool>
 edge(vertex_descriptor u, vertex_descriptor v, const ring_graph& g) {
-  if (abs(u-v) == 1 &&
+  if ((u == v + 1 || v == u + 1) &&
       u >= 0 && u < num_vertices(g) && v >= 0 && v < num_vertices(g))
     return std::pair<edge_descriptor, bool>(edge_descriptor(u, v), true);
   else
@@ -444,15 +450,15 @@ int main (int argc, char const *argv[]) {
   // Check the concepts that graph models.  This is included to demonstrate
   // how concept checking works, but is not required for a working program
   // since Boost algorithms do their own concept checking.
-  function_requires< BidirectionalGraphConcept<ring_graph> >();
-  function_requires< AdjacencyGraphConcept<ring_graph> >();
-  function_requires< VertexListGraphConcept<ring_graph> >();
-  function_requires< EdgeListGraphConcept<ring_graph> >();
-  function_requires< AdjacencyMatrixConcept<ring_graph> >();
-  function_requires<
-    ReadablePropertyMapConcept<const_edge_weight_map, edge_descriptor> >();
-  function_requires<
-    ReadablePropertyGraphConcept<ring_graph, edge_descriptor, edge_weight_t> >();
+  BOOST_CONCEPT_ASSERT(( BidirectionalGraphConcept<ring_graph> ));
+  BOOST_CONCEPT_ASSERT(( AdjacencyGraphConcept<ring_graph> ));
+  BOOST_CONCEPT_ASSERT(( VertexListGraphConcept<ring_graph> ));
+  BOOST_CONCEPT_ASSERT(( EdgeListGraphConcept<ring_graph> ));
+  BOOST_CONCEPT_ASSERT(( AdjacencyMatrixConcept<ring_graph> ));
+  BOOST_CONCEPT_ASSERT((
+    ReadablePropertyMapConcept<const_edge_weight_map, edge_descriptor> ));
+  BOOST_CONCEPT_ASSERT((
+    ReadablePropertyGraphConcept<ring_graph, edge_descriptor, edge_weight_t> ));
 
   // Specify the size of the graph on the command line, or use a default size
   // of 5.
@@ -460,7 +466,6 @@ int main (int argc, char const *argv[]) {
 
   // Create a small ring graph.
   ring_graph g(n);
-  const_edge_weight_map m = get(edge_weight, g);
 
   // Print the outgoing edges of all the vertices.  For n=5 this will print:
   //

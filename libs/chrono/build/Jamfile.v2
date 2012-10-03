@@ -1,6 +1,7 @@
 # Boost Chrono Library Build Jamfile
 
 # Copyright Beman Dawes 2002, 2006, 2008
+# Copyright 2009-2012 Vicente J.Botet Escriba.
 
 # Distributed under the Boost Software License, Version 1.0.
 # (See accompanying file LICENSE_1_0.txt or www.boost.org/LICENSE_1_0.txt)
@@ -15,6 +16,7 @@ project boost/chrono
         <toolset>pgi:<linkflags>"-lrt" 
         #<threading>single:<define>BOOST_CHRONO_THREAD_DISABLED
         <library>/boost/system//boost_system
+        #<define>BOOST_ERROR_CODE_HEADER_ONLY
         #<define>BOOST_SYSTEM_INLINED
         #<define>BOOST_COMMON_TYPE_USES_STATIC_ASSERT
         #<define>BOOST_RATIO_USES_STATIC_ASSERT
@@ -25,7 +27,7 @@ project boost/chrono
         #<define>BOOST_COMMON_TYPE_USES_ARRAY_ASSERT
         #<define>BOOST_RATIO_USES_ARRAY_ASSERT
         #<define>BOOST_CHRONO_USES_ARRAY_ASSERT
-        <toolset>sun:<define>BOOST_TYPEOF_EMULATION
+        <toolset>sun:<define>__typeof__=__typeof__ 
         <define>BOOST_SYSTEM_NO_DEPRECATED
         #<toolset>gcc-3.4.4:<linkflags>--enable-auto-import
         #<toolset>gcc-4.3.4:<linkflags>--enable-auto-import
@@ -47,6 +49,9 @@ project boost/chrono
         <toolset>gcc-mingw-4.4.0:<cxxflags>-fdiagnostics-show-option
         <toolset>gcc-mingw-4.5.0:<cxxflags>-fdiagnostics-show-option
         <toolset>gcc-mingw-4.6.0:<cxxflags>-fdiagnostics-show-option
+        <toolset>gcc-mingw-4.6.3:<cxxflags>-fdiagnostics-show-option
+        <toolset>gcc-mingw-4.7.0:<cxxflags>-fdiagnostics-show-option
+        <toolset>gcc-mingw-4.8.0:<cxxflags>-fdiagnostics-show-option
 # Note: Some of the remarks from the Intel compiler are disabled
 # remark #304: access control not specified ("public" by default)
 # remark #383: value copied to temporary, reference to temporary used
@@ -56,6 +61,7 @@ project boost/chrono
     : usage-requirements  # pass these requirement to dependents (i.e. users)
         <threading>single:<define>BOOST_CHRONO_THREAD_DISABLED
         <library>/boost/system//boost_system
+        #<define>BOOST_ERROR_CODE_HEADER_ONLY
         #<define>BOOST_SYSTEM_INLINED
         #<define>BOOST_COMMON_TYPE_USES_STATIC_ASSERT
         #<define>BOOST_RATIO_USES_STATIC_ASSERT
@@ -66,8 +72,10 @@ project boost/chrono
         #<define>BOOST_COMMON_TYPE_USES_ARRAY_ASSERT
         #<define>BOOST_RATIO_USES_ARRAY_ASSERT
         #<define>BOOST_CHRONO_USES_ARRAY_ASSERT
-        <toolset>sun:<define>BOOST_COMMON_TYPE_DONT_USE_TYPEOF
-        <toolset>sun:<define>BOOST_TYPEOF_EMULATION
+        #<toolset>vacpp:<define>BOOST_COMMON_TYPE_DONT_USE_TYPEOF
+        <toolset>vacpp:<define>BOOST_TYPEOF_EMULATION
+        <toolset>sun:<define>__typeof__=__typeof__ 
+
         <define>BOOST_SYSTEM_NO_DEPRECATED
         <link>shared:<define>BOOST_CHRONO_DYN_LINK=1
         <link>static:<define>BOOST_CHRONO_STATIC_LINK=1

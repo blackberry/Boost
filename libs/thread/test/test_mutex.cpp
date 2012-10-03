@@ -1,7 +1,7 @@
 // Copyright (C) 2001-2003
 // William E. Kempf
 //
-//  Distributed under the Boost Software License, Version 1.0. (See accompanying 
+//  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 #include <boost/thread/detail/config.hpp>
@@ -101,13 +101,13 @@ template<typename Mutex>
 struct test_lock_times_out_if_other_thread_has_lock
 {
     typedef boost::unique_lock<Mutex> Lock;
-    
+
     Mutex m;
     boost::mutex done_mutex;
     bool done;
     bool locked;
     boost::condition_variable done_cond;
-    
+
     test_lock_times_out_if_other_thread_has_lock():
         done(false),locked(false)
     {}
@@ -139,14 +139,14 @@ struct test_lock_times_out_if_other_thread_has_lock
     }
 
     typedef test_lock_times_out_if_other_thread_has_lock<Mutex> this_type;
-    
+
     void do_test(void (this_type::*test_func)())
     {
         Lock lock(m);
 
         locked=false;
         done=false;
-        
+
         boost::thread t(test_func,this);
 
         try
@@ -157,7 +157,7 @@ struct test_lock_times_out_if_other_thread_has_lock
                                                  boost::bind(&this_type::is_done,this)));
                 BOOST_CHECK(!locked);
             }
-            
+
             lock.unlock();
             t.join();
         }
@@ -168,7 +168,7 @@ struct test_lock_times_out_if_other_thread_has_lock
             throw;
         }
     }
-    
+
 
     void operator()()
     {
@@ -191,7 +191,7 @@ struct test_timedlock
     void operator()()
     {
         test_lock_times_out_if_other_thread_has_lock<mutex_type>()();
-        
+
         mutex_type mutex;
         boost::condition condition;
 
@@ -243,7 +243,7 @@ struct test_timedlock
         BOOST_CHECK(lock ? true : false);
         lock.unlock();
         BOOST_CHECK(!lock);
-        
+
     }
 };
 
@@ -331,9 +331,9 @@ void test_recursive_timed_mutex()
     timed_test(&do_test_recursive_timed_mutex, 3);
 }
 
-boost::unit_test_framework::test_suite* init_unit_test_suite(int, char*[])
+boost::unit_test::test_suite* init_unit_test_suite(int, char*[])
 {
-    boost::unit_test_framework::test_suite* test =
+    boost::unit_test::test_suite* test =
         BOOST_TEST_SUITE("Boost.Threads: mutex test suite");
 
     test->add(BOOST_TEST_CASE(&test_mutex));
@@ -344,4 +344,17 @@ boost::unit_test_framework::test_suite* init_unit_test_suite(int, char*[])
     test->add(BOOST_TEST_CASE(&test_recursive_timed_mutex));
 
     return test;
+}
+
+void remove_unused_warning()
+{
+
+  //../../../boost/test/results_collector.hpp:40:13: warning: unused function 'first_failed_assertion' [-Wunused-function]
+  //(void)first_failed_assertion;
+
+  //../../../boost/test/tools/floating_point_comparison.hpp:304:25: warning: unused variable 'check_is_close' [-Wunused-variable]
+  //../../../boost/test/tools/floating_point_comparison.hpp:326:25: warning: unused variable 'check_is_small' [-Wunused-variable]
+  (void)boost::test_tools::check_is_close;
+  (void)boost::test_tools::check_is_small;
+
 }

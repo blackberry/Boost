@@ -90,7 +90,7 @@ int handle_argument(const std::string& what)
    else if(what == "-xpressive" || what == "-dxpr")
       time_xpressive = true;
 #endif
-#ifndef BOOST_NO_0X_HDR_REGEX
+#ifndef BOOST_NO_CXX11_HDR_REGEX
    else if(what == "-std")
       time_std = true;
 #endif
@@ -111,7 +111,7 @@ int handle_argument(const std::string& what)
 #ifdef BOOST_HAS_XPRESSIVE
       time_xpressive = true;
 #endif
-#ifndef BOOST_NO_0X_HDR_REGEX
+#ifndef BOOST_NO_CXX11_HDR_REGEX
       time_std = true;
 #endif
    }
@@ -177,7 +177,7 @@ int show_usage()
 #ifdef BOOST_HAS_XPRESSIVE
       "      -dxpr  Apply tests to dynamic xpressive library\n"
 #endif
-#ifndef BOOST_NO_0X_HDR_REGEX
+#ifndef BOOST_NO_CXX11_HDR_REGEX
 	  "      -std  Apply tests to std::regex.\n"
 #endif
       "      -all   Apply tests to all libraries\n\n"
@@ -287,7 +287,7 @@ void output_html_results(bool show_description, const std::string& tagname)
       if(time_xpressive == true)
          os << "<td><strong>Dynamic Xpressive</strong></td>";
 #endif
-#ifndef BOOST_NO_0X_HDR_REGEX
+#ifndef BOOST_NO_CXX11_HDR_REGEX
       if(time_std == true)
          os << "<td><strong>std::regex</strong></td>";
 #endif
@@ -373,7 +373,7 @@ void output_html_results(bool show_description, const std::string& tagname)
             }
          }
 #endif
-#ifndef BOOST_NO_0X_HDR_REGEX
+#ifndef BOOST_NO_CXX11_HDR_REGEX
          if(time_std == true)
          {
             print_result(os, first->std_time, first->factor);
@@ -456,7 +456,7 @@ std::string get_averages_table()
       os << "<td><strong>Dynamic Xpressive</strong></td>";
    }
 #endif
-#ifndef BOOST_NO_0X_HDR_REGEX
+#ifndef BOOST_NO_CXX11_HDR_REGEX
    if(time_std == true)
    {
       os << "<td><strong>std::regex</strong></td>";
@@ -492,7 +492,7 @@ std::string get_averages_table()
    if(time_xpressive == true)
       os << "<td>" << (xpressive_total / xpressive_test_count) << "</td>\n";
 #endif
-#ifndef BOOST_NO_0X_HDR_REGEX
+#ifndef BOOST_NO_CXX11_HDR_REGEX
    if(time_std == true)
       os << "<td>" << (std_total / std_test_count) << "</td>\n";
 #endif

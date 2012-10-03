@@ -27,7 +27,7 @@
     The function template <CODE>flush</CODE> attemps to flush all buffered characters downstream. It is provided to facilite modifiying a filter chain in the middle of a sequence of output operations; specifically, it is used to implement the function <CODE>strict_sync</CODE> (<I>see</I>, <I>e.g.</I>, <A HREF='../classes/filtering_stream.html#strict_sync'><CODE>filtering_stream::strict_sync</CODE></A>). If <CODE>strict_sync</CODE> succeeds, the auto-close feature of a filter chain can be safely disabled using <CODE>set_auto_close(false)</CODE> (<I>see</I>, <I>e.g.</I>, <A HREF='../classes/filtering_stream.html#set_auto_close'><CODE>filtering_stream::set_auto_close</CODE></A>). Filters can then be added to or removed from the chain with the knowledge that no characters remain buffered.
 </P>
 <P>
-    For non-<A HREF='../concepts/flushable.html'>Flushable</A> devices, <CODE>flush</CODE> returns <CODE>true</CODE>, indicating that no error has occured.<A CLASS='footnote_ref' NAME='note_1_ref' HREF="#note_1"><SUP>[1]</SUP></A> For non-<A HREF='../concepts/flushable.html'>Flushable</A> filters, however, <CODE>flush</CODE> returns <CODE>false</CODE>, indicating that some characters may remain buffered.
+    For non-<A HREF='../concepts/flushable.html'>Flushable</A> devices, <CODE>flush</CODE> returns <CODE>true</CODE>, indicating that no error has occurred.<A CLASS='footnote_ref' NAME='note_1_ref' HREF="#note_1"><SUP>[1]</SUP></A> For non-<A HREF='../concepts/flushable.html'>Flushable</A> filters, however, <CODE>flush</CODE> returns <CODE>false</CODE>, indicating that some characters may remain buffered.
 </P>
 <P>
     When working with Devices, <CODE>flush</CODE> may be used as a generic version of <CODE>std::basic_ostream::flush()</CODE>.

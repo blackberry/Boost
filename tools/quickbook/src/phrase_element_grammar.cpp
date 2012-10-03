@@ -9,7 +9,8 @@
 =============================================================================*/
 
 #include "grammar_impl.hpp"
-#include "actions_class.hpp"
+#include "state.hpp"
+#include "actions.hpp"
 #include "utils.hpp"
 #include "phrase_tags.hpp"
 #include <boost/spirit/include/classic_core.hpp>
@@ -26,7 +27,8 @@ namespace quickbook
     struct phrase_element_grammar_local
     {
         cl::rule<scanner>
-                        image, anchor, link, empty, cond_phrase, inner_phrase
+                        image, anchor, link, empty, cond_phrase, inner_phrase,
+                        role, source_mode
                         ;
     };
 
@@ -35,43 +37,69 @@ namespace quickbook
         phrase_element_grammar_local& local = cleanup_.add(
             new phrase_element_grammar_local);
 
+        error_action error(state);
+        raw_char_action raw_char(state.phrase);
+        scoped_parser<cond_phrase_push> scoped_cond_phrase(state);
+        scoped_parser<to_value_scoped_action> to_value(state);
+
         elements.add
             ("?", element_info(element_info::phrase, &local.cond_phrase))
             ;
 
         local.cond_phrase =
                 blank
-            >>  macro_identifier                [actions.values.entry(ph::arg1, ph::arg2)]
-            >>  actions.scoped_cond_phrase()
-                [extended_phrase]
+            >>  macro_identifier                [state.values.entry(ph::arg1, ph::arg2)]
+            >>  scoped_cond_phrase() [extended_phrase]
             ;
 
         elements.add
             ("$", element_info(element_info::phrase, &local.image, phrase_tags::image))
             ;
 
+        // Note that the attribute values here are encoded in plain text not
+        // boostbook.
         local.image =
-                cl::eps_p(qbk_since(105u))
+                qbk_ver(105u)
             >>  blank
-            >>  (+(
-                    *cl::space_p
-                >>  +(cl::anychar_p - (cl::space_p | phrase_end | '['))
-                ))                      [actions.values.entry(ph::arg1, ph::arg2)]
+            >>  (   qbk_ver(0, 106u)
+                >>  (+(
+                        *cl::space_p
+                    >>  +(cl::anychar_p - (cl::space_p | phrase_end | '['))
+                    ))                  [state.values.entry(ph::arg1, ph::arg2)]
+                |   qbk_ver(106u)
+                >>  to_value()
+                    [   +(  raw_escape
+                        |   (+cl::space_p >> ~cl::eps_p(phrase_end | '['))
+                                        [raw_char]
+                        |   (cl::anychar_p - (cl::space_p | phrase_end | '['))
+                                        [raw_char]
+                        )
+                    ]
+                )
             >>  hard_space
-            >>  *actions.values.list()
+            >>  *state.values.list()
                 [   '['
                 >>  (*(cl::alnum_p | '_')) 
-                                        [actions.values.entry(ph::arg1, ph::arg2)]
+                                        [state.values.entry(ph::arg1, ph::arg2)]
                 >>  space
-                >>  (*(cl::anychar_p - (phrase_end | '[')))
-                                        [actions.values.entry(ph::arg1, ph::arg2)]
+                >>  (   qbk_ver(0, 106u)
+                    >>  (*(cl::anychar_p - (phrase_end | '[')))
+                                        [state.values.entry(ph::arg1, ph::arg2)]
+                    |   qbk_ver(106u)
+                    >>  to_value()
+                        [   *(  raw_escape
+                            |   (cl::anychar_p - (phrase_end | '['))
+                                                        [raw_char]
+                            )
+                        ]
+                    )
                 >>  ']'
                 >>  space
                 ]
             >>  cl::eps_p(']')
-            |   cl::eps_p(qbk_before(105u))
+            |   qbk_ver(0, 105u)
             >>  blank
-            >>  (*(cl::anychar_p - phrase_end)) [actions.values.entry(ph::arg1, ph::arg2)]
+            >>  (*(cl::anychar_p - phrase_end)) [state.values.entry(ph::arg1, ph::arg2)]
             >>  cl::eps_p(']')
             ;
             
@@ -90,19 +118,42 @@ namespace quickbook
 
         local.link =
                 space
-            >>  (*(cl::anychar_p - (']' | hard_space)))
-                                                [actions.values.entry(ph::arg1, ph::arg2)]
+            >>  (   qbk_ver(0, 106u)
+                >>  (*(cl::anychar_p - (']' | space)))
+                                                [state.values.entry(ph::arg1, ph::arg2)]
+                |   qbk_ver(106u, 107u)
+                >>  to_value()
+                    [   *(  raw_escape
+                        |   (cl::anychar_p - (cl::ch_p('[') | ']' | space))
+                                                [raw_char]
+                        )
+                    ]
+                    >>  !(  ~cl::eps_p(comment)
+                        >>  cl::eps_p('[')      [error("Open bracket in link value.")]
+                        )
+                |   qbk_ver(107u)
+                >>  to_value() [attribute_value_1_7]
+                )
             >>  hard_space
             >>  local.inner_phrase
             ;
 
         elements.add
-            ("#", element_info(element_info::phrase, &local.anchor, phrase_tags::anchor))
+            ("#", element_info(element_info::maybe_block, &local.anchor, phrase_tags::anchor))
             ;
 
         local.anchor =
                 blank
-            >>  (*(cl::anychar_p - phrase_end)) [actions.values.entry(ph::arg1, ph::arg2)]
+            >>  (   qbk_ver(0, 106u)
+                >>  (*(cl::anychar_p - phrase_end)) [state.values.entry(ph::arg1, ph::arg2)]
+                |   qbk_ver(106u)
+                >>  to_value()
+                    [   *(  raw_escape
+                        |   (cl::anychar_p - phrase_end)
+                                                    [raw_char]
+                        )
+                    ]
+                )
             ;
 
         elements.add
@@ -116,19 +167,37 @@ namespace quickbook
             ("footnote", element_info(element_info::phrase, &local.inner_phrase, phrase_tags::footnote))
             ;
 
+        elements.add("!", element_info(element_info::maybe_block, &local.source_mode, code_tags::next_source_mode, 107u))
+            ;
+
+        local.source_mode =
+            (   cl::str_p("c++")
+            |   "python"
+            |   "teletype"
+            )                                       [state.values.entry(ph::arg1, ph::arg2)];
+
         elements.add
             ("c++", element_info(element_info::phrase, &local.empty, source_mode_tags::cpp))
             ("python", element_info(element_info::phrase, &local.empty, source_mode_tags::python))
             ("teletype", element_info(element_info::phrase, &local.empty, source_mode_tags::teletype))
             ;
-        
+
+        elements.add
+            ("role", element_info(element_info::phrase, &local.role, phrase_tags::role, 106u))
+            ;
+
+        local.role
+            =   space
+            >>  (+(cl::alnum_p | '_'))              [state.values.entry(ph::arg1, ph::arg2)]
+            >>  hard_space
+            >>  local.inner_phrase
+            ;
+
         local.empty = cl::eps_p;
 
         local.inner_phrase =
                 blank
-            >>  actions.scoped_output()
-                [   phrase                          [actions.to_value]
-                ]
+            >>  to_value() [ paragraph_phrase ]
             ;
     }
 }

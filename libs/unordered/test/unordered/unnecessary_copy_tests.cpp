@@ -1,12 +1,14 @@
-#include <iostream>
+
 // Copyright 2006-2009 Daniel James.
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 #include "../helpers/prefix.hpp"
-
 #include <boost/unordered_set.hpp>
 #include <boost/unordered_map.hpp>
+#include "../helpers/postfix.hpp"
+
+#include <iostream>
 #include "../helpers/test.hpp"
 
 namespace unnecessary_copy_tests
@@ -243,9 +245,8 @@ namespace unnecessary_copy_tests
         // the existing element.
         reset();
         x.emplace();
-#if defined(BOOST_UNORDERED_STD_FORWARD_MOVE)
-        COPY_COUNT(1); MOVE_COUNT(0);
-#elif !defined(BOOST_NO_RVALUE_REFERENCES)
+#if !defined(BOOST_NO_VARIADIC_TEMPLATES) || \
+    !defined(BOOST_NO_RVALUE_REFERENCES)
         // source_cost doesn't make much sense here, but it seems to fit.
         COPY_COUNT(1); MOVE_COUNT(source_cost);
 #else
@@ -405,7 +406,7 @@ namespace unnecessary_copy_tests
                 boost::make_tuple(boost::ref(b.second)));
         COPY_COUNT(0); MOVE_COUNT(0);
         
-#if !defined(BOOST_NO_0X_HDR_TUPLE) || defined(BOOST_HAS_TR1_TUPLE)
+#if !defined(BOOST_NO_CXX11_HDR_TUPLE) || defined(BOOST_HAS_TR1_TUPLE)
 
         reset();
         x.emplace(boost::unordered::piecewise_construct,

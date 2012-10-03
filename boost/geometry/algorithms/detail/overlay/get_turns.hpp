@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -58,7 +58,7 @@
 
 #ifdef BOOST_GEOMETRY_DEBUG_INTERSECTION
 #  include <sstream>
-#  include <boost/geometry/util/write_dsv.hpp>
+#  include <boost/geometry/io/dsv/write.hpp>
 #endif
 
 
@@ -158,6 +158,7 @@ public :
     static inline bool apply(
             int source_id1, Geometry1 const& geometry1, Section1 const& sec1,
             int source_id2, Geometry2 const& geometry2, Section2 const& sec2,
+            bool skip_larger,
             Turns& turns,
             InterruptPolicy& interrupt_policy)
     {
@@ -229,7 +230,7 @@ public :
                     // Also skip if index1 < index2 to avoid getting all
                     // intersections twice (only do this on same source!)
 
-                    skip = index1 >= index2
+                    skip = (skip_larger && index1 >= index2)
                         || ndi2 == ndi1 + 1
                         || neighbouring<Geometry1>(sec1, index1, index2)
                         ;
@@ -405,6 +406,7 @@ struct section_visitor
                     >::apply(
                             m_source_id1, m_geometry1, sec1,
                             m_source_id2, m_geometry2, sec2,
+                            false,
                             m_turns, m_interrupt_policy);
         }
         return true;
@@ -493,7 +495,7 @@ struct get_turns_cs
                 int source_id1, Range const& range,
                 int source_id2, Box const& box,
                 Turns& turns,
-                InterruptPolicy& ,
+                InterruptPolicy& interrupt_policy,
                 int multi_index = -1, int ring_index = -1)
     {
         if (boost::size(range) <= 1)
@@ -555,7 +557,7 @@ struct get_turns_cs
                 get_turns_with_box(seg_id, source_id2,
                         *prev, *it, *next,
                         bp[0], bp[1], bp[2], bp[3],
-                        turns);
+                        turns, interrupt_policy);
                 // Future performance enhancement: 
                 // return if told by the interrupt policy 
             }
@@ -594,7 +596,8 @@ private:
             box_point_type const& bp2,
             box_point_type const& bp3,
             // Output
-            Turns& turns)
+            Turns& turns,
+            InterruptPolicy& interrupt_policy)
     {
         // Depending on code some relations can be left out
 
@@ -620,6 +623,12 @@ private:
         ti.operations[1].seg_id = segment_identifier(source_id2, -1, -1, 3);
         TurnPolicy::apply(rp0, rp1, rp2, bp3, bp0, bp1,
                 ti, std::back_inserter(turns));
+
+        if (InterruptPolicy::enabled)
+        {
+            interrupt_policy.apply(turns);
+        }
+
     }
 
 };

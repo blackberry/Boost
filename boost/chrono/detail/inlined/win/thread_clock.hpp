@@ -68,7 +68,7 @@ thread_clock::time_point thread_clock::now( system::error_code & ec )
 }
 #endif
 
-thread_clock::time_point thread_clock::now() BOOST_CHRONO_NOEXCEPT
+thread_clock::time_point thread_clock::now() BOOST_NOEXCEPT
 {
 
     //  note that Windows uses 100 nanosecond ticks for FILETIME

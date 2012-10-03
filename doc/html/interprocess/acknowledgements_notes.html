@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../interprocess.html" title="Chapter&#160;11.&#160;Boost.Interprocess">
+<link rel="up" href="../interprocess.html" title="Chapter&#160;12.&#160;Boost.Interprocess">
 <link rel="prev" href="customizing_interprocess.html" title="Customizing Boost.Interprocess">
 <link rel="next" href="index.html" title="Indexes">
 </head>
@@ -28,6 +28,7 @@
     notes and links</a>
 </h2></div></div></div>
 <div class="toc"><dl>
+<dt><span class="section"><a href="acknowledgements_notes.html#interprocess.acknowledgements_notes.notes">Notes</a></span></dt>
 <dt><span class="section"><a href="acknowledgements_notes.html#interprocess.acknowledgements_notes.thanks_to">Thanks
       to...</a></span></dt>
 <dt><span class="section"><a href="acknowledgements_notes.html#interprocess.acknowledgements_notes.release_notes">Release
@@ -37,6 +38,45 @@
 <dt><span class="section"><a href="acknowledgements_notes.html#interprocess.acknowledgements_notes.future_improvements">Future
       improvements...</a></span></dt>
 </dl></div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="interprocess.acknowledgements_notes.notes"></a><a class="link" href="acknowledgements_notes.html#interprocess.acknowledgements_notes.notes" title="Notes">Notes</a>
+</h3></div></div></div>
+<div class="toc"><dl><dt><span class="section"><a href="acknowledgements_notes.html#interprocess.acknowledgements_notes.notes.notes_windows">Notes
+        for Windows users</a></span></dt></dl></div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="interprocess.acknowledgements_notes.notes.notes_windows"></a><a class="link" href="acknowledgements_notes.html#interprocess.acknowledgements_notes.notes.notes_windows" title="Notes for Windows users">Notes
+        for Windows users</a>
+</h4></div></div></div>
+<p>
+          <span class="bold"><strong>Boost.Interprocess</strong></span> uses the COM library
+          to implement some features and initializes the COM library with concurrency
+          model <code class="computeroutput"><span class="identifier">COINIT_APARTMENTTHREADED</span></code>.
+          If the COM library was already initialized by the calling thread for other
+          model, <span class="bold"><strong>Boost.Interprocess</strong></span> handles this
+          gracefully and uses COM calls for the already initialized model. If for
+          some reason, you might want <span class="bold"><strong>Boost.Interprocess</strong></span>
+          to initialize the COM library with another model, define the macro <code class="computeroutput"><span class="identifier">BOOST_INTERPROCESS_WINDOWS_COINIT_MODEL</span></code>
+          before including <span class="bold"><strong>Boost.Interprocess</strong></span> to
+          one of these values:
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              <code class="computeroutput"><span class="identifier">COINIT_APARTMENTTHREADED_BIPC</span></code>
+            </li>
+<li class="listitem">
+              <code class="computeroutput"><span class="identifier">COINIT_MULTITHREADED_BIPC</span></code>
+            </li>
+<li class="listitem">
+              <code class="computeroutput"><span class="identifier">COINIT_DISABLE_OLE1DDE_BIPC</span></code>
+            </li>
+<li class="listitem">
+              <code class="computeroutput"><span class="identifier">COINIT_SPEED_OVER_MEMORY_BIPC</span></code>
+            </li>
+</ul></div>
+</div>
+</div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="interprocess.acknowledgements_notes.thanks_to"></a><a class="link" href="acknowledgements_notes.html#interprocess.acknowledgements_notes.thanks_to" title="Thanks to...">Thanks
@@ -114,6 +154,12 @@
       Notes</a>
 </h3></div></div></div>
 <div class="toc"><dl>
+<dt><span class="section"><a href="acknowledgements_notes.html#interprocess.acknowledgements_notes.release_notes.release_notes_boost_1_51_00">Boost
+        1.51 Release</a></span></dt>
+<dt><span class="section"><a href="acknowledgements_notes.html#interprocess.acknowledgements_notes.release_notes.release_notes_boost_1_50_00">Boost
+        1.50 Release</a></span></dt>
+<dt><span class="section"><a href="acknowledgements_notes.html#interprocess.acknowledgements_notes.release_notes.release_notes_boost_1_49_00">Boost
+        1.49 Release</a></span></dt>
 <dt><span class="section"><a href="acknowledgements_notes.html#interprocess.acknowledgements_notes.release_notes.release_notes_boost_1_48_00">Boost
         1.48 Release</a></span></dt>
 <dt><span class="section"><a href="acknowledgements_notes.html#interprocess.acknowledgements_notes.release_notes.release_notes_boost_1_46_00">Boost
@@ -135,6 +181,84 @@
 <dt><span class="section"><a href="acknowledgements_notes.html#interprocess.acknowledgements_notes.release_notes.release_notes_boost_1_35_00">Boost
         1.35 Release</a></span></dt>
 </dl></div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="interprocess.acknowledgements_notes.release_notes.release_notes_boost_1_51_00"></a><a class="link" href="acknowledgements_notes.html#interprocess.acknowledgements_notes.release_notes.release_notes_boost_1_51_00" title="Boost 1.51 Release">Boost
+        1.51 Release</a>
+</h4></div></div></div>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              Synchronous and asynchronous flushing for <code class="computeroutput"><span class="identifier">mapped_region</span><span class="special">::</span><span class="identifier">flush</span></code>.
+            </li>
+<li class="listitem">
+              Source &amp; ABI breaking: Removed <code class="computeroutput"><span class="identifier">get_offset</span></code>
+              method from <code class="computeroutput"><span class="identifier">mapped_region</span></code>
+              as it has no practical utility and <code class="computeroutput"><span class="identifier">m_offset</span></code>
+              member was not for anything else.
+            </li>
+<li class="listitem">
+              Fixed bug <a href="https://svn.boost.org/trac/boost/ticket/7152" target="_top">#7152</a>,
+            </li>
+</ul></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="interprocess.acknowledgements_notes.release_notes.release_notes_boost_1_50_00"></a><a class="link" href="acknowledgements_notes.html#interprocess.acknowledgements_notes.release_notes.release_notes_boost_1_50_00" title="Boost 1.50 Release">Boost
+        1.50 Release</a>
+</h4></div></div></div>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              Fixed bugs <a href="https://svn.boost.org/trac/boost/ticket/3750" target="_top">#3750</a>,
+              <a href="https://svn.boost.org/trac/boost/ticket/6727" target="_top">#6727</a>,
+              <a href="https://svn.boost.org/trac/boost/ticket/6648" target="_top">#6648</a>,
+            </li>
+<li class="listitem">
+              Shared memory in windows has again kernel persistence: kernel bootstamp
+              and WMI has received some fixes and optimizations. This causes incompatibility
+              with Boost 1.48 and 1.49 but the user can comment <code class="computeroutput"><span class="preprocessor">#define</span>
+              <span class="identifier">BOOST_INTERPROCESS_HAS_KERNEL_BOOTTIME</span></code>
+              in the windows configuration part to get Boost 1.48 &amp; Boost 1.49
+              behaviour.
+            </li>
+</ul></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="interprocess.acknowledgements_notes.release_notes.release_notes_boost_1_49_00"></a><a class="link" href="acknowledgements_notes.html#interprocess.acknowledgements_notes.release_notes.release_notes_boost_1_49_00" title="Boost 1.49 Release">Boost
+        1.49 Release</a>
+</h4></div></div></div>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              Fixed bugs <a href="https://svn.boost.org/trac/boost/ticket/6531" target="_top">#6531</a>,
+              <a href="https://svn.boost.org/trac/boost/ticket/6412" target="_top">#6412</a>,
+              <a href="https://svn.boost.org/trac/boost/ticket/6398" target="_top">#6398</a>,
+              <a href="https://svn.boost.org/trac/boost/ticket/6340" target="_top">#6340</a>,
+              <a href="https://svn.boost.org/trac/boost/ticket/6319" target="_top">#6319</a>,
+              <a href="https://svn.boost.org/trac/boost/ticket/6287" target="_top">#6287</a>,
+              <a href="https://svn.boost.org/trac/boost/ticket/6265" target="_top">#6265</a>,
+              <a href="https://svn.boost.org/trac/boost/ticket/6233" target="_top">#6233</a>,
+              <a href="https://svn.boost.org/trac/boost/ticket/6147" target="_top">#6147</a>,
+              <a href="https://svn.boost.org/trac/boost/ticket/6134" target="_top">#6134</a>,
+              <a href="https://svn.boost.org/trac/boost/ticket/6058" target="_top">#6058</a>,
+              <a href="https://svn.boost.org/trac/boost/ticket/6054" target="_top">#6054</a>,
+              <a href="https://svn.boost.org/trac/boost/ticket/5772" target="_top">#5772</a>,
+              <a href="https://svn.boost.org/trac/boost/ticket/5738" target="_top">#5738</a>,
+              <a href="https://svn.boost.org/trac/boost/ticket/5622" target="_top">#5622</a>,
+              <a href="https://svn.boost.org/trac/boost/ticket/5552" target="_top">#5552</a>,
+              <a href="https://svn.boost.org/trac/boost/ticket/5518" target="_top">#5518</a>,
+              <a href="https://svn.boost.org/trac/boost/ticket/4655" target="_top">#4655</a>,
+              <a href="https://svn.boost.org/trac/boost/ticket/4452" target="_top">#4452</a>,
+              <a href="https://svn.boost.org/trac/boost/ticket/4383" target="_top">#4383</a>,
+              <a href="https://svn.boost.org/trac/boost/ticket/4297" target="_top">#4297</a>.
+            </li>
+<li class="listitem">
+              Fixed timed functions in mutex implementations to fulfill POSIX requirements:
+              <span class="emphasis"><em>Under no circumstance shall the function fail with a timeout
+              if the mutex can be locked immediately. The validity of the abs_timeout
+              parameter need not be checked if the mutex can be locked immediately.</em></span>
+            </li>
+</ul></div>
+</div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="interprocess.acknowledgements_notes.release_notes.release_notes_boost_1_48_00"></a><a class="link" href="acknowledgements_notes.html#interprocess.acknowledgements_notes.release_notes.release_notes_boost_1_48_00" title="Boost 1.48 Release">Boost
@@ -826,7 +950,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2005-2010 Ion Gaztanaga<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2005-2011 Ion Gaztanaga<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

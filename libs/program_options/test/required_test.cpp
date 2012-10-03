@@ -34,6 +34,7 @@ void required_throw_test()
          notify(vm);    
       } 
       catch (required_option& e) {
+         BOOST_CHECK_EQUAL(e.what(), string("the option '--cfgfile' is required but missing"));
          throwed = true;
       }      
       BOOST_CHECK(throwed);

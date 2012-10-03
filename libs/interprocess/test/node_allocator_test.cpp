@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -28,11 +28,19 @@ typedef node_allocator
 typedef ipcdetail::node_allocator_v1
    <int, managed_shared_memory::segment_manager> shmem_node_allocator_v1_t;
 
+namespace boost {
+namespace interprocess {
+
 //Explicit instantiations to catch compilation errors
 template class node_allocator<int, managed_shared_memory::segment_manager>;
-template class ipcdetail::node_allocator_v1<int, managed_shared_memory::segment_manager>;
 template class node_allocator<void, managed_shared_memory::segment_manager>;
+
+namespace ipcdetail {
+
+template class ipcdetail::node_allocator_v1<int, managed_shared_memory::segment_manager>;
 template class ipcdetail::node_allocator_v1<void, managed_shared_memory::segment_manager>;
+
+}}}
 
 //Alias list types
 typedef list<int, shmem_node_allocator_t>    MyShmList;

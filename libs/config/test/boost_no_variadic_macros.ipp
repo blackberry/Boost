@@ -5,7 +5,7 @@
 
 //  See http://www.boost.org/libs/config for most recent version.
 
-//  MACRO:         BOOST_NO_VARIADIC_MACROS
+//  MACRO:         BOOST_NO_CXX11_VARIADIC_MACROS
 //  TITLE:         C++0x variadic macros unavailable
 //  DESCRIPTION:   The compiler does not support C++0x variadic macros
 
@@ -47,7 +47,9 @@
 #define TEST_VARIADIC_MACRO_MAYBE_STRIP_PARENS_2(x) TEST_VARIADIC_MACRO_APPLY(TEST_VARIADIC_MACRO_MAYBE_STRIP_PARENS_2_I, x)
 #define TEST_VARIADIC_MACRO_MAYBE_STRIP_PARENS_2_I(...) __VA_ARGS__
 
-namespace boost_no_variadic_macros {
+namespace boost_no_cxx11_variadic_macros {
+
+void quiet_warning(int){}
 
 template<TEST_VARIADIC_MACRO_STRIP_PARENS((typename T,int))> struct test_variadic_macro_class {};
 
@@ -55,7 +57,7 @@ int test()
 {
 
   int x = TEST_VARIADIC_MACRO_STRIP_PARENS(3);
-  
+  quiet_warning(x);
   return 0;
 }
 

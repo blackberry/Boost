@@ -23,7 +23,8 @@ template <class D>
 void
 check_default()
 {
-    D d=D();
+  //D d=D();
+  D d;
   //std::cout << d.count() << std::endl;
   //std::cout << typename D::rep() <<  std::endl;
     BOOST_TEST(d.count() == typename D::rep());
@@ -60,13 +61,17 @@ int main()
     // default constructor
     {
         check_default<boost::chrono::duration<Rep> >();
+       // constexpr default constructor
+        BOOST_CONSTEXPR boost::chrono::duration<int> d;
     }
     // constructor from rep
     {
-        check_from_rep<boost::chrono::duration<int> >(5);
+      check_from_rep<boost::chrono::duration<int> >(5);
+      BOOST_CONSTEXPR boost::chrono::duration<int> d(5);
         check_from_rep<boost::chrono::duration<int, boost::ratio<3, 2> > >(5);
         check_from_rep<boost::chrono::duration<Rep, boost::ratio<3, 2> > >(Rep(3));
         check_from_rep<boost::chrono::duration<double, boost::ratio<2, 3> > >(5.5);
+        boost::chrono::duration<double, boost::ratio<2, 3> > d2(5.5);
     }
     // constructor from other rep
     {
@@ -74,6 +79,6 @@ int main()
         BOOST_TEST(d.count() == 5);
         return boost::report_errors();
     }
-    
+
     return boost::report_errors();
 }

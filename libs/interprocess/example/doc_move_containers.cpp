@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2006-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2006-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -28,7 +28,7 @@ int main ()
    typedef allocator<char, SegmentManager>            CharAllocator;
    typedef basic_string<char, std::char_traits<char>
                         ,CharAllocator>                MyShmString;
-   typedef allocator<MyShmString, SegmentManager>     StringAllocator;      
+   typedef allocator<MyShmString, SegmentManager>     StringAllocator;    
    typedef vector<MyShmString, StringAllocator>       MyShmStringVector;
 
    //Remove shared memory on construction and destruction
@@ -38,7 +38,7 @@ int main ()
    #if 1
       shm_remove() { shared_memory_object::remove(test::get_process_id_name()); }
       ~shm_remove(){ shared_memory_object::remove(test::get_process_id_name()); }
-   #else 
+   #else
    //->
       shm_remove() { shared_memory_object::remove("MySharedMemory"); }
       ~shm_remove(){ shared_memory_object::remove("MySharedMemory"); }
@@ -46,6 +46,9 @@ int main ()
    #endif
    //->
    } remover;
+   //<-
+   (void)remover;
+   //->
 
    //<-
    #if 1
@@ -62,7 +65,7 @@ int main ()
    StringAllocator   stringallocator(shm.get_segment_manager());
 
    //Create a vector of strings in shared memory.
-   MyShmStringVector *myshmvector = 
+   MyShmStringVector *myshmvector =
       shm.construct<MyShmStringVector>("myshmvector")(stringallocator);
 
    //Insert 50 strings in shared memory. The strings will be allocated
@@ -70,14 +73,14 @@ int main ()
    //strings, leading to a great performance.
    MyShmString string_to_compare(charallocator);
    string_to_compare = "this is a long, long, long, long, long, long, string...";
-   
+ 
    myshmvector->reserve(50);
    for(int i = 0; i < 50; ++i){
       MyShmString move_me(string_to_compare);
       //In the following line, no string copy-constructor will be called.
       //"move_me"'s contents will be transferred to the string created in
       //the vector
-      myshmvector->push_back(boost::interprocess::move(move_me));
+      myshmvector->push_back(boost::move(move_me));
 
       //The source string is in default constructed state
       assert(move_me.empty());
@@ -91,9 +94,9 @@ int main ()
 
    //...And insert one in the first position.
    //No string copy-constructor or assignments will be called, but
-   //move constructors and move-assignments. No memory allocation 
+   //move constructors and move-assignments. No memory allocation
    //function will be called in this operations!!
-   myshmvector->insert(myshmvector->begin(), boost::interprocess::move(string_to_compare));
+   myshmvector->insert(myshmvector->begin(), boost::move(string_to_compare));
 
    //Destroy vector. This will free all strings that the vector contains
    shm.destroy_ptr(myshmvector);

@@ -372,6 +372,10 @@ rule configure-full ( properties * : flags-only )
     {
         result += <source>util/gregorian.cpp ;
     }
+    
+    result += <library>../../system/build//boost_system ;
+
+
     if "$(flags-only)" = "flags" 
     {
         return $(flags-result) ;

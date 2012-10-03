@@ -353,17 +353,10 @@ public:
         // allow for Koenig lookup
         using std::pow;
         os << f.i;
-        std::ios_base::fmtflags oldflags = os.flags(os.dec | os.fixed | os.left);
-#if defined(__QNX__)
-        // Ensure the number will match after converting back from the textual representation
-        int oldprec = os.precision(1);
-#endif
+        std::ios_base::fmtflags oldflags = os.flags(os.dec | os.fixed | os.left); 
         for(unsigned int i = 0; i < f.long_lag; ++i)
             os << ' ' << f.x[i] * f.modulus();
         os.flags(oldflags);
-#if defined(__QNX__)
-        os.precision(oldprec);
-#endif
         return os;
     }
     

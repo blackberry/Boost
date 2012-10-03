@@ -98,6 +98,11 @@ struct no_result_type_or_result_of
   unsigned int operator()();
   unsigned short operator()() volatile;
   const unsigned short operator()() const volatile;
+#if !defined(BOOST_NO_RVALUE_REFERENCES)
+  short operator()(int&&);
+  int operator()(int&);
+  long operator()(int const&);
+#endif
 };
 
 template<typename T>
@@ -108,6 +113,11 @@ struct no_result_type_or_result_of_template
   unsigned int operator()();
   unsigned short operator()() volatile;
   const unsigned short operator()() const volatile;
+#if !defined(BOOST_NO_RVALUE_REFERENCES)
+  short operator()(int&&);
+  int operator()(int&);
+  long operator()(int const&);
+#endif
 };
 
 struct X {};
@@ -232,6 +242,14 @@ int main()
   BOOST_STATIC_ASSERT((is_same<result_of<const no_result_type_or_result_of_template<void>(double)>::type, short>::value));
   BOOST_STATIC_ASSERT((is_same<result_of<volatile no_result_type_or_result_of_template<void>(void)>::type, unsigned short>::value));
   BOOST_STATIC_ASSERT((is_same<result_of<const volatile no_result_type_or_result_of_template<void>(void)>::type, const unsigned short>::value));
+#if !defined(BOOST_NO_RVALUE_REFERENCES)
+  BOOST_STATIC_ASSERT((is_same<result_of<no_result_type_or_result_of(int&&)>::type, short>::value));
+  BOOST_STATIC_ASSERT((is_same<result_of<no_result_type_or_result_of(int&)>::type, int>::value));
+  BOOST_STATIC_ASSERT((is_same<result_of<no_result_type_or_result_of(int const&)>::type, long>::value));
+  BOOST_STATIC_ASSERT((is_same<result_of<no_result_type_or_result_of_template<void>(int&&)>::type, short>::value));
+  BOOST_STATIC_ASSERT((is_same<result_of<no_result_type_or_result_of_template<void>(int&)>::type, int>::value));
+  BOOST_STATIC_ASSERT((is_same<result_of<no_result_type_or_result_of_template<void>(int const&)>::type, long>::value));
+#endif
 #endif
 
   return 0;

@@ -351,18 +351,22 @@ namespace boost { namespace proto
         template<typename Expr, typename Tag, typename Args, long Arity, typename If, typename Then, typename Else>
         struct matches_<Expr, proto::basic_expr<Tag, Args, Arity>, proto::if_<If, Then, Else> >
           : mpl::eval_if_c<
-                remove_reference<
-                    typename when<_, If>::template impl<Expr, int, int>::result_type
-                >::type::value
+                static_cast<bool>(
+                    remove_reference<
+                        typename when<_, If>::template impl<Expr, int, int>::result_type
+                    >::type::value
+                )
               , matches_<Expr, proto::basic_expr<Tag, Args, Arity>, typename Then::proto_grammar>
               , matches_<Expr, proto::basic_expr<Tag, Args, Arity>, typename Else::proto_grammar>
             >::type
         {
             typedef
                 typename mpl::if_c<
-                    remove_reference<
-                        typename when<_, If>::template impl<Expr, int, int>::result_type
-                    >::type::value
+                    static_cast<bool>(
+                        remove_reference<
+                            typename when<_, If>::template impl<Expr, int, int>::result_type
+                        >::type::value
+                    )
                   , Then
                   , Else
                 >::type
@@ -700,7 +704,7 @@ namespace boost { namespace proto
 
             typedef
                 typename mpl::if_c<
-                    remove_reference<condition>::type::value
+                    static_cast<bool>(remove_reference<condition>::type::value)
                   , when<_, Then>
                   , when<_, Else>
                 >::type

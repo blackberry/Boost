@@ -4,7 +4,7 @@
 <title>intersection</title>
 <link rel="stylesheet" href="../../../../../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
-<link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Geometry 1.0">
+<link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Geometry">
 <link rel="up" href="../algorithms.html" title="Algorithms">
 <link rel="prev" href="for_each/for_each_segment_2.html" title="for_each_segment">
 <link rel="next" href="intersects.html" title="intersects">
@@ -27,7 +27,7 @@
 <a name="geometry.reference.algorithms.intersection"></a><a class="link" href="intersection.html" title="intersection">intersection</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="id870545"></a>
+          <a class="indexterm" name="id881158"></a>
 Calculate the intersection of two geometries.
         </p>
 <h6>
@@ -171,6 +171,13 @@ Calculate the intersection of two geometries.
         </p>
 <h6>
 <a name="geometry.reference.algorithms.intersection.h4"></a>
+          <span><a name="geometry.reference.algorithms.intersection.conformance"></a></span><a class="link" href="intersection.html#geometry.reference.algorithms.intersection.conformance">Conformance</a>
+        </h6>
+<p>
+          The function intersection implements function Intersection from the <a href="http://www.opengeospatial.org/standards/sfa" target="_top">OGC Simple Feature Specification</a>.
+        </p>
+<h6>
+<a name="geometry.reference.algorithms.intersection.h5"></a>
           <span><a name="geometry.reference.algorithms.intersection.behavior"></a></span><a class="link" href="intersection.html#geometry.reference.algorithms.intersection.behavior">Behavior</a>
         </h6>
 <div class="informaltable"><table class="table">
@@ -223,15 +230,26 @@ Calculate the intersection of two geometries.
                 </td>
 <td>
                   <p>
-                    Calculates intersection polygons input (multi)polygons and/or
+                    Calculates intersection polygons of input (multi)polygons and/or
                     boxes
                   </p>
                 </td>
 </tr>
 </tbody>
 </table></div>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../../../../../doc/src/images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            Check the <a class="link" href="../concepts/concept_polygon.html" title="Polygon Concept">Polygon
+            Concept</a> for the rules that polygon input for this algorithm should
+            fulfill
+          </p></td></tr>
+</table></div>
 <h6>
-<a name="geometry.reference.algorithms.intersection.h5"></a>
+<a name="geometry.reference.algorithms.intersection.h6"></a>
           <span><a name="geometry.reference.algorithms.intersection.example"></a></span><a class="link" href="intersection.html#geometry.reference.algorithms.intersection.example">Example</a>
         </h6>
 <p>
@@ -245,7 +263,7 @@ Calculate the intersection of two geometries.
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">/</span><span class="identifier">geometries</span><span class="special">/</span><span class="identifier">point_xy</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">/</span><span class="identifier">geometries</span><span class="special">/</span><span class="identifier">polygon</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
-<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">/</span><span class="identifier">domains</span><span class="special">/</span><span class="identifier">gis</span><span class="special">/</span><span class="identifier">io</span><span class="special">/</span><span class="identifier">wkt</span><span class="special">/</span><span class="identifier">wkt</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">/</span><span class="identifier">io</span><span class="special">/</span><span class="identifier">wkt</span><span class="special">/</span><span class="identifier">wkt</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">foreach</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 
@@ -276,7 +294,6 @@ Calculate the intersection of two geometries.
 
     <span class="keyword">return</span> <span class="number">0</span><span class="special">;</span>
 <span class="special">}</span>
-
 </pre>
 <p>
         </p>
@@ -290,7 +307,7 @@ Calculate the intersection of two geometries.
 
 </pre>
 <h6>
-<a name="geometry.reference.algorithms.intersection.h6"></a>
+<a name="geometry.reference.algorithms.intersection.h7"></a>
           <span><a name="geometry.reference.algorithms.intersection.see_also"></a></span><a class="link" href="intersection.html#geometry.reference.algorithms.intersection.see_also">See also</a>
         </h6>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc">
@@ -308,7 +325,8 @@ Calculate the intersection of two geometries.
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2011 Barend Gehrels, Bruno Lalande, Mateusz Loskot<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2009-2012 Barend
+      Gehrels, Bruno Lalande, Mateusz Loskot<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

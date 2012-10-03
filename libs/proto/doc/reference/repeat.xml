@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright 2012 Eric Niebler
+
+  Distributed under the Boost
+  Software License, Version 1.0. (See accompanying
+  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+  -->
 <header name="boost/proto/repeat.hpp">
   <para>
     Contains macros to ease the generation of repetitious code constructs.
@@ -10,7 +17,7 @@
     <description>
       <para>
         <computeroutput>BOOST_PROTO_REPEAT()</computeroutput> is used to generate the kind of repetitive
-        code that is typical of DSELs built with Proto.
+        code that is typical of EDSLs built with Proto.
         <computeroutput>BOOST_PROTO_REPEAT(<replaceable>MACRO</replaceable>)</computeroutput>
         is equivalent to:
       </para>
@@ -37,7 +44,7 @@
     <description>
       <para>
         <computeroutput>BOOST_PROTO_REPEAT_FROM_TO()</computeroutput> is used to generate the kind of repetitive
-        code that is typical of DSELs built with Proto.
+        code that is typical of EDSLs built with Proto.
         <computeroutput>BOOST_PROTO_REPEAT_FROM_TO(<replaceable>FROM</replaceable>, <replaceable>TO</replaceable>, <replaceable>MACRO</replaceable>)</computeroutput>
         is equivalent to:
       </para>
@@ -126,7 +133,7 @@ construct(A0 const &amp; a0, A1 const &amp; a1)
     <description>
       <para>
         <computeroutput>BOOST_PROTO_REPEAT_EX()</computeroutput> is used to generate the kind of repetitive
-        code that is typical of DSELs built with Proto.
+        code that is typical of EDSLs built with Proto.
         <computeroutput>BOOST_PROTO_REPEAT_EX(<replaceable>MACRO</replaceable>, <replaceable>typename_A</replaceable>, <replaceable>A</replaceable>, <replaceable>A_a</replaceable>, <replaceable>a</replaceable>)</computeroutput>
         is equivalent to:
       </para>
@@ -157,7 +164,7 @@ construct(A0 const &amp; a0, A1 const &amp; a1)
     <description>
       <para>
         <computeroutput>BOOST_PROTO_REPEAT_FROM_TO_EX()</computeroutput> is used to generate the kind of repetitive
-        code that is typical of DSELs built with Proto.
+        code that is typical of EDSLs built with Proto.
         <computeroutput>BOOST_PROTO_REPEAT_FROM_TO_EX(<replaceable>FROM</replaceable>, <replaceable>TO</replaceable>, <replaceable>MACRO</replaceable>, <replaceable>typename_A</replaceable>, <replaceable>A</replaceable>, <replaceable>A_a</replaceable>, <replaceable>a</replaceable>)</computeroutput>
         is equivalent to:
       </para>
@@ -181,7 +188,7 @@ construct(A0 const &amp; a0, A1 const &amp; a1)
     <description>
       <para>
         <computeroutput>BOOST_PROTO_LOCAL_ITERATE()</computeroutput> is used generate the kind of repetitive code that is typical
-        of DSELs built with Proto. This macro causes the user-defined macro <computeroutput>BOOST_PROTO_LOCAL_MACRO()</computeroutput> to
+        of EDSLs built with Proto. This macro causes the user-defined macro <computeroutput>BOOST_PROTO_LOCAL_MACRO()</computeroutput> to
         be expanded with values in the range specified by <computeroutput>BOOST_PROTO_LOCAL_LIMITS</computeroutput>.
       </para>
       <para>
@@ -298,7 +305,7 @@ construct(A0 const &amp; a0, A1 const &amp; a1)
       Generates sequences like
       <computeroutput>
         typename A<subscript>0</subscript>,
-        typename A<subscript>1</subscript>, ...
+        typename A<subscript>1</subscript>, …
         typename A<subscript>N-1</subscript>
       </computeroutput>.
     </purpose>
@@ -311,7 +318,7 @@ construct(A0 const &amp; a0, A1 const &amp; a1)
         <computeroutput>BOOST_PROTO_typename_A(<replaceable>N</replaceable>)</computeroutput> generates sequences like:
       </para>
       <para>
-        <programlisting>typename A<subscript>0</subscript>, typename A<subscript>1</subscript>, ... typename A<subscript>N-1</subscript></programlisting>
+        <programlisting>typename A<subscript>0</subscript>, typename A<subscript>1</subscript>, … typename A<subscript>N-1</subscript></programlisting>
       </para>
     </description>
   </macro>
@@ -322,7 +329,7 @@ construct(A0 const &amp; a0, A1 const &amp; a1)
       Generates sequences like
       <computeroutput>
         A<subscript>0</subscript> const &amp;,
-        A<subscript>1</subscript> const &amp;, ...
+        A<subscript>1</subscript> const &amp;, …
         A<subscript>N-1</subscript> const &amp;
       </computeroutput>.
     </purpose>
@@ -335,7 +342,7 @@ construct(A0 const &amp; a0, A1 const &amp; a1)
         <computeroutput>BOOST_PROTO_A_const_ref(<replaceable>N</replaceable>)</computeroutput> generates sequences like:
       </para>
       <para>
-        <programlisting>A<subscript>0</subscript> const &amp;, A<subscript>1</subscript> const &amp;, ... A<subscript>N-1</subscript> const &amp;</programlisting>
+        <programlisting>A<subscript>0</subscript> const &amp;, A<subscript>1</subscript> const &amp;, … A<subscript>N-1</subscript> const &amp;</programlisting>
       </para>
     </description>
   </macro>
@@ -346,7 +353,7 @@ construct(A0 const &amp; a0, A1 const &amp; a1)
       Generates sequences like
       <computeroutput>
         A<subscript>0</subscript> &amp;,
-        A<subscript>1</subscript> &amp;, ...
+        A<subscript>1</subscript> &amp;, …
         A<subscript>N-1</subscript> &amp;
       </computeroutput>.
     </purpose>
@@ -359,7 +366,7 @@ construct(A0 const &amp; a0, A1 const &amp; a1)
         <computeroutput>BOOST_PROTO_A_ref(<replaceable>N</replaceable>)</computeroutput> generates sequences like:
       </para>
       <para>
-        <programlisting>A<subscript>0</subscript> &amp;, A<subscript>1</subscript> &amp;, ... A<subscript>N-1</subscript> &amp;</programlisting>
+        <programlisting>A<subscript>0</subscript> &amp;, A<subscript>1</subscript> &amp;, … A<subscript>N-1</subscript> &amp;</programlisting>
       </para>
     </description>
   </macro>
@@ -370,7 +377,7 @@ construct(A0 const &amp; a0, A1 const &amp; a1)
       Generates sequences like 
       <computeroutput>
         A<subscript>0</subscript>,
-        A<subscript>1</subscript>, ...
+        A<subscript>1</subscript>, …
         A<subscript>N-1</subscript>
       </computeroutput>.
     </purpose>
@@ -383,7 +390,7 @@ construct(A0 const &amp; a0, A1 const &amp; a1)
         <computeroutput>BOOST_PROTO_A(<replaceable>N</replaceable>)</computeroutput> generates sequences like:
       </para>
       <para>
-        <programlisting>A<subscript>0</subscript>, A<subscript>1</subscript>, ... A<subscript>N-1</subscript></programlisting>
+        <programlisting>A<subscript>0</subscript>, A<subscript>1</subscript>, … A<subscript>N-1</subscript></programlisting>
       </para>
     </description>
   </macro>
@@ -394,7 +401,7 @@ construct(A0 const &amp; a0, A1 const &amp; a1)
       Generates sequences like
       <computeroutput>
         A<subscript>0</subscript> const,
-        A<subscript>1</subscript> const, ...
+        A<subscript>1</subscript> const, …
         A<subscript>N-1</subscript> const
       </computeroutput>.
     </purpose>
@@ -407,7 +414,7 @@ construct(A0 const &amp; a0, A1 const &amp; a1)
         <computeroutput>BOOST_PROTO_A_const(<replaceable>N</replaceable>)</computeroutput> generates sequences like:
       </para>
       <para>
-        <programlisting>A<subscript>0</subscript> const, A<subscript>1</subscript> const, ... A<subscript>N-1</subscript> const</programlisting>
+        <programlisting>A<subscript>0</subscript> const, A<subscript>1</subscript> const, … A<subscript>N-1</subscript> const</programlisting>
       </para>
     </description>
   </macro>
@@ -418,7 +425,7 @@ construct(A0 const &amp; a0, A1 const &amp; a1)
       Generates sequences like 
       <computeroutput>
         A<subscript>0</subscript> const &amp; a<subscript>0</subscript>,
-        A<subscript>1</subscript> const &amp; a<subscript>1</subscript>, ...
+        A<subscript>1</subscript> const &amp; a<subscript>1</subscript>, …
         A<subscript>N-1</subscript> const &amp; a<subscript>N-1</subscript>
       </computeroutput>.
     </purpose>
@@ -431,7 +438,7 @@ construct(A0 const &amp; a0, A1 const &amp; a1)
         <computeroutput>BOOST_PROTO_A_const_ref_a(<replaceable>N</replaceable>)</computeroutput> generates sequences like:
       </para>
       <para>
-        <programlisting>A<subscript>0</subscript> const &amp; a<subscript>0</subscript>, A<subscript>1</subscript> const &amp; a<subscript>1</subscript>, ... A<subscript>N-1</subscript> const &amp; a<subscript>N-1</subscript></programlisting>
+        <programlisting>A<subscript>0</subscript> const &amp; a<subscript>0</subscript>, A<subscript>1</subscript> const &amp; a<subscript>1</subscript>, … A<subscript>N-1</subscript> const &amp; a<subscript>N-1</subscript></programlisting>
       </para>
     </description>
   </macro>
@@ -442,7 +449,7 @@ construct(A0 const &amp; a0, A1 const &amp; a1)
       Generates sequences like
       <computeroutput>
         A<subscript>0</subscript> &amp; a<subscript>0</subscript>,
-        A<subscript>1</subscript> &amp; a<subscript>1</subscript>, ...
+        A<subscript>1</subscript> &amp; a<subscript>1</subscript>, …
         A<subscript>N-1</subscript> &amp; a<subscript>N-1</subscript>
       </computeroutput>.
     </purpose>
@@ -455,7 +462,7 @@ construct(A0 const &amp; a0, A1 const &amp; a1)
         <computeroutput>BOOST_PROTO_A_ref_a(<replaceable>N</replaceable>)</computeroutput> generates sequences like:
       </para>
       <para>
-        <programlisting>A<subscript>0</subscript> &amp; a<subscript>0</subscript>, A<subscript>1</subscript> &amp; a<subscript>1</subscript>, ... A<subscript>N-1</subscript> &amp; a<subscript>N-1</subscript></programlisting>
+        <programlisting>A<subscript>0</subscript> &amp; a<subscript>0</subscript>, A<subscript>1</subscript> &amp; a<subscript>1</subscript>, … A<subscript>N-1</subscript> &amp; a<subscript>N-1</subscript></programlisting>
       </para>
     </description>
   </macro>
@@ -466,7 +473,7 @@ construct(A0 const &amp; a0, A1 const &amp; a1)
       Generates sequences like 
       <computeroutput>
         boost::ref(a<subscript>0</subscript>),
-        boost::ref(a<subscript>1</subscript>), ...
+        boost::ref(a<subscript>1</subscript>), …
         boost::ref(a<subscript>N-1</subscript>)
       </computeroutput>.
     </purpose>
@@ -479,7 +486,7 @@ construct(A0 const &amp; a0, A1 const &amp; a1)
         <computeroutput>BOOST_PROTO_ref_a(<replaceable>N</replaceable>)</computeroutput> generates sequences like:
       </para>
       <para>
-        <programlisting>boost::ref(a<subscript>0</subscript>), boost::ref(a<subscript>1</subscript>), ... boost::ref(a<subscript>N-1</subscript>)</programlisting>
+        <programlisting>boost::ref(a<subscript>0</subscript>), boost::ref(a<subscript>1</subscript>), … boost::ref(a<subscript>N-1</subscript>)</programlisting>
       </para>
     </description>
   </macro>
@@ -490,7 +497,7 @@ construct(A0 const &amp; a0, A1 const &amp; a1)
       Generates sequences like 
       <computeroutput>
         a<subscript>0</subscript>,
-        a<subscript>1</subscript>, ...
+        a<subscript>1</subscript>, …
         a<subscript>N-1</subscript>
       </computeroutput>.
     </purpose>
@@ -503,7 +510,7 @@ construct(A0 const &amp; a0, A1 const &amp; a1)
         <computeroutput>BOOST_PROTO_a(<replaceable>N</replaceable>)</computeroutput> generates sequences like:
       </para>
       <para>
-        <programlisting>a<subscript>0</subscript>, a<subscript>1</subscript>, ... a<subscript>N-1</subscript></programlisting>
+        <programlisting>a<subscript>0</subscript>, a<subscript>1</subscript>, … a<subscript>N-1</subscript></programlisting>
       </para>
     </description>
   </macro>

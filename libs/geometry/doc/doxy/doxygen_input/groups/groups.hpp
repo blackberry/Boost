@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 //
-// Copyright (c) 2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2011-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -23,6 +23,7 @@
 \defgroup convex_hull convex hull: calculate the convex hull of a geometry
 \defgroup core core: meta-functions for geometry types
 \defgroup correct correct: correct geometries
+\defgroup covered_by covered_by: detect if a geometry is inside or on the border of another geometry, a.o. point-in-polygon (border included)
 \defgroup cs coordinate systems
 \defgroup difference difference: difference of two geometries
 \defgroup disjoint disjoint: detect if geometries are not spatially related
@@ -57,6 +58,7 @@
 \defgroup strategies strategies: strategies
 \defgroup svg x Extension svg: Stream SVG (Scalable Vector Graphics)
 \defgroup sym_difference sym_difference: sym_difference of two geometries
+\defgroup touches touches: detect if a geometry self-touches or if two geometries touch
 \defgroup traits traits: adapt geometries
 \defgroup transform transform: apply transformations on geometries
 \defgroup union union: calculate new geometry containing geometries A or B

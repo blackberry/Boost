@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../bbv2.html" title="Chapter&#160;38.&#160;Boost.Build V2 User Manual">
+<link rel="up" href="../bbv2.html" title="Chapter&#160;39.&#160;Boost.Build V2 User Manual">
 <link rel="prev" href="reference.html" title="Reference">
 <link rel="next" href="faq.html" title="Frequently Asked Questions">
 </head>
@@ -93,15 +93,18 @@
         in Jamfile, such as metatarget kind, name, sources and properties,
         and can be called with specific properties to generate concrete
         targets. At the code level it is represented by an instance of
-        class derived from <code class="computeroutput">abstract-target</code>. 
-        <sup>[<a name="id3829757" href="#ftn.id3829757" class="footnote">13</a>]</sup>
+        class derived from <a class="link" href="reference.html#bbv2.reference.class.abstract-target" title="Class abstract-target">abstract-target</a>. 
+        <sup>[<a name="id4013451" href="#ftn.id4013451" class="footnote">13</a>]</sup>
         </p>
-<p>The <code class="computeroutput">generate</code> method takes the build properties
-        (as an instance of the <code class="computeroutput">property-set</code> class) and returns
+<p>The <a class="link" href="reference.html#bbv2.reference.class.abstract-target.generate">generate</a>
+        method takes the build properties
+        (as an instance of the <a class="link" href="reference.html#bbv2.reference.class.property-set" title="Class property-set">
+        property-set</a> class) and returns
         a list containing:</p>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc">
 <li class="listitem"><p>As front element&#8212;Usage-requirements from this invocation
-          (an instance of <code class="computeroutput">property-set</code>)</p></li>
+          (an instance of <a class="link" href="reference.html#bbv2.reference.class.property-set" title="Class property-set">
+          property-set</a>)</p></li>
 <li class="listitem"><p>As subsequent elements&#8212;created concrete targets (
           instances of the <code class="computeroutput">virtual-target</code> class.)</p></li>
 </ul></div>
@@ -109,41 +112,46 @@
         <code class="computeroutput">targets.resolve-reference</code> function, and the
         <code class="computeroutput">targets.generate-from-reference</code> function can both
         lookup and generate a metatarget.</p>
-<p>The <code class="computeroutput">abstract-target</code> class has three immediate
-        derived classes:</p>
+<p>The <a class="link" href="reference.html#bbv2.reference.class.abstract-target" title="Class abstract-target">abstract-target</a>
+        class has three immediate derived classes:</p>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc">
-<li class="listitem"><p><code class="computeroutput">project-target</code> that
+<li class="listitem"><p><a class="link" href="reference.html#bbv2.reference.class.project-target" title="Class project-target">project-target</a> that
           corresponds to a project and is not intended for further
-          subclassing. The <code class="computeroutput">generate</code> method of this
+          subclassing. The <a class="link" href="reference.html#bbv2.reference.class.project-target.generate">
+          generate</a> method of this
           class builds all targets in the project that are not marked as
           explicit.</p></li>
-<li class="listitem"><p><code class="computeroutput">main-target</code> corresponds to a target in a project
+<li class="listitem"><p><a class="link" href="reference.html#bbv2.reference.class.main-target" title="Class main-target">main-target</a>
+          corresponds to a target in a project
           and contains one or more target alternatives. This class also should not be 
-          subclassed. The <code class="computeroutput">generate</code> method of this class selects 
-          an alternative to build, and calls the <code class="computeroutput">generate</code> method of that
-          alternative.</p></li>
-<li class="listitem"><p><code class="computeroutput">basic-target</code> corresponds to a
-          specific target alternative. This is base class, with a number of
-          derived classes.  The <code class="computeroutput">generate</code> method
+          subclassed. The <a class="link" href="reference.html#bbv2.reference.class.main-target.generate">generate</a>
+          method of this class selects an alternative to build, and calls the
+          <a class="link" href="reference.html#bbv2.reference.class.basic-target.generate">generate</a>
+          method of that alternative.</p></li>
+<li class="listitem"><p><a class="link" href="reference.html#bbv2.reference.class.basic-target" title="Class basic-target">basic-target</a>
+          corresponds to a specific target alternative. This is base class,
+          with a number of derived classes.  The
+          <a class="link" href="reference.html#bbv2.reference.class.basic-target.generate">generate</a> method
           processes the target requirements and requested build properties to
           determine final properties for the target, builds all sources, and
-          finally calls the abstract <code class="computeroutput">construct</code> method with the list
-          of source virtual targets, and the final properties.
+          finally calls the abstract
+          <a class="link" href="reference.html#bbv2.reference.class.basic-target.construct">construct</a>
+          method with the list of source virtual targets, and the final properties.
           </p></li>
 </ul></div>
-<p>The instances of the <code class="computeroutput">project-target</code> and
-        <code class="computeroutput">main-target</code> classes are created
+<p>The instances of the <a class="link" href="reference.html#bbv2.reference.class.project-target" title="Class project-target">project-target</a> and
+        <a class="link" href="reference.html#bbv2.reference.class.main-target" title="Class main-target">main-target</a> classes are created
         implicitly&#8212;when loading a new Jamfiles, or when a new target
         alternative with as-yet unknown name is created.  The instances of the
-        classes derived from <code class="computeroutput">basic-target</code> are typically
-        created when Jamfile calls a <em class="firstterm">metatarget rule</em>,
+        classes derived from <a class="link" href="reference.html#bbv2.reference.class.basic-target" title="Class basic-target">basic-target</a>
+        are typically created when Jamfile calls a <em class="firstterm">metatarget rule</em>,
         such as such as <code class="computeroutput">exe</code>.
         </p>
 <p>It it permissible to create a custom class derived from
-        <code class="computeroutput">basic-target</code> and create new metatarget rule
+        <a class="link" href="reference.html#bbv2.reference.class.basic-target" title="Class basic-target">basic-target</a> and create new metatarget rule
         that creates instance of such target. However, in the majority
-        of cases, a specific subclass of <code class="computeroutput">basic-target</code>&#8212;
-        <code class="computeroutput">typed-target</code> is used. That class is associated
+        of cases, a specific subclass of <a class="link" href="reference.html#bbv2.reference.class.basic-target" title="Class basic-target">basic-target</a>&#8212;
+        <a class="link" href="reference.html#bbv2.reference.class.typed-target" title="Class typed-target">typed-target</a> is used. That class is associated
         with a <em class="firstterm">type</em> and relays to <em class="firstterm">generators</em>
         to construct concrete targets of that type. This process will be explained below.
         When a new type is declared, a new metatarget rule is automatically defined.
@@ -158,8 +166,8 @@
         subclass is <code class="computeroutput">file-target</code>. A file target is associated
         with an action that creates it&#8212; an instance of the <code class="computeroutput">action</code>
         class. The action, in turn, hold a list of source targets. It also holds the 
-        <code class="computeroutput">property-set</code> instance with the build properties that
-        should be used for the action.</p>
+        <a class="link" href="reference.html#bbv2.reference.class.property-set" title="Class property-set">property-set</a>
+        instance with the build properties that should be used for the action.</p>
 <p>Here's an example of creating a target from another target, <code class="computeroutput">source</code></p>
 <pre class="programlisting">
 local a = [ new action $(source) : common.copy : $(property-set) ] ;
@@ -177,7 +185,7 @@ local t = [ new file-target $(name) : CPP : $(project) : $(a) ] ;
         that correspond to the same file clearly will result in problems. Therefore, whenever
         returning targets you should pass them via the <code class="computeroutput">virtual-target.register</code>
         function, that will replace targets with previously created identical ones, as
-        necessary.<sup>[<a name="id3830098" href="#ftn.id3830098" class="footnote">14</a>]</sup>
+        necessary.<sup>[<a name="id4013834" href="#ftn.id4013834" class="footnote">14</a>]</sup>
         Here are a couple of examples:
 </p>
 <pre class="programlisting">
@@ -199,13 +207,14 @@ return [ sequence.transform virtual-target.register : $(targets) ] ;
 <p>In practice, most files have specific types, and most tools
         consume and produce files of specific type. To take advantage of this
         fact, Boost.Build defines concept of target type and
-        <a class="indexterm" name="id3830158"></a>
+        <a class="indexterm" name="id4013893"></a>
         <em class="firstterm">generators</em>, and has special metatarget class
-        <code class="computeroutput">typed-target</code>.  Target type is merely an
+        <a class="link" href="reference.html#bbv2.reference.class.typed-target" title="Class typed-target">typed-target</a>.  Target type is merely an
         identifier. It is associated with a set of file extensions that
         correspond to that type. Generator is an abstraction of a tool. It advertises
         the types it produces and, if called with a set of input target, tries to construct
-        output targets of the advertised types. Finally, <code class="computeroutput">typed-target</code>
+        output targets of the advertised types. Finally,
+        <a class="link" href="reference.html#bbv2.reference.class.typed-target" title="Class typed-target">typed-target</a>
         is associated with specific target type, and relays the generator (or generators)
         for that type.
         </p>
@@ -245,7 +254,7 @@ return [ sequence.transform virtual-target.register : $(targets) ] ;
 import type ;
 type.register VERBATIM : verbatim ;
 </pre>
-<p>The first parameter to <code class="computeroutput">type.register</code> gives
+<p>The first parameter to <a class="link" href="reference.html#bbv2.reference.modules.type.register">type.register</a> gives
       the name of the declared type. By convention, it's uppercase. The second
       parameter is the suffix for files of this type. So, if Boost.Build sees
       <code class="filename">code.verbatim</code> in a list of sources, it knows that it's of
@@ -483,7 +492,7 @@ generators.register-composing mex.mex : CPP LIB : MEX ;
       </p>
 <p>(Need a note about UNIX)</p>
 <h4>
-<a name="id3830836"></a>Custom generator classes</h4>
+<a name="id4014577"></a>Custom generator classes</h4>
 <p>The standard generators allows you to specify source and target
         types, an action, and a set of flags. If you need anything more complex,
         
@@ -691,7 +700,7 @@ actions inline-file
 <p>
     </p>
 <h4>
-<a name="id3831117"></a>Steps for adding a feauture</h4>
+<a name="id4014858"></a>Steps for adding a feauture</h4>
 <p>Adding a feature requires three steps:
 
         </p>
@@ -732,7 +741,7 @@ actions inline-file
 <p>
       </p>
 <h4>
-<a name="id3831217"></a>Another example</h4>
+<a name="id4014957"></a>Another example</h4>
 <p>Here's another example.
         Let's see how we can make a feature that refers to a target. For example,
         when linking dynamic libraries on Windows, one sometimes needs to
@@ -814,7 +823,7 @@ rule link
 </li>
 </ol></div>
 <h4>
-<a name="id3831328"></a>Variants and composite features.</h4>
+<a name="id4015068"></a>Variants and composite features.</h4>
 <p>Sometimes you want to create a shortcut for some set of
         features. For example, <code class="computeroutput">release</code> is a value of
         <code class="computeroutput">&lt;variant&gt;</code> and is a shortcut for a set of features.
@@ -857,8 +866,8 @@ feature.compose &lt;parallelism&gt;fake : &lt;library&gt;/mpi//fake/&lt;parallel
 <div class="titlepage"><div><div><h3 class="title">
 <a name="bbv2.extending.rules"></a>Main target rules</h3></div></div></div>
 <p>
-      A main target rule (e.g &#8220;<code class="computeroutput">exe</code>&#8221;
-      Or &#8220;<code class="computeroutput">lib</code>&#8221;) creates a top-level target. It's quite likely that you'll want to declare your own and
+      A main target rule (e.g &#8220;<a class="link" href="tasks.html#bbv2.tasks.programs" title="Programs">exe</a>&#8221;
+      Or &#8220;<a class="link" href="tasks.html#bbv2.tasks.libraries" title="Libraries">lib</a>&#8221;) creates a top-level target. It's quite likely that you'll want to declare your own and
       there are two ways to do that.
       
     </p>
@@ -1012,9 +1021,9 @@ using yfc ;
 </div>
 <div class="footnotes">
 <br><hr width="100" align="left">
-<div class="footnote"><p><sup>[<a id="ftn.id3829757" href="#id3829757" class="para">13</a>] </sup>This name is historic, and will be eventuall changed to 
+<div class="footnote"><p><sup>[<a id="ftn.id4013451" href="#id4013451" class="para">13</a>] </sup>This name is historic, and will be eventuall changed to 
         <code class="computeroutput">metatarget</code></p></div>
-<div class="footnote"><p><sup>[<a id="ftn.id3830098" href="#id3830098" class="para">14</a>] </sup>This create-then-register pattern is caused by limitations 
+<div class="footnote"><p><sup>[<a id="ftn.id4013834" href="#id4013834" class="para">14</a>] </sup>This create-then-register pattern is caused by limitations 
         of the Boost.Jam language. Python port is likely to never create duplicate targets.</p></div>
 </div>
 </div>

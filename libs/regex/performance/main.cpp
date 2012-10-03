@@ -74,7 +74,7 @@ void test_match(const std::string& re, const std::string& text, const std::strin
       std::cout << "\txpressive regex: " << time << "s\n";
    }
 #endif
-#ifndef BOOST_NO_0X_HDR_REGEX
+#ifndef BOOST_NO_CXX11_HDR_REGEX
    if(time_std == true)
    {
       time = stdr::time_match(re, text, icase);
@@ -143,7 +143,7 @@ void test_find_all(const std::string& re, const std::string& text, const std::st
       std::cout << "\txpressive regex: " << time << "s\n";
    }
 #endif
-#ifndef BOOST_NO_0X_HDR_REGEX
+#ifndef BOOST_NO_CXX11_HDR_REGEX
    if(time_std == true)
    {
       time = stdr::time_find_all(re, text, icase);

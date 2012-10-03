@@ -1,7 +1,7 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 // Unit Test
 
-// Copyright (c) 2010 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2010-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -23,7 +23,7 @@
 #include <boost/geometry/multi/geometries/multi_linestring.hpp>
 #include <boost/geometry/multi/geometries/multi_polygon.hpp>
 
-#include <boost/geometry/domains/gis/io/wkt/read_wkt_multi.hpp>
+#include <boost/geometry/multi/io/wkt/read.hpp>
 
 
 template <typename Ring, typename Polygon, typename MultiPolygon>
@@ -105,7 +105,7 @@ void test_areal()
         1, 0, 14, 100.0); // Area from SQL Server
     test_one<Polygon, MultiPolygon, MultiPolygon>("case_recursive_boxes_3",
         case_recursive_boxes_3[0], case_recursive_boxes_3[1],
-        18, 0, 160, 56.5); // Area from SQL Server
+        17, 0, 159, 56.5); // Area from SQL Server
 }
 
 template <typename P>
@@ -134,7 +134,8 @@ int test_main(int, char* [])
     test_all<bg::model::d2::point_xy<double> >();
 
 #ifdef HAVE_TTMATH
-    //test_all<bg::model::d2::point_xy<ttmath_big> >();
+    std::cout << "Testing TTMATH" << std::endl;
+    test_all<bg::model::d2::point_xy<ttmath_big> >();
 #endif
 
     return 0;

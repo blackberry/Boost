@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../bbv2.html" title="Chapter&#160;38.&#160;Boost.Build V2 User Manual">
+<link rel="up" href="../bbv2.html" title="Chapter&#160;39.&#160;Boost.Build V2 User Manual">
 <link rel="prev" href="installation.html" title="Installation">
 <link rel="next" href="overview.html" title="Overview">
 </head>
@@ -49,30 +49,30 @@
 
 </p>
 <pre class="programlisting">
-exe hello : hello.cpp ;
+exe hello <span class="special">:</span> hello.cpp <span class="special">;</span>
 </pre>
 <p>
 
       Even with this simple setup, you can do some interesting things. First of
-      all, just invoking <span class="command"><strong>bjam</strong></span> will build the <code class="filename">hello
+      all, just invoking <span class="command"><strong>b2</strong></span> will build the <code class="filename">hello
       </code> executable by compiling and linking <code class="filename">hello.cpp
-      </code>. By default, debug variant is built. Now, to build the release
+      </code>. By default, the debug variant is built. Now, to build the release
       variant of <code class="filename">hello</code>, invoke
 
 </p>
 <pre class="screen">
-bjam release
+b2 release
 </pre>
 <p>
 
-      Note that debug and release variants are created in different directories,
+      Note that the debug and release variants are created in different directories,
       so you can switch between variants or even build multiple variants at
       once, without any unnecessary recompilation. Let us extend the example by
       adding another line to our project's <code class="filename">Jamroot</code>:
 
 </p>
 <pre class="programlisting">
-exe hello2 : hello.cpp ;
+exe hello2 <span class="special">:</span> hello.cpp <span class="special">;</span>
 </pre>
 <p>
 
@@ -80,7 +80,7 @@ exe hello2 : hello.cpp ;
 
 </p>
 <pre class="screen">
-bjam debug release
+b2 debug release
 </pre>
 <p>
 
@@ -92,7 +92,7 @@ bjam debug release
 
 </p>
 <pre class="screen">
-bjam --clean debug release
+b2 --clean debug release
 </pre>
 <p>
 
@@ -102,8 +102,8 @@ bjam --clean debug release
 
 </p>
 <pre class="screen">
-bjam hello2
-bjam --clean hello2
+b2 hello2
+b2 --clean hello2
 </pre>
 <p>
     </p>
@@ -116,9 +116,9 @@ bjam --clean hello2
 <dt><span class="section"><a href="tutorial.html#bbv2.tutorial.properties.project_attributes">Project Attributes</a></span></dt>
 </dl></div>
 <p>
-      To portably represent aspects of target configuration such as
+      To represent aspects of target configuration such as
       debug and release variants, or single- and multi-threaded
-      builds, Boost.Build uses <em class="firstterm">features</em> with
+      builds portably, Boost.Build uses <em class="firstterm">features</em> with
       associated <em class="firstterm">values</em>.  For
       example, the <code class="computeroutput">debug-symbols</code> feature can have a value of <code class="computeroutput">on</code> or
       <code class="computeroutput">off</code>.  A <em class="firstterm">property</em> is just a (feature,
@@ -134,7 +134,7 @@ bjam --clean hello2
       disabled and debug symbols enabled:
 </p>
 <pre class="screen">
-bjam release inlining=off debug-symbols=on
+b2 release inlining=off debug-symbols=on
 </pre>
 <p>
     </p>
@@ -149,20 +149,20 @@ bjam release inlining=off debug-symbols=on
     </p>
 <p>
       The <code class="option">release</code> and <code class="option">debug</code> that we have seen
-      in <span class="command"><strong>bjam</strong></span> invocations are just a shorthand way to specify
+      in <span class="command"><strong>b2</strong></span> invocations are just a shorthand way to specify
       values of the <code class="varname">variant</code> feature.  For example, the
       command above could also have been written this way:
 
       </p>
 <pre class="screen">
-bjam variant=release inlining=off debug-symbols=on
+b2 variant=release inlining=off debug-symbols=on
       </pre>
 <p>
     </p>
 <p>
       <code class="varname">variant</code> is so commonly-used that it has been given
       special status as an <em class="firstterm">implicit</em> feature&#8212;
-      Boost.Build will deduce the its identity just from the name of one of its
+      Boost.Build will deduce its identity just from the name of one of its
       values.
     </p>
 <p>
@@ -172,7 +172,7 @@ bjam variant=release inlining=off debug-symbols=on
 <div class="titlepage"><div><div><h4 class="title">
 <a name="bbv2.tutorial.properties.requirements"></a>Build Requests and Target Requirements</h4></div></div></div>
 <p>
-        The set of properties specified on the command line constitute
+        The set of properties specified on the command line constitutes
         a <em class="firstterm">build request</em>&#8212;a description of
         the desired properties for building the requested targets (or,
         if no targets were explicitly requested, the project in the
@@ -192,18 +192,18 @@ bjam variant=release inlining=off debug-symbols=on
       </p>
 <pre class="programlisting">
 exe hello
-    : hello.cpp
-    : &lt;include&gt;boost &lt;threading&gt;multi
-    ;
+    <span class="special">:</span> hello.cpp
+    <span class="special">:</span> &lt;include&gt;boost &lt;threading&gt;multi
+    <span class="special">;</span>
 </pre>
 <p>
         When <code class="filename">hello</code> is built, the two requirements specified
         above will always be present. If the build request given on the
-        <span class="command"><strong>bjam</strong></span> command-line explictly contradicts a target's
+        <span class="command"><strong>b2</strong></span> command-line explictly contradicts a target's
         requirements, the target requirements usually override (or, in the case
         of &#8220;free&#8221;&#8221; features like
         <code class="varname">&lt;include&gt;</code>,
-        <sup>[<a name="id3815930" href="#ftn.id3815930" class="footnote">10</a>]</sup>
+        <sup>[<a name="id3992490" href="#ftn.id3992490" class="footnote">10</a>]</sup>
         augments) the build request.
       </p>
 <div class="tip"><table border="0" summary="Tip">
@@ -222,9 +222,10 @@ exe hello
 <div class="titlepage"><div><div><h4 class="title">
 <a name="bbv2.tutorial.properties.project_attributes"></a>Project Attributes</h4></div></div></div>
 <p>
-        If we want the same requirements for our other target, <code class="filename">hello2
-        </code>, we could simply duplicate them. However, as projects grow,
-        that approach leads to a great deal of repeated boilerplate in Jamfiles.
+        If we want the same requirements for our other target,
+        <code class="filename">hello2</code>, we could simply duplicate them. However,
+        as projects grow, that approach leads to a great deal of repeated
+        boilerplate in Jamfiles.
 
         Fortunately, there's a better way. Each project can specify a set of
         <em class="firstterm">attributes</em>, including requirements:
@@ -232,11 +233,11 @@ exe hello
 </p>
 <pre class="programlisting">
 project
-    : requirements &lt;include&gt;/home/ghost/Work/boost &lt;threading&gt;multi
-    ;
+    <span class="special">:</span> requirements &lt;include&gt;/home/ghost/Work/boost &lt;threading&gt;multi
+    <span class="special">;</span>
 
-exe hello : hello.cpp ;
-exe hello2 : hello.cpp ;</pre>
+exe hello <span class="special">:</span> hello.cpp <span class="special">;</span>
+exe hello2 <span class="special">:</span> hello.cpp <span class="special">;</span></pre>
 <p>
 
         The effect would be as if we specified the same requirement for both
@@ -248,8 +249,8 @@ exe hello2 : hello.cpp ;</pre>
 <div class="titlepage"><div><div><h3 class="title">
 <a name="bbv2.tutorial.hierarchy"></a>Project Hierarchies</h3></div></div></div>
 <p>
-      So far we have only considered examples with one project &#8212;a. with
-      one user-written Boost.Jam file, <code class="filename">Jamroot</code>). A typical
+      So far we have only considered examples with one project, with
+      one user-written Boost.Jam file, <code class="filename">Jamroot</code>. A typical
       large codebase would be composed of many projects organized into a tree.
       The top of the tree is called the <em class="firstterm">project root</em>.
       Every subproject is defined by a file called <code class="filename">Jamfile</code>
@@ -314,12 +315,12 @@ top/
 
       in its requirements, then all of its subprojects will have it
       in their requirements, too.  Of course, any project can add
-      include paths to those specified by its parents. <sup>[<a name="id3816164" href="#ftn.id3816164" class="footnote">11</a>]</sup>
+      include paths to those specified by its parents. <sup>[<a name="id3992753" href="#ftn.id3992753" class="footnote">11</a>]</sup>
     More details can be found in
       <a class="xref" href="overview.html#bbv2.overview.projects" title="Projects">the section called &#8220;Projects&#8221;</a>.
     </p>
 <p>
-      Invoking <span class="command"><strong>bjam</strong></span> without explicitly specifying
+      Invoking <span class="command"><strong>b2</strong></span> without explicitly specifying
       any targets on the command line builds the project rooted in the
       current directory.  Building a project does not automatically
       cause its subprojects to be built unless the parent project's
@@ -328,7 +329,7 @@ top/
 
 </p>
 <pre class="programlisting">
-build-project app ;
+build-project app <span class="special">;</span>
 </pre>
 <p>
 
@@ -343,7 +344,7 @@ build-project app ;
 <div class="titlepage"><div><div><h3 class="title">
 <a name="bbv2.tutorial.libs"></a>Dependent Targets</h3></div></div></div>
 <p>
-      When a building a target <code class="filename">X</code> depends on first
+      When building a target <code class="filename">X</code> that depends on first
       building another target <code class="filename">Y</code> (such as a
       library that must be linked with <em class="firstterm">X</em>),
       <code class="filename">Y</code> is called a
@@ -358,7 +359,7 @@ build-project app ;
 
 </p>
 <pre class="programlisting">
-lib bar : bar.cpp ;
+lib bar <span class="special">:</span> bar.cpp <span class="special">;</span>
 </pre>
 <p>
 
@@ -367,7 +368,7 @@ lib bar : bar.cpp ;
 
 </p>
 <pre class="programlisting">
-exe app : app.cpp ../util/foo//bar ;
+exe app <span class="special">:</span> app.cpp ../util/foo//bar <span class="special">;</span>
 </pre>
 <p>
 
@@ -389,7 +390,7 @@ exe app : app.cpp ../util/foo//bar ;
 <p>Suppose we build <code class="filename">app</code> with:
     </p>
 <pre class="screen">
-bjam app optimization=full define=USE_ASM
+b2 app optimization=full define=USE_ASM
     </pre>
 <p>
     Which properties will be used to build <code class="computeroutput">foo</code>? The answer is
@@ -405,19 +406,19 @@ bjam app optimization=full define=USE_ASM
 <p>
       Let's improve this project further. The library probably has some headers
       that must be used when compiling <code class="filename">app.cpp</code>. We could
-      manually add the necessary <code class="computeroutput">#include</code> paths to <code class="filename">app
-      </code>'s requirements as values of the <code class="varname">&lt;include&gt;
-      </code> feature, but then this work will be repeated for all programs
-      that use <code class="filename">foo</code>. A better solution is to modify
-      <code class="filename">util/foo/Jamfile</code> in this way:
+      manually add the necessary <code class="computeroutput">#include</code> paths to
+      <code class="filename">app</code>'s requirements as values of the
+      <code class="varname">&lt;include&gt;  </code> feature, but then this work will be
+      repeated for all programs that use <code class="filename">foo</code>. A better
+      solution is to modify <code class="filename">util/foo/Jamfile</code> in this way:
 
       </p>
 <pre class="programlisting">
 project
-    : usage-requirements &lt;include&gt;.
-    ;
+    <span class="special">:</span> usage-requirements &lt;include&gt;.
+    <span class="special">;</span>
 
-lib foo : foo.cpp ;</pre>
+lib foo <span class="special">:</span> foo.cpp <span class="special">;</span></pre>
 <p>
 
       Usage requirements are applied not to the target being declared but to its
@@ -434,7 +435,7 @@ lib foo : foo.cpp ;</pre>
       code to <code class="filename">Jamroot</code>:
     </p>
 <pre class="programlisting">
-use-project /library-example/foo : util/foo ;</pre>
+use-project /library-example/foo <span class="special">:</span> util/foo <span class="special">;</span></pre>
 <p>
       Second, we modify <code class="filename">app/Jamfile</code> to use the project id:
       </p>
@@ -466,8 +467,8 @@ exe app : app.cpp /library-example/foo//bar ;</pre>
       </p>
 <pre class="programlisting">
 project
-   : requirements &lt;library&gt;/boost/filesystem//fs
-   ;</pre>
+   <span class="special">:</span> requirements &lt;library&gt;/boost/filesystem//fs
+   <span class="special">;</span></pre>
 </td></tr>
 </table></div>
 </div>
@@ -488,11 +489,11 @@ project
       be <code class="literal">static</code>. You can request a static build either on the
       command line:
       </p>
-<pre class="programlisting">bjam link=static</pre>
+<pre class="programlisting">b2 link=static</pre>
 <p>
       or in the library's requirements:
       </p>
-<pre class="programlisting">lib l : l.cpp : &lt;link&gt;static ;</pre>
+<pre class="programlisting">lib l <span class="special">:</span> l.cpp <span class="special">:</span> &lt;link&gt;static <span class="special">;</span></pre>
 <p>
     </p>
 <p>
@@ -506,10 +507,10 @@ project
 
       </p>
 <pre class="programlisting">
-exe important : main.cpp helpers/&lt;link&gt;static ;</pre>
+exe important <span class="special">:</span> main.cpp helpers/&lt;link&gt;static <span class="special">;</span></pre>
 <p>
 
-      No matter what arguments are specified on the <span class="command"><strong>bjam</strong></span>
+      No matter what arguments are specified on the <span class="command"><strong>b2</strong></span>
       command line, <code class="filename">important</code> will only be linked with the
       static version of <code class="filename">helpers</code>.
     </p>
@@ -522,8 +523,8 @@ exe important : main.cpp helpers/&lt;link&gt;static ;</pre>
 
       </p>
 <pre class="programlisting">
-exe e1 : e1.cpp /other_project//bar/&lt;link&gt;static ;
-exe e10 : e10.cpp /other_project//bar/&lt;link&gt;static ;</pre>
+exe e1 <span class="special">:</span> e1.cpp /other_project//bar/&lt;link&gt;static <span class="special">;</span>
+exe e10 <span class="special">:</span> e10.cpp /other_project//bar/&lt;link&gt;static <span class="special">;</span></pre>
 <p>
 
       but that's far from being convenient. A better approach is to introduce a
@@ -537,9 +538,9 @@ exe e1 : e1.cpp foo ;
 exe e10 : e10.cpp foo ;</pre>
 <p>
 
-      The <a class="link" href="tasks.html#bbv2.tasks.alias" title="Alias"><code class="computeroutput">alias</code>
-      </a> rule is specifically used to rename a reference to a target and
-      possibly change the properties.
+      The <a class="link" href="tasks.html#bbv2.tasks.alias" title="Alias">alias</a> rule is specifically
+      used to rename a reference to a target and possibly change the
+      properties.
 
       
     </p>
@@ -554,9 +555,9 @@ exe e10 : e10.cpp foo ;</pre>
         list of the first. For example:
         </p>
 <pre class="programlisting">
-lib utils : utils.cpp /boost/filesystem//fs ;
-lib core : core.cpp utils ;
-exe app : app.cpp core ;</pre>
+lib utils <span class="special">:</span> utils.cpp /boost/filesystem//fs <span class="special">;</span>
+lib core <span class="special">:</span> core.cpp utils <span class="special">;</span>
+exe app <span class="special">:</span> app.cpp core <span class="special">;</span></pre>
 <p>
         This works no matter what kind of linking is used. When <code class="filename">core
         </code> is built as a shared library, it is linked directly into
@@ -598,10 +599,10 @@ exe app : app.cpp core ;</pre>
 
       </p>
 <pre class="programlisting">
-lib network : network.cpp
-    : <span class="bold"><strong>&lt;link&gt;shared:&lt;define&gt;NEWORK_LIB_SHARED</strong></span>
+lib network <span class="special">:</span> network.cpp
+    <span class="special">:</span> <span class="bold"><strong>&lt;link&gt;shared:&lt;define&gt;NEWORK_LIB_SHARED</strong></span>
      &lt;variant&gt;release:&lt;define&gt;EXTRA_FAST
-    ;</pre>
+    <span class="special">;</span></pre>
 <p>
 
       In the example above, whenever <code class="filename">network</code> is built with
@@ -618,9 +619,9 @@ lib network : network.cpp
       alternatives</em>:
       </p>
 <pre class="programlisting">
-lib demangler : dummy_demangler.cpp ;                      # alternative 1
-lib demangler : demangler_gcc.cpp : &lt;toolset&gt;gcc ;   # alternative 2
-lib demangler : demangler_msvc.cpp : &lt;toolset&gt;msvc ; # alternative 3</pre>
+lib demangler <span class="special">:</span> dummy_demangler.cpp <span class="special">;</span>                      <span class="comment"># alternative 1</span>
+lib demangler <span class="special">:</span> demangler_gcc.cpp <span class="special">:</span> &lt;toolset&gt;gcc <span class="special">;</span>   <span class="comment"># alternative 2</span>
+lib demangler <span class="special">:</span> demangler_msvc.cpp <span class="special">:</span> &lt;toolset&gt;msvc <span class="special">;</span> <span class="comment"># alternative 3</span></pre>
 <p>
       When building <code class="filename">demangler</code>, Boost.Build will compare
       requirements for each alternative with build properties to find the best
@@ -641,16 +642,16 @@ lib demangler : demangler_msvc.cpp : &lt;toolset&gt;msvc ; # alternative 3</pre>
       example:
       </p>
 <pre class="programlisting">
-# util/lib2/Jamfile
+<span class="comment"># util/lib2/Jamfile</span>
 lib lib2
-    :
-    : &lt;file&gt;lib2_release.a &lt;variant&gt;release
-    ;
+    <span class="special">:</span>
+    <span class="special">:</span> &lt;file&gt;lib2_release.a &lt;variant&gt;release
+    <span class="special">;</span>
 
 lib lib2
-    :
-    : &lt;file&gt;lib2_debug.a &lt;variant&gt;debug
-    ;</pre>
+    <span class="special">:</span>
+    <span class="special">:</span> &lt;file&gt;lib2_debug.a &lt;variant&gt;debug
+    <span class="special">;</span></pre>
 <p>
 
       This example defines two alternatives for <code class="filename">lib2</code>, and
@@ -664,7 +665,7 @@ lib lib2
 
       </p>
 <pre class="programlisting">
-exe app : app.cpp ../util/lib2//lib2 ;</pre>
+exe app <span class="special">:</span> app.cpp ../util/lib2//lib2 <span class="special">;</span></pre>
 <p>
 
       As with any target, the alternative selected depends on the properties
@@ -680,7 +681,7 @@ exe app : app.cpp ../util/lib2//lib2 ;</pre>
 
       </p>
 <pre class="programlisting">
-lib pythonlib : : &lt;name&gt;python22 ;</pre>
+lib pythonlib <span class="special">:</span> <span class="special">:</span> &lt;name&gt;python22 <span class="special">;</span></pre>
 <p>
 
       We again don't specify any sources, but give a <code class="varname">name</code>
@@ -694,15 +695,15 @@ lib pythonlib : : &lt;name&gt;python22 ;</pre>
 
       </p>
 <pre class="programlisting">
-lib pythonlib : : &lt;name&gt;python22 &lt;search&gt;/opt/lib ;</pre>
+lib pythonlib <span class="special">:</span> <span class="special">:</span> &lt;name&gt;python22 &lt;search&gt;/opt/lib <span class="special">;</span></pre>
 <p>
 
       And, of course, target alternatives can be used in the usual way:
 
       </p>
 <pre class="programlisting">
-lib pythonlib : : &lt;name&gt;python22 &lt;variant&gt;release ;
-lib pythonlib : : &lt;name&gt;python22_d &lt;variant&gt;debug ;</pre>
+lib pythonlib <span class="special">:</span> <span class="special">:</span> &lt;name&gt;python22 &lt;variant&gt;release <span class="special">;</span>
+lib pythonlib <span class="special">:</span> <span class="special">:</span> &lt;name&gt;python22_d &lt;variant&gt;debug <span class="special">;</span></pre>
 <p>
     </p>
 <p>
@@ -711,10 +712,10 @@ lib pythonlib : : &lt;name&gt;python22_d &lt;variant&gt;debug ;</pre>
 </div>
 <div class="footnotes">
 <br><hr width="100" align="left">
-<div class="footnote"><p><sup>[<a id="ftn.id3815930" href="#id3815930" class="para">10</a>] </sup>
+<div class="footnote"><p><sup>[<a id="ftn.id3992490" href="#id3992490" class="para">10</a>] </sup>
              See <a class="xref" href="reference.html#bbv2.reference.features.attributes" title="Feature Attributes">the section called &#8220;Feature Attributes&#8221;</a>
           </p></div>
-<div class="footnote"><p><sup>[<a id="ftn.id3816164" href="#id3816164" class="para">11</a>] </sup>Many
+<div class="footnote"><p><sup>[<a id="ftn.id3992753" href="#id3992753" class="para">11</a>] </sup>Many
       features will be overridden,
       rather than added-to, in subprojects.  See <a class="xref" href="reference.html#bbv2.reference.features.attributes" title="Feature Attributes">the section called &#8220;Feature Attributes&#8221;</a> for more
       information</p></div>

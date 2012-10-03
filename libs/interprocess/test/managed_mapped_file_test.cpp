@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -48,7 +48,7 @@ int main ()
       managed_mapped_file mfile(create_only, FileName, FileSize);
 
       int i;
-      //Let's allocate some memory 
+      //Let's allocate some memory
       for(i = 0; i < max; ++i){
          array[i] = mfile.allocate(i+1);
       }
@@ -83,7 +83,7 @@ int main ()
 
       //Construct a vector in the memory-mapped file
       mfile_vect = mfile.construct<MyVect> ("MyVector") (myallocator);
-      
+     
       //Flush cached data from memory-mapped file to disk
       mfile.flush();
    }
@@ -212,9 +212,9 @@ int main ()
       {
          //Now test move semantics
          managed_mapped_file original(open_only, FileName);
-         managed_mapped_file move_ctor(boost::interprocess::move(original));
+         managed_mapped_file move_ctor(boost::move(original));
          managed_mapped_file move_assign;
-         move_assign = boost::interprocess::move(move_ctor);
+         move_assign = boost::move(move_ctor);
          move_assign.swap(original);
       }
    }

@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2006-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2006-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -54,9 +54,9 @@ int main()
    //from the first one and duplicate all the data.
    static boost::aligned_storage<memsize>::type static_buffer2;
    std::memcpy(&static_buffer2, &static_buffer, memsize);
-   
+  
    //Now open the duplicated managed memory passing the memory as argument
-   wmanaged_external_buffer objects_in_static_memory2 
+   wmanaged_external_buffer objects_in_static_memory2
       (open_only, &static_buffer2, memsize);
 
    //Check that "MyList" has been duplicated in the second buffer

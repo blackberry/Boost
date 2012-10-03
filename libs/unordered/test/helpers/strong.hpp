@@ -8,7 +8,6 @@
 
 #include <boost/config.hpp>
 #include <iterator>
-#include "./metafunctions.hpp"
 #include "./equivalent.hpp"
 #include "./list.hpp"
 #include "./exception_test.hpp"

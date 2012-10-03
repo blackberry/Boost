@@ -7,8 +7,8 @@
 // requirements. Makes sure everything compiles and is defined correctly.
 
 #include "../helpers/prefix.hpp"
-
 #include <boost/unordered_map.hpp>
+#include "../helpers/postfix.hpp"
 
 #include <iostream>
 #include "../helpers/test.hpp"

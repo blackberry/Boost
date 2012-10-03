@@ -35,14 +35,14 @@
        overloads such that expressions not conforming to the domain's grammar are 
        never created. Domains are empty structs that inherit from
        `proto::domain<>`.]]
-  [ [ [anchor dsel] domain-specific embedded language]
-      [A domain-specific language implemented as a library. The language in which 
-       the library is written is called the "host" language, and the language 
-       implemented by the library is called the "embedded" language.]]
   [ [ [anchor dsl] domain-specific language]
       [A programming language that targets a particular problem space by providing 
        programming idioms, abstractions and constructs that match the constructs 
        within that problem space.]]
+  [ [ [anchor edsl] embedded domain-specific language]
+      [A domain-specific language implemented as a library. The language in which 
+       the library is written is called the "host" language, and the language 
+       implemented by the library is called the "embedded" language.]]
   [ [ [anchor expression] expression]
       [In Proto, an /expression/ is a heterogeneous tree where each node is either 
        an instantiation of `boost::proto::expr<>`, `boost::proto::basic_expr<>` or
@@ -52,7 +52,7 @@
       [A C++ technique using templates and operator overloading to cause 
        expressions to build trees that represent the expression for lazy evaluation 
        later, rather than evaluating the expression eagerly. Some C++ libraries use 
-       expression templates to build domain-specific embedded languages.]]
+       expression templates to build embedded domain-specific languages.]]
   [ [ [anchor generator] generator]
       [In Proto, a /generator/ is a unary polymorphic function object that you 
        specify when defining a /domain/. After constructing a new expression, Proto 
@@ -79,6 +79,10 @@
       [A type that defines a kind of polymorphic function object that takes three 
        arguments: expression, state, and data. Primitive transforms can be used to 
        compose callable transforms and object transforms.]]
+  [ [ [anchor subdomain] sub-domain]
+      [A sub-domain is a domain that declares another domain as its super-domain.
+      Expressions in sub-domains can be combined with expressions in the
+      super-domain, and the resulting expression is in the super-domain.]]
   [ [ [anchor transform] transform]
       [Transforms are used to manipulate expression trees. They come in three 
        flavors: primitive transforms, callable transforms, or object transforms. A 

@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -37,7 +37,7 @@
 
 
 #ifdef BOOST_GEOMETRY_DEBUG_ASSEMBLE
-#  include <boost/geometry/util/write_dsv.hpp>
+#  include <boost/geometry/io/dsv/write.hpp>
 #endif
 
 
@@ -145,9 +145,19 @@ struct overlay
                 OutputIterator out,
                 Strategy const& )
     {
-        if (geometry::num_points(geometry1) == 0 && geometry::num_points(geometry2) == 0)
+        if (geometry::num_points(geometry1) == 0
+            && geometry::num_points(geometry2) == 0)
         {
             return out;
+        }
+
+        if (geometry::num_points(geometry1) == 0
+            || geometry::num_points(geometry2) == 0)
+        {
+            return return_if_one_input_is_empty
+                <
+                    GeometryOut, Direction, ReverseOut
+                >(geometry1, geometry2, out);
         }
 
         typedef typename geometry::point_type<GeometryOut>::type point_type;
@@ -159,15 +169,6 @@ struct overlay
                 typename geometry::ring_type<GeometryOut>::type
             > ring_container_type;
 
-        if (geometry::num_points(geometry1) == 0
-            || geometry::num_points(geometry2) == 0)
-        {
-            return return_if_one_input_is_empty
-                <
-                    GeometryOut, Direction, ReverseOut
-                >(geometry1, geometry2, out);
-        }
-        
         container_type turn_points;
 
 #ifdef BOOST_GEOMETRY_TIME_OVERLAY
@@ -232,7 +233,7 @@ std::cout << "traverse" << std::endl;
         std::cout << "map_turns: " << timer.elapsed() << std::endl;
 #endif
 
-        typedef ring_properties<typename geometry::point_type<Geometry1>::type> properties;
+        typedef ring_properties<typename geometry::point_type<GeometryOut>::type> properties;
 
         std::map<ring_identifier, properties> selected;
         select_rings<Direction>(geometry1, geometry2, map, selected, ! turn_points.empty());

@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 //
 // (C) Copyright Olaf Krzikalla 2004-2006.
-// (C) Copyright Ion Gaztanaga  2006-2009.
+// (C) Copyright Ion Gaztanaga  2006-2012.
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -141,7 +141,7 @@ struct even_odd
          return v1.value_ < v2.value_;
       else
          return v2.value_ & 1;
-   }  
+   }
 };
 
 struct is_even
@@ -149,7 +149,7 @@ struct is_even
    template<class Hooks, bool constant_time_size>
    bool operator()
       (const testvalue<Hooks, constant_time_size>& v1) const
-   {  return (v1.value_ & 1) == 0;  }  
+   {  return (v1.value_ & 1) == 0;  }
 };
 /*
 struct int_testvalue_comp

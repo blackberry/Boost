@@ -139,6 +139,13 @@ void test_xml_parser()
         3, 4 * umlautsize<char_type>(), 13
     );
 
+    generic_parser_test_ok<Ptree, ReadFuncWS, WriteFuncWS>
+    (
+        ReadFuncWS(), WriteFuncWS(), bug_data_pr4840, NULL,
+        "testpr4840.xml", NULL, "testpr4840out.xml",
+        4, 13, 15
+    );
+
 }
 
 #endif

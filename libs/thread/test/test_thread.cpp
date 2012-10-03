@@ -2,7 +2,7 @@
 // William E. Kempf
 // Copyright (C) 2008 Anthony Williams
 //
-//  Distributed under the Boost Software License, Version 1.0. (See accompanying 
+//  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 #include <boost/thread/detail/config.hpp>
@@ -28,7 +28,7 @@ void simple_thread()
 void comparison_thread(boost::thread::id parent)
 {
     boost::thread::id const my_id=boost::this_thread::get_id();
-    
+
     BOOST_CHECK(my_id != parent);
     boost::thread::id const my_id2=boost::this_thread::get_id();
     BOOST_CHECK(my_id == my_id2);
@@ -44,7 +44,7 @@ void test_sleep()
 
     // Ensure it's in a range instead of checking actual equality due to time
     // lapse
-    BOOST_CHECK(in_range(xt, 2));
+    BOOST_CHECK(boost::threads::test::in_range(xt, 2));
 }
 
 void do_test_creation()
@@ -125,11 +125,11 @@ struct non_copyable_functor:
     boost::noncopyable
 {
     unsigned value;
-    
+
     non_copyable_functor():
         value(0)
     {}
-    
+
     void operator()()
     {
         value=999;
@@ -139,7 +139,7 @@ struct non_copyable_functor:
 void do_test_creation_through_reference_wrapper()
 {
     non_copyable_functor f;
-    
+
     boost::thread thrd(boost::ref(f));
     thrd.join();
     BOOST_CHECK_EQUAL(f.value, 999u);
@@ -155,11 +155,11 @@ struct long_running_thread
     boost::condition_variable cond;
     boost::mutex mut;
     bool done;
-    
+
     long_running_thread():
         done(false)
     {}
-    
+
     void operator()()
     {
         boost::mutex::scoped_lock lk(mut);
@@ -177,7 +177,7 @@ void do_test_timed_join()
     BOOST_CHECK(thrd.joinable());
     boost::system_time xt=delay(3);
     bool const joined=thrd.timed_join(xt);
-    BOOST_CHECK(in_range(boost::get_xtime(xt), 2));
+    BOOST_CHECK(boost::threads::test::in_range(boost::get_xtime(xt), 2));
     BOOST_CHECK(!joined);
     BOOST_CHECK(thrd.joinable());
     {
@@ -185,7 +185,7 @@ void do_test_timed_join()
         f.done=true;
         f.cond.notify_one();
     }
-    
+
     xt=delay(3);
     bool const joined2=thrd.timed_join(xt);
     boost::system_time const now=boost::get_system_time();
@@ -209,16 +209,16 @@ void test_swap()
     t.swap(t2);
     BOOST_CHECK(t.get_id()==id2);
     BOOST_CHECK(t2.get_id()==id1);
-    
+
     swap(t,t2);
     BOOST_CHECK(t.get_id()==id1);
     BOOST_CHECK(t2.get_id()==id2);
 }
 
 
-boost::unit_test_framework::test_suite* init_unit_test_suite(int, char*[])
+boost::unit_test::test_suite* init_unit_test_suite(int, char*[])
 {
-    boost::unit_test_framework::test_suite* test =
+    boost::unit_test::test_suite* test =
         BOOST_TEST_SUITE("Boost.Threads: thread test suite");
 
     test->add(BOOST_TEST_CASE(test_sleep));
@@ -231,4 +231,18 @@ boost::unit_test_framework::test_suite* init_unit_test_suite(int, char*[])
     test->add(BOOST_TEST_CASE(test_swap));
 
     return test;
+}
+
+void remove_unused_warning()
+{
+
+  //../../../boost/test/results_collector.hpp:40:13: warning: unused function 'first_failed_assertion' [-Wunused-function]
+  //(void)boost::unit_test::first_failed_assertion;
+
+  //../../../boost/test/tools/floating_point_comparison.hpp:304:25: warning: unused variable 'check_is_close' [-Wunused-variable]
+  //../../../boost/test/tools/floating_point_comparison.hpp:326:25: warning: unused variable 'check_is_small' [-Wunused-variable]
+  (void)boost::test_tools::check_is_close;
+  (void)boost::test_tools::check_is_small;
+
+
 }

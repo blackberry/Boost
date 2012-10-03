@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -30,14 +30,14 @@ namespace container {
 namespace test{
 
 template<class V1, class V2>
-bool vector_copyable_only(V1 *, V2 *, boost::container::containers_detail::false_type)
+bool vector_copyable_only(V1 *, V2 *, boost::container::container_detail::false_type)
 {
    return true;
 }
 
 //Function to check if both sets are equal
 template<class V1, class V2>
-bool vector_copyable_only(V1 *boostvector, V2 *stdvector, boost::container::containers_detail::true_type)
+bool vector_copyable_only(V1 *boostvector, V2 *stdvector, boost::container::container_detail::true_type)
 {
    typedef typename V1::value_type IntType;
    std::size_t size = boostvector->size();
@@ -90,15 +90,15 @@ int vector_test()
          MyStdVector *stdvector = new MyStdVector;
          boostvector->resize(100);
          stdvector->resize(100);
-         if(!test::CheckEqualContainers(boostvector, stdvector)) return 1;         
+         if(!test::CheckEqualContainers(boostvector, stdvector)) return 1;        
 
          boostvector->resize(200);
          stdvector->resize(200);
-         if(!test::CheckEqualContainers(boostvector, stdvector)) return 1;         
+         if(!test::CheckEqualContainers(boostvector, stdvector)) return 1;        
 
          boostvector->resize(0);
          stdvector->resize(0);
-         if(!test::CheckEqualContainers(boostvector, stdvector)) return 1;         
+         if(!test::CheckEqualContainers(boostvector, stdvector)) return 1;        
 
          for(int i = 0; i < max; ++i){
             IntType new_int(i);
@@ -111,6 +111,7 @@ int vector_test()
          typename MyBoostVector::iterator boostit(boostvector->begin());
          typename MyStdVector::iterator stdit(stdvector->begin());
          typename MyBoostVector::const_iterator cboostit = boostit;
+         (void)cboostit;
          ++boostit; ++stdit;
          boostvector->erase(boostit);
          stdvector->erase(stdit);
@@ -183,7 +184,7 @@ int vector_test()
          if(!test::CheckEqualContainers(boostvector, stdvector)) return 1;
 
          if(!vector_copyable_only(boostvector, stdvector
-                        ,containers_detail::bool_<boost::container::test::is_copyable<IntType>::value>())){
+                        ,container_detail::bool_<boost::container::test::is_copyable<IntType>::value>())){
             return 1;
          }
 

@@ -5,11 +5,13 @@
 
 //  See http://www.boost.org/libs/config for most recent version.
 
-//  MACRO:         BOOST_NO_NOEXCEPT
+//  MACRO:         BOOST_NO_CXX11_NOEXCEPT
 //  TITLE:         C++0x noexcept unavailable
 //  DESCRIPTION:   The compiler does not support C++0x noexcept
 
-namespace boost_no_noexcept {
+namespace boost_no_cxx11_noexcept {
+
+void quiet_warning(bool){}
 
 int f() noexcept ;
 int g() noexcept( noexcept( f() ) ) ;
@@ -17,6 +19,7 @@ int g() noexcept( noexcept( f() ) ) ;
 int test()
 {
   bool b = noexcept( g() );
+  quiet_warning(b);
   return 0;
 }
 

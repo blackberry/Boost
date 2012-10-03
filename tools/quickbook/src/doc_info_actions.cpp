@@ -12,12 +12,15 @@
 #include <boost/bind.hpp>
 #include <boost/algorithm/string/join.hpp>
 #include <boost/foreach.hpp>
+#include <boost/filesystem/operations.hpp>
 #include "quickbook.hpp"
 #include "utils.hpp"
+#include "files.hpp"
 #include "input_path.hpp"
-#include "actions_class.hpp"
+#include "state.hpp"
+#include "actions.hpp"
 #include "doc_info_tags.hpp"
-#include "id_generator.hpp"
+#include "id_manager.hpp"
 
 namespace quickbook
 {
@@ -25,10 +28,22 @@ namespace quickbook
     
     static std::string doc_info_output(value const& p, unsigned version)
     {
-        return (qbk_version_n < version) ? p.get_quickbook() : p.get_boostbook();
+        if (qbk_version_n < version) {
+            std::string value = p.get_quickbook();
+            value.erase(value.find_last_not_of(" \t") + 1);
+            return value;
+        }
+        else {
+            return p.get_encoded();
+        }
     }
 
-    value consume_last(value_consumer& c, value::tag_type tag,
+    // Each docinfo attribute is stored in a value list, these are then stored
+    // in a sorted value list. The following convenience methods extract all the
+    // values for an attribute tag.
+
+    // Expecting at most one attribute, with several values in the list.
+    value consume_list(value_consumer& c, value::tag_type tag,
             std::vector<std::string>* duplicates)
     {
         value p;
@@ -44,10 +59,12 @@ namespace quickbook
         return p;
     }
 
-    value consume_last_single(value_consumer& c, value::tag_type tag,
+    // Expecting at most one attribute, with a single value, so extract that
+    // immediately.
+    value consume_value_in_list(value_consumer& c, value::tag_type tag,
             std::vector<std::string>* duplicates)
     {
-        value l = consume_last(c, tag, duplicates);
+        value l = consume_list(c, tag, duplicates);
         if(l.empty()) return l;
 
         assert(l.is_list());
@@ -58,7 +75,8 @@ namespace quickbook
         return p;
     }
 
-    std::vector<value> consume_multiple(value_consumer& c, value::tag_type tag)
+    // Any number of attributes, so stuff them into a vector.
+    std::vector<value> consume_multiple_values(value_consumer& c, value::tag_type tag)
     {
         std::vector<value> values;
         
@@ -69,142 +87,203 @@ namespace quickbook
         return values;
     }
 
-    void pre(collector& out, quickbook::actions& actions, bool ignore_docinfo)
+    unsigned get_version(quickbook::state& state, bool using_docinfo,
+            value version)
+    {
+        unsigned result = 0;
+    
+        if (!version.empty()) {
+            value_consumer version_values(version);
+            bool before_docinfo = version_values.optional_consume(
+                doc_info_tags::before_docinfo).check();
+            int major_verison = version_values.consume().get_int();
+            int minor_verison = version_values.consume().get_int();
+            version_values.finish();
+    
+            if (before_docinfo || using_docinfo) {
+                result = ((unsigned) major_verison * 100) +
+                    (unsigned) minor_verison;
+            
+                if(result < 100 || result > 107)
+                {
+                    detail::outerr(state.current_file->path)
+                        << "Unknown version: "
+                        << major_verison
+                        << "."
+                        << minor_verison
+                        << std::endl;
+                    ++state.error_count;
+                }
+            }
+        }
+        
+        return result;
+    }
+
+    std::string pre(quickbook::state& state, parse_iterator pos,
+            value include_doc_id, bool nested_file)
     {
         // The doc_info in the file has been parsed. Here's what we'll do
         // *before* anything else.
+        //
+        // If there isn't a doc info block, then values will be empty, so most
+        // of the following code won't actually do anything.
 
-        value_consumer values = actions.values.release();
+        value_consumer values = state.values.release();
 
         // Skip over invalid attributes
 
         while (values.check(value::default_tag)) values.consume();
-        
-        value qbk_version = values.optional_consume(doc_info_tags::qbk_version);
-        
+
+        bool use_doc_info = false;
+        std::string doc_type;
         value doc_title;
-        if (values.check())
+
+        if (values.check(doc_info_tags::type))
         {
-            actions.doc_type = values.consume(doc_info_tags::type).get_quickbook();
+            doc_type = values.consume(doc_info_tags::type).get_quickbook();
             doc_title = values.consume(doc_info_tags::title);
-            actions.doc_title_qbk = doc_title.get_quickbook();
+            use_doc_info = !nested_file || qbk_version_n >= 106u;
+        }
+        else
+        {
+            if (!nested_file)
+            {
+                detail::outerr(state.current_file, pos.base())
+                    << "No doc_info block."
+                    << std::endl;
+
+                ++state.error_count;
+
+                // Create a fake document info block in order to continue.
+                doc_type = "article";
+                doc_title = qbk_value(state.current_file,
+                    pos.base(), pos.base(),
+                    doc_info_tags::type);
+                use_doc_info = true;
+            }
         }
 
         std::vector<std::string> duplicates;
 
-        value id = consume_last_single(values, doc_info_attributes::id, &duplicates);
-        value dirname = consume_last_single(values, doc_info_attributes::dirname, &duplicates);
-        value last_revision = consume_last_single(values, doc_info_attributes::last_revision, &duplicates);
-        value purpose = consume_last_single(values, doc_info_attributes::purpose, &duplicates);
-        std::vector<value> categories = consume_multiple(values, doc_info_attributes::category);
-        value lang = consume_last_single(values, doc_info_attributes::lang, &duplicates);
-        value version = consume_last_single(values, doc_info_attributes::version, &duplicates);
-        std::vector<value> authors = consume_multiple(values, doc_info_attributes::authors);
-        std::vector<value> copyrights = consume_multiple(values, doc_info_attributes::copyright);
-        value license = consume_last_single(values, doc_info_attributes::license, &duplicates);
-        std::vector<value> biblioids = consume_multiple(values, doc_info_attributes::biblioid);
-        
-        // Skip over source-mode tags (already dealt with)
+        std::vector<value> escaped_attributes = consume_multiple_values(values, doc_info_tags::escaped_attribute);
 
-        while (values.check(doc_info_attributes::source_mode)) values.consume();
+        value qbk_version = consume_list(values, doc_attributes::qbk_version, &duplicates);
+        value compatibility_mode = consume_list(values, doc_attributes::compatibility_mode, &duplicates);
+        consume_multiple_values(values, doc_attributes::source_mode);
+
+        value id = consume_value_in_list(values, doc_info_attributes::id, &duplicates);
+        value dirname = consume_value_in_list(values, doc_info_attributes::dirname, &duplicates);
+        value last_revision = consume_value_in_list(values, doc_info_attributes::last_revision, &duplicates);
+        value purpose = consume_value_in_list(values, doc_info_attributes::purpose, &duplicates);
+        std::vector<value> categories = consume_multiple_values(values, doc_info_attributes::category);
+        value lang = consume_value_in_list(values, doc_info_attributes::lang, &duplicates);
+        value version = consume_value_in_list(values, doc_info_attributes::version, &duplicates);
+        std::vector<value> authors = consume_multiple_values(values, doc_info_attributes::authors);
+        std::vector<value> copyrights = consume_multiple_values(values, doc_info_attributes::copyright);
+        value license = consume_value_in_list(values, doc_info_attributes::license, &duplicates);
+        std::vector<value> biblioids = consume_multiple_values(values, doc_info_attributes::biblioid);
+        value xmlbase = consume_value_in_list(values, doc_info_attributes::xmlbase, &duplicates);
 
         values.finish();
 
         if(!duplicates.empty())
         {
-            detail::outwarn(actions.filename,1)
+            detail::outwarn(state.current_file->path)
                 << (duplicates.size() > 1 ?
                     "Duplicate attributes" : "Duplicate attribute")
-                << ":" << detail::utf8(boost::algorithm::join(duplicates, ", "))
+                << ":" << boost::algorithm::join(duplicates, ", ")
                 << "\n"
                 ;
         }
 
-        bool generated_id = false;
+        std::string include_doc_id_, id_;
 
+        if (!include_doc_id.empty())
+            include_doc_id_ = include_doc_id.get_quickbook();
         if (!id.empty())
-            actions.doc_id = id.get_quickbook();
-
-        if (actions.doc_id.empty())
-        {
-            actions.doc_id = detail::make_identifier(actions.doc_title_qbk);
-            generated_id = true;
-        }
-
-        if (dirname.empty() && actions.doc_type == "library") {
-            if (!id.empty()) {
-                dirname = id;
-            }
-            else {
-                dirname = qbk_bbk_value(actions.doc_id, doc_info_attributes::dirname);
-            }
-        }
-
-        if (last_revision.empty())
-        {
-            // default value for last-revision is now
-
-            char strdate[64];
-            strftime(
-                strdate, sizeof(strdate),
-                (debug_mode ?
-                    "DEBUG MODE Date: %Y/%m/%d %H:%M:%S $" :
-                    "$" /* prevent CVS substitution */ "Date: %Y/%m/%d %H:%M:%S $"),
-                current_gm_time
-            );
-            last_revision = qbk_bbk_value(strdate, doc_info_attributes::last_revision);
-        }
-
-        // if we're ignoring the document info, we're done.
-        if (ignore_docinfo)
-        {
-            return;
-        }
+            id_ = id.get_quickbook();
 
         // Quickbook version
 
-        int qbk_major_version, qbk_minor_version;
+        unsigned new_version = get_version(state, use_doc_info, qbk_version);
 
-        if (qbk_version.empty())
+        if (new_version != qbk_version_n && new_version >= 106)
         {
+            detail::outwarn(state.current_file->path)
+                << "Quickbook " << (new_version / 100) << "." << (new_version % 100)
+                << " is still under development and is "
+                "likely to change in the future." << std::endl;
+        }
+
+        if (new_version) {
+            qbk_version_n = new_version;
+        }
+        else if (use_doc_info) {
             // hard code quickbook version to v1.1
-            qbk_major_version = 1;
-            qbk_minor_version = 1;
-            detail::outwarn(actions.filename,1)
+            qbk_version_n = 101;
+            detail::outwarn(state.current_file, pos.base())
                 << "Quickbook version undefined. "
                 "Version 1.1 is assumed" << std::endl;
         }
-        else
-        {
-            value_consumer qbk_version_values(qbk_version);
-            qbk_major_version = qbk_version_values.consume().get_int();
-            qbk_minor_version = qbk_version_values.consume().get_int();
-            qbk_version_values.finish();
-        }
-        
-        qbk_version_n = ((unsigned) qbk_major_version * 100) +
-            (unsigned) qbk_minor_version;
 
-        if (qbk_version_n == 106)
-        {
-            detail::outwarn(actions.filename,1)
-                << "Quickbook 1.6 is still under development and is "
-                "likely to change in the future." << std::endl;
+        state.current_file->version(qbk_version_n);
+
+        // Compatibility Version
+
+        unsigned compatibility_version =
+            get_version(state, use_doc_info, compatibility_mode);
+
+        if (!compatibility_version) {
+            compatibility_version = use_doc_info ?
+                qbk_version_n : state.ids.compatibility_version();
         }
-        else if(qbk_version_n < 100 || qbk_version_n > 106)
+
+        // Start file, finish here if not generating document info.
+
+        if (!use_doc_info)
         {
-            detail::outerr(actions.filename,1)
-                << "Unknown version of quickbook: quickbook "
-                << qbk_major_version
-                << "."
-                << qbk_minor_version
-                << std::endl;
-            ++actions.error_count;
+            state.ids.start_file(compatibility_version, include_doc_id_, id_,
+                    doc_title);
+            return "";
+        }
+
+        std::string id_placeholder =
+            state.ids.start_file_with_docinfo(
+                compatibility_version, include_doc_id_, id_, doc_title);
+
+        // Make sure we really did have a document info block.
+
+        assert(doc_title.check() && !doc_type.empty());
+
+        // Set xmlbase
+
+        std::string xmlbase_value;
+
+        if (!xmlbase.empty())
+        {
+            xinclude_path x = calculate_xinclude_path(xmlbase, state);
+
+            if (!fs::is_directory(x.path))
+            {
+                detail::outerr(xmlbase.get_file(), xmlbase.get_position())
+                    << "xmlbase \""
+                    << xmlbase.get_quickbook()
+                    << "\" isn't a directory."
+                    << std::endl;
+
+                ++state.error_count;
+            }
+            else
+            {
+                xmlbase_value = x.uri;
+                state.xinclude_base = x.path;
+            }
         }
 
         // Warn about invalid fields
 
-        if (actions.doc_type != "library")
+        if (doc_type != "library")
         {
             std::vector<std::string> invalid_attributes;
 
@@ -219,11 +298,11 @@ namespace quickbook
 
             if(!invalid_attributes.empty())
             {
-                detail::outwarn(actions.filename,1)
+                detail::outwarn(state.current_file->path)
                     << (invalid_attributes.size() > 1 ?
                         "Invalid attributes" : "Invalid attribute")
-                    << " for '" << detail::utf8(actions.doc_type) << " document info': "
-                    << detail::utf8(boost::algorithm::join(invalid_attributes, ", "))
+                    << " for '" << doc_type << " document info': "
+                    << boost::algorithm::join(invalid_attributes, ", ")
                     << "\n"
                     ;
             }
@@ -231,40 +310,88 @@ namespace quickbook
 
         // Write out header
 
-        out << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-            << "<!DOCTYPE "
-            << actions.doc_type
-            << " PUBLIC \"-//Boost//DTD BoostBook XML V1.0//EN\"\n"
-            << "     \"http://www.boost.org/tools/boostbook/dtd/boostbook.dtd\">\n"
-            << '<' << actions.doc_type << "\n"
+        if (!nested_file)
+        {
+            state.out << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+                << "<!DOCTYPE "
+                << doc_type
+                << " PUBLIC \"-//Boost//DTD BoostBook XML V1.0//EN\"\n"
+                << "     \"http://www.boost.org/tools/boostbook/dtd/boostbook.dtd\">\n"
+                ;
+        }
+
+        state.out << '<' << doc_type << "\n"
             << "    id=\""
-            << actions.ids.add(actions.doc_id, generated_id ?
-                id_generator::generated_doc : id_generator::explicit_id)
+            << id_placeholder
             << "\"\n";
-        
+
         if(!lang.empty())
         {
-            out << "    lang=\""
+            state.out << "    lang=\""
                 << doc_info_output(lang, 106)
                 << "\"\n";
         }
 
-        if(actions.doc_type == "library")
+        if(doc_type == "library" && !doc_title.empty())
         {
-            out << "    name=\"" << doc_info_output(doc_title, 106) << "\"\n";
+            state.out << "    name=\"" << doc_info_output(doc_title, 106) << "\"\n";
         }
 
-        if(!dirname.empty())
+        // Set defaults for dirname + last_revision
+
+        if (!dirname.empty() || doc_type == "library")
         {
-            out << "    dirname=\""
-                << doc_info_output(dirname, 106)
+            state.out << "    dirname=\"";
+            if (!dirname.empty()) {
+                state.out << doc_info_output(dirname, 106);
+            }
+            else if (!id_.empty()) {
+                state.out << id_;
+            }
+            else if (!include_doc_id_.empty()) {
+                state.out << include_doc_id_;
+            }
+            else if (!doc_title.empty()) {
+                state.out << detail::make_identifier(doc_title.get_quickbook());
+            }
+            else {
+                state.out << "library";
+            }
+
+            state.out << "\"\n";
+        }
+
+        state.out << "    last-revision=\"";
+        if (!last_revision.empty())
+        {
+            state.out << doc_info_output(last_revision, 106);
+        }
+        else
+        {
+            // default value for last-revision is now
+
+            char strdate[64];
+            strftime(
+                strdate, sizeof(strdate),
+                (debug_mode ?
+                    "DEBUG MODE Date: %Y/%m/%d %H:%M:%S $" :
+                    "$" /* prevent CVS substitution */ "Date: %Y/%m/%d %H:%M:%S $"),
+                current_gm_time
+            );
+
+            state.out << strdate;
+        }
+
+        state.out << "\" \n";
+
+        if (!xmlbase.empty())
+        {
+            state.out << "    xml:base=\""
+                << xmlbase_value
                 << "\"\n";
         }
 
-        out << "    last-revision=\""
-            << doc_info_output(last_revision, 106)
-            << "\" \n"
-            << "    xmlns:xi=\"http://www.w3.org/2001/XInclude\">\n";
+        state.out << "    xmlns:xi=\"http://www.w3.org/2001/XInclude\">\n";
 
         std::ostringstream tmp;
 
@@ -298,17 +425,17 @@ namespace quickbook
     
                 while(copyright.check(doc_info_tags::copyright_year))
                 {
-                    int year_start = copyright.consume().get_int();
+                    value year_start_value = copyright.consume();
+                    int year_start = year_start_value.get_int();
                     int year_end =
                         copyright.check(doc_info_tags::copyright_year_end) ?
                         copyright.consume().get_int() :
                         year_start;
     
                     if (year_end < year_start) {
-                        ++actions.error_count;
+                        ++state.error_count;
     
-                        detail::outerr(actions.filename,
-                            copyright.begin()->get_position().line)
+                        detail::outerr(state.current_file, copyright.begin()->get_position())
                             << "Invalid year range: "
                             << year_start
                             << "-"
@@ -333,8 +460,7 @@ namespace quickbook
         if (!license.empty())
         {
             tmp << "    <legalnotice id=\""
-                << actions.ids.add(actions.doc_id + ".legal",
-                    id_generator::generated)
+                << state.ids.add_id("legal", id_category::generated)
                 << "\">\n"
                 << "      <para>\n"
                 << "        " << doc_info_output(license, 103) << "\n"
@@ -346,9 +472,9 @@ namespace quickbook
 
         if (!purpose.empty())
         {
-            tmp << "    <" << actions.doc_type << "purpose>\n"
+            tmp << "    <" << doc_type << "purpose>\n"
                 << "      " << doc_info_output(purpose, 103)
-                << "    </" << actions.doc_type << "purpose>\n"
+                << "    </" << doc_type << "purpose>\n"
                 << "\n"
                 ;
         }
@@ -356,9 +482,9 @@ namespace quickbook
         BOOST_FOREACH(value_consumer values, categories) {
             value category = values.optional_consume();
             if(!category.empty()) {
-                tmp << "    <" << actions.doc_type << "category name=\"category:"
+                tmp << "    <" << doc_type << "category name=\"category:"
                     << doc_info_output(category, 106)
-                    << "\"></" << actions.doc_type << "category>\n"
+                    << "\"></" << doc_type << "category>\n"
                     << "\n"
                 ;
             }
@@ -380,50 +506,54 @@ namespace quickbook
             biblioid.finish();
         }
 
-        if(actions.doc_type != "library") {
-            write_document_title(out, doc_title, version);
+        BOOST_FOREACH(value escaped, escaped_attributes)
+        {
+            tmp << "<!--quickbook-escape-prefix-->"
+                << escaped.get_quickbook()
+                << "<!--quickbook-escape-postfix-->"
+                ;
+        }
+
+        if(doc_type != "library") {
+            write_document_title(state.out, doc_title, version);
         }
 
         std::string docinfo = tmp.str();
         if(!docinfo.empty())
         {
-            out << "  <" << actions.doc_type << "info>\n"
+            state.out << "  <" << doc_type << "info>\n"
                 << docinfo
-                << "  </" << actions.doc_type << "info>\n"
+                << "  </" << doc_type << "info>\n"
                 << "\n"
             ;
         }
 
-        if(actions.doc_type == "library") {
-            write_document_title(out, doc_title, version);
+        if(doc_type == "library") {
+            write_document_title(state.out, doc_title, version);
         }
+
+        return doc_type;
     }
-    
-    void post(collector& out, quickbook::actions& actions, bool ignore_docinfo)
+
+    void post(quickbook::state& state, std::string const& doc_type)
     {
-        // if we're ignoring the document info, do nothing.
-        if (ignore_docinfo)
-        {
-            return;
-        } 
+        // We've finished generating our output. Here's what we'll do
+        // *after* everything else.
 
         // Close any open sections.
-        if (actions.section_level != 0) {
-            detail::outwarn(actions.filename)
+        if (!doc_type.empty() && state.ids.section_level() > 1) {
+            detail::outwarn(state.current_file->path)
                 << "Missing [endsect] detected at end of file."
                 << std::endl;
 
-            while(actions.section_level > 0) {
-                out << "</section>";
-                --actions.section_level;
+            while(state.ids.section_level() > 1) {
+                state.out << "</section>";
+                state.ids.end_section();
             }
-
-            actions.qualified_section_id.clear();
         }
 
-        // We've finished generating our output. Here's what we'll do
-        // *after* everything else.
-        out << "\n</" << actions.doc_type << ">\n\n";
+        state.ids.end_file();
+        if (!doc_type.empty()) state.out << "\n</" << doc_type << ">\n\n";
     }
 
     static void write_document_title(collector& out, value const& title, value const& version)

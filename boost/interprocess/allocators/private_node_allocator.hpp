@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -18,7 +18,7 @@
 #include <boost/interprocess/detail/config_begin.hpp>
 #include <boost/interprocess/detail/workaround.hpp>
 
-#include <boost/pointer_to_other.hpp>
+#include <boost/intrusive/pointer_traits.hpp>
 
 #include <boost/interprocess/interprocess_fwd.hpp>
 #include <boost/assert.hpp>
@@ -33,7 +33,7 @@
 #include <cstddef>
 
 //!\file
-//!Describes private_node_allocator_base pooled shared memory STL compatible allocator 
+//!Describes private_node_allocator_base pooled shared memory STL compatible allocator
 
 namespace boost {
 namespace interprocess {
@@ -75,10 +75,13 @@ class private_node_allocator_base
    /// @endcond
 
    public:
-   typedef typename boost::
-      pointer_to_other<void_pointer, T>::type            pointer;
-   typedef typename boost::
-      pointer_to_other<void_pointer, const T>::type      const_pointer;
+
+   typedef typename boost::intrusive::
+      pointer_traits<void_pointer>::template
+         rebind_pointer<T>::type                         pointer;
+   typedef typename boost::intrusive::
+      pointer_traits<void_pointer>::template
+         rebind_pointer<const T>::type                   const_pointer;
    typedef T                                             value_type;
    typedef typename ipcdetail::add_reference
                      <value_type>::type                  reference;
@@ -88,13 +91,13 @@ class private_node_allocator_base
    typedef typename segment_manager::difference_type     difference_type;
    typedef boost::interprocess::version_type
       <private_node_allocator_base, Version>              version;
-   typedef boost::container::containers_detail::transform_multiallocation_chain
+   typedef boost::container::container_detail::transform_multiallocation_chain
       <typename SegmentManager::multiallocation_chain, T>multiallocation_chain;
 
    //!Obtains node_allocator from other node_allocator
    template<class T2>
    struct rebind
-   {  
+   { 
       typedef private_node_allocator_base
          <Version, T2, SegmentManager, NodesPerBlock>   other;
    };
@@ -143,7 +146,7 @@ class private_node_allocator_base
    {}
 
    //!Destructor, frees all used memory. Never throws
-   ~private_node_allocator_base() 
+   ~private_node_allocator_base()
    {}
 
    //!Returns the segment manager. Never throws
@@ -167,13 +170,13 @@ class private_node_allocator_base
 
 //!Equality test for same type of private_node_allocator_base
 template<unsigned int V, class T, class S, std::size_t NPC> inline
-bool operator==(const private_node_allocator_base<V, T, S, NPC> &alloc1, 
+bool operator==(const private_node_allocator_base<V, T, S, NPC> &alloc1,
                 const private_node_allocator_base<V, T, S, NPC> &alloc2)
 {  return &alloc1 == &alloc2; }
 
 //!Inequality test for same type of private_node_allocator_base
 template<unsigned int V, class T, class S, std::size_t NPC> inline
-bool operator!=(const private_node_allocator_base<V, T, S, NPC> &alloc1, 
+bool operator!=(const private_node_allocator_base<V, T, S, NPC> &alloc1,
                 const private_node_allocator_base<V, T, S, NPC> &alloc2)
 {  return &alloc1 != &alloc2; }
 
@@ -195,11 +198,11 @@ class private_node_allocator_v1
 
    template<class T2>
    struct rebind
-   {  
+   { 
       typedef private_node_allocator_v1<T2, SegmentManager, NodesPerBlock>  other;
    };
 
-   private_node_allocator_v1(SegmentManager *segment_mngr) 
+   private_node_allocator_v1(SegmentManager *segment_mngr)
       : base_t(segment_mngr)
    {}
 
@@ -214,11 +217,11 @@ class private_node_allocator_v1
 
 /// @endcond
 
-//!An STL node allocator that uses a segment manager as memory 
+//!An STL node allocator that uses a segment manager as memory
 //!source. The internal pointer type will of the same type (raw, smart) as
 //!"typename SegmentManager::void_pointer" type. This allows
 //!placing the allocator in shared memory, memory mapped-files, etc...
-//!This allocator has its own node pool. NodesPerBlock is the number of nodes allocated 
+//!This allocator has its own node pool. NodesPerBlock is the number of nodes allocated
 //!at once when the allocator needs runs out of nodes
 template < class T
          , class SegmentManager
@@ -243,12 +246,12 @@ class private_node_allocator
 
    template<class T2>
    struct rebind
-   {  
+   { 
       typedef private_node_allocator
          <T2, SegmentManager, NodesPerBlock>  other;
    };
 
-   private_node_allocator(SegmentManager *segment_mngr) 
+   private_node_allocator(SegmentManager *segment_mngr)
       : base_t(segment_mngr)
    {}
 
@@ -272,11 +275,11 @@ class private_node_allocator
    typedef typename segment_manager::size_type           size_type;
    typedef typename segment_manage::difference_type      difference_type;
 
-   //!Obtains private_node_allocator from 
+   //!Obtains private_node_allocator from
    //!private_node_allocator
    template<class T2>
    struct rebind
-   {  
+   { 
       typedef private_node_allocator
          <T2, SegmentManager, NodesPerBlock> other;
    };
@@ -288,7 +291,7 @@ class private_node_allocator
    private_node_allocator& operator=
       (const private_node_allocator<T2, SegmentManager2, N2>&);
 
-   //!Not assignable from 
+   //!Not assignable from
    //!other private_node_allocator
    private_node_allocator& operator=(const private_node_allocator&);
 
@@ -298,7 +301,7 @@ class private_node_allocator
    //!Can throw boost::interprocess::bad_alloc
    private_node_allocator(segment_manager *segment_mngr);
 
-   //!Copy constructor from other private_node_allocator. Increments the reference 
+   //!Copy constructor from other private_node_allocator. Increments the reference
    //!count of the associated node pool. Never throws
    private_node_allocator(const private_node_allocator &other);
 
@@ -325,7 +328,7 @@ class private_node_allocator
    //!Never throws
    size_type max_size() const;
 
-   //!Allocate memory for an array of count elements. 
+   //!Allocate memory for an array of count elements.
    //!Throws boost::interprocess::bad_alloc if there is no enough memory
    pointer allocate(size_type count, cvoid_pointer hint = 0);
 
@@ -349,7 +352,7 @@ class private_node_allocator
    //!Never throws
    const_pointer address(const_reference value) const;
 
-   //!Copy construct an object. 
+   //!Copy construct an object.
    //!Throws if T's copy constructor throws
    void construct(const pointer &ptr, const_reference v);
 
@@ -364,7 +367,7 @@ class private_node_allocator
 
    std::pair<pointer, bool>
       allocation_command(boost::interprocess::allocation_type command,
-                         size_type limit_size, 
+                         size_type limit_size,
                          size_type preferred_size,
                          size_type &received_size, const pointer &reuse = 0);
 
@@ -422,13 +425,13 @@ class private_node_allocator
 //!Equality test for same type
 //!of private_node_allocator
 template<class T, class S, std::size_t NodesPerBlock, std::size_t F, unsigned char OP> inline
-bool operator==(const private_node_allocator<T, S, NodesPerBlock, F, OP> &alloc1, 
+bool operator==(const private_node_allocator<T, S, NodesPerBlock, F, OP> &alloc1,
                 const private_node_allocator<T, S, NodesPerBlock, F, OP> &alloc2);
 
 //!Inequality test for same type
 //!of private_node_allocator
 template<class T, class S, std::size_t NodesPerBlock, std::size_t F, unsigned char OP> inline
-bool operator!=(const private_node_allocator<T, S, NodesPerBlock, F, OP> &alloc1, 
+bool operator!=(const private_node_allocator<T, S, NodesPerBlock, F, OP> &alloc1,
                 const private_node_allocator<T, S, NodesPerBlock, F, OP> &alloc2);
 
 #endif

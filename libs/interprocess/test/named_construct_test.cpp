@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2008-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2008-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -86,7 +86,7 @@ int construct_test()
    {
       //A special shared memory where we can
       //construct objects associated with a name.
-      //First remove any old shared memory of the same name, create 
+      //First remove any old shared memory of the same name, create
       //the shared memory segment and initialize needed resources
       managed_shared_memory segment
          //create       segment name    segment size

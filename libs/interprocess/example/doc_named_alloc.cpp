@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2006-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2006-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 
    if(argc == 1){  //Parent process
       //Remove shared memory on construction and destruction
-      struct shm_remove 
+      struct shm_remove
       {
       //<-
       #if 1
@@ -40,6 +40,9 @@ int main(int argc, char *argv[])
       #endif
       //->
       } remover;
+      //<-
+      (void)remover;
+      //->
 
       //Construct managed shared memory
       //<-
@@ -109,12 +112,12 @@ int main(int argc, char *argv[])
       std::pair<MyType*, managed_shared_memory::size_type> res;
 
       //Find the array
-      res = segment.find<MyType> ("MyType array");   
+      res = segment.find<MyType> ("MyType array"); 
       //Length should be 10
       if(res.second != 10) return 1;
 
       //Find the object
-      res = segment.find<MyType> ("MyType instance");   
+      res = segment.find<MyType> ("MyType instance"); 
       //Length should be 1
       if(res.second != 1) return 1;
 

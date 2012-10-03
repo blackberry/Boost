@@ -4,7 +4,7 @@
 <title>centroid</title>
 <link rel="stylesheet" href="../../../../../../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
-<link rel="home" href="../../../../index.html" title="Chapter&#160;1.&#160;Geometry 1.0">
+<link rel="home" href="../../../../index.html" title="Chapter&#160;1.&#160;Geometry">
 <link rel="up" href="../centroid.html" title="centroid">
 <link rel="prev" href="centroid_3_with_strategy.html" title="centroid (with strategy)">
 <link rel="next" href="return_centroid_1.html" title="return_centroid">
@@ -27,7 +27,7 @@
 <a name="geometry.reference.algorithms.centroid.centroid_2"></a><a class="link" href="centroid_2.html" title="centroid">centroid</a>
 </h5></div></div></div>
 <p>
-            <a class="indexterm" name="id837980"></a>
+            <a class="indexterm" name="id839513"></a>
 Calculates the centroid of a geometry.
           </p>
 <h6>
@@ -147,6 +147,14 @@ Calculates the centroid of a geometry.
           </p>
 <h6>
 <a name="geometry.reference.algorithms.centroid.centroid_2.h4"></a>
+            <span><a name="geometry.reference.algorithms.centroid.centroid_2.conformance"></a></span><a class="link" href="centroid_2.html#geometry.reference.algorithms.centroid.centroid_2.conformance">Conformance</a>
+          </h6>
+<p>
+            The function centroid implements function Centroid from the <a href="http://www.opengeospatial.org/standards/sfa" target="_top">OGC
+            Simple Feature Specification</a>.
+          </p>
+<h6>
+<a name="geometry.reference.algorithms.centroid.centroid_2.h5"></a>
             <span><a name="geometry.reference.algorithms.centroid.centroid_2.behavior"></a></span><a class="link" href="centroid_2.html#geometry.reference.algorithms.centroid.centroid_2.behavior">Behavior</a>
           </h6>
 <div class="informaltable"><table class="table">
@@ -254,7 +262,7 @@ Calculates the centroid of a geometry.
 </tbody>
 </table></div>
 <h6>
-<a name="geometry.reference.algorithms.centroid.centroid_2.h5"></a>
+<a name="geometry.reference.algorithms.centroid.centroid_2.h6"></a>
             <span><a name="geometry.reference.algorithms.centroid.centroid_2.supported_geometries"></a></span><a class="link" href="centroid_2.html#geometry.reference.algorithms.centroid.centroid_2.supported_geometries">Supported
             geometries</a>
           </h6>
@@ -435,14 +443,14 @@ Calculates the centroid of a geometry.
 </tbody>
 </table></div>
 <h6>
-<a name="geometry.reference.algorithms.centroid.centroid_2.h6"></a>
+<a name="geometry.reference.algorithms.centroid.centroid_2.h7"></a>
             <span><a name="geometry.reference.algorithms.centroid.centroid_2.complexity"></a></span><a class="link" href="centroid_2.html#geometry.reference.algorithms.centroid.centroid_2.complexity">Complexity</a>
           </h6>
 <p>
             Linear
           </p>
 <h6>
-<a name="geometry.reference.algorithms.centroid.centroid_2.h7"></a>
+<a name="geometry.reference.algorithms.centroid.centroid_2.h8"></a>
             <span><a name="geometry.reference.algorithms.centroid.centroid_2.example"></a></span><a class="link" href="centroid_2.html#geometry.reference.algorithms.centroid.centroid_2.example">Example</a>
           </h6>
 <p>
@@ -457,7 +465,7 @@ Calculates the centroid of a geometry.
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">/</span><span class="identifier">geometries</span><span class="special">/</span><span class="identifier">point_xy</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">/</span><span class="identifier">geometries</span><span class="special">/</span><span class="identifier">polygon</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 
-<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">/</span><span class="identifier">domains</span><span class="special">/</span><span class="identifier">gis</span><span class="special">/</span><span class="identifier">io</span><span class="special">/</span><span class="identifier">wkt</span><span class="special">/</span><span class="identifier">wkt</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">/</span><span class="identifier">io</span><span class="special">/</span><span class="identifier">wkt</span><span class="special">/</span><span class="identifier">wkt</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 
 
 <span class="keyword">int</span> <span class="identifier">main</span><span class="special">()</span>
@@ -477,7 +485,6 @@ Calculates the centroid of a geometry.
 
     <span class="keyword">return</span> <span class="number">0</span><span class="special">;</span>
 <span class="special">}</span>
-
 </pre>
 <p>
           </p>
@@ -494,7 +501,8 @@ Calculates the centroid of a geometry.
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2011 Barend Gehrels, Bruno Lalande, Mateusz Loskot<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2009-2012 Barend
+      Gehrels, Bruno Lalande, Mateusz Loskot<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

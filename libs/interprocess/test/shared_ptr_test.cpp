@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 //
 // (C) Copyright Peter Dimov 2002-2005, 2007.
-// (C) Copyright Ion Gaztanaga 2006-2009.
+// (C) Copyright Ion Gaztanaga 2006-2011.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -63,16 +63,16 @@ int simple_test()
       managed_shared_memory shmem(create_only, process_name.c_str(), 10000);
 
       {
-         base_shared_ptr s_ptr(base_shared_ptr::pointer(0), 
-                           base_class_allocator(shmem.get_segment_manager()), 
+         base_shared_ptr s_ptr(base_shared_ptr::pointer(0),
+                           base_class_allocator(shmem.get_segment_manager()),
                            base_deleter_t(shmem.get_segment_manager()));
 
-         base_shared_ptr s_ptr2(shmem.construct<base_class>("base_class")(), 
-                              base_class_allocator(shmem.get_segment_manager()), 
+         base_shared_ptr s_ptr2(shmem.construct<base_class>("base_class")(),
+                              base_class_allocator(shmem.get_segment_manager()),
                               base_deleter_t(shmem.get_segment_manager()));
 
-         base_shared_ptr s_ptr3(offset_ptr<derived_class>(shmem.construct<derived_class>("derived_class")()), 
-                              base_class_allocator(shmem.get_segment_manager()), 
+         base_shared_ptr s_ptr3(offset_ptr<derived_class>(shmem.construct<derived_class>("derived_class")()),
+                              base_class_allocator(shmem.get_segment_manager()),
                               base_deleter_t(shmem.get_segment_manager()));
 
          if(s_ptr3.get_deleter()   == 0){
@@ -111,20 +111,20 @@ int string_shared_ptr_vector_insertion_test()
       string_allocator_t;
 
    //A deleter for shared_ptr<> that erases a shared memory string
-   typedef deleter<string_t, managed_shared_memory::segment_manager> 
+   typedef deleter<string_t, managed_shared_memory::segment_manager>
       string_deleter_t;
 
    //A shared pointer that points to a shared memory string and its instantiation
    typedef shared_ptr<string_t, string_allocator_t, string_deleter_t> string_shared_ptr_t;
 
-   //An allocator for shared pointers to a string in shared memory 
+   //An allocator for shared pointers to a string in shared memory
    typedef allocator<string_shared_ptr_t, managed_shared_memory::segment_manager>
       string_shared_ptr_allocator_t;
 
    //A weak pointer that points to a shared memory string and its instantiation
    typedef weak_ptr<string_t, string_allocator_t, string_deleter_t> string_weak_ptr_t;
 
-   //An allocator for weak pointers to a string in shared memory 
+   //An allocator for weak pointers to a string in shared memory
    typedef allocator<string_weak_ptr_t, managed_shared_memory::segment_manager >
       string_weak_ptr_allocator_t;
 
@@ -144,7 +144,7 @@ int string_shared_ptr_vector_insertion_test()
    {
       managed_shared_memory shmem(create_only, process_name.c_str(), 20000);
 
-      {  
+      { 
          const int NumElements = 100;
          //Construct the allocator of strings
          string_allocator_t string_allocator(shmem.get_segment_manager());
@@ -202,7 +202,7 @@ int string_shared_ptr_vector_insertion_test()
          }
          //Now fill a vector of weak_ptr-s
          string_weak_ptr_vector_t my_weakptr_vector(string_weak_ptr_allocator);
-         my_weakptr_vector.insert(my_weakptr_vector.begin(), NumElements, string_weak_ptr);      
+         my_weakptr_vector.insert(my_weakptr_vector.begin(), NumElements, string_weak_ptr);     
          //The shared count should remain the same
          if(string_shared_ptr.use_count() != static_cast<long>(my_sharedptr_vector.size()+1)){
             return 1;
@@ -309,28 +309,28 @@ int * get_object()
 void release_object(int * p)
 {  BOOST_TEST(p == &cnt);  --cnt;   }
 
-template<class T, class A, class D> 
+template<class T, class A, class D>
 void test_is_X(shared_ptr<T, A, D> const & p)
 {
    BOOST_TEST(p->id() == 1);
    BOOST_TEST((*p).id() == 1);
 }
 
-template<class T, class A, class D> 
+template<class T, class A, class D>
 void test_is_X(weak_ptr<T, A, D> const & p)
 {
    BOOST_TEST(p.get() != 0);
    BOOST_TEST(p.get()->id() == 1);
 }
 
-template<class T, class A, class D> 
+template<class T, class A, class D>
 void test_is_Y(shared_ptr<T, A, D> const & p)
 {
    BOOST_TEST(p->id() == 2);
    BOOST_TEST((*p).id() == 2);
 }
 
-template<class T, class A, class D> 
+template<class T, class A, class D>
 void test_is_Y(weak_ptr<T, A, D> const & p)
 {
    shared_ptr<T, A, D> q = p.lock();
@@ -338,7 +338,7 @@ void test_is_Y(weak_ptr<T, A, D> const & p)
    BOOST_TEST(q->id() == 2);
 }
 
-template<class T, class T2> 
+template<class T, class T2>
 void test_eq(T const & a, T2 const & b)
 {
    BOOST_TEST(a == b);
@@ -347,7 +347,7 @@ void test_eq(T const & a, T2 const & b)
    BOOST_TEST(!(b < a));
 }
 
-template<class T, class T2> 
+template<class T, class T2>
 void test_ne(T const & a, T2 const & b)
 {
    BOOST_TEST(!(a == b));
@@ -585,7 +585,7 @@ void test_alias()
          int_shared_ptr p;
          int_shared_ptr p2( p, &m );
 
-         BOOST_TEST( ipcdetail::get_pointer(p2.get()) == &m );
+         BOOST_TEST( ipcdetail::to_raw_pointer(p2.get()) == &m );
          BOOST_TEST( p2? true: false );
          BOOST_TEST( !!p2 );
          BOOST_TEST( p2.use_count() == p.use_count() );
@@ -607,7 +607,7 @@ void test_alias()
             (shmem.construct<int>(anonymous_instance)(), shmem));
          const_int_shared_ptr p2( p, &m );
 
-         BOOST_TEST( ipcdetail::get_pointer(p2.get()) == &m );
+         BOOST_TEST( ipcdetail::to_raw_pointer(p2.get()) == &m );
          BOOST_TEST( p2? true: false );
          BOOST_TEST( !!p2 );
          BOOST_TEST( p2.use_count() == p.use_count() );

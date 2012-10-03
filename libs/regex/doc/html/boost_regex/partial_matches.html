@@ -22,7 +22,7 @@
 <div class="spirit-nav">
 <a accesskey="p" href="captures.html"><img src="../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="syntax.html"><img src="../../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
-<div class="section">
+<div class="section boost_regex_partial_matches">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="boost_regex.partial_matches"></a><a class="link" href="partial_matches.html" title="Partial Matches">Partial Matches</a>
 </h2></div></div></div>
@@ -262,10 +262,10 @@
       <span class="identifier">next_pos</span> <span class="special">=</span> <span class="identifier">buf</span> <span class="special">+</span> <span class="keyword">sizeof</span><span class="special">(</span><span class="identifier">buf</span><span class="special">);</span>
       <span class="comment">// and then iterate:</span>
       <span class="identifier">boost</span><span class="special">::</span><span class="identifier">cregex_iterator</span> <span class="identifier">a</span><span class="special">(</span>
-         <span class="identifier">buf</span><span class="special">,</span> 
-         <span class="identifier">buf</span> <span class="special">+</span> <span class="identifier">read</span> <span class="special">+</span> <span class="identifier">leftover</span><span class="special">,</span> 
-         <span class="identifier">e</span><span class="special">,</span> 
-         <span class="identifier">boost</span><span class="special">::</span><span class="identifier">match_default</span> <span class="special">|</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">match_partial</span><span class="special">);</span> 
+         <span class="identifier">buf</span><span class="special">,</span>
+         <span class="identifier">buf</span> <span class="special">+</span> <span class="identifier">read</span> <span class="special">+</span> <span class="identifier">leftover</span><span class="special">,</span>
+         <span class="identifier">e</span><span class="special">,</span>
+         <span class="identifier">boost</span><span class="special">::</span><span class="identifier">match_default</span> <span class="special">|</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">match_partial</span><span class="special">);</span>
       <span class="identifier">boost</span><span class="special">::</span><span class="identifier">cregex_iterator</span> <span class="identifier">b</span><span class="special">;</span>
 
       <span class="keyword">while</span><span class="special">(</span><span class="identifier">a</span> <span class="special">!=</span> <span class="identifier">b</span><span class="special">)</span>
@@ -281,7 +281,7 @@
             <span class="comment">// full match:</span>
             <span class="special">++</span><span class="identifier">tags</span><span class="special">;</span>
          <span class="special">}</span>
-         
+
          <span class="comment">// move to next match:</span>
          <span class="special">++</span><span class="identifier">a</span><span class="special">;</span>
       <span class="special">}</span>

@@ -6,13 +6,13 @@
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/config for the most recent version.//
-//  Revision $Id: no_explicit_cvt_ops_pass.cpp 51606 2009-03-04 14:28:36Z bemandawes $
+//  Revision $Id: no_explicit_cvt_ops_pass.cpp 79537 2012-07-15 15:59:05Z marshall $
 //
 
 
-// Test file for macro BOOST_NO_EXPLICIT_CONVERSION_OPERATORS
+// Test file for macro BOOST_NO_CXX11_EXPLICIT_CONVERSION_OPERATORS
 // This file should compile, if it does not then
-// BOOST_NO_EXPLICIT_CONVERSION_OPERATORS should be defined.
+// BOOST_NO_CXX11_EXPLICIT_CONVERSION_OPERATORS should be defined.
 // See file boost_no_explicit_cvt_ops.ipp for details
 
 // Must not have BOOST_ASSERT_CONFIG set; it defeats
@@ -24,7 +24,7 @@
 #include <boost/config.hpp>
 #include "test.hpp"
 
-#ifndef BOOST_NO_EXPLICIT_CONVERSION_OPERATORS
+#ifndef BOOST_NO_CXX11_EXPLICIT_CONVERSION_OPERATORS
 #include "boost_no_explicit_cvt_ops.ipp"
 #else
 namespace boost_no_explicit_conversion_operators = empty_boost;

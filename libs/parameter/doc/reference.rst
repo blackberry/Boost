@@ -970,7 +970,7 @@ already ``#defined``.
 
 __ ../../../../boost/parameter/config.hpp
 
-:Default Value: ``5``
+:Default Value: ``8``
 
 Tutorial
 ========

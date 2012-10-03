@@ -4,8 +4,8 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 #include "../helpers/prefix.hpp"
-
 #include <boost/unordered/unordered_map_fwd.hpp>
+#include "../helpers/postfix.hpp"
 
 template <typename T>
 void call_swap(boost::unordered_map<T,T>& x,

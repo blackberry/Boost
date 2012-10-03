@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -39,7 +39,7 @@ int main ()
       managed_shared_memory shmem(create_only, ShmemName, ShmemSize);
 
       int i;
-      //Let's allocate some memory 
+      //Let's allocate some memory
       for(i = 0; i < max; ++i){
          array[i] = shmem.allocate(i+1);
       }
@@ -203,9 +203,9 @@ int main ()
    {
       //Now test move semantics
       managed_shared_memory original(open_only, ShmemName);
-      managed_shared_memory move_ctor(boost::interprocess::move(original));
+      managed_shared_memory move_ctor(boost::move(original));
       managed_shared_memory move_assign;
-      move_assign = boost::interprocess::move(move_ctor);
+      move_assign = boost::move(move_ctor);
       move_assign.swap(original);
    }
 

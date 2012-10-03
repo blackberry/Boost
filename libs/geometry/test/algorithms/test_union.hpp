@@ -1,7 +1,7 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library) 
 // Unit Test
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -26,7 +26,7 @@
 
 #include <boost/geometry/strategies/strategies.hpp>
 
-#include <boost/geometry/domains/gis/io/wkt/wkt.hpp>
+#include <boost/geometry/io/wkt/wkt.hpp>
 
 
 #if defined(TEST_WITH_SVG)
@@ -38,7 +38,7 @@
 template <typename OutputType, typename G1, typename G2>
 void test_union(std::string const& caseid, G1 const& g1, G2 const& g2,
         std::size_t expected_count, std::size_t expected_hole_count,
-        std::size_t expected_point_count, double expected_area,
+        int expected_point_count, double expected_area,
         double percentage)
 {
     typedef typename bg::coordinate_type<G1>::type coordinate_type;
@@ -53,7 +53,6 @@ void test_union(std::string const& caseid, G1 const& g1, G2 const& g2,
     {
         area += bg::area(*it);
         holes += bg::num_interior_rings(*it);
-
         n += bg::num_points(*it, true);
     }
 
@@ -65,10 +64,16 @@ void test_union(std::string const& caseid, G1 const& g1, G2 const& g2,
         boost::copy(array_with_one_empty_geometry, bg::detail::union_::union_insert<OutputType>(g1, g2, std::back_inserter(inserted)));
 
         typename bg::default_area_result<G1>::type area_inserted = 0;
+        int index = 0;
         for (typename std::vector<OutputType>::iterator it = inserted.begin();
-                it != inserted.end(); ++it)
+                it != inserted.end();
+                ++it, ++index)
         {
-            area_inserted += bg::area(*it);
+            // Skip the empty polygon created above to avoid the empty_input_exception
+            if (bg::num_points(*it) > 0)
+            {
+                area_inserted += bg::area(*it);
+            }
         }
         BOOST_CHECK_EQUAL(boost::size(clip), boost::size(inserted) - 1);
         BOOST_CHECK_CLOSE(area_inserted, expected_area, percentage);
@@ -85,13 +90,15 @@ void test_union(std::string const& caseid, G1 const& g1, G2 const& g2,
         << std::endl;
     ***/
 
-    BOOST_CHECK_MESSAGE(std::size_t(n) == expected_point_count,
-            "union: " << caseid
-            << " #points expected: " << expected_point_count
-            << " detected: " << n
-            << " type: " << string_from_type<coordinate_type>::name()
-            );
-
+    if (expected_point_count >= 0)
+    {
+        BOOST_CHECK_MESSAGE(n == std::size_t(expected_point_count),
+                "union: " << caseid
+                << " #points expected: " << expected_point_count
+                << " detected: " << n
+                << " type: " << string_from_type<coordinate_type>::name()
+                );
+    }
 
     BOOST_CHECK_EQUAL(clip.size(), expected_count);
     BOOST_CHECK_EQUAL(holes, expected_hole_count);
@@ -144,7 +151,7 @@ void test_union(std::string const& caseid, G1 const& g1, G2 const& g2,
 template <typename OutputType, typename G1, typename G2>
 void test_one(std::string const& caseid, std::string const& wkt1, std::string const& wkt2,
         std::size_t expected_count, std::size_t expected_hole_count,
-        std::size_t expected_point_count, double expected_area,
+        int expected_point_count, double expected_area,
         double percentage = 0.001)
 {
     G1 g1;

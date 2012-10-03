@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -48,8 +48,8 @@ void PrintContainers(MyShmCont *shmcont, MyStdCont *stdcont)
    for(; itshm != itshmend; ++itshm){
       std::cout << *itshm << std::endl;
    }
-   std::cout << "MyStdCont" << std::endl; 
-  
+   std::cout << "MyStdCont" << std::endl;
+ 
    for(; itstd != itstdend; ++itstd){
       std::cout << *itstd << std::endl;
    }

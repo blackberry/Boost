@@ -1,7 +1,7 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library) 
 // Unit Test
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -17,8 +17,8 @@
 
 #include <boost/geometry/strategies/strategies.hpp>
 
-#include <boost/geometry/domains/gis/io/wkt/read_wkt.hpp>
-#include <boost/geometry/domains/gis/io/wkt/write_wkt.hpp>
+#include <boost/geometry/io/wkt/read.hpp>
+#include <boost/geometry/io/wkt/write.hpp>
 
 #include <boost/geometry/geometries/polygon.hpp>
 
@@ -40,7 +40,8 @@ void test_convex_hull(Geometry const& geometry, Hull const& hull,
         << " detected: " << n);
 
 
-    BOOST_CHECK(bg::num_points(geometry) == size_original);
+    // We omit this check as it is not important for the hull algorithm
+    // BOOST_CHECK(bg::num_points(geometry) == size_original);
 
     typename bg::default_area_result<Geometry>::type ah = bg::area(hull);
     if (reverse)
@@ -107,6 +108,20 @@ void test_geometry(std::string const& wkt,
     test_geometry_order<Geometry, true>(wkt, size_original, size_hull, expected_area);
     test_geometry_order<Geometry, false>(wkt, size_original, size_hull, expected_area);
 }
+
+template <typename Geometry>
+void test_empty_input()
+{
+    Geometry geometry;
+    bg::model::polygon
+        <
+            typename bg::point_type<Geometry>::type
+        > hull;
+
+    bg::convex_hull(geometry, hull);
+    BOOST_CHECK_MESSAGE(bg::num_points(hull) == 0, "Output convex hull should be empty" );
+}
+
 
 
 #endif

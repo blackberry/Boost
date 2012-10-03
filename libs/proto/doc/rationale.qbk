@@ -16,8 +16,8 @@ Proto expression types are PODs (Plain Old Data), and do not have constructors. 
     terminal<int>::type const _i = {1};
 
 The reason is so that expression objects like `_i` above can be ['statically 
-initialized]. Why is static initialization important? The terminals of many domain-
-specific embedded languages are likely to be global const objects, like `_1` and 
+initialized]. Why is static initialization important? The terminals of many embedded
+domain-specific languages are likely to be global const objects, like `_1` and 
 `_2` from the Boost Lambda Library. Were these object to require run-time 
 initialization, it might be possible to use these objects before they are 
 initialized. That would be bad. Statically initialized objects cannot be misused 

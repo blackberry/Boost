@@ -34,6 +34,11 @@
 #include <boost/utility/result_of.hpp>
 #include <boost/utility/enable_if.hpp>
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+# pragma warning(push)
+# pragma warning(disable : 4714) // function 'xxx' marked as __forceinline not inlined
+#endif
+
 #ifndef BOOST_NO_DECLTYPE
 # define BOOST_PROTO_DECLTYPE_(EXPR, TYPE) typedef decltype(EXPR) TYPE;
 #else
@@ -497,5 +502,9 @@ namespace boost { namespace proto
 
     } // namespace detail
 }}
+
+#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+# pragma warning(pop)
+#endif
 
 #endif

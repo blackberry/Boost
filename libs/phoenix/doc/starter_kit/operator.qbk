@@ -40,6 +40,12 @@ immediately evaluated. Some examples:
     x[ref(i)]       // illegal (x is not a phoenix primitive or expression)
     ref(x[ref(i)])  // illegal (x is not a phoenix primitive or expression)
 
+Why are the last two expression illegal? Although `operator[]` looks as
+much like a binary operator as `operator=` above it; the difference is
+that the former must be a member (i.e. `x` must have an `operator[]`
+that takes a phoenix primitive or expression as its argument). This will
+most likely not be the case.
+
 [blurb __tip__ Learn more about operators [link phoenix.modules.operator here.]]
 
 [heading First Practical Example]

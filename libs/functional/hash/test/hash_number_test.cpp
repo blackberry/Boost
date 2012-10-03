@@ -28,6 +28,10 @@
 #pragma warning(disable:4310) // cast truncates constant value
 #endif
 
+#if defined(__GNUC__)
+#pragma GCC diagnostic ignored "-Wfloat-equal"
+#endif
+
 template <class T>
 void numeric_test(T*)
 {

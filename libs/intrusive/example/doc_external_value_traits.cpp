@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2007-2009
+// (C) Copyright Ion Gaztanaga  2007-2012
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -33,8 +33,8 @@ class external_traits
    typedef node *                            node_ptr;
    typedef const node *                      const_node_ptr;
    typedef identifier_t                      value_type;
-   typedef identifier_t *                    pointer; 
-   typedef const identifier_t *              const_pointer; 
+   typedef identifier_t *                    pointer;
+   typedef const identifier_t *              const_pointer;
    static const link_mode_type link_mode =   normal_link;
 
    external_traits(pointer ids, std::size_t NumElements)
@@ -63,7 +63,7 @@ class external_traits
 struct internal_traits
 {
    static const bool external_value_traits = true;
-   typedef external_traits value_traits; 
+   typedef external_traits value_traits;
 
    template<class Container>
    value_traits &get_value_traits(Container &cont);

@@ -1,7 +1,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-<title>Chapter&#160;13.&#160;Boost.Lambda</title>
+<title>Chapter&#160;14.&#160;Boost.Lambda</title>
 <link rel="stylesheet" href="../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
@@ -25,7 +25,7 @@
 <div class="chapter">
 <div class="titlepage"><div>
 <div><h2 class="title">
-<a name="lambda"></a>Chapter&#160;13.&#160;Boost.Lambda</h2></div>
+<a name="lambda"></a>Chapter&#160;14.&#160;Boost.Lambda</h2></div>
 <div><div class="author">
 <h3 class="author">
 <span class="firstname">Jaakko</span> <span class="surname">J&#228;rvi</span>
@@ -34,7 +34,7 @@
 </div></div>
 <div><p class="copyright">Copyright &#169; 1999-2004 Jaakko J&#228;rvi, Gary Powell</p></div>
 <div><div class="legalnotice">
-<a name="id2317050"></a><p>Use, modification and distribution is subject to the Boost
+<a name="id2413602"></a><p>Use, modification and distribution is subject to the Boost
     Software License, Version 1.0. (See accompanying file
     <code class="filename">LICENSE_1_0.txt</code> or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)</p>
 </div></div>
@@ -45,13 +45,13 @@
 <dt><span class="section"><a href="lambda.html#introduction">In a nutshell</a></span></dt>
 <dt><span class="section"><a href="lambda/getting_started.html">Getting Started</a></span></dt>
 <dd><dl>
-<dt><span class="section"><a href="lambda/getting_started.html#id2317167">Installing the library</a></span></dt>
-<dt><span class="section"><a href="lambda/getting_started.html#id2317454">Conventions used in this document</a></span></dt>
+<dt><span class="section"><a href="lambda/getting_started.html#id2413720">Installing the library</a></span></dt>
+<dt><span class="section"><a href="lambda/getting_started.html#id2414007">Conventions used in this document</a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="lambda/s03.html">Introduction</a></span></dt>
 <dd><dl>
-<dt><span class="section"><a href="lambda/s03.html#id2317491">Motivation</a></span></dt>
-<dt><span class="section"><a href="lambda/s03.html#id2317753">Introduction to lambda expressions</a></span></dt>
+<dt><span class="section"><a href="lambda/s03.html#id2414044">Motivation</a></span></dt>
+<dt><span class="section"><a href="lambda/s03.html#id2414306">Introduction to lambda expressions</a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="lambda/using_library.html">Using the library</a></span></dt>
 <dd><dl>
@@ -70,28 +70,28 @@
 <dt><span class="section"><a href="lambda/le_in_details.html#lambda.lambda_expressions_for_control_structures">Lambda expressions for control structures</a></span></dt>
 <dt><span class="section"><a href="lambda/le_in_details.html#lambda.exceptions">Exceptions</a></span></dt>
 <dt><span class="section"><a href="lambda/le_in_details.html#lambda.construction_and_destruction">Construction and destruction</a></span></dt>
-<dt><span class="section"><a href="lambda/le_in_details.html#id2321501">Special lambda expressions</a></span></dt>
-<dt><span class="section"><a href="lambda/le_in_details.html#id2321981">Casts, sizeof and typeid</a></span></dt>
+<dt><span class="section"><a href="lambda/le_in_details.html#id2418046">Special lambda expressions</a></span></dt>
+<dt><span class="section"><a href="lambda/le_in_details.html#id2418526">Casts, sizeof and typeid</a></span></dt>
 <dt><span class="section"><a href="lambda/le_in_details.html#lambda.nested_stl_algorithms">Nesting STL algorithm invocations</a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="lambda/extending.html">Extending return type deduction system</a></span></dt>
 <dt><span class="section"><a href="lambda/s07.html">Practical considerations</a></span></dt>
 <dd><dl>
-<dt><span class="section"><a href="lambda/s07.html#id2323200">Performance</a></span></dt>
-<dt><span class="section"><a href="lambda/s07.html#id2323589">About compiling</a></span></dt>
-<dt><span class="section"><a href="lambda/s07.html#id2323640">Portability</a></span></dt>
+<dt><span class="section"><a href="lambda/s07.html#id2419745">Performance</a></span></dt>
+<dt><span class="section"><a href="lambda/s07.html#id2420135">About compiling</a></span></dt>
+<dt><span class="section"><a href="lambda/s07.html#id2420185">Portability</a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="lambda/s08.html">Relation to other Boost libraries</a></span></dt>
 <dd><dl>
-<dt><span class="section"><a href="lambda/s08.html#id2323963">Boost Function</a></span></dt>
-<dt><span class="section"><a href="lambda/s08.html#id2324056">Boost Bind</a></span></dt>
+<dt><span class="section"><a href="lambda/s08.html#id2420509">Boost Function</a></span></dt>
+<dt><span class="section"><a href="lambda/s08.html#id2420601">Boost Bind</a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="lambda/s09.html">Contributors</a></span></dt>
 <dt><span class="section"><a href="lambda/s10.html">Rationale for some of the design decisions</a></span></dt>
 <dd><dl><dt><span class="section"><a href="lambda/s10.html#lambda.why_weak_arity">
 Lambda functor arity
 </a></span></dt></dl></dd>
-<dt><span class="bibliography"><a href="lambda.html#id2324589">Bibliography</a></span></dt>
+<dt><span class="bibliography"><a href="lambda.html#id2420864">Bibliography</a></span></dt>
 </dl>
 </div>
 <div class="section">
@@ -123,7 +123,7 @@ In explaining what the library is about, a line of code says more than a thousan
 </div>
 <div class="bibliography">
 <div class="titlepage"><div><div><h2 class="title">
-<a name="id2324589"></a>Bibliography</h2></div></div></div>
+<a name="id2420864"></a>Bibliography</h2></div></div></div>
 <div class="biblioentry">
 <a name="cit:stepanov:94"></a><p>[<abbr class="abbrev">STL94</abbr>] <span class="authorgroup"><span class="firstname">A. A.</span> <span class="surname">Stepanov</span> and <span class="firstname">M.</span> <span class="surname">Lee</span>. </span><span class="title"><i>The Standard Template Library</i>. </span><span class="orgname">Hewlett-Packard Laboratories. </span><span class="pubdate">1994. </span><span class="bibliomisc">
 <a href="http://www.hpl.hp.com/techreports" target="_top">www.hpl.hp.com/techreports</a>

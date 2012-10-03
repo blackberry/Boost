@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2006-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2006-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -36,6 +36,9 @@ int main ()
    #endif
    //->
    } remover;
+   //<-
+   (void)remover;
+   //->
 
    //Create shared memory
    //<-
@@ -43,7 +46,7 @@ int main ()
    managed_shared_memory segment(create_only, test::get_process_id_name(), 65536);
    #else
    //->
-   managed_shared_memory segment(create_only, 
+   managed_shared_memory segment(create_only,
                                  "MySharedMemory",  //segment name
                                  65536);
    //<-

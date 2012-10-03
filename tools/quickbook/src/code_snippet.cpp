@@ -13,9 +13,13 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/bind.hpp>
 #include <boost/lexical_cast.hpp>
+#include "block_tags.hpp"
 #include "template_stack.hpp"
 #include "actions.hpp"
+#include "state.hpp"
 #include "values.hpp"
+#include "files.hpp"
+#include "input_path.hpp"
 
 namespace quickbook
 {
@@ -24,51 +28,55 @@ namespace quickbook
     struct code_snippet_actions
     {
         code_snippet_actions(std::vector<template_symbol>& storage,
-                                 fs::path const& filename,
-                                 std::string const& doc_id,
-                                 char const* source_type)
-            : callout_id(0)
+                                file_ptr source_file,
+                                char const* source_type)
+            : last_code_pos(source_file->source.begin())
+            , in_code(false)
+            , snippet_stack()
             , storage(storage)
-            , filename(filename)
-            , doc_id(doc_id)
+            , source_file(source_file)
             , source_type(source_type)
-        {}
+            , error_count(0)
+        {
+            source_file->is_code_snippets = true;
+            content.start(source_file);
+        }
 
-        void pass_thru_char(char);
-        void pass_thru(iterator first, iterator last);
-        void escaped_comment(iterator first, iterator last);
-        void start_snippet(iterator first, iterator last);
-        void end_snippet(iterator first, iterator last);
-        void callout(iterator first, iterator last);
+        void mark(string_iterator first, string_iterator last);
+        void pass_thru(string_iterator first, string_iterator last);
+        void escaped_comment(string_iterator first, string_iterator last);
+        void start_snippet(string_iterator first, string_iterator last);
+        void start_snippet_impl(std::string const&, string_iterator);
+        void end_snippet(string_iterator first, string_iterator last);
+        void end_snippet_impl(string_iterator);
+        void end_file(string_iterator, string_iterator);
         
-        void append_code();
+        void append_code(string_iterator first, string_iterator last);
         void close_code();
 
         struct snippet_data
         {
-            snippet_data(std::string const& id, int callout_base_id)
+            snippet_data(std::string const& id)
                 : id(id)
-                , callout_base_id(callout_base_id)
-                , content()
                 , start_code(false)
-                , end_code(false)
             {}
             
             std::string id;
-            int callout_base_id;
-            std::string content;
             bool start_code;
-            bool end_code;
-            value_builder callouts;
+            std::string::const_iterator source_pos;
+            mapped_file_builder::pos start_pos;
             boost::shared_ptr<snippet_data> next;
         };
         
-        void push_snippet_data(std::string const& id, int callout_base_id)
+        void push_snippet_data(std::string const& id,
+                std::string::const_iterator pos)
         {
-            boost::shared_ptr<snippet_data> new_snippet(
-                new snippet_data(id, callout_base_id));
+            boost::shared_ptr<snippet_data> new_snippet(new snippet_data(id));
             new_snippet->next = snippet_stack;
             snippet_stack = new_snippet;
+            snippet_stack->start_code = in_code;
+            snippet_stack->source_pos = pos;
+            snippet_stack->start_pos = content.get_pos();
         }
 
         boost::shared_ptr<snippet_data> pop_snippet_data()
@@ -78,15 +86,16 @@ namespace quickbook
             snippet->next.reset();
             return snippet;
         }
-        
-        int callout_id;
+
+        mapped_file_builder content;
+        std::string::const_iterator mark_begin, mark_end;
+        std::string::const_iterator last_code_pos;
+        bool in_code;
         boost::shared_ptr<snippet_data> snippet_stack;
-        std::string code;
-        std::string id;
         std::vector<template_symbol>& storage;
-        fs::path filename;
-        std::string const doc_id;
+        file_ptr source_file;
         char const* const source_type;
+        int error_count;
     };
 
     struct python_code_snippet_grammar
@@ -108,7 +117,8 @@ namespace quickbook
 
                 actions_type& actions = self.actions;
             
-                start_ = *code_elements;
+                start_ = (*code_elements)           [boost::bind(&actions_type::end_file, &actions, _1, _2)]
+                    ;
 
                 identifier =
                     (cl::alpha_p | '_') >> *(cl::alnum_p | '_')
@@ -117,26 +127,33 @@ namespace quickbook
                 code_elements =
                         start_snippet               [boost::bind(&actions_type::start_snippet, &actions, _1, _2)]
                     |   end_snippet                 [boost::bind(&actions_type::end_snippet, &actions, _1, _2)]
-                    |   escaped_comment
-                    |   pass_thru_comment
-                    |   ignore
-                    |   cl::anychar_p               [boost::bind(&actions_type::pass_thru_char, &actions, _1)]
+                    |   escaped_comment             [boost::bind(&actions_type::escaped_comment, &actions, _1, _2)]
+                    |   pass_thru_comment           [boost::bind(&actions_type::pass_thru, &actions, _1, _2)]
+                    |   ignore                      [boost::bind(&actions_type::append_code, &actions, _1, _2)]
+                    |   cl::anychar_p
                     ;
 
                 start_snippet =
-                    "#[" >> *cl::space_p
-                    >> identifier                   [cl::assign_a(actions.id)]
+                        *cl::blank_p
+                    >>  !(cl::eol_p >> *cl::blank_p)
+                    >>  "#["
+                    >>  *cl::blank_p
+                    >>  identifier                  [boost::bind(&actions_type::mark, &actions, _1, _2)]
+                    >>  *(cl::anychar_p - cl::eol_p)
                     ;
 
                 end_snippet =
-                    cl::str_p("#]")
+                        *cl::blank_p
+                    >>  !(cl::eol_p >> *cl::blank_p)
+                    >>  "#]"
+                    >>  *(cl::anychar_p - cl::eol_p)
                     ;
 
                 ignore
                     =   cl::confix_p(
                             *cl::blank_p >> "#<-",
                             *cl::anychar_p,
-                            "#->" >> *cl::blank_p >> cl::eol_p
+                            "#->" >> *cl::blank_p >> (cl::eol_p | cl::end_p)
                         )
                     |   cl::confix_p(
                             "\"\"\"<-\"\"\"",
@@ -153,12 +170,12 @@ namespace quickbook
                 escaped_comment =
                         cl::confix_p(
                             *cl::space_p >> "#`",
-                            (*cl::anychar_p)        [boost::bind(&actions_type::escaped_comment, &actions, _1, _2)],
-                            cl::eol_p
+                            (*cl::anychar_p)        [boost::bind(&actions_type::mark, &actions, _1, _2)],
+                            (cl::eol_p | cl::end_p)
                         )
                     |   cl::confix_p(
                             *cl::space_p >> "\"\"\"`",
-                            (*cl::anychar_p)        [boost::bind(&actions_type::escaped_comment, &actions, _1, _2)],
+                            (*cl::anychar_p)        [boost::bind(&actions_type::mark, &actions, _1, _2)],
                             "\"\"\""
                         )
                     ;
@@ -169,10 +186,10 @@ namespace quickbook
                     =   "#=" >> (cl::eps_p - '=')
                     >>  (   *(cl::anychar_p - cl::eol_p)
                         >>  (cl::eol_p | cl::end_p)
-                        )                           [boost::bind(&actions_type::pass_thru, &actions, _1, _2)]
+                        )                           [boost::bind(&actions_type::mark, &actions, _1, _2)]
                     |   cl::confix_p(
                             "\"\"\"=" >> (cl::eps_p - '='),
-                            (*cl::anychar_p)        [boost::bind(&actions_type::pass_thru, &actions, _1, _2)],
+                            (*cl::anychar_p)        [boost::bind(&actions_type::mark, &actions, _1, _2)],
                             "\"\"\""
                         )
                     ;
@@ -205,7 +222,8 @@ namespace quickbook
             {
                 actions_type& actions = self.actions;
             
-                start_ = *code_elements;
+                start_ = (*code_elements)           [boost::bind(&actions_type::end_file, &actions, _1, _2)]
+                    ;
 
                 identifier =
                     (cl::alpha_p | '_') >> *(cl::alnum_p | '_')
@@ -214,42 +232,52 @@ namespace quickbook
                 code_elements =
                         start_snippet               [boost::bind(&actions_type::start_snippet, &actions, _1, _2)]
                     |   end_snippet                 [boost::bind(&actions_type::end_snippet, &actions, _1, _2)]
-                    |   escaped_comment
-                    |   ignore
-                    |   pass_thru_comment
-                    |   line_callout
-                    |   inline_callout
-                    |   cl::anychar_p               [boost::bind(&actions_type::pass_thru_char, &actions, _1)]
+                    |   escaped_comment             [boost::bind(&actions_type::escaped_comment, &actions, _1, _2)]
+                    |   ignore                      [boost::bind(&actions_type::append_code, &actions, _1, _2)]
+                    |   pass_thru_comment           [boost::bind(&actions_type::pass_thru, &actions, _1, _2)]
+                    |   cl::anychar_p
                     ;
 
                 start_snippet =
-                        "//[" >> *cl::space_p
-                        >> identifier               [cl::assign_a(actions.id)]
+                            *cl::blank_p
+                        >>  !(cl::eol_p >> *cl::blank_p)
+                        >>  "//["
+                        >>  *cl::blank_p
+                        >>  identifier              [boost::bind(&actions_type::mark, &actions, _1, _2)]
+                        >>  *(cl::anychar_p - cl::eol_p)
                     |
-                        "/*[" >> *cl::space_p
-                        >> identifier               [cl::assign_a(actions.id)]
-                        >> *cl::space_p >> "*/"
+                            *cl::blank_p
+                        >>  cl::eol_p
+                        >>  *cl::blank_p
+                        >>  "/*["
+                        >>  *cl::space_p
+                        >>  identifier              [boost::bind(&actions_type::mark, &actions, _1, _2)]
+                        >>  *cl::space_p
+                        >>  "*/"
+                        >>  *cl::blank_p
+                        >>  cl::eps_p(cl::eol_p)
+                    |
+                            "/*["
+                        >>  *cl::space_p
+                        >>  identifier              [boost::bind(&actions_type::mark, &actions, _1, _2)]
+                        >>  *cl::space_p
+                        >>  "*/"
                     ;
 
                 end_snippet =
-                    cl::str_p("//]") | "/*]*/"
-                    ;
-
-                inline_callout
-                    =   cl::confix_p(
-                            "/*<" >> *cl::space_p,
-                            (*cl::anychar_p)        [boost::bind(&actions_type::callout, &actions, _1, _2)],
-                            ">*/"
-                        )
-                        ;
-
-                line_callout
-                    =   cl::confix_p(
-                            "/*<<" >> *cl::space_p,
-                            (*cl::anychar_p)        [boost::bind(&actions_type::callout, &actions, _1, _2)],
-                            ">>*/"
-                        )
-                    >>  *cl::space_p
+                            *cl::blank_p
+                        >>  !(cl::eol_p >> *cl::blank_p)
+                        >>  "//]"
+                        >>  *(cl::anychar_p - cl::eol_p)
+                    |
+                            *cl::blank_p
+                        >>  cl::eol_p
+                        >>  *cl::blank_p
+                        >>  "/*]*/"
+                        >>  *cl::blank_p
+                        >>  cl::eps_p(cl::eol_p)
+                    |
+                            "/*[*/"
                     ;
 
                 ignore
@@ -275,12 +303,12 @@ namespace quickbook
                 escaped_comment
                     =   cl::confix_p(
                             *cl::space_p >> "//`",
-                            (*cl::anychar_p)        [boost::bind(&actions_type::escaped_comment, &actions, _1, _2)],
-                            cl::eol_p
+                            (*cl::anychar_p)        [boost::bind(&actions_type::mark, &actions, _1, _2)],
+                            (cl::eol_p | cl::end_p)
                         )
                     |   cl::confix_p(
                             *cl::space_p >> "/*`",
-                            (*cl::anychar_p)        [boost::bind(&actions_type::escaped_comment, &actions, _1, _2)],
+                            (*cl::anychar_p)        [boost::bind(&actions_type::mark, &actions, _1, _2)],
                             "*/"
                         )
                     ;
@@ -291,10 +319,10 @@ namespace quickbook
                     =   "//=" >> (cl::eps_p - '=')
                     >>  (   *(cl::anychar_p - cl::eol_p)
                         >>  (cl::eol_p | cl::end_p)
-                        )                           [boost::bind(&actions_type::pass_thru, &actions, _1, _2)]
+                        )                           [boost::bind(&actions_type::mark, &actions, _1, _2)]
                     |   cl::confix_p(
                             "/*=" >> (cl::eps_p - '='),
-                            (*cl::anychar_p)        [boost::bind(&actions_type::pass_thru, &actions, _1, _2)],
+                            (*cl::anychar_p)        [boost::bind(&actions_type::mark, &actions, _1, _2)],
                             "*/"
                         )
                     ;
@@ -302,7 +330,7 @@ namespace quickbook
 
             cl::rule<Scanner>
             start_, identifier, code_elements, start_snippet, end_snippet,
-                escaped_comment, pass_thru_comment, inline_callout, line_callout, ignore;
+                escaped_comment, pass_thru_comment, ignore;
 
             cl::rule<Scanner> const&
             start() const { return start_; }
@@ -312,171 +340,197 @@ namespace quickbook
     };
 
     int load_snippets(
-        fs::path const& file
+        fs::path const& filename
       , std::vector<template_symbol>& storage   // snippets are stored in a
                                                 // vector of template_symbols
       , std::string const& extension
-      , std::string const& doc_id)
+      , value::tag_type load_type)
     {
-        std::string code;
-        int err = detail::load(file, code);
-        if (err != 0)
-            return err; // return early on error
-
-        iterator first(code.begin());
-        iterator last(code.end());
+        assert(load_type == block_tags::include ||
+            load_type == block_tags::import);
 
         bool is_python = extension == ".py";
-        code_snippet_actions a(storage, file, doc_id, is_python ? "[python]" : "[c++]");
-        // TODO: Should I check that parse succeeded?
+        code_snippet_actions a(storage, load(filename, qbk_version_n), is_python ? "[python]" : "[c++]");
+
+        string_iterator first(a.source_file->source.begin());
+        string_iterator last(a.source_file->source.end());
+
+        cl::parse_info<string_iterator> info;
+
         if(is_python) {
-            boost::spirit::classic::parse(first, last, python_code_snippet_grammar(a));
+            info = boost::spirit::classic::parse(first, last, python_code_snippet_grammar(a));
         }
         else {
-            boost::spirit::classic::parse(first, last, cpp_code_snippet_grammar(a));
+            info = boost::spirit::classic::parse(first, last, cpp_code_snippet_grammar(a));
         }
 
-        return 0;
+        assert(info.full);
+        return a.error_count;
     }
 
-    void code_snippet_actions::append_code()
+    void code_snippet_actions::append_code(string_iterator first, string_iterator last)
     {
-        if(!snippet_stack) return;
-        snippet_data& snippet = *snippet_stack;
-    
-        if (!code.empty())
-        {
-            detail::unindent(code); // remove all indents
+        assert(last_code_pos <= first);
 
-            if(snippet.content.empty())
-            {
-                snippet.start_code = true;
-            }
-            else if(!snippet.end_code)
-            {
-                snippet.content += "\n\n";
-                snippet.content += source_type;
-                snippet.content += "```\n";
-            }
-            
-            snippet.content += code;
-            snippet.end_code = true;
+        if(snippet_stack) {
+            if (last_code_pos != first) {
+                if (!in_code)
+                {
+                    content.add("\n\n", last_code_pos);
+                    content.add(source_type, last_code_pos);
+                    content.add("```\n", last_code_pos);
 
-            code.clear();
+                    in_code = true;
+                }
+
+                content.add(last_code_pos, first);
+            }
         }
+        
+        last_code_pos = last;
     }
-
+    
     void code_snippet_actions::close_code()
     {
-        if(!snippet_stack) return;
-        snippet_data& snippet = *snippet_stack;
+        if (!snippet_stack) return;
     
-        if(snippet.end_code)
+        if (in_code)
         {
-            snippet.content += "```\n\n";
-            snippet.end_code = false;
+            content.add("\n```\n\n", last_code_pos);
+            in_code = false;
         }
     }
 
-    void code_snippet_actions::pass_thru(iterator first, iterator last)
+    void code_snippet_actions::mark(string_iterator first, string_iterator last)
     {
-        if(!snippet_stack) return;
-        code.append(first, last);
+        mark_begin = first;
+        mark_end = last;
     }
 
-    void code_snippet_actions::pass_thru_char(char c)
+    void code_snippet_actions::pass_thru(string_iterator first, string_iterator last)
     {
         if(!snippet_stack) return;
-        code += c;
+        append_code(first, last);
+
+        if (!in_code)
+        {
+            content.add("\n\n", first);
+            content.add(source_type, first);
+            content.add("```\n", first);
+            in_code = true;
+        }
+
+        content.add(mark_begin, mark_end);
     }
 
-    void code_snippet_actions::callout(iterator first, iterator last)
+    void code_snippet_actions::escaped_comment(string_iterator first, string_iterator last)
     {
-        if(!snippet_stack) return;
-        code += "``[[callout" + boost::lexical_cast<std::string>(callout_id) + "]]``";
-    
-        snippet_stack->callouts.insert(qbk_value(first, last, template_tags::block));
-        ++callout_id;
-    }
-
-    void code_snippet_actions::escaped_comment(iterator first, iterator last)
-    {
-        if(!snippet_stack) return;
-        snippet_data& snippet = *snippet_stack;
-        append_code();
+        append_code(first, last);
         close_code();
 
-        std::string temp(first, last);
-        detail::unindent(temp); // remove all indents
-        if (temp.size() != 0)
+        if (mark_begin != mark_end)
         {
-            snippet.content += "\n" + temp; // add a linebreak to allow block markups
+            if (!snippet_stack)
+            {
+                start_snippet_impl("!", first);
+            }
+    
+            snippet_data& snippet = *snippet_stack;
+
+            content.add("\n", mark_begin);
+            content.unindent_and_add(mark_begin, mark_end);
+
+            if (snippet.id == "!")
+            {
+                end_snippet_impl(last);
+            }
         }
     }
 
-    void code_snippet_actions::start_snippet(iterator, iterator)
+    void code_snippet_actions::start_snippet(string_iterator first, string_iterator last)
     {
-        append_code();
-        push_snippet_data(id, callout_id);
-        id.clear();
+        append_code(first, last);
+        start_snippet_impl(std::string(mark_begin, mark_end), first);
     }
 
-    void code_snippet_actions::end_snippet(iterator first, iterator)
+    void code_snippet_actions::end_snippet(string_iterator first, string_iterator last)
     {
-        // TODO: Error?
-        if(!snippet_stack) return;
+        append_code(first, last);
 
-        append_code();
+        if(!snippet_stack) {
+            if (qbk_version_n >= 106u) {
+                detail::outerr(source_file, first)
+                    << "Mismatched end snippet."
+                    << std::endl;
+                ++error_count;
+            }
+            else {
+                detail::outwarn(source_file, first)
+                    << "Mismatched end snippet."
+                    << std::endl;
+            }
+            return;
+        }
+
+        end_snippet_impl(first);
+    }
+    
+    void code_snippet_actions::end_file(string_iterator, string_iterator pos)
+    {
+        append_code(pos, pos);
+        close_code();
+
+        while (snippet_stack) {
+            if (qbk_version_n >= 106u) {
+                detail::outerr(source_file->path)
+                    << "Unclosed snippet '"
+                    << snippet_stack->id
+                    << "'"
+                    << std::endl;
+                ++error_count;
+            }
+            else {
+                detail::outwarn(source_file->path)
+                    << "Unclosed snippet '"
+                    << snippet_stack->id
+                    << "'"
+                    << std::endl;
+            }
+            
+            end_snippet_impl(pos);
+        }
+    }
+
+    void code_snippet_actions::start_snippet_impl(std::string const& id,
+            string_iterator position)
+    {
+        push_snippet_data(id, position);
+    }
+
+    void code_snippet_actions::end_snippet_impl(string_iterator position)
+    {
+        assert(snippet_stack);
 
         boost::shared_ptr<snippet_data> snippet = pop_snippet_data();
-        value callouts = snippet->callouts.release();
 
-        std::string body;
-        if(snippet->start_code) {
-            body += "\n\n";
-            body += source_type;
-            body += "```\n";
+        mapped_file_builder f;
+        f.start(source_file);
+        if (snippet->start_code) {
+            f.add("\n\n", snippet->source_pos);
+            f.add(source_type, snippet->source_pos);
+            f.add("```\n", snippet->source_pos);
         }
-        body += snippet->content;
-        if(snippet->end_code) {
-            body += "```\n\n";
+        f.add(content, snippet->start_pos, content.get_pos());
+        if (in_code) {
+            f.add("\n```\n\n", position);
         }
 
         std::vector<std::string> params;
-        int i = 0;
-        for(value::iterator it = callouts.begin(); it != callouts.end(); ++it)
-        {
-            params.push_back("[callout" + boost::lexical_cast<std::string>(snippet->callout_base_id + i) + "]");
-            ++i;
-        }
-        
-        // TODO: Save position in start_snippet
-        template_symbol symbol(snippet->id, params,
-            qbk_value(body, first.get_position(), template_tags::block),
-            filename);
-        symbol.callouts = callouts;
-        storage.push_back(symbol);
 
-        // Merge the snippet into its parent
+        file_ptr body = f.release();
 
-        if(snippet_stack)
-        {
-            snippet_data& next = *snippet_stack;
-            if(!snippet->content.empty()) {
-                if(!snippet->start_code) {
-                    close_code();
-                }
-                else if(!next.end_code) {
-                    next.content += "\n\n";
-                    next.content += source_type;
-                    next.content += "```\n";
-                }
-                
-                next.content += snippet->content;
-                next.end_code = snippet->end_code;
-            }
-
-            next.callouts.extend(callouts);
-        }
+        storage.push_back(template_symbol(snippet->id, params,
+            qbk_value(body, body->source.begin(), body->source.end(),
+                template_tags::snippet)));
     }
 }

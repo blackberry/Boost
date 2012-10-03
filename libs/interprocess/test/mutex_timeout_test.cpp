@@ -21,9 +21,8 @@
 int main ()
 {
    using namespace boost::interprocess;
-
-   test::test_mutex_lock_timeout<true, interprocess_mutex>();
-   test::test_mutex_lock_timeout<true, interprocess_recursive_mutex>();
+   test::test_mutex_lock_timeout<interprocess_mutex>();
+   test::test_mutex_lock_timeout<interprocess_recursive_mutex>();
 
    return 0;
 }

@@ -71,6 +71,24 @@ namespace ns
         int y;
     };
 #endif
+    
+    // A sequence that has data members defined in an unrelated namespace
+    // (std, in this case). This allows testing ADL issues.
+    class name
+    {
+    public:
+        name() {}
+        name(const std::string& last, const std::string& first)
+           : last(last), first(first) {}
+        
+        const std::string& get_last() const { return last; }
+        const std::string& get_first() const { return first; }
+        void set_last(const std::string& last_) { last = last_; }
+        void set_first(const std::string& first_) { first = first_; }
+    private:
+        std::string last;
+        std::string first;
+    };
 }
 
 BOOST_FUSION_ADAPT_ADT(
@@ -86,6 +104,12 @@ BOOST_FUSION_ADAPT_ADT(
     (int, int, obj.get_y(), obj.set_y(val))
 )
 #endif
+
+BOOST_FUSION_ADAPT_ADT(
+    ns::name,
+    (const std::string&, const std::string&, obj.get_last(), obj.set_last(val))
+    (const std::string&, const std::string&, obj.get_first(), obj.set_first(val))
+)
 
 int
 main()
@@ -121,6 +145,20 @@ main()
         fusion::vector<int, float> v1(4, 2);
         ns::point v2(5, 3);
         fusion::vector<long, double> v3(5, 4);
+        BOOST_TEST(v1 < v2);
+        BOOST_TEST(v1 <= v2);
+        BOOST_TEST(v2 > v1);
+        BOOST_TEST(v2 >= v1);
+        BOOST_TEST(v2 < v3);
+        BOOST_TEST(v2 <= v3);
+        BOOST_TEST(v3 > v2);
+        BOOST_TEST(v3 >= v2);
+    }
+
+    {
+        fusion::vector<std::string, std::string> v1("Lincoln", "Abraham");
+        ns::name v2("Roosevelt", "Franklin");
+        ns::name v3("Roosevelt", "Theodore");
         BOOST_TEST(v1 < v2);
         BOOST_TEST(v1 <= v2);
         BOOST_TEST(v2 > v1);

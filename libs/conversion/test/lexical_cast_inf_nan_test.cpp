@@ -85,6 +85,12 @@ void test_inf_nan_templated()
     BOOST_CHECK( is_pos_inf( lexical_cast<test_t>("+infinity") ) );
     BOOST_CHECK( is_pos_inf( lexical_cast<test_t>("+INFINITY") ) );
 
+    BOOST_CHECK( is_pos_inf( lexical_cast<test_t>("iNfiNity") ) );
+    BOOST_CHECK( is_pos_inf( lexical_cast<test_t>("INfinity") ) );
+
+    BOOST_CHECK( is_neg_inf( lexical_cast<test_t>("-inFINITY") ) );
+    BOOST_CHECK( is_neg_inf( lexical_cast<test_t>("-INFINITY") ) );
+
     BOOST_CHECK( is_pos_nan( lexical_cast<test_t>("nan") ) );
     BOOST_CHECK( is_pos_nan( lexical_cast<test_t>("NAN") ) );
 
@@ -93,6 +99,15 @@ void test_inf_nan_templated()
 
     BOOST_CHECK( is_pos_nan( lexical_cast<test_t>("+nan") ) );
     BOOST_CHECK( is_pos_nan( lexical_cast<test_t>("+NAN") ) );
+
+    BOOST_CHECK( is_pos_nan( lexical_cast<test_t>("nAn") ) );
+    BOOST_CHECK( is_pos_nan( lexical_cast<test_t>("NaN") ) );
+
+    BOOST_CHECK( is_neg_nan( lexical_cast<test_t>("-nAn") ) );
+    BOOST_CHECK( is_neg_nan( lexical_cast<test_t>("-NaN") ) );
+
+    BOOST_CHECK( is_pos_nan( lexical_cast<test_t>("+Nan") ) );
+    BOOST_CHECK( is_pos_nan( lexical_cast<test_t>("+nAN") ) );
 
     BOOST_CHECK( is_pos_nan( lexical_cast<test_t>("nan()") ) );
     BOOST_CHECK( is_pos_nan( lexical_cast<test_t>("NAN(some string)") ) );
@@ -126,6 +141,12 @@ void test_inf_nan_templated()
 
     BOOST_CHECK( is_pos_inf( lexical_cast<test_t>(L"+infinity") ) );
     BOOST_CHECK( is_pos_inf( lexical_cast<test_t>(L"+INFINITY") ) );
+
+    BOOST_CHECK( is_neg_inf( lexical_cast<test_t>(L"-infINIty") ) );
+    BOOST_CHECK( is_neg_inf( lexical_cast<test_t>(L"-INFiniTY") ) );
+
+    BOOST_CHECK( is_pos_inf( lexical_cast<test_t>(L"+inFINIty") ) );
+    BOOST_CHECK( is_pos_inf( lexical_cast<test_t>(L"+INfinITY") ) );
 
     BOOST_CHECK( is_pos_nan( lexical_cast<test_t>(L"nan") ) );
     BOOST_CHECK( is_pos_nan( lexical_cast<test_t>(L"NAN") ) );
@@ -170,7 +191,7 @@ void test_inf_nan_long_double()
 
 unit_test::test_suite *init_unit_test_suite(int, char *[])
 {
-    unit_test_framework::test_suite *suite =
+    unit_test::test_suite *suite =
         BOOST_TEST_SUITE("lexical_cast inf anf nan parsing unit test");
     suite->add(BOOST_TEST_CASE(&test_inf_nan_float));
     suite->add(BOOST_TEST_CASE(&test_inf_nan_double));

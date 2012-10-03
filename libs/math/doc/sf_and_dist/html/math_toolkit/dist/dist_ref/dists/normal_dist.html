@@ -22,20 +22,19 @@
 <div class="spirit-nav">
 <a accesskey="p" href="nc_t_dist.html"><img src="../../../../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../dists.html"><img src="../../../../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../../../index.html"><img src="../../../../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="pareto.html"><img src="../../../../../../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
-<div class="section">
+<div class="section math_toolkit_dist_dist_ref_dists_normal_dist">
 <div class="titlepage"><div><div><h5 class="title">
 <a name="math_toolkit.dist.dist_ref.dists.normal_dist"></a><a class="link" href="normal_dist.html" title="Normal (Gaussian) Distribution">Normal
           (Gaussian) Distribution</a>
 </h5></div></div></div>
 <p>
-            
 </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">math</span><span class="special">/</span><span class="identifier">distributions</span><span class="special">/</span><span class="identifier">normal</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></pre>
 <p>
           </p>
-<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">{</span> <span class="keyword">namespace</span> <span class="identifier">math</span><span class="special">{</span> 
-   
-<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">RealType</span> <span class="special">=</span> <span class="keyword">double</span><span class="special">,</span> 
+<pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">{</span> <span class="keyword">namespace</span> <span class="identifier">math</span><span class="special">{</span>
+
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">RealType</span> <span class="special">=</span> <span class="keyword">double</span><span class="special">,</span>
           <span class="keyword">class</span> <a class="link" href="../../../policy.html" title="Policies">Policy</a>   <span class="special">=</span> <a class="link" href="../../../policy/pol_ref/pol_ref_ref.html" title="Policy Class Reference">policies::policy&lt;&gt;</a> <span class="special">&gt;</span>
 <span class="keyword">class</span> <span class="identifier">normal_distribution</span><span class="special">;</span>
 
@@ -69,7 +68,7 @@
             Given mean &#956; &#160;and standard deviation &#963; &#160;it has the PDF:
           </p>
 <p>
-            <span class="inlinemediaobject"><img src="../../../../../equations/normal_ref1.png"></span>
+            &#160;   <span class="inlinemediaobject"><img src="../../../../../equations/normal_ref1.png"></span>
           </p>
 <p>
             The variation the PDF with its parameters is illustrated in the following
@@ -78,9 +77,21 @@
 <p>
             <span class="inlinemediaobject"><img src="../../../../../graphs/normal_pdf.png" align="middle"></span>
           </p>
-<a name="math_toolkit.dist.dist_ref.dists.normal_dist.member_functions"></a><h5>
-<a name="math_toolkit.dist.dist_ref.dists.normal_dist.member_functions-heading"></a>
-            <a class="link" href="normal_dist.html#math_toolkit.dist.dist_ref.dists.normal_dist.member_functions">Member
+<p>
+            The cumulative distribution function is given by
+          </p>
+<p>
+            &#160;   <span class="inlinemediaobject"><img src="../../../../../equations/normal_cdf.png"></span>
+          </p>
+<p>
+            and illustrated by this graph
+          </p>
+<p>
+            <span class="inlinemediaobject"><img src="../../../../../graphs/normal_cdf.png" align="middle"></span>
+          </p>
+<h5>
+<a name="math_toolkit.dist.dist_ref.dists.normal_dist.h0"></a>
+            <span><a name="math_toolkit.dist.dist_ref.dists.normal_dist.member_functions"></a></span><a class="link" href="normal_dist.html#math_toolkit.dist.dist_ref.dists.normal_dist.member_functions">Member
             Functions</a>
           </h5>
 <pre class="programlisting"><span class="identifier">normal_distribution</span><span class="special">(</span><span class="identifier">RealType</span> <span class="identifier">mean</span> <span class="special">=</span> <span class="number">0</span><span class="special">,</span> <span class="identifier">RealType</span> <span class="identifier">sd</span> <span class="special">=</span> <span class="number">1</span><span class="special">);</span>
@@ -94,7 +105,7 @@
             is called.
           </p>
 <pre class="programlisting"><span class="identifier">RealType</span> <span class="identifier">mean</span><span class="special">()</span><span class="keyword">const</span><span class="special">;</span>
-<span class="identifier">RealType</span> <span class="identifier">location</span><span class="special">()</span><span class="keyword">const</span><span class="special">;</span>   
+<span class="identifier">RealType</span> <span class="identifier">location</span><span class="special">()</span><span class="keyword">const</span><span class="special">;</span>
 </pre>
 <p>
             both return the <span class="emphasis"><em>mean</em></span> of this distribution.
@@ -108,9 +119,9 @@
             distributions, allowing the functions find_location and find_scale to
             be used generically).
           </p>
-<a name="math_toolkit.dist.dist_ref.dists.normal_dist.non_member_accessors"></a><h5>
-<a name="math_toolkit.dist.dist_ref.dists.normal_dist.non_member_accessors-heading"></a>
-            <a class="link" href="normal_dist.html#math_toolkit.dist.dist_ref.dists.normal_dist.non_member_accessors">Non-member
+<h5>
+<a name="math_toolkit.dist.dist_ref.dists.normal_dist.h1"></a>
+            <span><a name="math_toolkit.dist.dist_ref.dists.normal_dist.non_member_accessors"></a></span><a class="link" href="normal_dist.html#math_toolkit.dist.dist_ref.dists.normal_dist.non_member_accessors">Non-member
             Accessors</a>
           </h5>
 <p>
@@ -130,17 +141,17 @@
             the pdf of +&#8734; and -&#8734; = 0 is also supported, and cdf at -&#8734; = 0, cdf at +&#8734; = 1,
             and complement cdf -&#8734; = 1 and +&#8734; = 0, if RealType permits.
           </p>
-<a name="math_toolkit.dist.dist_ref.dists.normal_dist.accuracy"></a><h5>
-<a name="math_toolkit.dist.dist_ref.dists.normal_dist.accuracy-heading"></a>
-            <a class="link" href="normal_dist.html#math_toolkit.dist.dist_ref.dists.normal_dist.accuracy">Accuracy</a>
+<h5>
+<a name="math_toolkit.dist.dist_ref.dists.normal_dist.h2"></a>
+            <span><a name="math_toolkit.dist.dist_ref.dists.normal_dist.accuracy"></a></span><a class="link" href="normal_dist.html#math_toolkit.dist.dist_ref.dists.normal_dist.accuracy">Accuracy</a>
           </h5>
 <p>
             The normal distribution is implemented in terms of the <a class="link" href="../../../special/sf_erf/error_function.html" title="Error Functions">error
             function</a>, and as such should have very low error rates.
           </p>
-<a name="math_toolkit.dist.dist_ref.dists.normal_dist.implementation"></a><h5>
-<a name="math_toolkit.dist.dist_ref.dists.normal_dist.implementation-heading"></a>
-            <a class="link" href="normal_dist.html#math_toolkit.dist.dist_ref.dists.normal_dist.implementation">Implementation</a>
+<h5>
+<a name="math_toolkit.dist.dist_ref.dists.normal_dist.h3"></a>
+            <span><a name="math_toolkit.dist.dist_ref.dists.normal_dist.implementation"></a></span><a class="link" href="normal_dist.html#math_toolkit.dist.dist_ref.dists.normal_dist.implementation">Implementation</a>
           </h5>
 <p>
             In the following table <span class="emphasis"><em>m</em></span> is the mean of the distribution,
@@ -251,6 +262,18 @@
 <tr>
 <td>
                     <p>
+                      median
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      The same as the mean.
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
                       skewness
                     </p>
                   </td>
@@ -290,7 +313,7 @@
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
 <td align="right"><div class="copyright-footer">Copyright &#169; 2006-2010 John Maddock, Paul A. Bristow, Hubert Holin, Xiaogang Zhang, Bruno
-      Lalande, Johan R&#229;de, Gautam Sewani and Thijs van den Berg<p>
+      Lalande, Johan R&#229;de, Gautam Sewani, Thijs van den Berg and Benjamin Sobotta<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

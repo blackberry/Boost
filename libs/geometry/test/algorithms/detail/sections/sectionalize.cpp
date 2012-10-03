@@ -1,9 +1,9 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 // Unit Test
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -23,8 +23,8 @@
 #include <boost/geometry/algorithms/detail/sections/sectionalize.hpp>
 #include <boost/geometry/geometries/geometries.hpp>
 #include <boost/geometry/geometries/point_xy.hpp>
-#include <boost/geometry/domains/gis/io/wkt/read_wkt.hpp>
-#include <boost/geometry/domains/gis/io/wkt/write_wkt.hpp>
+#include <boost/geometry/io/wkt/read.hpp>
+#include <boost/geometry/io/wkt/write.hpp>
 
 
 #include <test_common/test_point.hpp>
@@ -297,8 +297,43 @@ void test_all()
         4, "0..4|4..5|5..8|8..11", "+|-|+|-");
 }
 
+void test_large_integers()
+{
+    typedef bg::model::point<int, 2, bg::cs::cartesian> int_point_type;
+    typedef bg::model::point<double, 2, bg::cs::cartesian> double_point_type;
+
+    std::string const polygon_li = "POLYGON((1872000 528000,1872000 192000,1536119 192000,1536000 528000,1200000 528000,1200000 863880,1536000 863880,1872000 863880,1872000 528000))";
+    bg::model::polygon<int_point_type> int_poly;
+    bg::model::polygon<double_point_type> double_poly;
+    bg::read_wkt(polygon_li, int_poly);
+    bg::read_wkt(polygon_li, double_poly);
+
+    bg::sections<bg::model::box<int_point_type>, 1> int_sections;
+    bg::sections<bg::model::box<double_point_type>, 1> double_sections;
+
+    bg::sectionalize<false>(int_poly, int_sections);
+    bg::sectionalize<false>(double_poly, double_sections);
+    
+    bool equally_sized = int_sections.size() == double_sections.size();
+    BOOST_CHECK(equally_sized);
+    if (! equally_sized)
+    {
+        return;
+    }
+
+    for (unsigned int i = 0; i < int_sections.size(); i++)
+    {
+        BOOST_CHECK(int_sections[i].begin_index == double_sections[i].begin_index);
+        BOOST_CHECK(int_sections[i].count == double_sections[i].count);
+    }
+
+}
+
+
 int test_main(int, char* [])
 {
+    test_large_integers();
+
     //test_all<bg::model::d2::point_xy<float> >();
     test_all<bg::model::d2::point_xy<double> >();
 

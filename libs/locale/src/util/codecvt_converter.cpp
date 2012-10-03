@@ -28,11 +28,6 @@
 #include <iostream>
 #endif
 
-#if defined(__QNX__)
-#include <stddef.h> //defines ptrdiff_t
-#include <wchar.h> //defines mbstate_t
-#endif
-
 namespace boost {
 namespace locale {
 namespace util {

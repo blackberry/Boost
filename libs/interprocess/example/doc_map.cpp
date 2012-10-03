@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2006-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2006-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -38,6 +38,9 @@ int main ()
    #endif
    //->
    } remover;
+   //<-
+   (void)remover;
+   //->
 
    //Shared memory front-end that is able to construct objects
    //associated with a c-string. Erase previous shared memory with the name
@@ -48,7 +51,7 @@ int main ()
    #else
    //->
    managed_shared_memory segment
-      (create_only 
+      (create_only
       ,"MySharedMemory" //segment name
       ,65536);          //segment size in bytes
    //<-
@@ -64,7 +67,7 @@ int main ()
    //Alias an STL compatible allocator of for the map.
    //This allocator will allow to place containers
    //in managed shared memory segments
-   typedef allocator<ValueType, managed_shared_memory::segment_manager> 
+   typedef allocator<ValueType, managed_shared_memory::segment_manager>
       ShmemAllocator;
 
    //Alias a map of ints that uses the previous STL-like allocator.
@@ -79,7 +82,7 @@ int main ()
    //Note that the first parameter is the comparison function,
    //and the second one the allocator.
    //This the same signature as std::map's constructor taking an allocator
-   MyMap *mymap = 
+   MyMap *mymap =
       segment.construct<MyMap>("MyMap")      //object name
                                  (std::less<int>() //first  ctor parameter
                                  ,alloc_inst);     //second ctor parameter

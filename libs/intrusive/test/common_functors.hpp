@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2006-2009
+// (C) Copyright Ion Gaztanaga  2006-2012
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -29,7 +29,7 @@ class delete_disposer
    {
       typedef typename std::iterator_traits<Pointer>::value_type value_type;
       BOOST_INTRUSIVE_INVARIANT_ASSERT(( detail::is_same<T, value_type>::value ));
-      delete detail::boost_intrusive_get_pointer(p); 
+      delete boost::intrusive::detail::to_raw_pointer(p);
    }
 };
 

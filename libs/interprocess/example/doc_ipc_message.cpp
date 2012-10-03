@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2006-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2006-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -22,7 +22,7 @@ int main (int argc, char *argv[])
    using namespace boost::interprocess;
    if(argc == 1){  //Parent process
       //Remove shared memory on construction and destruction
-      struct shm_remove 
+      struct shm_remove
       {
       //<-
       #if 1
@@ -36,6 +36,9 @@ int main (int argc, char *argv[])
       #endif
       //->
       } remover;
+      //<-
+      (void)remover;
+      //->
 
       //Create a managed shared memory segment
       //<-
@@ -56,7 +59,7 @@ int main (int argc, char *argv[])
       if(free_memory <= segment.get_free_memory())
          return 1;
 
-      //An handle from the base address can identify any byte of the shared 
+      //An handle from the base address can identify any byte of the shared
       //memory segment even if it is mapped in different base addresses
       managed_shared_memory::handle_t handle = segment.get_handle_from_address(shptr);
       std::stringstream s;
@@ -84,7 +87,7 @@ int main (int argc, char *argv[])
       #endif
       //->
 
-      //An handle from the base address can identify any byte of the shared 
+      //An handle from the base address can identify any byte of the shared
       //memory segment even if it is mapped in different base addresses
       managed_shared_memory::handle_t handle = 0;
 

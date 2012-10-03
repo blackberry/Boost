@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2006-2009.
+// (C) Copyright Ion Gaztanaga 2006-2011.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -40,13 +40,13 @@ typedef managed_unique_ptr<MyType, managed_mapped_file>::type unique_ptr_type;
 //Define containers of unique pointer. Unique pointer simplifies object management
 typedef vector
    < unique_ptr_type
-   , allocator<unique_ptr_type, managed_mapped_file::segment_manager> 
-   > unique_ptr_vector_t; 
+   , allocator<unique_ptr_type, managed_mapped_file::segment_manager>
+   > unique_ptr_vector_t;
 
 typedef list
    < unique_ptr_type
-   , allocator<unique_ptr_type, managed_mapped_file::segment_manager> 
-   > unique_ptr_list_t; 
+   , allocator<unique_ptr_type, managed_mapped_file::segment_manager>
+   > unique_ptr_list_t;
 
 int main ()
 {
@@ -64,7 +64,7 @@ int main ()
    //->
 
    //Destroy any previous file with the name to be used.
-   struct file_remove 
+   struct file_remove
    {
       file_remove(const char *MappedFile)
          : MappedFile_(MappedFile) { file_mapping::remove(MappedFile_); }
@@ -94,17 +94,17 @@ int main ()
       //Now insert all values
       for(int i = 0; i < 100; ++i){
          unique_ptr_type p(make_managed_unique_ptr(file.construct<MyType>(anonymous_instance)(i), file));
-         unique_vector->push_back(boost::interprocess::move(p));
+         unique_vector->push_back(boost::move(p));
          assert(unique_vector->back()->number_ == i);
       }
-      
+    
       //Now create a list of unique pointers
       unique_ptr_list_t *unique_list =
          file.construct<unique_ptr_list_t>("unique list")(file.get_segment_manager());
-   
+ 
       //Pass ownership of all values to the list
       for(int i = 99; !unique_vector->empty(); --i){
-         unique_list->push_front(boost::interprocess::move(unique_vector->back()));
+         unique_list->push_front(boost::move(unique_vector->back()));
          //The unique ptr of the vector is now empty...
          assert(unique_vector->back() == 0);
          unique_vector->pop_back();
@@ -131,7 +131,7 @@ int main ()
       for(int i = 0; i < 100; ++i, ++list_it){
          assert((*list_it)->number_ == i);
       }
-      
+    
       //Now destroy the list. All elements will be automatically deallocated.
       file.destroy_ptr(unique_list);
    }

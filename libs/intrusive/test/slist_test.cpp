@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 //
 // (C) Copyright Olaf Krzikalla 2004-2006.
-// (C) Copyright Ion Gaztanaga  2006-2009.
+// (C) Copyright Ion Gaztanaga  2006-2012.
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -13,7 +13,7 @@
 
 #include <boost/intrusive/detail/config_begin.hpp>
 #include <boost/intrusive/slist.hpp>
-#include <boost/intrusive/detail/pointer_to_other.hpp>
+#include <boost/intrusive/pointer_traits.hpp>
 #include "itestvalue.hpp"
 #include "smart_ptr.hpp"
 #include "common_functors.hpp"
@@ -38,7 +38,7 @@ struct hooks
 };
 
 template<class ValueTraits, bool Linear, bool CacheLast>
-struct test_slist 
+struct test_slist
 {
    typedef typename ValueTraits::value_type value_type;
    static void test_all(std::vector<value_type>& values);
@@ -106,7 +106,7 @@ void test_slist<ValueTraits, Linear, CacheLast>
       > list_type;
    list_type testlist;
    BOOST_TEST (testlist.empty());
-     
+
    testlist.push_front (values[0]);
    BOOST_TEST (testlist.size() == 1);
    BOOST_TEST (&testlist.front() == &values[0]);
@@ -114,11 +114,11 @@ void test_slist<ValueTraits, Linear, CacheLast>
    testlist.push_front (values[1]);
    BOOST_TEST (testlist.size() == 2);
    BOOST_TEST (&testlist.front() == &values[1]);
-     
+
    testlist.pop_front();
    BOOST_TEST (testlist.size() == 1);
    BOOST_TEST (&testlist.front() == &values[0]);
-     
+
    testlist.pop_front();
    BOOST_TEST (testlist.empty());
 }
@@ -241,8 +241,8 @@ void test_slist<ValueTraits, Linear, CacheLast>
    testlist.reverse();
    {  int init_values [] = { 5, 3, 1, 4, 2 };
       TEST_INTRUSIVE_SEQUENCE( init_values, testlist.begin() );  }
-}  
-  
+}
+
 //test: assign, insert_after, const_iterator, erase_after, s_iterator_to, previous:
 template<class ValueTraits, bool Linear, bool CacheLast>
 void test_slist<ValueTraits, Linear, CacheLast>
@@ -374,7 +374,7 @@ void test_slist<ValueTraits, Linear, CacheLast>
          testlist.clear();
       }
    }
-}  
+}
 
 //test: insert_after (seq-version), swap, splice_after:
 template<class ValueTraits, bool Linear, bool CacheLast>
@@ -410,7 +410,7 @@ void test_slist<ValueTraits, Linear, CacheLast>
       {  int init_values [] = { 1, 3, 5, 2 };
          TEST_INTRUSIVE_SEQUENCE( init_values, testlist2.begin() );  }
 
-      testlist1.splice_after (testlist1.begin(), testlist2, 
+      testlist1.splice_after (testlist1.begin(), testlist2,
                               testlist2.before_begin(), ++++testlist2.begin());
       {  int init_values [] = { 4, 1, 3, 5 };
          TEST_INTRUSIVE_SEQUENCE( init_values, testlist1.begin() );  }
@@ -476,7 +476,7 @@ void test_slist<ValueTraits, Linear, CacheLast>
       {  int init_values [] = { 1 };
          TEST_INTRUSIVE_SEQUENCE( init_values, testlist1.begin() );  }
    }
-}  
+}
 
 template<class ValueTraits, bool Linear, bool CacheLast>
 void test_slist<ValueTraits, Linear, CacheLast>
@@ -529,7 +529,7 @@ class test_main_template
       typedef testvalue<hooks<VoidPointer> , constant_time_size> value_type;
       std::vector<value_type> data (5);
       for (int i = 0; i < 5; ++i)
-         data[i].value_ = i + 1; 
+         data[i].value_ = i + 1;
 
       test_slist < typename detail::get_base_value_traits
                   < value_type
@@ -620,7 +620,7 @@ class test_main_template<VoidPointer, false>
       typedef testvalue<hooks<VoidPointer> , false> value_type;
       std::vector<value_type> data (5);
       for (int i = 0; i < 5; ++i)
-         data[i].value_ = i + 1; 
+         data[i].value_ = i + 1;
 
       test_slist < typename detail::get_base_value_traits
                   < value_type
@@ -721,7 +721,7 @@ class test_main_template<VoidPointer, false>
    }
 };
 
-int main(int, char* []) 
+int main(int, char* [])
 {
    test_main_template<void*, false>()();
    test_main_template<smart_ptr<void>, false>()();

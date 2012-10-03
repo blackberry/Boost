@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -24,7 +24,7 @@
 #include <boost/interprocess/detail/type_traits.hpp>
 #include <boost/interprocess/detail/math_functions.hpp>
 #include <boost/interprocess/detail/utilities.hpp>
-#include <boost/interprocess/detail/move.hpp>
+#include <boost/move/move.hpp>
 #include <boost/interprocess/detail/min_max.hpp>
 #include <boost/assert.hpp>
 #include <boost/static_assert.hpp>
@@ -73,13 +73,13 @@ class memory_algorithm_common
    {  return (((std::size_t)ptr) % Alignment == 0);   }
 
    static size_type ceil_units(size_type size)
-   {  return ipcdetail::get_rounded_size(size, Alignment)/Alignment; }
+   {  return get_rounded_size(size, Alignment)/Alignment; }
 
    static size_type floor_units(size_type size)
    {  return size/Alignment;  }
 
    static size_type multiple_of_units(size_type size)
-   {  return ipcdetail::get_rounded_size(size, Alignment);  }
+   {  return get_rounded_size(size, Alignment);  }
 
    static multiallocation_chain allocate_many
       (MemoryAlgorithm *memory_algo, size_type elem_bytes, size_type n_elements)
@@ -89,19 +89,19 @@ class memory_algorithm_common
 
    static void deallocate_many(MemoryAlgorithm *memory_algo, multiallocation_chain chain)
    {
-      return this_type::priv_deallocate_many(memory_algo, boost::interprocess::move(chain));
+      return this_type::priv_deallocate_many(memory_algo, boost::move(chain));
    }
 
    static bool calculate_lcm_and_needs_backwards_lcmed
       (size_type backwards_multiple, size_type received_size, size_type size_to_achieve,
       size_type &lcm_out, size_type &needs_backwards_lcmed_out)
    {
-      // Now calculate lcm
+      // Now calculate lcm_val
       size_type max = backwards_multiple;
       size_type min = Alignment;
       size_type needs_backwards;
       size_type needs_backwards_lcmed;
-      size_type lcm;
+      size_type lcm_val;
       size_type current_forward;
       //Swap if necessary
       if(max < min){
@@ -115,47 +115,47 @@ class memory_algorithm_common
             return false;
          }
 
-         lcm = max;
+         lcm_val = max;
          //If we want to use minbytes data to get a buffer between maxbytes
-         //and minbytes if maxbytes can't be achieved, calculate the 
+         //and minbytes if maxbytes can't be achieved, calculate the
          //biggest of all possibilities
-         current_forward = ipcdetail::get_truncated_size_po2(received_size, backwards_multiple);
+         current_forward = get_truncated_size_po2(received_size, backwards_multiple);
          needs_backwards = size_to_achieve - current_forward;
          BOOST_ASSERT((needs_backwards % backwards_multiple) == 0);
-         needs_backwards_lcmed = ipcdetail::get_rounded_size_po2(needs_backwards, lcm);
-         lcm_out = lcm;
+         needs_backwards_lcmed = get_rounded_size_po2(needs_backwards, lcm_val);
+         lcm_out = lcm_val;
          needs_backwards_lcmed_out = needs_backwards_lcmed;
          return true;
       }
       //Check if it's multiple of alignment
       else if((backwards_multiple & (Alignment - 1u)) == 0){
-         lcm = backwards_multiple;
-         current_forward = ipcdetail::get_truncated_size(received_size, backwards_multiple);
-         //No need to round needs_backwards because backwards_multiple == lcm
+         lcm_val = backwards_multiple;
+         current_forward = get_truncated_size(received_size, backwards_multiple);
+         //No need to round needs_backwards because backwards_multiple == lcm_val
          needs_backwards_lcmed = needs_backwards = size_to_achieve - current_forward;
          BOOST_ASSERT((needs_backwards_lcmed & (Alignment - 1u)) == 0);
-         lcm_out = lcm;
+         lcm_out = lcm_val;
          needs_backwards_lcmed_out = needs_backwards_lcmed;
          return true;
       }
       //Check if it's multiple of the half of the alignmment
       else if((backwards_multiple & ((Alignment/2u) - 1u)) == 0){
-         lcm = backwards_multiple*2u;
-         current_forward = ipcdetail::get_truncated_size(received_size, backwards_multiple);
+         lcm_val = backwards_multiple*2u;
+         current_forward = get_truncated_size(received_size, backwards_multiple);
          needs_backwards_lcmed = needs_backwards = size_to_achieve - current_forward;
          if(0 != (needs_backwards_lcmed & (Alignment-1)))
          //while(0 != (needs_backwards_lcmed & (Alignment-1)))
             needs_backwards_lcmed += backwards_multiple;
-         BOOST_ASSERT((needs_backwards_lcmed % lcm) == 0);
-         lcm_out = lcm;
+         BOOST_ASSERT((needs_backwards_lcmed % lcm_val) == 0);
+         lcm_out = lcm_val;
          needs_backwards_lcmed_out = needs_backwards_lcmed;
          return true;
       }
-      //Check if it's multiple of the half of the alignmment
+      //Check if it's multiple of the quarter of the alignmment
       else if((backwards_multiple & ((Alignment/4u) - 1u)) == 0){
          size_type remainder;
-         lcm = backwards_multiple*4u;
-         current_forward = ipcdetail::get_truncated_size(received_size, backwards_multiple);
+         lcm_val = backwards_multiple*4u;
+         current_forward = get_truncated_size(received_size, backwards_multiple);
          needs_backwards_lcmed = needs_backwards = size_to_achieve - current_forward;
          //while(0 != (needs_backwards_lcmed & (Alignment-1)))
             //needs_backwards_lcmed += backwards_multiple;
@@ -167,22 +167,22 @@ class memory_algorithm_common
                needs_backwards_lcmed += (4-remainder)*backwards_multiple;
             }
          }
-         BOOST_ASSERT((needs_backwards_lcmed % lcm) == 0);
-         lcm_out = lcm;
+         BOOST_ASSERT((needs_backwards_lcmed % lcm_val) == 0);
+         lcm_out = lcm_val;
          needs_backwards_lcmed_out = needs_backwards_lcmed;
          return true;
       }
       else{
-         lcm = ipcdetail::lcm(max, min);
+         lcm_val = lcm(max, min);
       }
       //If we want to use minbytes data to get a buffer between maxbytes
-      //and minbytes if maxbytes can't be achieved, calculate the 
+      //and minbytes if maxbytes can't be achieved, calculate the
       //biggest of all possibilities
-      current_forward = ipcdetail::get_truncated_size(received_size, backwards_multiple);
+      current_forward = get_truncated_size(received_size, backwards_multiple);
       needs_backwards = size_to_achieve - current_forward;
       BOOST_ASSERT((needs_backwards % backwards_multiple) == 0);
-      needs_backwards_lcmed = ipcdetail::get_rounded_size(needs_backwards, lcm);
-      lcm_out = lcm;
+      needs_backwards_lcmed = get_rounded_size(needs_backwards, lcm_val);
+      lcm_out = lcm_val;
       needs_backwards_lcmed_out = needs_backwards_lcmed;
       return true;
    }
@@ -199,7 +199,7 @@ class memory_algorithm_common
    static void* allocate_aligned
       (MemoryAlgorithm *memory_algo, size_type nbytes, size_type alignment)
    {
-      
+     
       //Ensure power of 2
       if ((alignment & (alignment - size_type(1u))) != 0){
          //Alignment is not power of two
@@ -215,7 +215,7 @@ class memory_algorithm_common
 
       if(nbytes > UsableByPreviousChunk)
          nbytes -= UsableByPreviousChunk;
-      
+     
       //We can find a aligned portion if we allocate a block that has alignment
       //nbytes + alignment bytes or more.
       size_type minimum_allocation = max_value
@@ -223,13 +223,13 @@ class memory_algorithm_common
       //Since we will split that block, we must request a bit more memory
       //if the alignment is near the beginning of the buffer, because otherwise,
       //there is no space for a new block before the alignment.
-      // 
+      //
       //            ____ Aligned here
       //           |
       //  -----------------------------------------------------
-      // | MBU | 
+      // | MBU |
       //  -----------------------------------------------------
-      size_type request = 
+      size_type request =
          minimum_allocation + (2*MinBlockUnits*Alignment - AllocatedCtrlBytes
          //prevsize - UsableByPreviousChunk
          );
@@ -263,7 +263,7 @@ class memory_algorithm_common
       }
 
       //Buffer not aligned, find the aligned part.
-      // 
+      //
       //                    ____ Aligned here
       //                   |
       //  -----------------------------------------------------
@@ -324,7 +324,7 @@ class memory_algorithm_common
       return memory_algo->priv_get_user_buffer(second);
    }
 
-   static bool try_shrink 
+   static bool try_shrink
       (MemoryAlgorithm *memory_algo, void *ptr
       ,const size_type max_size,   const size_type preferred_size
       ,size_type &received_size)
@@ -361,8 +361,8 @@ class memory_algorithm_common
       if(old_user_units == preferred_user_units)
          return true;
 
-      size_type shrunk_user_units = 
-         ((BlockCtrlUnits - AllocatedCtrlUnits) > preferred_user_units)
+      size_type shrunk_user_units =
+         ((BlockCtrlUnits - AllocatedCtrlUnits) >= preferred_user_units)
          ? (BlockCtrlUnits - AllocatedCtrlUnits)
          : preferred_user_units;
 
@@ -380,7 +380,7 @@ class memory_algorithm_common
       return true;
    }
 
-   static bool shrink 
+   static bool shrink
       (MemoryAlgorithm *memory_algo, void *ptr
       ,const size_type max_size,   const size_type preferred_size
       ,size_type &received_size)
@@ -389,7 +389,7 @@ class memory_algorithm_common
       block_ctrl *block = memory_algo->priv_get_block(ptr);
       size_type old_block_units = (size_type)block->m_size;
 
-      if(!try_shrink 
+      if(!try_shrink
          (memory_algo, ptr, max_size, preferred_size, received_size)){
          return false;
       }
@@ -479,7 +479,7 @@ class memory_algorithm_common
 
             //The last block should take all the remaining space
             if((low_idx + 1) == n_elements ||
-               (total_used_units + elem_units + 
+               (total_used_units + elem_units +
                ((!sizeof_element)
                   ? elem_units
               : std::max(memory_algo->priv_get_total_units(elem_sizes[low_idx+1]*sizeof_element), ptr_size_units))
@@ -528,17 +528,17 @@ class memory_algorithm_common
          //Sanity check
          BOOST_ASSERT(total_used_units == received_units);
       }
-      
+     
       if(low_idx != n_elements){
-         priv_deallocate_many(memory_algo, boost::interprocess::move(chain));
+         priv_deallocate_many(memory_algo, boost::move(chain));
       }
-      return boost::interprocess::move(chain);
+      return boost::move(chain);
    }
 
    static void priv_deallocate_many(MemoryAlgorithm *memory_algo, multiallocation_chain chain)
    {
       while(!chain.empty()){
-         void *addr = ipcdetail::get_pointer(chain.front());
+         void *addr = to_raw_pointer(chain.front());
          chain.pop_front();
          memory_algo->priv_deallocate(addr);
       }

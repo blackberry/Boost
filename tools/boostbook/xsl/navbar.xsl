@@ -14,7 +14,7 @@
  
    <!--
       boost.defaults:
-        *custom  - only use explicitly set parameters
+        *none    - only use explicitly set parameters
          Boost   - use standard boost settings, can be overridden
    -->
    <xsl:param name = "boost.defaults" select = "'none'"/>
@@ -87,33 +87,35 @@
       <xsl:variable name = "home" select = "/*[1]"/>
       <xsl:variable name = "up"   select = "parent::*"/>
 
-      <table cellpadding = "2" width = "100%"><tr>
-         <xsl:if test = "$nav.border = 'Boost'">
-            <xsl:attribute name = "class">boost-head</xsl:attribute>
-         </xsl:if>
-
-         <td valign = "top">
+      <xsl:if test = "boolean(normalize-space($boost.image.src)) or $nav.layout != 'none'">
+         <table cellpadding = "2" width = "100%"><tr>
             <xsl:if test = "$nav.border = 'Boost'">
-               <xsl:attribute name = "style">background-color: white; width: 50%;</xsl:attribute>
+               <xsl:attribute name = "class">boost-head</xsl:attribute>
             </xsl:if>
-            <xsl:if test = "boolean(normalize-space($boost.image.src))">
-               <img alt="{$boost.image.alt}" width="{$boost.image.w}" height="{$boost.image.h}">
-                   <xsl:attribute name="src">
-                       <xsl:call-template name="href.target.relative">
-                           <xsl:with-param name="target" select="$boost.image.src"/>
-                       </xsl:call-template>
-                   </xsl:attribute>
-               </img>
-            </xsl:if>
-         </td><xsl:choose>
-            <xsl:when test = "$nav.layout = 'horizontal'">
-               <xsl:call-template name = "header.navdata-horiz"/>
-            </xsl:when><xsl:when test = "$nav.layout = 'vertical'">
-               <xsl:call-template name = "header.navdata-vert"/>
-            </xsl:when>
-         </xsl:choose>
-      </tr></table>
-      <hr/>
+
+            <td valign = "top">
+               <xsl:if test = "$nav.border = 'Boost'">
+                  <xsl:attribute name = "style">background-color: white; width: 50%;</xsl:attribute>
+               </xsl:if>
+               <xsl:if test = "boolean(normalize-space($boost.image.src))">
+                  <img alt="{$boost.image.alt}" width="{$boost.image.w}" height="{$boost.image.h}">
+                      <xsl:attribute name="src">
+                          <xsl:call-template name="href.target.relative">
+                              <xsl:with-param name="target" select="$boost.image.src"/>
+                          </xsl:call-template>
+                      </xsl:attribute>
+                  </img>
+               </xsl:if>
+            </td><xsl:choose>
+               <xsl:when test = "$nav.layout = 'horizontal'">
+                  <xsl:call-template name = "header.navdata-horiz"/>
+               </xsl:when><xsl:when test = "$nav.layout = 'vertical'">
+                  <xsl:call-template name = "header.navdata-vert"/>
+               </xsl:when>
+            </xsl:choose>
+         </tr></table>
+         <hr/>
+      </xsl:if>
       <xsl:choose>
          <xsl:when test = "$nav.flow = 'DocBook'">
             <table width = "100%" class = "navheader">

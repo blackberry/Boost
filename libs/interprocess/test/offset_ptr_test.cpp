@@ -11,24 +11,38 @@
 #include <boost/interprocess/detail/config_begin.hpp>
 #include <boost/interprocess/offset_ptr.hpp>
 #include <boost/interprocess/detail/type_traits.hpp>
+#include <boost/intrusive/pointer_traits.hpp>
+#include <boost/static_assert.hpp>
 
 using namespace boost::interprocess;
 
-bool test_types_and_convertions()
+class Base
+{};
+
+class Derived
+   : public Base
+{};
+
+class VirtualDerived
+   : public virtual Base
+{};
+
+bool test_types_and_conversions()
 {
    typedef offset_ptr<int>                pint_t;
    typedef offset_ptr<const int>          pcint_t;
    typedef offset_ptr<volatile int>       pvint_t;
    typedef offset_ptr<const volatile int> pcvint_t;
 
-   if(!ipcdetail::is_same<pint_t::value_type, int>::value)
-      return false;
-   if(!ipcdetail::is_same<pcint_t::value_type, const int>::value)
-      return false;
-   if(!ipcdetail::is_same<pvint_t::value_type, volatile int>::value)
-      return false;
-   if(!ipcdetail::is_same<pcvint_t::value_type, const volatile int>::value)
-      return false;
+   BOOST_STATIC_ASSERT((ipcdetail::is_same<pint_t::element_type, int>::value));
+   BOOST_STATIC_ASSERT((ipcdetail::is_same<pcint_t::element_type, const int>::value));
+   BOOST_STATIC_ASSERT((ipcdetail::is_same<pvint_t::element_type, volatile int>::value));
+   BOOST_STATIC_ASSERT((ipcdetail::is_same<pcvint_t::element_type, const volatile int>::value));
+
+   BOOST_STATIC_ASSERT((ipcdetail::is_same<pint_t::value_type,   int>::value));
+   BOOST_STATIC_ASSERT((ipcdetail::is_same<pcint_t::value_type,  int>::value));
+   BOOST_STATIC_ASSERT((ipcdetail::is_same<pvint_t::value_type,  int>::value));
+   BOOST_STATIC_ASSERT((ipcdetail::is_same<pcvint_t::value_type, int>::value));
    int dummy_int = 9;
 
    {  pint_t pint(&dummy_int);   pcint_t  pcint(pint);
@@ -46,7 +60,7 @@ bool test_types_and_convertions()
    pcint_t  pcint(0);
    pvint_t  pvint(0);
    pcvint_t pcvint(0);
-   
+  
    pint     = &dummy_int;
    pcint    = &dummy_int;
    pvint    = &dummy_int;
@@ -65,6 +79,72 @@ bool test_types_and_convertions()
    if(pint)
       return false;
 
+   if(pint != 0)
+      return false;
+
+   if(0 != pint)
+      return false;
+
+   pint = &dummy_int;
+   if(0 == pint)
+      return false;
+
+   if(pint == 0)
+      return false;
+
+   pcint = &dummy_int;
+
+   if( (pcint - pint) != 0)
+      return false;
+
+   if( (pint - pcint) != 0)
+      return false;
+
+   return true;
+}
+
+template<class BasePtr, class DerivedPtr>
+bool test_base_derived_impl()
+{
+   typename DerivedPtr::element_type d;
+   DerivedPtr pderi(&d);
+
+   BasePtr pbase(pderi);
+   pbase = pderi;
+   if(pbase != pderi)
+      return false;
+   if(!(pbase == pderi))
+      return false;
+   if((pbase - pderi) != 0)
+      return false;
+   if(pbase < pderi)
+      return false;
+   if(pbase > pderi)
+      return false;
+   if(!(pbase <= pderi))
+      return false;
+   if(!(pbase >= pderi))
+      return false;
+
+   return true;
+}
+
+bool test_base_derived()
+{
+   typedef offset_ptr<Base>               pbase_t;
+   typedef offset_ptr<const Base>         pcbas_t;
+   typedef offset_ptr<Derived>            pderi_t;
+   typedef offset_ptr<VirtualDerived>     pvder_t;
+
+   if(!test_base_derived_impl<pbase_t, pderi_t>())
+      return false;
+   if(!test_base_derived_impl<pbase_t, pvder_t>())
+      return false;
+   if(!test_base_derived_impl<pcbas_t, pderi_t>())
+      return false;
+   if(!test_base_derived_impl<pcbas_t, pvder_t>())
+      return false;
+
    return true;
 }
 
@@ -73,7 +153,7 @@ bool test_arithmetic()
    typedef offset_ptr<int> pint_t;
    const int NumValues = 5;
    int values[NumValues];
-   
+  
    //Initialize p
    pint_t p = values;
    if(p.get() != values)
@@ -178,13 +258,33 @@ bool test_comparison()
    return true;
 }
 
+bool test_pointer_traits()
+{
+   typedef offset_ptr<int> OInt;
+   typedef boost::intrusive::pointer_traits< OInt > PTOInt;
+   BOOST_STATIC_ASSERT((ipcdetail::is_same<PTOInt::element_type, int>::value));
+   BOOST_STATIC_ASSERT((ipcdetail::is_same<PTOInt::pointer, OInt >::value));
+   BOOST_STATIC_ASSERT((ipcdetail::is_same<PTOInt::difference_type, OInt::difference_type >::value));
+   BOOST_STATIC_ASSERT((ipcdetail::is_same<PTOInt::rebind_pointer<double>::type, offset_ptr<double> >::value));
+   int dummy;
+   OInt oi(&dummy);
+   if(boost::intrusive::pointer_traits<OInt>::pointer_to(dummy) != oi){
+      return false;
+   }
+   return true;
+}
+
 int main()
 {
-   if(!test_types_and_convertions())
+   if(!test_types_and_conversions())
+      return 1;
+   if(!test_base_derived())
       return 1;
    if(!test_arithmetic())
       return 1;
    if(!test_comparison())
+      return 1;
+   if(!test_pointer_traits())
       return 1;
    return 0;
 }

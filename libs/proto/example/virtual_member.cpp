@@ -75,7 +75,7 @@ namespace mini_lambda
         static const value_type value = N::value;
     };
 
-    // Some keyword types for our lambda DSEL
+    // Some keyword types for our lambda EDSL
     namespace keyword
     {
         struct if_ {};

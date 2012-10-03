@@ -102,7 +102,7 @@ void named_slot_map::disconnect(const stored_group& name)
       i->first.disconnect();
       i = next;
     }
-    groups.erase(group);
+    groups.erase((const_group_iterator) group);
   }
 }
 
@@ -125,7 +125,7 @@ void named_slot_map::remove_disconnected_slots()
     }
 
     // Clear out empty groups
-    if (empty(g)) groups.erase(g++);
+    if (empty(g)) groups.erase((const_group_iterator) g++);
     else ++g;
   }
 }

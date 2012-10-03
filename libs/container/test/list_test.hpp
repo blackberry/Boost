@@ -26,14 +26,14 @@ namespace container {
 namespace test{
 
 template<class V1, class V2>
-bool list_copyable_only(V1 *, V2 *, boost::container::containers_detail::false_type)
+bool list_copyable_only(V1 *, V2 *, boost::container::container_detail::false_type)
 {
    return true;
 }
 
 //Function to check if both sets are equal
 template<class V1, class V2>
-bool list_copyable_only(V1 *boostlist, V2 *stdlist, boost::container::containers_detail::true_type)
+bool list_copyable_only(V1 *boostlist, V2 *stdlist, boost::container::container_detail::true_type)
 {
    typedef typename V1::value_type IntType;
    boostlist->insert(boostlist->end(), 50, IntType(1));
@@ -258,7 +258,7 @@ int list_test (bool copied_allocators_equal = true)
             boostlist->splice(boostlist->begin(), otherboostlist);
             stdlist->splice(stdlist->begin(), otherstdlist);
             if(!CheckEqualContainers(boostlist, stdlist))
-               return 1;   
+               return 1;  
          }
 
          listsize = (int)boostlist->size();
@@ -289,7 +289,7 @@ int list_test (bool copied_allocators_equal = true)
          }
 
          if(!list_copyable_only(boostlist, stdlist
-                        ,containers_detail::bool_<boost::container::test::is_copyable<IntType>::value>())){
+                        ,container_detail::bool_<boost::container::test::is_copyable<IntType>::value>())){
             return 1;
          }
       }

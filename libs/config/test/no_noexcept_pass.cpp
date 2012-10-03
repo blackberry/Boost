@@ -10,9 +10,9 @@
 //
 
 
-// Test file for macro BOOST_NO_NOEXCEPT
+// Test file for macro BOOST_NO_CXX11_NOEXCEPT
 // This file should compile, if it does not then
-// BOOST_NO_NOEXCEPT should be defined.
+// BOOST_NO_CXX11_NOEXCEPT should be defined.
 // See file boost_no_noexcept.ipp for details
 
 // Must not have BOOST_ASSERT_CONFIG set; it defeats
@@ -24,7 +24,7 @@
 #include <boost/config.hpp>
 #include "test.hpp"
 
-#ifndef BOOST_NO_NOEXCEPT
+#ifndef BOOST_NO_CXX11_NOEXCEPT
 #include "boost_no_noexcept.ipp"
 #else
 namespace boost_no_noexcept = empty_boost;

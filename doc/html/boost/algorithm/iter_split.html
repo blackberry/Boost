@@ -36,7 +36,7 @@
   <span class="identifier">SequenceSequenceT</span> <span class="special">&amp;</span> 
   <span class="identifier">iter_split</span><span class="special">(</span><span class="identifier">SequenceSequenceT</span> <span class="special">&amp;</span> Result<span class="special">,</span> <span class="identifier">RangeT</span> <span class="special">&amp;</span> Input<span class="special">,</span> <span class="identifier">FinderT</span> Finder<span class="special">)</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="id3154020"></a><h2>Description</h2>
+<a name="id3278484"></a><h2>Description</h2>
 <p>This algorithm executes a given finder in iteration on the input, until the end of input is reached, or no match is found. Iteration is done using built-in <code class="computeroutput"><a class="link" href="find_iterator.html" title="Class template find_iterator">find_iterator</a></code>, so the real searching is performed only when needed. Each match is used as a separator of segments. These segments are then returned in the result.</p>
 <p>
 
@@ -68,14 +68,14 @@
 </tr>
 <tr>
 <td><p><span class="term"><code class="computeroutput">Result</code></span></p></td>
-<td><p>A 'container container' to container the result of search. Both outer and inner container must have constructor taking a pair of iterators as an argument. Typical type of the result is <code class="computeroutput">std::vector&lt;boost::iterator_range&lt;iterator&gt;&gt;</code> (each element of such a vector will container a range delimiting a match). </p></td>
+<td><p>A 'container container' to contain the result of search. Both outer and inner container must have constructor taking a pair of iterators as an argument. Typical type of the result is <code class="computeroutput">std::vector&lt;boost::iterator_range&lt;iterator&gt;&gt;</code> (each element of such a vector will container a range delimiting a match). </p></td>
 </tr>
 </tbody>
 </table></div></td>
 </tr>
 <tr>
 <td><p><span class="term">Returns:</span></p></td>
-<td><p>A reference the result</p></td>
+<td><p>A reference to the result</p></td>
 </tr>
 </tbody>
 </table></div>

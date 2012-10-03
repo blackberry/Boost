@@ -13,7 +13,7 @@
 #include <cstdlib>                            // rand, toupper, tolower (VC6)
 #include <fstream>
 #include <string>
-#include <boost/filesystem/v3/operations.hpp>
+#include <boost/filesystem/operations.hpp>
 #include "./constants.hpp"
 
 #ifdef BOOST_NO_STDC_NAMESPACE
@@ -39,7 +39,7 @@ public:
     operator const ::std::string() const { return name_; }
 private:
     void set_name() {
-        name_ = boost::filesystem3::unique_path().string();
+        name_ = boost::filesystem::unique_path().string();
     }
 
     ::std::string name_;

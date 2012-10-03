@@ -8,7 +8,7 @@
 
 #include "./list.hpp"
 #include <algorithm>
-#include <boost/mpl/if.hpp>
+#include <boost/detail/select_type.hpp>
 #include "./generators.hpp"
 #include "./metafunctions.hpp"
 
@@ -81,10 +81,12 @@ namespace test
 
     template <class X>
     struct unordered_generator_base
-        : public boost::mpl::if_<
-            test::is_set<X>,
+        : public boost::detail::if_true<
+            test::is_set<X>::value
+        >::BOOST_NESTED_TEMPLATE then<
             test::unordered_generator_set<X>,
-            test::unordered_generator_map<X> >
+            test::unordered_generator_map<X>
+        >
     {
     };
 

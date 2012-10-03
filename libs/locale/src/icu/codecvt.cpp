@@ -133,29 +133,12 @@ namespace impl_icu {
     {
         std::auto_ptr<util::base_converter> cvt;
         if(conv::impl::normalize_encoding(encoding.c_str())=="utf8")
-#if defined(__QNX__)
-        {
-            std::auto_ptr<util::base_converter> temp = util::create_utf8_converter();
-            cvt = temp; 
-        }
-#else
             cvt = util::create_utf8_converter(); 
-#endif
         else {
-#if defined(__QNX__)
-            std::auto_ptr<util::base_converter> temp = util::create_simple_converter(encoding);
-            cvt = temp; 
-#else
             cvt = util::create_simple_converter(encoding);
-#endif
             if(!cvt.get()) {
                 try {
-#if defined(__QNX__)
-                    std::auto_ptr<util::base_converter> temp = create_uconv_converter(encoding);
-                    cvt = temp; 
-#else
                     cvt = create_uconv_converter(encoding);
-#endif
                 }
                 catch(std::exception const &/*e*/)
                 {

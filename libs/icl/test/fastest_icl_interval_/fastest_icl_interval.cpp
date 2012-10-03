@@ -40,34 +40,34 @@ using namespace boost::icl;
 //= Traits
 //==============================================================================
 BOOST_AUTO_TEST_CASE
-(fastest_itl_discrete_interval_traits)
+(fastest_icl_discrete_interval_traits)
 {            discrete_interval_traits<discrete_type_1, discrete_interval<discrete_type_1> >(); }
 
 //==============================================================================
 
 //- sta.asy.{dis|con} ----------------------------------------------------------
 BOOST_AUTO_TEST_CASE
-(fastest_itl_right_open_interval_ctor_4_ordered_types)
+(fastest_icl_right_open_interval_ctor_4_ordered_types)
 {                       interval_ctor_4_ordered_types<right_open_interval<ordered_type_1> >(); }
 
 BOOST_AUTO_TEST_CASE
-(fastest_itl_right_open_interval_4_ordered_types)
+(fastest_icl_right_open_interval_4_ordered_types)
 {          singelizable_interval_4_ordered_types<right_open_interval<discrete_type_1> >(); }
 
 BOOST_AUTO_TEST_CASE
-(fastest_itl_right_open_interval_4_bicremental_types)
+(fastest_icl_right_open_interval_4_bicremental_types)
 {          singelizable_interval_4_bicremental_types<right_open_interval<discrete_type_2> >(); }
 
 BOOST_AUTO_TEST_CASE
-(fastest_itl_left_open_interval_ctor_4_ordered_types)
+(fastest_icl_left_open_interval_ctor_4_ordered_types)
 {                      interval_ctor_4_ordered_types<left_open_interval<ordered_type_2> >(); }
 
 BOOST_AUTO_TEST_CASE
-(fastest_itl_left_open_interval_4_ordered_types_singelizable)
+(fastest_icl_left_open_interval_4_ordered_types_singelizable)
 {         singelizable_interval_4_ordered_types<left_open_interval<signed_discrete_type_1> >(); }
 
 BOOST_AUTO_TEST_CASE
-(fastest_itl_left_open_interval_4_bicremental_types)
+(fastest_icl_left_open_interval_4_bicremental_types)
 {         singelizable_interval_4_bicremental_types<left_open_interval<discrete_type_4> >(); }
 
 //- coverables -----------------------------------------------------------------
@@ -81,47 +81,47 @@ BOOST_AUTO_TEST_CASE
 
 //- dyn.dis --------------------------------------------------------------------
 BOOST_AUTO_TEST_CASE
-(fastest_itl_discrete_interval_ctor_4_discrete_types_base)
+(fastest_icl_discrete_interval_ctor_4_discrete_types_base)
 {                     interval_ctor_4_ordered_types<discrete_interval<discrete_type_1> >(); }
 
 BOOST_AUTO_TEST_CASE
-(fastest_itl_discrete_interval_ctor_4_discrete_types_dynamic)
+(fastest_icl_discrete_interval_ctor_4_discrete_types_dynamic)
 {             dynamic_interval_ctor_4_ordered_types<discrete_interval<discrete_type_2> >(); }
 
 BOOST_AUTO_TEST_CASE
-(fastest_itl_discrete_interval_4_ordered_types)
+(fastest_icl_discrete_interval_4_ordered_types)
 {        singelizable_interval_4_ordered_types<discrete_interval<discrete_type_3> >(); }
 
 BOOST_AUTO_TEST_CASE
-(fastest_itl_discrete_interval_4_bicremental_types)
+(fastest_icl_discrete_interval_4_bicremental_types)
 {        singelizable_interval_4_bicremental_types<discrete_interval<discrete_type_3> >(); }
 
 //- dyn.con --------------------------------------------------------------------
 BOOST_AUTO_TEST_CASE
-(fastest_itl_continuous_interval_ctor_4_continuous_types_base)
+(fastest_icl_continuous_interval_ctor_4_continuous_types_base)
 {                       interval_ctor_4_ordered_types<continuous_interval<continuous_type_1> >(); }
 
 BOOST_AUTO_TEST_CASE
-(fastest_itl_continuous_interval_ctor_4_continuous_types_dynamic)
+(fastest_icl_continuous_interval_ctor_4_continuous_types_dynamic)
 {               dynamic_interval_ctor_4_ordered_types<continuous_interval<continuous_type_2> >(); }
 
 BOOST_AUTO_TEST_CASE
-(fastest_itl_continuous_interval_4_continuous_types_singelizable)
+(fastest_icl_continuous_interval_4_continuous_types_singelizable)
 {          singelizable_interval_4_ordered_types<continuous_interval<continuous_type_3> >(); }
 
 //------------------------------------------------------------------------------
 
 BOOST_AUTO_TEST_CASE
-(fastest_itl_distant_intervals_4_discrete_types)
+(fastest_icl_distant_intervals_4_discrete_types)
 {            distant_intervals_4_discrete_types<discrete_type_1, std::less>(); }
 
 BOOST_AUTO_TEST_CASE
-(fastest_itl_distant_intervals_4_numeric_continuous_types)
+(fastest_icl_distant_intervals_4_numeric_continuous_types)
 {            distant_intervals_4_numeric_continuous_types<numeric_continuous_type_1, std::less>(); }
 
 //------------------------------------------------------------------------------
 BOOST_AUTO_TEST_CASE
-(fastest_itl_dynamic_interval_bounds_4_bicremental_types)
+(fastest_icl_dynamic_interval_bounds_4_bicremental_types)
 {            dynamic_interval_bounds_4_bicremental_types<bicremental_type_2>(); }
 
 //==============================================================================

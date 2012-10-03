@@ -16,7 +16,6 @@
 #include <fstream>
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
-#include <boost/test/test_tools.hpp>
 #include <boost/test/unit_test.hpp>
 
 #include <boost/iostreams/stream.hpp>
@@ -66,7 +65,7 @@ bool test_resizeable(mapped_file& mf)
 void mapped_file_test()
 {
     using namespace boost::iostreams;
-    BOOST_MESSAGE("about to begin");
+    BOOST_TEST_MESSAGE("about to begin");
 
     //--------------Reading from a mapped_file_source-------------------------//
 
@@ -86,7 +85,7 @@ void mapped_file_test()
                 "failed reading from stream<mapped_file_source> in chars"
             );
 
-            BOOST_MESSAGE(
+            BOOST_TEST_MESSAGE(
                 "done reading from stream<mapped_file_source> in chars"
             );
         }
@@ -103,7 +102,7 @@ void mapped_file_test()
                 "failed reading from stream<mapped_file_source> in chunks"
             );
 
-            BOOST_MESSAGE(
+            BOOST_TEST_MESSAGE(
                 "done reading from stream<mapped_file_source> in chunks"
             );
         }
@@ -126,7 +125,7 @@ void mapped_file_test()
             "failed writing to stream<mapped_file_sink> in chars"
         );
 
-        BOOST_MESSAGE(
+        BOOST_TEST_MESSAGE(
             "done writing to stream<mapped_file_source> in chars"
         );
 
@@ -140,7 +139,7 @@ void mapped_file_test()
             "failed writing to stream<mapped_file_sink> in chunks"
         );
 
-        BOOST_MESSAGE(
+        BOOST_TEST_MESSAGE(
             "done writing to stream<mapped_file_source> in chunks"
         );
     }
@@ -206,7 +205,7 @@ void mapped_file_test()
             "failed seeking within stream<mapped_file> in chars"
         );
 
-        BOOST_MESSAGE(
+        BOOST_TEST_MESSAGE(
             "done seeking within stream<mapped_file> in chars"
         );
 
@@ -221,7 +220,7 @@ void mapped_file_test()
             "failed seeking within stream<mapped_file> in chunks"
         );
 
-        BOOST_MESSAGE(
+        BOOST_TEST_MESSAGE(
             "done seeking within stream<mapped_file> in chunks"
         );
     }
@@ -238,7 +237,7 @@ void mapped_file_test()
             "failed resizing a mapped_file"
         );
         
-        BOOST_MESSAGE(
+        BOOST_TEST_MESSAGE(
             "done resizing a mapped_file"
         );
     }
@@ -263,7 +262,7 @@ void mapped_file_test()
             "failed writing to private mapped_file"
         );
         
-        BOOST_MESSAGE(
+        BOOST_TEST_MESSAGE(
             "done seeking within private mapped_file"
         );
         
@@ -280,7 +279,7 @@ void mapped_file_test()
             "failed writing to reopened private mapped_file"
         );
         
-        BOOST_MESSAGE(
+        BOOST_TEST_MESSAGE(
             "done reopening private mapped_file"
         );
     }

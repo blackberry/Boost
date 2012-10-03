@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../interprocess.html" title="Chapter&#160;11.&#160;Boost.Interprocess">
+<link rel="up" href="../interprocess.html" title="Chapter&#160;12.&#160;Boost.Interprocess">
 <link rel="prev" href="offset_ptr.html" title="Mapping Address Independent Pointer: offset_ptr">
 <link rel="next" href="managed_memory_segments.html" title="Managed Memory Segments">
 </head>
@@ -320,6 +320,17 @@
 <p>
           <span class="bold"><strong>Throws:</strong></span> An exception derived from <span class="bold"><strong>interprocess_exception</strong></span> on error.
         </p>
+<div class="important"><table border="0" summary="Important">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Important]" src="../../../doc/src/images/important.png"></td>
+<th align="left">Important</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">posix_time</span><span class="special">::</span><span class="identifier">ptime</span></code> absolute time points used by
+            Boost.Interprocess synchronization mechanisms are UTC time points, not
+            local time points
+          </p></td></tr>
+</table></div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -339,7 +350,7 @@
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">interprocess</span><span class="special">/</span><span class="identifier">sync</span><span class="special">/</span><span class="identifier">interprocess_recursive_mutex</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 </pre>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
-              <code class="computeroutput"><a class="link" href="../boost/interprocess/interprocess_recursive__id977749.html" title="Class interprocess_recursive_mutex">interprocess_recursive_mutex</a></code>:
+              <code class="computeroutput"><a class="link" href="../boost/interprocess/interprocess_rec_id1003782.html" title="Class interprocess_recursive_mutex">interprocess_recursive_mutex</a></code>:
               A recursive, anonymous mutex that can be placed in shared memory or
               memory mapped files.
             </li></ul></div>
@@ -420,6 +431,17 @@
           For more information, check the <code class="computeroutput"><a class="link" href="../boost/interprocess/scoped_lock.html" title="Class template scoped_lock">scoped_lock's
           reference</a></code>.
         </p>
+<div class="important"><table border="0" summary="Important">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Important]" src="../../../doc/src/images/important.png"></td>
+<th align="left">Important</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">posix_time</span><span class="special">::</span><span class="identifier">ptime</span></code> absolute time points used by
+            Boost.Interprocess synchronization mechanisms are UTC time points, not
+            local time points
+          </p></td></tr>
+</table></div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -1262,7 +1284,7 @@
           To sum up:
         </p>
 <div class="table">
-<a name="interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_whats_a_mutex.t0"></a><p class="title"><b>Table&#160;11.5.&#160;Locking Possibilities</b></p>
+<a name="interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_whats_a_mutex.t0"></a><p class="title"><b>Table&#160;12.5.&#160;Locking Possibilities</b></p>
 <div class="table-contents"><table class="table" summary="Locking Possibilities">
 <colgroup>
 <col>
@@ -1329,7 +1351,7 @@
           data is guaranteed to remain unchanged</strong></span>:
         </p>
 <div class="table">
-<a name="interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_whats_a_mutex.t1"></a><p class="title"><b>Table&#160;11.6.&#160;Transition Possibilities</b></p>
+<a name="interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_whats_a_mutex.t1"></a><p class="title"><b>Table&#160;12.6.&#160;Transition Possibilities</b></p>
 <div class="table-contents"><table class="table" summary="Transition Possibilities">
 <colgroup>
 <col>
@@ -1504,8 +1526,8 @@
 <p>
             <span class="bold"><strong>Effects:</strong></span> The calling thread tries to
             acquire exclusive ownership of the mutex waiting if necessary until no
-            other thread has has exclusive, sharable or upgradable ownership of the
-            mutex or abs_time is reached.
+            other thread has exclusive, sharable or upgradable ownership of the mutex
+            or abs_time is reached.
           </p>
 <p>
             <span class="bold"><strong>Returns:</strong></span> If acquires exclusive ownership,
@@ -1547,7 +1569,7 @@
 <p>
             <span class="bold"><strong>Effects:</strong></span> The calling thread tries to
             obtain sharable ownership of the mutex, and if another thread has exclusive
-            or upgradable ownership of the mutex, waits until it can obtain the ownership.
+            ownership of the mutex, waits until it can obtain the ownership.
           </p>
 <p>
             <span class="bold"><strong>Throws:</strong></span> <span class="bold"><strong>interprocess_exception</strong></span>
@@ -1562,7 +1584,7 @@
 <p>
             <span class="bold"><strong>Effects:</strong></span> The calling thread tries to
             acquire sharable ownership of the mutex without waiting. If no other
-            thread has has exclusive or upgradable ownership of the mutex this succeeds.
+            thread has exclusive ownership of the mutex this succeeds.
           </p>
 <p>
             <span class="bold"><strong>Returns:</strong></span> If it can acquire sharable
@@ -1582,8 +1604,7 @@
 <p>
             <span class="bold"><strong>Effects:</strong></span> The calling thread tries to
             acquire sharable ownership of the mutex waiting if necessary until no
-            other thread has has exclusive or upgradable ownership of the mutex or
-            abs_time is reached.
+            other thread has exclusive ownership of the mutex or abs_time is reached.
           </p>
 <p>
             <span class="bold"><strong>Returns:</strong></span> If acquires sharable ownership,
@@ -1640,7 +1661,7 @@
 <p>
             <span class="bold"><strong>Effects:</strong></span> The calling thread tries to
             acquire upgradable ownership of the mutex without waiting. If no other
-            thread has has exclusive or upgradable ownership of the mutex this succeeds.
+            thread has exclusive or upgradable ownership of the mutex this succeeds.
           </p>
 <p>
             <span class="bold"><strong>Returns:</strong></span> If it can acquire upgradable
@@ -1660,8 +1681,7 @@
 <p>
             <span class="bold"><strong>Effects:</strong></span> The calling thread tries to
             acquire upgradable ownership of the mutex waiting if necessary until
-            no other thread has has exclusive or upgradable ownership of the mutex
-            or abs_time is reached.
+            no other thread has exclusive ownership of the mutex or abs_time is reached.
           </p>
 <p>
             <span class="bold"><strong>Returns:</strong></span> If acquires upgradable ownership,
@@ -1864,6 +1884,17 @@
 <p>
             <span class="bold"><strong>Throws:</strong></span> An exception derived from <span class="bold"><strong>interprocess_exception</strong></span> on error.
           </p>
+<div class="important"><table border="0" summary="Important">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Important]" src="../../../doc/src/images/important.png"></td>
+<th align="left">Important</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+              <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">posix_time</span><span class="special">::</span><span class="identifier">ptime</span></code> absolute time points used by
+              Boost.Interprocess synchronization mechanisms are UTC time points,
+              not local time points
+            </p></td></tr>
+</table></div>
 </div>
 </div>
 <div class="section">
@@ -1877,7 +1908,7 @@
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">interprocess</span><span class="special">/</span><span class="identifier">sync</span><span class="special">/</span><span class="identifier">interprocess_upgradable_mutex</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 </pre>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
-              <code class="computeroutput"><a class="link" href="../boost/interprocess/interprocess_upgradable_id978122.html" title="Class interprocess_upgradable_mutex">interprocess_upgradable_mutex</a></code>:
+              <code class="computeroutput"><a class="link" href="../boost/interprocess/interprocess_upg_id1004155.html" title="Class interprocess_upgradable_mutex">interprocess_upgradable_mutex</a></code>:
               A non-recursive, anonymous upgradable mutex that can be placed in shared
               memory or memory mapped files.
             </li></ul></div>
@@ -2033,6 +2064,17 @@
           and <code class="computeroutput"><a class="link" href="../boost/interprocess/sharable_lock.html" title="Class template sharable_lock">sharable_lock</a></code>
           offer more features and operations, see their reference for more informations
         </p>
+<div class="important"><table border="0" summary="Important">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Important]" src="../../../doc/src/images/important.png"></td>
+<th align="left">Important</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">posix_time</span><span class="special">::</span><span class="identifier">ptime</span></code> absolute time points used by
+            Boost.Interprocess synchronization mechanisms are UTC time points, not
+            local time points
+          </p></td></tr>
+</table></div>
 </div>
 </div>
 <div class="section">
@@ -2217,6 +2259,17 @@
    <span class="identifier">scoped_lock</span><span class="special">&lt;</span><span class="identifier">Mutex</span><span class="special">&gt;</span>      <span class="identifier">e_lock</span><span class="special">(</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">s_lock</span><span class="special">,</span> <span class="identifier">try_to_lock</span><span class="special">));</span>
 <span class="special">}</span>
 </pre>
+<div class="important"><table border="0" summary="Important">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Important]" src="../../../doc/src/images/important.png"></td>
+<th align="left">Important</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+              <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">posix_time</span><span class="special">::</span><span class="identifier">ptime</span></code> absolute time points used by
+              Boost.Interprocess synchronization mechanisms are UTC time points,
+              not local time points
+            </p></td></tr>
+</table></div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h5 class="title">
@@ -2550,7 +2603,7 @@
 <p>
           <span class="bold"><strong>Effects:</strong></span> The calling thread tries to acquire
           exclusive ownership of the file lock waiting if necessary until no other
-          thread has has exclusive or sharable ownership of the file lock or abs_time
+          thread has exclusive or sharable ownership of the file lock or abs_time
           is reached.
         </p>
 <p>
@@ -2602,7 +2655,7 @@
 <p>
           <span class="bold"><strong>Effects:</strong></span> The calling thread tries to acquire
           sharable ownership of the file lock without waiting. If no other thread
-          has has exclusive ownership of the file lock, this succeeds.
+          has exclusive ownership of the file lock, this succeeds.
         </p>
 <p>
           <span class="bold"><strong>Returns:</strong></span> If it can acquire sharable ownership
@@ -2622,7 +2675,7 @@
 <p>
           <span class="bold"><strong>Effects:</strong></span> The calling thread tries to acquire
           sharable ownership of the file lock waiting if necessary until no other
-          thread has has exclusive ownership of the file lock or abs_time is reached.
+          thread has exclusive ownership of the file lock or abs_time is reached.
         </p>
 <p>
           <span class="bold"><strong>Returns:</strong></span> If acquires sharable ownership,
@@ -2653,6 +2706,17 @@
           For more file locking methods, please <code class="computeroutput"><a class="link" href="../boost/interprocess/file_lock.html" title="Class file_lock">file_lock
           reference</a></code>.
         </p>
+<div class="important"><table border="0" summary="Important">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Important]" src="../../../doc/src/images/important.png"></td>
+<th align="left">Important</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">posix_time</span><span class="special">::</span><span class="identifier">ptime</span></code> absolute time points used by
+            Boost.Interprocess synchronization mechanisms are UTC time points, not
+            local time points
+          </p></td></tr>
+</table></div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -3042,7 +3106,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2005-2010 Ion Gaztanaga<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2005-2011 Ion Gaztanaga<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

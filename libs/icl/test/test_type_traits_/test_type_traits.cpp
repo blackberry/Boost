@@ -15,7 +15,7 @@ Copyright (c) 2008-2009: Joachim Faulhaber
 #include <set>
 #include <boost/mpl/list.hpp>
 #include "../unit_test_unwarned.hpp"
-#include <boost/test/test_case_template.hpp>
+
 
 // interval instance types
 #include "../test_type_lists.hpp"
@@ -82,7 +82,7 @@ BOOST_AUTO_TEST_CASE(test_is_key_container_of)
     BOOST_CHECK((!is_key_container_of<int, icl::map<int,int> >::value));
     BOOST_CHECK((!is_key_container_of<std::pair<int,int> , icl::map<int,int> >::value));
     BOOST_CHECK(( is_key_container_of<std::set<int>,       std::set<int>     >::value));
-    BOOST_CHECK(( is_key_container_of<std::set<int>,       icl::map<int,int> >::value));
+    BOOST_CHECK(( is_key_container_of<ICL_IMPL_SPACE::set<int>,       icl::map<int,int> >::value));
     BOOST_CHECK(( is_key_container_of<icl::map<int,int>,   icl::map<int,int> >::value));
 }
 
@@ -91,6 +91,10 @@ BOOST_AUTO_TEST_CASE(test_is_set_4_std_set)
     BOOST_CHECK( (is_set<std::set<int> >::value) );
     BOOST_CHECK( (is_element_set<std::set<int> >::value) );
     BOOST_CHECK( (!is_map<std::set<int> >::value) );
+
+    BOOST_CHECK( (is_set<ICL_IMPL_SPACE::set<int> >::value) );
+    BOOST_CHECK( (is_element_set<ICL_IMPL_SPACE::set<int> >::value) );
+    BOOST_CHECK( (!is_map<ICL_IMPL_SPACE::set<int> >::value) );
 }
 
 BOOST_AUTO_TEST_CASE(test_miscellaneous_type_traits)

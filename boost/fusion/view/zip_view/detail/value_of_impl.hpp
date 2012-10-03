@@ -16,6 +16,7 @@
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <boost/config.hpp>
 
 namespace boost { namespace fusion
 {
@@ -34,6 +35,13 @@ namespace boost { namespace fusion
                                mpl::identity<unused_type>,
                                result_of::value_of<It> >
             {};
+
+            // never called, but needed for decltype-based result_of (C++0x)
+#ifndef BOOST_NO_RVALUE_REFERENCES
+            template<typename It>
+            typename result<poly_value_of(It)>::type
+            operator()(It&&) const;
+#endif
         };
     }
 

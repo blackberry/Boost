@@ -2,7 +2,7 @@
 // detail/impl/task_io_service.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -45,7 +45,7 @@ void task_io_service::dispatch(Handler handler)
 
     BOOST_ASIO_HANDLER_CREATION((p.p, "io_service", this, "dispatch"));
 
-    post_immediate_completion(p.p);
+    post_non_private_immediate_completion(p.p);
     p.v = p.p = 0;
   }
 }

@@ -12,4 +12,7 @@ import quickbook-testing : quickbook-test quickbook-error-test ;
 
 test-suite quickbook.test :
     [ quickbook-test pass_thru ]
+    [ quickbook-test unbalanced_snippet1-1_5 ]
+    [ quickbook-error-test unbalanced_snippet1-1_6-fail ]
+    [ quickbook-error-test unbalanced_snippet2-1_6-fail ]
     ;

@@ -14,10 +14,9 @@
 
 namespace boost_has_ftime{
 
-void f()
+void f(FILETIME)
 {
     // this is never called, it just has to compile:
-   FILETIME ft;
 }
 
 int test()

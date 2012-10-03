@@ -1,7 +1,7 @@
 // Copyright (C) 2001-2003
 // William E. Kempf
 //
-//  Distributed under the Boost Software License, Version 1.0. (See accompanying 
+//  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 #include <vector>
@@ -89,6 +89,7 @@ private:
 template <typename M>
 void do_test(M* dummy=0)
 {
+    (void)dummy;
     typedef buffer_t<M> buffer_type;
     buffer_type::get_buffer();
     boost::thread thrd1(&buffer_type::do_receiver_thread);

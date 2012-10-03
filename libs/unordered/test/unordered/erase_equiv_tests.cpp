@@ -7,8 +7,9 @@
 // hairy with several tricky edge cases - so explicitly test each one.
 
 #include "../helpers/prefix.hpp"
-
 #include <boost/unordered_map.hpp>
+#include "../helpers/postfix.hpp"
+
 #include "../helpers/test.hpp"
 #include "../helpers/list.hpp"
 #include <set>
@@ -52,10 +53,10 @@ struct collision2_hash
 
 typedef boost::unordered_multimap<int, int,
     collision_hash, std::equal_to<int>,
-    test::allocator<std::pair<int const, int> > > collide_map;
+    test::allocator1<std::pair<int const, int> > > collide_map;
 typedef boost::unordered_multimap<int, int,
     collision2_hash, std::equal_to<int>,
-    test::allocator<std::pair<int const, int> > > collide_map2;
+    test::allocator2<std::pair<int const, int> > > collide_map2;
 typedef collide_map::value_type collide_value;
 typedef test::list<collide_value> collide_list;
 

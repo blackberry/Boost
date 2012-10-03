@@ -19,7 +19,6 @@ namespace std{
 }
 #endif
 
-
 #include "test_tools.hpp"
 #include <boost/detail/no_exceptions_support.hpp>
 

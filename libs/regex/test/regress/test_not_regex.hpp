@@ -48,6 +48,10 @@ void test_empty(boost::basic_regex<charT, traits>& r)
    {
       BOOST_REGEX_TEST_ERROR("Invalid value returned from basic_regex<>::status().", charT);
    }
+   if(r.begin() != r.end())
+   {
+      BOOST_REGEX_TEST_ERROR("Invalid value returned from basic_regex<>::begin().", charT);
+   }
 }
 
 template<class charT, class traits>

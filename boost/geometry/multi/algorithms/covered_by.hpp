@@ -1,8 +1,8 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -15,6 +15,7 @@
 #define BOOST_GEOMETRY_MULTI_ALGORITHMS_COVERED_BY_HPP
 
 
+#include <boost/geometry/algorithms/covered_by.hpp>
 #include <boost/geometry/multi/core/closure.hpp>
 #include <boost/geometry/multi/core/point_order.hpp>
 #include <boost/geometry/multi/core/tags.hpp>
@@ -29,9 +30,10 @@ namespace boost { namespace geometry
 namespace dispatch
 {
 
-template <typename Point, typename MultiPolygon, typename Strategy>
-struct covered_by<point_tag, multi_polygon_tag, Point, MultiPolygon, Strategy>
+template <typename Point, typename MultiPolygon>
+struct covered_by<Point, MultiPolygon, point_tag, multi_polygon_tag>
 {
+    template <typename Strategy>
     static inline bool apply(Point const& point, 
                 MultiPolygon const& multi_polygon, Strategy const& strategy)
     {

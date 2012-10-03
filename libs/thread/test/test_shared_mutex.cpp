@@ -6,8 +6,8 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/thread/thread.hpp>
 #include <boost/thread/xtime.hpp>
-#include "util.inl"
-#include "shared_mutex_locking_thread.hpp"
+#include <libs/thread/test/util.inl>
+#include <libs/thread/test/shared_mutex_locking_thread.hpp>
 
 #define CHECK_LOCKED_VALUE_EQUAL(mutex_name,value,expected_value)    \
     {                                                                \
@@ -18,7 +18,7 @@
 void test_multiple_readers()
 {
     unsigned const number_of_threads=10;
-    
+
     boost::thread_group pool;
 
     boost::shared_mutex rw_mutex;
@@ -65,7 +65,7 @@ void test_multiple_readers()
 void test_only_one_writer_permitted()
 {
     unsigned const number_of_threads=10;
-    
+
     boost::thread_group pool;
 
     boost::shared_mutex rw_mutex;
@@ -76,7 +76,7 @@ void test_only_one_writer_permitted()
     boost::condition_variable unblocked_condition;
     boost::mutex finish_mutex;
     boost::mutex::scoped_lock finish_lock(finish_mutex);
-    
+
     try
     {
         for(unsigned i=0;i<number_of_threads;++i)
@@ -116,10 +116,10 @@ void test_reader_blocks_writer()
     boost::condition_variable unblocked_condition;
     boost::mutex finish_mutex;
     boost::mutex::scoped_lock finish_lock(finish_mutex);
-    
+
     try
     {
-        
+
         pool.create_thread(locking_thread<boost::shared_lock<boost::shared_mutex> >(rw_mutex,unblocked_count,unblocked_count_mutex,unblocked_condition,
                                                                                     finish_mutex,simultaneous_running_count,max_simultaneous_running));
         {
@@ -177,7 +177,7 @@ void test_unlocking_writer_unblocks_all_readers()
         CHECK_LOCKED_VALUE_EQUAL(unblocked_count_mutex,unblocked_count,0U);
 
         write_lock.unlock();
-    
+
         {
             boost::mutex::scoped_lock lk(unblocked_count_mutex);
             while(unblocked_count<reader_count)
@@ -270,9 +270,9 @@ void test_unlocking_last_reader_only_unblocks_one_writer()
     CHECK_LOCKED_VALUE_EQUAL(unblocked_count_mutex,max_simultaneous_writers,1u);
 }
 
-boost::unit_test_framework::test_suite* init_unit_test_suite(int, char*[])
+boost::unit_test::test_suite* init_unit_test_suite(int, char*[])
 {
-    boost::unit_test_framework::test_suite* test =
+    boost::unit_test::test_suite* test =
         BOOST_TEST_SUITE("Boost.Threads: shared_mutex test suite");
 
     test->add(BOOST_TEST_CASE(&test_multiple_readers));
@@ -282,4 +282,17 @@ boost::unit_test_framework::test_suite* init_unit_test_suite(int, char*[])
     test->add(BOOST_TEST_CASE(&test_unlocking_last_reader_only_unblocks_one_writer));
 
     return test;
+}
+
+void remove_unused_warning()
+{
+
+  //../../../boost/test/results_collector.hpp:40:13: warning: unused function 'first_failed_assertion' [-Wunused-function]
+  //(void)first_failed_assertion;
+
+  //../../../boost/test/tools/floating_point_comparison.hpp:304:25: warning: unused variable 'check_is_close' [-Wunused-variable]
+  //../../../boost/test/tools/floating_point_comparison.hpp:326:25: warning: unused variable 'check_is_small' [-Wunused-variable]
+  (void)boost::test_tools::check_is_close;
+  (void)boost::test_tools::check_is_small;
+
 }

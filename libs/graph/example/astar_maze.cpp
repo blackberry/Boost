@@ -139,7 +139,7 @@ public:
   euclidean_heuristic(vertex_descriptor goal):m_goal(goal) {};
 
   double operator()(vertex_descriptor v) {
-    return sqrt(pow(m_goal[0] - v[0], 2) + pow(m_goal[1] - v[1], 2));
+    return sqrt(pow(double(m_goal[0] - v[0]), 2) + pow(double(m_goal[1] - v[1]), 2));
   }
 
 private:
@@ -221,7 +221,7 @@ std::ostream& operator<<(std::ostream& output, const maze& m) {
       if (x == 0)
         output << BARRIER;
       // Put the character representing this point in the maze grid.
-      vertex_descriptor u = {{x, y}};
+      vertex_descriptor u = {{x, vertices_size_type(y)}};
       if (m.solution_contains(u))
         output << ".";
       else if (m.has_barrier(u))

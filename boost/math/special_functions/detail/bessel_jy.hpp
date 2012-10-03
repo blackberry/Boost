@@ -215,8 +215,6 @@ int CF2_jy(T v, T x, T* p, T* q, const Policy& pol)
    Cr = br + a / temp;
    Dr = br;
    Di = bi;
-   //std::cout << "C = " << Cr << " " << Ci << std::endl;
-   //std::cout << "D = " << Dr << " " << Di << std::endl;
    if (fabs(Cr) + fabs(Ci) < tiny) { Cr = tiny; }
    if (fabs(Dr) + fabs(Di) < tiny) { Dr = tiny; }
    temp = Dr * Dr + Di * Di;
@@ -227,7 +225,6 @@ int CF2_jy(T v, T x, T* p, T* q, const Policy& pol)
    temp = fr;
    fr = temp * delta_r - fi * delta_i;
    fi = temp * delta_i + fi * delta_r;
-   //std::cout << fr << " " << fi << std::endl;
    for (k = 2; k < policies::get_max_series_iterations<Policy>(); k++)
    {
       a = k - 0.5f;
@@ -239,8 +236,6 @@ int CF2_jy(T v, T x, T* p, T* q, const Policy& pol)
       Ci = bi - a * Ci / temp;
       Dr = br + a * Dr;
       Di = bi + a * Di;
-      //std::cout << "C = " << Cr << " " << Ci << std::endl;
-      //std::cout << "D = " << Dr << " " << Di << std::endl;
       if (fabs(Cr) + fabs(Ci) < tiny) { Cr = tiny; }
       if (fabs(Dr) + fabs(Di) < tiny) { Dr = tiny; }
       temp = Dr * Dr + Di * Di;
@@ -253,7 +248,6 @@ int CF2_jy(T v, T x, T* p, T* q, const Policy& pol)
       fi = temp * delta_i + fi * delta_r;
       if (fabs(delta_r - 1) + fabs(delta_i) < tolerance)
          break;
-      //std::cout << fr << " " << fi << std::endl;
    }
    policies::check_series_iterations<T>("boost::math::bessel_jy<%1%>(%1%,%1%) in CF2_jy", k, pol);
    *p = fr;
@@ -491,6 +485,16 @@ int bessel_jy(T v, T x, T* J, T* Y, int kind, const Policy& pol)
            CF2_jy(u, x, &p, &q, pol);                  // continued fraction CF2_jy
            T t = u / x - fu;                   // t = J'/J
            gamma = (p - t) / q;
+           //
+           // We can't allow gamma to cancel out to zero competely as it messes up
+           // the subsequent logic.  So pretend that one bit didn't cancel out
+           // and set to a suitably small value.  The only test case we've been able to
+           // find for this, is when v = 8.5 and x = 4*PI.
+           //
+           if(gamma == 0)
+           {
+              gamma = u * tools::epsilon<T>() / x;
+           }
            Ju = sign(current) * sqrt(W / (q + gamma * (p - t)));
 
            Jv = Ju * ratio;                    // normalization
@@ -524,11 +528,11 @@ int bessel_jy(T v, T x, T* J, T* Y, int kind, const Policy& pol)
 
     if (reflect)
     {
-        if(tools::max_value<T>() * fabs(Yv_scale) < fabs(sp * Yv))
+        if((sp != 0) && (tools::max_value<T>() * fabs(Yv_scale) < fabs(sp * Yv)))
            *J = org_kind & need_j ? T(-sign(sp) * sign(Yv) * sign(Yv_scale) * policies::raise_overflow_error<T>(function, 0, pol)) : T(0);
         else
             *J = cp * Jv - (sp == 0 ? T(0) : T((sp * Yv) / Yv_scale));     // reflection formula
-        if(tools::max_value<T>() * fabs(Yv_scale) < fabs(cp * Yv))
+        if((cp != 0) && (tools::max_value<T>() * fabs(Yv_scale) < fabs(cp * Yv)))
            *Y = org_kind & need_y ? T(-sign(cp) * sign(Yv) * sign(Yv_scale) * policies::raise_overflow_error<T>(function, 0, pol)) : T(0);
         else
            *Y = sp * Jv + (cp == 0 ? T(0) : T((cp * Yv) / Yv_scale));

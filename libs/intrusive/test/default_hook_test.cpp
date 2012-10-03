@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2007-2009
+// (C) Copyright Ion Gaztanaga  2007-2012
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -16,6 +16,7 @@
 #include <boost/intrusive/splay_set.hpp>
 #include <boost/intrusive/avl_set.hpp>
 #include <boost/intrusive/sg_set.hpp>
+#include <boost/intrusive/pointer_traits.hpp>
 #include "smart_ptr.hpp"
 #include <vector>
 
@@ -78,7 +79,8 @@ int main()
    List  my_list;
    Slist my_slist;
    Set   my_set;
-   USet  my_uset(USet::bucket_traits(buckets, 100));
+   USet  my_uset(USet::bucket_traits(pointer_traits<USet::bucket_ptr>::pointer_to(*buckets), 100));
+
    AvlSet   my_avlset;
    SplaySet my_splayset;
    SgSet    my_sgset;

@@ -77,8 +77,8 @@ class movable_int
    int m_int;
 };
 
-template<class E, class T> 
-std::basic_ostream<E, T> & operator<< 
+template<class E, class T>
+std::basic_ostream<E, T> & operator<<
    (std::basic_ostream<E, T> & os, movable_int const & p)
 
 {
@@ -109,7 +109,7 @@ class movable_and_copyable_int
    movable_and_copyable_int(const movable_and_copyable_int& mmi)
       :  m_int(mmi.m_int)
    {}
-   
+  
    movable_and_copyable_int(BOOST_RV_REF(movable_and_copyable_int) mmi)
       :  m_int(mmi.m_int)
    {  mmi.m_int = 0; }
@@ -148,8 +148,8 @@ class movable_and_copyable_int
    int m_int;
 };
 
-template<class E, class T> 
-std::basic_ostream<E, T> & operator<< 
+template<class E, class T>
+std::basic_ostream<E, T> & operator<<
    (std::basic_ostream<E, T> & os, movable_and_copyable_int const & p)
 
 {
@@ -177,7 +177,7 @@ class copyable_int
    copyable_int(const copyable_int& mmi)
       :  m_int(mmi.m_int)
    {}
-   
+  
    copyable_int & operator= (int i)
    {  this->m_int = i;  return *this;  }
 
@@ -206,8 +206,8 @@ class copyable_int
    int m_int;
 };
 
-template<class E, class T> 
-std::basic_ostream<E, T> & operator<< 
+template<class E, class T>
+std::basic_ostream<E, T> & operator<<
    (std::basic_ostream<E, T> & os, copyable_int const & p)
 
 {
@@ -219,6 +219,45 @@ template<>
 struct is_copyable<copyable_int>
 {
    static const bool value = true;
+};
+
+class non_copymovable_int
+{
+   non_copymovable_int(const non_copymovable_int& mmi);
+   non_copymovable_int & operator= (const non_copymovable_int &mi);
+
+   public:
+   non_copymovable_int()
+      :  m_int(0)
+   {}
+
+   explicit non_copymovable_int(int a)
+      :  m_int(a)
+   {}
+
+   bool operator ==(const non_copymovable_int &mi) const
+   {  return this->m_int == mi.m_int;   }
+
+   bool operator !=(const non_copymovable_int &mi) const
+   {  return this->m_int != mi.m_int;   }
+
+   bool operator <(const non_copymovable_int &mi) const
+   {  return this->m_int < mi.m_int;   }
+
+   bool operator <=(const non_copymovable_int &mi) const
+   {  return this->m_int <= mi.m_int;   }
+
+   bool operator >=(const non_copymovable_int &mi) const
+   {  return this->m_int >= mi.m_int;   }
+
+   bool operator >(const non_copymovable_int &mi) const
+   {  return this->m_int > mi.m_int;   }
+
+   int get_int() const
+   {  return m_int;  }
+
+   private:
+   int m_int;
 };
 
 }  //namespace test {

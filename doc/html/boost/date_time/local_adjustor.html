@@ -39,13 +39,13 @@
   <span class="keyword">typedef</span> <span class="identifier">time_type</span><span class="special">::</span><span class="identifier">date_type</span>                                                                                <a name="boost.date_time.local_adjustor.date_type"></a><span class="identifier">date_type</span><span class="special">;</span>         
   <span class="keyword">typedef</span> <a class="link" href="static_local_time_adjustor.html" title="Class template static_local_time_adjustor">static_local_time_adjustor</a><span class="special">&lt;</span> <span class="identifier">time_type</span><span class="special">,</span> <span class="identifier">dst_rule</span><span class="special">,</span> <a class="link" href="utc_adjustment.html" title="Class template utc_adjustment">utc_adjustment</a><span class="special">&lt;</span> <span class="identifier">time_duration_type</span><span class="special">,</span> <span class="identifier">utc_offset</span> <span class="special">&gt;</span> <span class="special">&gt;</span> <a name="boost.date_time.local_adjustor.dst_adjustor"></a><span class="identifier">dst_adjustor</span><span class="special">;</span>      
 
-  <span class="comment">// <a class="link" href="local_adjustor.html#id345956-bb">public static functions</a></span>
-  <span class="keyword">static</span> <span class="identifier">time_type</span> <a class="link" href="local_adjustor.html#id345958-bb"><span class="identifier">utc_to_local</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">time_type</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="local_adjustor.html#id372370-bb">public static functions</a></span>
+  <span class="keyword">static</span> <span class="identifier">time_type</span> <a class="link" href="local_adjustor.html#id372374-bb"><span class="identifier">utc_to_local</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">time_type</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
   <span class="keyword">static</span> <span class="identifier">time_type</span> 
-  <a class="link" href="local_adjustor.html#id345975-bb"><span class="identifier">local_to_utc</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">time_type</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">date_time</span><span class="special">::</span><span class="identifier">dst_flags</span> <span class="special">=</span> <span class="identifier">date_time</span><span class="special">::</span><span class="identifier">calculate</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="local_adjustor.html#id363335-bb"><span class="identifier">local_to_utc</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">time_type</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">date_time</span><span class="special">::</span><span class="identifier">dst_flags</span> <span class="special">=</span> <span class="identifier">date_time</span><span class="special">::</span><span class="identifier">calculate</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="id1407661"></a><h2>Description</h2>
+<a name="id1425726"></a><h2>Description</h2>
 <p>Use this template to create the timezone to utc convertors as required.</p>
 <p>This class will also work for other regions that don't use dst and have a utc offset which is an integral number of hours.</p>
 <p><span class="bold"><strong>Template Parameters</strong></span> -time_type -- Time class to use -utc_offset -- Number hours local time is adjust from utc -use_dst -- true (default) if region uses dst, false otherwise For example: </p>
@@ -58,14 +58,14 @@
 </pre>
 <p> </p>
 <div class="refsect2">
-<a name="id1408029"></a><h3>
-<a name="id345956-bb"></a><code class="computeroutput">local_adjustor</code> public static functions</h3>
+<a name="id1426094"></a><h3>
+<a name="id372370-bb"></a><code class="computeroutput">local_adjustor</code> public static functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">time_type</span> <a name="id345958-bb"></a><span class="identifier">utc_to_local</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">time_type</span> <span class="special">&amp;</span> t<span class="special">)</span><span class="special">;</span></pre>Convert a utc time to local time. </li>
+<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">time_type</span> <a name="id372374-bb"></a><span class="identifier">utc_to_local</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">time_type</span> <span class="special">&amp;</span> t<span class="special">)</span><span class="special">;</span></pre>Convert a utc time to local time. </li>
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">static</span> <span class="identifier">time_type</span> 
-<a name="id345975-bb"></a><span class="identifier">local_to_utc</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">time_type</span> <span class="special">&amp;</span> t<span class="special">,</span> 
+<a name="id363335-bb"></a><span class="identifier">local_to_utc</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">time_type</span> <span class="special">&amp;</span> t<span class="special">,</span> 
              <span class="identifier">date_time</span><span class="special">::</span><span class="identifier">dst_flags</span> dst <span class="special">=</span> <span class="identifier">date_time</span><span class="special">::</span><span class="identifier">calculate</span><span class="special">)</span><span class="special">;</span></pre>Convert a local time to utc. </li>
 </ol></div>
 </div>

@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2006-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2006-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -36,16 +36,19 @@ int main ()
    #endif
    //->
    } remover;
+   //<-
+   (void)remover;
+   //->
 
    //Create shared memory
    //<-
    #if 1
-   managed_shared_memory segment(create_only, 
+   managed_shared_memory segment(create_only,
                                  test::get_process_id_name(),  //segment name
                                  65536);
    #else
    //->
-   managed_shared_memory segment(create_only, 
+   managed_shared_memory segment(create_only,
                                  "MySharedMemory",  //segment name
                                  65536);
    //<-
@@ -65,7 +68,7 @@ int main ()
    //is the same, this private_adaptive_pool will have its own pool so
    //"allocator_instance2" CAN'T deallocate nodes allocated by "allocator_instance".
    //"allocator_instance2" is NOT equal to "allocator_instance"
-   assert(allocator_instance != allocator_instance2);   
+   assert(allocator_instance != allocator_instance2); 
 
    //Create another adaptive_pool using copy-constructor.
    private_adaptive_pool_t allocator_instance3(allocator_instance2);

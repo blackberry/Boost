@@ -31,7 +31,7 @@ typically used with the <tt>on_tree_edge</tt> or
 
 <p>
 <tt>predecessor_recorder</tt> can be used with graph algorithms by
-wrapping it with the algorithm specific adaptor, such as <a
+wrapping it with an algorithm-specific adaptor, such as <a
 href="./bfs_visitor.html"><tt>bfs_visitor</tt></a> and <a
 href="./dfs_visitor.html"><tt>dfs_visitor</tt></a>. Also, this event
 visitor can be combined with other event visitors using
@@ -44,7 +44,7 @@ tree). It is often useful to initialize the source vertex's
 predecessor to itself, thereby identifying the root vertex as the only
 vertex which is its own parent. When using an algorithm like
 depth-first search that creates a forest (multiple search trees) it
-is useful to intialize the predecessor of every vertex to itself. This
+is useful to initialize the predecessor of every vertex to itself. This
 way all the root nodes can be distinguished.
 
 

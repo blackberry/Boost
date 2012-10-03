@@ -1,9 +1,9 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 // Unit Test
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -29,8 +29,8 @@
 
 #include <boost/geometry/geometries/geometries.hpp>
 
-#include <boost/geometry/domains/gis/io/wkt/read_wkt.hpp>
-#include <boost/geometry/domains/gis/io/wkt/write_wkt.hpp>
+#include <boost/geometry/io/wkt/read.hpp>
+#include <boost/geometry/io/wkt/write.hpp>
 
 #if defined(TEST_WITH_SVG)
 #  include <boost/geometry/extensions/io/svg/svg_mapper.hpp>
@@ -54,7 +54,7 @@ struct test_get_turns
 {
     template<typename G1, typename G2>
     static void apply(std::string const& id,
-            int expected_count,
+            std::size_t expected_count,
             G1 const& g1, G2 const& g2, double precision)
     {
             typedef bg::detail::overlay::turn_info
@@ -133,7 +133,7 @@ struct test_get_turns
 template<typename G1, typename G2>
 struct test_get_turns
 {
-    inline static void apply(std::string const& id, int expected_count, 
+    inline static void apply(std::string const& id, std::size_t expected_count, 
                 std::string const& wkt1, std::string const& wkt2,
                 double precision = 0.001)
     {
@@ -304,9 +304,10 @@ void test_all()
             ggl_list_20110306_javier[0], ggl_list_20110306_javier[1]);
 
 #ifdef _MSC_VER // gcc returns 14 for float
-    test_get_turns<polygon, polygon>::apply("ggl_list_20110716_enrico",
-            13,
-            ggl_list_20110716_enrico[0], ggl_list_20110716_enrico[1]);
+    // test_get_turns<polygon, polygon>::apply("ggl_list_20110716_enrico",
+            // 13,
+            // ggl_list_20110716_enrico[0], ggl_list_20110716_enrico[1]);
+
 #endif
 
     // pies

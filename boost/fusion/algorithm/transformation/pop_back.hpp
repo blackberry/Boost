@@ -96,7 +96,7 @@ namespace boost { namespace fusion
             {
                 return type(fusion::prior(i.iterator_base));
             }
-    };
+        };
 
         template <typename Iterator>
         struct prior_impl<Iterator, true>

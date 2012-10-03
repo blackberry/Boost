@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -23,40 +23,15 @@
 #include "emplace_test.hpp"
 
 /////////////////////////////////////////////////////////////////
-//                                                               
-//  This example repeats the same operations with std::set and   
-//  shmem_set using the node allocator                           
-//  and compares the values of both containers                   
-//                                                               
+//                                                              
+//  This example repeats the same operations with std::set and  
+//  shmem_set using the node allocator                          
+//  and compares the values of both containers                  
+//                                                              
 /////////////////////////////////////////////////////////////////
 
 using namespace boost::interprocess;
-/*
-//Explicit instantiation to detect compilation errors
-template class boost::interprocess::flat_set
-   <test::movable_and_copyable_int
-   ,std::less<test::movable_and_copyable_int>
-   ,test::dummy_test_allocator<test::movable_and_copyable_int> >;
 
-template class boost::interprocess::flat_map
-   <test::movable_and_copyable_int
-   ,test::movable_and_copyable_int
-   ,std::less<test::movable_and_copyable_int>
-   ,test::dummy_test_allocator<std::pair<test::movable_and_copyable_int
-                                        ,test::movable_and_copyable_int> > >;
-
-template class boost::interprocess::flat_multiset
-   <test::movable_and_copyable_int
-   ,std::less<test::movable_and_copyable_int>
-   ,test::dummy_test_allocator<test::movable_and_copyable_int> >;
-
-template class boost::interprocess::flat_multimap
-   <test::movable_and_copyable_int
-   ,test::movable_and_copyable_int
-   ,std::less<test::movable_and_copyable_int>
-   ,test::dummy_test_allocator<std::pair<test::movable_and_copyable_int
-                                        ,test::movable_and_copyable_int> > >;
-*/
 //Customize managed_shared_memory class
 typedef basic_managed_shared_memory
    <char,
@@ -66,22 +41,22 @@ typedef basic_managed_shared_memory
    > my_managed_shared_memory;
 
 //Alias allocator type
-typedef allocator<int, my_managed_shared_memory::segment_manager> 
+typedef allocator<int, my_managed_shared_memory::segment_manager>
    shmem_allocator_t;
-typedef allocator<test::movable_int, my_managed_shared_memory::segment_manager> 
+typedef allocator<test::movable_int, my_managed_shared_memory::segment_manager>
    shmem_movable_allocator_t;
-typedef allocator<std::pair<int, int>, my_managed_shared_memory::segment_manager> 
+typedef allocator<std::pair<int, int>, my_managed_shared_memory::segment_manager>
    shmem_pair_allocator_t;
-typedef allocator<std::pair<test::movable_int, test::movable_int>, my_managed_shared_memory::segment_manager> 
+typedef allocator<std::pair<test::movable_int, test::movable_int>, my_managed_shared_memory::segment_manager>
    shmem_movable_pair_allocator_t;
 
-typedef allocator<test::movable_and_copyable_int, my_managed_shared_memory::segment_manager> 
+typedef allocator<test::movable_and_copyable_int, my_managed_shared_memory::segment_manager>
    shmem_move_copy_allocator_t;
 
-typedef allocator<test::copyable_int, my_managed_shared_memory::segment_manager> 
+typedef allocator<test::copyable_int, my_managed_shared_memory::segment_manager>
    shmem_copy_allocator_t;
 
-typedef allocator<std::pair<test::movable_and_copyable_int, test::movable_and_copyable_int>, my_managed_shared_memory::segment_manager> 
+typedef allocator<std::pair<test::movable_and_copyable_int, test::movable_and_copyable_int>, my_managed_shared_memory::segment_manager>
    shmem_move_copy_pair_allocator_t;
 
 //Alias set types
@@ -123,79 +98,9 @@ typedef flat_multimap<test::movable_and_copyable_int, test::movable_and_copyable
                 ,std::less<test::movable_and_copyable_int>
                 ,shmem_move_copy_pair_allocator_t>                        MyMoveCopyShmMultiMap;
 
-
-//Test recursive structures
-class recursive_flat_set
-{
-public:
-   int id_;
-   flat_set<recursive_flat_set> flat_set_;
-   friend bool operator< (const recursive_flat_set &a, const recursive_flat_set &b)
-   {  return a.id_ < b.id_;   }
-};
-
-class recursive_flat_map
-{
-public:
-   int id_;
-   flat_map<recursive_flat_map, recursive_flat_map> map_;
-   recursive_flat_map (const recursive_flat_map&x)
-      :id_(x.id_), map_(x.map_)
-   {}
-   recursive_flat_map &operator=(const recursive_flat_map &x)
-   { id_ = x.id_; map_ = x.map_; return *this; }
-
-   friend bool operator< (const recursive_flat_map &a, const recursive_flat_map &b)
-   {  return a.id_ < b.id_;   }
-};
-
-//Test recursive structures
-class recursive_flat_multiset
-{
-public:
-   int id_;
-   flat_multiset<recursive_flat_multiset> flat_set_;
-   friend bool operator< (const recursive_flat_multiset &a, const recursive_flat_set &b)
-   {  return a.id_ < b.id_;   }
-};
-
-class recursive_flat_multimap
-{
-public:
-   int id_;
-   flat_map<recursive_flat_multimap, recursive_flat_multimap> map_;
-   recursive_flat_multimap (const recursive_flat_multimap&x)
-      :id_(x.id_), map_(x.map_)
-   {}
-   recursive_flat_multimap &operator=(const recursive_flat_multimap &x)
-   { id_ = x.id_; map_ = x.map_; return *this; }
-   friend bool operator< (const recursive_flat_multimap &a, const recursive_flat_multimap &b)
-   {  return a.id_ < b.id_;   }
-};
-
-template<class C>
-void test_move()
-{
-   //Now test move semantics
-   C original;
-   C move_ctor(boost::interprocess::move(original));
-   C move_assign;
-   move_assign = boost::interprocess::move(move_ctor);
-   move_assign.swap(original);
-}
-
 int main()
 {
    using namespace boost::interprocess::test;
-
-   //Now test move semantics
-   {
-      test_move<flat_set<recursive_flat_set> >();
-      test_move<flat_multiset<recursive_flat_multiset> >();
-      test_move<flat_map<recursive_flat_map, recursive_flat_map> >();
-      test_move<flat_multimap<recursive_flat_multimap, recursive_flat_multimap> >();
-   }
-
 
    if (0 != set_test<my_managed_shared_memory
                   ,MyShmSet

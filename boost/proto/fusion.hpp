@@ -44,12 +44,11 @@ namespace boost { namespace proto
           : fusion::iterator_base<expr_iterator<Expr, Pos> >
         {
             typedef Expr expr_type;
-            typedef typename Expr::proto_tag proto_tag;
             static const long index = Pos;
             typedef fusion::random_access_traversal_tag category;
             typedef tag::proto_expr_iterator fusion_tag;
 
-            expr_iterator(Expr &e)
+            explicit expr_iterator(Expr &e)
               : expr(e)
             {}
 
@@ -60,7 +59,6 @@ namespace boost { namespace proto
         struct flat_view
         {
             typedef Expr expr_type;
-            typedef typename Expr::proto_tag proto_tag;
             typedef fusion::forward_traversal_tag category;
             typedef tag::proto_flat_view fusion_tag;
 
@@ -373,7 +371,7 @@ namespace boost { namespace fusion
             struct apply
             {
                 typedef
-                    typename proto::detail::expr_iterator<
+                    proto::detail::expr_iterator<
                         typename Iterator::expr_type
                       , Iterator::index + N::value
                     >
@@ -583,12 +581,14 @@ namespace boost { namespace fusion
             template<typename Sequence>
             struct apply
             {
-                typedef typename Sequence::proto_tag proto_tag;
+                typedef typename Sequence::expr_type::proto_tag proto_tag;
 
-                typedef fusion::transform_view<
-                    typename Sequence::expr_type
-                  , proto::detail::as_element<proto_tag>
-                > type;
+                typedef
+                    fusion::transform_view<
+                        typename Sequence::expr_type
+                      , proto::detail::as_element<proto_tag>
+                    >
+                type;
 
                 static type call(Sequence &sequence)
                 {
@@ -639,7 +639,6 @@ namespace boost { namespace fusion
           : mpl::false_
         {};
     }
-
 }}
 
 namespace boost { namespace mpl
@@ -655,7 +654,7 @@ namespace boost { namespace mpl
     {
         typedef fusion::fusion_sequence_tag type;
     };
-}} 
+}}
 
 #ifdef BOOST_MSVC
 #pragma warning(pop)

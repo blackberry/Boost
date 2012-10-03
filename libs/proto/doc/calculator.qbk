@@ -10,7 +10,7 @@
 [/=======================]
 
 "Hello, world" is nice, but it doesn't get you very far. Let's use Proto to build a 
-DSEL (domain-specific embedded language) for a lazily-evaluated calculator. We'll 
+EDSL (embedded domain-specific language) for a lazily-evaluated calculator. We'll 
 see how to define the terminals in your mini-language, how to compose them into 
 larger expressions, and how to define an evaluation context so that your 
 expressions can do useful work. When we're done, we'll have a mini-language that 
@@ -116,7 +116,7 @@ are evaluated.
 [heading Customizing Expression Trees]
 [/===================================]
 
-Our calculator DSEL is already pretty useful, and for many DSEL scenarios, no more 
+Our calculator EDSL is already pretty useful, and for many EDSL scenarios, no more 
 would be needed. But let's keep going. Imagine how much nicer it would be if all 
 calculator expressions overloaded `operator()` so that they could be used as 
 function objects. We can do that by creating a calculator /domain/ and telling 
@@ -205,10 +205,10 @@ language. That means it may be possible to create expressions that are invalid i
 your domain. You can detect invalid expressions with Proto by defining the 
 /grammar/ of your domain-specific language.
 
-For simplicity, assume that our calculator DSEL should only allow addition, 
+For simplicity, assume that our calculator EDSL should only allow addition, 
 subtraction, multiplication and division. Any expression involving any other 
 operator is invalid. Using Proto, we can state this requirement by defining the 
-grammar of the calculator DSEL. It looks as follows:
+grammar of the calculator EDSL. It looks as follows:
 
     // Define the grammar of calculator expressions
     struct calculator_grammar
@@ -225,7 +225,7 @@ You can read the above grammar as follows: an expression tree conforms to the ca
 
 [note This grammar is actually a little looser than we would like. Only placeholders and literals that are convertible to doubles are valid terminals. Later on we'll see how to express things like that in Proto grammars.]
 
-Once you have defined the grammar of your DSEL, you can use the _matches_ metafunction to check whether a given expression type conforms to the grammar. For instance, we might add the following to our `calculator::operator()` overload:
+Once you have defined the grammar of your EDSL, you can use the _matches_ metafunction to check whether a given expression type conforms to the grammar. For instance, we might add the following to our `calculator::operator()` overload:
 
     template<typename Expr>
     struct calculator
@@ -242,10 +242,10 @@ Once you have defined the grammar of your DSEL, you can use the _matches_ metafu
     };
 
 The addition of the `BOOST_MPL_ASSERT()` line enforces at compile time that we only 
-evaluate expressions that conform to the calculator DSEL's grammar. With Proto 
+evaluate expressions that conform to the calculator EDSL's grammar. With Proto 
 grammars, `proto::matches<>` and `BOOST_MPL_ASSERT()` it is very easy to give the 
-users of your DSEL short and readable compile-time errors when they accidentally 
-misuse your DSEL.
+users of your EDSL short and readable compile-time errors when they accidentally 
+misuse your EDSL.
 
 [note `BOOST_MPL_ASSERT()` is part of the Boost Metaprogramming Library. To use it, 
 just `#include <boost/mpl/assert.hpp>`.]
@@ -258,7 +258,7 @@ Grammars and `proto::matches<>` make it possible to detect when a user has creat
 an invalid expression and issue a compile-time error. But what if you want to 
 prevent users from creating invalid expressions in the first place? By using 
 grammars and domains together, you can disable any of Proto's operator overloads 
-that would create an invalid expression. It is as simple as specifying the DSEL's 
+that would create an invalid expression. It is as simple as specifying the EDSL's 
 grammar when you define the domain, as shown below:
 
     // Define a calculator domain. Expression within

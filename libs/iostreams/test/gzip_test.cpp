@@ -5,6 +5,7 @@
 
 // See http://www.boost.org/libs/iostreams for documentation.
 
+#include <cstddef>
 #include <string>
 #include <boost/iostreams/copy.hpp>
 #include <boost/iostreams/device/array.hpp>
@@ -111,11 +112,51 @@ void array_source_test()
     BOOST_CHECK_EQUAL(data, res);
 }
 
+void header_test()
+{
+    // This test is in response to https://svn.boost.org/trac/boost/ticket/5908
+    // which describes a problem parsing gzip headers with extra fields as
+    // defined in RFC 1952 (http://www.ietf.org/rfc/rfc1952.txt).
+    // The extra field data used here is characteristic of the tabix file
+    // format (http://samtools.sourceforge.net/tabix.shtml).
+    const char header_bytes[] = {
+        static_cast<char>(gzip::magic::id1),
+        static_cast<char>(gzip::magic::id2),
+        gzip::method::deflate, // Compression Method: deflate
+        gzip::flags::extra | gzip::flags::name | gzip::flags::comment, // flags
+        '\x22', '\x9c', '\xf3', '\x4e', // 4 byte modification time (little endian)
+        gzip::extra_flags::best_compression, // XFL
+        gzip::os_unix, // OS
+        6, 0, // 2 byte length of extra field (little endian, 6 bytes)
+        'B', 'C', 2, 0, 0, 0, // 6 bytes worth of extra field data
+        'a', 'b', 'c', 0, // original filename, null terminated
+        'n', 'o', ' ', 'c', 'o', 'm', 'm', 'e', 'n', 't', 0, // comment
+    };
+    size_t sz = sizeof(header_bytes)/sizeof(header_bytes[0]);
+
+    boost::iostreams::detail::gzip_header hdr;
+    for (size_t i = 0; i < sz; ++i) {
+        hdr.process(header_bytes[i]);
+
+        // Require that we are done at the last byte, not before.
+        if (i == sz-1)
+            BOOST_REQUIRE(hdr.done());
+        else
+            BOOST_REQUIRE(!hdr.done());
+    }
+
+    BOOST_CHECK_EQUAL("abc", hdr.file_name());
+    BOOST_CHECK_EQUAL("no comment", hdr.comment());
+    BOOST_CHECK_EQUAL(0x4ef39c22, hdr.mtime());
+    BOOST_CHECK_EQUAL(gzip::os_unix, hdr.os());
+}
+
 test_suite* init_unit_test_suite(int, char* []) 
 {
     test_suite* test = BOOST_TEST_SUITE("gzip test");
     test->add(BOOST_TEST_CASE(&compression_test));
     test->add(BOOST_TEST_CASE(&multiple_member_test));
     test->add(BOOST_TEST_CASE(&array_source_test));
+    test->add(BOOST_TEST_CASE(&header_test));
     return test;
 }

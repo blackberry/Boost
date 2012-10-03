@@ -37,6 +37,16 @@ namespace example
         mutable int mutable_integer;
         const int const_integer;
         static const int static_const_integer;
+
+        // Visual check of typedef alignment.
+        /** This type has documentation. */
+        typedef int documented_type1;
+        /** \brief This type has documentation. */
+        typedef long documented_type2;
+        /** This type has documentation. */
+        typedef long double documented_type3;
+        typedef short undocumented_type1;
+        typedef double undocumented_type2;
         
         class inner_class {
         public:
@@ -47,6 +57,8 @@ namespace example
         
         /// INTERNAL ONLY
         enum internal_enum { internal_enumerator };
+
+        explicit operator int();
     protected:
         int protected_integer;
         static int protected_static_integer;
@@ -114,6 +126,14 @@ namespace example
      * \see example::example and example_template
      */
     int namespace_func(int i, int j);
+    
+    /**
+     * Testing a function template.
+     * \tparam TypeParameter A template parameter
+     * \tparam NonTypeParameter This is a non-type template parameter
+     */
+    template <typename TypeParameter, int NonTypeParameter>
+    void namespace_func_template();
 }
 
 #define EXAMPLE(m) The macro

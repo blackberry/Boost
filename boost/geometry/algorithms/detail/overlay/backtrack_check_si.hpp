@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -9,33 +9,25 @@
 #ifndef BOOST_GEOMETRY_ALGORITHMS_DETAIL_OVERLAY_BACKTRACK_CHECK_SI_HPP
 #define BOOST_GEOMETRY_ALGORITHMS_DETAIL_OVERLAY_BACKTRACK_CHECK_SI_HPP
 
-
 #include <cstddef>
-
 #include <string>
 
 #include <boost/range.hpp>
 
-#include <boost/geometry/algorithms/detail/overlay/turn_info.hpp>
 #include <boost/geometry/core/access.hpp>
-
-#  include <boost/geometry/algorithms/detail/has_self_intersections.hpp>
-
-
+#include <boost/geometry/algorithms/detail/overlay/turn_info.hpp>
+#include <boost/geometry/algorithms/detail/has_self_intersections.hpp>
 #if defined(BOOST_GEOMETRY_DEBUG_INTERSECTION) || defined(BOOST_GEOMETRY_OVERLAY_REPORT_WKT)
 #  include <boost/geometry/algorithms/detail/overlay/debug_turn_info.hpp>
-#  include <boost/geometry/domains/gis/io/wkt/wkt.hpp>
+#  include <boost/geometry/io/wkt/wkt.hpp>
 #endif
-
 
 namespace boost { namespace geometry
 {
 
-
 #ifndef DOXYGEN_NO_DETAIL
 namespace detail { namespace overlay
 {
-
 
 template <typename Turns>
 inline void clear_visit_info(Turns& turns)
@@ -170,12 +162,9 @@ public :
 };
 #endif // BOOST_GEOMETRY_OVERLAY_REPORT_WKT
 
-
 }} // namespace detail::overlay
 #endif // DOXYGEN_NO_DETAIL
 
-
 }} // namespace boost::geometry
-
 
 #endif // BOOST_GEOMETRY_ALGORITHMS_DETAIL_OVERLAY_BACKTRACK_CHECK_SI_HPP

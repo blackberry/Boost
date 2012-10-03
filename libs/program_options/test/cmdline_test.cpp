@@ -378,6 +378,15 @@ void test_guessing()
         {0, 0, 0}
     };
     test_cmdline("opt123 opt56 foo,f=", style, test_cases1);
+
+    test_case test_cases2[] = { 
+        {"--fname file --fname2 file2", s_success, "fname: file fname2: file2"},
+        {"--fnam file --fnam file2", s_ambiguous_option, ""},
+        {"--fnam file --fname2 file2", s_ambiguous_option, ""},
+        {"--fname2 file2 --fnam file", s_ambiguous_option, ""},
+        {0, 0, 0} 
+    };
+    test_cmdline("fname fname2", style, test_cases2);
 }
 
 void test_arguments()

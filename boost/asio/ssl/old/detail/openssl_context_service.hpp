@@ -3,7 +3,7 @@
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
 // Copyright (c) 2005 Voipster / Indrek dot Juhani at voipster dot com
-// Copyright (c) 2005-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2005-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -337,14 +337,7 @@ public:
       std::string passwd = (*callback)(static_cast<std::size_t>(size),
           purpose ? context_base::for_writing : context_base::for_reading);
       *buf = '\0';
-#if defined(__QNX__)
-      // PR 155594: Call proper strcat function
-      // Note: size is the size of the provided buffer buf
-      // See http://www.openssl.org/docs/ssl/SSL_CTX_set_default_passwd_cb.html
-      strlcat(buf, passwd.c_str(), size);
-#else
       strncat(buf, passwd.c_str(), size);
-#endif
       return strlen(buf);
     }
 

@@ -5,7 +5,7 @@
  * accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
  *
- * $Id: test_piecewise_constant_distribution.cpp 71018 2011-04-05 21:27:52Z steven_watanabe $
+ * $Id: test_piecewise_constant_distribution.cpp 79771 2012-07-27 18:15:55Z jewillco $
  *
  */
 
@@ -50,7 +50,7 @@ BOOST_AUTO_TEST_CASE(test_constructors) {
     CHECK_SEQUENCE(dist.densities(), list_of(1.0));
     CHECK_SEQUENCE(dist.intervals(), list_of(0.0)(1.0));
 
-#ifndef BOOST_NO_INITIALIZER_LISTS
+#ifndef BOOST_NO_CXX11_HDR_INITIALIZER_LIST
     boost::random::piecewise_constant_distribution<> dist_il = {
         { 99, 103, 107, 111, 115 },
         gen()
@@ -139,7 +139,7 @@ BOOST_AUTO_TEST_CASE(test_param) {
     BOOST_CHECK(param != param_default);
     BOOST_CHECK(!(param == param_default));
     
-#ifndef BOOST_NO_INITIALIZER_LISTS
+#ifndef BOOST_NO_CXX11_HDR_INITIALIZER_LIST
     boost::random::piecewise_constant_distribution<>::param_type parm_il = {
         { 99, 103, 107, 111, 115 },
         gen()

@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../interprocess.html" title="Chapter&#160;11.&#160;Boost.Interprocess">
+<link rel="up" href="../interprocess.html" title="Chapter&#160;12.&#160;Boost.Interprocess">
 <link rel="prev" href="memory_algorithms.html" title="Memory allocation algorithms">
 <link rel="next" href="interprocess_smart_ptr.html" title="Ownership smart pointers">
 </head>
@@ -136,7 +136,7 @@
    <span class="comment">//!Returns the address of the stored stream buffer.</span>
    <span class="identifier">basic_vectorbuf</span><span class="special">&lt;</span><span class="identifier">CharVector</span><span class="special">,</span> <span class="identifier">CharTraits</span><span class="special">&gt;*</span> <span class="identifier">rdbuf</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
 
-   <span class="comment">//!Swaps the underlying vector with the passed vector. </span>
+   <span class="comment">//!Swaps the underlying vector with the passed vector.</span>
    <span class="comment">//!This function resets the position in the stream.</span>
    <span class="comment">//!Does not throw.</span>
    <span class="keyword">void</span> <span class="identifier">swap_vector</span><span class="special">(</span><span class="identifier">vector_type</span> <span class="special">&amp;</span><span class="identifier">vect</span><span class="special">);</span>
@@ -237,7 +237,7 @@
    <span class="comment">//Avoid reallocations</span>
    <span class="identifier">myvector2</span><span class="special">-&gt;</span><span class="identifier">reserve</span><span class="special">(</span><span class="number">100</span><span class="special">);</span>
 
-   <span class="comment">//Extract all values from the internal </span>
+   <span class="comment">//Extract all values from the internal</span>
    <span class="comment">//string directly to a shared memory vector.</span>
    <span class="identifier">std</span><span class="special">::</span><span class="identifier">istream_iterator</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="identifier">it</span><span class="special">(</span><span class="identifier">myvectorstream</span><span class="special">),</span> <span class="identifier">itend</span><span class="special">;</span>
    <span class="identifier">std</span><span class="special">::</span><span class="identifier">copy</span><span class="special">(</span><span class="identifier">it</span><span class="special">,</span> <span class="identifier">itend</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">back_inserter</span><span class="special">(*</span><span class="identifier">myvector2</span><span class="special">));</span>
@@ -313,11 +313,11 @@
    <span class="comment">//!Returns the address of the stored stream buffer.</span>
    <span class="identifier">basic_bufferbuf</span><span class="special">&lt;</span><span class="identifier">CharT</span><span class="special">,</span> <span class="identifier">CharTraits</span><span class="special">&gt;*</span> <span class="identifier">rdbuf</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
 
-   <span class="comment">//!Returns the pointer and size of the internal buffer. </span>
+   <span class="comment">//!Returns the pointer and size of the internal buffer.</span>
    <span class="comment">//!Does not throw.</span>
    <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span><span class="identifier">CharT</span> <span class="special">*,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;</span> <span class="identifier">buffer</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
 
-   <span class="comment">//!Sets the underlying buffer to a new value. Resets </span>
+   <span class="comment">//!Sets the underlying buffer to a new value. Resets</span>
    <span class="comment">//!stream position. Does not throw.</span>
    <span class="keyword">void</span> <span class="identifier">buffer</span><span class="special">(</span><span class="identifier">CharT</span> <span class="special">*</span><span class="identifier">buffer</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">length</span><span class="special">);</span>
 <span class="special">};</span>
@@ -387,7 +387,7 @@
    <span class="identifier">std</span><span class="special">::</span><span class="identifier">istream_iterator</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="identifier">it</span><span class="special">(</span><span class="identifier">mybufstream</span><span class="special">),</span> <span class="identifier">itend</span><span class="special">;</span>
    <span class="identifier">std</span><span class="special">::</span><span class="identifier">copy</span><span class="special">(</span><span class="identifier">it</span><span class="special">,</span> <span class="identifier">itend</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">back_inserter</span><span class="special">(</span><span class="identifier">data2</span><span class="special">));</span>
 
-   <span class="comment">//This extraction should have ended will fail error since </span>
+   <span class="comment">//This extraction should have ended will fail error since</span>
    <span class="comment">//the numbers formatted in the buffer end before the end</span>
    <span class="comment">//of the buffer. (Otherwise it would trigger eofbit)</span>
    <span class="identifier">assert</span><span class="special">(</span><span class="identifier">mybufstream</span><span class="special">.</span><span class="identifier">fail</span><span class="special">());</span>
@@ -428,7 +428,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2005-2010 Ion Gaztanaga<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2005-2011 Ion Gaztanaga<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2006-2009.
+// (C) Copyright Ion Gaztanaga 2006-2011.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -49,6 +49,9 @@ int main ()
    #endif
    //->
    } remover;
+   //<-
+   (void)remover;
+   //->
 
    //<-
    #if 1
@@ -59,7 +62,7 @@ int main ()
    //<-
    #endif
    //->
-   
+ 
    //Create a shared pointer in shared memory
    //pointing to a newly created object in the segment
    my_shared_ptr &shared_ptr_instance =

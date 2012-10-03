@@ -366,6 +366,12 @@ template &lt;class Concept&gt;
 void function_requires();
 </pre>
 
+  <p><code>function_requires()</code> has been deprecated in favor of <code>BOOST_CONCEPT_ASSERT</code>.
+   This means that <del><code>function_requires< Concept<Type> >();</code></del>
+   becomes <code>BOOST_CONCEPT_ASSERT((Concept<Type>));</code>
+   (don't forget to <code>#include &quot;boost/concept/assert.hpp&quot;</code>).
+
+
   <h3><a name="deprecated-macros" id="deprecated-macros">Deprecated
   Macros</a></h3>
   <pre>

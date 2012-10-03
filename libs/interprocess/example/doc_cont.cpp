@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2006-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2006-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -35,6 +35,9 @@ int main ()
    #endif
    //->
    } remover;
+   //<-
+   (void)remover;
+   //->
 
    //A managed shared memory where we can construct objects
    //associated with a c-string
@@ -51,7 +54,7 @@ int main ()
    //->
 
    //Alias an STL-like allocator of ints that allocates ints from the segment
-   typedef allocator<int, managed_shared_memory::segment_manager> 
+   typedef allocator<int, managed_shared_memory::segment_manager>
       ShmemAllocator;
 
    //Alias a vector that uses the previous STL-like allocator
@@ -64,14 +67,14 @@ int main ()
    //Initialize the STL-like allocator
    const ShmemAllocator alloc_inst (segment.get_segment_manager());
 
-   //Construct the vector in the shared memory segment with the STL-like allocator 
+   //Construct the vector in the shared memory segment with the STL-like allocator
    //from a range of iterators
-   MyVector *myvector = 
+   MyVector *myvector =
       segment.construct<MyVector>
          ("MyVector")/*object name*/
          (begVal     /*first ctor parameter*/,
-         endVal     /*second ctor parameter*/, 
-         alloc_inst /*third ctor parameter*/); 
+         endVal     /*second ctor parameter*/,
+         alloc_inst /*third ctor parameter*/);
 
    //Use vector as your want
    std::sort(myvector->rbegin(), myvector->rend());

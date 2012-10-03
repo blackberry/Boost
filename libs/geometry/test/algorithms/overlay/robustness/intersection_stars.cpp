@@ -1,7 +1,7 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 // Unit Test
 
-// Copyright (c) 2009-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2009-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -12,24 +12,11 @@
 
 #define BOOST_GEOMETRY_NO_BOOST_TEST
 
-// For mixing int/float
-#if defined(_MSC_VER)
-#pragma warning( disable : 4267 )
-#endif
 
-
-#include <boost/program_options.hpp>
-
-//#include <algorithms/test_intersection.hpp>
-//#include <algorithms/test_overlay.hpp>
-
-
-#include <boost/timer.hpp>
-
-#include <boost/geometry/geometry.hpp>
 #include <test_overlay_p_q.hpp>
 
-
+#include <boost/program_options.hpp>
+#include <boost/timer.hpp>
 
 template <typename Polygon>
 inline void make_star(Polygon& polygon,

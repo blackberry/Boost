@@ -5,8 +5,8 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../chrono.html" title="Chapter&#160;4.&#160;Boost.Chrono 1.2.0">
-<link rel="prev" href="../chrono.html" title="Chapter&#160;4.&#160;Boost.Chrono 1.2.0">
+<link rel="up" href="../chrono.html" title="Chapter&#160;4.&#160;Boost.Chrono 1.2.3">
+<link rel="prev" href="../chrono.html" title="Chapter&#160;4.&#160;Boost.Chrono 1.2.3">
 <link rel="next" href="reference.html" title="Reference">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -78,10 +78,10 @@
         </h6>
 <p>
           <span class="bold"><strong>Boost.Chrono</strong></span> can be configured as a header-only
-          library. When <a class="link" href="reference.html#chrono.reference.cpp0x.chrono_chrono_hpp.conf.header_only" title="How to Build Boost.Chrono as a Header Only Library?"><code class="computeroutput"><span class="identifier">BOOST_CHRONO_HEADER_ONLY</span></code></a> is defined
-          the Boost.Chrono is a header-only library. Otherwise is not a header only
-          library and you need to compile it and build the library before use, for
-          example using:
+          library. When <a class="link" href="reference.html#chrono.reference.cpp0x.chrono_chrono_hpp.conf.header_only" title="How to Build Boost.Chrono as a Header Only Library?"><code class="computeroutput"><span class="identifier">BOOST_CHRONO_HEADER_ONLY</span></code></a> and BOOST_ERROR_CODE_HEADER_ONLY
+          are defined the Boost.Chrono is a header-only library. Otherwise is not
+          a header only library and you need to compile it and build the library
+          before use, for example using:
         </p>
 <pre class="programlisting"><span class="identifier">bjam</span> <span class="identifier">libs</span><span class="special">/</span><span class="identifier">chrono</span><span class="special">/</span><span class="identifier">build</span>
 </pre>
@@ -141,9 +141,9 @@
 <p>
           In addition to link with the <span class="bold"><strong>Boost.Chrono</strong></span>
           library you need also to link with the <span class="bold"><strong>Boost.System</strong></span>
-          library. Once <span class="bold"><strong>Boost.System</strong></span> will be configurable
-          to be a header only using <code class="computeroutput"><span class="identifier">BOOST_SYSTEM_INLINED</span></code>
-          you will no need to link with it.
+          library. If <span class="bold"><strong>Boost.System</strong></span> is configured
+          defining BOOST_ERROR_CODE_HEADER_ONLY you will no need to link with it
+          as the dependent part is header only then.
         </p>
 <h6>
 <a name="chrono.users_guide.getting_started.install.h5"></a>
@@ -197,19 +197,19 @@
               GCC 4.5.0
             </li>
 <li class="listitem">
-              GCC 4.5.0 -std=c++0x
+              GCC 4.5.0 -std=C++11
             </li>
 <li class="listitem">
               GCC 4.5.2
             </li>
 <li class="listitem">
-              GCC 4.5.2 -std=c++0x
+              GCC 4.5.2 -std=C++11
             </li>
 <li class="listitem">
               GCC 4.6.0
             </li>
 <li class="listitem">
-              GCC 4.6.0 -std=c++0x
+              GCC 4.6.0 -std=C++11
             </li>
 </ul></div>
 <p>
@@ -226,7 +226,7 @@
               clang 2.9
             </li>
 <li class="listitem">
-              clang 2.9 -std=c++0x
+              clang 2.9 -std=C++11
             </li>
 </ul></div>
 <p>
@@ -2013,7 +2013,7 @@
           Thread Interface Demonstration Program</a>
 </h5></div></div></div>
 <p>
-            The C++0x standard library's multi-threading library requires the ability
+            The C++11 standard library's multi-threading library requires the ability
             to deal with the representation of time in a manner consistent with modern
             C++ practices. Next is a simulation of this interface.
           </p>

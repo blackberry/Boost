@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2006-2009
+// (C) Copyright Ion Gaztanaga  2006-2012
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -20,7 +20,7 @@ using namespace boost::intrusive;
 struct StrHasher
 {
    std::size_t operator()(const char *str) const
-   {  
+   {
       std::size_t seed = 0;
       for(; *str; ++str)   boost::hash_combine(seed, *str);
       return seed;
@@ -31,7 +31,7 @@ class Expensive : public set_base_hook<>, public unordered_set_base_hook<>
 {
    std::string key_;
    // Other members...
-  
+
    public:
    Expensive(const char *key)
       :  key_(key)

@@ -4,7 +4,7 @@
 <title>union_</title>
 <link rel="stylesheet" href="../../../../../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
-<link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Geometry 1.0">
+<link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Geometry">
 <link rel="up" href="../algorithms.html" title="Algorithms">
 <link rel="prev" href="transform/transform_2.html" title="transform">
 <link rel="next" href="unique.html" title="unique">
@@ -27,7 +27,7 @@
 <a name="geometry.reference.algorithms.union_"></a><a class="link" href="union_.html" title="union_">union_</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="id897415"></a>
+          <a class="indexterm" name="id909918"></a>
 Combines two geometries which each other.
         </p>
 <h6>
@@ -169,6 +169,24 @@ Combines two geometries which each other.
         </p>
 <h6>
 <a name="geometry.reference.algorithms.union_.h4"></a>
+          <span><a name="geometry.reference.algorithms.union_.conformance"></a></span><a class="link" href="union_.html#geometry.reference.algorithms.union_.conformance">Conformance</a>
+        </h6>
+<p>
+          The function union implements function Union from the <a href="http://www.opengeospatial.org/standards/sfa" target="_top">OGC
+          Simple Feature Specification</a>.
+        </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../../../../../doc/src/images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            Boost.Geometry adds an underscore to avoid using the <code class="computeroutput"><span class="keyword">union</span></code>
+            keyword
+          </p></td></tr>
+</table></div>
+<h6>
+<a name="geometry.reference.algorithms.union_.h5"></a>
           <span><a name="geometry.reference.algorithms.union_.behavior"></a></span><a class="link" href="union_.html#geometry.reference.algorithms.union_.behavior">Behavior</a>
         </h6>
 <div class="informaltable"><table class="table">
@@ -176,21 +194,44 @@ Combines two geometries which each other.
 <col>
 <col>
 </colgroup>
+<thead><tr>
+<th>
+                  <p>
+                    Case
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Behavior
+                  </p>
+                </th>
+</tr></thead>
 <tbody><tr>
 <td>
                   <p>
-                    Case
+                    GeometryOut is a Polygon
                   </p>
                 </td>
 <td>
                   <p>
-                    Behavior
+                    Calculates union polygons of input (multi)polygons and/or boxes
                   </p>
                 </td>
 </tr></tbody>
 </table></div>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../../../../../doc/src/images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            Check the <a class="link" href="../concepts/concept_polygon.html" title="Polygon Concept">Polygon
+            Concept</a> for the rules that polygon input for this algorithm should
+            fulfill
+          </p></td></tr>
+</table></div>
 <h6>
-<a name="geometry.reference.algorithms.union_.h5"></a>
+<a name="geometry.reference.algorithms.union_.h6"></a>
           <span><a name="geometry.reference.algorithms.union_.example"></a></span><a class="link" href="union_.html#geometry.reference.algorithms.union_.example">Example</a>
         </h6>
 <p>
@@ -204,7 +245,7 @@ Combines two geometries which each other.
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">/</span><span class="identifier">geometries</span><span class="special">/</span><span class="identifier">point_xy</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">/</span><span class="identifier">geometries</span><span class="special">/</span><span class="identifier">polygon</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
-<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">/</span><span class="identifier">domains</span><span class="special">/</span><span class="identifier">gis</span><span class="special">/</span><span class="identifier">io</span><span class="special">/</span><span class="identifier">wkt</span><span class="special">/</span><span class="identifier">wkt</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">/</span><span class="identifier">io</span><span class="special">/</span><span class="identifier">wkt</span><span class="special">/</span><span class="identifier">wkt</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">foreach</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 
@@ -235,7 +276,6 @@ Combines two geometries which each other.
 
     <span class="keyword">return</span> <span class="number">0</span><span class="special">;</span>
 <span class="special">}</span>
-
 </pre>
 <p>
         </p>
@@ -249,7 +289,7 @@ Combines two geometries which each other.
 
 </pre>
 <h6>
-<a name="geometry.reference.algorithms.union_.h6"></a>
+<a name="geometry.reference.algorithms.union_.h7"></a>
           <span><a name="geometry.reference.algorithms.union_.see_also"></a></span><a class="link" href="union_.html#geometry.reference.algorithms.union_.see_also">See
           also</a>
         </h6>
@@ -268,7 +308,8 @@ Combines two geometries which each other.
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2011 Barend Gehrels, Bruno Lalande, Mateusz Loskot<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2009-2012 Barend
+      Gehrels, Bruno Lalande, Mateusz Loskot<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

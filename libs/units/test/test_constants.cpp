@@ -20,6 +20,7 @@ Test all combinations of operators with the constants.
 
 #include <boost/units/systems/detail/constants.hpp>
 #include <boost/units/quantity.hpp>
+#include <boost/units/pow.hpp>
 #include <boost/units/systems/si/length.hpp>
 #include <boost/units/systems/si/time.hpp>
 
@@ -27,6 +28,9 @@ using boost::units::quantity;
 using boost::units::si::length;
 using boost::units::si::meters;
 using boost::units::si::seconds;
+using boost::units::static_rational;
+using boost::units::pow;
+using boost::units::root;
 
 BOOST_UNITS_PHYSICAL_CONSTANT(length_constant, quantity<length>, 2.0 * meters, 0.5 * meters);
 
@@ -71,4 +75,13 @@ void test_divide() {
     BOOST_UNITS_CHECK_RESULT(1.0, /, length_constant);
     BOOST_UNITS_CHECK_RESULT(length_constant, /, seconds);
     BOOST_UNITS_CHECK_RESULT(seconds, /, length_constant);
+}
+
+void test_pow() {
+    check_same(pow<2>(length_constant), pow<2>(unwrap(length_constant)));
+    check_same(root<2>(length_constant), root<2>(unwrap(length_constant)));
+    check_same(pow<5>(length_constant), pow<5>(unwrap(length_constant)));
+    check_same(root<5>(length_constant), root<5>(unwrap(length_constant)));
+    check_same(pow<static_rational<2, 3> >(length_constant), pow<static_rational<2, 3> >(unwrap(length_constant)));
+    check_same(root<static_rational<2, 3> >(length_constant), root<static_rational<2, 3> >(unwrap(length_constant)));
 }

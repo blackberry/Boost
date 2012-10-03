@@ -13,7 +13,7 @@
 
 [heading Description]
 
-Proto is a framework for building Domain Specific Embedded Languages in C++. It provides tools for constructing, type-checking, transforming and executing ['expression templates][footnote See [@http://www.osl.iu.edu/~tveldhui/papers/Expression-Templates/exprtmpl.html Expression Templates]].
+Proto is a framework for building Embedded Domain-Specific Languages in C++. It provides tools for constructing, type-checking, transforming and executing ['expression templates][footnote See [@http://www.osl.iu.edu/~tveldhui/papers/Expression-Templates/exprtmpl.html Expression Templates]].
 More specifically, Proto provides:
 
 * An expression tree data structure.
@@ -25,9 +25,9 @@ More specifically, Proto provides:
 
 [heading Motivation]
 
-Expression Templates are an advanced technique that C++ library developers use to define embedded mini-languages that target specific problem domains. The technique has been used to create efficient and easy-to-use libraries for linear algebra as well as to define C++ parser generators with a readable syntax. But developing such a library involves writing an inordinate amount of unreadable and unmaintainable template mumbo-jumbo. Boost.Proto eases the development of [link boost_proto.users_guide.glossary.dsel domain-specific embedded languages (DSELs)]. Use Proto to define the primitives of your mini-language and let Proto handle the operator overloading and the construction of the expression parse tree. Immediately evaluate the expression tree by passing it a function object. Or transform the expression tree by defining the grammar of your mini-language, decorated with an assortment of tree transforms provided by Proto or defined by you. Then use the grammar to give your users short and readable syntax errors for invalid expressions! No more mumbo-jumbo -- an expression template library developed with Proto is declarative and readable.
+Expression Templates are an advanced technique that C++ library developers use to define embedded mini-languages that target specific problem domains. The technique has been used to create efficient and easy-to-use libraries for linear algebra as well as to define C++ parser generators with a readable syntax. But developing such a library involves writing an inordinate amount of unreadable and unmaintainable template mumbo-jumbo. Boost.Proto eases the development of [link boost_proto.users_guide.glossary.edsl domain-specific embedded languages (EDSLs)]. Use Proto to define the primitives of your mini-language and let Proto handle the operator overloading and the construction of the expression parse tree. Immediately evaluate the expression tree by passing it a function object. Or transform the expression tree by defining the grammar of your mini-language, decorated with an assortment of tree transforms provided by Proto or defined by you. Then use the grammar to give your users short and readable syntax errors for invalid expressions! No more mumbo-jumbo -- an expression template library developed with Proto is declarative and readable.
 
-In short, Proto is a DSEL for defining DSELs.
+In short, Proto is an EDSL for defining EDSLs.
 
 [/====================================]
 [heading How to Use This Documentation]

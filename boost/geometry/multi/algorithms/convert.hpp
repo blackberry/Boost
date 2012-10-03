@@ -1,8 +1,8 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -30,7 +30,7 @@ namespace detail { namespace conversion
 {
 
 template <typename Single, typename Multi, typename Policy>
-struct single_to_multi
+struct single_to_multi: private Policy
 {
     static inline void apply(Single const& single, Multi& multi)
     {
@@ -42,7 +42,7 @@ struct single_to_multi
 
 
 template <typename Multi1, typename Multi2, typename Policy>
-struct multi_to_multi
+struct multi_to_multi: private Policy
 {
     static inline void apply(Multi1 const& multi1, Multi2& multi2)
     {
@@ -73,19 +73,16 @@ namespace dispatch
 // Note that, even if the multi-types are mutually different, their single
 // version types might be the same and therefore we call boost::is_same again
 
-template <std::size_t DimensionCount, typename Multi1, typename Multi2>
-struct convert<false, multi_tag, multi_tag, DimensionCount, Multi1, Multi2>
+template <typename Multi1, typename Multi2, std::size_t DimensionCount>
+struct convert<Multi1, Multi2, multi_tag, multi_tag, DimensionCount, false>
     : detail::conversion::multi_to_multi
         <
             Multi1, 
             Multi2,
             convert
                 <
-                    boost::is_same
-                        <
-                            typename boost::range_value<Multi1>::type, 
-                            typename boost::range_value<Multi2>::type
-                        >::value,
+                    typename boost::range_value<Multi1>::type,
+                    typename boost::range_value<Multi2>::type,
                     typename single_tag_of
                                 <
                                     typename tag<Multi1>::type
@@ -94,30 +91,28 @@ struct convert<false, multi_tag, multi_tag, DimensionCount, Multi1, Multi2>
                                 <
                                     typename tag<Multi2>::type
                                 >::type,
-                    DimensionCount,
-                    typename boost::range_value<Multi1>::type,
-                    typename boost::range_value<Multi2>::type
+                    DimensionCount
                 >
         >
 {};
 
-template <std::size_t DimensionCount, typename SingleTag, typename Single, typename Multi>
-struct convert<false, SingleTag, multi_tag, DimensionCount, Single, Multi>
+template <typename Single, typename Multi, typename SingleTag, std::size_t DimensionCount>
+struct convert<Single, Multi, SingleTag, multi_tag, DimensionCount, false>
     : detail::conversion::single_to_multi
         <
             Single, 
             Multi,
             convert
                 <
-                    false,
+                    Single,
+                    typename boost::range_value<Multi>::type,
                     typename tag<Single>::type,
                     typename single_tag_of
                                 <
                                     typename tag<Multi>::type
                                 >::type,
                     DimensionCount,
-                    Single,
-                    typename boost::range_value<Multi>::type
+                    false
                 >
         >
 {};

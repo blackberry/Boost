@@ -1,21 +1,17 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 // Unit Test
 
-// Copyright (c) 2009-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2009-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-#include <iostream>
-#include <sstream>
-#include <fstream>
-#include <iomanip>
-#include <string>
-
 #define BOOST_GEOMETRY_REPORT_OVERLAY_ERROR
 #define BOOST_GEOMETRY_NO_BOOST_TEST
 
+
+#include <test_overlay_p_q.hpp>
 
 #include <boost/program_options.hpp>
 #include <boost/timer.hpp>
@@ -23,13 +19,6 @@
 #include <boost/random/uniform_int.hpp>
 #include <boost/random/uniform_real.hpp>
 #include <boost/random/variate_generator.hpp>
-
-
-#include <test_overlay_p_q.hpp>
-
-#include <boost/geometry/geometry.hpp>
-
-#include <boost/geometry/geometries/point_xy.hpp>
 
 
 struct star_params

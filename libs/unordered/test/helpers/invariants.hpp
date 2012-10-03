@@ -13,7 +13,6 @@
 #include <cmath>
 #include "./metafunctions.hpp"
 #include "./helpers.hpp"
-#include "./allocator.hpp"
 
 #if defined(BOOST_MSVC)
 #pragma warning(push)
@@ -29,16 +28,13 @@ namespace test
     {
         BOOST_DEDUCED_TYPENAME X::key_equal eq = x1.key_eq();
         typedef BOOST_DEDUCED_TYPENAME X::key_type key_type;
-        // Boost.Test was reporting memory leaks for std::set on g++-3.3.
-        // So I work around it by using malloc.
-        std::set<key_type, std::less<key_type>,
-            test::malloc_allocator<key_type> > found_;
+        std::set<key_type, std::less<key_type> > found_;
 
         BOOST_DEDUCED_TYPENAME X::const_iterator
             it = x1.begin(), end = x1.end();
         BOOST_DEDUCED_TYPENAME X::size_type size = 0;
         while(it != end) {
-            // First test that the current key has not occured before, required
+            // First test that the current key has not occurred before, required
             // to test either that keys are unique or that equivalent keys are
             // adjacent. (6.3.1/6)
             key_type key = get_key<X>(*it);

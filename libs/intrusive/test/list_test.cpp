@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 //
 // (C) Copyright Olaf Krzikalla 2004-2006.
-// (C) Copyright Ion Gaztanaga  2006-2009.
+// (C) Copyright Ion Gaztanaga  2006-2012.
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -12,7 +12,7 @@
 /////////////////////////////////////////////////////////////////////////////
 #include <boost/intrusive/detail/config_begin.hpp>
 #include <boost/intrusive/list.hpp>
-#include <boost/intrusive/detail/pointer_to_other.hpp>
+#include <boost/intrusive/pointer_traits.hpp>
 #include "itestvalue.hpp"
 #include "smart_ptr.hpp"
 #include "common_functors.hpp"
@@ -37,7 +37,7 @@ struct hooks
 };
 
 template<class ValueTraits>
-struct test_list 
+struct test_list
 {
    typedef typename ValueTraits::value_type value_type;
    static void test_all(std::vector<value_type>& values);
@@ -114,7 +114,7 @@ void test_list<ValueTraits>
 
    testlist.pop_front();
    BOOST_TEST (testlist.empty());
-}  
+}
 
 
 //test: constructor, iterator, reverse_iterator, sort, reverse:
@@ -196,7 +196,7 @@ void test_list<ValueTraits>
    int init_values [] = { 1, 3, 4, 5 };
    TEST_INTRUSIVE_SEQUENCE( init_values, testlist1.begin() );
 }
-  
+
 //test: assign, insert, const_iterator, const_reverse_iterator, erase, s_iterator_to:
 template<class ValueTraits>
 void test_list<ValueTraits>
@@ -221,7 +221,7 @@ void test_list<ValueTraits>
 
    {
    typename list_type::const_iterator ci = typename list_type::iterator();
-   //typename list_type::iterator i = typename list_type::const_iterator();
+   (void)ci;
    }
 
    testlist.insert (i, values[0]);
@@ -281,7 +281,7 @@ void test_list<ValueTraits>
          testlist.clear();
       }
    }
-} 
+}
 
 //test: insert (seq-version), swap, splice, erase (seq-version):
 template<class ValueTraits>
@@ -319,7 +319,7 @@ void test_list<ValueTraits>
       {  int init_values [] = { 1, 3, 5, 2 };
          TEST_INTRUSIVE_SEQUENCE( init_values, testlist2.begin() );  }
 
-      testlist1.splice (testlist1.end(), testlist2, 
+      testlist1.splice (testlist1.end(), testlist2,
                         testlist2.begin(), ----testlist2.end());
       {  int init_values [] = { 4, 1, 3 };
          TEST_INTRUSIVE_SEQUENCE( init_values, testlist1.begin() );  }
@@ -414,7 +414,7 @@ class test_main_template
       typedef testvalue<hooks<VoidPointer>, constant_time_size> value_type;
       std::vector<value_type> data (5);
       for (int i = 0; i < 5; ++i)
-         data[i].value_ = i + 1; 
+         data[i].value_ = i + 1;
 
       test_list < typename detail::get_base_value_traits
                   < value_type
@@ -442,7 +442,7 @@ class test_main_template<VoidPointer, false>
       typedef testvalue<hooks<VoidPointer>, false> value_type;
       std::vector<value_type> data (5);
       for (int i = 0; i < 5; ++i)
-         data[i].value_ = i + 1; 
+         data[i].value_ = i + 1;
 
       test_list < typename detail::get_base_value_traits
                   < value_type
@@ -489,12 +489,11 @@ class test_main_template<VoidPointer, false>
    }
 };
 
-int main( int, char* [] ) 
+int main( int, char* [] )
 {
    test_main_template<void*, false>()();
    test_main_template<smart_ptr<void>, false>()();
    test_main_template<void*, true>()();
    test_main_template<smart_ptr<void>, true>()();
-
    return boost::report_errors();
 }

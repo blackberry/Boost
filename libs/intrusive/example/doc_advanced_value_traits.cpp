@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2006-2009
+// (C) Copyright Ion Gaztanaga  2006-2012
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -14,7 +14,7 @@
 #include <boost/intrusive/list.hpp>
 #include <vector>
 
-//This is the node that will be used with algorithms. 
+//This is the node that will be used with algorithms.
 struct simple_node
 {
    simple_node *prev_;
@@ -26,7 +26,7 @@ struct simple_node
 class base_1{};
 class base_2{};
 
-struct value_1 :  public base_1, public simple_node   
+struct value_1 :  public base_1, public simple_node
 {  int   id_;  };
 
 struct value_2 :  public base_1, public base_2, public simple_node
@@ -38,10 +38,10 @@ struct simple_node_traits
    typedef simple_node                             node;
    typedef node *                                  node_ptr;
    typedef const node *                            const_node_ptr;
-   static node *get_next(const node *n)            {  return n->next_;  }  
-   static void set_next(node *n, node *next)       {  n->next_ = next;  }  
-   static node *get_previous(const node *n)        {  return n->prev_;  }  
-   static void set_previous(node *n, node *prev)   {  n->prev_ = prev;  }  
+   static node *get_next(const node *n)            {  return n->next_;  }
+   static void set_next(node *n, node *next)       {  n->next_ = next;  }
+   static node *get_previous(const node *n)        {  return n->prev_;  }
+   static void set_previous(node *n, node *prev)   {  n->prev_ = prev;  }
 };
 
 //A templatized value traits for value_1 and value_2

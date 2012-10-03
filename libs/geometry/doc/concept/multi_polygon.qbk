@@ -1,9 +1,9 @@
 [/============================================================================
   Boost.Geometry (aka GGL, Generic Geometry Library)
 
-  Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
-  Copyright (c) 2009-2011 Barend Gehrels, Amsterdam, the Netherlands.
-  Copyright (c) 2009-2011 Bruno Lalande, Paris, France.
+  Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
+  Copyright (c) 2009-2012 Barend Gehrels, Amsterdam, the Netherlands.
+  Copyright (c) 2009-2012 Bruno Lalande, Paris, France.
 
   Use, modification and distribution is subject to the Boost Software License,
   Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -23,6 +23,19 @@ The MultiPolygon Concept is defined as following:
 * It must behave like a Boost.Range Random Access Range
 * The type defined by the metafunction `range_value<...>::type` must fulfill 
 	the [link geometry.reference.concepts.concept_polygon Polygon Concept]
+    
+[heading Rules]
+
+Besides the Concepts, which are checks on compile-time, there are  
+rules that valid MultiPolygons must fulfill. See the
+[link geometry.reference.concepts.concept_polygon Polygon Concept] for more information
+on the rules a polygon (and also a multi polygon) must fulfill.
+
+Additionally:
+
+* Individual polygons making up a multi-polygon may not intersect each other,
+    but tangencies are allowed.
+* One polygon might be located within the interior ring of another polygon.
 
 [heading Available Models]	
 * [link geometry.reference.models.model_multi_polygon model::multi_polygon]

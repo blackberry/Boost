@@ -46,7 +46,7 @@ namespace boost
     }
 
 
-    process_real_cpu_clock::time_point process_real_cpu_clock::now() BOOST_CHRONO_NOEXCEPT
+    process_real_cpu_clock::time_point process_real_cpu_clock::now() BOOST_NOEXCEPT
     {
 #if 0
       tms tm;
@@ -179,7 +179,7 @@ namespace boost
     }
 #endif
 
-    process_user_cpu_clock::time_point process_user_cpu_clock::now() BOOST_CHRONO_NOEXCEPT
+    process_user_cpu_clock::time_point process_user_cpu_clock::now() BOOST_NOEXCEPT
     {
       tms tm;
       clock_t c = ::times(&tm);
@@ -200,7 +200,7 @@ namespace boost
       }
       return time_point();
     }
-    process_system_cpu_clock::time_point process_system_cpu_clock::now() BOOST_CHRONO_NOEXCEPT
+    process_system_cpu_clock::time_point process_system_cpu_clock::now() BOOST_NOEXCEPT
     {
       tms tm;
       clock_t c = ::times(&tm);
@@ -262,7 +262,7 @@ namespace boost
     }
 #endif
 
-    process_cpu_clock::time_point process_cpu_clock::now() BOOST_CHRONO_NOEXCEPT
+    process_cpu_clock::time_point process_cpu_clock::now() BOOST_NOEXCEPT
     {
       tms tm;
       clock_t c = ::times(&tm);

@@ -68,8 +68,8 @@ class movable_int
    int m_int;
 };
 
-template<class E, class T> 
-std::basic_ostream<E, T> & operator<< 
+template<class E, class T>
+std::basic_ostream<E, T> & operator<<
    (std::basic_ostream<E, T> & os, movable_int const & p)
 
 {
@@ -93,7 +93,7 @@ class movable_and_copyable_int
    movable_and_copyable_int(const movable_and_copyable_int& mmi)
       :  m_int(mmi.m_int)
    {}
-   
+  
    movable_and_copyable_int &operator= (BOOST_COPY_ASSIGN_REF(movable_and_copyable_int) mi)
    {  this->m_int = mi.m_int;    return *this;  }
 
@@ -132,8 +132,8 @@ class movable_and_copyable_int
    int m_int;
 };
 
-template<class E, class T> 
-std::basic_ostream<E, T> & operator<< 
+template<class E, class T>
+std::basic_ostream<E, T> & operator<<
    (std::basic_ostream<E, T> & os, movable_and_copyable_int const & p)
 
 {
@@ -155,7 +155,7 @@ class copyable_int
    copyable_int(const copyable_int& mmi)
       :  m_int(mmi.m_int)
    {}
-   
+  
    copyable_int & operator= (const copyable_int &mi)
    {  this->m_int = mi.m_int; return *this;  }
 
@@ -226,8 +226,8 @@ class non_copymovable_int
    int m_int;
 };
 
-template<class E, class T> 
-std::basic_ostream<E, T> & operator<< 
+template<class E, class T>
+std::basic_ostream<E, T> & operator<<
    (std::basic_ostream<E, T> & os, copyable_int const & p)
 
 {

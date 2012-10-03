@@ -1,9 +1,9 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 // Unit Test
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -18,7 +18,7 @@
 #include <boost/geometry/strategies/cartesian/distance_projected_point.hpp>
 #include <boost/geometry/strategies/concepts/distance_concept.hpp>
 
-#include <boost/geometry/domains/gis/io/wkt/read_wkt.hpp>
+#include <boost/geometry/io/wkt/read.hpp>
 
 
 #include <boost/geometry/geometries/point.hpp>
@@ -87,33 +87,62 @@ void test_services()
 }
 
 
-template <typename P1, typename P2>
-void test_all_2d()
+template <typename P1, typename P2, typename T>
+void test_all_2d(std::string const& wkt_p,
+                 std::string const& wkt_sp1,
+                 std::string const& wkt_sp2,
+                 T expected_distance)
 {
     P1 p;
     P2 sp1, sp2;
-    bg::read_wkt("POINT(1 1)", p);
-    bg::read_wkt("POINT(0 0)", sp1);
-    bg::read_wkt("POINT(2 3)", sp2);
+    bg::read_wkt(wkt_p, p);
+    bg::read_wkt(wkt_sp1, sp1);
+    bg::read_wkt(wkt_sp2, sp2);
 
-    typedef typename bg::strategy::distance::projected_point
-        <
-            P1,
-            P2
-        > strategy_type;
+    {
+        typedef bg::strategy::distance::projected_point
+            <
+                P1,
+                P2
+            > strategy_type;
 
-    BOOST_CONCEPT_ASSERT
-        (
-            (bg::concept::PointSegmentDistanceStrategy<strategy_type>)
-        );
+        BOOST_CONCEPT_ASSERT
+            (
+                (bg::concept::PointSegmentDistanceStrategy<strategy_type>)
+            );
 
+        strategy_type strategy;
+        typedef typename bg::strategy::distance::services::return_type<strategy_type>::type return_type;
+        return_type d = strategy.apply(p, sp1, sp2);
+        BOOST_CHECK_CLOSE(d, expected_distance, 0.001);
+    }
 
-    strategy_type strategy;
-    typedef typename bg::strategy::distance::services::return_type<strategy_type>::type return_type;
-    return_type d = strategy.apply(p, sp1, sp2);
-    BOOST_CHECK_CLOSE(d, return_type(0.27735203958327), 0.001);
+    // Test combination with the comparable strategy
+    {
+        typedef bg::strategy::distance::projected_point
+            <
+                P1,
+                P2,
+                void,
+                bg::strategy::distance::comparable::pythagoras<P1, P2>
+            > strategy_type;
+        strategy_type strategy;
+        typedef typename bg::strategy::distance::services::return_type<strategy_type>::type return_type;
+        return_type d = strategy.apply(p, sp1, sp2);
+        T expected_squared_distance = expected_distance * expected_distance;
+        BOOST_CHECK_CLOSE(d, expected_squared_distance, 0.01);
+    }
+
 }
 
+template <typename P1, typename P2>
+void test_all_2d()
+{
+    test_all_2d<P1, P2>("POINT(1 1)", "POINT(0 0)", "POINT(2 3)", 0.27735203958327);
+    test_all_2d<P1, P2>("POINT(2 2)", "POINT(1 4)", "POINT(4 1)", 0.5 * sqrt(2.0));
+    test_all_2d<P1, P2>("POINT(6 1)", "POINT(1 4)", "POINT(4 1)", 2.0);
+    test_all_2d<P1, P2>("POINT(1 6)", "POINT(1 4)", "POINT(4 1)", 2.0);
+}
 
 template <typename P>
 void test_all_2d()

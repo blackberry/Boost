@@ -1,11 +1,16 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 // Unit Test
 
-// Copyright (c) 2010 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2010-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
+
+// geometry::num_points does not accept the ring_proxy for adaptation, like
+// centroid and probably many more algorithms. TODO: fix that. Until then we
+// define it such that num_points is not called.
+#define BOOST_GEOMETRY_EMPTY_INPUT_NO_THROW
 
 #include <geometry_test_common.hpp>
 
@@ -22,7 +27,7 @@
 #include <boost/geometry/geometries/adapted/boost_polygon/ring.hpp>
 #include <boost/geometry/geometries/adapted/boost_polygon/polygon.hpp>
 
-#include <boost/geometry/domains/gis/io/wkt/wkt.hpp>
+#include <boost/geometry/io/wkt/wkt.hpp>
 
 #include <iostream>
 

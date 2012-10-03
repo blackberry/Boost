@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -62,7 +62,7 @@ int main ()
       test::test_named_creation<shared_memory_creation_test_wrapper>();
 
       //Create and get name, size and address
-      {  
+      { 
          shared_memory_object::remove(ShmName);
          shared_memory shm1(create_only, ShmName, ShmSize, read_write, 0, permissions());
 
@@ -70,9 +70,9 @@ int main ()
          std::memset(shm1.get_user_address(), 0, shm1.get_user_size());
 
          //Now test move semantics
-         shared_memory move_ctor(boost::interprocess::move(shm1));
+         shared_memory move_ctor(boost::move(shm1));
          shared_memory move_assign;
-         move_assign = boost::interprocess::move(move_ctor);
+         move_assign = boost::move(move_ctor);
       }
    }
    catch(std::exception &ex){

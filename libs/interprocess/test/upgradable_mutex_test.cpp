@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -23,8 +23,8 @@ int main ()
    using namespace boost::interprocess;
 
    test::test_all_lock<interprocess_upgradable_mutex>();
-   test::test_all_mutex<true, interprocess_upgradable_mutex>();
-   test::test_all_sharable_mutex<true, interprocess_upgradable_mutex>();
+   test::test_all_mutex<interprocess_upgradable_mutex>();
+   test::test_all_sharable_mutex<interprocess_upgradable_mutex>();
 
    //Test lock transition
    {
@@ -35,135 +35,135 @@ int main ()
       //Conversions to scoped_lock
       {
          scoped_lock<Mutex>      lock(mut);
-         scoped_lock<Mutex>      e_lock(boost::interprocess::move(lock));
+         scoped_lock<Mutex>      e_lock(boost::move(lock));
          lock.swap(e_lock);
       }
       {
          scoped_lock<Mutex>      lock(mut);
          scoped_lock<Mutex>      e_lock(mut2);
-         e_lock = boost::interprocess::move(lock);
+         e_lock = boost::move(lock);
       }
       {
          upgradable_lock<Mutex>  u_lock(mut);
          //This calls unlock_upgradable_and_lock()
-         scoped_lock<Mutex>      e_lock(boost::interprocess::move(u_lock));
+         scoped_lock<Mutex>      e_lock(boost::move(u_lock));
       }
       {
          upgradable_lock<Mutex>  u_lock(mut);
          //This calls unlock_upgradable_and_lock()
          scoped_lock<Mutex>      e_lock(mut2);
-         scoped_lock<Mutex>      moved(boost::interprocess::move(u_lock));
-         e_lock = boost::interprocess::move(moved);
+         scoped_lock<Mutex>      moved(boost::move(u_lock));
+         e_lock = boost::move(moved);
       }
       {
          upgradable_lock<Mutex>  u_lock(mut);
          //This calls try_unlock_upgradable_and_lock()
-         scoped_lock<Mutex>      e_lock(boost::interprocess::move(u_lock), try_to_lock);
+         scoped_lock<Mutex>      e_lock(boost::move(u_lock), try_to_lock);
       }
       {
          upgradable_lock<Mutex>  u_lock(mut);
          //This calls try_unlock_upgradable_and_lock()
          scoped_lock<Mutex>      e_lock(mut2);
-         scoped_lock<Mutex>      moved(boost::interprocess::move(u_lock), try_to_lock);
-         e_lock = boost::interprocess::move(moved);
+         scoped_lock<Mutex>      moved(boost::move(u_lock), try_to_lock);
+         e_lock = boost::move(moved);
       }
       {
          boost::posix_time::ptime t = test::delay(100);
          upgradable_lock<Mutex>  u_lock(mut);
          //This calls timed_unlock_upgradable_and_lock()
-         scoped_lock<Mutex>      e_lock(boost::interprocess::move(u_lock), t);
+         scoped_lock<Mutex>      e_lock(boost::move(u_lock), t);
       }
       {
          boost::posix_time::ptime t = test::delay(100);
          upgradable_lock<Mutex>  u_lock(mut);
          //This calls timed_unlock_upgradable_and_lock()
          scoped_lock<Mutex>      e_lock(mut2);
-         scoped_lock<Mutex>      moved(boost::interprocess::move(u_lock), t);
-         e_lock = boost::interprocess::move(moved);
+         scoped_lock<Mutex>      moved(boost::move(u_lock), t);
+         e_lock = boost::move(moved);
       }
       {
          sharable_lock<Mutex>    s_lock(mut);
          //This calls try_unlock_sharable_and_lock()
-         scoped_lock<Mutex>      e_lock(boost::interprocess::move(s_lock), try_to_lock);
+         scoped_lock<Mutex>      e_lock(boost::move(s_lock), try_to_lock);
       }
       {
          sharable_lock<Mutex>    s_lock(mut);
          //This calls try_unlock_sharable_and_lock()
          scoped_lock<Mutex>      e_lock(mut2);
-         scoped_lock<Mutex>      moved(boost::interprocess::move(s_lock), try_to_lock);
-         e_lock = boost::interprocess::move(moved);
+         scoped_lock<Mutex>      moved(boost::move(s_lock), try_to_lock);
+         e_lock = boost::move(moved);
       }
       //Conversions to upgradable_lock
       {
          upgradable_lock<Mutex>  lock(mut);
-         upgradable_lock<Mutex>  u_lock(boost::interprocess::move(lock));
+         upgradable_lock<Mutex>  u_lock(boost::move(lock));
          lock.swap(u_lock);
       }
       {
          upgradable_lock<Mutex>  lock(mut);
          upgradable_lock<Mutex>  u_lock(mut2);
-         upgradable_lock<Mutex>  moved(boost::interprocess::move(lock));
-         u_lock = boost::interprocess::move(moved);
+         upgradable_lock<Mutex>  moved(boost::move(lock));
+         u_lock = boost::move(moved);
       }
       {
          sharable_lock<Mutex>    s_lock(mut);
          //This calls unlock_sharable_and_lock_upgradable()
-         upgradable_lock<Mutex>  u_lock(boost::interprocess::move(s_lock), try_to_lock);
+         upgradable_lock<Mutex>  u_lock(boost::move(s_lock), try_to_lock);
       }
       {
          sharable_lock<Mutex>    s_lock(mut);
          //This calls unlock_sharable_and_lock_upgradable()
          upgradable_lock<Mutex>  u_lock(mut2);
-         upgradable_lock<Mutex>  moved(boost::interprocess::move(s_lock), try_to_lock);
-         u_lock = boost::interprocess::move(moved);
+         upgradable_lock<Mutex>  moved(boost::move(s_lock), try_to_lock);
+         u_lock = boost::move(moved);
       }
       {
          scoped_lock<Mutex>      e_lock(mut);
          //This calls unlock_and_lock_upgradable()
-         upgradable_lock<Mutex>  u_lock(boost::interprocess::move(e_lock));
+         upgradable_lock<Mutex>  u_lock(boost::move(e_lock));
       }
       {
          scoped_lock<Mutex>      e_lock(mut);
          //This calls unlock_and_lock_upgradable()
          upgradable_lock<Mutex>  u_lock(mut2);
-         upgradable_lock<Mutex>  moved(boost::interprocess::move(e_lock));
-         u_lock = boost::interprocess::move(moved);
+         upgradable_lock<Mutex>  moved(boost::move(e_lock));
+         u_lock = boost::move(moved);
       }
       //Conversions to sharable_lock
       {
          sharable_lock<Mutex>    lock(mut);
-         sharable_lock<Mutex>    s_lock(boost::interprocess::move(lock));
+         sharable_lock<Mutex>    s_lock(boost::move(lock));
          lock.swap(s_lock);
       }
       {
          sharable_lock<Mutex>    lock(mut);
          sharable_lock<Mutex>    s_lock(mut2);
-         sharable_lock<Mutex>    moved(boost::interprocess::move(lock));
-         s_lock = boost::interprocess::move(moved);
+         sharable_lock<Mutex>    moved(boost::move(lock));
+         s_lock = boost::move(moved);
       }
       {
          upgradable_lock<Mutex>  u_lock(mut);
          //This calls unlock_upgradable_and_lock_sharable()
-         sharable_lock<Mutex>    s_lock(boost::interprocess::move(u_lock));
+         sharable_lock<Mutex>    s_lock(boost::move(u_lock));
       }
       {
          upgradable_lock<Mutex>  u_lock(mut);
          //This calls unlock_upgradable_and_lock_sharable()
          sharable_lock<Mutex>    s_lock(mut2);
-         sharable_lock<Mutex>    moved(boost::interprocess::move(u_lock));
-         s_lock = boost::interprocess::move(moved);
+         sharable_lock<Mutex>    moved(boost::move(u_lock));
+         s_lock = boost::move(moved);
       }
       {
          scoped_lock<Mutex>      e_lock(mut);
          //This calls unlock_and_lock_sharable()
-         sharable_lock<Mutex>    s_lock(boost::interprocess::move(e_lock));
+         sharable_lock<Mutex>    s_lock(boost::move(e_lock));
       }
       {
          scoped_lock<Mutex>      e_lock(mut);
          //This calls unlock_and_lock_sharable()
          sharable_lock<Mutex>    s_lock(mut2);
-         sharable_lock<Mutex>    moved(boost::interprocess::move(e_lock));
-         s_lock = boost::interprocess::move(moved);
+         sharable_lock<Mutex>    moved(boost::move(e_lock));
+         s_lock = boost::move(moved);
       }
    }
 

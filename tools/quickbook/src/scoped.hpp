@@ -16,7 +16,8 @@ namespace quickbook {
     struct scoped_action_base
     {
         bool start() { return true; }
-        void success() {}
+        template <typename Iterator>
+        void success(Iterator, Iterator) {}
         void failure() {}
         void cleanup() {}
         

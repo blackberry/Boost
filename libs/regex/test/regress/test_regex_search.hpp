@@ -482,6 +482,10 @@ void test(boost::basic_regex<charT, traits>& r, const test_regex_search_tag&)
       {
          BOOST_REGEX_TEST_ERROR("Expression did not compile when it should have done, error code = " << r.status(), charT);
       }
+      if(expression != std::basic_string<charT>(r.begin(), r.end()))
+      {
+         BOOST_REGEX_TEST_ERROR("Stored expression string was incorrect", charT);
+      }
       test_simple_search(r);
       test_regex_iterator(r);
       test_regex_token_iterator(r);

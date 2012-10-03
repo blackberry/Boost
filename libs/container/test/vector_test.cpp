@@ -1,13 +1,12 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
 // See http://www.boost.org/libs/container for documentation.
 //
 //////////////////////////////////////////////////////////////////////////////
-
 #include <boost/container/detail/config_begin.hpp>
 #include <algorithm>
 #include <memory>
@@ -16,18 +15,31 @@
 #include <functional>
 
 #include <boost/container/vector.hpp>
+#include <boost/move/move.hpp>
 #include "check_equal_containers.hpp"
 #include "movable_int.hpp"
 #include "expand_bwd_test_allocator.hpp"
 #include "expand_bwd_test_template.hpp"
 #include "dummy_test_allocator.hpp"
+#include "propagate_allocator_test.hpp"
 #include "vector_test.hpp"
 
 using namespace boost::container;
 
+namespace boost {
+namespace container {
+
 //Explicit instantiation to detect compilation errors
-template class boost::container::vector<test::movable_and_copyable_int, 
+template class boost::container::vector<test::movable_and_copyable_int,
+   test::simple_allocator<test::movable_and_copyable_int> >;
+
+template class boost::container::vector<test::movable_and_copyable_int,
    test::dummy_test_allocator<test::movable_and_copyable_int> >;
+
+template class boost::container::vector<test::movable_and_copyable_int,
+   std::allocator<test::movable_and_copyable_int> >;
+
+}}
 
 int test_expand_bwd()
 {
@@ -81,9 +93,28 @@ enum Test
    zero, one, two, three, four, five, six
 };
 
-
 int main()
 {
+   {
+      const std::size_t positions_length = 10;
+      std::size_t positions[positions_length];
+      vector<int> vector_int;
+      vector<int> vector_int2(positions_length);
+      for(std::size_t i = 0; i != positions_length; ++i){
+         positions[i] = 0u;
+      }
+      for(std::size_t i = 0, max = vector_int2.size(); i != max; ++i){
+         vector_int2[i] = i;
+      }
+
+      vector_int.insert(vector_int.begin(), 999);
+
+      vector_int.insert_ordered_at(positions_length, positions + positions_length, vector_int2.end());
+
+      for(std::size_t i = 0, max = vector_int.size(); i != max; ++i){
+         std::cout << vector_int[i] << std::endl;
+      }
+   }
    recursive_vector_test();
    {
       //Now test move semantics
@@ -98,7 +129,6 @@ int main()
    typedef vector<test::movable_and_copyable_int> MyCopyMoveVector;
    typedef vector<test::copyable_int> MyCopyVector;
    typedef vector<Test> MyEnumVector;
-
 
    if(test::vector_test<MyVector>())
       return 1;
@@ -122,6 +152,10 @@ int main()
       < vector<test::EmplaceInt>, Options>())
       return 1;
 
+   if(!boost::container::test::test_propagate_allocator<vector>())
+      return 1;
+
    return 0;
+
 }
 #include <boost/container/detail/config_end.hpp>

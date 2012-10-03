@@ -1,12 +1,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-<title>Chapter&#160;11.&#160;Boost.Interprocess</title>
+<title>Chapter&#160;12.&#160;Boost.Interprocess</title>
 <link rel="stylesheet" href="../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
 <link rel="up" href="libraries.html" title="Part&#160;I.&#160;The Boost C++ Libraries (BoostBook Subset)">
-<link rel="prev" href="hash/acknowledgements.html" title="Acknowledgements">
+<link rel="prev" href="heap/acknowledgements.html" title="Acknowledgements">
 <link rel="next" href="interprocess/quick_guide.html" title="Quick Guide for the Impatient">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -20,16 +20,16 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="hash/acknowledgements.html"><img src="../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="libraries.html"><img src="../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="index.html"><img src="../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="interprocess/quick_guide.html"><img src="../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="heap/acknowledgements.html"><img src="../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="libraries.html"><img src="../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="index.html"><img src="../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="interprocess/quick_guide.html"><img src="../../doc/src/images/next.png" alt="Next"></a>
 </div>
 <div class="chapter">
 <div class="titlepage"><div>
 <div><h2 class="title">
-<a name="interprocess"></a>Chapter&#160;11.&#160;Boost.Interprocess</h2></div>
+<a name="interprocess"></a>Chapter&#160;12.&#160;Boost.Interprocess</h2></div>
 <div><div class="author"><h3 class="author">
 <span class="firstname">Ion</span> <span class="surname">Gaztanaga</span>
 </h3></div></div>
-<div><p class="copyright">Copyright &#169; 2005-2010 Ion Gaztanaga</p></div>
+<div><p class="copyright">Copyright &#169; 2005-2011 Ion Gaztanaga</p></div>
 <div><div class="legalnotice">
 <a name="interprocess.legal"></a><p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -181,6 +181,7 @@
 <dt><span class="section"><a href="interprocess/acknowledgements_notes.html">Acknowledgements,
     notes and links</a></span></dt>
 <dd><dl>
+<dt><span class="section"><a href="interprocess/acknowledgements_notes.html#interprocess.acknowledgements_notes.notes">Notes</a></span></dt>
 <dt><span class="section"><a href="interprocess/acknowledgements_notes.html#interprocess.acknowledgements_notes.thanks_to">Thanks
       to...</a></span></dt>
 <dt><span class="section"><a href="interprocess/acknowledgements_notes.html#interprocess.acknowledgements_notes.release_notes">Release
@@ -249,7 +250,6 @@
 <dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.streams.bufferstream_hpp">Header &lt;boost/interprocess/streams/bufferstream.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.streams.vectorstream_hpp">Header &lt;boost/interprocess/streams/vectorstream.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.file_lock_hpp">Header &lt;boost/interprocess/sync/file_lock.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.interprocess_barrier_hpp">Header &lt;boost/interprocess/sync/interprocess_barrier.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.interprocess_condition_hpp">Header &lt;boost/interprocess/sync/interprocess_condition.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.interprocess_mutex_hpp">Header &lt;boost/interprocess/sync/interprocess_mutex.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.interprocess_recursive_mutex_hpp">Header &lt;boost/interprocess/sync/interprocess_recursive_mutex.hpp&gt;</a></span></dt>
@@ -369,40 +369,25 @@
       </p>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc">
 <li class="listitem">
-            Visual 7.1 Windows XP
+            Visual &gt;= 7.1
           </li>
 <li class="listitem">
-            Visual 8.0 Windows XP
+            GCC &gt;= 4.1
           </li>
 <li class="listitem">
-            GCC 4.1.1 MinGW
-          </li>
-<li class="listitem">
-            GCC 3.4.4 Cygwin
-          </li>
-<li class="listitem">
-            Intel 9.1 Windows XP
-          </li>
-<li class="listitem">
-            GCC 4.1.2 Linux
-          </li>
-<li class="listitem">
-            GCC 3.4.3 Solaris 11
-          </li>
-<li class="listitem">
-            GCC 4.0 MacOs 10.4.1
+            Intel 11
           </li>
 </ul></div>
 </div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: November 12, 2011 at 13:42:36 GMT</small></p></td>
+<td align="left"><p><small>Last revised: August 15, 2012 at 23:44:12 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="hash/acknowledgements.html"><img src="../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="libraries.html"><img src="../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="index.html"><img src="../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="interprocess/quick_guide.html"><img src="../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="heap/acknowledgements.html"><img src="../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="libraries.html"><img src="../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="index.html"><img src="../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="interprocess/quick_guide.html"><img src="../../doc/src/images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

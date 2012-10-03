@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -40,7 +40,7 @@ int main ()
       managed_windows_shared_memory w_shm(create_only, MemName, MemSize);
 
       int i;
-      //Let's allocate some memory 
+      //Let's allocate some memory
       for(i = 0; i < max; ++i){
          array[i] = w_shm.allocate(i+1);
       }
@@ -123,7 +123,7 @@ int main ()
             if(!shmem_vect)
                return -1;
          }
-      
+     
          //Destroy and check it is not present
          w_shm_new.destroy_ptr(w_shm_vect);
          if(0 != w_shm_new.find<MyVect>("MyVector").first)
@@ -131,9 +131,9 @@ int main ()
 
          //Now test move semantics
          managed_windows_shared_memory original(open_only, MemName);
-         managed_windows_shared_memory move_ctor(boost::interprocess::move(original));
+         managed_windows_shared_memory move_ctor(boost::move(original));
          managed_windows_shared_memory move_assign;
-         move_assign = boost::interprocess::move(move_ctor);
+         move_assign = boost::move(move_ctor);
       }
    }
 

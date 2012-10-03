@@ -4,7 +4,7 @@
 <title>Linestring Concept</title>
 <link rel="stylesheet" href="../../../../../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
-<link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Geometry 1.0">
+<link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Geometry">
 <link rel="up" href="../concepts.html" title="Concepts">
 <link rel="prev" href="concept_point.html" title="Point Concept">
 <link rel="next" href="concept_polygon.html" title="Polygon Concept">
@@ -38,7 +38,8 @@
         </p>
 <p>
           A linestring is <span class="emphasis"><em>a Curve with linear interpolation between Points</em></span>.
-          (<a href="http://portal.opengeospatial.org/files/?artifact_id=25355" target="_top">opengeospatial</a>).
+          (<a href="http://www.opengeospatial.org/standards/sfa" target="_top">OGC Simple Feature
+          Specification</a>).
         </p>
 <h6>
 <a name="geometry.reference.concepts.concept_linestring.h1"></a>
@@ -65,6 +66,18 @@
 </ul></div>
 <h6>
 <a name="geometry.reference.concepts.concept_linestring.h2"></a>
+          <span><a name="geometry.reference.concepts.concept_linestring.rules"></a></span><a class="link" href="concept_linestring.html#geometry.reference.concepts.concept_linestring.rules">Rules</a>
+        </h6>
+<p>
+          Besides the Concepts, which are checks on compile-time, there are rules
+          that valid linestrings must fulfill. Most algorithms work on any linestring,
+          so either self-crossing or not. However, for correct results using the
+          overlay algorithms (intersection and difference algorithms in combination
+          with a polygon) self-intersections can disturb the process and result in
+          incorrect results.
+        </p>
+<h6>
+<a name="geometry.reference.concepts.concept_linestring.h3"></a>
           <span><a name="geometry.reference.concepts.concept_linestring.available_models"></a></span><a class="link" href="concept_linestring.html#geometry.reference.concepts.concept_linestring.available_models">Available
           Models</a>
         </h6>
@@ -79,10 +92,22 @@
               a std::deque (requires registration)
             </li>
 </ul></div>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../../../../../doc/src/images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            See also the sample in the <a href="../../../../../../range/doc/html/range/reference/extending/method_2.html" target="_top">Boost.Range
+            documentation</a> showing how a type can be adapted to a Boost.Range
+            to fulfill the concept of a Linestring
+          </p></td></tr>
+</table></div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2011 Barend Gehrels, Bruno Lalande, Mateusz Loskot<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2009-2012 Barend
+      Gehrels, Bruno Lalande, Mateusz Loskot<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

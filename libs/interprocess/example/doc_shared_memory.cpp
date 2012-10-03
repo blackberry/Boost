@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2006-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2006-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 
    if(argc == 1){  //Parent process
       //Remove shared memory on construction and destruction
-      struct shm_remove 
+      struct shm_remove
       {
       //<-
       #if 1
@@ -38,6 +38,9 @@ int main(int argc, char *argv[])
       #endif
       //->
       } remover;
+      //<-
+      (void)remover;
+      //->
 
       //Create a shared memory object.
       //<-

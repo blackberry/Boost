@@ -1,9 +1,9 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 // Unit Test
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -194,7 +194,33 @@ void test_open_ccw()
     // Note the triangular testcase used in CCW is not sensible for open/close
 }
 
+template <typename P>
+void test_empty_input()
+{
+    bg::model::polygon<P> poly_empty;
+    bg::model::ring<P> ring_empty;
 
+    test_empty_input(poly_empty);
+    test_empty_input(ring_empty);
+}
+
+void test_large_integers()
+{
+    typedef bg::model::point<int, 2, bg::cs::cartesian> int_point_type;
+    typedef bg::model::point<double, 2, bg::cs::cartesian> double_point_type;
+
+    bg::model::polygon<int_point_type> int_poly;
+    bg::model::polygon<double_point_type> double_poly;
+
+    std::string const polygon_li = "POLYGON((1872000 528000,1872000 192000,1536119 192000,1536000 528000,1200000 528000,1200000 863880,1536000 863880,1872000 863880,1872000 528000))";
+    bg::read_wkt(polygon_li, int_poly);
+    bg::read_wkt(polygon_li, double_poly);
+
+    double int_area = bg::area(int_poly);
+    double double_area = bg::area(double_poly);
+
+    BOOST_CHECK_CLOSE(int_area, double_area, 0.0001);
+}
 
 int test_main(int, char* [])
 {
@@ -213,6 +239,10 @@ int test_main(int, char* [])
     test_all<bg::model::d2::point_xy<ttmath_big> >();
     test_spherical<bg::model::point<ttmath_big, 2, bg::cs::spherical_equatorial<bg::degree> > >();
 #endif
+
+    test_large_integers();
+
+    // test_empty_input<bg::model::d2::point_xy<int> >();
 
     return 0;
 }

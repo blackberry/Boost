@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2007-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2007-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -23,10 +23,6 @@ namespace bip = boost::interprocess;
 typedef bip::allocator<int, bip::managed_shared_memory::segment_manager> ShmemAllocator;
 typedef boost::unordered_set<int, boost::hash<int>, std::equal_to<int>, ShmemAllocator> MyUnorderedSet;
 typedef boost::unordered_multiset<int, boost::hash<int>, std::equal_to<int>, ShmemAllocator> MyUnorderedMultiSet;
-
-//Explicit instantiation to catch compile-time errors
-template class boost::unordered_set<int, boost::hash<int>, std::equal_to<int>, ShmemAllocator>;
-template class boost::unordered_multiset<int, boost::hash<int>, std::equal_to<int>, ShmemAllocator>;
 
 int main()
 {

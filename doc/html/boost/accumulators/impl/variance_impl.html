@@ -37,50 +37,50 @@
   <span class="keyword">typedef</span> <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span> <span class="identifier">Sample</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">result_type</span> <a name="boost.accumulators.impl.variance_impl.result_type"></a><span class="identifier">result_type</span><span class="special">;</span>
 
   <span class="comment">// <a class="link" href="variance_impl.html#boost.accumulators.impl.variance_implconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Args<span class="special">&gt;</span> <a class="link" href="variance_impl.html#id571392-bb"><span class="identifier">variance_impl</span></a><span class="special">(</span><span class="identifier">Args</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Args<span class="special">&gt;</span> <a class="link" href="variance_impl.html#id572518-bb"><span class="identifier">variance_impl</span></a><span class="special">(</span><span class="identifier">Args</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="variance_impl.html#id571354-bb">public member functions</a></span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Args<span class="special">&gt;</span> <span class="keyword">void</span> <a class="link" href="variance_impl.html#id571358-bb"><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span></a><span class="special">(</span><span class="identifier">Args</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">result_type</span> <a class="link" href="variance_impl.html#id571378-bb"><span class="identifier">result</span></a><span class="special">(</span><span class="identifier">dont_care</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="variance_impl.html#id572481-bb">public member functions</a></span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Args<span class="special">&gt;</span> <span class="keyword">void</span> <a class="link" href="variance_impl.html#id572485-bb"><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span></a><span class="special">(</span><span class="identifier">Args</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">result_type</span> <a class="link" href="variance_impl.html#id572505-bb"><span class="identifier">result</span></a><span class="special">(</span><span class="identifier">dont_care</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="id950122"></a><h2>Description</h2>
+<a name="id950444"></a><h2>Description</h2>
 <p>Iterative calculation of sample variance <span class="inlinemediaobject"><img src="../../../images/accumulators/form_75.png"></span> according to the formula </p>
 <div class="equation">
-<a name="id950148"></a><p class="title"><b>Equation&#160;1.23.&#160;</b></p>
+<a name="id950470"></a><p class="title"><b>Equation&#160;1.23.&#160;</b></p>
 <div class="equation-contents"><div class="mediaobject" align="center"><img src="../../../images/accumulators/form_76.png" align="middle"></div></div>
 </div>
 <p><br class="equation-break"> where </p>
 <div class="equation">
-<a name="id950175"></a><p class="title"><b>Equation&#160;1.24.&#160;</b></p>
+<a name="id950497"></a><p class="title"><b>Equation&#160;1.24.&#160;</b></p>
 <div class="equation-contents"><div class="mediaobject" align="center"><img src="../../../images/accumulators/form_74.png" align="middle"></div></div>
 </div>
 <p><br class="equation-break"> is the estimate of the sample mean and <span class="inlinemediaobject"><img src="../../../images/accumulators/form_60.png"></span> is the number of samples.</p>
 <p>Note that the sample variance is not defined for <span class="inlinemediaobject"><img src="../../../images/accumulators/form_77.png"></span>.</p>
 <p>A simplification can be obtained by the approximate recursion </p>
 <div class="equation">
-<a name="id950245"></a><p class="title"><b>Equation&#160;1.25.&#160;</b></p>
+<a name="id950567"></a><p class="title"><b>Equation&#160;1.25.&#160;</b></p>
 <div class="equation-contents"><div class="mediaobject" align="center"><img src="../../../images/accumulators/form_78.png" align="middle"></div></div>
 </div>
 <p><br class="equation-break"> because the difference </p>
 <div class="equation">
-<a name="id950271"></a><p class="title"><b>Equation&#160;1.26.&#160;</b></p>
+<a name="id950593"></a><p class="title"><b>Equation&#160;1.26.&#160;</b></p>
 <div class="equation-contents"><div class="mediaobject" align="center"><img src="../../../images/accumulators/form_79.png" align="middle"></div></div>
 </div>
 <p><br class="equation-break"> converges to zero as <span class="inlinemediaobject"><img src="../../../images/accumulators/form_80.png"></span>. However, for small <span class="inlinemediaobject"><img src="../../../images/accumulators/form_17.png"></span> the difference can be non-negligible. </p>
 <div class="refsect2">
-<a name="id950338"></a><h3>
+<a name="id950660"></a><h3>
 <a name="boost.accumulators.impl.variance_implconstruct-copy-destruct"></a><code class="computeroutput">variance_impl</code> 
         public
        construct/copy/destruct</h3>
-<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Args<span class="special">&gt;</span> <a name="id571392-bb"></a><span class="identifier">variance_impl</span><span class="special">(</span><span class="identifier">Args</span> <span class="keyword">const</span> <span class="special">&amp;</span> args<span class="special">)</span><span class="special">;</span></pre></li></ol></div>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Args<span class="special">&gt;</span> <a name="id572518-bb"></a><span class="identifier">variance_impl</span><span class="special">(</span><span class="identifier">Args</span> <span class="keyword">const</span> <span class="special">&amp;</span> args<span class="special">)</span><span class="special">;</span></pre></li></ol></div>
 </div>
 <div class="refsect2">
-<a name="id950425"></a><h3>
-<a name="id571354-bb"></a><code class="computeroutput">variance_impl</code> public member functions</h3>
+<a name="id950747"></a><h3>
+<a name="id572481-bb"></a><code class="computeroutput">variance_impl</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Args<span class="special">&gt;</span> <span class="keyword">void</span> <a name="id571358-bb"></a><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="identifier">Args</span> <span class="keyword">const</span> <span class="special">&amp;</span> args<span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">result_type</span> <a name="id571378-bb"></a><span class="identifier">result</span><span class="special">(</span><span class="identifier">dont_care</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Args<span class="special">&gt;</span> <span class="keyword">void</span> <a name="id572485-bb"></a><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="identifier">Args</span> <span class="keyword">const</span> <span class="special">&amp;</span> args<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">result_type</span> <a name="id572505-bb"></a><span class="identifier">result</span><span class="special">(</span><span class="identifier">dont_care</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 </div>
