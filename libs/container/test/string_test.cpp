@@ -85,7 +85,8 @@ struct string_literals<char>
       {  return "Suffix";  }
    static const char *LongString()
       {  return "LongLongLongLongLongLongLongLongLongLongLongLongLongString";  }
-
+   static char Char()
+      {  return 'C';  }
    static void sprintf_number(char *buf, int number)
    {
       std::sprintf(buf, "%i", number);
@@ -103,7 +104,8 @@ struct string_literals<wchar_t>
       {  return L"Suffix";  }
    static const wchar_t *LongString()
       {  return L"LongLongLongLongLongLongLongLongLongLongLongLongLongString";  }
-
+   static wchar_t Char()
+      {  return L'C';  }
    static void sprintf_number(wchar_t *buffer, unsigned int number)
    {
       //For compilers without wsprintf, print it backwards
@@ -395,6 +397,22 @@ int string_test()
          ss2 = string_literals<CharType>::String();
          bs4 = bs2 + string_literals<CharType>::Suffix();
          ss4 = ss2 + string_literals<CharType>::Suffix();
+         if(!StringEqual()(bs4, ss4)){
+            return 1;
+         }
+
+         bs2 = string_literals<CharType>::String();
+         ss2 = string_literals<CharType>::String();
+         bs4 = string_literals<CharType>::Char() + bs2;
+         ss4 = string_literals<CharType>::Char() + ss2;
+         if(!StringEqual()(bs4, ss4)){
+            return 1;
+         }
+
+         bs2 = string_literals<CharType>::String();
+         ss2 = string_literals<CharType>::String();
+         bs4 = bs2 + string_literals<CharType>::Char();
+         ss4 = ss2 + string_literals<CharType>::Char();
          if(!StringEqual()(bs4, ss4)){
             return 1;
          }

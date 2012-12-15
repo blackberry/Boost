@@ -26,7 +26,12 @@
 <a name="boost.proto._data"></a><div class="titlepage"></div>
 <div class="refnamediv">
 <h2><span class="refentrytitle">Struct _data</span></h2>
-<p>boost::proto::_data &#8212; A <a class="link" href="../../PrimitiveTransform.html" title="Concept PrimitiveTransform">PrimitiveTransform</a> that returns the current data unmodified. </p>
+<p>boost::proto::_data &#8212; 
+          A <a class="link" href="../../PrimitiveTransform.html" title="Concept PrimitiveTransform">PrimitiveTransform</a> that returns the current data unmodified.
+          If the data (third) parameter is a transform environment, it returns the value associated
+          with the <code class="computeroutput"><a class="link" href="data_type.html" title="Struct data_type">proto::data_type</a></code> key. Otherwise, it returns
+          the data parameter unmodified.
+        </p>
 </div>
 <h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
 <div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../proto/reference.html#header.boost.proto.transform.arg_hpp" title="Header &lt;boost/proto/transform/arg.hpp&gt;">boost/proto/transform/arg.hpp</a>&gt;
@@ -35,24 +40,32 @@
 <span class="keyword">struct</span> <a class="link" href="_data.html" title="Struct _data">_data</a> <span class="special">:</span> <span class="keyword"></span> <a class="link" href="transform.html" title="Struct template transform">proto::transform</a><span class="special">&lt;</span> <span class="identifier">_data</span> <span class="special">&gt;</span> <span class="special">{</span>
   <span class="comment">// member classes/structs/unions</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <a class="link" href="../../Expr.html" title="Concept Expr">Expr</a><span class="special">,</span> <span class="keyword">typename</span> State<span class="special">,</span> <span class="keyword">typename</span> Data<span class="special">&gt;</span> 
-  <span class="keyword">struct</span> <a class="link" href="_data/impl.html" title="Struct template impl">impl</a> <span class="special">:</span> <span class="keyword"></span> <a class="link" href="transform_impl.html" title="Struct template transform_impl">proto::transform_impl</a><span class="special">&lt;</span> <span class="identifier">Expr</span><span class="special">,</span> <span class="identifier">State</span><span class="special">,</span> <span class="identifier">Data</span> <span class="special">&gt;</span> <span class="special">{</span>
-    <span class="comment">// types</span>
-    <span class="keyword">typedef</span> <span class="identifier">Data</span> <a class="link" href="_data/impl.html#boost.proto._data.impl.result_type"><span class="identifier">result_type</span></a><span class="special">;</span>
-
-    <span class="comment">// <a class="link" href="_data/impl.html#id1552271-bb">public member functions</a></span>
-    <span class="identifier">Data</span> <a class="link" href="_data/impl.html#id1552276-bb"><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span></a><span class="special">(</span><span class="keyword">typename</span> <span class="identifier">impl</span><span class="special">::</span><span class="identifier">expr_param</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">impl</span><span class="special">::</span><span class="identifier">state_param</span><span class="special">,</span> 
-                    <span class="keyword">typename</span> <span class="identifier">impl</span><span class="special">::</span><span class="identifier">data_param</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="keyword">struct</span> <a class="link" href="_data/impl.html" title="Struct template impl">impl</a> <span class="special">:</span> <span class="keyword"></span> 
+    <span class="identifier">mpl</span><span class="special">::</span><span class="identifier">if_c</span><span class="special">&lt;</span>
+      <a class="link" href="is_env.html" title="Struct template is_env">proto::is_env</a><span class="special">&lt;</span><span class="identifier">Data</span><span class="special">&gt;</span><span class="special">::</span><span class="identifier">value</span><span class="special">,</span>
+      <a class="link" href="_env_var.html" title="Struct template _env_var">proto::_env_var</a><span class="special">&lt;</span><a class="link" href="data_type.html" title="Struct data_type">proto::data_type</a><span class="special">&gt;</span><span class="special">,</span>
+      <a class="link" href="_env.html" title="Struct _env">proto::_env</a>
+    <span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span><span class="special">::</span><span class="keyword">template</span> <span class="identifier">impl</span><span class="special">&lt;</span><span class="identifier">Expr</span><span class="special">,</span> <span class="identifier">State</span><span class="special">,</span> <span class="identifier">Data</span><span class="special">&gt;</span>
+  <span class="special">{</span>
   <span class="special">}</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="id2901533"></a><h2>Description</h2>
+<a name="id2971746"></a><h2>Description</h2>
 <p>
-            Example:
+            If the data (third) parameter is a transform environment, it returns the value associated
+            with the <code class="computeroutput"><a class="link" href="data_type.html" title="Struct data_type">proto::data_type</a></code> key. Otherwise, it returns
+            the data parameter unmodified.
+          </p>
+<p>
+            <span class="bold"><strong>Example:</strong></span>
             </p>
 <pre class="programlisting"><a class="link" href="terminal.html" title="Struct template terminal">proto::terminal</a><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span> <span class="identifier">i</span> <span class="special">=</span> <span class="special">{</span><span class="number">42</span><span class="special">}</span><span class="special">;</span>
 <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">str</span><span class="special">(</span><span class="string">"hello"</span><span class="special">)</span><span class="special">;</span>
-<span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="special">&amp;</span> <span class="identifier">data</span> <span class="special">=</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_data</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="identifier">i</span><span class="special">,</span> <span class="char">'a'</span><span class="special">,</span> <span class="identifier">str</span><span class="special">)</span><span class="special">;</span>
-<span class="identifier">assert</span><span class="special">(</span> <span class="special">&amp;</span><span class="identifier">str</span> <span class="special">==</span> <span class="special">&amp;</span><span class="identifier">data</span> <span class="special">)</span><span class="special">;</span></pre>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="special">&amp;</span> <span class="identifier">d1</span> <span class="special">=</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_data</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="identifier">i</span><span class="special">,</span> <span class="char">'a'</span><span class="special">,</span> <span class="identifier">str</span><span class="special">)</span><span class="special">;</span>
+<span class="identifier">assert</span><span class="special">(</span> <span class="special">&amp;</span><span class="identifier">str</span> <span class="special">==</span> <span class="special">&amp;</span><span class="identifier">d1</span> <span class="special">)</span><span class="special">;</span>
+
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="special">&amp;</span> <span class="identifier">d2</span> <span class="special">=</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_data</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="identifier">i</span><span class="special">,</span> <span class="char">'a'</span><span class="special">,</span> <span class="special">(</span><a class="link" href="data.html" title="Global data">proto::data</a> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">ref</span><span class="special">(</span><span class="identifier">str</span><span class="special">)</span><span class="special">)</span><span class="special">)</span><span class="special">;</span>
+<span class="identifier">assert</span><span class="special">(</span> <span class="special">&amp;</span><span class="identifier">str</span> <span class="special">==</span> <span class="special">&amp;</span><span class="identifier">d2</span> <span class="special">)</span><span class="special">;</span></pre>
 <p>
           </p>
 </div>

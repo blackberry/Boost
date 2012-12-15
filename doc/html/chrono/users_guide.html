@@ -5,8 +5,8 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../chrono.html" title="Chapter&#160;4.&#160;Boost.Chrono 1.2.3">
-<link rel="prev" href="../chrono.html" title="Chapter&#160;4.&#160;Boost.Chrono 1.2.3">
+<link rel="up" href="../chrono.html" title="Chapter&#160;4.&#160;Boost.Chrono 2.0.0">
+<link rel="prev" href="../chrono.html" title="Chapter&#160;4.&#160;Boost.Chrono 2.0.0">
 <link rel="next" href="reference.html" title="Reference">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -78,10 +78,19 @@
         </h6>
 <p>
           <span class="bold"><strong>Boost.Chrono</strong></span> can be configured as a header-only
-          library. When <a class="link" href="reference.html#chrono.reference.cpp0x.chrono_chrono_hpp.conf.header_only" title="How to Build Boost.Chrono as a Header Only Library?"><code class="computeroutput"><span class="identifier">BOOST_CHRONO_HEADER_ONLY</span></code></a> and BOOST_ERROR_CODE_HEADER_ONLY
-          are defined the Boost.Chrono is a header-only library. Otherwise is not
-          a header only library and you need to compile it and build the library
-          before use, for example using:
+          library defining <a class="link" href="reference.html#chrono.reference.cpp0x.chrono_chrono_hpp.conf.header_only" title="How to Build Boost.Chrono as a Header Only Library?"><code class="computeroutput"><span class="identifier">BOOST_CHRONO_HEADER_ONLY</span></code></a>. However
+          Boost.Chrono depends on the non header-only library Boost.System, so that
+          you will need to link with boost_system.
+        </p>
+<p>
+          Boost.System has un undocumented feature (use of macro BOOST_ERROR_CODE_HEADER_ONLY)
+          to make it header only, but it is buggy (see <a href="http://svn.boost.org/trac/boost/ticket/7347" target="_top">#7347</a>
+          duplicate symbol while BOOST_ERROR_CODE_HEADER_ONLY is defined)
+        </p>
+<p>
+          If <a class="link" href="reference.html#chrono.reference.cpp0x.chrono_chrono_hpp.conf.header_only" title="How to Build Boost.Chrono as a Header Only Library?"><code class="computeroutput"><span class="identifier">BOOST_CHRONO_HEADER_ONLY</span></code></a> is not
+          defined you need to compile it and build the library before use, for example
+          using:
         </p>
 <pre class="programlisting"><span class="identifier">bjam</span> <span class="identifier">libs</span><span class="special">/</span><span class="identifier">chrono</span><span class="special">/</span><span class="identifier">build</span>
 </pre>
@@ -184,12 +193,6 @@
               MSVC 10.0
             </li></ul></div>
 <p>
-          Cygwin 1.7 with
-        </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
-              GCC 4.3.4
-            </li></ul></div>
-<p>
           MinGW with
         </p>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc">
@@ -197,21 +200,26 @@
               GCC 4.5.0
             </li>
 <li class="listitem">
-              GCC 4.5.0 -std=C++11
+              GCC 4.5.0 -std=c++0x
             </li>
 <li class="listitem">
               GCC 4.5.2
             </li>
 <li class="listitem">
-              GCC 4.5.2 -std=C++11
+              GCC 4.5.2 -std=c++0x
             </li>
 <li class="listitem">
               GCC 4.6.0
             </li>
 <li class="listitem">
-              GCC 4.6.0 -std=C++11
+              GCC 4.6.0 -std=c++0x
             </li>
 </ul></div>
+<p>
+          Ubuntu with * GCC 4.4.6 * GCC 4.4.6 -std=c++0x * GCC 4.5.4 * GCC 4.5.4
+          -std=c++0x * GCC 4.6.1 * GCC 4.6.1 -std=c++0x * Intel 12.1.3 * Intel 12.1.3
+          -std=c++0x
+        </p>
 <p>
           OsX with
         </p>
@@ -220,13 +228,55 @@
               GCC 4.1.2
             </li>
 <li class="listitem">
+              GCC 4.6.2
+            </li>
+<li class="listitem">
+              GCC 4.6.2 -std=c++0x
+            </li>
+<li class="listitem">
+              GCC 4.7.0
+            </li>
+<li class="listitem">
+              GCC 4.7.0 -std=c++0x
+            </li>
+<li class="listitem">
+              GCC 4.7.1
+            </li>
+<li class="listitem">
+              GCC 4.7.1 -std=c++0x
+            </li>
+<li class="listitem">
               clang 1.6
             </li>
 <li class="listitem">
               clang 2.9
             </li>
 <li class="listitem">
-              clang 2.9 -std=C++11
+              clang 2.9 -std=c++0x
+            </li>
+<li class="listitem">
+              clang 3.0
+            </li>
+<li class="listitem">
+              clang 3.0 -std=c++0x
+            </li>
+<li class="listitem">
+              clang 3.1
+            </li>
+<li class="listitem">
+              clang 3.1 -std=c++0x
+            </li>
+<li class="listitem">
+              clang 3.1 -std=c++0x -stdlib=libc++
+            </li>
+<li class="listitem">
+              clang 3.2
+            </li>
+<li class="listitem">
+              clang 3.2 -std=c++11
+            </li>
+<li class="listitem">
+              clang 3.2 -std=c++11 -stdlib=libc++
             </li>
 </ul></div>
 <p>
@@ -256,36 +306,10 @@
           </p></td></tr>
 </table></div>
 </div>
-<div class="section">
-<div class="titlepage"><div><div><h4 class="title">
+<div class="section"><div class="titlepage"><div><div><h4 class="title">
 <a name="chrono.users_guide.getting_started.hello_world__"></a><a class="link" href="users_guide.html#chrono.users_guide.getting_started.hello_world__" title="Hello World!">Hello
         World! </a>
-</h4></div></div></div>
-<p>
-          If all you want to do is to time a program's execution, here is a complete
-          program:
-        </p>
-<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">chrono</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
-<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">cmath</span><span class="special">&gt;</span>
-
-<span class="keyword">int</span> <span class="identifier">main</span><span class="special">()</span>
-<span class="special">{</span>
-    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">chrono</span><span class="special">::</span><span class="identifier">system_clock</span><span class="special">::</span><span class="identifier">time_point</span> <span class="identifier">start</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">chrono</span><span class="special">::</span><span class="identifier">system_clock</span><span class="special">::</span><span class="identifier">now</span><span class="special">();</span>
-
-    <span class="keyword">for</span> <span class="special">(</span> <span class="keyword">long</span> <span class="identifier">i</span> <span class="special">=</span> <span class="number">0</span><span class="special">;</span> <span class="identifier">i</span> <span class="special">&lt;</span> <span class="number">10000000</span><span class="special">;</span> <span class="special">++</span><span class="identifier">i</span> <span class="special">)</span>
-    <span class="identifier">std</span><span class="special">::</span><span class="identifier">sqrt</span><span class="special">(</span> <span class="number">123.456L</span> <span class="special">);</span> <span class="comment">// burn some time</span>
-
-    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">chrono</span><span class="special">::</span><a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">duration</span></code></a><span class="special">&lt;</span><span class="keyword">double</span><span class="special">&gt;</span> <span class="identifier">sec</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">chrono</span><span class="special">::</span><span class="identifier">system_clock</span><span class="special">::</span><span class="identifier">now</span><span class="special">()</span> <span class="special">-</span> <span class="identifier">start</span><span class="special">;</span>
-    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"took "</span> <span class="special">&lt;&lt;</span> <span class="identifier">sec</span><span class="special">.</span><span class="identifier">count</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="string">" seconds\n"</span><span class="special">;</span>
-    <span class="keyword">return</span> <span class="number">0</span><span class="special">;</span>
-<span class="special">}</span>
-</pre>
-<p>
-          Output was:
-        </p>
-<pre class="programlisting"><span class="identifier">took</span> <span class="number">0.832</span> <span class="identifier">seconds</span>
-</pre>
-</div>
+</h4></div></div></div></div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
@@ -1113,7 +1137,7 @@
 <p>
             Process and thread clocks are used usually to measure the time spent
             by code blocks, as a basic time-spent profiling of different blocks of
-            code (Boost.Stopwatch is a clear example of this use).
+            code (Boost.Chrono.Stopwatch is a clear example of this use).
           </p>
 </div>
 <div class="section">
@@ -1153,36 +1177,66 @@
 <div class="titlepage"><div><div><h4 class="title">
 <a name="chrono.users_guide.tutorial.i_o"></a><a class="link" href="users_guide.html#chrono.users_guide.tutorial.i_o" title="I/O">I/O</a>
 </h4></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="users_guide.html#chrono.users_guide.tutorial.i_o.duration_io">duration</a></span></dt>
+<dt><span class="section"><a href="users_guide.html#chrono.users_guide.tutorial.i_o.system_clock_time_point_io"><code class="computeroutput"><span class="identifier">system_clock</span><span class="special">::</span><span class="identifier">time_point</span></code></a></span></dt>
+<dt><span class="section"><a href="users_guide.html#chrono.users_guide.tutorial.i_o.other_clocks_time_point_io">Other
+          clocks time_point</a></span></dt>
+<dt><span class="section"><a href="users_guide.html#chrono.users_guide.tutorial.i_o.low_level_i_o">Low
+          level I/O</a></span></dt>
+</dl></div>
+<div class="section">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="chrono.users_guide.tutorial.i_o.duration_io"></a><a class="link" href="users_guide.html#chrono.users_guide.tutorial.i_o.duration_io" title="duration">duration</a>
+</h5></div></div></div>
 <p>
-          Any <a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">duration</span></code></a> can be streamed out to
-          a <code class="computeroutput"><span class="identifier">basic_ostream</span></code>. The run-time
-          value of the <a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">duration</span></code></a> is formatted according
-          to the rules and current format settings for <a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">duration</span></code></a><code class="computeroutput"><span class="special">::</span><span class="identifier">rep</span></code>. This is followed by a single space
-          and then the compile-time unit name of the <a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">duration</span></code></a>. This unit name is built
-          on the string returned from <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;&gt;</span></code> and the data used to construct
-          the <a class="link" href="reference.html#chrono.reference.io.chrono_io_hpp.duration_punct" title="Template Class duration_punct&lt;&gt;"><code class="computeroutput"><span class="identifier">duration_punct</span></code></a> which was inserted
-          into the stream's locale. If a <a class="link" href="reference.html#chrono.reference.io.chrono_io_hpp.duration_punct" title="Template Class duration_punct&lt;&gt;"><code class="computeroutput"><span class="identifier">duration_punct</span></code></a> has not been inserted
-          into the stream's locale, a default constructed <a class="link" href="reference.html#chrono.reference.io.chrono_io_hpp.duration_punct" title="Template Class duration_punct&lt;&gt;"><code class="computeroutput"><span class="identifier">duration_punct</span></code></a> will be added to
-          the stream's locale.
-        </p>
+            Any <a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">duration</span></code></a> can be streamed out
+            to a <code class="computeroutput"><span class="identifier">basic_ostream</span></code>. The
+            run-time value of the <a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">duration</span></code></a> is formatted according
+            to the rules and current format settings for <a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">duration</span></code></a><code class="computeroutput"><span class="special">::</span><span class="identifier">rep</span></code> get_duration_style and the durationpunct
+            facet.
+          </p>
 <p>
-          <a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">duration</span></code></a> unit names come in two
-          varieties: long and short. The default constructed <a class="link" href="reference.html#chrono.reference.io.chrono_io_hpp.duration_punct" title="Template Class duration_punct&lt;&gt;"><code class="computeroutput"><span class="identifier">duration_punct</span></code></a> provides names
-          in the long format. These names are English descriptions. Other languages
-          are supported by constructing a <a class="link" href="reference.html#chrono.reference.io.chrono_io_hpp.duration_punct" title="Template Class duration_punct&lt;&gt;"><code class="computeroutput"><span class="identifier">duration_punct</span></code></a> with the proper
-          spellings for "hours", "minutes" and "seconds",
-          and their abbreviations (for the short format). The short or long format
-          can be easily chosen by streaming a <code class="computeroutput"><span class="identifier">duration_short</span><span class="special">()</span></code> or <code class="computeroutput"><span class="identifier">duration_long</span><span class="special">()</span></code> manipulator respectively.
-        </p>
+            the format is either
+          </p>
+<pre class="programlisting"><span class="special">&lt;</span><span class="identifier">value</span><span class="special">&gt;</span> <span class="special">&lt;</span><span class="identifier">unit</span><span class="special">&gt;</span>
+</pre>
 <p>
-          A <a class="link" href="reference.html#chrono.reference.cpp0x.time_point_hpp.time_point" title="Class template time_point&lt;&gt;"><code class="computeroutput"><span class="identifier">time_point</span></code></a> is formatted by outputting
-          its internal <a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">duration</span></code></a> followed by a string
-          that describes the <a class="link" href="reference.html#chrono.reference.cpp0x.time_point_hpp.time_point" title="Class template time_point&lt;&gt;"><code class="computeroutput"><span class="identifier">time_point</span></code></a><code class="computeroutput"><span class="special">::</span><span class="identifier">clock</span></code> epoch. This string will vary for
-          each distinct clock, and for each implementation of the supplied clocks.
-        </p>
+            or
+          </p>
+<pre class="programlisting"><span class="special">&lt;</span><span class="identifier">unit</span><span class="special">&gt;</span> <span class="special">&lt;</span><span class="identifier">value</span><span class="special">&gt;</span>
+</pre>
+<div class="warning"><table border="0" summary="Warning">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="../../../doc/src/images/warning.png"></td>
+<th align="left">Warning</th>
+</tr>
+<tr><td align="left" valign="top">
 <p>
-          <span class="bold"><strong>Example:</strong></span>
-        </p>
+              Need to be changed This is followed by a single space and then the
+              compile-time unit name of the <a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">duration</span></code></a>. This unit name is
+              built on the string returned from <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;&gt;</span></code> and the data used to construct
+              the <a class="link" href="reference.html#chrono.reference.io_v1.chrono_io_hpp.duration_punct" title="Template Class duration_punct&lt;&gt;"><code class="computeroutput"><span class="identifier">duration_punct</span></code></a> which was inserted
+              into the stream's locale. If a <a class="link" href="reference.html#chrono.reference.io_v1.chrono_io_hpp.duration_punct" title="Template Class duration_punct&lt;&gt;"><code class="computeroutput"><span class="identifier">duration_punct</span></code></a> has not been
+              inserted into the stream's locale, a default constructed <a class="link" href="reference.html#chrono.reference.io_v1.chrono_io_hpp.duration_punct" title="Template Class duration_punct&lt;&gt;"><code class="computeroutput"><span class="identifier">duration_punct</span></code></a> will be added
+              to the stream's locale.
+            </p>
+<p>
+              <a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">duration</span></code></a> unit names come in
+              two varieties: long(prefix) and short(symbol). The default constructed
+              <a class="link" href="reference.html#chrono.reference.io_v1.chrono_io_hpp.duration_punct" title="Template Class duration_punct&lt;&gt;"><code class="computeroutput"><span class="identifier">duration_punct</span></code></a> provides names
+              in the long(prefix) format. These names are English descriptions. Other
+              languages are supported by constructing a <a class="link" href="reference.html#chrono.reference.io_v1.chrono_io_hpp.duration_punct" title="Template Class duration_punct&lt;&gt;"><code class="computeroutput"><span class="identifier">duration_punct</span></code></a> with the proper
+              spellings for "hours", "minutes" and "seconds",
+              and their abbreviations (for the short format). The short or long format
+              can be easily chosen by streaming a <code class="computeroutput"><span class="identifier">duration_short</span><span class="special">()</span></code> or <code class="computeroutput"><span class="identifier">duration_long</span><span class="special">()</span></code> manipulator respectively or using
+              the parameterized manimulator <code class="computeroutput"><span class="identifier">duration_fmt</span><span class="special">(</span><span class="identifier">duration_style</span><span class="special">::</span><span class="identifier">prefix</span><span class="special">)</span></code> or <code class="computeroutput"><span class="identifier">duration_fmt</span><span class="special">(</span><span class="identifier">duration_style</span><span class="special">::</span><span class="identifier">symbol</span><span class="special">)</span></code>.
+            </p>
+</td></tr>
+</table></div>
+<p>
+            <span class="bold"><strong>Example:</strong></span>
+          </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">iostream</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">chrono</span><span class="special">/</span><span class="identifier">chrono_io</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 
@@ -1190,6 +1244,9 @@
 <span class="special">{</span>
     <span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">std</span><span class="special">;</span>
     <span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">;</span>
+
+    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"milliseconds(1) = "</span>
+         <span class="special">&lt;&lt;</span>  <span class="identifier">boost</span><span class="special">::</span><span class="identifier">chrono</span><span class="special">::</span><span class="identifier">milliseconds</span><span class="special">(</span><span class="number">1</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>
 
     <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"milliseconds(3) + microseconds(10) = "</span>
          <span class="special">&lt;&lt;</span>  <span class="identifier">boost</span><span class="special">::</span><span class="identifier">chrono</span><span class="special">::</span><span class="identifier">milliseconds</span><span class="special">(</span><span class="number">3</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">chrono</span><span class="special">::</span><span class="identifier">microseconds</span><span class="special">(</span><span class="number">10</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>
@@ -1201,38 +1258,20 @@
     <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"ClockTick(3) + boost::chrono::nanoseconds(10) = "</span>
          <span class="special">&lt;&lt;</span>  <span class="identifier">ClockTick</span><span class="special">(</span><span class="number">3</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">chrono</span><span class="special">::</span><span class="identifier">nanoseconds</span><span class="special">(</span><span class="number">10</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>
 
-    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"\nSet cout to use short names:\n"</span><span class="special">;</span>
-    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">chrono</span><span class="special">::</span><span class="identifier">duration_short</span><span class="special">;</span>
-
-    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"milliseconds(3) + microseconds(10) = "</span>
-         <span class="special">&lt;&lt;</span>  <span class="identifier">boost</span><span class="special">::</span><span class="identifier">chrono</span><span class="special">::</span><span class="identifier">milliseconds</span><span class="special">(</span><span class="number">3</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">chrono</span><span class="special">::</span><span class="identifier">microseconds</span><span class="special">(</span><span class="number">10</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>
-
-    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"hours(3) + minutes(10) = "</span>
-         <span class="special">&lt;&lt;</span>  <span class="identifier">boost</span><span class="special">::</span><span class="identifier">chrono</span><span class="special">::</span><span class="identifier">hours</span><span class="special">(</span><span class="number">3</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">chrono</span><span class="special">::</span><span class="identifier">minutes</span><span class="special">(</span><span class="number">10</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>
-
-    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"ClockTick(3) + nanoseconds(10) = "</span>
-         <span class="special">&lt;&lt;</span>  <span class="identifier">ClockTick</span><span class="special">(</span><span class="number">3</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">chrono</span><span class="special">::</span><span class="identifier">nanoseconds</span><span class="special">(</span><span class="number">10</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>
-
-    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"\nsystem_clock::now() = "</span> <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">chrono</span><span class="special">::</span><span class="identifier">system_clock</span><span class="special">::</span><span class="identifier">now</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>
-<span class="preprocessor">#ifdef</span> <span class="identifier">BOOST_CHRONO_HAS_CLOCK_STEADY</span>
-    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"steady_clock::now() = "</span> <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">chrono</span><span class="special">::</span><span class="identifier">steady_clock</span><span class="special">::</span><span class="identifier">now</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>
-<span class="preprocessor">#endif</span>
-    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"\nSet cout to use long names:\n"</span>
-            <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">chrono</span><span class="special">::</span><span class="identifier">duration_long</span>
-            <span class="special">&lt;&lt;</span> <span class="string">"high_resolution_clock::now() = "</span>
-            <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">chrono</span><span class="special">::</span><span class="identifier">high_resolution_clock</span><span class="special">::</span><span class="identifier">now</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>
+   <span class="comment">// ...</span>
     <span class="keyword">return</span> <span class="number">0</span><span class="special">;</span>
 <span class="special">}</span>
 </pre>
 <p>
-          The output could be
-        </p>
-<pre class="programlisting"><span class="identifier">milliseconds</span><span class="special">(</span><span class="number">3</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">microseconds</span><span class="special">(</span><span class="number">10</span><span class="special">)</span> <span class="special">=</span> <span class="number">3010</span> <span class="identifier">microseconds</span>
+            The output could be
+          </p>
+<pre class="programlisting"><span class="identifier">milliseconds</span><span class="special">(</span><span class="number">1</span><span class="special">)</span> <span class="special">=</span> <span class="number">1</span> <span class="identifier">microsecond</span>
+<span class="identifier">milliseconds</span><span class="special">(</span><span class="number">3</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">microseconds</span><span class="special">(</span><span class="number">10</span><span class="special">)</span> <span class="special">=</span> <span class="number">3010</span> <span class="identifier">microseconds</span>
 <span class="identifier">hours</span><span class="special">(</span><span class="number">3</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">minutes</span><span class="special">(</span><span class="number">10</span><span class="special">)</span> <span class="special">=</span> <span class="number">190</span> <span class="identifier">minutes</span>
 <span class="identifier">ClockTick</span><span class="special">(</span><span class="number">3</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">nanoseconds</span><span class="special">(</span><span class="number">10</span><span class="special">)</span> <span class="special">=</span> <span class="number">56</span> <span class="special">[</span><span class="number">1</span><span class="special">/</span><span class="number">5000000000</span><span class="special">]</span><span class="identifier">seconds</span>
 
 <span class="identifier">Set</span> <span class="identifier">cout</span> <span class="identifier">to</span> <span class="identifier">use</span> <span class="keyword">short</span> <span class="identifier">names</span><span class="special">:</span>
-<span class="identifier">milliseconds</span><span class="special">(</span><span class="number">3</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">microseconds</span><span class="special">(</span><span class="number">10</span><span class="special">)</span> <span class="special">=</span> <span class="number">3010</span> <span class="special">[</span><span class="identifier">mu</span><span class="special">]</span><span class="identifier">s</span>
+<span class="identifier">milliseconds</span><span class="special">(</span><span class="number">3</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">microseconds</span><span class="special">(</span><span class="number">10</span><span class="special">)</span> <span class="special">=</span> <span class="number">3010</span> &#956;s
 <span class="identifier">hours</span><span class="special">(</span><span class="number">3</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">minutes</span><span class="special">(</span><span class="number">10</span><span class="special">)</span> <span class="special">=</span> <span class="number">190</span> <span class="identifier">m</span>
 <span class="identifier">ClockTick</span><span class="special">(</span><span class="number">3</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">nanoseconds</span><span class="special">(</span><span class="number">10</span><span class="special">)</span> <span class="special">=</span> <span class="number">56</span> <span class="special">[</span><span class="number">1</span><span class="special">/</span><span class="number">5000000000</span><span class="special">]</span><span class="identifier">s</span>
 
@@ -1243,23 +1282,77 @@
 <span class="identifier">high_resolution_clock</span><span class="special">::</span><span class="identifier">now</span><span class="special">()</span> <span class="special">=</span> <span class="number">37297387655134</span> <span class="identifier">nanoseconds</span> <span class="identifier">since</span> <span class="identifier">boot</span>
 </pre>
 <p>
-          Parsing a <a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">duration</span></code></a> follows rules analogous
-          to the <a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">duration</span></code></a> converting constructor.
-          A value and a unit (short or long) are read from the <code class="computeroutput"><span class="identifier">basic_istream</span></code>.
-          If the <a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">duration</span></code></a> has an integral representation,
-          then the value parsed must be exactly representable in the target <a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">duration</span></code></a>
-          (after conversion to the target <a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">duration</span></code></a> units), else <code class="computeroutput"><span class="identifier">failbit</span></code> is set. <a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">duration</span></code></a>s based on floating-point
-          representations can be parsed using any units that do not cause overflow.
-        </p>
+            As can be seen, each duration type can be streamed without having to
+            manually stream the compile-time units after the run-time value. And
+            when the compile-time unit is known to be a "common unit",
+            English names are used. For "uncommon units" a unit name is
+            composed from the reduced numerator and denominator of the associated
+            <code class="computeroutput"><span class="identifier">ratio</span></code>. Whatever stream/locale
+            settings are set for <code class="computeroutput"><span class="identifier">duration</span><span class="special">::</span><span class="identifier">rep</span></code>
+            are used for the value. Additionally, when the value is 1, singular forms
+            for the units are used.
+          </p>
 <p>
-          For example a stream containing "5000 milliseconds" can be parsed
-          into seconds, but if the stream contains "5001 milliseconds",
-          parsing into <code class="computeroutput"><span class="identifier">seconds</span></code> will
-          cause <code class="computeroutput"><span class="identifier">failbit</span></code> to be set.
-        </p>
+            Sometimes it is desired to shorten these names by using the SI symbols
+            instead of SI prefixes. This can be accomplished with the use of the
+            <a class="link" href="reference.html#chrono.reference.io.duration_io_hpp.manipulators.symbol_format" title="Non Member Function symbol_format(ios_base&amp;)"><code class="computeroutput"><span class="identifier">symbol_format</span></code></a> manipulator <sup>[<a name="chrono.users_guide.tutorial.i_o.duration_io.f0" href="#ftn.chrono.users_guide.tutorial.i_o.duration_io.f0" class="footnote">1</a>]</sup>:
+          </p>
+<pre class="programlisting"><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"\nSet cout to use short names:\n"</span><span class="special">;</span>
+<span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">chrono</span><span class="special">::</span><span class="identifier">symbol_format</span><span class="special">;</span>
+
+<span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"milliseconds(3) + microseconds(10) = "</span>
+     <span class="special">&lt;&lt;</span>  <span class="identifier">boost</span><span class="special">::</span><span class="identifier">chrono</span><span class="special">::</span><span class="identifier">milliseconds</span><span class="special">(</span><span class="number">3</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">chrono</span><span class="special">::</span><span class="identifier">microseconds</span><span class="special">(</span><span class="number">10</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>
+
+<span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"hours(3) + minutes(10) = "</span>
+     <span class="special">&lt;&lt;</span>  <span class="identifier">boost</span><span class="special">::</span><span class="identifier">chrono</span><span class="special">::</span><span class="identifier">hours</span><span class="special">(</span><span class="number">3</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">chrono</span><span class="special">::</span><span class="identifier">minutes</span><span class="special">(</span><span class="number">10</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>
+
+<span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"ClockTick(3) + nanoseconds(10) = "</span>
+     <span class="special">&lt;&lt;</span>  <span class="identifier">ClockTick</span><span class="special">(</span><span class="number">3</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">chrono</span><span class="special">::</span><span class="identifier">nanoseconds</span><span class="special">(</span><span class="number">10</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>
+</pre>
 <p>
-          <span class="bold"><strong>Example:</strong></span>
-        </p>
+            The output could be
+          </p>
+<pre class="programlisting"><span class="identifier">Set</span> <span class="identifier">cout</span> <span class="identifier">to</span> <span class="identifier">use</span> <span class="keyword">short</span> <span class="identifier">names</span><span class="special">:</span>
+<span class="identifier">milliseconds</span><span class="special">(</span><span class="number">3</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">microseconds</span><span class="special">(</span><span class="number">10</span><span class="special">)</span> <span class="special">=</span> <span class="number">3010</span> &#956;s
+<span class="identifier">hours</span><span class="special">(</span><span class="number">3</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">minutes</span><span class="special">(</span><span class="number">10</span><span class="special">)</span> <span class="special">=</span> <span class="number">190</span> <span class="identifier">m</span>
+<span class="identifier">ClockTick</span><span class="special">(</span><span class="number">3</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">nanoseconds</span><span class="special">(</span><span class="number">10</span><span class="special">)</span> <span class="special">=</span> <span class="number">56</span> <span class="special">[</span><span class="number">1</span><span class="special">/</span><span class="number">5000000000</span><span class="special">]</span><span class="identifier">s</span>
+
+<span class="identifier">system_clock</span><span class="special">::</span><span class="identifier">now</span><span class="special">()</span> <span class="special">=</span> <span class="number">129387415616250000</span> <span class="special">[</span><span class="number">1</span><span class="special">/</span><span class="number">10000000</span><span class="special">]</span><span class="identifier">s</span> <span class="identifier">since</span> <span class="identifier">Jan</span> <span class="number">1</span><span class="special">,</span> <span class="number">1970</span>
+<span class="identifier">monotonic_clock</span><span class="special">::</span><span class="identifier">now</span><span class="special">()</span> <span class="special">=</span> <span class="number">37297387636417</span> <span class="identifier">ns</span> <span class="identifier">since</span> <span class="identifier">boot</span>
+
+<span class="identifier">Set</span> <span class="identifier">cout</span> <span class="identifier">to</span> <span class="identifier">use</span> <span class="keyword">long</span> <span class="identifier">names</span><span class="special">:</span>
+<span class="identifier">high_resolution_clock</span><span class="special">::</span><span class="identifier">now</span><span class="special">()</span> <span class="special">=</span> <span class="number">37297387655134</span> <span class="identifier">nanoseconds</span> <span class="identifier">since</span> <span class="identifier">boot</span>
+</pre>
+<p>
+            The &#956; for microsecond is specified to be U+00B5, encoded as UTF-8, UTF-16
+            or UTF-32 as appropriate for the stream's character size.
+          </p>
+<p>
+            When the format decision is taken at runtime, it could be better to use
+            the parameterized manipulator <a class="link" href="reference.html#chrono.reference.io.duration_io_hpp.manipulators.duration_fmt" title="Template Class duration_fmt"><code class="computeroutput"><span class="identifier">duration_fmt</span></code></a> as in
+          </p>
+<pre class="programlisting"><span class="identifier">duration_style</span> <span class="identifier">style</span><span class="special">;</span>
+<span class="comment">//...</span>
+<span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">duration_fmt</span><span class="special">(</span><span class="identifier">style</span><span class="special">);</span>
+</pre>
+<p>
+            Parsing a <a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">duration</span></code></a> follows rules analogous
+            to the <a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">duration</span></code></a> converting constructor.
+            A value and a unit (SI symbol or prefixed) are read from the <code class="computeroutput"><span class="identifier">basic_istream</span></code>. If the <a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">duration</span></code></a> has an integral representation,
+            then the value parsed must be exactly representable in the target <a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">duration</span></code></a> (after conversion to
+            the target <a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">duration</span></code></a> units), else <code class="computeroutput"><span class="identifier">failbit</span></code> is set. <a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">duration</span></code></a>s based on floating-point
+            representations can be parsed using any units that do not cause overflow.
+          </p>
+<p>
+            For example a stream containing "5000 milliseconds" can be
+            parsed into seconds, but if the stream contains "3001 ms",
+            parsing into <code class="computeroutput"><span class="identifier">seconds</span></code>
+            will cause <code class="computeroutput"><span class="identifier">failbit</span></code> to
+            be set.
+          </p>
+<p>
+            <span class="bold"><strong>Example:</strong></span>
+          </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">chrono</span><span class="special">/</span><span class="identifier">chrono_io</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">sstream</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">cassert</span><span class="special">&gt;</span>
@@ -1284,20 +1377,242 @@
 <span class="special">}</span>
 </pre>
 <p>
-          Note that a <a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">duration</span></code></a> failure may occur late
-          in the parsing process. This means that the characters making up the failed
-          parse in the stream are usually consumed despite the failure to successfully
-          parse.
-        </p>
+            Note that a <a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">duration</span></code></a> failure may occur late
+            in the parsing process. This means that the characters making up the
+            failed parse in the stream are usually consumed despite the failure to
+            successfully parse.
+          </p>
 <p>
-          Parsing a <a class="link" href="reference.html#chrono.reference.cpp0x.time_point_hpp.time_point" title="Class template time_point&lt;&gt;"><code class="computeroutput"><span class="identifier">time_point</span></code></a> involves first parsing
-          a <a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">duration</span></code></a> and then parsing the
-          epoch string. If the epoch string does not match that associated with
-          <code class="computeroutput"><span class="identifier">time_point</span><span class="special">::</span><span class="identifier">clock</span></code> then failbit will be set.
-        </p>
+            Sometimes in templated code it is difficult to know what the unit of
+            your duration is. It is all deterministic, and inspect-able. But it can
+            be inconvenient to do so, especially if you just need to print out a
+            "debugging" statement. For example:
+          </p>
+<pre class="programlisting"><span class="comment">// round to nearest, to even on tie</span>
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">To</span></code></a><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Rep</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Period</span><span class="special">&gt;</span>
+<span class="identifier">To</span>
+<span class="identifier">round</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">duration</span><span class="special">&lt;</span><span class="identifier">Rep</span><span class="special">,</span> <span class="identifier">Period</span><span class="special">&gt;&amp;</span> <span class="identifier">d</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="identifier">To</span> <span class="identifier">t0</span> <span class="special">=</span> <span class="identifier">duration_cast</span><span class="special">&lt;</span><span class="identifier">To</span><span class="special">&gt;(</span><span class="identifier">d</span><span class="special">);</span>
+    <span class="identifier">To</span> <span class="identifier">t1</span> <span class="special">=</span> <span class="identifier">t0</span><span class="special">;</span>
+    <span class="special">++</span><span class="identifier">t1</span><span class="special">;</span>
+    <span class="keyword">auto</span> <span class="identifier">diff0</span> <span class="special">=</span> <span class="identifier">d</span> <span class="special">-</span> <span class="identifier">t0</span><span class="special">;</span>
+    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"diff0 = "</span> <span class="special">&lt;&lt;</span> <span class="identifier">diff0</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>
+    <span class="keyword">auto</span> <span class="identifier">diff1</span> <span class="special">=</span> <span class="identifier">t1</span> <span class="special">-</span> <span class="identifier">d</span><span class="special">;</span>
+    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"diff1 = "</span> <span class="special">&lt;&lt;</span> <span class="identifier">diff1</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>
+    <span class="keyword">if</span> <span class="special">(</span><span class="identifier">diff0</span> <span class="special">==</span> <span class="identifier">diff1</span><span class="special">)</span>
+    <span class="special">{</span>
+        <span class="keyword">if</span> <span class="special">(</span><span class="identifier">t0</span><span class="special">.</span><span class="identifier">count</span><span class="special">()</span> <span class="special">&amp;</span> <span class="number">1</span><span class="special">)</span>
+            <span class="keyword">return</span> <span class="identifier">t1</span><span class="special">;</span>
+        <span class="keyword">return</span> <span class="identifier">t0</span><span class="special">;</span>
+    <span class="special">}</span>
+    <span class="keyword">else</span> <span class="keyword">if</span> <span class="special">(</span><span class="identifier">diff0</span> <span class="special">&lt;</span> <span class="identifier">diff1</span><span class="special">)</span>
+        <span class="keyword">return</span> <span class="identifier">t0</span><span class="special">;</span>
+    <span class="keyword">return</span> <span class="identifier">t1</span><span class="special">;</span>
+<span class="special">}</span>
+</pre>
 <p>
-          <span class="bold"><strong>Example:</strong></span>
-        </p>
+            This is where I/O for duration really shines. The compiler knows what
+            the type of diff0 is and with this proposal that type (with proper units)
+            will automatically be printed out for you. For example:
+          </p>
+<pre class="programlisting"><span class="identifier">milliseconds</span> <span class="identifier">ms</span> <span class="special">=</span> <span class="identifier">round</span><span class="special">&lt;</span><span class="identifier">milliseconds</span><span class="special">&gt;(</span><span class="identifier">nanoseconds</span><span class="special">(</span><span class="number">123</span><span class="special">));</span>  <span class="comment">// diff0 = 123 nanoseconds</span>
+                                                          <span class="comment">// diff1 = 999877 nanoseconds</span>
+<span class="identifier">milliseconds</span> <span class="identifier">ms</span> <span class="special">=</span> <span class="identifier">round</span><span class="special">&lt;</span><span class="identifier">milliseconds</span><span class="special">&gt;(</span><span class="identifier">Ticks</span><span class="special">(</span><span class="number">44</span><span class="special">));</span>         <span class="comment">// diff0 = 2 [1/3000]seconds</span>
+                                                          <span class="comment">// diff1 = 1 [1/3000]second</span>
+</pre>
+<p>
+            This simple I/O will make duration so much more accessible to programmers.
+          </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="chrono.users_guide.tutorial.i_o.system_clock_time_point_io"></a><a class="link" href="users_guide.html#chrono.users_guide.tutorial.i_o.system_clock_time_point_io" title="system_clock::time_point"><code class="computeroutput"><span class="identifier">system_clock</span><span class="special">::</span><span class="identifier">time_point</span></code></a>
+</h5></div></div></div>
+<div class="warning"><table border="0" summary="Warning">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="../../../doc/src/images/warning.png"></td>
+<th align="left">Warning</th>
+</tr>
+<tr><td align="left" valign="top">
+<p>
+              This feature has been disable defining <code class="computeroutput"><span class="identifier">BOOST_CHRONO_DONT_PROVIDE_DATE_IO_FOR_SYSTEM_CLOCK_TIME_POINT</span></code>
+              until a fix for the following ticket is found:
+            </p>
+<p>
+              - <a href="http://svn.boost.org/trac/boost/ticket/7547" target="_top">#7547</a>
+              time_point&lt;system_clock&gt; input version 2 fails to compile
+            </p>
+<p>
+              - <a href="http://svn.boost.org/trac/boost/ticket/7546" target="_top">#7546</a>
+              time_point&lt;system_clock&gt; output version 2 fails to compile
+            </p>
+<p>
+              In this case the io operators behave like any time_point as defined
+              in next section.
+            </p>
+<p>
+              In order to enable this features on compilers working with, you will
+              need to define <code class="computeroutput"><span class="identifier">BOOST_CHRONO_PROVIDES_DATE_IO_FOR_SYSTEM_CLOCK_TIME_POINT</span></code>.
+            </p>
+</td></tr>
+</table></div>
+<p>
+            <a class="link" href="reference.html#chrono.reference.cpp0x.system_clocks_hpp.system_clock" title="Class system_clock"><code class="computeroutput"><span class="identifier">system_clock</span></code></a> is special. It
+            is the only clock that has conversions between its <code class="computeroutput"><span class="identifier">time_point</span></code>
+            and <code class="computeroutput"><span class="identifier">time_t</span></code>. C subsequently
+            relates time_t to the <a href="http://en.wikipedia.org/wiki/Gregorian_calendar" target="_top">Gregorian
+            calendar</a> via <code class="computeroutput"><span class="identifier">ctime</span></code>,
+            <code class="computeroutput"><span class="identifier">gmtime</span></code>, <code class="computeroutput"><span class="identifier">localtime</span></code>, and <code class="computeroutput"><span class="identifier">strftime</span></code>.
+            Neither C, nor POSIX relate <code class="computeroutput"><span class="identifier">time_t</span></code>
+            to any calendar other than the <a href="http://en.wikipedia.org/wiki/Gregorian_calendar" target="_top">Gregorian
+            calendar</a>. ISO 8601 is specified only in terms of the <a href="http://en.wikipedia.org/wiki/Gregorian_calendar" target="_top">Gregorian
+            calendar</a>.
+          </p>
+<p>
+            <span class="bold"><strong>Boost.Chrono</strong></span> provides <code class="computeroutput"><span class="identifier">system_clock</span><span class="special">::</span><span class="identifier">time_point</span></code> I/O in terms of the Gregorian
+            calendar, and no other calendar. However as <code class="computeroutput"><span class="identifier">system_clock</span><span class="special">::</span><span class="identifier">time_point</span></code>
+            remains convertible with <code class="computeroutput"><span class="identifier">time_t</span></code>,
+            it is possible for clients to create other calendars which interoperate
+            with <code class="computeroutput"><span class="identifier">time_t</span></code> and subsequently
+            <code class="computeroutput"><span class="identifier">system_clock</span><span class="special">::</span><span class="identifier">time_point</span></code>.
+          </p>
+<p>
+            Furthermore, it is existing practice for all major hosted operating systems
+            to store system time in a format which facilitates display as <a href="http://en.wikipedia.org/wiki/Coordinated_Universal_Time" target="_top">Coordinated
+            Universal Time</a> (UTC). Therefore <span class="bold"><strong>Boost.Chrono</strong></span>
+            provides that the default output for <code class="computeroutput"><span class="identifier">system_clock</span><span class="special">::</span><span class="identifier">time_point</span></code>
+            be in a format that represents a point in time with respect to UTC.
+          </p>
+<pre class="programlisting"><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">system_clock</span><span class="special">::</span><span class="identifier">now</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>
+</pre>
+<p>
+            could output
+          </p>
+<pre class="programlisting"><span class="number">2011</span><span class="special">-</span><span class="number">09</span><span class="special">-</span><span class="number">15</span> <span class="number">18</span><span class="special">:</span><span class="number">36</span><span class="special">:</span><span class="number">59.325132</span> <span class="special">+</span><span class="number">0000</span>
+</pre>
+<p>
+            This format is strongly influenced by ISO 8601, but places a ' ' between
+            the date and time instead of a 'T'. The former appears to more accurately
+            represent existing practice. A fully numeric format was chosen so as
+            to be understandable to as large a group of human readers as possible.
+            A 24 hour format was chosen for the same reasons.
+          </p>
+<p>
+            Of the referenced standards, only ISO 8601 discusses the output of fractional
+            seconds. Neither C nor POSIX have built-in functionality for this. However
+            it appears to be universal (as of this writing) that <code class="computeroutput"><span class="identifier">system_clock</span><span class="special">::</span><span class="identifier">period</span></code>
+            is sub-second. And it seems desirable that if you stream out a <code class="computeroutput"><span class="identifier">system_clock</span><span class="special">::</span><span class="identifier">time_point</span></code>, you ought to be able to
+            stream it back in and get the same value. Therefore the streaming of
+            fractional seconds (at least by default) appears to be unavoidable.
+          </p>
+<p>
+            Finally the trailing " +0000" disambiguates the UTC-formatted
+            <code class="computeroutput"><span class="identifier">system_clock</span><span class="special">::</span><span class="identifier">time_point</span></code> from one formatted with
+            respect to the local time zone of the computer. The latter can easily
+            be achieved with:
+          </p>
+<pre class="programlisting"><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">time_fmt</span><span class="special">(</span><span class="identifier">local</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="identifier">system_clock</span><span class="special">::</span><span class="identifier">now</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>
+</pre>
+<p>
+            that could result in
+          </p>
+<pre class="programlisting"><span class="number">2011</span><span class="special">-</span><span class="number">09</span><span class="special">-</span><span class="number">15</span> <span class="number">14</span><span class="special">:</span><span class="number">36</span><span class="special">:</span><span class="number">59.325132</span> <span class="special">-</span><span class="number">0400</span>
+</pre>
+<p>
+            Note that <code class="computeroutput"><span class="identifier">system_clock</span><span class="special">::</span><span class="identifier">time_point</span></code>
+            itself is neither UTC, nor the local time. However in practice, <code class="computeroutput"><span class="identifier">system_clock</span><span class="special">::</span><span class="identifier">time_point</span></code> is a count of ticks beyond
+            some epoch which is synchronized with UTC. So as a mobile computer moves
+            across time zones, the time zone traversal does not impact the value
+            of a <code class="computeroutput"><span class="identifier">system_clock</span><span class="special">::</span><span class="identifier">time_point</span></code> produced by <code class="computeroutput"><span class="identifier">system_clock</span><span class="special">::</span><span class="identifier">now</span><span class="special">()</span></code>.
+            And it is only in formatting it for human consumption that one can choose
+            UTC or the local time zone. C and POSIX treat <code class="computeroutput"><span class="identifier">time_t</span></code>
+            just as <span class="bold"><strong>Boost.Chrono</strong></span> treats <code class="computeroutput"><span class="identifier">system_clock</span><span class="special">::</span><span class="identifier">time_point</span></code>:
+          </p>
+<pre class="programlisting"><span class="identifier">tm</span><span class="special">*</span> <span class="identifier">gmtime</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">time_t</span><span class="special">*</span> <span class="identifier">timer</span><span class="special">)</span> <span class="special">-&gt;</span> <span class="identifier">UTC</span>
+<span class="identifier">tm</span><span class="special">*</span> <span class="identifier">localtime</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">time_t</span><span class="special">*</span> <span class="identifier">timer</span><span class="special">)</span> <span class="special">-&gt;</span> <span class="identifier">local</span> <span class="identifier">time</span>
+</pre>
+<p>
+            This proposal simply extends the C/POSIX <code class="computeroutput"><span class="identifier">time_t</span></code>
+            functionality to C++ syntax and <code class="computeroutput"><span class="identifier">system_clock</span><span class="special">::</span><span class="identifier">time_point</span></code>.
+          </p>
+<p>
+            The <code class="computeroutput"><span class="identifier">time_fmt</span><span class="special">()</span></code>
+            manipulator is "sticky". It will remain in effect until the
+            stream destructs or until it is changed. The stream can be reset to its
+            default state with:
+          </p>
+<pre class="programlisting"><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">time_fmt</span><span class="special">(</span><span class="identifier">utc</span><span class="special">);</span>
+</pre>
+<p>
+            And the formatting can be further customized by using the time format
+            sequences. For example:
+          </p>
+<pre class="programlisting"><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">time_fmt</span><span class="special">(</span><span class="identifier">local</span><span class="special">,</span> <span class="string">"%A %B %e, %Y %r"</span><span class="special">);</span>
+<span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">system_clock</span><span class="special">::</span><span class="identifier">now</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>  <span class="comment">// Sunday April 24, 2011 02:36:59 PM</span>
+</pre>
+<p>
+            When specifying formatting manipulators for wide streams, use wide strings.
+          </p>
+<p>
+            You can use the same manipulators with istreams to specify parsing sequences.
+          </p>
+<p>
+            Unfortunately there are no formatting/parsing sequences which indicate
+            fractional seconds. <span class="bold"><strong>Boost.Chrono</strong></span> does
+            not provide such sequences. In the meantime, one can format and parse
+            fractional seconds for <code class="computeroutput"><span class="identifier">system_clock</span><span class="special">::</span><span class="identifier">time_point</span></code>
+            by defaulting the format, or by using an empty string in <code class="computeroutput"><span class="identifier">time_fmt</span><span class="special">()</span></code>.
+          </p>
+<p>
+            The stream's current locale may impact the parsing/format sequences supplied
+            to the <code class="computeroutput"><span class="identifier">system_clock</span><span class="special">::</span><span class="identifier">time_point</span></code> manipulators (e.g. names
+            of days of the week, and names of months).
+          </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="chrono.users_guide.tutorial.i_o.other_clocks_time_point_io"></a><a class="link" href="users_guide.html#chrono.users_guide.tutorial.i_o.other_clocks_time_point_io" title="Other clocks time_point">Other
+          clocks time_point</a>
+</h5></div></div></div>
+<p>
+            Unlike <code class="computeroutput"><span class="identifier">system_clock</span><span class="special">::</span><span class="identifier">time_point</span></code>, the other clocks have no
+            conversion with <code class="computeroutput"><span class="identifier">time_t</span></code>.
+            There is likely no relationship between steady_clock::time_point and
+            UTC at all (UTC is not steady).
+          </p>
+<p>
+            In general a <a class="link" href="reference.html#chrono.reference.cpp0x.time_point_hpp.time_point" title="Class template time_point&lt;&gt;"><code class="computeroutput"><span class="identifier">time_point</span></code></a> is formatted by outputting
+            its internal <a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">duration</span></code></a> followed by a string
+            that describes the <a class="link" href="reference.html#chrono.reference.cpp0x.time_point_hpp.time_point" title="Class template time_point&lt;&gt;"><code class="computeroutput"><span class="identifier">time_point</span></code></a><code class="computeroutput"><span class="special">::</span><span class="identifier">clock</span></code> epoch. This string will vary
+            for each distinct clock, and for each implementation of the supplied
+            clocks.
+          </p>
+<pre class="programlisting"><span class="preprocessor">#ifdef</span> <span class="identifier">BOOST_CHRONO_HAS_CLOCK_STEADY</span>
+    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"steady_clock::now() = "</span> <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">chrono</span><span class="special">::</span><span class="identifier">steady_clock</span><span class="special">::</span><span class="identifier">now</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>
+<span class="preprocessor">#endif</span>
+    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"\nSet cout to use long names:\n"</span>
+            <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">chrono</span><span class="special">::</span><span class="identifier">duration_long</span>
+            <span class="special">&lt;&lt;</span> <span class="string">"high_resolution_clock::now() = "</span>
+            <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">chrono</span><span class="special">::</span><span class="identifier">high_resolution_clock</span><span class="special">::</span><span class="identifier">now</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>
+</pre>
+<p>
+            The output could be
+          </p>
+<pre class="programlisting"><span class="identifier">steady_clock</span><span class="special">::</span><span class="identifier">now</span><span class="special">()</span> <span class="special">=</span> <span class="number">37297387636417</span> <span class="identifier">ns</span> <span class="identifier">since</span> <span class="identifier">boot</span>
+
+<span class="identifier">Set</span> <span class="identifier">cout</span> <span class="identifier">to</span> <span class="identifier">use</span> <span class="keyword">long</span> <span class="identifier">names</span><span class="special">:</span>
+<span class="identifier">high_resolution_clock</span><span class="special">::</span><span class="identifier">now</span><span class="special">()</span> <span class="special">=</span> <span class="number">37297387655134</span> <span class="identifier">nanoseconds</span> <span class="identifier">since</span> <span class="identifier">boot</span>
+</pre>
+<p>
+            Parsing a <a class="link" href="reference.html#chrono.reference.cpp0x.time_point_hpp.time_point" title="Class template time_point&lt;&gt;"><code class="computeroutput"><span class="identifier">time_point</span></code></a> involves first parsing
+            a <a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">duration</span></code></a> and then parsing the
+            epoch string. If the epoch string does not match that associated with
+            <code class="computeroutput"><span class="identifier">time_point</span><span class="special">::</span><span class="identifier">clock</span></code> then failbit will be set.
+          </p>
+<p>
+            <span class="bold"><strong>Example:</strong></span>
+          </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">chrono</span><span class="special">/</span><span class="identifier">chrono_io</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">sstream</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">iostream</span><span class="special">&gt;</span>
@@ -1326,15 +1641,15 @@
 <span class="special">}</span>
 </pre>
 <p>
-          The output could be:
-        </p>
+            The output could be:
+          </p>
 <pre class="programlisting"><span class="number">50908679121461</span> <span class="identifier">nanoseconds</span> <span class="identifier">since</span> <span class="identifier">boot</span>
 <span class="identifier">That</span> <span class="identifier">took</span> <span class="number">649630</span> <span class="identifier">nanoseconds</span>
 </pre>
 <p>
-          Here's a simple example to find out how many hours the computer has been
-          up (on this platform):
-        </p>
+            Here's a simple example to find out how many hours the computer has been
+            up (on this platform):
+          </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">chrono</span><span class="special">/</span><span class="identifier">chrono_io</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">iostream</span><span class="special">&gt;</span>
 
@@ -1350,10 +1665,34 @@
 <span class="special">}</span>
 </pre>
 <p>
-          The output could be:
-        </p>
+            The output could be:
+          </p>
 <pre class="programlisting"><span class="number">17.8666</span> <span class="identifier">hours</span> <span class="identifier">since</span> <span class="identifier">boot</span>
 </pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="chrono.users_guide.tutorial.i_o.low_level_i_o"></a><a class="link" href="users_guide.html#chrono.users_guide.tutorial.i_o.low_level_i_o" title="Low level I/O">Low
+          level I/O</a>
+</h5></div></div></div>
+<p>
+            The I/O interface described in the preceding I/O sections were at the
+            user level. These services are based on low level services that are useful
+            when writing libraries. The low level services are related to access
+            to the associated ios state and locale facets. The design follows the
+            C++ IOStreams standard design:
+          </p>
+<p>
+            The library encapsulate the locale-dependent parsing and formatting of
+            <a class="link" href="reference.html#chrono.reference.cpp0x.duration_hpp.duration" title="Class Template duration&lt;&gt;"><code class="computeroutput"><span class="identifier">duration</span></code></a> into a new facet class.
+            Let's focus on formatting in this example. The concerned facet class
+            is <a class="link" href="reference.html#chrono.reference.io.duration_put_hpp.duration_put" title="Template Class duration_put"><code class="computeroutput"><span class="identifier">duration_put</span></code></a>, analogous to time_put,
+            money_put, etc.
+          </p>
+<p>
+            The use of this facet is similar to the time_put facet.
+          </p>
+</div>
 </div>
 </div>
 <div class="section">
@@ -2233,11 +2572,17 @@
 </dl>
 </div>
 </div>
+<div class="footnotes">
+<br><hr width="100" align="left">
+<div class="footnote"><p><sup>[<a id="ftn.chrono.users_guide.tutorial.i_o.duration_io.f0" href="#chrono.users_guide.tutorial.i_o.duration_io.f0" class="para">1</a>] </sup>
+              <a class="link" href="reference.html#chrono.reference.io_v1.chrono_io_hpp.manipulators" title="I/O Manipulators"><code class="computeroutput"><span class="identifier">duration_short</span></code></a> in V1
+            </p></div>
+</div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2008 Howard Hinnant<br>Copyright &#169; 2006, 2008 Beman Dawes<br>Copyright &#169; 2009-2011 Vicente J. Botet
-      Escriba<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008 Howard Hinnant<br>Copyright &#169; 2006, 2008 Beman Dawes<br>Copyright &#169; 2009-2012 Vicente
+      J. Botet Escriba<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

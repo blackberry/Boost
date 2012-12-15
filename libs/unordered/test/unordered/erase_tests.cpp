@@ -15,6 +15,7 @@
 #include "../helpers/tracker.hpp"
 #include "../helpers/equivalent.hpp"
 #include "../helpers/helpers.hpp"
+#include "../helpers/invariants.hpp"
 
 #include <iostream>
 
@@ -24,8 +25,7 @@ namespace erase_tests
 test::seed_t initialize_seed(85638);
 
 template <class Container>
-void erase_tests1(Container*,
-    test::random_generator generator = test::default_generator)
+void erase_tests1(Container*, test::random_generator generator)
 {
     std::cerr<<"Erase by key.\n";
     {
@@ -33,6 +33,7 @@ void erase_tests1(Container*,
 
         test::random_values<Container> v(1000, generator);
         Container x(v.begin(), v.end());
+        int iterations = 0;
         for(BOOST_DEDUCED_TYPENAME test::random_values<Container>::iterator
             it = v.begin(); it != v.end(); ++it)
         {
@@ -42,6 +43,7 @@ void erase_tests1(Container*,
             BOOST_TEST(x.size() == old_size - count);
             BOOST_TEST(x.count(test::get_key<Container>(*it)) == 0);
             BOOST_TEST(x.find(test::get_key<Container>(*it)) == x.end());
+            if (++iterations % 20 == 0) test::check_equivalent_keys(x);
         }
     }
 
@@ -52,6 +54,7 @@ void erase_tests1(Container*,
         test::random_values<Container> v(1000, generator);
         Container x(v.begin(), v.end());
         std::size_t size = x.size();
+        int iterations = 0;
         while(size > 0 && !x.empty())
         {
             BOOST_DEDUCED_TYPENAME Container::key_type
@@ -63,6 +66,7 @@ void erase_tests1(Container*,
             BOOST_TEST(pos == x.begin());
             BOOST_TEST(x.count(key) == count - 1);
             BOOST_TEST(x.size() == size);
+            if (++iterations % 20 == 0) test::check_equivalent_keys(x);
         }
         BOOST_TEST(x.empty());
     }
@@ -74,6 +78,7 @@ void erase_tests1(Container*,
         test::random_values<Container> v(1000, generator);
         Container x(v.begin(), v.end());
         std::size_t size = x.size();
+        int iterations = 0;
         while(size > 0 && !x.empty())
         {
             using namespace std;
@@ -97,6 +102,7 @@ void erase_tests1(Container*,
                         next == boost::next(prev));
             BOOST_TEST(x.count(key) == count - 1);
             BOOST_TEST(x.size() == size);
+            if (++iterations % 20 == 0) test::check_equivalent_keys(x);
         }
         BOOST_TEST(x.empty());
     }
@@ -117,12 +123,15 @@ void erase_tests1(Container*,
         BOOST_TEST(x.erase(x.end(), x.end()) == x.end());
         BOOST_TEST(x.erase(x.begin(), x.begin()) == x.begin());
         BOOST_TEST(x.size() == size);
+        test::check_equivalent_keys(x);
 
         BOOST_TEST(x.erase(x.begin(), x.end()) == x.end());
         BOOST_TEST(x.empty());
         BOOST_TEST(x.begin() == x.end());
+        test::check_equivalent_keys(x);
 
         BOOST_TEST(x.erase(x.begin(), x.end()) == x.begin());
+        test::check_equivalent_keys(x);
     }
 
     std::cerr<<"quick_erase(begin()).\n";
@@ -132,6 +141,7 @@ void erase_tests1(Container*,
         test::random_values<Container> v(1000, generator);
         Container x(v.begin(), v.end());
         std::size_t size = x.size();
+        int iterations = 0;
         while(size > 0 && !x.empty())
         {
             BOOST_DEDUCED_TYPENAME Container::key_type
@@ -141,6 +151,7 @@ void erase_tests1(Container*,
             --size;
             BOOST_TEST(x.count(key) == count - 1);
             BOOST_TEST(x.size() == size);
+            if (++iterations % 20 == 0) test::check_equivalent_keys(x);
         }
         BOOST_TEST(x.empty());
     }
@@ -152,6 +163,7 @@ void erase_tests1(Container*,
         test::random_values<Container> v(1000, generator);
         Container x(v.begin(), v.end());
         std::size_t size = x.size();
+        int iterations = 0;
         while(size > 0 && !x.empty())
         {
             using namespace std;
@@ -175,6 +187,7 @@ void erase_tests1(Container*,
                         next == boost::next(prev));
             BOOST_TEST(x.count(key) == count - 1);
             BOOST_TEST(x.size() == size);
+            if (++iterations % 20 == 0) test::check_equivalent_keys(x);
         }
         BOOST_TEST(x.empty());
     }

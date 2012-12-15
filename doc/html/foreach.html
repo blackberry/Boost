@@ -255,11 +255,11 @@
       can get tiresome to look at. That may be true, but <code class="literal">BOOST_FOREACH</code>
       is merely following the <a href="http://www.boost.org/more/lib_guide.htm" target="_top">Boost
       Naming Convention</a>. That doesn't mean you're stuck with it, though.
-      If you would like to use a different identifier (<code class="computeroutput"><span class="identifier">foreach</span></code>,
+      If you would like to use a different identifier (<code class="computeroutput"><span class="identifier">foreach_</span></code>,
       perhaps), you can simply do:
     </p>
-<pre class="programlisting"><span class="preprocessor">#define</span> <span class="identifier">foreach</span>         <span class="identifier">BOOST_FOREACH</span>
-<span class="preprocessor">#define</span> <span class="identifier">reverse_foreach</span> <span class="identifier">BOOST_REVERSE_FOREACH</span>
+<pre class="programlisting"><span class="preprocessor">#define</span> <span class="identifier">foreach_</span>         <span class="identifier">BOOST_FOREACH</span>
+<span class="preprocessor">#define</span> <span class="identifier">foreach_r_</span>       <span class="identifier">BOOST_REVERSE_FOREACH</span>
 </pre>
 <p>
       Only do this if you are sure that the identifier you choose will not cause
@@ -271,15 +271,39 @@
 <th align="left">Note</th>
 </tr>
 <tr><td align="left" valign="top"><p>
-        Do not use <code class="computeroutput"><span class="preprocessor">#define</span> <span class="identifier">foreach</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span><span class="identifier">y</span><span class="special">)</span> <span class="identifier">BOOST_FOREACH</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span><span class="identifier">y</span><span class="special">)</span></code>. This
+        Do not use <code class="computeroutput"><span class="preprocessor">#define</span> <span class="identifier">foreach_</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span><span class="identifier">y</span><span class="special">)</span> <span class="identifier">BOOST_FOREACH</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span><span class="identifier">y</span><span class="special">)</span></code>. This
         can be problematic if the arguments are macros themselves. This would result
         in an additional expansion of these macros. Instead, use the form shown above.
       </p></td></tr>
 </table></div>
+<p>
+      Lastly, a word of warning. Lots of folks use a <code class="computeroutput"><span class="identifier">foreach</span></code>
+      macro as a short form for <code class="computeroutput"><span class="identifier">BOOST_FOREACH</span></code>.
+      I discourage this. It leads to name conflicts within the <code class="computeroutput"><span class="identifier">BOOST_FOREACH</span></code>
+      macro itself, where <code class="computeroutput"><span class="identifier">foreach</span></code>
+      is the name of a namespace. Besides, <code class="computeroutput"><span class="identifier">foreach</span></code>
+      is a common-eough identifier; even <a href="http://qt.digia.com/" target="_top">Qt</a>
+      defines it as a macro. If you insist on using <code class="computeroutput"><span class="identifier">foreach</span></code>,
+      you might try something like this:
+    </p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">foreach</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+
+<span class="keyword">namespace</span> <span class="identifier">boost</span>
+<span class="special">{</span>
+    <span class="comment">// Suggested work-around for https://svn.boost.org/trac/boost/ticket/6131</span>
+    <span class="keyword">namespace</span> <span class="identifier">BOOST_FOREACH</span> <span class="special">=</span> <span class="identifier">foreach</span><span class="special">;</span>
+<span class="special">}</span>
+
+<span class="preprocessor">#define</span> <span class="identifier">foreach</span>   <span class="identifier">BOOST_FOREACH</span>
+</pre>
+<p>
+      This will work around <span class="emphasis"><em>some</em></span> of the problem you're likely
+      to encounter, but not all. Prefer using a different identifier.
+    </p>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: August 15, 2012 at 23:44:05 GMT</small></p></td>
+<td align="left"><p><small>Last revised: October 29, 2012 at 22:44:34 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>

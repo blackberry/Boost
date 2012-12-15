@@ -18,13 +18,13 @@ typedef boost::unordered_multiset<
     test::exception::object,
     test::exception::hash,
     test::exception::equal_to,
-    test::exception::allocator<test::exception::object> > test_multiset;
+    test::exception::allocator2<test::exception::object> > test_multiset;
 typedef boost::unordered_map<
     test::exception::object,
     test::exception::object,
     test::exception::hash,
     test::exception::equal_to,
-    test::exception::allocator<test::exception::object> > test_map;
+    test::exception::allocator2<test::exception::object> > test_map;
 typedef boost::unordered_multimap<
     test::exception::object,
     test::exception::object,

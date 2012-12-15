@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -12,6 +12,7 @@
 #include <boost/interprocess/detail/workaround.hpp>
 #include <boost/interprocess/sync/named_mutex.hpp>
 #include <boost/interprocess/sync/named_condition.hpp>
+#include <boost/interprocess/sync/detail/locks.hpp>
 #include "condition_test_template.hpp"
 #include "named_creation_template.hpp"
 #include <string>
@@ -25,7 +26,7 @@ struct condition_deleter
    std::string name;
 
    ~condition_deleter()
-   { 
+   {
       if(name.empty())
          named_condition::remove(test::add_to_process_id_name("named_condition"));
       else
@@ -56,76 +57,32 @@ class named_condition_test_wrapper
    {  --count; }
 
 
-   template<class Lock>
-   class lock_wrapper
-   {
-      typedef void (lock_wrapper::*unspecified_bool_type)();
-      public:
-
-      typedef named_mutex mutex_type;
-
-      lock_wrapper(Lock &l)
-         : l_(l)
-      {}
-
-      mutex_type* mutex() const
-      {  return l_.mutex();  }
-
-      void lock()    { l_.lock(); }
-
-      void unlock()  { l_.unlock(); }
-
-      operator unspecified_bool_type() const
-      {  return l_ ? &lock_wrapper::lock : 0;  }
-
-      private:
-      Lock &l_;
-   };
-/*
-   template<class Lock>
-   class lock_wrapper
-   {
-      public:
-
-      typedef named_mutex mutex_type;
-
-      lock_wrapper(Lock &l)
-        : l_(l)
-      {}
-
-      mutex_type* mutex() const
-      {  return l_.mutex();  }
-
-      private:
-      Lock &l_;
-   };
-*/
    template <typename L>
    void wait(L& lock)
    {
-      lock_wrapper<L> newlock(lock);
-      named_condition::wait(newlock);
+      ipcdetail::internal_mutex_lock<L> internal_lock(lock);
+      named_condition::wait(internal_lock);
    }
 
    template <typename L, typename Pr>
    void wait(L& lock, Pr pred)
    {
-      lock_wrapper<L> newlock(lock);
-      named_condition::wait(newlock, pred);
+      ipcdetail::internal_mutex_lock<L> internal_lock(lock);
+      named_condition::wait(internal_lock, pred);
    }
 
    template <typename L>
    bool timed_wait(L& lock, const boost::posix_time::ptime &abs_time)
    {
-      lock_wrapper<L> newlock(lock);
-      return named_condition::timed_wait(newlock, abs_time);
+      ipcdetail::internal_mutex_lock<L> internal_lock(lock);
+      return named_condition::timed_wait(internal_lock, abs_time);
    }
 
    template <typename L, typename Pr>
    bool timed_wait(L& lock, const boost::posix_time::ptime &abs_time, Pr pred)
    {
-      lock_wrapper<L> newlock(lock);
-      return named_condition::timed_wait(newlock, abs_time, pred);
+      ipcdetail::internal_mutex_lock<L> internal_lock(lock);
+      return named_condition::timed_wait(internal_lock, abs_time, pred);
    }
 
    static int count;
@@ -167,7 +124,7 @@ struct mutex_deleter
    std::string name;
 
    ~mutex_deleter()
-   { 
+   {
       if(name.empty())
          named_mutex::remove(test::add_to_process_id_name("named_mutex"));
       else
@@ -189,6 +146,11 @@ class named_mutex_test_wrapper
       mutex_deleter::name += num_to_string(count);
       ++count;
    }
+
+   typedef named_mutex internal_mutex_type;
+
+   internal_mutex_type &internal_mutex()
+   {  return *this;  }
 
    ~named_mutex_test_wrapper()
    {  --count; }

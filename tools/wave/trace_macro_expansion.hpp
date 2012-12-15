@@ -76,8 +76,8 @@ public:
         pragma_mismatched_push_pop,
     };
 
-    bad_pragma_exception(char const *what_, error_code code, int line_,
-        int column_, char const *filename_) throw()
+    bad_pragma_exception(char const *what_, error_code code, std::size_t line_,
+        std::size_t column_, char const *filename_) throw()
     :   boost::wave::preprocess_exception(what_,
             (boost::wave::preprocess_exception::error_code)code, line_,
             column_, filename_)

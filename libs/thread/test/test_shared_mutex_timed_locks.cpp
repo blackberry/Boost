@@ -6,8 +6,8 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/thread/thread.hpp>
 #include <boost/thread/xtime.hpp>
-#include <libs/thread/test/util.inl>
-#include <libs/thread/test/shared_mutex_locking_thread.hpp>
+#include "./util.inl"
+#include "./shared_mutex_locking_thread.hpp"
 
 #define CHECK_LOCKED_VALUE_EQUAL(mutex_name,value,expected_value)    \
     {                                                                \

@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -102,15 +102,15 @@ int vector_test()
 
          shmvector->resize(100);
          stdvector->resize(100);
-         if(!test::CheckEqualContainers(shmvector, stdvector)) return 1;        
+         if(!test::CheckEqualContainers(shmvector, stdvector)) return 1;
 
          shmvector->resize(200);
          stdvector->resize(200);
-         if(!test::CheckEqualContainers(shmvector, stdvector)) return 1;        
+         if(!test::CheckEqualContainers(shmvector, stdvector)) return 1;
 
          shmvector->resize(0);
          stdvector->resize(0);
-         if(!test::CheckEqualContainers(shmvector, stdvector)) return 1;        
+         if(!test::CheckEqualContainers(shmvector, stdvector)) return 1;
 
          for(int i = 0; i < max; ++i){
             IntType new_int(i);

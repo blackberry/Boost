@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -57,7 +57,7 @@ bool copyable_only(V1 *shmdeque, V2 *stddeque, ipcdetail::true_type)
    typedef typename V1::value_type IntType;
    std::size_t size = shmdeque->size();
    stddeque->insert(stddeque->end(), 50, 1);
-   shmdeque->insert(shmdeque->end(), 50, 1);
+   shmdeque->insert(shmdeque->end(), 50, IntType(1));
    if(!test::CheckEqualContainers(shmdeque, stddeque)) return false;
    {
       IntType move_me(1);
@@ -261,11 +261,11 @@ bool do_test()
 
          shmdeque->resize(100);
          stddeque->resize(100);
-         if(!test::CheckEqualContainers(shmdeque, stddeque)) return 1;        
+         if(!test::CheckEqualContainers(shmdeque, stddeque)) return 1;
 
          shmdeque->resize(200);
          stddeque->resize(200);
-         if(!test::CheckEqualContainers(shmdeque, stddeque)) return 1;        
+         if(!test::CheckEqualContainers(shmdeque, stddeque)) return 1;
 
          segment.template destroy<MyShmDeque>("MyShmDeque");
          delete stddeque;
@@ -278,7 +278,7 @@ bool do_test()
          std::cout << ex.what() << std::endl;
          return false;
       }*/
-     
+
       std::cout << std::endl << "Test OK!" << std::endl;
    }/*
    catch(...){

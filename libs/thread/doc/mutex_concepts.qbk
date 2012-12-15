@@ -75,7 +75,7 @@ Lock ownership acquired through a call to __lock_ref__ must be released through 
 [endsect]
 [section:lockable `Lockable` Concept]
 
-A type `L` meets the __Lockable requirements if it meets the __BasicLocable requirements and the following expressions are well-formed and have the specified semantics (`m` denotes a value of type `L`):
+A type `L` meets the __Lockable requirements if it meets the __BasicLockable requirements and the following expressions are well-formed and have the specified semantics (`m` denotes a value of type `L`):
 
 * `m.__try_lock()`
 
@@ -343,7 +343,8 @@ Ownership can also be ['downgraded] as well as ['upgraded]: exclusive ownership 
 __upgrade_lockable_concept__ can be downgraded to upgradable ownership or shared ownership, and upgradable ownership can be
 downgraded to plain shared ownership.
 
-A type `L` meets the __SharedLockable requirements if it meets the __TimedLockable requirements and the following expressions are well-formed and have the specified semantics.
+A type `L` meets the __UpgradeLockable requirements if it meets the __SharedLockable 
+requirements and the following expressions are well-formed and have the specified semantics.
 
 [*Variables:]
 
@@ -360,7 +361,7 @@ A type `L` meets the __SharedLockable requirements if it meets the __TimedLockab
 * `m.__try_lock_upgrade_until(abs_time)`
 * `m.__unlock_and_lock_shared()`
 * `m.__unlock_and_lock_upgrade();`
-* `m.__unlock_upgrade_and_lock();`]
+* `m.__unlock_upgrade_and_lock();`
 * `m.__try_unlock_upgrade_and_lock()`
 * `m.__try_unlock_upgrade_and_lock_for(rel_time)`
 * `m.__try_unlock_upgrade_and_lock_until(abs_time)`
@@ -790,8 +791,10 @@ blocking.]]
 
 [section:locks Lock Types]
 
-    #include <boost/thread/locks.hpp> 
+  //#include <boost/thread/locks.hpp> 
 
+  namespace boost 
+  {
     struct defer_lock_t {}; 
     struct try_to_lock_t {}; 
     struct adopt_lock_t {}; 
@@ -815,6 +818,7 @@ blocking.]]
     void swap(upgrade_lock <Mutex>& lhs, upgrade_lock <Mutex>& rhs);
     template <class Mutex>
     class upgrade_to_unique_lock;
+  }
 
 [section:lock_tags Lock option tags] 
 
@@ -837,7 +841,7 @@ These tags are used in scoped locks constructors to specify a specific behavior.
 
 [section:lock_guard Class template `lock_guard`]
 
-    #include <boost/thread/locks.hpp>
+    //#include <boost/thread/locks.hpp>
 
     template<typename Lockable>
     class lock_guard
@@ -903,7 +907,7 @@ object passed to the constructor.]]
 
 [section:unique_lock Class template `unique_lock`]
 
-    #include <boost/thread/locks.hpp>
+    //#include <boost/thread/locks.hpp>
 
     template<typename Lockable>
     class unique_lock
@@ -1066,7 +1070,7 @@ returns `false`.]]
 
 [[Requires:] [The supplied `Mutex` type must implement `__try_unlock_shared_and_lock()`.]]
 
-[[Effects:] [Constructs an object of type __unique_lock. Let `pm` be and `owns` the ownership state. Initializes `pm` with nullptr and `owns` with false. 
+[[Effects:] [Constructs an object of type __unique_lock. Let `pm` be the pointer to the mutex and `owns` the ownership state. Initializes `pm` with nullptr and `owns` with false. 
 If `sl.__owns_lock()` returns `false`, sets `pm` to the return value of `sl.release()`. 
 Else `sl.__owns_lock()` returns `true`, and in this case if `sl.mutex()->try_unlock_shared_and_lock()` returns `true`, sets `pm` to the value returned by `sl.release()` and sets `owns` to `true`.]]
 
@@ -1092,8 +1096,8 @@ Else `sl.__owns_lock()` returns `true`, and in this case if `sl.mutex()->try_unl
 [[Requires:] [The supplied `Mutex` type shall implement `__try_unlock_shared_and_lock_until(abs_time)`.]]
 
 [[Effects:] [Constructs an object of type `__unique_lock`, initializing `pm` with `nullptr` and `owns` with `false`. 
-If `sl.__owns_lock()` returns `false`, sets `pm` to the return value of `sl.__release()`. 
-Else `sl.owns_lock()` returns `true`, and in this case if `sl.mutex()->__try_unlock_shared_and_lock_until(abs_time)` returns `true`, sets `pm` to the value returned by `sl.release()` and sets `owns` to `true`.]]
+If `sl.__owns_lock_shared_ref__()` returns `false`, sets `pm` to the return value of `sl.release()`. 
+Else `sl.__owns_lock_shared_ref__()` returns `true`, and in this case if `sl.mutex()->__try_unlock_shared_and_lock_until(abs_time)` returns `true`, sets `pm` to the value returned by `sl.release()` and sets `owns` to `true`.]]
 
 [[Note:] [If `sl.owns_lock()` returns `true` and `sl.mutex()-> __try_unlock_shared_and_lock_until(abs_time)` returns `false`, `sl` is not modified.]]
 
@@ -1116,7 +1120,7 @@ Else `sl.owns_lock()` returns `true`, and in this case if `sl.mutex()->__try_unl
 [[Requires:] [The supplied `Mutex` type shall implement `__try_unlock_shared_and_lock_for(rel_time)`.]]
 
 [[Effects:] [Constructs an object of type `__unique_lock`, initializing `pm` with `nullptr` and `owns` with `false`. 
-If `sl.__owns_lock()` returns `false`, sets `pm` to the return value of `sl.__release()`. 
+If `sl.__owns_lock()` returns `false`, sets `pm` to the return value of `sl.release()`. 
 Else `sl.owns_lock()` returns `true`, and in this case if `sl.mutex()-> __try_unlock_shared_and_lock_for(rel_time)` returns `true`, sets `pm` to the value returned by `sl.release()` and sets `owns` to `true`.]]
 
 [[Note:] [If `sl.owns_lock()` returns `true` and `sl.mutex()-> __try_unlock_shared_and_lock_for(rel_time)` returns `false`, `sl` is not modified.]]
@@ -1267,7 +1271,7 @@ __owns_lock_ref__ returns `false`.]]
 
 [section:shared_lock Class template `shared_lock`]
 
-    #include <boost/thread/locks.hpp>
+    //#include <boost/thread/locks.hpp>
 
     template<typename Lockable>
     class shared_lock
@@ -1508,7 +1512,7 @@ __owns_lock_shared_ref__ returns `false`.]]
 
 [section:upgrade_lock Class template `upgrade_lock`]
 
-    #include <boost/thread/locks.hpp>
+    //#include <boost/thread/locks.hpp>
 
     template<typename Lockable>
     class upgrade_lock
@@ -1663,8 +1667,10 @@ call [try_lock_ref_link `m.try_lock()`] rather than `m.lock()`.
 
 [section: reverse_mutex Class template `reverse_mutex`]
 
-    #include <boost/thread/reverse_mutex.hpp> 
+  //#include <boost/thread/reverse_mutex.hpp> 
 
+  namespace boost 
+  {
     template<typename BasicLockable>
     class reverse_mutex
     {
@@ -1679,6 +1685,7 @@ call [try_lock_ref_link `m.try_lock()`] rather than `m.lock()`.
         void lock();
         void unlock();
     };
+  }
 
 __reverse_mutex reverse the operations of a __BasicLockable, that unlocks the lockable when `lock()` is called and locks it when `unlock()` is called. 
 
@@ -1692,24 +1699,29 @@ __reverse_mutex reverse the operations of a __BasicLockable, that unlocks the lo
 
 [section:shared_lock_guard Class template `shared_lock_guard`]
 
-    #include <boost/thread/shared_lock_guard.hpp>
-
+  // #include <boost/thread/shared_lock_guard.hpp>
+  namespace boost 
+  {
     template<typename SharedLockable>
     class shared_lock_guard
     {
     public:
+        shared_lock_guard(shared_lock_guard const&) = delete;
+        shared_lock_guard& operator=(shared_lock_guard const&) = delete;
+        
         explicit shared_lock_guard(SharedLockable& m_);
         shared_lock_guard(SharedLockable& m_,boost::adopt_lock_t);
 
         ~shared_lock_guard();
     };
+  }
 
 __shared_lock_guard is very simple: on construction it
 acquires shared ownership of the implementation of the __shared_lockable_concept__ supplied as
 the constructor parameter. On destruction, the ownership is released. This
 provides simple RAII-style locking of a __shared_lockable_concept_type__ object, to facilitate exception-safe
 shared locking and unlocking. 
-In addition, the `__shared_lock_guard_ca(SharedLockable &m, boost::adopt_lock_t)` constructor allows the __shared_lock_guard object to
+In addition, the `__shared_lock_guard_constructor_adopt(SharedLockable &m, boost::adopt_lock_t)` constructor allows the __shared_lock_guard object to
 take shared ownership of a lock already held by the current thread.
 
 [section:constructor `shared_lock_guard(SharedLockable & m)`]
@@ -1756,7 +1768,9 @@ obtained by a call to `m.__lock_shared()`.]]
 
 [section:reverse_lock Class template `reverse_lock`]
 
-    #include <boost/thread/reverse_lock.hpp>
+  // #include <boost/thread/reverse_lock.hpp>
+  namespace boost 
+  {
 
     template<typename Lock>
     class reverse_lock
@@ -1768,6 +1782,7 @@ obtained by a call to `m.__lock_shared()`.]]
         explicit reverse_lock(Lock& m_);
         ~reverse_lock();
     };
+  }
 
 __reverse_lock reverse the operations of a lock: it provide for RAII-style, that unlocks the lock at construction time and lock it at destruction time. In addition, it transfer ownership temporarily, so that the mutex can not be locked using the Lock.
 
@@ -1777,9 +1792,9 @@ An instance of __reverse_lock doesn't ['own] the lock never.
 
 [variablelist
 
-[[Effects:] [Stores a reference to `m`. Invokes `m.__unlock()` if `m` owns his lock and then stores the mutex by calling `m.__release()`.]]
+[[Effects:] [Stores a reference to `m`. Invokes `m.__unlock()` if `m` owns his lock and then stores the mutex by calling `m.release()`.]]
 
-[[Postcondition:] [`!m.__owns_lock() && m.__mutex()==0`.]]
+[[Postcondition:] [`!m.__owns_lock() && m.mutex()==0`.]]
 
 [[Throws:] [Any exception thrown by the call to `m.__unlock()`.]]
 
@@ -1810,6 +1825,10 @@ An instance of __reverse_lock doesn't ['own] the lock never.
 
 [section:lock_multiple Non-member function `lock(Lockable1,Lockable2,...)`]
 
+  // #include <boost/thread/locks.hpp>
+  namespace boost 
+  {
+
     template<typename Lockable1,typename Lockable2>
     void lock(Lockable1& l1,Lockable2& l2);
 
@@ -1821,6 +1840,8 @@ An instance of __reverse_lock doesn't ['own] the lock never.
 
     template<typename Lockable1,typename Lockable2,typename Lockable3,typename Lockable4,typename Lockable5>
     void lock(Lockable1& l1,Lockable2& l2,Lockable3& l3,Lockable4& l4,Lockable5& l5);
+
+  }
 
 [variablelist
 

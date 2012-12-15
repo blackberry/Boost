@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2006-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2006-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -64,8 +64,7 @@ int main()
 
    //Initialize our data
    while(!chain.empty()){
-      void *buf = chain.front();
-      chain.pop_front();
+      void *buf = chain.pop_front();
       allocated_buffers.push_back(buf);
       //The iterator must be incremented before overwriting memory
       //because otherwise, the iterator is invalidated.

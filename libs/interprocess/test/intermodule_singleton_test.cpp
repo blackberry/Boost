@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -87,7 +87,7 @@ int intermodule_singleton_test()
       return 1;
    }
 
-   return 0;  
+   return 0;
 }
 
 //A class simulating a logger
@@ -249,7 +249,7 @@ int phoenix_singleton_test()
    //LoggerSingleton.
    //After that LoggerSingleton will be destroyed and
    //lastly LogPhoenixTester will be destroyed checking
-   //LoggerSingleton was correctly destroyed.  
+   //LoggerSingleton was correctly destroyed.
    return 0;
 }
 

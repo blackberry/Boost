@@ -86,7 +86,7 @@ struct non_checked_division
 struct division_by_zero : std::exception {};
 
 struct do_checked_divide
-    : proto::callable
+  : proto::callable
 {
     typedef int result_type;
     int operator()(int left, int right) const

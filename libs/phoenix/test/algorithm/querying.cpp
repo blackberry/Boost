@@ -52,24 +52,23 @@ namespace
 
     void find_test()
     {
-        using boost::phoenix::find;
         using boost::phoenix::arg_names::arg1;
         int array[] = {1,2,3};
-        BOOST_TEST(find(arg1,2)(array) == array + 1);
+        BOOST_TEST(boost::phoenix::find(arg1,2)(array) == array + 1);
 
         std::set<int> s(array, array + 3);
-        BOOST_TEST(find(arg1, 2)(s) == s.find(2));
+        BOOST_TEST(boost::phoenix::find(arg1, 2)(s) == s.find(2));
 
         std::map<int, int> m = boost::assign::map_list_of(0, 1)(2, 3)(4, 5);
-        BOOST_TEST(find(arg1, 2)(m) == m.find(2));
+        BOOST_TEST(boost::phoenix::find(arg1, 2)(m) == m.find(2));
 
 #ifdef BOOST_PHOENIX_HAS_HASH
 
         BOOST_PHOENIX_HASH_NAMESPACE::hash_set<int> hs(array, array + 3);
-        BOOST_TEST(find(arg1, 2)(hs) == hs.find(2));
+        BOOST_TEST(boost::phoenix::find(arg1, 2)(hs) == hs.find(2));
 
         BOOST_PHOENIX_HASH_NAMESPACE::hash_map<int, int> hm = boost::assign::map_list_of(0, 1)(2, 3)(4, 5);
-        BOOST_TEST(find(arg1, 2)(hm) == hm.find(2));
+        BOOST_TEST(boost::phoenix::find(arg1, 2)(hm) == hm.find(2));
 
 #endif
 
@@ -79,91 +78,83 @@ namespace
 
     void find_if_test()
     {
-        using boost::phoenix::find_if;
         using boost::phoenix::arg_names::arg1;
         int array[] = {1,2,3};
-        BOOST_TEST(find_if(arg1, even())(array) == array + 1);
+        BOOST_TEST(boost::phoenix::find_if(arg1, even())(array) == array + 1);
         return;
     }
 
     void find_end_test()
     {
-        using boost::phoenix::find_end;
         using boost::phoenix::arg_names::arg1;
         using boost::phoenix::arg_names::arg2;
         int array[] = {1,2,3,1,2,3,1};
         int pattern[] = {1,2,3};
-        BOOST_TEST(find_end(arg1, arg2)(array, pattern) == array + 3);
+        BOOST_TEST(boost::phoenix::find_end(arg1, arg2)(array, pattern) == array + 3);
         int pattern2[] = {5,6,5};
-        BOOST_TEST(find_end(arg1, arg2, mod_2_comparison())(array, pattern2) == array + 3);
+        BOOST_TEST(boost::phoenix::find_end(arg1, arg2, mod_2_comparison())(array, pattern2) == array + 3);
         return;
     }
 
     void find_first_of_test()
     {
-        using boost::phoenix::find_first_of;
         using boost::phoenix::arg_names::arg1;
         using boost::phoenix::arg_names::arg2;
         int array[] = {1,2,3};
         int search_for[] = {2,3,4};
-        BOOST_TEST(find_first_of(arg1, arg2)(array, search_for) == array + 1);
+        BOOST_TEST(boost::phoenix::find_first_of(arg1, arg2)(array, search_for) == array + 1);
 
         int search_for2[] = {0};
-        BOOST_TEST(find_first_of(arg1, arg2, mod_2_comparison())(array, search_for2) == array + 1);
+        BOOST_TEST(boost::phoenix::find_first_of(arg1, arg2, mod_2_comparison())(array, search_for2) == array + 1);
         return;
     }
 
     void adjacent_find_test()
     {
-        using boost::phoenix::adjacent_find;
         using boost::phoenix::arg_names::arg1;
         int array[] = {0,1,3,4,4};
-        BOOST_TEST(adjacent_find(arg1)(array) == array + 3);
-        BOOST_TEST(adjacent_find(arg1, mod_2_comparison())(array) == array + 1);
+        BOOST_TEST(boost::phoenix::adjacent_find(arg1)(array) == array + 3);
+        BOOST_TEST(boost::phoenix::adjacent_find(arg1, mod_2_comparison())(array) == array + 1);
         return;
     }
 
     void count_test()
     {
-        using boost::phoenix::count;
         using boost::phoenix::arg_names::arg1;
         int array[] = {1,1,0,1,1};
-        BOOST_TEST(count(arg1, 1)(array) == 4);
+        BOOST_TEST(boost::phoenix::count(arg1, 1)(array) == 4);
         return;
     }
 
     void count_if_test()
     {
-        using boost::phoenix::count_if;
         using boost::phoenix::arg_names::arg1;
         int array[] = {1,2,3,4,5};
-        BOOST_TEST(count_if(arg1, even())(array) == 2);
+        BOOST_TEST(boost::phoenix::count_if(arg1, even())(array) == 2);
         return;
     }
 
     void distance_test()
     {
-        using boost::phoenix::distance;
         using boost::phoenix::arg_names::arg1;
         int array[] = {1,1,0,1,1};
-        BOOST_TEST(distance(arg1)(array) == 5);
+        BOOST_TEST(boost::phoenix::distance(arg1)(array) == 5);
         return;
     }
 
     void mismatch_test()
     {
-        using boost::phoenix::mismatch;
         using boost::phoenix::arg_names::arg1;
         using boost::phoenix::arg_names::arg2;
         int array[] = {1,2,3,4,5};
         int search[] = {1,2,4};
 
         BOOST_TEST(
-            mismatch(arg1, arg2)(array, search) == 
+            boost::phoenix::mismatch(arg1, arg2)(array, search) == 
             std::make_pair(array + 2, search + 2));
         int search2[] = {1,2,1,1};
         BOOST_TEST(
-            mismatch(arg1, arg2, mod_2_comparison())(array, search2) 
+            boost::phoenix::mismatch(arg1, arg2, mod_2_comparison())(array, search2) 
             == std::make_pair(array + 3, search2 + 3));
 
         return;
@@ -171,47 +162,44 @@ namespace
 
     void equal_test()
     {
-        using boost::phoenix::equal;
         using boost::phoenix::arg_names::arg1;
         using boost::phoenix::arg_names::arg2;
         int array[] = {1,2,3};
         int array2[] = {1,2,3};
         int array3[] = {1,2,4};
         BOOST_TEST(
-            equal(arg1, arg2)(array, array2));
+            boost::phoenix::equal(arg1, arg2)(array, array2));
         BOOST_TEST(
-            !equal(arg1, arg2)(array, array3));
+            !boost::phoenix::equal(arg1, arg2)(array, array3));
 
         BOOST_TEST(
-            equal(arg1, arg2, mod_2_comparison())(array, array2));
+            boost::phoenix::equal(arg1, arg2, mod_2_comparison())(array, array2));
         BOOST_TEST(
-            !equal(arg1, arg2, mod_2_comparison())(array, array3));
+            !boost::phoenix::equal(arg1, arg2, mod_2_comparison())(array, array3));
         return;
     }
 
     void search_test()
     {
-        using boost::phoenix::search;
         using boost::phoenix::arg_names::arg1;
         using boost::phoenix::arg_names::arg2;
         int array[] = {1,2,3,1,2,3};
         int pattern[] = {2,3};
         BOOST_TEST(
-            search(arg1, arg2)(array, pattern) == array + 1);
+            boost::phoenix::search(arg1, arg2)(array, pattern) == array + 1);
         int pattern2[] = {1,1};
         BOOST_TEST(
-            search(arg1, arg2, mod_2_comparison())(array, pattern2) == array + 2);
+            boost::phoenix::search(arg1, arg2, mod_2_comparison())(array, pattern2) == array + 2);
         return;
     }
 
     void lower_bound_test()
     {
-        using boost::phoenix::lower_bound;
         using boost::phoenix::arg_names::arg1;
         int array[] = {1,2,3};
         const std::set<int> test_set(array, array + 3);
-        BOOST_TEST(lower_bound(arg1, 2)(array) == array + 1);
-        BOOST_TEST(lower_bound(arg1, 2)(test_set) == test_set.lower_bound(2));
+        BOOST_TEST(boost::phoenix::lower_bound(arg1, 2)(array) == array + 1);
+        BOOST_TEST(boost::phoenix::lower_bound(arg1, 2)(test_set) == test_set.lower_bound(2));
 
         int array2[] = {3,2,1};
         const std::set<int, std::greater<int> > test_set2(array2, array2 + 3);
@@ -224,7 +212,6 @@ namespace
 
     void upper_bound_test()
     {
-        using boost::phoenix::upper_bound;
         using boost::phoenix::arg_names::arg1;
         int array[] = {1,2,3};
         const std::set<int> test_set(array, array + 3);
@@ -242,18 +229,17 @@ namespace
 
     void equal_range_test()
     {
-        using boost::phoenix::equal_range;
         using boost::phoenix::arg_names::arg1;
         int array[] = {1,2,2,3};
         const std::set<int> test_set(array, array + 4);
-        BOOST_TEST(equal_range(arg1, 2)(array).first == 
+        BOOST_TEST(boost::phoenix::equal_range(arg1, 2)(array).first == 
                    array + 1);
-        BOOST_TEST(equal_range(arg1, 2)(array).second == 
+        BOOST_TEST(boost::phoenix::equal_range(arg1, 2)(array).second == 
                    array + 3);
 
-        BOOST_TEST(equal_range(arg1, 2)(test_set).first == 
+        BOOST_TEST(boost::phoenix::equal_range(arg1, 2)(test_set).first == 
                    test_set.equal_range(2).first);
-        BOOST_TEST(equal_range(arg1, 2)(test_set).second == 
+        BOOST_TEST(boost::phoenix::equal_range(arg1, 2)(test_set).second == 
                    test_set.equal_range(2).second);
 
         int array2[] = {3,2,2,1};
@@ -273,11 +259,10 @@ namespace
 
     void binary_search_test()
     {
-        using boost::phoenix::binary_search;
         using boost::phoenix::arg_names::arg1;
         int array[] = {1,2,3};
-        BOOST_TEST(binary_search(arg1, 2)(array));
-        BOOST_TEST(!binary_search(arg1, 4)(array));
+        BOOST_TEST(boost::phoenix::binary_search(arg1, 2)(array));
+        BOOST_TEST(!boost::phoenix::binary_search(arg1, 4)(array));
         return;
     }
 

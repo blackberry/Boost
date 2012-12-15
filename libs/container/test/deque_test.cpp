@@ -63,7 +63,7 @@ bool deque_copyable_only(V1 *cntdeque, V2 *stddeque, container_detail::true_type
    typedef typename V1::value_type IntType;
    std::size_t size = cntdeque->size();
    stddeque->insert(stddeque->end(), 50, 1);
-   cntdeque->insert(cntdeque->end(), 50, 1);
+   cntdeque->insert(cntdeque->end(), 50, IntType(1));
    if(!test::CheckEqualContainers(cntdeque, stddeque)) return false;
    {
       IntType move_me(1);

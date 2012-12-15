@@ -2,14 +2,14 @@
     Boost.Wave: A Standard compliant C++ preprocessor library
 
     Copyright (c) 2001 Daniel C. Nuffer
-    Copyright (c) 2001-2012 Hartmut Kaiser. 
-    Distributed under the Boost Software License, Version 1.0. (See accompanying 
+    Copyright (c) 2001-2012 Hartmut Kaiser.
+    Distributed under the Boost Software License, Version 1.0. (See accompanying
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
-    TODO: 
-        It also may be necessary to add $ to identifiers, for asm. 
+    TODO:
+        It also may be necessary to add $ to identifiers, for asm.
         handle errors better.
-        have some easier way to parse strings instead of files (done) 
+        have some easier way to parse strings instead of files (done)
 =============================================================================*/
 
 #define BOOST_WAVE_SOURCE 1
@@ -31,7 +31,7 @@
 #include <unistd.h>
 #else
 #include <io.h>
-#endif 
+#endif
 
 #include <boost/assert.hpp>
 #include <boost/detail/workaround.hpp>
@@ -103,7 +103,7 @@ int get_one_char(Scanner *s)
     if (0 != s->act) {
         RE2C_ASSERT(s->first != 0 && s->last != 0);
         RE2C_ASSERT(s->first <= s->act && s->act <= s->last);
-        if (s->act < s->last) 
+        if (s->act < s->last)
             return *(s->act)++;
     }
     return -1;
@@ -136,7 +136,7 @@ void adjust_eol_offsets(Scanner* s, std::size_t adjustment)
 {
     aq_queue q;
     std::size_t i;
-    
+
     if (!s->eol_offsets)
         s->eol_offsets = aq_create();
 
@@ -218,10 +218,10 @@ uchar *fill(Scanner *s, uchar *cursor)
             {
                 using namespace std;      // some systems have printf in std
                 if (0 != s->error_proc) {
-                    (*s->error_proc)(s, lexing_exception::unexpected_error, 
+                    (*s->error_proc)(s, lexing_exception::unexpected_error,
                         "Out of memory!");
                 }
-                else 
+                else
                     printf("Out of memory!\n");
 
                 /* get the scanner to stop */
@@ -245,12 +245,12 @@ uchar *fill(Scanner *s, uchar *cursor)
                 cnt = BOOST_WAVE_BSIZE;
             memmove(s->lim, s->act, cnt);
             s->act += cnt;
-            if (cnt != BOOST_WAVE_BSIZE) 
+            if (cnt != BOOST_WAVE_BSIZE)
             {
                 s->eof = &s->lim[cnt]; *(s->eof)++ = '\0';
             }
         }
-        
+
         /* backslash-newline erasing time */
 
         /* first scan for backslash-newline and erase them */
@@ -265,7 +265,7 @@ uchar *fill(Scanner *s, uchar *cursor)
                     memmove(p, p + offset, s->lim + cnt - p - offset);
                     cnt -= offset;
                     --p;
-                    aq_enqueue(s->eol_offsets, p - s->bot + 1);    
+                    aq_enqueue(s->eol_offsets, p - s->bot + 1);
                 }
                 else if (*(p+len) == '\r')
                 {
@@ -283,14 +283,14 @@ uchar *fill(Scanner *s, uchar *cursor)
                         cnt -= offset;
                         --p;
                     }
-                    aq_enqueue(s->eol_offsets, p - s->bot + 1);    
+                    aq_enqueue(s->eol_offsets, p - s->bot + 1);
                 }
             }
         }
 
-        /* FIXME: the following code should be fixed to recognize correctly the 
+        /* FIXME: the following code should be fixed to recognize correctly the
                   trigraph backslash token */
-                  
+
         /* check to see if what we just read ends in a backslash */
         if (cnt >= 2)
         {
@@ -304,7 +304,7 @@ uchar *fill(Scanner *s, uchar *cursor)
                 if (next == '\n')
                 {
                     --cnt; /* chop the final \, we've already read the \n. */
-                    aq_enqueue(s->eol_offsets, cnt + (s->lim - s->bot));    
+                    aq_enqueue(s->eol_offsets, cnt + (s->lim - s->bot));
                 }
                 else if (next == '\r')
                 {
@@ -319,7 +319,7 @@ uchar *fill(Scanner *s, uchar *cursor)
                         rewind_stream(s, -1);
                         --cnt;
                     }
-                    aq_enqueue(s->eol_offsets, cnt + (s->lim - s->bot));    
+                    aq_enqueue(s->eol_offsets, cnt + (s->lim - s->bot));
                 }
                 else if (next != -1) /* -1 means end of file */
                 {
@@ -341,13 +341,13 @@ uchar *fill(Scanner *s, uchar *cursor)
                     rewind_stream(s, -1);
                     cnt -= 2;
                 }
-                aq_enqueue(s->eol_offsets, cnt + (s->lim - s->bot));    
+                aq_enqueue(s->eol_offsets, cnt + (s->lim - s->bot));
             }
             /* check \ \n EOB */
             else if (last == '\n' && last2 == '\\')
             {
                 cnt -= 2;
-                aq_enqueue(s->eol_offsets, cnt + (s->lim - s->bot));    
+                aq_enqueue(s->eol_offsets, cnt + (s->lim - s->bot));
             }
         }
 
@@ -362,21 +362,21 @@ uchar *fill(Scanner *s, uchar *cursor)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-//  Special wrapper class holding the current cursor position 
+//  Special wrapper class holding the current cursor position
 struct uchar_wrapper
 {
-    uchar_wrapper (uchar *base_cursor, unsigned int column = 1)
+    uchar_wrapper (uchar *base_cursor, std::size_t column = 1)
     :   base_cursor(base_cursor), column(column)
     {}
 
-    uchar_wrapper& operator++() 
+    uchar_wrapper& operator++()
     {
         ++base_cursor;
         ++column;
         return *this;
     }
 
-    uchar_wrapper& operator--() 
+    uchar_wrapper& operator--()
     {
         --base_cursor;
         --column;
@@ -393,14 +393,14 @@ struct uchar_wrapper
         return base_cursor;
     }
 
-    friend std::ptrdiff_t 
+    friend std::ptrdiff_t
     operator- (uchar_wrapper const& lhs, uchar_wrapper const& rhs)
     {
         return lhs.base_cursor - rhs.base_cursor;
     }
 
     uchar *base_cursor;
-    unsigned int column;
+    std::size_t column;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -428,7 +428,7 @@ boost::wave::token_id scan(Scanner *s)
 }   // namespace boost
 
 #undef BOOST_WAVE_RET
-#undef BOOST_WAVE_BSIZE 
+#undef BOOST_WAVE_BSIZE
 #undef YYCTYPE
 #undef YYCURSOR
 #undef YYLIMIT

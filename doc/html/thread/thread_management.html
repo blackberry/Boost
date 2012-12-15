@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../thread.html" title="Chapter&#160;28.&#160;Thread 3.0.1">
+<link rel="up" href="../thread.html" title="Chapter&#160;28.&#160;Thread 3.1.0">
 <link rel="prev" href="future.html" title="Future">
 <link rel="next" href="synchronization.html" title="Synchronization">
 </head>
@@ -386,10 +386,10 @@
               <a class="link" href="thread_management.html#thread.thread_management.thread.timed_join" title="Member function timed_join()"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">thread</span><span class="special">::</span><span class="identifier">timed_join</span><span class="special">()</span></code></a>
             </li>
 <li class="listitem">
-              <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><a class="link" href="thread_management.html#thread.thread_management.thread" title="Class thread"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">thread</span></code></a><span class="special">::</span><a class="link" href="thread_management.html#thread.thread_management.thread.try_join_for" title="Member function try_join_for() EXTENSION"><code class="computeroutput"><span class="identifier">try_join_for</span></code></a><span class="special">()</span></code>,
+              <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><a class="link" href="thread_management.html#thread.thread_management.thread" title="Class thread"><code class="computeroutput"><span class="identifier">thread</span></code></a><span class="special">::</span><a class="link" href="thread_management.html#thread.thread_management.thread.try_join_for" title="Member function try_join_for() EXTENSION"><code class="computeroutput"><span class="identifier">try_join_for</span></code></a><span class="special">()</span></code>,
             </li>
 <li class="listitem">
-              <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><a class="link" href="thread_management.html#thread.thread_management.thread" title="Class thread"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">thread</span></code></a><span class="special">::</span><a class="link" href="thread_management.html#thread.thread_management.thread.try_join_until" title="Member function try_join_until() EXTENSION"><code class="computeroutput"><span class="identifier">try_join_until</span></code></a><span class="special">()</span></code>,
+              <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><a class="link" href="thread_management.html#thread.thread_management.thread" title="Class thread"><code class="computeroutput"><span class="identifier">thread</span></code></a><span class="special">::</span><a class="link" href="thread_management.html#thread.thread_management.thread.try_join_until" title="Member function try_join_until() EXTENSION"><code class="computeroutput"><span class="identifier">try_join_until</span></code></a><span class="special">()</span></code>,
             </li>
 <li class="listitem">
               <a class="link" href="synchronization.html#thread.synchronization.condvar_ref.condition_variable.wait" title="void wait(boost::unique_lock&lt;boost::mutex&gt;&amp; lock)"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">condition_variable</span><span class="special">::</span><span class="identifier">wait</span><span class="special">()</span></code></a>
@@ -515,7 +515,7 @@
           interface, i.e. <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">this_thread</span><span class="special">::</span><span class="identifier">interruption_enabled</span><span class="special">()</span></code>
           returns false. As consequence the use of <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">this_thread</span><span class="special">::</span><span class="identifier">disable_interruption</span></code>
           and <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">this_thread</span><span class="special">::</span><span class="identifier">restore_interruption</span></code> will do nothing
-          and calls to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">this_thread</span><span class="special">::</span><span class="identifier">interrupt_point</span><span class="special">()</span></code>
+          and calls to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">this_thread</span><span class="special">::</span><span class="identifier">interruption_point</span><span class="special">()</span></code>
           will be just ignored.
         </p>
 <p>
@@ -637,7 +637,7 @@
     <span class="keyword">void</span> <span class="identifier">swap</span><span class="special">(</span><span class="identifier">thread</span><span class="special">&amp;</span> <span class="identifier">x</span><span class="special">)</span> <span class="identifier">noexcept</span><span class="special">;</span>
 
     <span class="keyword">class</span> <span class="identifier">id</span><span class="special">;</span>
-    <span class="keyword">class</span> <span class="identifier">attributes</span><span class="special">;</span>
+    <span class="keyword">class</span> <span class="identifier">attributes</span><span class="special">;</span> <span class="comment">// EXTENSION</span>
 
     <span class="identifier">id</span> <span class="identifier">get_id</span><span class="special">()</span> <span class="keyword">const</span> <span class="identifier">noexcept</span><span class="special">;</span>
 
@@ -745,8 +745,8 @@
 <dd><p>
                 Transfers ownership of the thread managed by <code class="computeroutput"><span class="identifier">other</span></code>
                 (if any) to <code class="computeroutput"><span class="special">*</span><span class="keyword">this</span></code>.
-                Version 1: If there was a thread previously associated with <code class="computeroutput"><span class="special">*</span><span class="keyword">this</span></code>
-                then that thread is detached, version 2: If the thread is joinable
+                Version 2: If there was a thread previously associated with <code class="computeroutput"><span class="special">*</span><span class="keyword">this</span></code>
+                then that thread is detached, Version 3: If the thread is joinable
                 calls to std::terminate.
               </p></dd>
 <dt><span class="term">Postconditions:</span></dt>
@@ -1008,9 +1008,9 @@
 <dl>
 <dt><span class="term">Effects:</span></dt>
 <dd><p>
-                Version 1: If <code class="computeroutput"><span class="special">*</span><span class="keyword">this</span></code>
+                Version 2: If <code class="computeroutput"><span class="special">*</span><span class="keyword">this</span></code>
                 has an associated thread of execution, calls <a class="link" href="thread_management.html#thread.thread_management.thread.detach" title="Member function detach()"><code class="computeroutput"><span class="identifier">detach</span><span class="special">()</span></code></a>,
-                Version 2: If the thread is joinable calls to std::terminate. Destroys
+                Version 3: If the thread is joinable calls to std::terminate. Destroys
                 <code class="computeroutput"><span class="special">*</span><span class="keyword">this</span></code>.
               </p></dd>
 <dt><span class="term">Throws:</span></dt>
@@ -1076,10 +1076,17 @@
                 thread of execution is interrupted or <code class="computeroutput"><span class="identifier">system_error</span></code>
               </p></dd>
 <dt><span class="term">Error Conditions:</span></dt>
-<dd><p>
+<dd>
+<p>
                 <span class="bold"><strong>resource_deadlock_would_occur</strong></span>: if
-                deadlock is detected or this-&gt;get_id() == std::this_thread::get_id().
-              </p></dd>
+                deadlock is detected or this-&gt;get_id() == boost::this_thread::get_id().
+              </p>
+<p>
+                <span class="bold"><strong>invalid_argument</strong></span>: if the thread
+                is not joinable and BOOST_THREAD_TRROW_IF_PRECONDITION_NOT_SATISFIED
+                is defined.
+              </p>
+</dd>
 <dt><span class="term">Notes:</span></dt>
 <dd><p>
                 <code class="computeroutput"><span class="identifier">join</span><span class="special">()</span></code>
@@ -1104,7 +1111,7 @@
 <dl>
 <dt><span class="term">Preconditions:</span></dt>
 <dd><p>
-                <code class="computeroutput"><span class="keyword">this</span><span class="special">-&gt;</span><span class="identifier">get_id</span><span class="special">()!=</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">this_thread</span><span class="special">::</span><span class="identifier">get_id</span><span class="special">()</span></code>
+                the thread is joinable.
               </p></dd>
 <dt><span class="term">Effects:</span></dt>
 <dd><p>
@@ -1138,10 +1145,17 @@
                 thread of execution is interrupted or <code class="computeroutput"><span class="identifier">system_error</span></code>
               </p></dd>
 <dt><span class="term">Error Conditions:</span></dt>
-<dd><p>
+<dd>
+<p>
                 <span class="bold"><strong>resource_deadlock_would_occur</strong></span>: if
-                deadlock is detected or this-&gt;get_id() == std::this_thread::get_id().
-              </p></dd>
+                deadlock is detected or this-&gt;get_id() == boost::this_thread::get_id().
+              </p>
+<p>
+                <span class="bold"><strong>invalid_argument</strong></span>: if the thread
+                is not joinable and BOOST_THREAD_TRROW_IF_PRECONDITION_NOT_SATISFIED
+                is defined.
+              </p>
+</dd>
 <dt><span class="term">Notes:</span></dt>
 <dd><p>
                 <code class="computeroutput"><span class="identifier">timed_join</span><span class="special">()</span></code>
@@ -1165,7 +1179,7 @@
 <dl>
 <dt><span class="term">Preconditions:</span></dt>
 <dd><p>
-                <code class="computeroutput"><span class="keyword">this</span><span class="special">-&gt;</span><span class="identifier">get_id</span><span class="special">()!=</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">this_thread</span><span class="special">::</span><span class="identifier">get_id</span><span class="special">()</span></code>
+                the thread is joinable.
               </p></dd>
 <dt><span class="term">Effects:</span></dt>
 <dd><p>
@@ -1198,10 +1212,17 @@
                 thread of execution is interrupted or <code class="computeroutput"><span class="identifier">system_error</span></code>
               </p></dd>
 <dt><span class="term">Error Conditions:</span></dt>
-<dd><p>
+<dd>
+<p>
                 <span class="bold"><strong>resource_deadlock_would_occur</strong></span>: if
-                deadlock is detected or this-&gt;get_id() == std::this_thread::get_id().
-              </p></dd>
+                deadlock is detected or this-&gt;get_id() == boost::this_thread::get_id().
+              </p>
+<p>
+                <span class="bold"><strong>invalid_argument</strong></span>: if the thread
+                is not joinable and BOOST_THREAD_TRROW_IF_PRECONDITION_NOT_SATISFIED
+                is defined.
+              </p>
+</dd>
 <dt><span class="term">Notes:</span></dt>
 <dd><p>
                 <code class="computeroutput"><span class="identifier">try_join_for</span><span class="special">()</span></code>
@@ -1225,7 +1246,7 @@
 <dl>
 <dt><span class="term">Preconditions:</span></dt>
 <dd><p>
-                <code class="computeroutput"><span class="keyword">this</span><span class="special">-&gt;</span><span class="identifier">get_id</span><span class="special">()!=</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">this_thread</span><span class="special">::</span><span class="identifier">get_id</span><span class="special">()</span></code>
+                the thread is joinable.
               </p></dd>
 <dt><span class="term">Effects:</span></dt>
 <dd><p>
@@ -1258,10 +1279,17 @@
                 thread of execution is interrupted or <code class="computeroutput"><span class="identifier">system_error</span></code>
               </p></dd>
 <dt><span class="term">Error Conditions:</span></dt>
-<dd><p>
+<dd>
+<p>
                 <span class="bold"><strong>resource_deadlock_would_occur</strong></span>: if
-                deadlock is detected or this-&gt;get_id() == std::this_thread::get_id().
-              </p></dd>
+                deadlock is detected or this-&gt;get_id() == boost::this_thread::get_id().
+              </p>
+<p>
+                <span class="bold"><strong>invalid_argument</strong></span>: if the thread
+                is not joinable and BOOST_THREAD_TRROW_IF_PRECONDITION_NOT_SATISFIED
+                is defined.
+              </p>
+</dd>
 <dt><span class="term">Notes:</span></dt>
 <dd><p>
                 <code class="computeroutput"><span class="identifier">try_join_until</span><span class="special">()</span></code>
@@ -1276,7 +1304,7 @@
 <a name="thread.thread_management.thread.detach"></a><a class="link" href="thread_management.html#thread.thread_management.thread.detach" title="Member function detach()">Member function
         <code class="computeroutput"><span class="identifier">detach</span><span class="special">()</span></code></a>
 </h4></div></div></div>
-<pre class="programlisting"><span class="keyword">void</span> <span class="identifier">detach</span><span class="special">()</span> <span class="identifier">noexcept</span><span class="special">;</span>
+<pre class="programlisting"><span class="keyword">void</span> <span class="identifier">detach</span><span class="special">();</span>
 </pre>
 <div class="variablelist">
 <p class="title"><b></b></p>
@@ -1298,8 +1326,20 @@
               </p></dd>
 <dt><span class="term">Throws:</span></dt>
 <dd><p>
-                Nothing
+                <code class="computeroutput"><span class="identifier">system_error</span></code>
               </p></dd>
+<dt><span class="term">Error Conditions:</span></dt>
+<dd>
+<p>
+                <span class="bold"><strong>no_such_process</strong></span>: if the thread is
+                not valid.
+              </p>
+<p>
+                <span class="bold"><strong>invalid_argument</strong></span>: if the thread
+                is not joinable and BOOST_THREAD_TRROW_IF_PRECONDITION_NOT_SATISFIED
+                is defined.
+              </p>
+</dd>
 </dl>
 </div>
 </div>

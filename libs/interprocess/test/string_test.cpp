@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -82,7 +82,7 @@ int string_test()
             (create_only,
             process_name.c_str(),//segment name
             65536);              //segment size in bytes
-     
+
       ShmemAllocatorChar shmallocator (segment.get_segment_manager());
 
       //Initialize vector with a range or iterators and allocator
@@ -166,16 +166,16 @@ int string_test()
       shm_swapper.swap(auxShmString);
       std_swapper.swap(auxStdString);
       if(!StringEqual()(auxShmString, auxStdString))
-         return 1;  
+         return 1;
       if(!StringEqual()(shm_swapper, std_swapper))
-         return 1;  
+         return 1;
 
       shm_swapper.swap(auxShmString);
       std_swapper.swap(auxStdString);
       if(!StringEqual()(auxShmString, auxStdString))
-         return 1;  
+         return 1;
       if(!StringEqual()(shm_swapper, std_swapper))
-         return 1;  
+         return 1;
 
       auxShmString = "LongLongLongLongLongLongLongLongLongLongLongLongLongString";
       auxStdString = "LongLongLongLongLongLongLongLongLongLongLongLongLongString";
@@ -184,16 +184,16 @@ int string_test()
       shm_swapper.swap(auxShmString);
       std_swapper.swap(auxStdString);
       if(!StringEqual()(auxShmString, auxStdString))
-         return 1;  
+         return 1;
       if(!StringEqual()(shm_swapper, std_swapper))
-         return 1;  
+         return 1;
 
       shm_swapper.swap(auxShmString);
       std_swapper.swap(auxStdString);
       if(!StringEqual()(auxShmString, auxStdString))
-         return 1;  
+         return 1;
       if(!StringEqual()(shm_swapper, std_swapper))
-         return 1;  
+         return 1;
 
       //No sort
       std::sort(shmStringVect->begin(), shmStringVect->end());

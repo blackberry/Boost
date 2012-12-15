@@ -57,136 +57,136 @@
   <span class="keyword">typedef</span> <span class="identifier">implementation_defined</span><span class="special">::</span><span class="identifier">node_algorithms</span>        <a name="boost.intrusive.set.node_algorithms"></a><span class="identifier">node_algorithms</span><span class="special">;</span>       
 
   <span class="comment">// <a class="link" href="set.html#boost.intrusive.setconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="set.html#id1214385-bb"><span class="identifier">set</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">value_compare</span> <span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">value_compare</span><span class="special">(</span><span class="special">)</span><span class="special">,</span> 
+  <a class="link" href="set.html#id1285905-bb"><span class="identifier">set</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">value_compare</span> <span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">value_compare</span><span class="special">(</span><span class="special">)</span><span class="special">,</span> 
       <span class="keyword">const</span> <span class="identifier">value_traits</span> <span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">value_traits</span><span class="special">(</span><span class="special">)</span><span class="special">)</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iterator<span class="special">&gt;</span> 
-    <a class="link" href="set.html#id1214427-bb"><span class="identifier">set</span></a><span class="special">(</span><span class="identifier">Iterator</span><span class="special">,</span> <span class="identifier">Iterator</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">value_compare</span> <span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">value_compare</span><span class="special">(</span><span class="special">)</span><span class="special">,</span> 
+    <a class="link" href="set.html#id1285948-bb"><span class="identifier">set</span></a><span class="special">(</span><span class="identifier">Iterator</span><span class="special">,</span> <span class="identifier">Iterator</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">value_compare</span> <span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">value_compare</span><span class="special">(</span><span class="special">)</span><span class="special">,</span> 
         <span class="keyword">const</span> <span class="identifier">value_traits</span> <span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">value_traits</span><span class="special">(</span><span class="special">)</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="set.html#id1214500-bb"><span class="identifier">set</span></a><span class="special">(</span><span class="identifier">BOOST_RV_REF</span><span class="special">(</span><a class="link" href="set.html" title="Class template set">set</a><span class="special">)</span><span class="special">)</span><span class="special">;</span>
-  set&amp; <a class="link" href="set.html#id1214518-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="identifier">BOOST_RV_REF</span><span class="special">(</span><a class="link" href="set.html" title="Class template set">set</a><span class="special">)</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="set.html#id1214536-bb"><span class="special">~</span><span class="identifier">set</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="set.html#id1286020-bb"><span class="identifier">set</span></a><span class="special">(</span><span class="identifier">BOOST_RV_REF</span><span class="special">(</span><a class="link" href="set.html" title="Class template set">set</a><span class="special">)</span><span class="special">)</span><span class="special">;</span>
+  set&amp; <a class="link" href="set.html#id1286039-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="identifier">BOOST_RV_REF</span><span class="special">(</span><a class="link" href="set.html" title="Class template set">set</a><span class="special">)</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="set.html#id1286057-bb"><span class="special">~</span><span class="identifier">set</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="set.html#id1210906-bb">public member functions</a></span>
-  <span class="identifier">iterator</span> <a class="link" href="set.html#id1210909-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">const_iterator</span> <a class="link" href="set.html#id1210940-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="identifier">const_iterator</span> <a class="link" href="set.html#id1210970-bb"><span class="identifier">cbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="identifier">iterator</span> <a class="link" href="set.html#id1211001-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">const_iterator</span> <a class="link" href="set.html#id1211031-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="identifier">const_iterator</span> <a class="link" href="set.html#id1211062-bb"><span class="identifier">cend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="identifier">reverse_iterator</span> <a class="link" href="set.html#id1211092-bb"><span class="identifier">rbegin</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">const_reverse_iterator</span> <a class="link" href="set.html#id1211123-bb"><span class="identifier">rbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="identifier">const_reverse_iterator</span> <a class="link" href="set.html#id1211154-bb"><span class="identifier">crbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="identifier">reverse_iterator</span> <a class="link" href="set.html#id1211185-bb"><span class="identifier">rend</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">const_reverse_iterator</span> <a class="link" href="set.html#id1211216-bb"><span class="identifier">rend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="identifier">const_reverse_iterator</span> <a class="link" href="set.html#id1211247-bb"><span class="identifier">crend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="identifier">key_compare</span> <a class="link" href="set.html#id1211278-bb"><span class="identifier">key_comp</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="identifier">value_compare</span> <a class="link" href="set.html#id1211309-bb"><span class="identifier">value_comp</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="keyword">bool</span> <a class="link" href="set.html#id1211340-bb"><span class="identifier">empty</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="identifier">size_type</span> <a class="link" href="set.html#id1211370-bb"><span class="identifier">size</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="set.html#id1211402-bb"><span class="identifier">swap</span></a><span class="special">(</span><a class="link" href="set.html" title="Class template set">set</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="set.html#id1282426-bb">public member functions</a></span>
+  <span class="identifier">iterator</span> <a class="link" href="set.html#id1282430-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="set.html#id1282460-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="set.html#id1282491-bb"><span class="identifier">cbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="set.html#id1282522-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="set.html#id1282552-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="set.html#id1282582-bb"><span class="identifier">cend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">reverse_iterator</span> <a class="link" href="set.html#id1282613-bb"><span class="identifier">rbegin</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">const_reverse_iterator</span> <a class="link" href="set.html#id1282644-bb"><span class="identifier">rbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">const_reverse_iterator</span> <a class="link" href="set.html#id1282675-bb"><span class="identifier">crbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">reverse_iterator</span> <a class="link" href="set.html#id1282706-bb"><span class="identifier">rend</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">const_reverse_iterator</span> <a class="link" href="set.html#id1282737-bb"><span class="identifier">rend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">const_reverse_iterator</span> <a class="link" href="set.html#id1282768-bb"><span class="identifier">crend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">key_compare</span> <a class="link" href="set.html#id1282799-bb"><span class="identifier">key_comp</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">value_compare</span> <a class="link" href="set.html#id1282830-bb"><span class="identifier">value_comp</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="keyword">bool</span> <a class="link" href="set.html#id1282861-bb"><span class="identifier">empty</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">size_type</span> <a class="link" href="set.html#id1282891-bb"><span class="identifier">size</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="set.html#id1282923-bb"><span class="identifier">swap</span></a><span class="special">(</span><a class="link" href="set.html" title="Class template set">set</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Cloner<span class="special">,</span> <span class="keyword">typename</span> Disposer<span class="special">&gt;</span> 
-    <span class="keyword">void</span> <a class="link" href="set.html#id1211442-bb"><span class="identifier">clone_from</span></a><span class="special">(</span><span class="keyword">const</span> <a class="link" href="set.html" title="Class template set">set</a> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">Cloner</span><span class="special">,</span> <span class="identifier">Disposer</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">iterator</span><span class="special">,</span> <span class="keyword">bool</span> <span class="special">&gt;</span> <a class="link" href="set.html#id1211521-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">reference</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">iterator</span> <a class="link" href="set.html#id1211585-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">reference</span><span class="special">)</span><span class="special">;</span>
+    <span class="keyword">void</span> <a class="link" href="set.html#id1282962-bb"><span class="identifier">clone_from</span></a><span class="special">(</span><span class="keyword">const</span> <a class="link" href="set.html" title="Class template set">set</a> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">Cloner</span><span class="special">,</span> <span class="identifier">Disposer</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">iterator</span><span class="special">,</span> <span class="keyword">bool</span> <span class="special">&gt;</span> <a class="link" href="set.html#id1283042-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">reference</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="set.html#id1283106-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">reference</span><span class="special">)</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyType<span class="special">,</span> <span class="keyword">typename</span> KeyValueCompare<span class="special">&gt;</span> 
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">iterator</span><span class="special">,</span> <span class="keyword">bool</span> <span class="special">&gt;</span> 
-    <a class="link" href="set.html#id1211654-bb"><span class="identifier">insert_check</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyValueCompare</span><span class="special">,</span> <span class="identifier">insert_commit_data</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+    <a class="link" href="set.html#id1283174-bb"><span class="identifier">insert_check</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyValueCompare</span><span class="special">,</span> <span class="identifier">insert_commit_data</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyType<span class="special">,</span> <span class="keyword">typename</span> KeyValueCompare<span class="special">&gt;</span> 
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">iterator</span><span class="special">,</span> <span class="keyword">bool</span> <span class="special">&gt;</span> 
-    <a class="link" href="set.html#id1211760-bb"><span class="identifier">insert_check</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyValueCompare</span><span class="special">,</span> 
+    <a class="link" href="set.html#id1283281-bb"><span class="identifier">insert_check</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyValueCompare</span><span class="special">,</span> 
                  <span class="identifier">insert_commit_data</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">iterator</span> <a class="link" href="set.html#id1211874-bb"><span class="identifier">insert_commit</span></a><span class="special">(</span><span class="identifier">reference</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">insert_commit_data</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iterator<span class="special">&gt;</span> <span class="keyword">void</span> <a class="link" href="set.html#id1211946-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">Iterator</span><span class="special">,</span> <span class="identifier">Iterator</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">iterator</span> <a class="link" href="set.html#id1212014-bb"><span class="identifier">insert_before</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">reference</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="set.html#id1212077-bb"><span class="identifier">push_back</span></a><span class="special">(</span><span class="identifier">reference</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="set.html#id1212133-bb"><span class="identifier">push_front</span></a><span class="special">(</span><span class="identifier">reference</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">iterator</span> <a class="link" href="set.html#id1212190-bb"><span class="identifier">erase</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">iterator</span> <a class="link" href="set.html#id1212243-bb"><span class="identifier">erase</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">size_type</span> <a class="link" href="set.html#id1212302-bb"><span class="identifier">erase</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="set.html#id1283395-bb"><span class="identifier">insert_commit</span></a><span class="special">(</span><span class="identifier">reference</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">insert_commit_data</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iterator<span class="special">&gt;</span> <span class="keyword">void</span> <a class="link" href="set.html#id1283467-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">Iterator</span><span class="special">,</span> <span class="identifier">Iterator</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="set.html#id1283534-bb"><span class="identifier">insert_before</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">reference</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="set.html#id1283598-bb"><span class="identifier">push_back</span></a><span class="special">(</span><span class="identifier">reference</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="set.html#id1283654-bb"><span class="identifier">push_front</span></a><span class="special">(</span><span class="identifier">reference</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="set.html#id1283711-bb"><span class="identifier">erase</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="set.html#id1283764-bb"><span class="identifier">erase</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">size_type</span> <a class="link" href="set.html#id1283823-bb"><span class="identifier">erase</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">)</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyType<span class="special">,</span> <span class="keyword">typename</span> KeyValueCompare<span class="special">&gt;</span> 
-    <span class="identifier">size_type</span> <a class="link" href="set.html#id1212356-bb"><span class="identifier">erase</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyValueCompare</span><span class="special">)</span><span class="special">;</span>
+    <span class="identifier">size_type</span> <a class="link" href="set.html#id1283877-bb"><span class="identifier">erase</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyValueCompare</span><span class="special">)</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Disposer<span class="special">&gt;</span> 
-    <span class="identifier">iterator</span> <a class="link" href="set.html#id1212427-bb"><span class="identifier">erase_and_dispose</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">Disposer</span><span class="special">)</span><span class="special">;</span>
+    <span class="identifier">iterator</span> <a class="link" href="set.html#id1283948-bb"><span class="identifier">erase_and_dispose</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">Disposer</span><span class="special">)</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Disposer<span class="special">&gt;</span> 
-    <span class="identifier">iterator</span> <a class="link" href="set.html#id1212501-bb"><span class="identifier">erase_and_dispose</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">Disposer</span><span class="special">)</span><span class="special">;</span>
+    <span class="identifier">iterator</span> <a class="link" href="set.html#id1284021-bb"><span class="identifier">erase_and_dispose</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">Disposer</span><span class="special">)</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Disposer<span class="special">&gt;</span> 
-    <span class="identifier">size_type</span> <a class="link" href="set.html#id1212581-bb"><span class="identifier">erase_and_dispose</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">,</span> <span class="identifier">Disposer</span><span class="special">)</span><span class="special">;</span>
+    <span class="identifier">size_type</span> <a class="link" href="set.html#id1284102-bb"><span class="identifier">erase_and_dispose</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">,</span> <span class="identifier">Disposer</span><span class="special">)</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyType<span class="special">,</span> <span class="keyword">typename</span> KeyValueCompare<span class="special">,</span> <span class="keyword">typename</span> Disposer<span class="special">&gt;</span> 
-    <span class="identifier">size_type</span> <a class="link" href="set.html#id1212656-bb"><span class="identifier">erase_and_dispose</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyValueCompare</span><span class="special">,</span> <span class="identifier">Disposer</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="set.html#id1212745-bb"><span class="identifier">clear</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Disposer<span class="special">&gt;</span> <span class="keyword">void</span> <a class="link" href="set.html#id1212785-bb"><span class="identifier">clear_and_dispose</span></a><span class="special">(</span><span class="identifier">Disposer</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">size_type</span> <a class="link" href="set.html#id1212846-bb"><span class="identifier">count</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+    <span class="identifier">size_type</span> <a class="link" href="set.html#id1284176-bb"><span class="identifier">erase_and_dispose</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyValueCompare</span><span class="special">,</span> <span class="identifier">Disposer</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="set.html#id1284266-bb"><span class="identifier">clear</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Disposer<span class="special">&gt;</span> <span class="keyword">void</span> <a class="link" href="set.html#id1284306-bb"><span class="identifier">clear_and_dispose</span></a><span class="special">(</span><span class="identifier">Disposer</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">size_type</span> <a class="link" href="set.html#id1284367-bb"><span class="identifier">count</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyType<span class="special">,</span> <span class="keyword">typename</span> KeyValueCompare<span class="special">&gt;</span> 
-    <span class="identifier">size_type</span> <a class="link" href="set.html#id1212885-bb"><span class="identifier">count</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyValueCompare</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="identifier">iterator</span> <a class="link" href="set.html#id1212941-bb"><span class="identifier">lower_bound</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">)</span><span class="special">;</span>
+    <span class="identifier">size_type</span> <a class="link" href="set.html#id1284406-bb"><span class="identifier">count</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyValueCompare</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="set.html#id1284462-bb"><span class="identifier">lower_bound</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">)</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyType<span class="special">,</span> <span class="keyword">typename</span> KeyValueCompare<span class="special">&gt;</span> 
-    <span class="identifier">iterator</span> <a class="link" href="set.html#id1212979-bb"><span class="identifier">lower_bound</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyValueCompare</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">const_iterator</span> <a class="link" href="set.html#id1213053-bb"><span class="identifier">lower_bound</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+    <span class="identifier">iterator</span> <a class="link" href="set.html#id1284500-bb"><span class="identifier">lower_bound</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyValueCompare</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="set.html#id1284573-bb"><span class="identifier">lower_bound</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyType<span class="special">,</span> <span class="keyword">typename</span> KeyValueCompare<span class="special">&gt;</span> 
-    <span class="identifier">const_iterator</span> <a class="link" href="set.html#id1213090-bb"><span class="identifier">lower_bound</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyValueCompare</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="identifier">iterator</span> <a class="link" href="set.html#id1213164-bb"><span class="identifier">upper_bound</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">)</span><span class="special">;</span>
+    <span class="identifier">const_iterator</span> <a class="link" href="set.html#id1284611-bb"><span class="identifier">lower_bound</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyValueCompare</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="set.html#id1284685-bb"><span class="identifier">upper_bound</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">)</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyType<span class="special">,</span> <span class="keyword">typename</span> KeyValueCompare<span class="special">&gt;</span> 
-    <span class="identifier">iterator</span> <a class="link" href="set.html#id1213202-bb"><span class="identifier">upper_bound</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyValueCompare</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">const_iterator</span> <a class="link" href="set.html#id1213276-bb"><span class="identifier">upper_bound</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+    <span class="identifier">iterator</span> <a class="link" href="set.html#id1284723-bb"><span class="identifier">upper_bound</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyValueCompare</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="set.html#id1284797-bb"><span class="identifier">upper_bound</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyType<span class="special">,</span> <span class="keyword">typename</span> KeyValueCompare<span class="special">&gt;</span> 
-    <span class="identifier">const_iterator</span> <a class="link" href="set.html#id1213313-bb"><span class="identifier">upper_bound</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyValueCompare</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="identifier">iterator</span> <a class="link" href="set.html#id1213387-bb"><span class="identifier">find</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">)</span><span class="special">;</span>
+    <span class="identifier">const_iterator</span> <a class="link" href="set.html#id1284834-bb"><span class="identifier">upper_bound</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyValueCompare</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="set.html#id1284908-bb"><span class="identifier">find</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">)</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyType<span class="special">,</span> <span class="keyword">typename</span> KeyValueCompare<span class="special">&gt;</span> 
-    <span class="identifier">iterator</span> <a class="link" href="set.html#id1213425-bb"><span class="identifier">find</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyValueCompare</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">const_iterator</span> <a class="link" href="set.html#id1213498-bb"><span class="identifier">find</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+    <span class="identifier">iterator</span> <a class="link" href="set.html#id1284946-bb"><span class="identifier">find</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyValueCompare</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="set.html#id1285019-bb"><span class="identifier">find</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyType<span class="special">,</span> <span class="keyword">typename</span> KeyValueCompare<span class="special">&gt;</span> 
-    <span class="identifier">const_iterator</span> <a class="link" href="set.html#id1213536-bb"><span class="identifier">find</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyValueCompare</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> <a class="link" href="set.html#id1213610-bb"><span class="identifier">equal_range</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">)</span><span class="special">;</span>
+    <span class="identifier">const_iterator</span> <a class="link" href="set.html#id1285057-bb"><span class="identifier">find</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyValueCompare</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> <a class="link" href="set.html#id1285130-bb"><span class="identifier">equal_range</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">)</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyType<span class="special">,</span> <span class="keyword">typename</span> KeyValueCompare<span class="special">&gt;</span> 
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> 
-    <a class="link" href="set.html#id1213649-bb"><span class="identifier">equal_range</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyValueCompare</span><span class="special">)</span><span class="special">;</span>
+    <a class="link" href="set.html#id1285169-bb"><span class="identifier">equal_range</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyValueCompare</span><span class="special">)</span><span class="special">;</span>
   <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span> <span class="special">&gt;</span> 
-  <a class="link" href="set.html#id1213724-bb"><span class="identifier">equal_range</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <a class="link" href="set.html#id1285244-bb"><span class="identifier">equal_range</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyType<span class="special">,</span> <span class="keyword">typename</span> KeyValueCompare<span class="special">&gt;</span> 
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span> <span class="special">&gt;</span> 
-    <a class="link" href="set.html#id1213763-bb"><span class="identifier">equal_range</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyValueCompare</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+    <a class="link" href="set.html#id1285284-bb"><span class="identifier">equal_range</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyValueCompare</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
   <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> 
-  <a class="link" href="set.html#id1213838-bb"><span class="identifier">bounded_range</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">,</span> <span class="identifier">const_reference</span><span class="special">,</span> <span class="keyword">bool</span><span class="special">,</span> <span class="keyword">bool</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="set.html#id1285359-bb"><span class="identifier">bounded_range</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">,</span> <span class="identifier">const_reference</span><span class="special">,</span> <span class="keyword">bool</span><span class="special">,</span> <span class="keyword">bool</span><span class="special">)</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyType<span class="special">,</span> <span class="keyword">typename</span> KeyValueCompare<span class="special">&gt;</span> 
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> 
-    <a class="link" href="set.html#id1213916-bb"><span class="identifier">bounded_range</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyValueCompare</span><span class="special">,</span> <span class="keyword">bool</span><span class="special">,</span> 
+    <a class="link" href="set.html#id1285437-bb"><span class="identifier">bounded_range</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyValueCompare</span><span class="special">,</span> <span class="keyword">bool</span><span class="special">,</span> 
                   <span class="keyword">bool</span><span class="special">)</span><span class="special">;</span>
   <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span> <span class="special">&gt;</span> 
-  <a class="link" href="set.html#id1214014-bb"><span class="identifier">bounded_range</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">,</span> <span class="identifier">const_reference</span><span class="special">,</span> <span class="keyword">bool</span><span class="special">,</span> <span class="keyword">bool</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <a class="link" href="set.html#id1285535-bb"><span class="identifier">bounded_range</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">,</span> <span class="identifier">const_reference</span><span class="special">,</span> <span class="keyword">bool</span><span class="special">,</span> <span class="keyword">bool</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyType<span class="special">,</span> <span class="keyword">typename</span> KeyValueCompare<span class="special">&gt;</span> 
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span> <span class="special">&gt;</span> 
-    <a class="link" href="set.html#id1214093-bb"><span class="identifier">bounded_range</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyValueCompare</span><span class="special">,</span> <span class="keyword">bool</span><span class="special">,</span> 
+    <a class="link" href="set.html#id1285614-bb"><span class="identifier">bounded_range</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">KeyValueCompare</span><span class="special">,</span> <span class="keyword">bool</span><span class="special">,</span> 
                   <span class="keyword">bool</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="identifier">iterator</span> <a class="link" href="set.html#id1214192-bb"><span class="identifier">iterator_to</span></a><span class="special">(</span><span class="identifier">reference</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">const_iterator</span> <a class="link" href="set.html#id1214236-bb"><span class="identifier">iterator_to</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="identifier">pointer</span> <a class="link" href="set.html#id1214281-bb"><span class="identifier">unlink_leftmost_without_rebalance</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="set.html#id1214323-bb"><span class="identifier">replace_node</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">reference</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="set.html#id1285712-bb"><span class="identifier">iterator_to</span></a><span class="special">(</span><span class="identifier">reference</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="set.html#id1285757-bb"><span class="identifier">iterator_to</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">pointer</span> <a class="link" href="set.html#id1285802-bb"><span class="identifier">unlink_leftmost_without_rebalance</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="set.html#id1285844-bb"><span class="identifier">replace_node</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">reference</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="set.html#id1214563-bb">public static functions</a></span>
-  <span class="keyword">static</span> <a class="link" href="set.html" title="Class template set">set</a> <span class="special">&amp;</span> <a class="link" href="set.html#id1214566-bb"><span class="identifier">container_from_end_iterator</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="keyword">const</span> <a class="link" href="set.html" title="Class template set">set</a> <span class="special">&amp;</span> <a class="link" href="set.html#id1214614-bb"><span class="identifier">container_from_end_iterator</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <a class="link" href="set.html" title="Class template set">set</a> <span class="special">&amp;</span> <a class="link" href="set.html#id1214662-bb"><span class="identifier">container_from_iterator</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="keyword">const</span> <a class="link" href="set.html" title="Class template set">set</a> <span class="special">&amp;</span> <a class="link" href="set.html#id1214709-bb"><span class="identifier">container_from_iterator</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="identifier">iterator</span> <a class="link" href="set.html#id1214757-bb"><span class="identifier">s_iterator_to</span></a><span class="special">(</span><span class="identifier">reference</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="identifier">const_iterator</span> <a class="link" href="set.html#id1214813-bb"><span class="identifier">s_iterator_to</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="keyword">void</span> <a class="link" href="set.html#id1214870-bb"><span class="identifier">init_node</span></a><span class="special">(</span><span class="identifier">reference</span><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="set.html#id1286084-bb">public static functions</a></span>
+  <span class="keyword">static</span> <a class="link" href="set.html" title="Class template set">set</a> <span class="special">&amp;</span> <a class="link" href="set.html#id1286087-bb"><span class="identifier">container_from_end_iterator</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="keyword">const</span> <a class="link" href="set.html" title="Class template set">set</a> <span class="special">&amp;</span> <a class="link" href="set.html#id1286135-bb"><span class="identifier">container_from_end_iterator</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <a class="link" href="set.html" title="Class template set">set</a> <span class="special">&amp;</span> <a class="link" href="set.html#id1286183-bb"><span class="identifier">container_from_iterator</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="keyword">const</span> <a class="link" href="set.html" title="Class template set">set</a> <span class="special">&amp;</span> <a class="link" href="set.html#id1286230-bb"><span class="identifier">container_from_iterator</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="identifier">iterator</span> <a class="link" href="set.html#id1286278-bb"><span class="identifier">s_iterator_to</span></a><span class="special">(</span><span class="identifier">reference</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="identifier">const_iterator</span> <a class="link" href="set.html#id1286334-bb"><span class="identifier">s_iterator_to</span></a><span class="special">(</span><span class="identifier">const_reference</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="keyword">void</span> <a class="link" href="set.html#id1286391-bb"><span class="identifier">init_node</span></a><span class="special">(</span><span class="identifier">reference</span><span class="special">)</span><span class="special">;</span>
 
   <span class="comment">// public data members</span>
   <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">bool</span> <span class="identifier">constant_time_size</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="id2155590"></a><h2>Description</h2>
+<a name="id2214170"></a><h2>Description</h2>
 <p>The class template set is an intrusive container, that mimics most of the interface of std::set as described in the C++ standard.</p>
 <p>The template parameter <code class="computeroutput">T</code> is the type to be managed by the container. The user can specify additional options and if no options are provided default options are used.</p>
 <p>The container supports the following options: <code class="computeroutput">base_hook&lt;&gt;/member_hook&lt;&gt;/value_traits&lt;&gt;</code>, <code class="computeroutput">constant_time_size&lt;&gt;</code>, <code class="computeroutput">size_type&lt;&gt;</code> and <code class="computeroutput">compare&lt;&gt;</code>. </p>
 <div class="refsect2">
-<a name="id2155637"></a><h3>
+<a name="id2214217"></a><h3>
 <a name="boost.intrusive.setconstruct-copy-destruct"></a><code class="computeroutput">set</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
-<pre class="literallayout"><a name="id1214385-bb"></a><span class="identifier">set</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">value_compare</span> <span class="special">&amp;</span> cmp <span class="special">=</span> <span class="identifier">value_compare</span><span class="special">(</span><span class="special">)</span><span class="special">,</span> 
+<pre class="literallayout"><a name="id1285905-bb"></a><span class="identifier">set</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">value_compare</span> <span class="special">&amp;</span> cmp <span class="special">=</span> <span class="identifier">value_compare</span><span class="special">(</span><span class="special">)</span><span class="special">,</span> 
     <span class="keyword">const</span> <span class="identifier">value_traits</span> <span class="special">&amp;</span> v_traits <span class="special">=</span> <span class="identifier">value_traits</span><span class="special">(</span><span class="special">)</span><span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Constructs an empty set.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Constant.</p>
@@ -194,7 +194,7 @@
 </li>
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iterator<span class="special">&gt;</span> 
-  <a name="id1214427-bb"></a><span class="identifier">set</span><span class="special">(</span><span class="identifier">Iterator</span> b<span class="special">,</span> <span class="identifier">Iterator</span> e<span class="special">,</span> <span class="keyword">const</span> <span class="identifier">value_compare</span> <span class="special">&amp;</span> cmp <span class="special">=</span> <span class="identifier">value_compare</span><span class="special">(</span><span class="special">)</span><span class="special">,</span> 
+  <a name="id1285948-bb"></a><span class="identifier">set</span><span class="special">(</span><span class="identifier">Iterator</span> b<span class="special">,</span> <span class="identifier">Iterator</span> e<span class="special">,</span> <span class="keyword">const</span> <span class="identifier">value_compare</span> <span class="special">&amp;</span> cmp <span class="special">=</span> <span class="identifier">value_compare</span><span class="special">(</span><span class="special">)</span><span class="special">,</span> 
       <span class="keyword">const</span> <span class="identifier">value_traits</span> <span class="special">&amp;</span> v_traits <span class="special">=</span> <span class="identifier">value_traits</span><span class="special">(</span><span class="special">)</span><span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: Dereferencing iterator must yield an lvalue of type value_type. cmp must be a comparison function that induces a strict weak ordering.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Constructs an empty set and inserts elements from [b, e).</p>
@@ -202,15 +202,15 @@
 <p><span class="bold"><strong>Throws</strong></span>: If value_traits::node_traits::node constructor throws (this does not happen with predefined Boost.Intrusive hooks) or the copy constructor/operator() of the value_compare object throws. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a name="id1214500-bb"></a><span class="identifier">set</span><span class="special">(</span><span class="identifier">BOOST_RV_REF</span><span class="special">(</span><a class="link" href="set.html" title="Class template set">set</a><span class="special">)</span> x<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><a name="id1286020-bb"></a><span class="identifier">set</span><span class="special">(</span><span class="identifier">BOOST_RV_REF</span><span class="special">(</span><a class="link" href="set.html" title="Class template set">set</a><span class="special">)</span> x<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: to-do </p>
 </li>
 <li class="listitem">
-<pre class="literallayout">set&amp; <a name="id1214518-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="identifier">BOOST_RV_REF</span><span class="special">(</span><a class="link" href="set.html" title="Class template set">set</a><span class="special">)</span> x<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout">set&amp; <a name="id1286039-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="identifier">BOOST_RV_REF</span><span class="special">(</span><a class="link" href="set.html" title="Class template set">set</a><span class="special">)</span> x<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: to-do </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a name="id1214536-bb"></a><span class="special">~</span><span class="identifier">set</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><a name="id1286057-bb"></a><span class="special">~</span><span class="identifier">set</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Detaches all elements from this. The objects in the set are not deleted (i.e. no destructors are called).</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Linear to the number of elements on the container. if it's a safe-mode or auto-unlink value_type. Constant time otherwise.</p>
 <p><span class="bold"><strong>Throws</strong></span>: Nothing. </p>
@@ -218,114 +218,114 @@
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="id2156142"></a><h3>
-<a name="id1210906-bb"></a><code class="computeroutput">set</code> public member functions</h3>
+<a name="id2214722"></a><h3>
+<a name="id1282426-bb"></a><code class="computeroutput">set</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">iterator</span> <a name="id1210909-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">iterator</span> <a name="id1282430-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Returns an iterator pointing to the beginning of the set.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Constant.</p>
 <p><span class="bold"><strong>Throws</strong></span>: Nothing. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">const_iterator</span> <a name="id1210940-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">const_iterator</span> <a name="id1282460-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Returns a const_iterator pointing to the beginning of the set.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Constant.</p>
 <p><span class="bold"><strong>Throws</strong></span>: Nothing. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">const_iterator</span> <a name="id1210970-bb"></a><span class="identifier">cbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">const_iterator</span> <a name="id1282491-bb"></a><span class="identifier">cbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Returns a const_iterator pointing to the beginning of the set.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Constant.</p>
 <p><span class="bold"><strong>Throws</strong></span>: Nothing. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">iterator</span> <a name="id1211001-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">iterator</span> <a name="id1282522-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Returns an iterator pointing to the end of the set.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Constant.</p>
 <p><span class="bold"><strong>Throws</strong></span>: Nothing. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">const_iterator</span> <a name="id1211031-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">const_iterator</span> <a name="id1282552-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Returns a const_iterator pointing to the end of the set.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Constant.</p>
 <p><span class="bold"><strong>Throws</strong></span>: Nothing. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">const_iterator</span> <a name="id1211062-bb"></a><span class="identifier">cend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">const_iterator</span> <a name="id1282582-bb"></a><span class="identifier">cend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Returns a const_iterator pointing to the end of the set.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Constant.</p>
 <p><span class="bold"><strong>Throws</strong></span>: Nothing. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">reverse_iterator</span> <a name="id1211092-bb"></a><span class="identifier">rbegin</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">reverse_iterator</span> <a name="id1282613-bb"></a><span class="identifier">rbegin</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Returns a reverse_iterator pointing to the beginning of the reversed set.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Constant.</p>
 <p><span class="bold"><strong>Throws</strong></span>: Nothing. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="id1211123-bb"></a><span class="identifier">rbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="id1282644-bb"></a><span class="identifier">rbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Returns a const_reverse_iterator pointing to the beginning of the reversed set.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Constant.</p>
 <p><span class="bold"><strong>Throws</strong></span>: Nothing. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="id1211154-bb"></a><span class="identifier">crbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="id1282675-bb"></a><span class="identifier">crbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Returns a const_reverse_iterator pointing to the beginning of the reversed set.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Constant.</p>
 <p><span class="bold"><strong>Throws</strong></span>: Nothing. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">reverse_iterator</span> <a name="id1211185-bb"></a><span class="identifier">rend</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">reverse_iterator</span> <a name="id1282706-bb"></a><span class="identifier">rend</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Returns a reverse_iterator pointing to the end of the reversed set.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Constant.</p>
 <p><span class="bold"><strong>Throws</strong></span>: Nothing. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="id1211216-bb"></a><span class="identifier">rend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="id1282737-bb"></a><span class="identifier">rend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Returns a const_reverse_iterator pointing to the end of the reversed set.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Constant.</p>
 <p><span class="bold"><strong>Throws</strong></span>: Nothing. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="id1211247-bb"></a><span class="identifier">crend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="id1282768-bb"></a><span class="identifier">crend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Returns a const_reverse_iterator pointing to the end of the reversed set.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Constant.</p>
 <p><span class="bold"><strong>Throws</strong></span>: Nothing. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">key_compare</span> <a name="id1211278-bb"></a><span class="identifier">key_comp</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">key_compare</span> <a name="id1282799-bb"></a><span class="identifier">key_comp</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Returns the key_compare object used by the set.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Constant.</p>
 <p><span class="bold"><strong>Throws</strong></span>: If key_compare copy-constructor throws. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">value_compare</span> <a name="id1211309-bb"></a><span class="identifier">value_comp</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">value_compare</span> <a name="id1282830-bb"></a><span class="identifier">value_comp</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Returns the value_compare object used by the set.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Constant.</p>
 <p><span class="bold"><strong>Throws</strong></span>: If value_compare copy-constructor throws. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">bool</span> <a name="id1211340-bb"></a><span class="identifier">empty</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">bool</span> <a name="id1282861-bb"></a><span class="identifier">empty</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Returns true if the container is empty.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Constant.</p>
 <p><span class="bold"><strong>Throws</strong></span>: Nothing. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">size_type</span> <a name="id1211370-bb"></a><span class="identifier">size</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">size_type</span> <a name="id1282891-bb"></a><span class="identifier">size</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Returns the number of elements stored in the set.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Linear to elements contained in *this if, constant-time size option is enabled. Constant-time otherwise.</p>
 <p><span class="bold"><strong>Throws</strong></span>: Nothing. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="id1211402-bb"></a><span class="identifier">swap</span><span class="special">(</span><a class="link" href="set.html" title="Class template set">set</a> <span class="special">&amp;</span> other<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">void</span> <a name="id1282923-bb"></a><span class="identifier">swap</span><span class="special">(</span><a class="link" href="set.html" title="Class template set">set</a> <span class="special">&amp;</span> other<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Swaps the contents of two sets.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Constant.</p>
 <p><span class="bold"><strong>Throws</strong></span>: If the swap() call for the comparison functor found using ADL throws. Strong guarantee. </p>
 </li>
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Cloner<span class="special">,</span> <span class="keyword">typename</span> Disposer<span class="special">&gt;</span> 
-  <span class="keyword">void</span> <a name="id1211442-bb"></a><span class="identifier">clone_from</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="set.html" title="Class template set">set</a> <span class="special">&amp;</span> src<span class="special">,</span> <span class="identifier">Cloner</span> cloner<span class="special">,</span> <span class="identifier">Disposer</span> disposer<span class="special">)</span><span class="special">;</span></pre>
+  <span class="keyword">void</span> <a name="id1282962-bb"></a><span class="identifier">clone_from</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="set.html" title="Class template set">set</a> <span class="special">&amp;</span> src<span class="special">,</span> <span class="identifier">Cloner</span> cloner<span class="special">,</span> <span class="identifier">Disposer</span> disposer<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: Disposer::operator()(pointer) shouldn't throw. Cloner should yield to nodes equivalent to the original nodes.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Erases all the elements from *this calling Disposer::operator()(pointer), clones all the elements from src calling Cloner::operator()(const_reference ) and inserts them on *this. Copies the predicate from the source container.</p>
 <p>If cloner throws, all cloned elements are unlinked and disposed calling Disposer::operator()(pointer).</p>
@@ -333,7 +333,7 @@
 <p><span class="bold"><strong>Throws</strong></span>: If cloner throws or predicate copy assignment throws. Basic guarantee. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">iterator</span><span class="special">,</span> <span class="keyword">bool</span> <span class="special">&gt;</span> <a name="id1211521-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">reference</span> value<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">iterator</span><span class="special">,</span> <span class="keyword">bool</span> <span class="special">&gt;</span> <a name="id1283042-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">reference</span> value<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: value must be an lvalue</p>
 <p><span class="bold"><strong>Effects</strong></span>: Tries to inserts value into the set.</p>
 <p><span class="bold"><strong>Returns</strong></span>: If the value is not already present inserts it and returns a pair containing the iterator to the new value and true. If there is an equivalent value returns a pair containing an iterator to the already present value and false.</p>
@@ -342,7 +342,7 @@
 <p><span class="bold"><strong>Note</strong></span>: Does not affect the validity of iterators and references. No copy-constructors are called. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">iterator</span> <a name="id1211585-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">const_iterator</span> hint<span class="special">,</span> <span class="identifier">reference</span> value<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">iterator</span> <a name="id1283106-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">const_iterator</span> hint<span class="special">,</span> <span class="identifier">reference</span> value<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: value must be an lvalue</p>
 <p><span class="bold"><strong>Effects</strong></span>: Tries to to insert x into the set, using "hint" as a hint to where it will be inserted.</p>
 <p><span class="bold"><strong>Returns</strong></span>: An iterator that points to the position where the new element was inserted into the set.</p>
@@ -353,7 +353,7 @@
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyType<span class="special">,</span> <span class="keyword">typename</span> KeyValueCompare<span class="special">&gt;</span> 
   <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">iterator</span><span class="special">,</span> <span class="keyword">bool</span> <span class="special">&gt;</span> 
-  <a name="id1211654-bb"></a><span class="identifier">insert_check</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> key<span class="special">,</span> <span class="identifier">KeyValueCompare</span> key_value_comp<span class="special">,</span> 
+  <a name="id1283174-bb"></a><span class="identifier">insert_check</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> key<span class="special">,</span> <span class="identifier">KeyValueCompare</span> key_value_comp<span class="special">,</span> 
                <span class="identifier">insert_commit_data</span> <span class="special">&amp;</span> commit_data<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: key_value_comp must be a comparison function that induces the same strict weak ordering as value_compare. The difference is that key_value_comp compares an arbitrary key with the contained values.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Checks if a value can be inserted in the set, using a user provided key instead of the value itself.</p>
@@ -367,7 +367,7 @@
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyType<span class="special">,</span> <span class="keyword">typename</span> KeyValueCompare<span class="special">&gt;</span> 
   <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">iterator</span><span class="special">,</span> <span class="keyword">bool</span> <span class="special">&gt;</span> 
-  <a name="id1211760-bb"></a><span class="identifier">insert_check</span><span class="special">(</span><span class="identifier">const_iterator</span> hint<span class="special">,</span> <span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> key<span class="special">,</span> 
+  <a name="id1283281-bb"></a><span class="identifier">insert_check</span><span class="special">(</span><span class="identifier">const_iterator</span> hint<span class="special">,</span> <span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> key<span class="special">,</span> 
                <span class="identifier">KeyValueCompare</span> key_value_comp<span class="special">,</span> 
                <span class="identifier">insert_commit_data</span> <span class="special">&amp;</span> commit_data<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: key_value_comp must be a comparison function that induces the same strict weak ordering as value_compare. The difference is that key_value_comp compares an arbitrary key with the contained values.</p>
@@ -380,7 +380,7 @@
 <p>"commit_data" remains valid for a subsequent "insert_commit" only if no more objects are inserted or erased from the set. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">iterator</span> <a name="id1211874-bb"></a><span class="identifier">insert_commit</span><span class="special">(</span><span class="identifier">reference</span> value<span class="special">,</span> 
+<pre class="literallayout"><span class="identifier">iterator</span> <a name="id1283395-bb"></a><span class="identifier">insert_commit</span><span class="special">(</span><span class="identifier">reference</span> value<span class="special">,</span> 
                        <span class="keyword">const</span> <span class="identifier">insert_commit_data</span> <span class="special">&amp;</span> commit_data<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: value must be an lvalue of type value_type. commit_data must have been obtained from a previous call to "insert_check". No objects should have been inserted or erased from the set between the "insert_check" that filled "commit_data" and the call to "insert_commit".</p>
 <p><span class="bold"><strong>Effects</strong></span>: Inserts the value in the set using the information obtained from the "commit_data" that a previous "insert_check" filled.</p>
@@ -390,7 +390,7 @@
 <p><span class="bold"><strong>Notes</strong></span>: This function has only sense if a "insert_check" has been previously executed to fill "commit_data". No value should be inserted or erased between the "insert_check" and "insert_commit" calls. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iterator<span class="special">&gt;</span> <span class="keyword">void</span> <a name="id1211946-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">Iterator</span> b<span class="special">,</span> <span class="identifier">Iterator</span> e<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Iterator<span class="special">&gt;</span> <span class="keyword">void</span> <a name="id1283467-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">Iterator</span> b<span class="special">,</span> <span class="identifier">Iterator</span> e<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: Dereferencing iterator must yield an lvalue of type value_type.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Inserts a range into the set.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Insert range is in general O(N * log(N)), where N is the size of the range. However, it is linear in N if the range is already sorted by value_comp().</p>
@@ -398,7 +398,7 @@
 <p><span class="bold"><strong>Note</strong></span>: Does not affect the validity of iterators and references. No copy-constructors are called. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">iterator</span> <a name="id1212014-bb"></a><span class="identifier">insert_before</span><span class="special">(</span><span class="identifier">const_iterator</span> pos<span class="special">,</span> <span class="identifier">reference</span> value<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">iterator</span> <a name="id1283534-bb"></a><span class="identifier">insert_before</span><span class="special">(</span><span class="identifier">const_iterator</span> pos<span class="special">,</span> <span class="identifier">reference</span> value<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: value must be an lvalue, "pos" must be a valid iterator (or end) and must be the succesor of value once inserted according to the predicate. "value" must not be equal to any inserted key according to the predicate.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Inserts x into the tree before "pos".</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Constant time.</p>
@@ -406,7 +406,7 @@
 <p><span class="bold"><strong>Note</strong></span>: This function does not check preconditions so if "pos" is not the successor of "value" or "value" is not unique tree ordering and uniqueness invariants will be broken respectively. This is a low-level function to be used only for performance reasons by advanced users. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="id1212077-bb"></a><span class="identifier">push_back</span><span class="special">(</span><span class="identifier">reference</span> value<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">void</span> <a name="id1283598-bb"></a><span class="identifier">push_back</span><span class="special">(</span><span class="identifier">reference</span> value<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: value must be an lvalue, and it must be greater than any inserted key according to the predicate.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Inserts x into the tree in the last position.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Constant time.</p>
@@ -414,7 +414,7 @@
 <p><span class="bold"><strong>Note</strong></span>: This function does not check preconditions so if value is less than or equal to the greatest inserted key tree ordering invariant will be broken. This function is slightly more efficient than using "insert_before". This is a low-level function to be used only for performance reasons by advanced users. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="id1212133-bb"></a><span class="identifier">push_front</span><span class="special">(</span><span class="identifier">reference</span> value<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">void</span> <a name="id1283654-bb"></a><span class="identifier">push_front</span><span class="special">(</span><span class="identifier">reference</span> value<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: value must be an lvalue, and it must be less than any inserted key according to the predicate.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Inserts x into the tree in the first position.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Constant time.</p>
@@ -422,7 +422,7 @@
 <p><span class="bold"><strong>Note</strong></span>: This function does not check preconditions so if value is greater than or equal to the the mimum inserted key tree ordering or uniqueness invariants will be broken. This function is slightly more efficient than using "insert_before". This is a low-level function to be used only for performance reasons by advanced users. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">iterator</span> <a name="id1212190-bb"></a><span class="identifier">erase</span><span class="special">(</span><span class="identifier">const_iterator</span> i<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">iterator</span> <a name="id1283711-bb"></a><span class="identifier">erase</span><span class="special">(</span><span class="identifier">const_iterator</span> i<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Erases the element pointed to by pos.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Average complexity is constant time.</p>
 <p><span class="bold"><strong>Returns</strong></span>: An iterator to the element after the erased element.</p>
@@ -430,7 +430,7 @@
 <p><span class="bold"><strong>Note</strong></span>: Invalidates the iterators (but not the references) to the erased elements. No destructors are called. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">iterator</span> <a name="id1212243-bb"></a><span class="identifier">erase</span><span class="special">(</span><span class="identifier">const_iterator</span> b<span class="special">,</span> <span class="identifier">const_iterator</span> e<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">iterator</span> <a name="id1283764-bb"></a><span class="identifier">erase</span><span class="special">(</span><span class="identifier">const_iterator</span> b<span class="special">,</span> <span class="identifier">const_iterator</span> e<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Erases the range pointed to by b end e.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Average complexity for erase range is at most O(log(size() + N)), where N is the number of elements in the range.</p>
 <p><span class="bold"><strong>Returns</strong></span>: An iterator to the element after the erased elements.</p>
@@ -438,7 +438,7 @@
 <p><span class="bold"><strong>Note</strong></span>: Invalidates the iterators (but not the references) to the erased elements. No destructors are called. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">size_type</span> <a name="id1212302-bb"></a><span class="identifier">erase</span><span class="special">(</span><span class="identifier">const_reference</span> value<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">size_type</span> <a name="id1283823-bb"></a><span class="identifier">erase</span><span class="special">(</span><span class="identifier">const_reference</span> value<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Erases all the elements with the given value.</p>
 <p><span class="bold"><strong>Returns</strong></span>: The number of erased elements.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: O(log(size()) + this-&gt;count(value)).</p>
@@ -447,7 +447,7 @@
 </li>
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyType<span class="special">,</span> <span class="keyword">typename</span> KeyValueCompare<span class="special">&gt;</span> 
-  <span class="identifier">size_type</span> <a name="id1212356-bb"></a><span class="identifier">erase</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> key<span class="special">,</span> <span class="identifier">KeyValueCompare</span> comp<span class="special">)</span><span class="special">;</span></pre>
+  <span class="identifier">size_type</span> <a name="id1283877-bb"></a><span class="identifier">erase</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> key<span class="special">,</span> <span class="identifier">KeyValueCompare</span> comp<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Erases all the elements that compare equal with the given key and the given comparison functor.</p>
 <p><span class="bold"><strong>Returns</strong></span>: The number of erased elements.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: O(log(size() + this-&gt;count(key, comp)).</p>
@@ -456,7 +456,7 @@
 </li>
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Disposer<span class="special">&gt;</span> 
-  <span class="identifier">iterator</span> <a name="id1212427-bb"></a><span class="identifier">erase_and_dispose</span><span class="special">(</span><span class="identifier">const_iterator</span> i<span class="special">,</span> <span class="identifier">Disposer</span> disposer<span class="special">)</span><span class="special">;</span></pre>
+  <span class="identifier">iterator</span> <a name="id1283948-bb"></a><span class="identifier">erase_and_dispose</span><span class="special">(</span><span class="identifier">const_iterator</span> i<span class="special">,</span> <span class="identifier">Disposer</span> disposer<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: Disposer::operator()(pointer) shouldn't throw.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Erases the element pointed to by pos. Disposer::operator()(pointer) is called for the removed element.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Average complexity for erase element is constant time.</p>
@@ -466,7 +466,7 @@
 </li>
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Disposer<span class="special">&gt;</span> 
-  <span class="identifier">iterator</span> <a name="id1212501-bb"></a><span class="identifier">erase_and_dispose</span><span class="special">(</span><span class="identifier">const_iterator</span> b<span class="special">,</span> <span class="identifier">const_iterator</span> e<span class="special">,</span> 
+  <span class="identifier">iterator</span> <a name="id1284021-bb"></a><span class="identifier">erase_and_dispose</span><span class="special">(</span><span class="identifier">const_iterator</span> b<span class="special">,</span> <span class="identifier">const_iterator</span> e<span class="special">,</span> 
                              <span class="identifier">Disposer</span> disposer<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: Disposer::operator()(pointer) shouldn't throw.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Erases the range pointed to by b end e. Disposer::operator()(pointer) is called for the removed elements.</p>
@@ -477,7 +477,7 @@
 </li>
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Disposer<span class="special">&gt;</span> 
-  <span class="identifier">size_type</span> <a name="id1212581-bb"></a><span class="identifier">erase_and_dispose</span><span class="special">(</span><span class="identifier">const_reference</span> value<span class="special">,</span> <span class="identifier">Disposer</span> disposer<span class="special">)</span><span class="special">;</span></pre>
+  <span class="identifier">size_type</span> <a name="id1284102-bb"></a><span class="identifier">erase_and_dispose</span><span class="special">(</span><span class="identifier">const_reference</span> value<span class="special">,</span> <span class="identifier">Disposer</span> disposer<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: Disposer::operator()(pointer) shouldn't throw.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Erases all the elements with the given value. Disposer::operator()(pointer) is called for the removed elements.</p>
 <p><span class="bold"><strong>Throws</strong></span>: If the internal value_compare ordering function throws.</p>
@@ -487,7 +487,7 @@
 </li>
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyType<span class="special">,</span> <span class="keyword">typename</span> KeyValueCompare<span class="special">,</span> <span class="keyword">typename</span> Disposer<span class="special">&gt;</span> 
-  <span class="identifier">size_type</span> <a name="id1212656-bb"></a><span class="identifier">erase_and_dispose</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> key<span class="special">,</span> <span class="identifier">KeyValueCompare</span> comp<span class="special">,</span> 
+  <span class="identifier">size_type</span> <a name="id1284176-bb"></a><span class="identifier">erase_and_dispose</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> key<span class="special">,</span> <span class="identifier">KeyValueCompare</span> comp<span class="special">,</span> 
                               <span class="identifier">Disposer</span> disposer<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: Disposer::operator()(pointer) shouldn't throw.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Erases all the elements with the given key. according to the comparison functor "comp". Disposer::operator()(pointer) is called for the removed elements.</p>
@@ -497,14 +497,14 @@
 <p><span class="bold"><strong>Note</strong></span>: Invalidates the iterators to the erased elements. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="id1212745-bb"></a><span class="identifier">clear</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">void</span> <a name="id1284266-bb"></a><span class="identifier">clear</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Erases all the elements of the container.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Linear to the number of elements on the container. if it's a safe-mode or auto-unlink value_type. Constant time otherwise.</p>
 <p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
 <p><span class="bold"><strong>Note</strong></span>: Invalidates the iterators (but not the references) to the erased elements. No destructors are called. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Disposer<span class="special">&gt;</span> <span class="keyword">void</span> <a name="id1212785-bb"></a><span class="identifier">clear_and_dispose</span><span class="special">(</span><span class="identifier">Disposer</span> disposer<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Disposer<span class="special">&gt;</span> <span class="keyword">void</span> <a name="id1284306-bb"></a><span class="identifier">clear_and_dispose</span><span class="special">(</span><span class="identifier">Disposer</span> disposer<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: Disposer::operator()(pointer) shouldn't throw.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Erases all the elements of the container.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Linear to the number of elements on the container. Disposer::operator()(pointer) is called for the removed elements.</p>
@@ -512,27 +512,27 @@
 <p><span class="bold"><strong>Note</strong></span>: Invalidates the iterators (but not the references) to the erased elements. No destructors are called. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">size_type</span> <a name="id1212846-bb"></a><span class="identifier">count</span><span class="special">(</span><span class="identifier">const_reference</span> value<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">size_type</span> <a name="id1284367-bb"></a><span class="identifier">count</span><span class="special">(</span><span class="identifier">const_reference</span> value<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Returns the number of contained elements with the given key</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Logarithmic to the number of elements contained plus lineal to number of objects with the given key.</p>
 <p><span class="bold"><strong>Throws</strong></span>: If the internal value_compare ordering function throws. </p>
 </li>
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyType<span class="special">,</span> <span class="keyword">typename</span> KeyValueCompare<span class="special">&gt;</span> 
-  <span class="identifier">size_type</span> <a name="id1212885-bb"></a><span class="identifier">count</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> key<span class="special">,</span> <span class="identifier">KeyValueCompare</span> comp<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+  <span class="identifier">size_type</span> <a name="id1284406-bb"></a><span class="identifier">count</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> key<span class="special">,</span> <span class="identifier">KeyValueCompare</span> comp<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Returns the number of contained elements with the same key compared with the given comparison functor.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Logarithmic to the number of elements contained plus lineal to number of objects with the given key.</p>
 <p><span class="bold"><strong>Throws</strong></span>: If comp ordering function throws. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">iterator</span> <a name="id1212941-bb"></a><span class="identifier">lower_bound</span><span class="special">(</span><span class="identifier">const_reference</span> value<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">iterator</span> <a name="id1284462-bb"></a><span class="identifier">lower_bound</span><span class="special">(</span><span class="identifier">const_reference</span> value<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Returns an iterator to the first element whose key is not less than k or end() if that element does not exist.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Logarithmic.</p>
 <p><span class="bold"><strong>Throws</strong></span>: If the internal value_compare ordering function throws. </p>
 </li>
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyType<span class="special">,</span> <span class="keyword">typename</span> KeyValueCompare<span class="special">&gt;</span> 
-  <span class="identifier">iterator</span> <a name="id1212979-bb"></a><span class="identifier">lower_bound</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> key<span class="special">,</span> <span class="identifier">KeyValueCompare</span> comp<span class="special">)</span><span class="special">;</span></pre>
+  <span class="identifier">iterator</span> <a name="id1284500-bb"></a><span class="identifier">lower_bound</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> key<span class="special">,</span> <span class="identifier">KeyValueCompare</span> comp<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: comp must imply the same element order as value_compare. Usually key is the part of the value_type that is used in the ordering functor.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Returns an iterator to the first element whose key according to the comparison functor is not less than k or end() if that element does not exist.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Logarithmic.</p>
@@ -540,14 +540,14 @@
 <p><span class="bold"><strong>Note</strong></span>: This function is used when constructing a value_type is expensive and the value_type can be compared with a cheaper key type. Usually this key is part of the value_type. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">const_iterator</span> <a name="id1213053-bb"></a><span class="identifier">lower_bound</span><span class="special">(</span><span class="identifier">const_reference</span> value<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">const_iterator</span> <a name="id1284573-bb"></a><span class="identifier">lower_bound</span><span class="special">(</span><span class="identifier">const_reference</span> value<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Returns a const iterator to the first element whose key is not less than k or end() if that element does not exist.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Logarithmic.</p>
 <p><span class="bold"><strong>Throws</strong></span>: If the internal value_compare ordering function throws. </p>
 </li>
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyType<span class="special">,</span> <span class="keyword">typename</span> KeyValueCompare<span class="special">&gt;</span> 
-  <span class="identifier">const_iterator</span> <a name="id1213090-bb"></a><span class="identifier">lower_bound</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> key<span class="special">,</span> <span class="identifier">KeyValueCompare</span> comp<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+  <span class="identifier">const_iterator</span> <a name="id1284611-bb"></a><span class="identifier">lower_bound</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> key<span class="special">,</span> <span class="identifier">KeyValueCompare</span> comp<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: comp must imply the same element order as value_compare. Usually key is the part of the value_type that is used in the ordering functor.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Returns a const_iterator to the first element whose key according to the comparison functor is not less than k or end() if that element does not exist.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Logarithmic.</p>
@@ -555,14 +555,14 @@
 <p><span class="bold"><strong>Note</strong></span>: This function is used when constructing a value_type is expensive and the value_type can be compared with a cheaper key type. Usually this key is part of the value_type. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">iterator</span> <a name="id1213164-bb"></a><span class="identifier">upper_bound</span><span class="special">(</span><span class="identifier">const_reference</span> value<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">iterator</span> <a name="id1284685-bb"></a><span class="identifier">upper_bound</span><span class="special">(</span><span class="identifier">const_reference</span> value<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Returns an iterator to the first element whose key is greater than k or end() if that element does not exist.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Logarithmic.</p>
 <p><span class="bold"><strong>Throws</strong></span>: If the internal value_compare ordering function throws. </p>
 </li>
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyType<span class="special">,</span> <span class="keyword">typename</span> KeyValueCompare<span class="special">&gt;</span> 
-  <span class="identifier">iterator</span> <a name="id1213202-bb"></a><span class="identifier">upper_bound</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> key<span class="special">,</span> <span class="identifier">KeyValueCompare</span> comp<span class="special">)</span><span class="special">;</span></pre>
+  <span class="identifier">iterator</span> <a name="id1284723-bb"></a><span class="identifier">upper_bound</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> key<span class="special">,</span> <span class="identifier">KeyValueCompare</span> comp<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: comp must imply the same element order as value_compare. Usually key is the part of the value_type that is used in the ordering functor.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Returns an iterator to the first element whose key according to the comparison functor is greater than key or end() if that element does not exist.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Logarithmic.</p>
@@ -570,14 +570,14 @@
 <p><span class="bold"><strong>Note</strong></span>: This function is used when constructing a value_type is expensive and the value_type can be compared with a cheaper key type. Usually this key is part of the value_type. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">const_iterator</span> <a name="id1213276-bb"></a><span class="identifier">upper_bound</span><span class="special">(</span><span class="identifier">const_reference</span> value<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">const_iterator</span> <a name="id1284797-bb"></a><span class="identifier">upper_bound</span><span class="special">(</span><span class="identifier">const_reference</span> value<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Returns an iterator to the first element whose key is greater than k or end() if that element does not exist.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Logarithmic.</p>
 <p><span class="bold"><strong>Throws</strong></span>: If the internal value_compare ordering function throws. </p>
 </li>
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyType<span class="special">,</span> <span class="keyword">typename</span> KeyValueCompare<span class="special">&gt;</span> 
-  <span class="identifier">const_iterator</span> <a name="id1213313-bb"></a><span class="identifier">upper_bound</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> key<span class="special">,</span> <span class="identifier">KeyValueCompare</span> comp<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+  <span class="identifier">const_iterator</span> <a name="id1284834-bb"></a><span class="identifier">upper_bound</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> key<span class="special">,</span> <span class="identifier">KeyValueCompare</span> comp<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: comp must imply the same element order as value_compare. Usually key is the part of the value_type that is used in the ordering functor.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Returns a const_iterator to the first element whose key according to the comparison functor is greater than key or end() if that element does not exist.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Logarithmic.</p>
@@ -585,14 +585,14 @@
 <p><span class="bold"><strong>Note</strong></span>: This function is used when constructing a value_type is expensive and the value_type can be compared with a cheaper key type. Usually this key is part of the value_type. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">iterator</span> <a name="id1213387-bb"></a><span class="identifier">find</span><span class="special">(</span><span class="identifier">const_reference</span> value<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">iterator</span> <a name="id1284908-bb"></a><span class="identifier">find</span><span class="special">(</span><span class="identifier">const_reference</span> value<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Finds an iterator to the first element whose value is "value" or end() if that element does not exist.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Logarithmic.</p>
 <p><span class="bold"><strong>Throws</strong></span>: If the internal value_compare ordering function throws. </p>
 </li>
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyType<span class="special">,</span> <span class="keyword">typename</span> KeyValueCompare<span class="special">&gt;</span> 
-  <span class="identifier">iterator</span> <a name="id1213425-bb"></a><span class="identifier">find</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> key<span class="special">,</span> <span class="identifier">KeyValueCompare</span> comp<span class="special">)</span><span class="special">;</span></pre>
+  <span class="identifier">iterator</span> <a name="id1284946-bb"></a><span class="identifier">find</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> key<span class="special">,</span> <span class="identifier">KeyValueCompare</span> comp<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: comp must imply the same element order as value_compare. Usually key is the part of the value_type that is used in the ordering functor.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Finds an iterator to the first element whose key is "key" according to the comparison functor or end() if that element does not exist.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Logarithmic.</p>
@@ -600,14 +600,14 @@
 <p><span class="bold"><strong>Note</strong></span>: This function is used when constructing a value_type is expensive and the value_type can be compared with a cheaper key type. Usually this key is part of the value_type. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">const_iterator</span> <a name="id1213498-bb"></a><span class="identifier">find</span><span class="special">(</span><span class="identifier">const_reference</span> value<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">const_iterator</span> <a name="id1285019-bb"></a><span class="identifier">find</span><span class="special">(</span><span class="identifier">const_reference</span> value<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Finds a const_iterator to the first element whose value is "value" or end() if that element does not exist.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Logarithmic.</p>
 <p><span class="bold"><strong>Throws</strong></span>: If the internal value_compare ordering function throws. </p>
 </li>
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyType<span class="special">,</span> <span class="keyword">typename</span> KeyValueCompare<span class="special">&gt;</span> 
-  <span class="identifier">const_iterator</span> <a name="id1213536-bb"></a><span class="identifier">find</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> key<span class="special">,</span> <span class="identifier">KeyValueCompare</span> comp<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+  <span class="identifier">const_iterator</span> <a name="id1285057-bb"></a><span class="identifier">find</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> key<span class="special">,</span> <span class="identifier">KeyValueCompare</span> comp<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: comp must imply the same element order as value_compare. Usually key is the part of the value_type that is used in the ordering functor.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Finds a const_iterator to the first element whose key is "key" according to the comparison functor or end() if that element does not exist.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Logarithmic.</p>
@@ -615,7 +615,7 @@
 <p><span class="bold"><strong>Note</strong></span>: This function is used when constructing a value_type is expensive and the value_type can be compared with a cheaper key type. Usually this key is part of the value_type. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> <a name="id1213610-bb"></a><span class="identifier">equal_range</span><span class="special">(</span><span class="identifier">const_reference</span> value<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> <a name="id1285130-bb"></a><span class="identifier">equal_range</span><span class="special">(</span><span class="identifier">const_reference</span> value<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Finds a range containing all elements whose key is k or an empty range that indicates the position where those elements would be if they there is no elements with key k.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Logarithmic.</p>
 <p><span class="bold"><strong>Throws</strong></span>: If the internal value_compare ordering function throws. </p>
@@ -623,7 +623,7 @@
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyType<span class="special">,</span> <span class="keyword">typename</span> KeyValueCompare<span class="special">&gt;</span> 
   <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> 
-  <a name="id1213649-bb"></a><span class="identifier">equal_range</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> key<span class="special">,</span> <span class="identifier">KeyValueCompare</span> comp<span class="special">)</span><span class="special">;</span></pre>
+  <a name="id1285169-bb"></a><span class="identifier">equal_range</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> key<span class="special">,</span> <span class="identifier">KeyValueCompare</span> comp<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: comp must imply the same element order as value_compare. Usually key is the part of the value_type that is used in the ordering functor.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Finds a range containing all elements whose key is k according to the comparison functor or an empty range that indicates the position where those elements would be if they there is no elements with key k.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Logarithmic.</p>
@@ -632,7 +632,7 @@
 </li>
 <li class="listitem">
 <pre class="literallayout"><span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span> <span class="special">&gt;</span> 
-<a name="id1213724-bb"></a><span class="identifier">equal_range</span><span class="special">(</span><span class="identifier">const_reference</span> value<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<a name="id1285244-bb"></a><span class="identifier">equal_range</span><span class="special">(</span><span class="identifier">const_reference</span> value<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Finds a range containing all elements whose key is k or an empty range that indicates the position where those elements would be if they there is no elements with key k.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Logarithmic.</p>
 <p><span class="bold"><strong>Throws</strong></span>: If the internal value_compare ordering function throws. </p>
@@ -640,7 +640,7 @@
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyType<span class="special">,</span> <span class="keyword">typename</span> KeyValueCompare<span class="special">&gt;</span> 
   <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span> <span class="special">&gt;</span> 
-  <a name="id1213763-bb"></a><span class="identifier">equal_range</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> key<span class="special">,</span> <span class="identifier">KeyValueCompare</span> comp<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+  <a name="id1285284-bb"></a><span class="identifier">equal_range</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> key<span class="special">,</span> <span class="identifier">KeyValueCompare</span> comp<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: comp must imply the same element order as value_compare. Usually key is the part of the value_type that is used in the ordering functor.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Finds a range containing all elements whose key is k according to the comparison functor or an empty range that indicates the position where those elements would be if they there is no elements with key k.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Logarithmic.</p>
@@ -649,7 +649,7 @@
 </li>
 <li class="listitem">
 <pre class="literallayout"><span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> 
-<a name="id1213838-bb"></a><span class="identifier">bounded_range</span><span class="special">(</span><span class="identifier">const_reference</span> lower_value<span class="special">,</span> <span class="identifier">const_reference</span> upper_value<span class="special">,</span> 
+<a name="id1285359-bb"></a><span class="identifier">bounded_range</span><span class="special">(</span><span class="identifier">const_reference</span> lower_value<span class="special">,</span> <span class="identifier">const_reference</span> upper_value<span class="special">,</span> 
               <span class="keyword">bool</span> left_closed<span class="special">,</span> <span class="keyword">bool</span> right_closed<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: 'lower_value' must not be greater than 'upper_value'. If 'lower_value' == 'upper_value', ('left_closed' || 'right_closed') must be false.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Returns an a pair with the following criteria:</p>
@@ -662,7 +662,7 @@
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyType<span class="special">,</span> <span class="keyword">typename</span> KeyValueCompare<span class="special">&gt;</span> 
   <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">iterator</span> <span class="special">&gt;</span> 
-  <a name="id1213916-bb"></a><span class="identifier">bounded_range</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> lower_key<span class="special">,</span> <span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> upper_key<span class="special">,</span> 
+  <a name="id1285437-bb"></a><span class="identifier">bounded_range</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> lower_key<span class="special">,</span> <span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> upper_key<span class="special">,</span> 
                 <span class="identifier">KeyValueCompare</span> comp<span class="special">,</span> <span class="keyword">bool</span> left_closed<span class="special">,</span> <span class="keyword">bool</span> right_closed<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: KeyValueCompare is a function object that induces a strict weak ordering compatible with the strict weak ordering used to create the the tree. 'lower_key' must not be greater than 'upper_key' according to 'comp'. If 'lower_key' == 'upper_key', ('left_closed' || 'right_closed') must be false.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Returns an a pair with the following criteria:</p>
@@ -674,7 +674,7 @@
 </li>
 <li class="listitem">
 <pre class="literallayout"><span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span> <span class="special">&gt;</span> 
-<a name="id1214014-bb"></a><span class="identifier">bounded_range</span><span class="special">(</span><span class="identifier">const_reference</span> lower_value<span class="special">,</span> <span class="identifier">const_reference</span> upper_value<span class="special">,</span> 
+<a name="id1285535-bb"></a><span class="identifier">bounded_range</span><span class="special">(</span><span class="identifier">const_reference</span> lower_value<span class="special">,</span> <span class="identifier">const_reference</span> upper_value<span class="special">,</span> 
               <span class="keyword">bool</span> left_closed<span class="special">,</span> <span class="keyword">bool</span> right_closed<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: 'lower_value' must not be greater than 'upper_value'. If 'lower_value' == 'upper_value', ('left_closed' || 'right_closed') must be false.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Returns an a pair with the following criteria:</p>
@@ -687,7 +687,7 @@
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> KeyType<span class="special">,</span> <span class="keyword">typename</span> KeyValueCompare<span class="special">&gt;</span> 
   <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">const_iterator</span><span class="special">,</span> <span class="identifier">const_iterator</span> <span class="special">&gt;</span> 
-  <a name="id1214093-bb"></a><span class="identifier">bounded_range</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> lower_key<span class="special">,</span> <span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> upper_key<span class="special">,</span> 
+  <a name="id1285614-bb"></a><span class="identifier">bounded_range</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> lower_key<span class="special">,</span> <span class="keyword">const</span> <span class="identifier">KeyType</span> <span class="special">&amp;</span> upper_key<span class="special">,</span> 
                 <span class="identifier">KeyValueCompare</span> comp<span class="special">,</span> <span class="keyword">bool</span> left_closed<span class="special">,</span> <span class="keyword">bool</span> right_closed<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: KeyValueCompare is a function object that induces a strict weak ordering compatible with the strict weak ordering used to create the the tree. 'lower_key' must not be greater than 'upper_key' according to 'comp'. If 'lower_key' == 'upper_key', ('left_closed' || 'right_closed') must be false.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Returns an a pair with the following criteria:</p>
@@ -698,28 +698,28 @@
 <p><span class="bold"><strong>Note</strong></span>: This function can be more efficient than calling upper_bound and lower_bound for lower_key and upper_key. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">iterator</span> <a name="id1214192-bb"></a><span class="identifier">iterator_to</span><span class="special">(</span><span class="identifier">reference</span> value<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">iterator</span> <a name="id1285712-bb"></a><span class="identifier">iterator_to</span><span class="special">(</span><span class="identifier">reference</span> value<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: value must be an lvalue and shall be in a set of appropriate type. Otherwise the behavior is undefined.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Returns: a valid iterator i belonging to the set that points to the value</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Constant.</p>
 <p><span class="bold"><strong>Throws</strong></span>: Nothing. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">const_iterator</span> <a name="id1214236-bb"></a><span class="identifier">iterator_to</span><span class="special">(</span><span class="identifier">const_reference</span> value<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">const_iterator</span> <a name="id1285757-bb"></a><span class="identifier">iterator_to</span><span class="special">(</span><span class="identifier">const_reference</span> value<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: value must be an lvalue and shall be in a set of appropriate type. Otherwise the behavior is undefined.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Returns: a valid const_iterator i belonging to the set that points to the value</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Constant.</p>
 <p><span class="bold"><strong>Throws</strong></span>: Nothing. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">pointer</span> <a name="id1214281-bb"></a><span class="identifier">unlink_leftmost_without_rebalance</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">pointer</span> <a name="id1285802-bb"></a><span class="identifier">unlink_leftmost_without_rebalance</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Effects</strong></span>: Unlinks the leftmost node from the tree.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Average complexity is constant time.</p>
 <p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
 <p><span class="bold"><strong>Notes</strong></span>: This function breaks the tree and the tree can only be used for more unlink_leftmost_without_rebalance calls. This function is normally used to achieve a step by step controlled destruction of the tree. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="id1214323-bb"></a><span class="identifier">replace_node</span><span class="special">(</span><span class="identifier">iterator</span> replace_this<span class="special">,</span> <span class="identifier">reference</span> with_this<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">void</span> <a name="id1285844-bb"></a><span class="identifier">replace_node</span><span class="special">(</span><span class="identifier">iterator</span> replace_this<span class="special">,</span> <span class="identifier">reference</span> with_this<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: replace_this must be a valid iterator of *this and with_this must not be inserted in any tree.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Replaces replace_this in its position in the tree with with_this. The tree does not need to be rebalanced.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Constant.</p>
@@ -729,39 +729,39 @@
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="id2162655"></a><h3>
-<a name="id1214563-bb"></a><code class="computeroutput">set</code> public static functions</h3>
+<a name="id2221498"></a><h3>
+<a name="id1286084-bb"></a><code class="computeroutput">set</code> public static functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">static</span> <a class="link" href="set.html" title="Class template set">set</a> <span class="special">&amp;</span> <a name="id1214566-bb"></a><span class="identifier">container_from_end_iterator</span><span class="special">(</span><span class="identifier">iterator</span> end_iterator<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">static</span> <a class="link" href="set.html" title="Class template set">set</a> <span class="special">&amp;</span> <a name="id1286087-bb"></a><span class="identifier">container_from_end_iterator</span><span class="special">(</span><span class="identifier">iterator</span> end_iterator<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Precondition</strong></span>: end_iterator must be a valid end iterator of set.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Returns a reference to the set associated to the end iterator</p>
 <p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Constant. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">const</span> <a class="link" href="set.html" title="Class template set">set</a> <span class="special">&amp;</span> <a name="id1214614-bb"></a><span class="identifier">container_from_end_iterator</span><span class="special">(</span><span class="identifier">const_iterator</span> end_iterator<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">const</span> <a class="link" href="set.html" title="Class template set">set</a> <span class="special">&amp;</span> <a name="id1286135-bb"></a><span class="identifier">container_from_end_iterator</span><span class="special">(</span><span class="identifier">const_iterator</span> end_iterator<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Precondition</strong></span>: end_iterator must be a valid end const_iterator of set.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Returns a const reference to the set associated to the end iterator</p>
 <p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Constant. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">static</span> <a class="link" href="set.html" title="Class template set">set</a> <span class="special">&amp;</span> <a name="id1214662-bb"></a><span class="identifier">container_from_iterator</span><span class="special">(</span><span class="identifier">iterator</span> it<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">static</span> <a class="link" href="set.html" title="Class template set">set</a> <span class="special">&amp;</span> <a name="id1286183-bb"></a><span class="identifier">container_from_iterator</span><span class="special">(</span><span class="identifier">iterator</span> it<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Precondition</strong></span>: it must be a valid iterator of set.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Returns a reference to the set associated to the iterator</p>
 <p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Logarithmic. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">const</span> <a class="link" href="set.html" title="Class template set">set</a> <span class="special">&amp;</span> <a name="id1214709-bb"></a><span class="identifier">container_from_iterator</span><span class="special">(</span><span class="identifier">const_iterator</span> it<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">const</span> <a class="link" href="set.html" title="Class template set">set</a> <span class="special">&amp;</span> <a name="id1286230-bb"></a><span class="identifier">container_from_iterator</span><span class="special">(</span><span class="identifier">const_iterator</span> it<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Precondition</strong></span>: it must be a valid const_iterator of set.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Returns a const reference to the set associated to the iterator</p>
 <p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Logarithmic. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">iterator</span> <a name="id1214757-bb"></a><span class="identifier">s_iterator_to</span><span class="special">(</span><span class="identifier">reference</span> value<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">iterator</span> <a name="id1286278-bb"></a><span class="identifier">s_iterator_to</span><span class="special">(</span><span class="identifier">reference</span> value<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: value must be an lvalue and shall be in a set of appropriate type. Otherwise the behavior is undefined.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Returns: a valid iterator i belonging to the set that points to the value</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Constant.</p>
@@ -769,7 +769,7 @@
 <p><span class="bold"><strong>Note</strong></span>: This static function is available only if the <span class="emphasis"><em>value traits</em></span> is stateless. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">const_iterator</span> <a name="id1214813-bb"></a><span class="identifier">s_iterator_to</span><span class="special">(</span><span class="identifier">const_reference</span> value<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">const_iterator</span> <a name="id1286334-bb"></a><span class="identifier">s_iterator_to</span><span class="special">(</span><span class="identifier">const_reference</span> value<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: value must be an lvalue and shall be in a set of appropriate type. Otherwise the behavior is undefined.</p>
 <p><span class="bold"><strong>Effects</strong></span>: Returns: a valid const_iterator i belonging to the set that points to the value</p>
 <p><span class="bold"><strong>Complexity</strong></span>: Constant.</p>
@@ -777,7 +777,7 @@
 <p><span class="bold"><strong>Note</strong></span>: This static function is available only if the <span class="emphasis"><em>value traits</em></span> is stateless. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">void</span> <a name="id1214870-bb"></a><span class="identifier">init_node</span><span class="special">(</span><span class="identifier">reference</span> value<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">void</span> <a name="id1286391-bb"></a><span class="identifier">init_node</span><span class="special">(</span><span class="identifier">reference</span> value<span class="special">)</span><span class="special">;</span></pre>
 <p><span class="bold"><strong>Requires</strong></span>: value shall not be in a set/multiset.</p>
 <p><span class="bold"><strong>Effects</strong></span>: init_node puts the hook of a value in a well-known default state.</p>
 <p><span class="bold"><strong>Throws</strong></span>: Nothing.</p>

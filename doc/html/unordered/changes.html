@@ -397,6 +397,49 @@
           Some internal changes.
         </li>
 </ul></div>
+<h3>
+<a name="unordered.changes.h14"></a>
+      <span><a name="unordered.changes.boost_1_51_0"></a></span><a class="link" href="changes.html#unordered.changes.boost_1_51_0">Boost
+      1.51.0</a>
+    </h3>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+          Fix construction/destruction issue when using a C++11 compiler with a C++03
+          allocator (<a href="https://svn.boost.org/trac/boost/ticket/7100" target="_top">#7100</a>).
+        </li>
+<li class="listitem">
+          Remove a <code class="computeroutput"><span class="keyword">try</span><span class="special">..</span><span class="keyword">catch</span></code> to support compiling without exceptions.
+        </li>
+<li class="listitem">
+          Adjust SFINAE use to try to supprt g++ 3.4 (<a href="https://svn.boost.org/trac/boost/ticket/7175" target="_top">#7175</a>).
+        </li>
+<li class="listitem">
+          Updated to use the new config macros.
+        </li>
+</ul></div>
+<h3>
+<a name="unordered.changes.h15"></a>
+      <span><a name="unordered.changes.boost_1_52_0"></a></span><a class="link" href="changes.html#unordered.changes.boost_1_52_0">Boost
+      1.52.0</a>
+    </h3>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+          Faster assign, which assigns to existing nodes where possible, rather than
+          creating entirely new nodes and copy constructing.
+        </li>
+<li class="listitem">
+          Fixed bug in <code class="computeroutput"><span class="identifier">erase_range</span></code>
+          (<a href="https://svn.boost.org/trac/boost/ticket/7471" target="_top">#7471</a>).
+        </li>
+<li class="listitem">
+          Reverted some of the internal changes to how nodes are created, especially
+          for C++11 compilers. 'construct' and 'destroy' should work a little better
+          for C++11 allocators.
+        </li>
+<li class="listitem">
+          Simplified the implementation a bit. Hopefully more robust.
+        </li>
+</ul></div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>

@@ -249,3 +249,17 @@ MyRobustMutexLockFile()
 
 ipcdetail::intermodule_singleton<MyRobustMutexLockFile>::get();
 
+Add unsigned overflow checking with shortcut as explained here:
+
+https://github.com/ivmai/bdwgc/commit/83231d0ab5ed60015797c3d1ad9056295ac3b2bb
+
+# define GC_SIZE_MAX (~(size_t)0)
+ #endif
++#define GC_SQRT_SIZE_MAX ((1U << (WORDSZ / 2)) - 1)
++
+void * calloc(size_t n, size_t lb)
+{
+-    if (lb && n > GC_SIZE_MAX / lb)
++    if ((lb | n) > GC_SQRT_SIZE_MAX /* fast initial test */
++        && lb && n > GC_SIZE_MAX / lb)
+       return NULL;

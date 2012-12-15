@@ -10,7 +10,7 @@
 // It is provided "as is" without express or implied warranty.
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -48,7 +48,7 @@ inline boost::xtime delay(int secs, int msecs=0, int nsecs=0)
     const int NANOSECONDS_PER_MILLISECOND = 1000000;
 
     boost::xtime xt;
-   
+
     #if BOOST_VERSION >= 105100 //TIME_UTC is a macro in C11, breaking change in Boost.Thread
     int ret = boost::xtime_get(&xt, boost::TIME_UTC_);
     BOOST_INTERPROCES_CHECK(ret == static_cast<int>(boost::TIME_UTC_));(void)ret;
@@ -168,6 +168,8 @@ void do_test_condition_notify_one()
    condition_test_data<Condition, Mutex> data;
 
    boost::thread thread(bind_function(&condition_test_thread<Condition, Mutex>, &data));
+   //Make sure thread is blocked
+   boost::thread::sleep(delay(1));
    {
       boost::interprocess::scoped_lock<Mutex>
          lock(data.mutex);
@@ -187,16 +189,18 @@ void do_test_condition_notify_all()
    boost::thread_group threads;
    condition_test_data<Condition, Mutex> data;
 
-   for (int i = 0; i < NUMTHREADS; ++i)
+   for (int i = 0; i < NUMTHREADS; ++i){
        threads.create_thread(bind_function(&condition_test_thread<Condition, Mutex>, &data));
-
+   }
+   //Make sure all threads are blocked
+   boost::thread::sleep(delay(1));
    {
       boost::interprocess::scoped_lock<Mutex>
          lock(data.mutex);
       BOOST_INTERPROCES_CHECK(lock ? true : false);
       data.notified++;
-      data.condition.notify_all();
    }
+   data.condition.notify_all();
 
    threads.join_all();
    BOOST_INTERPROCES_CHECK(data.awoken == NUMTHREADS);
@@ -396,16 +400,16 @@ void do_test_condition_queue_notify_all(void)
 template <class Condition, class Mutex>
 bool do_test_condition()
 {
-   std::cout << "do_test_condition_notify_one<" << typeid(Condition).name() << "," << typeid(Mutex).name() << std::endl;
+   std::cout << "do_test_condition_notify_one<" << typeid(Condition).name() << "," << typeid(Mutex).name() << '\n' << std::endl;
    do_test_condition_notify_one<Condition, Mutex>();
-   std::cout << "do_test_condition_notify_all<" << typeid(Condition).name() << "," << typeid(Mutex).name() << std::endl;
+   std::cout << "do_test_condition_notify_all<" << typeid(Condition).name() << "," << typeid(Mutex).name() << '\n' << std::endl;
    do_test_condition_notify_all<Condition, Mutex>();
-   std::cout << "do_test_condition_waits<" << typeid(Condition).name() << "," << typeid(Mutex).name() << std::endl;
+   std::cout << "do_test_condition_waits<" << typeid(Condition).name() << "," << typeid(Mutex).name() << '\n' << std::endl;
    do_test_condition_waits<Condition, Mutex>();
-   //std::cout << "do_test_condition_queue_notify_one<" << typeid(Condition).name() << "," << typeid(Mutex).name() << std::endl;
-   //do_test_condition_queue_notify_one<Condition, Mutex>();
-   //std::cout << "do_test_condition_queue_notify_all<" << typeid(Condition).name() << "," << typeid(Mutex).name() << std::endl;
-   //do_test_condition_queue_notify_all<Condition, Mutex>();
+   std::cout << "do_test_condition_queue_notify_one<" << typeid(Condition).name() << "," << typeid(Mutex).name() << '\n' << std::endl;
+   do_test_condition_queue_notify_one<Condition, Mutex>();
+   std::cout << "do_test_condition_queue_notify_all<" << typeid(Condition).name() << "," << typeid(Mutex).name() << '\n' << std::endl;
+   do_test_condition_queue_notify_all<Condition, Mutex>();
    return true;
 }
 

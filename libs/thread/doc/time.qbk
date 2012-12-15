@@ -10,14 +10,16 @@
 As of Boost 1.50.0, the __boost_thread__ library uses Boost.Chrono library for all operations that require a
 time out as defined in the standard c++11. These include (but are not limited to):
 
-* __sleep_for
-* __sleep_until
-* __try_join_for
-* __try_join_until
-* __wait_for
-* __wait_until
-* __try_lock_for
-* __try_lock_until
+* `boost::this_thread::__sleep_for`
+* `boost::this_thread::__sleep_until`
+* `boost::__thread::__try_join_for`
+* `boost::__thread::__try_join_until`
+* `boost::__condition_variable::__wait_for`
+* `boost::__condition_variable::__wait_until`
+* `boost::__condition_variable_any::__cvany_wait_for`
+* `boost::__condition_variable_any::__cvany_wait_until`
+* `__TimedLockable::__try_lock_for`
+* `__TimedLockable::__try_lock_until`
 
 [section:deprecated Deprecated]
 The time related functions introduced in Boost 1.35.0, using the [link date_time Boost.Date_Time] library are deprecated. These include (but are not limited to):

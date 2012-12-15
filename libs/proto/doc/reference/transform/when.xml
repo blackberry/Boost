@@ -18,6 +18,69 @@
   </para>
   <namespace name="boost">
     <namespace name="proto">
+      
+      <!-- struct transforms_type -->
+      <struct name="transforms_type">
+        <purpose>
+          The type used to define the global <code><globalname>proto::transforms</globalname></code>,
+          a key for use when creating and accessing a slot in a transform environment for
+          a set of external transforms.
+        </purpose>
+        <description>
+          <para>
+            The <code>proto::transforms_type</code> type, along with the <code><globalname>proto::transforms</globalname></code>
+            global, are declared using the <code><macroname>BOOST_PROTO_DEFINE_ENV_VAR</macroname>()</code> macro.
+          </para>
+        </description>
+        <method-group name="public member functions">
+          <overloaded-method name="operator=">
+            <signature cv="const">
+              <template>
+                <template-type-parameter name="Value"/>
+              </template>
+              <type><classname>env</classname>&lt;transforms_type, <replaceable>see-below</replaceable>&gt;</type>
+              <parameter name="value">
+                <paramtype>Value &amp;</paramtype>
+              </parameter>
+            </signature>
+            <signature cv="const">
+              <template>
+                <template-type-parameter name="Value"/>
+              </template>
+              <type><classname>env</classname>&lt;transforms_type, <replaceable>see-below</replaceable>&gt;</type>
+              <parameter name="value">
+                <paramtype>Value const &amp;</paramtype>
+              </parameter>
+            </signature>
+            <description>
+              <para>
+                If <code>Value</code> is a specialization <code>boost::reference_wrapper&lt;T&gt;</code>,
+                this function returns <code><classname>env</classname>&lt;transforms_type, T &amp;&gt;(value.get())</code>.
+              </para>
+              <para>
+                Else, if the type <code>Value</code> is non-copyable (i.e., a function, an array, abstract, or an ostream),
+                this function returns <code><classname>env</classname>&lt;transforms_type, Value <replaceable>cv</replaceable> &amp;&gt;(value)</code>,
+                where <code><replaceable>cv</replaceable></code> is <code>const</code> for the second overload, and empty
+                for the first.
+              </para>
+              <para>
+                Otherwise, this function returns <code><classname>env</classname>&lt;transforms_type, Value&gt;(value)</code>.
+              </para>
+            </description>
+          </overloaded-method>
+        </method-group>
+      </struct>
+      
+      <data-member name="transforms">
+        <description>
+          <para>
+            A key key for use when creating and accessing a slot in a transform environment for
+            a set of external transforms.
+          </para>
+        </description>
+        <type><classname>proto::transforms_type</classname> const</type>
+      </data-member>
+      
       <struct name="when">
         <template>
           <template-type-parameter name="Grammar"/>
@@ -342,9 +405,24 @@ struct CountLeaves :
             <template-type-parameter name="Data"/>
           </template>
           <inherit><type>
-    boost::remove_reference&lt; Data &gt;::type
+    boost::remove_reference&lt; 
+      typename mpl::eval_if_c&lt;
+        <classname>proto::result_of::has_env_var</classname>&lt;Data, <classname>proto::transforms_type</classname>&gt;::value,
+        <classname>proto::result_of::env_var</classname>&lt;Data, <classname>proto::transforms_type</classname>&gt;,
+        <classname>proto::result_of::env_var</classname>&lt;Data, <classname>proto::data_type</classname>&gt;
+      &gt;::type
+    &gt;::type
       ::template when&lt; Grammar &gt;
         ::template impl&lt; Expr, State, Data &gt;</type></inherit>
+          <description>
+            <para>
+              The implementation of the <code>impl</code> struct depends on whether the <code>Data</code>
+              parameter is a transform environment that contains a value corresponding to the
+              <classname>proto::transforms_type</classname> key. If so, that value is treated as a
+              map from rules to transforms. Otherwise, the <code>Data</code> type itself is treated
+              as such a map.
+            </para>
+          </description>
         </struct>
         <typedef name="proto_grammar">
           <type>typename Grammar::proto_grammar</type>
@@ -454,7 +532,11 @@ struct my_transforms
 my_transforms trx;
 
 // Evaluate "i+c" using my_grammar with the specified transforms:
-my_grammar()(i + c, 0, trx);</programlisting>
+my_grammar()(i + c, 0, trx);
+
+// If you would also like to pass arbitrary data along with the
+// transforms, you can use a transform environment, as so:
+my_grammar()(i + c, 0, (proto::data = 42, proto::transforms = trx));</programlisting>
           </para>
         </description>
       </struct>    

@@ -3,12 +3,17 @@
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-#include <boost/iterator/function_input_iterator.hpp>
-#include <vector>
-#include <iterator>
 #include <cassert>
+#include <cstddef>
+
 #include <algorithm>
 #include <iostream>
+#include <iterator>
+#include <vector>
+
+#include <boost/iterator/function_input_iterator.hpp>
+
+namespace {
 
 struct ones {
     typedef int result_type;
@@ -20,6 +25,17 @@ struct ones {
 int ones_function () {
     return 1;
 }
+
+struct counter {
+    typedef int result_type;
+    int n;
+    explicit counter(int n_) : n(n_) { }
+    result_type operator() () {
+        return n++;
+    }
+};
+
+} // namespace
 
 using namespace std;
 
@@ -64,6 +80,21 @@ int main(int argc, char * argv[])
     assert(values.size() == generated.size());
     assert(equal(values.begin(), values.end(), generated.begin()));
     cout << "function iterator test with reference to function successful." << endl;
+
+    // test the iterator with a stateful function object
+    counter counter_generator(42);
+    vector<int>().swap(generated);
+    copy(
+        boost::make_function_input_iterator(counter_generator, 0),
+        boost::make_function_input_iterator(counter_generator, 10),
+        back_inserter(generated)
+        );
+
+    assert(generated.size() == 10);
+    assert(counter_generator.n == 42 + 10);
+    for(std::size_t i = 0; i != 10; ++i)
+        assert(generated[i] == 42 + i);
+    cout << "function iterator test with stateful function object successful." << endl;
 
     return 0;
 }

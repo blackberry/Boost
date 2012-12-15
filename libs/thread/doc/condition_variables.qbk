@@ -19,6 +19,7 @@
     };
     class condition_variable;
     class condition_variable_any;
+    void notify_all_at_thread_exit(condition_variable& cond, unique_lock<mutex> lk);
   }
 
 The classes `condition_variable` and `condition_variable_any` provide a
@@ -86,7 +87,7 @@ optimizations in some cases, based on the knowledge of the mutex type;
 
 [section:condition_variable Class `condition_variable`]
 
-    #include <boost/thread/condition_variable.hpp>
+    //#include <boost/thread/condition_variable.hpp>
 
     namespace boost
     {
@@ -439,7 +440,7 @@ return true;
 
 [section:condition_variable_any Class `condition_variable_any`]
 
-    #include <boost/thread/condition_variable.hpp>
+    //#include <boost/thread/condition_variable.hpp>
 
     namespace boost
     {
@@ -751,13 +752,52 @@ return true;
 
 [endsect]
 
-[section:condition Typedef `condition`]
+[section:condition Typedef `condition` DEPRECATED V3]
 
-    #include <boost/thread/condition.hpp>
+  // #include <boost/thread/condition.hpp>
+  namespace boost 
+  {
 
     typedef condition_variable_any condition;
 
+  }
+
 The typedef `condition` is provided for backwards compatibility with previous boost releases.
+
+[endsect]
+
+
+[section:notify_all_at_thread_exit Non-member Function `notify_all_at_thread_exit`()]
+
+  // #include <boost/thread/condition_variable.hpp>
+
+  namespace boost
+  {
+    void notify_all_at_thread_exit(condition_variable& cond, unique_lock<mutex> lk);
+  }
+
+[variablelist
+
+[[Requires:] [`lk` is locked by the calling thread and either no other thread is waiting on `cond`, or `lk.mutex()` returns the same value for each of the lock arguments supplied by all concurrently waiting (via `wait`, `wait_for`, or `wait_until`) threads.]]
+[[Effects:] [transfers ownership of the lock associated with `lk` into internal storage and schedules `cond` to be notified when the current thread exits, after all objects of thread storage duration associated with the current thread have been destroyed. This notification shall be as if
+
+``
+  lk.unlock();
+  cond.notify_all();
+``
+
+]]
+
+]
+
+[/
+[[Synchronization:] [The call to notify_all_at_thread_exit and the completion of the destructors for all the current thread’s variables of thread storage duration synchronize with (1.10) calls to functions waiting on cond.
+]]
+[[Note:] [The supplied lock will be held until the thread exits, and care must be taken to ensure that this does not cause deadlock due to lock ordering issues. After calling notify_all_at_thread_exit it is recommended that the thread should be exited as soon as possible, and that no blocking or time-consuming tasks are run on that thread.
+]]
+[[Note:] [It is the user’s responsibility to ensure that waiting threads do not erroneously assume that the thread has finished if they experience spurious wakeups. This typically requires that the condition being waited for is satisfied while holding the lock on lk, and that this lock is not released and reacquired prior to calling notify_all_at_thread_exit.
+]]
+]
 
 [endsect]
 

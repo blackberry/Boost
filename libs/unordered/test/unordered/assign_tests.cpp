@@ -25,8 +25,7 @@ namespace assign_tests {
 test::seed_t initialize_seed(96785);
 
 template <class T>
-void assign_tests1(T*,
-    test::random_generator generator = test::default_generator)
+void assign_tests1(T*, test::random_generator generator)
 {
     BOOST_DEDUCED_TYPENAME T::hasher hf;
     BOOST_DEDUCED_TYPENAME T::key_equal eq;
@@ -63,12 +62,12 @@ void assign_tests1(T*,
         tracker.compare(y);
         BOOST_TEST(x.max_load_factor() == mlf);
         BOOST_TEST(y.max_load_factor() == mlf);
+        BOOST_TEST(y.load_factor() <= y.max_load_factor());
     }
 }
 
 template <class T>
-void assign_tests2(T*,
-    test::random_generator generator = test::default_generator)
+void assign_tests2(T*, test::random_generator generator)
 {
     BOOST_DEDUCED_TYPENAME T::hasher hf1(1);
     BOOST_DEDUCED_TYPENAME T::hasher hf2(2);
@@ -87,9 +86,31 @@ void assign_tests2(T*,
         T x1(v.begin(), v.end(), 0, hf1, eq1);
         T x2(0, hf2, eq2);
         x2 = x1;
+        BOOST_TEST(test::equivalent(x1.hash_function(), hf1));
+        BOOST_TEST(test::equivalent(x1.key_eq(), eq1));
         BOOST_TEST(test::equivalent(x2.hash_function(), hf1));
         BOOST_TEST(test::equivalent(x2.key_eq(), eq1));
+        test::check_container(x1, v);
         test::check_container(x2, v);
+        BOOST_TEST(x2.load_factor() <= x2.max_load_factor());
+    }
+
+    std::cerr<<"assign_tests2.1a\n";
+    {
+        test::check_instances check_;
+
+        test::random_values<T> v1(0, generator);
+        test::random_values<T> v2(1000, generator);
+        T x1(0, hf2, eq2);
+        T x2(v2.begin(), v2.end(), 0, hf1, eq1);
+        x2 = x1;
+        BOOST_TEST(test::equivalent(x1.hash_function(), hf2));
+        BOOST_TEST(test::equivalent(x1.key_eq(), eq2));
+        BOOST_TEST(test::equivalent(x2.hash_function(), hf2));
+        BOOST_TEST(test::equivalent(x2.key_eq(), eq2));
+        test::check_container(x1, v1);
+        test::check_container(x2, v1);
+        BOOST_TEST(x2.load_factor() <= x2.max_load_factor());
     }
 
     std::cerr<<"assign_tests2.2\n";
@@ -110,7 +131,55 @@ void assign_tests2(T*,
             BOOST_TEST(test::equivalent(x2.get_allocator(), al2));
             BOOST_TEST(!test::equivalent(x2.get_allocator(), al1));
         }
+        test::check_container(x1, v1);
         test::check_container(x2, v1);
+        BOOST_TEST(x2.load_factor() <= x2.max_load_factor());
+    }
+
+    std::cerr<<"assign_tests2.3\n";
+    {
+        test::check_instances check_;
+
+        test::random_values<T> v1(100, generator), v2(1000, generator);
+        T x1(v1.begin(), v1.end(), 0, hf1, eq1, al1);
+        T x2(v2.begin(), v2.end(), 0, hf2, eq2, al2);
+        x2 = x1;
+        BOOST_TEST(test::equivalent(x2.hash_function(), hf1));
+        BOOST_TEST(test::equivalent(x2.key_eq(), eq1));
+        if (allocator_type::is_propagate_on_assign) {
+            BOOST_TEST(test::equivalent(x2.get_allocator(), al1));
+            BOOST_TEST(!test::equivalent(x2.get_allocator(), al2));
+        }
+        else {
+            BOOST_TEST(test::equivalent(x2.get_allocator(), al2));
+            BOOST_TEST(!test::equivalent(x2.get_allocator(), al1));
+        }
+        test::check_container(x1, v1);
+        test::check_container(x2, v1);
+        BOOST_TEST(x2.load_factor() <= x2.max_load_factor());
+    }
+
+    std::cerr<<"assign_tests2.4\n";
+    {
+        test::check_instances check_;
+
+        test::random_values<T> v1(1000, generator), v2(100, generator);
+        T x1(v1.begin(), v1.end(), 0, hf1, eq1, al1);
+        T x2(v2.begin(), v2.end(), 0, hf2, eq2, al2);
+        x2 = x1;
+        BOOST_TEST(test::equivalent(x2.hash_function(), hf1));
+        BOOST_TEST(test::equivalent(x2.key_eq(), eq1));
+        if (allocator_type::is_propagate_on_assign) {
+            BOOST_TEST(test::equivalent(x2.get_allocator(), al1));
+            BOOST_TEST(!test::equivalent(x2.get_allocator(), al2));
+        }
+        else {
+            BOOST_TEST(test::equivalent(x2.get_allocator(), al2));
+            BOOST_TEST(!test::equivalent(x2.get_allocator(), al1));
+        }
+        test::check_container(x1, v1);
+        test::check_container(x2, v1);
+        BOOST_TEST(x2.load_factor() <= x2.max_load_factor());
     }
 }
 

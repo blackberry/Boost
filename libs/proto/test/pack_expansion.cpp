@@ -77,7 +77,9 @@ struct eval2
 void test_call_pack()
 {
     proto::terminal<int>::type i = {42};
-    int res = eval1()(i + 2);
+    int res = eval1()(i);
+    BOOST_CHECK_EQUAL(res, 42);
+    res = eval1()(i + 2);
     BOOST_CHECK_EQUAL(res, 44);
     res = eval1()(i * 2);
     BOOST_CHECK_EQUAL(res, 84);

@@ -88,13 +88,13 @@ int set_test ()
          IntType move_me(i);
          aux_vect3[i] = boost::move(move_me);
       }
-/*
-      MyBoostSet *boostset3 = MyBoostSet
+
+      MyBoostSet *boostset3 = new MyBoostSet
             ( ordered_unique_range
             , boost::make_move_iterator(&aux_vect[0])
             , boost::make_move_iterator(aux_vect + 50));
       MyStdSet *stdset3 = new MyStdSet(aux_vect2, aux_vect2 + 50);
-      MyBoostMultiSet *boostmultiset3 = MyBoostMultiSet
+      MyBoostMultiSet *boostmultiset3 = new MyBoostMultiSet
             ( ordered_range
             , boost::make_move_iterator(&aux_vect3[0])
             , boost::make_move_iterator(aux_vect3 + 50));
@@ -108,15 +108,15 @@ int set_test ()
          std::cout << "Error in construct<MyBoostMultiSet>(MyBoostMultiSet3)" << std::endl;
          return 1;
       }
-*/
+
       delete boostset2;
       delete boostmultiset2;
       delete stdset2;
       delete stdmultiset2;
-      //delete boostset3;
-      //delete boostmultiset3;
-      //delete stdset3;
-      //delete stdmultiset3;
+      delete boostset3;
+      delete boostmultiset3;
+      delete stdset3;
+      delete stdmultiset3;
    }
 
    int i, j;

@@ -131,7 +131,7 @@ implementation. If no such instance exists, `native_handle()` and `native_handle
         ~recursive_mutex();
         
         void lock();
-        bool try_lock();
+        bool try_lock() noexcept;
         void unlock();
 
         typedef platform-specific-type native_handle_type;
@@ -187,7 +187,7 @@ __recursive_try_mutex__ is a `typedef` to __recursive_mutex__, provided for back
         ~recursive_timed_mutex();
         
         void lock();
-        bool try_lock();
+        bool try_lock() noexcept;
         void unlock();
 
 

@@ -29,7 +29,9 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
                   <tbody>
                     <row>
                       <entry><emphasis>Value</emphasis></entry>
-                      <entry>Value must be Assignable and CopyConstructible</entry></row>
+                      <entry><code>Value</code> must be <code>Erasable</code> from the container
+                        (i.e. <code>allocator_traits</code> can <code>destroy</code> it).
+                      </entry></row>
                     <row>
                       <entry><emphasis>Hash</emphasis></entry>
                       <entry>A unary function object type that acts a hash function for a <code>Value</code>. It takes a single argument of type <code>Value</code> and returns a value of type std::size_t.</entry></row>
@@ -151,6 +153,11 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
             <description>
               <para>Constructs an empty container with at least n buckets, using hf as the hash function, eq as the key equality predicate, a as the allocator and a maximum load factor of 1.0.</para>
             </description>
+            <requires>
+              <para>If the defaults are used, <code>hasher</code>, <code>key_equal</code> and
+                <code>allocator_type</code> need to be <code>DefaultConstructible</code>.
+              </para>
+            </requires>
           </constructor>
           <constructor>
             <template>
@@ -182,6 +189,11 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
             <description>
               <para>Constructs an empty container with at least n buckets, using hf as the hash function, eq as the key equality predicate, a as the allocator and a maximum load factor of 1.0 and inserts the elements from [f, l) into it.</para>
             </description>
+            <requires>
+              <para>If the defaults are used, <code>hasher</code>, <code>key_equal</code> and
+                <code>allocator_type</code> need to be <code>DefaultConstructible</code>.
+              </para>
+            </requires>
           </constructor>
           <constructor>
             <parameter>
@@ -350,6 +362,11 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
               <description>
                 <para>Inserts an object, constructed with the arguments <code>args</code>, in the container if and only if there is no element in the container with an equivalent value.</para>
               </description>
+              <requires>
+                <para><code>value_type</code> is <code>EmplaceConstructible</code> into
+                  <code>X</code> from <code>args</code>.
+                </para>
+              </requires>
               <returns>
                 <para>The bool component of the return type is true if an insert took place.</para>
                 <para>If an insert took place, then the iterator points to the newly inserted element. Otherwise, it points to the element with equivalent value.</para>
@@ -388,6 +405,11 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
                 <para>Inserts an object, constructed with the arguments <code>args</code>, in the container if and only if there is no element in the container with an equivalent value.</para>
                 <para><code>hint</code> is a suggestion to where the element should be inserted.</para>
               </description>
+              <requires>
+                <para><code>value_type</code> is <code>EmplaceConstructible</code> into
+                  <code>X</code> from <code>args</code>.
+                </para>
+              </requires>
               <returns>
                 <para>If an insert took place, then the iterator points to the newly inserted element. Otherwise, it points to the element with equivalent value.</para>
               </returns>
@@ -418,6 +440,32 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
               <description>
                 <para>Inserts <code>obj</code> in the container if and only if there is no element in the container with an equivalent value.</para>
               </description>
+              <requires>
+                <para><code>value_type</code> is <code>CopyInsertable</code>.</para>
+              </requires>
+              <returns>
+                <para>The bool component of the return type is true if an insert took place.</para>
+                <para>If an insert took place, then the iterator points to the newly inserted element. Otherwise, it points to the element with equivalent value.</para>
+              </returns>
+              <throws>
+                <para>If an exception is thrown by an operation other than a call to <code>hasher</code> the function has no effect.</para>
+              </throws>
+              <notes>
+                <para>Can invalidate iterators, but only if the insert causes the load factor to be greater to or equal to the maximum load factor.</para>
+                <para>Pointers and references to elements are never invalidated.</para>
+              </notes>
+            </method>
+            <method name="insert">
+              <parameter name="obj">
+                <paramtype>value_type&amp;&amp;</paramtype>
+              </parameter>
+              <type>std::pair&lt;iterator, bool&gt;</type>
+              <description>
+                <para>Inserts <code>obj</code> in the container if and only if there is no element in the container with an equivalent value.</para>
+              </description>
+              <requires>
+                <para><code>value_type</code> is <code>MoveInsertable</code>.</para>
+              </requires>
               <returns>
                 <para>The bool component of the return type is true if an insert took place.</para>
                 <para>If an insert took place, then the iterator points to the newly inserted element. Otherwise, it points to the element with equivalent value.</para>
@@ -442,6 +490,36 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
                 <para>Inserts <code>obj</code> in the container if and only if there is no element in the container with an equivalent value.</para>
                 <para>hint is a suggestion to where the element should be inserted.</para>
               </description>
+              <requires>
+                <para><code>value_type</code> is <code>CopyInsertable</code>.</para>
+              </requires>
+              <returns>
+                <para>If an insert took place, then the iterator points to the newly inserted element. Otherwise, it points to the element with equivalent value.</para>
+              </returns>
+              <throws>
+                <para>If an exception is thrown by an operation other than a call to <code>hasher</code> the function has no effect.</para>
+              </throws>
+              <notes>
+                <para>The standard is fairly vague on the meaning of the hint. But the only practical way to use it, and the only way that Boost.Unordered supports is to point to an existing element with the same value. </para>
+                <para>Can invalidate iterators, but only if the insert causes the load factor to be greater to or equal to the maximum load factor.</para>
+                <para>Pointers and references to elements are never invalidated.</para>
+              </notes>
+            </method>
+            <method name="insert">
+              <parameter name="hint">
+                <paramtype>const_iterator</paramtype>
+              </parameter>
+              <parameter name="obj">
+                <paramtype>value_type&amp;&amp;</paramtype>
+              </parameter>
+              <type>iterator</type>
+              <description>
+                <para>Inserts <code>obj</code> in the container if and only if there is no element in the container with an equivalent value.</para>
+                <para>hint is a suggestion to where the element should be inserted.</para>
+              </description>
+              <requires>
+                <para><code>value_type</code> is <code>MoveInsertable</code>.</para>
+              </requires>
               <returns>
                 <para>If an insert took place, then the iterator points to the newly inserted element. Otherwise, it points to the element with equivalent value.</para>
               </returns>
@@ -469,6 +547,10 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
               <description>
                 <para>Inserts a range of elements into the container. Elements are inserted if and only if there is no element in the container with an equivalent value.</para>
               </description>
+              <requires>
+                <para><code>value_type</code> is <code>EmplaceConstructible</code> into
+                  <code>X</code> from <code>*first</code>.</para>
+              </requires>
               <throws>
                 <para>When inserting a single element, if an exception is thrown by an operation other than a call to <code>hasher</code> the function has no effect.</para>
               </throws>
@@ -994,7 +1076,9 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
                   <tbody>
                     <row>
                       <entry><emphasis>Value</emphasis></entry>
-                      <entry>Value must be Assignable and CopyConstructible</entry></row>
+                      <entry><code>Value</code> must be <code>Erasable</code> from the container
+                        (i.e. <code>allocator_traits</code> can <code>destroy</code> it).
+                      </entry></row>
                     <row>
                       <entry><emphasis>Hash</emphasis></entry>
                       <entry>A unary function object type that acts a hash function for a <code>Value</code>. It takes a single argument of type <code>Value</code> and returns a value of type std::size_t.</entry></row>
@@ -1116,6 +1200,11 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
             <description>
               <para>Constructs an empty container with at least n buckets, using hf as the hash function, eq as the key equality predicate, a as the allocator and a maximum load factor of 1.0.</para>
             </description>
+            <requires>
+              <para>If the defaults are used, <code>hasher</code>, <code>key_equal</code> and
+                <code>allocator_type</code> need to be <code>DefaultConstructible</code>.
+              </para>
+            </requires>
           </constructor>
           <constructor>
             <template>
@@ -1147,6 +1236,11 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
             <description>
               <para>Constructs an empty container with at least n buckets, using hf as the hash function, eq as the key equality predicate, a as the allocator and a maximum load factor of 1.0 and inserts the elements from [f, l) into it.</para>
             </description>
+            <requires>
+              <para>If the defaults are used, <code>hasher</code>, <code>key_equal</code> and
+                <code>allocator_type</code> need to be <code>DefaultConstructible</code>.
+              </para>
+            </requires>
           </constructor>
           <constructor>
             <parameter>
@@ -1315,6 +1409,11 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
               <description>
                 <para>Inserts an object, constructed with the arguments <code>args</code>, in the container.</para>
               </description>
+              <requires>
+                <para><code>value_type</code> is <code>EmplaceConstructible</code> into
+                  <code>X</code> from <code>args</code>.
+                </para>
+              </requires>
               <returns>
                 <para>An iterator pointing to the inserted element.</para>
               </returns>
@@ -1352,6 +1451,11 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
                 <para>Inserts an object, constructed with the arguments <code>args</code>, in the container.</para>
                 <para><code>hint</code> is a suggestion to where the element should be inserted.</para>
               </description>
+              <requires>
+                <para><code>value_type</code> is <code>EmplaceConstructible</code> into
+                  <code>X</code> from <code>args</code>.
+                </para>
+              </requires>
               <returns>
                 <para>An iterator pointing to the inserted element.</para>
               </returns>
@@ -1382,6 +1486,31 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
               <description>
                 <para>Inserts <code>obj</code> in the container.</para>
               </description>
+              <requires>
+                <para><code>value_type</code> is <code>CopyInsertable</code>.</para>
+              </requires>
+              <returns>
+                <para>An iterator pointing to the inserted element.</para>
+              </returns>
+              <throws>
+                <para>If an exception is thrown by an operation other than a call to <code>hasher</code> the function has no effect.</para>
+              </throws>
+              <notes>
+                <para>Can invalidate iterators, but only if the insert causes the load factor to be greater to or equal to the maximum load factor.</para>
+                <para>Pointers and references to elements are never invalidated.</para>
+              </notes>
+            </method>
+            <method name="insert">
+              <parameter name="obj">
+                <paramtype>value_type&amp;&amp;</paramtype>
+              </parameter>
+              <type>iterator</type>
+              <description>
+                <para>Inserts <code>obj</code> in the container.</para>
+              </description>
+              <requires>
+                <para><code>value_type</code> is <code>MoveInsertable</code>.</para>
+              </requires>
               <returns>
                 <para>An iterator pointing to the inserted element.</para>
               </returns>
@@ -1405,6 +1534,36 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
                 <para>Inserts <code>obj</code> in the container.</para>
                 <para>hint is a suggestion to where the element should be inserted.</para>
               </description>
+              <requires>
+                <para><code>value_type</code> is <code>CopyInsertable</code>.</para>
+              </requires>
+              <returns>
+                <para>An iterator pointing to the inserted element.</para>
+              </returns>
+              <throws>
+                <para>If an exception is thrown by an operation other than a call to <code>hasher</code> the function has no effect.</para>
+              </throws>
+              <notes>
+                <para>The standard is fairly vague on the meaning of the hint. But the only practical way to use it, and the only way that Boost.Unordered supports is to point to an existing element with the same value. </para>
+                <para>Can invalidate iterators, but only if the insert causes the load factor to be greater to or equal to the maximum load factor.</para>
+                <para>Pointers and references to elements are never invalidated.</para>
+              </notes>
+            </method>
+            <method name="insert">
+              <parameter name="hint">
+                <paramtype>const_iterator</paramtype>
+              </parameter>
+              <parameter name="obj">
+                <paramtype>value_type&amp;&amp;</paramtype>
+              </parameter>
+              <type>iterator</type>
+              <description>
+                <para>Inserts <code>obj</code> in the container.</para>
+                <para>hint is a suggestion to where the element should be inserted.</para>
+              </description>
+              <requires>
+                <para><code>value_type</code> is <code>MoveInsertable</code>.</para>
+              </requires>
               <returns>
                 <para>An iterator pointing to the inserted element.</para>
               </returns>
@@ -1432,6 +1591,10 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
               <description>
                 <para>Inserts a range of elements into the container. Elements are inserted if and only if there is no element in the container with an equivalent value.</para>
               </description>
+              <requires>
+                <para><code>value_type</code> is <code>EmplaceConstructible</code> into
+                  <code>X</code> from <code>*first</code>.</para>
+              </requires>
               <throws>
                 <para>When inserting a single element, if an exception is thrown by an operation other than a call to <code>hasher</code> the function has no effect.</para>
               </throws>
@@ -1963,10 +2126,14 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
                   <tbody>
                     <row>
                       <entry><emphasis>Key</emphasis></entry>
-                      <entry>Key must be Assignable and CopyConstructible.</entry></row>
+                      <entry><code>Key</code> must be <code>Erasable</code> from the container
+                        (i.e. <code>allocator_traits</code> can <code>destroy</code> it).
+                      </entry></row>
                     <row>
                       <entry><emphasis>Mapped</emphasis></entry>
-                      <entry>Mapped must be CopyConstructible</entry></row>
+                      <entry><code>Mapped</code> must be <code>Erasable</code> from the container
+                        (i.e. <code>allocator_traits</code> can <code>destroy</code> it).
+                      </entry></row>
                     <row>
                       <entry><emphasis>Hash</emphasis></entry>
                       <entry>A unary function object type that acts a hash function for a <code>Key</code>. It takes a single argument of type <code>Key</code> and returns a value of type std::size_t.</entry></row>
@@ -2091,6 +2258,11 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
             <description>
               <para>Constructs an empty container with at least n buckets, using hf as the hash function, eq as the key equality predicate, a as the allocator and a maximum load factor of 1.0.</para>
             </description>
+            <requires>
+              <para>If the defaults are used, <code>hasher</code>, <code>key_equal</code> and
+                <code>allocator_type</code> need to be <code>DefaultConstructible</code>.
+              </para>
+            </requires>
           </constructor>
           <constructor>
             <template>
@@ -2122,6 +2294,11 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
             <description>
               <para>Constructs an empty container with at least n buckets, using hf as the hash function, eq as the key equality predicate, a as the allocator and a maximum load factor of 1.0 and inserts the elements from [f, l) into it.</para>
             </description>
+            <requires>
+              <para>If the defaults are used, <code>hasher</code>, <code>key_equal</code> and
+                <code>allocator_type</code> need to be <code>DefaultConstructible</code>.
+              </para>
+            </requires>
           </constructor>
           <constructor>
             <parameter>
@@ -2290,6 +2467,11 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
               <description>
                 <para>Inserts an object, constructed with the arguments <code>args</code>, in the container if and only if there is no element in the container with an equivalent key.</para>
               </description>
+              <requires>
+                <para><code>value_type</code> is <code>EmplaceConstructible</code> into
+                  <code>X</code> from <code>args</code>.
+                </para>
+              </requires>
               <returns>
                 <para>The bool component of the return type is true if an insert took place.</para>
                 <para>If an insert took place, then the iterator points to the newly inserted element. Otherwise, it points to the element with equivalent key.</para>
@@ -2328,6 +2510,11 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
                 <para>Inserts an object, constructed with the arguments <code>args</code>, in the container if and only if there is no element in the container with an equivalent key.</para>
                 <para><code>hint</code> is a suggestion to where the element should be inserted.</para>
               </description>
+              <requires>
+                <para><code>value_type</code> is <code>EmplaceConstructible</code> into
+                  <code>X</code> from <code>args</code>.
+                </para>
+              </requires>
               <returns>
                 <para>If an insert took place, then the iterator points to the newly inserted element. Otherwise, it points to the element with equivalent key.</para>
               </returns>
@@ -2358,6 +2545,32 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
               <description>
                 <para>Inserts <code>obj</code> in the container if and only if there is no element in the container with an equivalent key.</para>
               </description>
+              <requires>
+                <para><code>value_type</code> is <code>CopyInsertable</code>.</para>
+              </requires>
+              <returns>
+                <para>The bool component of the return type is true if an insert took place.</para>
+                <para>If an insert took place, then the iterator points to the newly inserted element. Otherwise, it points to the element with equivalent key.</para>
+              </returns>
+              <throws>
+                <para>If an exception is thrown by an operation other than a call to <code>hasher</code> the function has no effect.</para>
+              </throws>
+              <notes>
+                <para>Can invalidate iterators, but only if the insert causes the load factor to be greater to or equal to the maximum load factor.</para>
+                <para>Pointers and references to elements are never invalidated.</para>
+              </notes>
+            </method>
+            <method name="insert">
+              <parameter name="obj">
+                <paramtype>value_type&amp;&amp;</paramtype>
+              </parameter>
+              <type>std::pair&lt;iterator, bool&gt;</type>
+              <description>
+                <para>Inserts <code>obj</code> in the container if and only if there is no element in the container with an equivalent key.</para>
+              </description>
+              <requires>
+                <para><code>value_type</code> is <code>MoveInsertable</code>.</para>
+              </requires>
               <returns>
                 <para>The bool component of the return type is true if an insert took place.</para>
                 <para>If an insert took place, then the iterator points to the newly inserted element. Otherwise, it points to the element with equivalent key.</para>
@@ -2382,6 +2595,36 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
                 <para>Inserts <code>obj</code> in the container if and only if there is no element in the container with an equivalent key.</para>
                 <para>hint is a suggestion to where the element should be inserted.</para>
               </description>
+              <requires>
+                <para><code>value_type</code> is <code>CopyInsertable</code>.</para>
+              </requires>
+              <returns>
+                <para>If an insert took place, then the iterator points to the newly inserted element. Otherwise, it points to the element with equivalent key.</para>
+              </returns>
+              <throws>
+                <para>If an exception is thrown by an operation other than a call to <code>hasher</code> the function has no effect.</para>
+              </throws>
+              <notes>
+                <para>The standard is fairly vague on the meaning of the hint. But the only practical way to use it, and the only way that Boost.Unordered supports is to point to an existing element with the same key. </para>
+                <para>Can invalidate iterators, but only if the insert causes the load factor to be greater to or equal to the maximum load factor.</para>
+                <para>Pointers and references to elements are never invalidated.</para>
+              </notes>
+            </method>
+            <method name="insert">
+              <parameter name="hint">
+                <paramtype>const_iterator</paramtype>
+              </parameter>
+              <parameter name="obj">
+                <paramtype>value_type&amp;&amp;</paramtype>
+              </parameter>
+              <type>iterator</type>
+              <description>
+                <para>Inserts <code>obj</code> in the container if and only if there is no element in the container with an equivalent key.</para>
+                <para>hint is a suggestion to where the element should be inserted.</para>
+              </description>
+              <requires>
+                <para><code>value_type</code> is <code>MoveInsertable</code>.</para>
+              </requires>
               <returns>
                 <para>If an insert took place, then the iterator points to the newly inserted element. Otherwise, it points to the element with equivalent key.</para>
               </returns>
@@ -2409,6 +2652,10 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
               <description>
                 <para>Inserts a range of elements into the container. Elements are inserted if and only if there is no element in the container with an equivalent key.</para>
               </description>
+              <requires>
+                <para><code>value_type</code> is <code>EmplaceConstructible</code> into
+                  <code>X</code> from <code>*first</code>.</para>
+              </requires>
               <throws>
                 <para>When inserting a single element, if an exception is thrown by an operation other than a call to <code>hasher</code> the function has no effect.</para>
               </throws>
@@ -2973,10 +3220,14 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
                   <tbody>
                     <row>
                       <entry><emphasis>Key</emphasis></entry>
-                      <entry>Key must be Assignable and CopyConstructible.</entry></row>
+                      <entry><code>Key</code> must be <code>Erasable</code> from the container
+                        (i.e. <code>allocator_traits</code> can <code>destroy</code> it).
+                      </entry></row>
                     <row>
                       <entry><emphasis>Mapped</emphasis></entry>
-                      <entry>Mapped must be CopyConstructible</entry></row>
+                      <entry><code>Mapped</code> must be <code>Erasable</code> from the container
+                        (i.e. <code>allocator_traits</code> can <code>destroy</code> it).
+                      </entry></row>
                     <row>
                       <entry><emphasis>Hash</emphasis></entry>
                       <entry>A unary function object type that acts a hash function for a <code>Key</code>. It takes a single argument of type <code>Key</code> and returns a value of type std::size_t.</entry></row>
@@ -3101,6 +3352,11 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
             <description>
               <para>Constructs an empty container with at least n buckets, using hf as the hash function, eq as the key equality predicate, a as the allocator and a maximum load factor of 1.0.</para>
             </description>
+            <requires>
+              <para>If the defaults are used, <code>hasher</code>, <code>key_equal</code> and
+                <code>allocator_type</code> need to be <code>DefaultConstructible</code>.
+              </para>
+            </requires>
           </constructor>
           <constructor>
             <template>
@@ -3132,6 +3388,11 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
             <description>
               <para>Constructs an empty container with at least n buckets, using hf as the hash function, eq as the key equality predicate, a as the allocator and a maximum load factor of 1.0 and inserts the elements from [f, l) into it.</para>
             </description>
+            <requires>
+              <para>If the defaults are used, <code>hasher</code>, <code>key_equal</code> and
+                <code>allocator_type</code> need to be <code>DefaultConstructible</code>.
+              </para>
+            </requires>
           </constructor>
           <constructor>
             <parameter>
@@ -3300,6 +3561,11 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
               <description>
                 <para>Inserts an object, constructed with the arguments <code>args</code>, in the container.</para>
               </description>
+              <requires>
+                <para><code>value_type</code> is <code>EmplaceConstructible</code> into
+                  <code>X</code> from <code>args</code>.
+                </para>
+              </requires>
               <returns>
                 <para>An iterator pointing to the inserted element.</para>
               </returns>
@@ -3337,6 +3603,11 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
                 <para>Inserts an object, constructed with the arguments <code>args</code>, in the container.</para>
                 <para><code>hint</code> is a suggestion to where the element should be inserted.</para>
               </description>
+              <requires>
+                <para><code>value_type</code> is <code>EmplaceConstructible</code> into
+                  <code>X</code> from <code>args</code>.
+                </para>
+              </requires>
               <returns>
                 <para>An iterator pointing to the inserted element.</para>
               </returns>
@@ -3367,6 +3638,31 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
               <description>
                 <para>Inserts <code>obj</code> in the container.</para>
               </description>
+              <requires>
+                <para><code>value_type</code> is <code>CopyInsertable</code>.</para>
+              </requires>
+              <returns>
+                <para>An iterator pointing to the inserted element.</para>
+              </returns>
+              <throws>
+                <para>If an exception is thrown by an operation other than a call to <code>hasher</code> the function has no effect.</para>
+              </throws>
+              <notes>
+                <para>Can invalidate iterators, but only if the insert causes the load factor to be greater to or equal to the maximum load factor.</para>
+                <para>Pointers and references to elements are never invalidated.</para>
+              </notes>
+            </method>
+            <method name="insert">
+              <parameter name="obj">
+                <paramtype>value_type&amp;&amp;</paramtype>
+              </parameter>
+              <type>iterator</type>
+              <description>
+                <para>Inserts <code>obj</code> in the container.</para>
+              </description>
+              <requires>
+                <para><code>value_type</code> is <code>MoveInsertable</code>.</para>
+              </requires>
               <returns>
                 <para>An iterator pointing to the inserted element.</para>
               </returns>
@@ -3390,6 +3686,36 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
                 <para>Inserts <code>obj</code> in the container.</para>
                 <para>hint is a suggestion to where the element should be inserted.</para>
               </description>
+              <requires>
+                <para><code>value_type</code> is <code>CopyInsertable</code>.</para>
+              </requires>
+              <returns>
+                <para>An iterator pointing to the inserted element.</para>
+              </returns>
+              <throws>
+                <para>If an exception is thrown by an operation other than a call to <code>hasher</code> the function has no effect.</para>
+              </throws>
+              <notes>
+                <para>The standard is fairly vague on the meaning of the hint. But the only practical way to use it, and the only way that Boost.Unordered supports is to point to an existing element with the same key. </para>
+                <para>Can invalidate iterators, but only if the insert causes the load factor to be greater to or equal to the maximum load factor.</para>
+                <para>Pointers and references to elements are never invalidated.</para>
+              </notes>
+            </method>
+            <method name="insert">
+              <parameter name="hint">
+                <paramtype>const_iterator</paramtype>
+              </parameter>
+              <parameter name="obj">
+                <paramtype>value_type&amp;&amp;</paramtype>
+              </parameter>
+              <type>iterator</type>
+              <description>
+                <para>Inserts <code>obj</code> in the container.</para>
+                <para>hint is a suggestion to where the element should be inserted.</para>
+              </description>
+              <requires>
+                <para><code>value_type</code> is <code>MoveInsertable</code>.</para>
+              </requires>
               <returns>
                 <para>An iterator pointing to the inserted element.</para>
               </returns>
@@ -3417,6 +3743,10 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
               <description>
                 <para>Inserts a range of elements into the container. Elements are inserted if and only if there is no element in the container with an equivalent key.</para>
               </description>
+              <requires>
+                <para><code>value_type</code> is <code>EmplaceConstructible</code> into
+                  <code>X</code> from <code>*first</code>.</para>
+              </requires>
               <throws>
                 <para>When inserting a single element, if an exception is thrown by an operation other than a call to <code>hasher</code> the function has no effect.</para>
               </throws>

@@ -1,4 +1,4 @@
-# $Id: Jamfile.v2 79373 2012-07-09 05:55:01Z viboes $
+# $Id: Jamfile.v2 80476 2012-09-09 19:39:44Z viboes $
 # Copyright 2006-2007 Roland Schwarz.
 # Copyright 2007 Anthony Williams
 # Copyright 2011-2012 Vicente J.Botet Escriba.
@@ -47,6 +47,7 @@ project boost/thread
       -<tag>@$(BOOST_JAMROOT_MODULE)%$(BOOST_JAMROOT_MODULE).tag
       <tag>@$(__name__).tag
       <toolset>gcc:<cxxflags>-Wno-long-long
+      <define>BOOST_THREAD_THROW_IF_PRECONDITION_NOT_SATISFIED
       <define>BOOST_SYSTEM_NO_DEPRECATED
       <library>/boost/system//boost_system
        #-pedantic -ansi -std=gnu++0x -Wextra -fpermissive
@@ -98,6 +99,7 @@ project boost/thread
       #<link>shared:<define>BOOST_THREAD_DYN_LINK=1
       <link>static:<define>BOOST_THREAD_BUILD_LIB=1
       <link>shared:<define>BOOST_THREAD_BUILD_DLL=1
+      <define>BOOST_THREAD_THROW_IF_PRECONDITION_NOT_SATISFIED
       <define>BOOST_SYSTEM_NO_DEPRECATED
       <library>/boost/system//boost_system
     ;
@@ -236,10 +238,7 @@ rule requirements ( properties * )
             }
         }
     }
-    if ! <toolset>vacpp in $(properties) || <toolset-vacpp:version>11.1 in $(properties)
-    {
-      result += <library>/boost/chrono//boost_chrono ;
-    }
+    result += <define>BOOST_THREAD_DONT_USE_CHRONO ;
 
     return $(result) ;
 }

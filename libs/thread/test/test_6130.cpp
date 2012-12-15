@@ -1,4 +1,10 @@
+// Copyright (C) 2010 Vicente Botet
+//
+//  Distributed under the Boost Software License, Version 1.0. (See accompanying
+//  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
 #include <boost/thread.hpp>
+#include <boost/date_time/posix_time/posix_time_io.hpp>
 #include <assert.h>
 #include <iostream>
 #include <stdlib.h>
@@ -29,6 +35,9 @@ int main()
     std::cerr << "now_time =" << now_time << " \n";
     std::cerr << "end_time =" << end_time << " \n";
     std::cerr << "wait_time=" << wait_time << " \n";
+    std::cerr << "now_time =" << from_time_t(now_time) << " \n";
+    std::cerr << "end_time =" << from_time_t(end_time) << " \n";
+    std::cerr << "wait_time=" << from_time_t(wait_time) << " \n";
     std::cerr << end_time - wait_time << " \n";
     assert(end_time >= wait_time);
     std::cerr << " OK\n";

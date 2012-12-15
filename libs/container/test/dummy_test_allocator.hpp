@@ -111,7 +111,7 @@ class dummy_test_allocator
    dummy_test_allocator(const dummy_test_allocator<T2> &)
    {}
 
-   pointer address(reference value) 
+   pointer address(reference value)
    {  return pointer(container_detail::addressof(value));  }
 
    const_pointer address(const_reference value) const

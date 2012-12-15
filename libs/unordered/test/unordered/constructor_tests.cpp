@@ -21,8 +21,7 @@ namespace constructor_tests {
 test::seed_t initialize_seed(356730);
 
 template <class T>
-void constructor_tests1(T*,
-    test::random_generator generator = test::default_generator)
+void constructor_tests1(T*, test::random_generator generator)
 {
     BOOST_DEDUCED_TYPENAME T::hasher hf;
     BOOST_DEDUCED_TYPENAME T::key_equal eq;
@@ -173,8 +172,7 @@ void constructor_tests1(T*,
 }
 
 template <class T>
-void constructor_tests2(T*,
-    test::random_generator const& generator = test::default_generator)
+void constructor_tests2(T*, test::random_generator const& generator)
 {
     BOOST_DEDUCED_TYPENAME T::hasher hf;
     BOOST_DEDUCED_TYPENAME T::hasher hf1(1);
@@ -383,8 +381,7 @@ void constructor_tests2(T*,
 }
 
 template <class T>
-void map_constructor_test(T* = 0,
-    test::random_generator const& generator = test::default_generator)
+void map_constructor_test(T*, test::random_generator const& generator)
 {
     std::cerr<<"map_constructor_test\n";
 
@@ -434,6 +431,7 @@ UNORDERED_TEST(constructor_tests2,
 
 UNORDERED_TEST(map_constructor_test,
     ((test_map_std_alloc)(test_map)(test_multimap))
+    ((default_generator)(generate_collisions))
 )
 
 #if !defined(BOOST_NO_CXX11_HDR_INITIALIZER_LIST)

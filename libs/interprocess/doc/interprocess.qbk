@@ -1,5 +1,5 @@
 [/
- / Copyright (c) 2005-2011 Ion Gaztanaga
+ / Copyright (c) 2005-2012 Ion Gaztanaga
  /
  / Distributed under the Boost Software License, Version 1.0. (See accompanying
  / file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -622,14 +622,9 @@ to shared memory created with other process that don't use
 Windows shared memory creation is a bit different from portable shared memory
 creation: the size of the segment must be specified when creating the object and
 can't be specified through `truncate` like with the shared memory object.
-
 Take in care that when the last process attached to a shared memory is destroyed
 [*the shared memory is destroyed] so there is [*no persistency] with native windows
-shared memory. Native windows shared memory has also another limitation: a process can
-open and map the whole shared memory created by another process but it can't know
-which is the size of that memory. This limitation is imposed by the Windows API so
-the user must somehow transmit the size of the segment to processes opening the
-segment.
+shared memory.
 
 Sharing memory between services and user applications is also different. To share memory
 between services and user applications the name of the shared memory must start with the
@@ -865,7 +860,7 @@ to create `mapped_region` objects. A mapped region created from a shared memory
 object or a file mapping are the same class and this has many advantages.
 
 One can, for example, mix in STL containers mapped regions from shared memory
-and memory mapped files. The libraries that only depend on mapped regions can
+and memory mapped files. Libraries that only depend on mapped regions can
 be used to work with shared memory or memory mapped files without recompiling them.
 
 [endsect]
@@ -881,7 +876,7 @@ surely different in each process. Since each process might have used its address
 in a different way (allocation of more or less dynamic memory, for example), there is
 no guarantee that the file/shared memory is going to be mapped in the same address.
 
-If two processes map the same object in different addresses, this invalids the use
+If two processes map the same object in different addresses, this invalidates the use
 of pointers in that memory, since the pointer (which is an absolute address) would
 only make sense for the process that wrote it. The solution for this is to use offsets
 (distance) between objects instead of pointers: If two objects are placed in the same
@@ -1592,10 +1587,25 @@ Boost.Interprocess offers the following condition types:
 
 [c++]
 
+   #include <boost/interprocess/sync/interprocess_condition_any.hpp>
+
+* [classref boost::interprocess::interprocess_condition_any interprocess_condition_any]:
+  An anonymous condition variable that can be placed in shared memory or memory
+  mapped files to be used with any lock type.
+
+[c++]
+
    #include <boost/interprocess/sync/named_condition.hpp>
 
 * [classref boost::interprocess::named_condition named_condition]: A named
   condition variable to be used with [classref boost::interprocess::named_mutex named_mutex].
+
+[c++]
+
+   #include <boost/interprocess/sync/named_condition_any.hpp>
+
+* [classref boost::interprocess::named_condition named_condition]: A named
+  condition variable to be used with any lock type.
 
 Named conditions are similar to anonymous conditions, but they are used in
 combination with named mutexes. Several times, we don't want to store
@@ -1725,12 +1735,12 @@ efficient than a mutex/condition combination.
 
 [endsect]
 
-[section:upgradable_mutexes Upgradable Mutexes]
+[section:sharable_upgradable_mutexes Sharable and Upgradable Mutexes]
 
-[section:upgradable_whats_a_mutex What's An Upgradable Mutex?]
+[section:upgradable_whats_a_mutex What's a Sharable and an Upgradable Mutex?]
 
-An upgradable mutex is a special mutex that offers more locking possibilities than
-a normal mutex. Sometimes, we can distinguish between [*reading] the data and
+Sharable and upgradable mutex are special mutex types that offers more locking possibilities
+than a normal mutex. Sometimes, we can distinguish between [*reading] the data and
 [*modifying] the data. If just some threads need to modify the data, and a plain mutex
 is used to protect the data from concurrent access, concurrency is pretty limited:
 two threads that only read the data will be serialized instead of being executed
@@ -1740,19 +1750,20 @@ If we allow concurrent access to threads that just read the data but we avoid
 concurrent access between threads that read and modify or between threads that modify,
 we can increase performance. This is specially true in applications where data reading
 is more common than data modification and the synchronized data reading code needs
-some time to execute. With an upgradable mutex we can acquire 3
-lock types:
+some time to execute. With a sharable mutex we can acquire 2 lock types:
 
 *  [*Exclusive lock]: Similar to a plain mutex. If a thread acquires an exclusive
    lock, no other thread can acquire any lock (exclusive or other) until the exclusive
-   lock is released. If any thread has a sharable or upgradable lock a thread trying
+   lock is released. If any thread other has any lock other than exclusive, a thread trying
    to acquire an exclusive lock will block.
    This lock will be acquired by threads that will modify the data.
 
 *  [*Sharable lock]: If a thread acquires a sharable lock, other threads
-   can acquire a sharable lock or an upgradable lock. If any thread has acquired
+   can't acquire the exclusive lock. If any thread has acquired
    the exclusive lock a thread trying to acquire a sharable lock will block.
    This locking is executed by threads that just need to read the data.
+
+With an upgradable mutex we can acquire previous locks plus a new upgradable lock:
 
 *  [*Upgradable lock]: Acquiring an upgradable lock is similar to acquiring
    a [*privileged sharable lock]. If a thread acquires an upgradable lock, other threads
@@ -1772,20 +1783,34 @@ lock types:
 
 To sum up:
 
-[table Locking Possibilities
+[table Locking Possibilities for a Sharable Mutex
+   [[If a thread has acquired the...] [Other threads can acquire...]]
+   [[Sharable lock]    [many sharable locks]]
+   [[Exclusive lock]   [no locks]]
+]
+
+[table Locking Possibilities for an Upgradable Mutex
    [[If a thread has acquired the...] [Other threads can acquire...]]
    [[Sharable lock]    [many sharable locks and 1 upgradable lock]]
    [[Upgradable lock]  [many sharable locks]]
    [[Exclusive lock]   [no locks]]
 ]
 
-A thread that has acquired a lock can try to acquire another lock type atomically.
+[endsect]
+
+[section:upgradable_transitions Lock transitions for Upgradable Mutex]
+
+A sharable mutex has no option to change the acquired lock for another lock 
+atomically.
+
+On the other hand, for an upgradable mutex, a thread that has 
+acquired a lock can try to acquire another lock type atomically.
 All lock transitions are not guaranteed to succeed. Even if a transition is guaranteed
 to succeed, some transitions will block the thread waiting until other threads release
 the sharable locks. [*Atomically] means that no other thread will acquire an Upgradable
 or Exclusive lock in the transition, [*so data is guaranteed to remain unchanged]:
 
-[table Transition Possibilities
+[table Transition Possibilities for an Upgradable Mutex
    [[If a thread has acquired the...] [It can atomically release the previous lock and...]]
    [[Sharable lock]    [try to obtain (not guaranteed) immediately the Exclusive lock if no other thread has exclusive or upgrable lock]]
    [[Sharable lock]    [try to obtain (not guaranteed) immediately the Upgradable lock if no other thread has exclusive or upgrable lock]]
@@ -1803,18 +1828,18 @@ and there are more readers than modifiers.
 
 [endsect]
 
-[section:upgradable_mutexes_operations Upgradable Mutex Operations]
+[section:sharable_upgradable_mutexes_operations Upgradable Mutex Operations]
 
 All the upgradable mutex types from [*Boost.Interprocess] implement
 the following operations:
 
-[section:upgradable_mutexes_operations_exclusive Exclusive Locking]
+[section:sharable_upgradable_mutexes_operations_exclusive Exclusive Locking (Sharable & Upgradable Mutexes)]
 
 [blurb ['[*void lock()]]]
 
 [*Effects:]
 The calling thread tries to obtain exclusive ownership of the mutex, and if
-another thread has exclusive, sharable or upgradable ownership of the mutex,
+another thread has any ownership of the mutex (exclusive or other),
 it waits until it can obtain the ownership.
 
 [*Throws:] *interprocess_exception* on error.
@@ -1823,8 +1848,8 @@ it waits until it can obtain the ownership.
 
 [*Effects:]
 The calling thread tries to acquire exclusive ownership of the mutex without
-waiting. If no other thread has exclusive, sharable or upgradable ownership of
-the mutex this succeeds.
+waiting. If no other thread has any ownership of the mutex (exclusive or other)
+this succeeds.
 
 [*Returns:] If it can acquire exclusive ownership immediately returns true.
 If it has to wait, returns false.
@@ -1835,8 +1860,8 @@ If it has to wait, returns false.
 
 [*Effects:]
 The calling thread tries to acquire exclusive ownership of the mutex
-waiting if necessary until no other thread has exclusive,
-sharable or upgradable ownership of the mutex or abs_time is reached.
+waiting if necessary until no other thread has any ownership of the mutex
+(exclusive or other) or abs_time is reached.
 
 [*Returns:] If acquires exclusive ownership, returns true. Otherwise
 returns false.
@@ -1853,7 +1878,7 @@ returns false.
 
 [endsect]
 
-[section:upgradable_mutexes_operations_sharable Sharable Locking]
+[section:sharable_upgradable_mutexes_operations_sharable Sharable Locking (Sharable & Upgradable Mutexes)]
 
 [blurb ['[*void lock_sharable()]]]
 
@@ -1898,7 +1923,7 @@ returns false.
 
 [endsect]
 
-[section:upgradable_mutexes_operations_upgradable Upgradable Locking]
+[section:upgradable_mutexes_operations_upgradable Upgradable Locking (Upgradable Mutex only)]
 
 [blurb ['[*void lock_upgradable()]]]
 
@@ -1943,7 +1968,7 @@ returns false.
 
 [endsect]
 
-[section:upgradable_mutexes_operations_demotions Demotions]
+[section:upgradable_mutexes_operations_demotions Demotions (Upgradable Mutex only)]
 
 [blurb ['[*void unlock_and_lock_upgradable()]]]
 
@@ -1974,7 +1999,7 @@ ownership. This operation is non-blocking.
 
 [endsect]
 
-[section:upgradable_mutexes_operations_promotions Promotions]
+[section:upgradable_mutexes_operations_promotions Promotions (Upgradable Mutex only)]
 [blurb ['[*void unlock_upgradable_and_lock()]]]
 
 [*Precondition:] The thread must have upgradable ownership of the mutex.
@@ -2036,7 +2061,23 @@ are UTC time points, not local time points]
 
 [endsect]
 
-[section:upgradable_mutexes_mutex_interprocess_mutexes Boost.Interprocess Upgradable Mutex Types And Headers]
+[section:sharable_upgradable_mutexes_mutex_interprocess_mutexes Boost.Interprocess Sharable & Upgradable Mutex Types And Headers]
+
+Boost.Interprocess offers the following sharable mutex types:
+
+[c++]
+
+   #include <boost/interprocess/sync/interprocess_sharable_mutex.hpp>
+
+* [classref boost::interprocess::interprocess_sharable_mutex interprocess_sharable_mutex]: A non-recursive,
+  anonymous sharable mutex that can be placed in shared memory or memory mapped files.
+
+[c++]
+
+   #include <boost/interprocess/sync/named_sharable_mutex.hpp>
+
+* [classref boost::interprocess::named_sharable_mutex named_sharable_mutex]: A non-recursive,
+  named sharable mutex.
 
 Boost.Interprocess offers the following upgradable mutex types:
 
@@ -2056,7 +2097,7 @@ Boost.Interprocess offers the following upgradable mutex types:
 
 [endsect]
 
-[section:upgradable_mutexes_locks Sharable Lock And Upgradable Lock]
+[section:sharable_upgradable_locks Sharable Lock And Upgradable Lock]
 
 As with plain mutexes, it's important to release the acquired lock even in the presence
 of exceptions. [*Boost.Interprocess] mutexes are best used with the
@@ -2089,20 +2130,16 @@ can use `sharable_lock` if the synchronization object offers [*lock_sharable()] 
 `sharable_lock` calls [*unlock_sharable()] in its destructor, and
 `upgradable_lock` calls [*unlock_upgradable()] in its destructor, so the
 upgradable mutex is always unlocked when an exception occurs.
-Scoped lock has many constructors to lock,
-try_lock, timed_lock a mutex or not to lock it at all.
-
 
 [c++]
 
    using namespace boost::interprocess;
 
-   //Let's create any mutex type:
-   MutexType mutex;
+   SharableOrUpgradableMutex sh_or_up_mutex;
 
    {
       //This will call lock_sharable()
-      sharable_lock<MutexType> lock(mutex);
+      sharable_lock<SharableOrUpgradableMutex> lock(sh_or_up_mutex);
 
       //Some code
 
@@ -2111,7 +2148,7 @@ try_lock, timed_lock a mutex or not to lock it at all.
 
    {
       //This won't lock the mutex()
-      sharable_lock<MutexType> lock(mutex, defer_lock);
+      sharable_lock<SharableOrUpgradableMutex> lock(sh_or_up_mutex, defer_lock);
 
       //Lock it on demand. This will call lock_sharable()
       lock.lock();
@@ -2123,7 +2160,7 @@ try_lock, timed_lock a mutex or not to lock it at all.
 
    {
       //This will call try_lock_sharable()
-      sharable_lock<MutexType> lock(mutex, try_to_lock);
+      sharable_lock<SharableOrUpgradableMutex> lock(sh_or_up_mutex, try_to_lock);
 
       //Check if the mutex has been successfully locked
       if(lock){
@@ -2136,7 +2173,7 @@ try_lock, timed_lock a mutex or not to lock it at all.
       boost::posix_time::ptime abs_time = ...
 
       //This will call timed_lock_sharable()
-      scoped_lock<MutexType> lock(mutex, abs_time);
+      scoped_lock<SharableOrUpgradableMutex> lock(sh_or_up_mutex, abs_time);
 
       //Check if the mutex has been successfully locked
       if(lock){
@@ -2145,9 +2182,11 @@ try_lock, timed_lock a mutex or not to lock it at all.
       //If the mutex was locked it will be unlocked
    }
 
+   UpgradableMutex up_mutex;
+
    {
       //This will call lock_upgradable()
-      upgradable_lock<MutexType> lock(mutex);
+      upgradable_lock<UpgradableMutex> lock(up_mutex);
 
       //Some code
 
@@ -2156,7 +2195,7 @@ try_lock, timed_lock a mutex or not to lock it at all.
 
    {
       //This won't lock the mutex()
-      upgradable_lock<MutexType> lock(mutex, defer_lock);
+      upgradable_lock<UpgradableMutex> lock(up_mutex, defer_lock);
 
       //Lock it on demand. This will call lock_upgradable()
       lock.lock();
@@ -2168,7 +2207,7 @@ try_lock, timed_lock a mutex or not to lock it at all.
 
    {
       //This will call try_lock_upgradable()
-      upgradable_lock<MutexType> lock(mutex, try_to_lock);
+      upgradable_lock<UpgradableMutex> lock(up_mutex, try_to_lock);
 
       //Check if the mutex has been successfully locked
       if(lock){
@@ -2181,7 +2220,7 @@ try_lock, timed_lock a mutex or not to lock it at all.
       boost::posix_time::ptime abs_time = ...
 
       //This will call timed_lock_upgradable()
-      scoped_lock<MutexType> lock(mutex, abs_time);
+      scoped_lock<UpgradableMutex> lock(up_mutex, abs_time);
 
       //Check if the mutex has been successfully locked
       if(lock){
@@ -6574,17 +6613,59 @@ example, a new managed shared memory that uses the new index:
 
 [section:notes_windows Notes for Windows users]
 
-[*Boost.Interprocess] uses the COM library to implement some features and initializes
-the COM library with concurrency model `COINIT_APARTMENTTHREADED`.
-If the COM library was already initialized by the calling thread for other model, [*Boost.Interprocess]
+[section:notes_windows_com_init COM Initialization]
+
+[*Boost.Interprocess] uses the Windows COM library to implement some features and initializes
+it with concurrency model `COINIT_APARTMENTTHREADED`.
+If the COM library was already initialized by the calling thread for another concurrency model, [*Boost.Interprocess]
 handles this gracefully and uses COM calls for the already initialized model. If for some reason, you
-might want [*Boost.Interprocess] to initialize the COM library with another model, define the macro
+want [*Boost.Interprocess] to initialize the COM library with another model, define the macro
 `BOOST_INTERPROCESS_WINDOWS_COINIT_MODEL` before including [*Boost.Interprocess] to one of these values:
 
 * `COINIT_APARTMENTTHREADED_BIPC`
 * `COINIT_MULTITHREADED_BIPC`
 * `COINIT_DISABLE_OLE1DDE_BIPC`
 * `COINIT_SPEED_OVER_MEMORY_BIPC`
+
+[endsect]
+
+[section:notes_windows_shm_folder Shared memory emulation folder]
+
+Shared memory (`shared_memory_object`) is implemented in windows using memory mapped files, placed in a
+directory in the shared documents folder (`SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders\Common AppData`).
+This directory name is the last bootup time (obtained via COM calls), so that each bootup shared memory is created in a new
+folder obtaining kernel persistence shared memory.
+
+Unfortunately, due to COM implementation related errors, in Boost 1.48 & Boost 1.49 the bootup-time folder was dumped and files
+were directly created in shared documents folder, reverting to filesystem persistence shared memory. Boost 1.50 fixed those issues
+and recovered bootup time directory and kernel persistence. If you need to reproduce Boost 1.48 & Boost 1.49 behaviour to communicate
+with applications compiled with that version, comment `#define BOOST_INTERPROCESS_HAS_KERNEL_BOOTTIME` directive
+in the Windows configuration part of `boost/interprocess/detail/workaround.hpp`.
+
+[endsect]
+
+[endsect]
+
+[section:notes_linux Notes for Linux users]
+
+[section:notes_linux_overcommit Overcommit]
+
+The committed address space is the total amount of virtual memory (swap or physical memory/RAM) that the kernel might have to supply
+if all applications decide to access all of the memory they've requested from the kernel.
+By default, Linux allows processes to commit more virtual memory than available in the system. If that memory is not
+accessed, no physical memory + swap is actually used.
+
+The reason for this behaviour is that Linux tries to optimize memory usage on forked processes; fork() creates a full copy of
+the process space, but with overcommitted memory, in this new forked instance only pages which have been written to actually need
+to be allocated by the kernel. If applications access more memory than available, then the kernel must free memory in the hard way:
+the OOM (Out Of Memory)-killer picks some processes to kill in order to recover memory.
+
+[*Boost.Interprocess] has no way to change this behaviour and users might suffer the OOM-killer when accessing shared memory.
+According to the [@http://www.kernel.org/doc/Documentation/vm/overcommit-accounting Kernel documentation], the
+Linux kernel supports several overcommit modes. If you need non-kill guarantees in your application, you should
+change this overcommit behaviour.
+
+[endsect]
 
 [endsect]
 
@@ -6635,11 +6716,30 @@ thank them:
 
 [section:release_notes Release Notes]
 
+[section:release_notes_boost_1_52_00 Boost 1.52 Release]
+
+*  Added `shrink_by` and `advise` functions in `mapped_region`.
+*  [*ABI breaking]Reimplemented `message_queue` with a circular buffer index (the
+   old behavior used an ordered array, leading to excessive copies). This
+   should greatly increase performance but breaks ABI. Old behaviour/ABI can be used
+   undefining macro `BOOST_INTERPROCESS_MSG_QUEUE_CIRCULAR_INDEX` in `boost/interprocess/detail/workaround.hpp`
+*  Improved `message_queue` insertion time avoiding priority search for common cases
+   (both array and circular buffer configurations).
+*  Implemented `sharable_mutex` and `interproces_condition_any`.
+*  Improved `offset_ptr` performance.
+*  Added integer overflow checks.
+
+[endsect]
+
 [section:release_notes_boost_1_51_00 Boost 1.51 Release]
 
 *  Synchronous and asynchronous flushing for `mapped_region::flush`.
-*  Source & ABI breaking: Removed `get_offset` method from `mapped_region` as
+*  [*Source & ABI breaking]: Removed `get_offset` method from `mapped_region` as
    it has no practical utility and `m_offset` member was not for anything else.
+*  [*Source & ABI breaking]: Removed `flush` from `managed_shared_memory`.
+   as it is unspecified according to POSIX:
+   [@http://pubs.opengroup.org/onlinepubs/009695399/functions/msync.html
+   ['"The effect of msync() on a shared memory object or a typed memory object is unspecified"] ].
 *  Fixed bug
   [@https://svn.boost.org/trac/boost/ticket/7152 #7152],
 

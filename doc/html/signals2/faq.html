@@ -26,11 +26,11 @@
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="signals2.faq"></a>Frequently Asked Questions</h2></div></div></div>
 <div class="qandaset">
-<a name="id3234264"></a><dl>
-<dt>1. <a href="faq.html#id3234266">Don't noncopyable signal semantics mean that a class
+<a name="id3325818"></a><dl>
+<dt>1. <a href="faq.html#id3325820">Don't noncopyable signal semantics mean that a class
         with a signal member will be noncopyable as well?</a>
 </dt>
-<dt>2. <a href="faq.html#id3234289">Is Boost.Signals2 thread-safe?</a>
+<dt>2. <a href="faq.html#id3325843">Is Boost.Signals2 thread-safe?</a>
 </dt>
 </dl>
 <table border="0" width="100%" summary="Q and A Set">
@@ -39,7 +39,7 @@
 <tbody>
 <tr class="question">
 <td align="left" valign="top">
-<a name="id3234266"></a><a name="id3234268"></a><p><b>1.</b></p>
+<a name="id3325820"></a><a name="id3325822"></a><p><b>1.</b></p>
 </td>
 <td align="left" valign="top"><p>Don't noncopyable signal semantics mean that a class
         with a signal member will be noncopyable as well?</p></td>
@@ -54,7 +54,7 @@
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="id3234289"></a><a name="id3234291"></a><p><b>2.</b></p>
+<a name="id3325843"></a><a name="id3325845"></a><p><b>2.</b></p>
 </td>
 <td align="left" valign="top"><p>Is Boost.Signals2 thread-safe?</p></td>
 </tr>
@@ -68,7 +68,7 @@
           with signal invocation, you will need to use automatic connection management.
           That is, the objects will need to be owned by
           <code class="computeroutput">shared_ptr</code> and passed to the slot's
-          <code class="computeroutput"><a class="link" href="../boost/signals2/slot.html#id1418158-bb">track</a></code>() method before the slot is connected.
+          <code class="computeroutput"><a class="link" href="../boost/signals2/slot.html#id897805-bb">track</a></code>() method before the slot is connected.
           The <code class="computeroutput"><a class="link" href="../boost/signals2/trackable.html" title="Class trackable">signals2::trackable</a></code> scheme of automatic connection management
           is NOT thread-safe, and is only provided to ease porting of single-threaded
           code from Boost.Signals to Boost.Signals2.

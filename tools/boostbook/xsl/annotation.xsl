@@ -116,6 +116,10 @@
     <!-- Strip off any call -->
     <xsl:variable name="name">
       <xsl:choose>
+        <xsl:when test="contains($fullname, 'operator()')">
+          <xsl:value-of select="substring-before($fullname, 'operator()')"/>
+          <xsl:value-of select="'operator()'"/>
+        </xsl:when>
         <xsl:when test="contains($fullname, '(')">
           <xsl:value-of select="substring-before($fullname, '(')"/>
         </xsl:when>

@@ -22,8 +22,7 @@ namespace copy_tests
 {
 
 template <class T>
-void copy_construct_tests1(T*,
-    test::random_generator const& generator = test::default_generator)
+void copy_construct_tests1(T*, test::random_generator const& generator)
 {
     typedef BOOST_DEDUCED_TYPENAME T::allocator_type allocator_type;
 
@@ -82,11 +81,8 @@ void copy_construct_tests1(T*,
 }
 
 template <class T>
-void copy_construct_tests2(T* ptr,
-    test::random_generator const& generator = test::default_generator)
+void copy_construct_tests2(T*, test::random_generator const& generator)
 {
-    copy_construct_tests1(ptr);
-
     BOOST_DEDUCED_TYPENAME T::hasher hf(1);
     BOOST_DEDUCED_TYPENAME T::key_equal eq(1);
     BOOST_DEDUCED_TYPENAME T::allocator_type al(1);
@@ -208,6 +204,7 @@ UNORDERED_TEST(copy_construct_tests1, (
         (test_set_select_copy)(test_multiset_select_copy)(test_map_select_copy)(test_multimap_select_copy)
         (test_set_no_select_copy)(test_multiset_no_select_copy)(test_map_no_select_copy)(test_multimap_no_select_copy)
     )
+    ((default_generator)(generate_collisions))
 )
 
 UNORDERED_TEST(copy_construct_tests2, (

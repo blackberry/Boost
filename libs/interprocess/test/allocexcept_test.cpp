@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -59,7 +59,7 @@ int main ()
       int i;
       for(i = 0; true; ++i){
          myvec.push_back(InstanceCounter());
-      } 
+      }
    }
    catch(boost::interprocess::bad_alloc &){
       if(InstanceCounter::counter != 0)
@@ -74,7 +74,7 @@ int main ()
       InstanceCounter ic;
       for(i = 0; true; ++i){
          myvec.insert(myvec.begin(), i, ic);
-      } 
+      }
    }
    catch(boost::interprocess::bad_alloc &){
       if(InstanceCounter::counter != 0)

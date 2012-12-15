@@ -79,6 +79,13 @@ Following example converts some number and puts it to file:
     buf_t buffer = boost::lexical_cast<buf_t>(i); // No dynamic memory allocation
     puts(buffer.begin(), file);
 ``
+Following example takes part of the string and converts it to `int`:
+``
+int convert_strings_part(const std::string& s, std::size_t pos, std::size_t n) 
+{
+    return boost::lexical_cast<int>(s.data() + pos, n);
+}
+``
 [endsect]
 
 [section Synopsis]
@@ -99,7 +106,13 @@ Library features defined in [@boost:boost/lexical_cast.hpp boost/lexical_cast.hp
 ``
 Returns the result of streaming arg into a standard library string-based stream and then out as a Target object. Where Target is either `std::string` or `std::wstring`, stream extraction takes the whole content of the string, including spaces, rather than relying on the default `operator>>` behavior. If the conversion is unsuccessful, a `bad_lexical_cast` exception is thrown.
 
-The requirements on the argument and result types are:
+``
+    template <typename Target>
+      Target lexical_cast(const AnyCharacterType* chars, std::size_t count);
+``
+Takes an array of `count` characters as input parameter and streams them out as a Target object. If the conversion is unsuccessful, a `bad_lexical_cast` exception is thrown. This call may be useful for processing nonzero terminated array of characters or processing just some part of character array.
+
+The requirements on the argument and result types for both functions are:
 
 * Source is OutputStreamable, meaning that an `operator<<` is defined that takes a `std::ostream` or `std::wostream` object on the left hand side and an instance of the argument type on the right.
 * Target is InputStreamable, meaning that an `operator>>` is defined that takes a `std::istream` or `std::wistream` object on the left hand side and an instance of the result type on the right.
@@ -113,6 +126,7 @@ The character type of the underlying stream is assumed to be `char` unless eithe
 * Strings: `std::basic_string`, `boost::containers::basic_string`
 * `boost::iterator_range<WideCharPtr>`, where `WideCharPtr` is a pointer to wide-character or pointer to const wide-character
 * `boost::array<CharT, N>` and `std::array<CharT, N>`, `boost::array<const CharT, N>` and `std::array<const CharT, N>` 
+
 
 [important Many compilers and runtime libraries fail to make conversions using new Unicode characters. Make sure that the following code compiles and outputs nonzero values, before using new types:
 ``
@@ -253,12 +267,17 @@ limitation of compiler options that you use.
 ]
 
 * [*Question:]    What is the fastest way to convert a non zero terminated string or a substring using `boost::lexical_cast`?
-  * [*Answer:]      Use `boost::iterator_range` for conversion. For example, if you whant to convert to `int` two characters from a string `str`, you shall write `lexacal_cast<int>(make_iterator_range(str.c_str(), str.c_str() + 2));`.
+  * [*Answer:]      Use `boost::iterator_range` for conversion or `lexical_cast` overload with two parameters. For example, if you whant to convert to `int` two characters from a string `str`, you shall write `lexical_cast<int>(make_iterator_range(str.data(), str.data() + 2));` or `lexical_cast<int>(str.data(), 2);`.
 
 [endsect]
 
 [section Changes]
 
+* [*boost 1.52.0 :]
+
+    * Restored compilation on MSVC-2003 (was broken in 1.51.0).
+    * Added `lexical_cast(const CharType* chars, std::size_t count)` function overload.
+    
 * [*boost 1.51.0 :]
 
     * Better performance, less memory usage for `boost::array<character_type, N>` and `std::array<character_type, N>` conversions.

@@ -986,154 +986,144 @@ When writing transforms, "fold" is such a basic operation that Proto provides a 
 [section:data Passing Auxiliary Data to Transforms]
 [/================================================]
 
-In the last section, we saw that we can pass a second parameter to grammars with transforms: an accumulation variable or /state/ that gets updated as your transform executes. There are times when your transforms will need to access auxiliary data that does /not/ accumulate, so bundling it with the state parameter is impractical. Instead, you can pass auxiliary data as a third parameter, known as the /data/ parameter. Below we show an example involving string processing where the data parameter is essential.
+In the last section, we saw that we can pass a second parameter to grammars with transforms: an accumulation variable or /state/ that gets updated as your transform executes. There are times when your transforms will need to access auxiliary data that does /not/ accumulate, so bundling it with the state parameter is impractical. Instead, you can pass auxiliary data as a third parameter, known as the /data/ parameter.
 
-[note All Proto grammars are function objects that take one, two or three arguments: the expression, the state, and the data. There are no additional arguments to know about, we promise. In Haskell, there is set of tree traversal technologies known collectively as _SYB_. In that framework, there are also three parameters: the term, the accumulator, and the context. These are Proto's expression, state and data parameters under different names.]
+Let's modify our previous example so that it writes each terminal to `std::cout` before it puts it into a list. This could be handy for debugging your transforms, for instance. We can make it general by passing a `std::ostream` into the transform in the data parameter. Within the transform itself, we can retrieve the `ostream` with the _data_pt_ transform. The strategy is as follows: use the _and_ transform to chain two actions. The second action will create the `fusion::cons<>` node as before. The first action, however, will display the current expression. For that, we first construct an instance of [classref  boost::proto::functional::display_expr `proto::functional::display_expr`] and then call it.
 
-Expression templates are often used as an optimization to eliminate temporary objects. Consider the problem of string concatenation: a series of concatenations would result in the needless creation of temporary strings. We can use Proto to make string concatenation very efficient. To make the problem more interesting, we can apply a locale-sensitive transformation to each character during the concatenation. The locale information will be passed as the data parameter.
-
-Consider the following expression template:
-
-    proto::lit("hello") + " " + "world";
-
-We would like to concatenate this string into a statically allocated wide character buffer, widening each character in turn using the specified locale. The first step is to write a grammar that describes this expression, with transforms that calculate the total string length. Here it is:
-
-    // A grammar that matches string concatenation expressions, and
-    // a transform that calculates the total string length.
-    struct StringLength
+    // Fold the terminals in output statements like
+    // "cout_ << 42 << '\n'" into a Fusion cons-list.
+    struct FoldToList
       : proto::or_<
+            // Don't add the ostream terminal to the list
             proto::when<
-                // When you find a character array ...
-                proto::terminal<char[proto::N]>
-                // ... the length is the size of the array minus 1.
-              , mpl::prior<mpl::sizeof_<proto::_value> >()
+                proto::terminal< std::ostream & >
+              , proto::_state
             >
+            // Put all other terminals at the head of the
+            // list that we're building in the "state" parameter
           , proto::when<
-                // The length of a concatenated string is ...
-                proto::plus<StringLength, StringLength>
-                // ... the sum of the lengths of each sub-string.
-              , proto::fold<
-                    _
-                  , mpl::size_t<0>()
-                  , mpl::plus<StringLength, proto::_state>()
+                proto::terminal<_>
+              , proto::and_<
+                    // First, write the terminal to an ostream passed
+                    // in the data parameter
+                    proto::lazy<
+                        proto::make<proto::functional::display_expr(proto::_data)>(_)
+                    >
+                    // Then, constuct the new cons list.
+                  , fusion::cons<proto::_value, proto::_state>(
+                        proto::_value, proto::_state
+                    )
                 >
             >
-        >
-    {};
-
-Notice the use of _fold_pt_. It is a primitive transform that takes a sequence, a state, and function, just like `std::accumulate()`. The three template parameters are transforms. The first yields the sequence of expressions over which to fold, the second yields the initial state of the fold, and the third is the function to apply at each iteration. The use of `proto::_` as the first parameter might have you confused. In addition to being Proto's wildcard, `proto::_` is also a primitive transform that returns the current expression, which (if it is a non-terminal) is a sequence of its child expressions.
-
-Next, we need a function object that accepts a narrow string, a wide character buffer, and a `std::ctype<>` facet for doing the locale-specific stuff. It's fairly straightforward.
-
-    // A function object that writes a narrow string
-    // into a wide buffer.
-    struct WidenCopy : proto::callable
-    {
-        typedef wchar_t *result_type;
-
-        wchar_t *
-        operator()(char const *str, wchar_t *buf, std::ctype<char> const &ct) const
-        {
-            for(; *str; ++str, ++buf)
-                *buf = ct.widen(*str);
-            return buf;
-        }
-    };
-
-Finally, we need some transforms that actually walk the concatenated string expression, widens the characters and writes them to a buffer. We will pass a `wchar_t*` as the state parameter and update it as we go. We'll also pass the `std::ctype<>` facet as the data parameter. It looks like this:
-
-    // Write concatenated strings into a buffer, widening
-    // them as we go.
-    struct StringCopy
-      : proto::or_<
-            proto::when<
-                proto::terminal<char[proto::N]>
-              , WidenCopy(proto::_value, proto::_state, proto::_data)
-            >
+            // For left-shift operations, first fold the right
+            // child to a list using the current state. Use
+            // the result as the state parameter when folding
+            // the left child to a list.
           , proto::when<
-                proto::plus<StringCopy, StringCopy>
-              , StringCopy(
-                    proto::_right
-                  , StringCopy(proto::_left, proto::_state, proto::_data)
+                proto::shift_left<FoldToList, FoldToList>
+              , FoldToList(
+                    proto::_left
+                  , FoldToList(proto::_right, proto::_state, proto::_data)
                   , proto::_data
                 )
             >
         >
     {};
 
-Let's look more closely at the transform associated with non-terminals:
+This is a lot to take in, no doubt. But focus on the second `when` clause above. It says: when you find a terminal, first display the terminal using the `ostream` you find in the data parameter, then take the value of the terminal and the current state to build a new `cons` list. The function object `display_expr` does the job of printing the terminal, and `proto::and_<>` chains the actions together and executes them in sequence, returning the result of the last one. 
 
-    StringCopy(
-        proto::_right
-      , StringCopy(proto::_left, proto::_state, proto::_data)
+[def __the_expr__ ['the-expr]]
+
+[note Also new is _lazy_pt_. Sometimes you don't have a ready-made callable object to execute. Instead, you want to first make one and /then/ execute it. Above, we need to create a `display_expr`, initializing it with our `ostream`. After that, we want to invoke it by passing it the current expression. It's as if we were doing `display_expr(std::cout)(__the_expr__)`. We achieve this two-phase evaluation using `proto::lazy<>`. If this doesn't make sense yet, don't worry about it.]
+
+We can use the above transform as before, but now we can pass an `ostream` as the third parameter and get to watch the transform in action. Here's a sample usage:
+
+    proto::terminal<std::ostream &>::type const cout_ = {std::cout};
+
+    // This is the type of the list we build below
+    typedef
+        fusion::cons<
+            int
+          , fusion::cons<
+                double
+              , fusion::cons<
+                    char
+                  , fusion::nil
+                >
+            >
+        >
+    result_type;
+
+    // Fold an output expression into a Fusion list, using
+    // fusion::nil as the initial state of the transformation.
+    // Pass std::cout as the data parameter so that we can track
+    // the progress of the transform on the console.
+    FoldToList to_list;
+    result_type args = to_list(cout_ << 1 << 3.14 << '\n', fusion::nil(), std::cout);
+
+    // Now "args" is the list: {1, 3.14, '\n'}
+
+This code displays the following:
+
+[pre terminal(
+)
+terminal(3.14)
+terminal(1)]
+
+This is a rather round-about way of demonstrating that you can pass extra data to a transform as a third parameter. There are no restrictions on what this parameter can be, and, unlike the state parameter, Proto will never mess with it.
+
+[heading Transform Environment Variables]
+
+[note ['This is an advanced topic. Feel free to skip if you are new to Proto.]]
+
+The example above uses the data parameter as a transport mechanism for an unstructured blob of data; in this case, a reference to an `ostream`. As your Proto algorithms become more sophisticated, you may find that an unstructured blob of data isn't terribly convenient to work with. Different parts of your algorithm may be interested in different bits of data. What you want, instead, is a way to pass in a collection of /environment variables/ to a transform, like a collection of key\/value pairs. Then, you can easily get at the piece of data you want by asking the data parameter for the value associated with a particular key. Proto's /transform environments/ give you just that.
+
+Let's start by defining a key.
+
+    BOOST_PROTO_DEFINE_ENV_VAR(mykey_type, mykey);
+
+This defines a global constant `mykey` with the type `mykey_type`. We can use `mykey` to store a piece of assiciated data in a transform environment, as so:
+
+    // Call the MyEval algorithm with a transform environment containing
+    // two key/value pairs: one for proto::data and one for mykey
+    MyEval()( expr, state, (proto::data = 42, mykey = "hello world") );
+
+The above means to invoke the `MyEval` algorithm with three parameters: an expression, an initial state, and a transform environment containing two key\/value pairs.
+
+From within a Proto algorithm, you can access the values associated with different keys using the [classref boost::proto::_env_var `proto::_env_var<>`] transform. For instance, `proto::_env_var<mykey_type>` would fetch the value `"hello world"` from the transform environment created above.
+
+The `proto::_data` transform has some additional smarts. Rather than always returning the third parameter regarless of whether it is a blob or a transform environment, it checks first to see if it's a blob or not. If so, that's what gets returned. If not, it returns the value associated with the `proto::data` key. In the above example, that would be the value `42`.
+
+There's a small host of functions, metafunction, and classes that you can use to create and manipulate transform environments, some for testing whether an object is a transform environment, some for coercing an object to be a transform environment, and some for querying a transform environment whether or not is has a value for a particular key. For an exhaustive treatment of the topic, check out the reference for the [headerref boost/proto/transform/env.hpp] header.
+
+[endsect]
+
+[section:implicit_params Implicit Parameters to Primitive Transforms]
+
+Let's use `FoldToList` example from the previous two sections to illustrate some other niceties of Proto transforms. We've seen that grammars, when used as function objects, can accept up to 3 parameters, and that when using these grammars in callable transforms, you can also specify up to 3 parameters. Let's take another look at the transform associated with non-terminals from the last section:
+
+    FoldToList(
+        proto::_left
+      , FoldToList(proto::_right, proto::_state, proto::_data)
       , proto::_data
     )
 
-This bears a resemblance to the transform in the previous section that folded an expression tree into a list. First we recurse on the left child, writing its strings into the `wchar_t*` passed in as the state parameter. That returns the new value of the `wchar_t*`, which is passed as state while transforming the right child. Both invocations receive the same `std::ctype<>`, which is passed in as the data parameter.
+Here we specify all three parameters to both invocations of the `FoldToList` grammar. But we don't have to specify all three. If we don't specify a third parameter, `proto::_data` is assumed. Likewise for the second parameter and `proto::_state`. So the above transform could have been written more simply as:
 
-With these pieces in our pocket, we can implement our concatenate-and-widen function as follows:
-
-    template<typename Expr>
-    void widen( Expr const &expr )
-    {
-        // Make sure the expression conforms to our grammar
-        BOOST_MPL_ASSERT(( proto::matches<Expr, StringLength> ));
-
-        // Calculate the length of the string and allocate a buffer statically
-        static std::size_t const length =
-            boost::result_of<StringLength(Expr)>::type::value;
-        wchar_t buffer[ length + 1 ] = {L'\0'};
-
-        // Get the current ctype facet
-        std::locale loc;
-        std::ctype<char> const &ct(std::use_facet<std::ctype<char> >(loc));
-
-        // Concatenate and widen the string expression
-        StringCopy()(expr, &buffer[0], ct);
-
-        // Write out the buffer.
-        std::wcout << buffer << std::endl;
-    }
-
-    int main()
-    {
-        widen( proto::lit("hello") + " " + "world" );
-    }
-
-The above code displays:
-
-[pre
-hello world
-]
-
-This is a rather round-about way of demonstrating that you can pass extra data to a transform as a third parameter. There are no restrictions on what this parameter can be, and (unlike the state parameter) Proto will never mess with it.
-
-[heading Implicit Parameters to Primitive Transforms]
-
-Let's use the above example to illustrate some other niceties of Proto transforms. We've seen that grammars, when used as function objects, can accept up to 3 parameters, and that when using these grammars in callable transforms, you can also specify up to 3 parameters. Let's take another look at the transform associated with non-terminals above:
-
-    StringCopy(
-        proto::_right
-      , StringCopy(proto::_left, proto::_state, proto::_data)
-      , proto::_data
-    )
-
-Here we specify all three parameters to both invocations of the `StringCopy` grammar. But we don't have to specify all three. If we don't specify a third parameter, `proto::_data` is assumed. Likewise for the second parameter and `proto::_state`. So the above transform could have been written more simply as:
-
-    StringCopy(
-        proto::_right
-      , StringCopy(proto::_left)
+    FoldToList(
+        proto::_left
+      , StringCopy(proto::_right)
     )
 
 The same is true for any primitive transform. The following are all equivalent:
 
 [table Implicit Parameters to Primitive Transforms
   [[Equivalent Transforms]]
-  [[`proto::when<_, StringCopy>`]]
-  [[`proto::when<_, StringCopy()>`]]
-  [[`proto::when<_, StringCopy(_)>`]]
-  [[`proto::when<_, StringCopy(_, proto::_state)>`]]
-  [[`proto::when<_, StringCopy(_, proto::_state, proto::_data)>`]]
+  [[`proto::when<_, FoldToList>`]]
+  [[`proto::when<_, FoldToList()>`]]
+  [[`proto::when<_, FoldToList(_)>`]]
+  [[`proto::when<_, FoldToList(_, proto::_state)>`]]
+  [[`proto::when<_, FoldToList(_, proto::_state, proto::_data)>`]]
 ]
 
 [note *Grammars Are Primitive Transforms Are Function Objects*
@@ -1142,18 +1132,18 @@ So far, we've said that all Proto grammars are function objects. But it's more a
 
 [note *Not All Function Objects Are Primitive Transforms*
 
-You might be tempted now to drop the `_state` and `_data` parameters to `WidenCopy(proto::_value, proto::_state, proto::_data)`. That would be an error. `WidenCopy` is just a plain function object, not a primitive transform, so you must specify all its arguments. We'll see later how to write your own primitive transforms.]
+You might be tempted now to drop the `_state` and `_data` parameters for all your callable transforms. That would be an error. You can only do that for primitive transforms, and not all callables are primitive transforms. Later on, we'll see what distinguishes ordinary callables from their more powerful primitive transfor cousins, but the short version is this: primitive transforms inherit from [classref  boost::proto::transform `proto::transform<>`].]
 
 Once you know that primitive transforms will always receive all three parameters -- expression, state, and data -- it makes things possible that wouldn't be otherwise. For instance, consider that for binary expressions, these two transforms are equivalent. Can you see why?
 
 [table Two Equivalent Transforms
-  [[Without [^proto::fold<>]][With [^proto::fold<>]]]
-  [[``StringCopy(
-    proto::_right
-  , StringCopy(proto::_left, proto::_state, proto::_data)
+  [[Without [^proto::reverse_fold<>]][With [^proto::reverse_fold<>]]]
+  [[``FoldToList(
+    proto::_left
+  , FoldToList(proto::_right, proto::_state, proto::_data)
   , proto::_data
 )``
-][``proto::fold<_, proto::_state, StringCopy>``]]
+][``proto::reverse_fold<_, proto::_state, FoldToList>``]]
 ]
 
 [endsect]
@@ -1416,6 +1406,20 @@ Now, let's implement checked division. The rest should be unsurprising.
     }
 
 The above code demonstrates how a single grammar can be used with different transforms specified externally. This makes it possible to reuse a grammar to drive several different computations.
+
+[heading Separating Data From External Transforms]
+
+As described above, the external transforms feature usurps the data parameter, which is intended to be a place where you can pass arbitrary data, and gives it a specific meaning. But what if you are already using the data parameter for something else? The answer is to use a transform environment. By associating your external transforms with the `proto::transforms` key, you are free to pass arbitrary data in other slots.
+
+To continue the above example, what if we also needed to pass a piece of data into our transform along with the external transforms? It would look like this:
+
+    int result3 = calc_grammar_extern()(
+        _1 / _2
+      , fusion::make_vector(6, 0)
+      , (proto::data = 42, proto::transforms = checked)
+    );
+
+In the above invocation of the `calc_grammar_extern` algorithm, the map of external transforms is associated with the `proto::transforms` key and passed to the algorithm in a transform environment. Also in the transform environment is a key\/value pair that associated the value `42` with the `proto::data` key.
 
 [endsect]
 

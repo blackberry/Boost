@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2006-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2006-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -28,7 +28,7 @@ int main ()
    typedef allocator<char, SegmentManager>            CharAllocator;
    typedef basic_string<char, std::char_traits<char>
                         ,CharAllocator>                MyShmString;
-   typedef allocator<MyShmString, SegmentManager>     StringAllocator;    
+   typedef allocator<MyShmString, SegmentManager>     StringAllocator;
    typedef vector<MyShmString, StringAllocator>       MyShmStringVector;
 
    //Remove shared memory on construction and destruction
@@ -73,7 +73,7 @@ int main ()
    //strings, leading to a great performance.
    MyShmString string_to_compare(charallocator);
    string_to_compare = "this is a long, long, long, long, long, long, string...";
- 
+
    myshmvector->reserve(50);
    for(int i = 0; i < 50; ++i){
       MyShmString move_me(string_to_compare);

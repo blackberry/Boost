@@ -17,6 +17,6 @@
 typedef boost::ratio_string<int, char> R1;
 
 void test() {
-    
-    std::string str = R1::short_name();
+
+    std::string str = R1::symbol();
 }

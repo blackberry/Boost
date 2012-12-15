@@ -58,6 +58,7 @@ __shared_lockable_concept__.
 Multiple concurrent calls to __lock_ref__, __try_lock_ref__, `__try_lock_for()`,  `__try_lock_until()`, __timed_lock_ref__, __lock_shared_ref__,  
 `__try_lock_shared_for()`,  `__try_lock_shared_until()`, __try_lock_shared_ref__ and __timed_lock_shared_ref__ are permitted.
 
+Note the the lack of reader-writer priority policies in shared_mutex. This is due to an algorithm credited to Alexander Terekhov which lets the OS decide which thread is the next to get the lock without caring whether a unique lock or shared lock is being sought. This results in a complete lack of reader or writer starvation. It is simply fair. 
 
 [endsect]
 

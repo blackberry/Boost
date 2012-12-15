@@ -401,6 +401,186 @@ namespace exception
         //}
         return x.tag_ != y.tag_;
     }
+
+    template <class T>
+    class allocator2
+    {
+    public:
+        int tag_;
+        typedef std::size_t size_type;
+        typedef std::ptrdiff_t difference_type;
+        typedef T* pointer;
+        typedef T const* const_pointer;
+        typedef T& reference;
+        typedef T const& const_reference;
+        typedef T value_type;
+
+        template <class U> struct rebind { typedef allocator2<U> other; };
+
+        explicit allocator2(int t = 0) : tag_(t)
+        {
+            UNORDERED_SCOPE(allocator2::allocator2()) {
+                UNORDERED_EPOINT("Mock allocator2 default constructor.");
+            }
+            test::detail::tracker.allocator_ref();
+        }
+
+        allocator2(allocator<T> const& x) : tag_(x.tag_)
+        {
+            UNORDERED_SCOPE(allocator2::allocator2()) {
+                UNORDERED_EPOINT("Mock allocator2 constructor from allocator.");
+            }
+            test::detail::tracker.allocator_ref();
+        }
+
+        template <class Y> allocator2(allocator2<Y> const& x) : tag_(x.tag_)
+        {
+            UNORDERED_SCOPE(allocator2::allocator2()) {
+                UNORDERED_EPOINT("Mock allocator2 template copy constructor.");
+            }
+            test::detail::tracker.allocator_ref();
+        }
+
+        allocator2(allocator2 const& x) : tag_(x.tag_)
+        {
+            UNORDERED_SCOPE(allocator2::allocator2()) {
+                UNORDERED_EPOINT("Mock allocator2 copy constructor.");
+            }
+            test::detail::tracker.allocator_ref();
+        }
+
+        ~allocator2() {
+            test::detail::tracker.allocator_unref();
+        }
+
+        allocator2& operator=(allocator2 const& x) {
+            UNORDERED_SCOPE(allocator2::allocator2()) {
+                UNORDERED_EPOINT("Mock allocator2 assignment operator.");
+                tag_ = x.tag_;
+            }
+            return *this;
+        }
+
+        // If address throws, then it can't be used in erase or the
+        // destructor, which is very limiting. I need to check up on
+        // this.
+
+        pointer address(reference r) {
+            //UNORDERED_SCOPE(allocator2::address(reference)) {
+            //    UNORDERED_EPOINT("Mock allocator2 address function.");
+            //}
+            return pointer(&r);
+        }
+
+        const_pointer address(const_reference r)  {
+            //UNORDERED_SCOPE(allocator2::address(const_reference)) {
+            //    UNORDERED_EPOINT("Mock allocator2 const address function.");
+            //}
+            return const_pointer(&r);
+        }
+
+        pointer allocate(size_type n) {
+            T* ptr = 0;
+            UNORDERED_SCOPE(allocator2::allocate(size_type)) {
+                UNORDERED_EPOINT("Mock allocator2 allocate function.");
+
+                using namespace std;
+                ptr = (T*) malloc(n * sizeof(T));
+                if(!ptr) throw std::bad_alloc();
+            }
+            test::detail::tracker.track_allocate((void*) ptr, n, sizeof(T), tag_);
+            return pointer(ptr);
+
+            //return pointer(static_cast<T*>(::operator new(n * sizeof(T))));
+        }
+
+        pointer allocate(size_type n, void const* u)
+        {
+            T* ptr = 0;
+            UNORDERED_SCOPE(allocator2::allocate(size_type, const_pointer)) {
+                UNORDERED_EPOINT("Mock allocator2 allocate function.");
+
+                using namespace std;
+                ptr = (T*) malloc(n * sizeof(T));
+                if(!ptr) throw std::bad_alloc();
+            }
+            test::detail::tracker.track_allocate((void*) ptr, n, sizeof(T), tag_);
+            return pointer(ptr);
+
+            //return pointer(static_cast<T*>(::operator new(n * sizeof(T))));
+        }
+
+        void deallocate(pointer p, size_type n)
+        {
+            //::operator delete((void*) p);
+            if(p) {
+                test::detail::tracker.track_deallocate((void*) p, n, sizeof(T), tag_);
+                using namespace std;
+                free(p);
+            }
+        }
+
+        void construct(pointer p, T const& t) {
+            UNORDERED_SCOPE(allocator2::construct(T*, T)) {
+                UNORDERED_EPOINT("Mock allocator2 construct function.");
+                new(p) T(t);
+            }
+            test::detail::tracker.track_construct((void*) p, sizeof(T), tag_);
+        }
+
+#if !defined(BOOST_NO_VARIADIC_TEMPLATES)
+        template<class... Args> void construct(T* p, BOOST_FWD_REF(Args)... args) {
+            UNORDERED_SCOPE(allocator2::construct(pointer, BOOST_FWD_REF(Args)...)) {
+                UNORDERED_EPOINT("Mock allocator2 construct function.");
+                new(p) T(boost::forward<Args>(args)...);
+            }
+            test::detail::tracker.track_construct((void*) p, sizeof(T), tag_);
+        }
+#endif
+
+        void destroy(T* p) {
+            test::detail::tracker.track_destroy((void*) p, sizeof(T), tag_);
+            p->~T();
+        }
+
+        size_type max_size() const {
+            UNORDERED_SCOPE(allocator2::construct(pointer, T)) {
+                UNORDERED_EPOINT("Mock allocator2 max_size function.");
+            }
+            return (std::numeric_limits<std::size_t>::max)();
+        }
+
+        typedef false_type propagate_on_container_copy_assignment;
+        typedef false_type propagate_on_container_move_assignment;
+        typedef false_type propagate_on_container_swap;
+    };
+
+    template <class T>
+    void swap(allocator2<T>& x, allocator2<T>& y)
+    {
+        std::swap(x.tag_, y.tag_);
+    }
+
+    // It's pretty much impossible to write a compliant swap when these
+    // two can throw. So they don't.
+
+    template <class T>
+    inline bool operator==(allocator2<T> const& x, allocator2<T> const& y)
+    {
+        //UNORDERED_SCOPE(operator==(allocator2, allocator2)) {
+        //    UNORDERED_EPOINT("Mock allocator2 equality operator.");
+        //}
+        return x.tag_ == y.tag_;
+    }
+
+    template <class T>
+    inline bool operator!=(allocator2<T> const& x, allocator2<T> const& y)
+    {
+        //UNORDERED_SCOPE(operator!=(allocator2, allocator2)) {
+        //    UNORDERED_EPOINT("Mock allocator2 inequality operator.");
+        //}
+        return x.tag_ != y.tag_;
+    }
 }
 }
 

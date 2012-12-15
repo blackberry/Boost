@@ -60,7 +60,9 @@ struct swap_base : public test::exception_base
         initial_x(x_values.begin(), x_values.end(), 0, hasher(tag1),
                 key_equal(tag1), allocator_type(tag1)),
         initial_y(y_values.begin(), y_values.end(), 0, hasher(tag2),
-                key_equal(tag2), allocator_type(tag2))
+                key_equal(tag2), allocator_type(
+                    T::allocator_type::propagate_on_container_swap::value ?
+                        tag2 : tag1))
     {}
 
     struct data_type {
@@ -71,6 +73,7 @@ struct swap_base : public test::exception_base
     };
 
     data_type init() const { return data_type(initial_x, initial_y); }
+
     void run(data_type& d) const {
         try {
             d.x.swap(d.y);

@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -232,7 +232,7 @@ template<typename M>
 void test_mutex_lock()
 {
    shared_val = 0;
-  
+
    M mtx;
 
    data<M> d1(1);
@@ -260,7 +260,7 @@ template<typename M>
 void test_mutex_lock_timeout()
 {
    shared_val = 0;
-  
+
    M mtx;
 
    int wait_time_s = BOOST_INTERPROCESS_TIMEOUT_WHEN_LOCKING_DURATION_MS / 1000;

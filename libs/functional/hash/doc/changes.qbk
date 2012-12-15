@@ -132,4 +132,17 @@
 * Add deprecation warning to the long deprecated
   `boost/functional/detail/container_fwd.hpp`.
 
+[h2 Boost 1.51.0]
+
+* Support the standard smart pointers.
+* `hash_value` now implemented using SFINAE to avoid implicit casts to built
+  in types when calling it.
+* Updated to use the new config macros.
+
+[h2 Boost 1.52.0]
+
+* Restore `enum` support, which was accidentally removed in the last version.
+* New floating point hasher - will hash the binary representation on more
+  platforms, which should be faster.
+
 [endsect]

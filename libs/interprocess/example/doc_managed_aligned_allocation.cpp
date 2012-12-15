@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2006-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2006-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -111,7 +111,7 @@ int main()
       m_segment.deallocate(ptrs.back());
       ptrs.pop_back();
       ptrs.push_back(m_segment.allocate_aligned(128, 128));
-   } 
+   }
    return 0;
 }
 */

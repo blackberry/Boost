@@ -120,14 +120,27 @@ assert( ch == 'a' );</programlisting>
 
       <struct name="_data">
         <inherit><classname>proto::transform</classname>&lt; _data &gt;</inherit>
-        <purpose>A <conceptname>PrimitiveTransform</conceptname> that returns the current data unmodified. </purpose>
+        <purpose>
+          A <conceptname>PrimitiveTransform</conceptname> that returns the current data unmodified.
+          If the data (third) parameter is a transform environment, it returns the value associated
+          with the <code><classname>proto::data_type</classname></code> key. Otherwise, it returns
+          the data parameter unmodified.
+        </purpose>
         <description>
           <para>
-            Example:
+            If the data (third) parameter is a transform environment, it returns the value associated
+            with the <code><classname>proto::data_type</classname></code> key. Otherwise, it returns
+            the data parameter unmodified.
+          </para>
+          <para>
+            <emphasis role="bold">Example:</emphasis>
             <programlisting><classname>proto::terminal</classname>&lt;int&gt;::type i = {42};
 std::string str("hello");
-std::string &amp; data = proto::_data()(i, 'a', str);
-assert( &amp;str == &amp;data );</programlisting>
+std::string &amp; d1 = proto::_data()(i, 'a', str);
+assert( &amp;str == &amp;d1 );
+
+std::string &amp; d2 = proto::_data()(i, 'a', (<globalname>proto::data</globalname> = boost::ref(str)));
+assert( &amp;str == &amp;d2 );</programlisting>
           </para>
         </description>
         <struct name="impl">
@@ -136,40 +149,12 @@ assert( &amp;str == &amp;data );</programlisting>
             <template-type-parameter name="State"/>
             <template-type-parameter name="Data"/>
           </template>
-          <inherit><classname>proto::transform_impl</classname>&lt; Expr, State, Data &gt;</inherit>
-          <typedef name="result_type">
-            <type>Data</type>
-          </typedef>
-          <method-group name="public member functions">
-            <method name="operator()" cv="const">
-              <type>Data</type>
-              <parameter name="">
-                <paramtype>typename impl::expr_param</paramtype>
-              </parameter>
-              <parameter name="">
-                <paramtype>typename impl::state_param</paramtype>
-              </parameter>
-              <parameter name="data">
-                <paramtype>typename impl::data_param</paramtype>
-                <description>
-                  <para>The current data. </para>
-                </description>
-              </parameter>
-              <description>
-                <para>
-                  Returns the current data.
-                </para>
-              </description>
-              <returns>
-                <para>
-                  <computeroutput>data</computeroutput>
-                </para>
-              </returns>
-              <throws>
-                <simpara>Will not throw.</simpara>
-              </throws>
-            </method>
-          </method-group>
+          <inherit><type>
+    mpl::if_c&lt;
+      <classname>proto::is_env</classname>&lt;Data&gt;::value,
+      <classname>proto::_env_var</classname>&lt;<classname>proto::data_type</classname>&gt;,
+      <classname>proto::_env</classname>
+    &gt;::type::template impl&lt;Expr, State, Data&gt;</type></inherit>
         </struct>
       </struct>
 

@@ -23,7 +23,7 @@ namespace load_factor_tests
 test::seed_t initialize_seed(783656);
 
 template <class X>
-void set_load_factor_tests(X* = 0)
+void set_load_factor_tests(X*)
 {
     X x;
 
@@ -37,8 +37,7 @@ void set_load_factor_tests(X* = 0)
 }
 
 template <class X>
-void insert_test(X*, float mlf,
-    test::random_generator generator = test::default_generator)
+void insert_test(X*, float mlf, test::random_generator generator)
 {
     X x;
     x.max_load_factor(mlf);
@@ -58,16 +57,18 @@ void insert_test(X*, float mlf,
 }
 
 template <class X>
-void load_factor_insert_tests(X* ptr = 0)
+void load_factor_insert_tests(X* ptr, test::random_generator generator)
 {
-    insert_test(ptr, 1.0f);
-    insert_test(ptr, 0.1f);
-    insert_test(ptr, 100.0f);
+    insert_test(ptr, 1.0f, generator);
+    insert_test(ptr, 0.1f, generator);
+    insert_test(ptr, 100.0f, generator);
 
-    insert_test(ptr, (std::numeric_limits<float>::min)());
+    insert_test(ptr, (std::numeric_limits<float>::min)(),
+        generator);
 
     if(std::numeric_limits<float>::has_infinity)
-        insert_test(ptr, std::numeric_limits<float>::infinity());
+        insert_test(ptr, std::numeric_limits<float>::infinity(),
+            generator);
 }
 
 boost::unordered_set<int>* int_set_ptr;
@@ -75,12 +76,16 @@ boost::unordered_multiset<int>* int_multiset_ptr;
 boost::unordered_map<int, int>* int_map_ptr;
 boost::unordered_multimap<int, int>* int_multimap_ptr;
 
+using test::default_generator;
+using test::generate_collisions;
+
 UNORDERED_TEST(set_load_factor_tests,
     ((int_set_ptr)(int_multiset_ptr)(int_map_ptr)(int_multimap_ptr))
 )
 
 UNORDERED_TEST(load_factor_insert_tests,
     ((int_set_ptr)(int_multiset_ptr)(int_map_ptr)(int_multimap_ptr))
+    ((default_generator)(generate_collisions))
 )
 
 }

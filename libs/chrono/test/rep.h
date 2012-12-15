@@ -14,15 +14,17 @@
 #ifndef REP_H
 #define REP_H
 
+#include <boost/config.hpp>
+
 class Rep
 {
 public:
     int data_;
-    Rep() : data_() {}
-    explicit Rep(int i) : data_(i) {}
+    BOOST_CONSTEXPR Rep() : data_() {}
+    explicit BOOST_CONSTEXPR Rep(int i) : data_(i) {}
 
-    bool operator==(int i) const {return data_ == i;}
-    bool operator==(const Rep& r) const {return data_ == r.data_;}
+    BOOST_CONSTEXPR bool operator==(int i) const {return data_ == i;}
+    BOOST_CONSTEXPR bool operator==(const Rep& r) const {return data_ == r.data_;}
 
     Rep& operator*=(Rep x) {data_ *= x.data_; return *this;}
     Rep& operator/=(Rep x) {data_ /= x.data_; return *this;}
@@ -30,7 +32,7 @@ public:
 
 #if 0
 namespace std {
-  
+
   template <>
   struct numeric_limits<Rep>
   {
@@ -38,7 +40,7 @@ namespace std {
     {
       return Rep((std::numeric_limits<int>::max)());
     }
-    
+
   };
 }  // namespace std
 
@@ -52,7 +54,7 @@ struct duration_values<Rep>
   {
     return Rep((std::numeric_limits<int>::max)());
   }
-  
+
   static BOOST_CONSTEXPR Rep min BOOST_PREVENT_MACRO_SUBSTITUTION ()
   {
     return Rep(detail::numeric_limits<Rep>::lowest());

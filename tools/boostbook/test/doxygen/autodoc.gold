@@ -17,7 +17,11 @@ Embedded docbook list:</para><para>
 Line 1<sbr/>
  Line 2</para><para><programlisting>     void foo() {}
 </programlisting></para><para>
-</para></description></struct><enum name="namespace_enum"><enumvalue name="enumerator"/></enum><data-member name="namespace_integer"><type>int</type></data-member><data-member name="namespace_static_integer" specifiers="static"><type>int</type></data-member><data-member name="namespace_const_integer"><type>const int</type></data-member><data-member name="namespace_static_const_integer" specifiers="static"><type>const int</type></data-member><function name="namespace_func"><type>int</type><parameter name="i"><paramtype>int</paramtype><description><para>A function parameter </para></description></parameter><parameter name="j"><paramtype>int</paramtype><description><para>Another </para></description></parameter><description><para>
+</para></description></struct><struct name="specialization_test"><template>
+      <template-type-parameter name="T"/>
+    </template></struct><struct-specialization name="specialization_test"><template>
+      <template-type-parameter name="T"/>
+    </template><specialization><template-arg>T *</template-arg></specialization><method-group name="public member functions"/><constructor><description><para>A constructor. </para></description></constructor><destructor><description><para>A destructor. </para></description></destructor><copy-assignment><parameter name=""><paramtype>const <classname>specialization_test</classname> &amp;</paramtype></parameter><description><para>An assignment operator. </para></description></copy-assignment></struct-specialization><enum name="namespace_enum"><enumvalue name="enumerator"/></enum><data-member name="namespace_integer"><type>int</type></data-member><data-member name="namespace_static_integer" specifiers="static"><type>int</type></data-member><data-member name="namespace_const_integer"><type>const int</type></data-member><data-member name="namespace_static_const_integer" specifiers="static"><type>const int</type></data-member><function name="namespace_func"><type>int</type><parameter name="i"><paramtype>int</paramtype><description><para>A function parameter </para></description></parameter><parameter name="j"><paramtype>int</paramtype><description><para>Another </para></description></parameter><description><para>
 
 
 This is a test function. <classname alt="example::example">Link to class</classname> <classname alt="example::example_template">Link to class template</classname> <note><para>This is a note.</para></note>

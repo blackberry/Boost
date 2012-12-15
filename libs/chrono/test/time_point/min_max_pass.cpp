@@ -14,14 +14,21 @@
 #include <boost/chrono/chrono.hpp>
 #include <boost/detail/lightweight_test.hpp>
 
+#if defined BOOST_NO_CXX11_NUMERIC_LIMITS || defined BOOST_NO_CXX11_CONSTEXPR
+#define BOOST_CONSTEXPR_ASSERT(C) BOOST_TEST(C)
+#else
+#include <boost/static_assert.hpp>
+#define BOOST_CONSTEXPR_ASSERT(C) BOOST_STATIC_ASSERT(C)
+#endif
+
 int main()
 {
     typedef boost::chrono::system_clock Clock;
     typedef boost::chrono::milliseconds Duration;
     typedef boost::chrono::time_point<Clock, Duration> TP;
-    
-    BOOST_TEST((TP::min)() == TP((Duration::min)()));
-    BOOST_TEST((TP::max)() == TP((Duration::max)()));
+
+    BOOST_CONSTEXPR_ASSERT((TP::min)() == TP((Duration::min)()));
+    BOOST_CONSTEXPR_ASSERT((TP::max)() == TP((Duration::max)()));
 
     return boost::report_errors();
 }

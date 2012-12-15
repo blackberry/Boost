@@ -12,6 +12,7 @@
 
 #include "../helpers/test.hpp"
 #include "../helpers/list.hpp"
+#include "../helpers/invariants.hpp"
 #include <set>
 #include <iostream>
 #include <iterator>
@@ -51,12 +52,21 @@ struct collision2_hash
     int operator()(int x) const { return x & 1; }
 };
 
+// For testing erase in lots of buckets.
+struct collision3_hash
+{
+    int operator()(int x) const { return x; }
+};
+
 typedef boost::unordered_multimap<int, int,
     collision_hash, std::equal_to<int>,
     test::allocator1<std::pair<int const, int> > > collide_map;
 typedef boost::unordered_multimap<int, int,
     collision2_hash, std::equal_to<int>,
     test::allocator2<std::pair<int const, int> > > collide_map2;
+typedef boost::unordered_multimap<int, int,
+    collision3_hash, std::equal_to<int>,
+    test::allocator2<std::pair<int const, int> > > collide_map3;
 typedef collide_map::value_type collide_value;
 typedef test::list<collide_value> collide_list;
 
@@ -66,6 +76,7 @@ UNORDERED_AUTO_TEST(empty_range_tests)
     x.erase(x.begin(), x.end());
     x.erase(x.begin(), x.begin());
     x.erase(x.end(), x.end());
+    test::check_equivalent_keys(x);
 }
 
 UNORDERED_AUTO_TEST(single_item_tests)
@@ -76,10 +87,13 @@ UNORDERED_AUTO_TEST(single_item_tests)
     collide_map x(init.begin(), init.end());
     x.erase(x.begin(), x.begin());
     BOOST_TEST(x.count(1) == 1 && x.size() == 1);
+    test::check_equivalent_keys(x);
     x.erase(x.end(), x.end());
     BOOST_TEST(x.count(1) == 1 && x.size() == 1);
+    test::check_equivalent_keys(x);
     x.erase(x.begin(), x.end());
     BOOST_TEST(x.count(1) == 0 && x.size() == 0);
+    test::check_equivalent_keys(x);
 }
 
 UNORDERED_AUTO_TEST(two_equivalent_item_tests)
@@ -92,6 +106,7 @@ UNORDERED_AUTO_TEST(two_equivalent_item_tests)
         collide_map x(init.begin(), init.end());
         x.erase(x.begin(), x.end());
         BOOST_TEST(x.count(1) == 0 && x.size() == 0);
+        test::check_equivalent_keys(x);
     }
 
     {
@@ -100,6 +115,7 @@ UNORDERED_AUTO_TEST(two_equivalent_item_tests)
         x.erase(x.begin(), boost::next(x.begin()));
         BOOST_TEST(x.count(1) == 1 && x.size() == 1 &&
             x.begin()->first == 1 && x.begin()->second == value);
+        test::check_equivalent_keys(x);
     }
 
     {
@@ -108,6 +124,7 @@ UNORDERED_AUTO_TEST(two_equivalent_item_tests)
         x.erase(boost::next(x.begin()), x.end());
         BOOST_TEST(x.count(1) == 1 && x.size() == 1 &&
                 x.begin()->first == 1 && x.begin()->second == value);
+        test::check_equivalent_keys(x);
     }
 }
 
@@ -129,6 +146,8 @@ bool general_erase_range_test(Container& x, std::size_t start, std::size_t end)
     collide_list l(x.begin(), x.end());
     l.erase(boost::next(l.begin(), start), boost::next(l.begin(), end));
     x.erase(boost::next(x.begin(), start), boost::next(x.begin(), end));
+
+    test::check_equivalent_keys(x);
     return compare(l, x);
 }
 
@@ -188,6 +207,13 @@ UNORDERED_AUTO_TEST(exhaustive_collide2_tests)
 {
     std::cout<<"exhaustive_collide2_tests:\n";
     exhaustive_erase_tests((collide_map2*) 0, 8, 4);
+    std::cout<<"\n";
+}
+
+UNORDERED_AUTO_TEST(exhaustive_collide3_tests)
+{
+    std::cout<<"exhaustive_collide3_tests:\n";
+    exhaustive_erase_tests((collide_map3*) 0, 8, 4);
     std::cout<<"\n";
 }
 

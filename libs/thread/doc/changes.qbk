@@ -8,7 +8,60 @@
 
 [section:changes History]
 
+[heading Version 3.1.0 - boost 1.52]
+
+Deprecated Features:
+
+Deprecated features since boost 1.50 available only until boost 1.55:
+
+These deprecated features will be provided by default up to boost 1.52. If you don't want to include the deprecated features you could define BOOST_THREAD_DONT_PROVIDE_DEPRECATED_FEATURES_SINCE_V3_0_0. Since 1.53 these features will not be included any more by default. Since this version, if you want to include the deprecated features yet you could define BOOST_THREAD_PROVIDE_DEPRECATED_FEATURES_SINCE_V3_0_0. These deprecated features will be only available until boost 1.55, that is you have yet 1 year to move to the new features.
+
+* Time related functions don't using the Boost.Chrono library, use the chrono overloads instead.
+
+Breaking changes when BOOST_THREAD_VERSION==3 (Default value since Boost 1.53):
+
+There are some new features which share the same interface but with different behavior. These breaking features are provided by default when BOOST_THREAD_VERSION is 3, but the user can however choose the version 2 behavior by defining the corresponding macro. As for the deprecated features, these broken features will be only available until boost 1.55.
+
+* [@http://svn.boost.org/trac/boost/ticket/6229 #6229] Rename the unique_future to future following the c++11.
+* [@http://svn.boost.org/trac/boost/ticket/6266 #6266] Breaking change: thread destructor should call terminate if joinable. 
+* [@http://svn.boost.org/trac/boost/ticket/6269 #6269] Breaking change: thread move assignment should call terminate if joinable. 
+
+New Features:
+
+* [@http://svn.boost.org/trac/boost/ticket/2361 #2361] thread_specific_ptr: document nature of the key, complexity and rationale.
+* [@http://svn.boost.org/trac/boost/ticket/4710 #4710] C++11 compliance: Missing async(). 	
+* [@http://svn.boost.org/trac/boost/ticket/7283 #7283] C++11 compliance: Add notify_all_at_thread_exit.
+* [@http://svn.boost.org/trac/boost/ticket/7345 #7345] C++11 compliance: Add noexcept to recursive mutex try_lock.
+
+Fixed Bugs:
+
+* [@http://svn.boost.org/trac/boost/ticket/2797 #2797] Two problems with thread_specific_ptr.
+* [@http://svn.boost.org/trac/boost/ticket/5274 #5274] failed to compile future.hpp with stlport 5.1.5 under msvc8.1, because of undefined class.
+* [@http://svn.boost.org/trac/boost/ticket/5431 #5431] compile error in Windows CE 6.0(interlocked).
+[/* [@http://svn.boost.org/trac/boost/ticket/5752 #5752] boost::call_once() is unreliable on some platforms.]
+* [@http://svn.boost.org/trac/boost/ticket/5696 #5696] win32 detail::set_tss_data does nothing when tss_cleanup_function is NULL.
+* [@http://svn.boost.org/trac/boost/ticket/6931 #6931] mutex waits forwever with Intel C++ Compiler XE 12.1.5.344 Build 20120612
+* [@http://svn.boost.org/trac/boost/ticket/7045 #7045] Thread library does not automatically compile date_time. 	
+* [@http://svn.boost.org/trac/boost/ticket/7173 #7173] wrong function name interrupt_point(). 	
+* [@http://svn.boost.org/trac/boost/ticket/7200 #7200] Unable to build boost.thread modularized. 
+* [@http://svn.boost.org/trac/boost/ticket/7220 #7220] gcc 4.6.2 warns about inline+dllimport functions.
+* [@http://svn.boost.org/trac/boost/ticket/7238 #7238] this_thread::sleep_for() does not respond to interrupt().
+* [@http://svn.boost.org/trac/boost/ticket/7245 #7245] Minor typos on documentation related to version 3.
+* [@http://svn.boost.org/trac/boost/ticket/7272 #7272] win32/thread_primitives.hpp: (Unneccessary) Warning.
+* [@http://svn.boost.org/trac/boost/ticket/7284 #7284] Clarify that there is no access priority between lock and shared_lock on shared mutex.
+* [@http://svn.boost.org/trac/boost/ticket/7329 #7329] boost/thread/future.hpp does not compile on HPUX.
+* [@http://svn.boost.org/trac/boost/ticket/7336 #7336] BOOST_THREAD_DONT_USE_SYSTEM doesn't work.
+* [@http://svn.boost.org/trac/boost/ticket/7329 #7349] packaged_task holds reference to temporary.
+* [@http://svn.boost.org/trac/boost/ticket/7350 #7350] allocator_destructor does not destroy object
+* [@http://svn.boost.org/trac/boost/ticket/7360 #7360] Memory leak in pthread implementation of boost::thread_specific_ptr
+* [@http://svn.boost.org/trac/boost/ticket/7370 #7370] Boost.Thread documentation
+* [@http://svn.boost.org/trac/boost/ticket/7438 #7438] Segmentation fault in test_once regression test in group.join_all();
+* [@http://svn.boost.org/trac/boost/ticket/7461 #7461] detail::win32::ReleaseSemaphore may be called with count_to_release equal to 0
+* [@http://svn.boost.org/trac/boost/ticket/7499 #7499] call_once doesn't call even once
+ 	
 [heading Version 3.0.1 - boost 1.51]
+
+Deprecated Features:
 
 Deprecated features since boost 1.50 available only until boost 1.55:
 
@@ -38,6 +91,10 @@ Fixed Bugs:
 * [@http://svn.boost.org/trac/boost/ticket/7078 #7078] Trivial 64-bit warning fix on Windows for thread attribute stack size
 * [@http://svn.boost.org/trac/boost/ticket/7089 #7089] BOOST_THREAD_WAIT_BUG limits functionality without solving anything
 
+[/
+#6787 	boost::thread::sleep() hangs if system time is rolled back
+#7045 	Thread library does not automatically compile date_time
+]
 
 [heading Version 3.0.0 - boost 1.50]
 
@@ -218,7 +275,7 @@ The following features will be included in next releases.
 
 # Complete the C++11 missing features, in particular
 
-  * [@http://svn.boost.org/trac/boost/ticket/4710 #4710] Missing async(). 
+  * async with deferred and variadic rvalue reference args. 
   * [@http://svn.boost.org/trac/boost/ticket/6227 #6227] Use of variadic templates on Generic Locking Algorithms on compilers providing them. 
   * [@http://svn.boost.org/trac/boost/ticket/6270 #6270] Add thread constructor from movable callable and movable arguments following C++11. 
  	

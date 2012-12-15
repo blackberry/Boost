@@ -338,7 +338,7 @@ The user can access to some synchronization functions related to the native curr
 
 Of course all the synchronization facilities provided by Boost.Thread are also available on native threads. 
 
-The `boost::this_thread` interrupt related functions behave in a degraded mode when called from a thread created using the native interface, i.e. `boost::this_thread::interruption_enabled()` returns false. As consequence the use of `boost::this_thread::disable_interruption` and `boost::this_thread::restore_interruption` will do nothing and calls to `boost::this_thread::interrupt_point()` will be just ignored.  
+The `boost::this_thread` interrupt related functions behave in a degraded mode when called from a thread created using the native interface, i.e. `boost::this_thread::interruption_enabled()` returns false. As consequence the use of `boost::this_thread::disable_interruption` and `boost::this_thread::restore_interruption` will do nothing and calls to `boost::this_thread::interruption_point()` will be just ignored.  
 
 As the single way to interrupt a thread is through a __thread__ instance, `interruption_request()` wiil returns false for the native threads. 
 
@@ -391,7 +391,7 @@ This behavior is incompatible with the current Boost.Thread design, so the use o
         void swap(thread& x) noexcept;
 
         class id;
-        class attributes;
+        class attributes; // EXTENSION
 
         id get_id() const noexcept;
 
@@ -470,8 +470,8 @@ This behavior is incompatible with the current Boost.Thread design, so the use o
 [variablelist
 
 [[Effects:] [Transfers ownership of the thread managed by `other` (if
-any) to `*this`. Version 1: If there was a thread previously associated with
-`*this` then that thread is detached, version 2: If the thread is joinable calls to std::terminate.]]
+any) to `*this`. Version 2: If there was a thread previously associated with
+`*this` then that thread is detached, Version 3: If the thread is joinable calls to std::terminate.]]
 
 [[Postconditions:] [`other->get_id()==thread::id()` and `get_id()` returns the value of `other.get_id()` prior to the assignment.]]
 
@@ -628,7 +628,7 @@ are copied into internal storage for access by the new thread.]]]
 
 [variablelist
 
-[[Effects:] [Version 1: If `*this` has an associated thread of execution, calls __detach__, Version 2: If the thread is joinable calls to std::terminate. Destroys `*this`.]]
+[[Effects:] [Version 2: If `*this` has an associated thread of execution, calls __detach__, Version 3: If the thread is joinable calls to std::terminate. Destroys `*this`.]]
 
 [[Throws:] [Nothing.]]
 
@@ -686,12 +686,14 @@ are copied into internal storage for access by the new thread.]]]
 
 [[Error Conditions:] [
 
-[*resource_deadlock_would_occur]: if deadlock is detected or this->get_id() == std::this_thread::get_id().
+[*resource_deadlock_would_occur]: if deadlock is detected or this->get_id() == boost::this_thread::get_id().
+
+[*invalid_argument]: if the thread is not joinable and BOOST_THREAD_TRROW_IF_PRECONDITION_NOT_SATISFIED is defined.
+
 
 [/
 [*no_such_process]: if the thread is not valid.
 
-[*invalid_argument]: if the thread is not joinable.
 ] 
 
 ]]
@@ -711,7 +713,7 @@ are copied into internal storage for access by the new thread.]]]
 
 [variablelist
 
-[[Preconditions:] [`this->get_id()!=boost::this_thread::get_id()`]]
+[[Preconditions:] [the thread is joinable.]]
 
 [[Effects:] [If `*this` refers to a thread of execution, waits for that thread of execution to complete, the time `wait_until` has
 been reach or the specified duration `rel_time` has elapsed. If `*this` doesn't refer to a thread of execution, returns immediately.]]
@@ -727,12 +729,13 @@ unchanged.]]
 
 [[Error Conditions:] [
 
-[*resource_deadlock_would_occur]: if deadlock is detected or this->get_id() == std::this_thread::get_id().
+[*resource_deadlock_would_occur]: if deadlock is detected or this->get_id() == boost::this_thread::get_id().
+
+[*invalid_argument]: if the thread is not joinable and BOOST_THREAD_TRROW_IF_PRECONDITION_NOT_SATISFIED is defined.
+
 
 [/
 [*no_such_process]: if the thread is not valid.
-
-[*invalid_argument]: if the thread is not joinable.
 ] 
 
 ]]
@@ -750,7 +753,7 @@ unchanged.]]
 
 [variablelist
 
-[[Preconditions:] [`this->get_id()!=boost::this_thread::get_id()`]]
+[[Preconditions:] [the thread is joinable.]]
 
 [[Effects:] [If `*this` refers to a thread of execution, waits for that thread of execution to complete, 
 the specified duration `rel_time` has elapsed. If `*this` doesn't refer to a thread of execution, returns immediately.]]
@@ -766,12 +769,13 @@ unchanged.]]
 
 [[Error Conditions:] [
 
-[*resource_deadlock_would_occur]: if deadlock is detected or this->get_id() == std::this_thread::get_id().
+[*resource_deadlock_would_occur]: if deadlock is detected or this->get_id() == boost::this_thread::get_id().
+
+[*invalid_argument]: if the thread is not joinable and BOOST_THREAD_TRROW_IF_PRECONDITION_NOT_SATISFIED is defined.
+
 
 [/
 [*no_such_process]: if the thread is not valid.
-
-[*invalid_argument]: if the thread is not joinable.
 ] 
 
 ]]
@@ -789,7 +793,7 @@ unchanged.]]
 
 [variablelist
 
-[[Preconditions:] [`this->get_id()!=boost::this_thread::get_id()`]]
+[[Preconditions:] [the thread is joinable.]]
 
 [[Effects:] [If `*this` refers to a thread of execution, waits for that thread of execution to complete, the time `abs_time` has
 been reach. If `*this` doesn't refer to a thread of execution, returns immediately.]]
@@ -805,12 +809,14 @@ unchanged.]]
 
 [[Error Conditions:] [
 
-[*resource_deadlock_would_occur]: if deadlock is detected or this->get_id() == std::this_thread::get_id().
+[*resource_deadlock_would_occur]: if deadlock is detected or this->get_id() == boost::this_thread::get_id().
+
+[*invalid_argument]: if the thread is not joinable and BOOST_THREAD_TRROW_IF_PRECONDITION_NOT_SATISFIED is defined.
+
 
 [/
 [*no_such_process]: if the thread is not valid.
 
-[*invalid_argument]: if the thread is not joinable.
 ] 
 
 ]]
@@ -825,7 +831,7 @@ unchanged.]]
 
 [section:detach Member function `detach()`]
 
-    void detach() noexcept;
+    void detach();
 
 [variablelist
 
@@ -835,7 +841,15 @@ unchanged.]]
 
 [[Postconditions:] [`*this` no longer refers to any thread of execution.]]
 
-[[Throws:] [Nothing]]
+[[Throws:] [`system_error`]]
+
+[[Error Conditions:] [
+
+[*no_such_process]: if the thread is not valid.
+
+[*invalid_argument]: if the thread is not joinable and BOOST_THREAD_TRROW_IF_PRECONDITION_NOT_SATISFIED is defined.
+
+]]
 
 ]
 

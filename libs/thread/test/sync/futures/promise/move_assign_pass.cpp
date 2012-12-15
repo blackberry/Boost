@@ -23,7 +23,7 @@
 #include <boost/thread/future.hpp>
 #include <boost/detail/lightweight_test.hpp>
 #if defined BOOST_THREAD_PROVIDES_FUTURE_CTOR_ALLOCATORS
-#include <libs/thread/test/sync/futures/test_allocator.hpp>
+#include "../test_allocator.hpp"
 #endif
 
 boost::mutex m0;

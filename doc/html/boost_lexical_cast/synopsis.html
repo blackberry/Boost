@@ -61,7 +61,19 @@
         exception is thrown.
       </p>
 <p>
-        The requirements on the argument and result types are:
+</p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Target</span><span class="special">&gt;</span>
+  <span class="identifier">Target</span> <span class="identifier">lexical_cast</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">AnyCharacterType</span><span class="special">*</span> <span class="identifier">chars</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">count</span><span class="special">);</span>
+</pre>
+<p>
+        Takes an array of <code class="computeroutput"><span class="identifier">count</span></code> characters
+        as input parameter and streams them out as a Target object. If the conversion
+        is unsuccessful, a <code class="computeroutput"><span class="identifier">bad_lexical_cast</span></code>
+        exception is thrown. This call may be useful for processing nonzero terminated
+        array of characters or processing just some part of character array.
+      </p>
+<p>
+        The requirements on the argument and result types for both functions are:
       </p>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc">
 <li class="listitem">

@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -48,6 +48,8 @@ bool test_priority_order()
       message_queue::size_type recvd = 0;
       unsigned int priority = 0;
       std::size_t tstamp;
+      unsigned int priority_prev;
+      std::size_t  tstamp_prev;
 
       //We will send 100 message with priority 0-9
       //The message will contain the timestamp of the message
@@ -56,8 +58,31 @@ bool test_priority_order()
          mq1.send(&tstamp, sizeof(tstamp), (unsigned int)(i%10));
       }
 
-      unsigned int priority_prev = (std::numeric_limits<unsigned int>::max)();
-      std::size_t  tstamp_prev = 0;
+      priority_prev = (std::numeric_limits<unsigned int>::max)();
+      tstamp_prev = 0;
+
+      //Receive all messages and test those are ordered
+      //by priority and by FIFO in the same priority
+      for(std::size_t i = 0; i < 100; ++i){
+         mq1.receive(&tstamp, sizeof(tstamp), recvd, priority);
+         if(priority > priority_prev)
+            return false;
+         if(priority == priority_prev &&
+            tstamp   <= tstamp_prev){
+            return false;
+         }
+         priority_prev  = priority;
+         tstamp_prev    = tstamp;
+      }
+
+      //Now retry it with different priority order
+      for(std::size_t i = 0; i < 100; ++i){
+         tstamp = i;
+         mq1.send(&tstamp, sizeof(tstamp), (unsigned int)(9 - i%10));
+      }
+
+      priority_prev = (std::numeric_limits<unsigned int>::max)();
+      tstamp_prev = 0;
 
       //Receive all messages and test those are ordered
       //by priority and by FIFO in the same priority
@@ -83,7 +108,7 @@ bool test_priority_order()
 //another buffer and checks it against the original data-base
 bool test_serialize_db()
 {
-   //Typedef data to create a Interprocess map  
+   //Typedef data to create a Interprocess map
    typedef std::pair<const std::size_t, std::size_t> MyPair;
    typedef std::less<std::size_t>   MyLess;
    typedef node_allocator<MyPair, managed_external_buffer::segment_manager>
@@ -157,7 +182,7 @@ bool test_serialize_db()
             break;
          }
       }
-     
+
       //The buffer will contain a copy of the original database
       //so let's interpret the buffer with managed_external_buffer
       managed_external_buffer db_destiny(open_only, &buffer_destiny[0], BufferSize);
@@ -188,7 +213,7 @@ bool test_serialize_db()
             return false;
          }
       }
-     
+
       //Destroy maps from db-s
       db_origin.destroy_ptr(map1);
       db_destiny.destroy_ptr(map2);

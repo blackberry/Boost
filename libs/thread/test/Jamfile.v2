@@ -44,7 +44,7 @@ project
         <toolset>clang:<cxxflags>-pedantic
         <toolset>clang:<cxxflags>-Wno-long-long
         <toolset>clang:<cxxflags>-ansi
-        #<toolset>clang:<cxxflags>-fpermissive # doesn't work 
+        #<toolset>clang:<cxxflags>-fpermissive # doesn't work
 
         <toolset>gcc-mingw-4.4.0:<cxxflags>-fdiagnostics-show-option
         <toolset>gcc-mingw-4.5.0:<cxxflags>-fdiagnostics-show-option
@@ -80,13 +80,13 @@ rule thread-run ( sources )
 rule thread-test ( sources )
 {
     return
-    [ run $(sources) ../build//boost_thread : : : 
-      <library>/boost/test//boost_unit_test_framework/<link>static 
+    [ run $(sources) ../build//boost_thread : : :
+      <library>/boost/test//boost_unit_test_framework/<link>static
     ]
     [ run $(sources) ../src/tss_null.cpp ../build//boost_thread/<link>static
-        : : : 
-      <library>/boost/test//boost_unit_test_framework/<link>static 
-    : $(sources[1]:B)_lib 
+        : : :
+      <library>/boost/test//boost_unit_test_framework/<link>static
+    : $(sources[1]:B)_lib
     ]
     ;
 }
@@ -178,6 +178,7 @@ rule thread-compile-fail ( sources : reqs * : name )
           [ thread-test test_2309.cpp ]
           [ thread-run test_2501.cpp ]
           [ thread-test test_2741.cpp ]
+          [ thread-run test_3628.cpp ]
           [ thread-run test_4521.cpp ]
           [ thread-run test_4648.cpp ]
           [ thread-run test_4882.cpp ]
@@ -188,6 +189,8 @@ rule thread-compile-fail ( sources : reqs * : name )
           [ thread-run test_6130.cpp ]
           [ thread-run test_6170.cpp ]
           [ thread-run test_6174.cpp ]
+          [ thread-run test_7160.cpp ]
+          [ thread-run test_7328.cpp ]
     ;
 
 
@@ -222,12 +225,13 @@ rule thread-compile-fail ( sources : reqs * : name )
           [ thread-run2 ./sync/conditions/condition_variable_any/wait_until_pass.cpp : condition_variable_any__wait_until_p ]
           [ thread-run2 ./sync/conditions/condition_variable_any/wait_until_pred_pass.cpp : condition_variable_any__wait_until_pred_p ]
           [ thread-run2 ./sync/conditions/cv_status/cv_status_pass.cpp : cv_status__cv_status_p ]
+          [ thread-run2 ./sync/conditions/notify_all_at_thread_exit_pass.cpp : notify_all_at_thread_exit_p ]
     ;
 
-    #explicit ts_async ;
+    explicit ts_async ;
     test-suite ts_async
     :
-    #      [ thread-run2 ./sync/futures/async/async_pass.cpp : async__async_p ]
+          [ thread-run2 ./sync/futures/async/async_pass.cpp : async__async_p ]
     ;
 
     #explicit ts_promise ;
@@ -466,6 +470,8 @@ rule thread-compile-fail ( sources : reqs * : name )
           [ thread-run2 ./threads/thread/members/detach_pass.cpp : thread__detach_p ]
           [ thread-run2 ./threads/thread/members/get_id_pass.cpp : thread__get_id_p ]
           [ thread-run2 ./threads/thread/members/join_pass.cpp : thread__join_p ]
+          [ thread-run2 ./threads/thread/members/try_join_until_pass.cpp : thread__join_until_p ]
+          [ thread-run2 ./threads/thread/members/try_join_for_pass.cpp : thread__join_for_p ]
           [ thread-run2 ./threads/thread/members/joinable_pass.cpp : thread__joinable_p ]
           [ thread-run2 ./threads/thread/members/native_handle_pass.cpp : thread__native_handle_p ]
           [ thread-run2 ./threads/thread/members/swap_pass.cpp : thread__swap_p ]
@@ -530,12 +536,6 @@ rule thread-compile-fail ( sources : reqs * : name )
           [ thread-compile-fail ./sync/mutual_exclusion/locks/reverse_lock/copy_ctor_fail.cpp : : reverse_lock__copy_ctor_f ]
           [ thread-run2 ./sync/mutual_exclusion/locks/reverse_lock/unique_lock_ctor_pass.cpp : reverse_lock__unique_lock_ctor_p ]
           [ thread-run2 ./sync/mutual_exclusion/locks/reverse_lock/types_pass.cpp : reverse_lock__types_p ]
-    ;
-
-    explicit ts ;
-    test-suite ts
-    :
-          [ thread-run test_ml.cpp  ]
     ;
 
 }

@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2006. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2006-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -56,7 +56,7 @@ int main()
    shared_memory_object::remove(process_name.c_str());
    {
       managed_shared_memory segment(create_only, process_name.c_str(), 10000);
-     
+
       //Create unique_ptr using dynamic allocation
       my_unique_ptr_class my_ptr (segment.construct<MyClass>(anonymous_instance)()
                                  ,segment.get_deleter<MyClass>());
@@ -83,7 +83,7 @@ int main()
       assert(my_ptr2.get() == 0);
       assert(list.begin()->get() == ptr1);
       assert(list.rbegin()->get() == ptr2);
-  
+
       //Construct a set and fill
       typedef std::less<my_unique_ptr_class> set_less_t;
       MySet set(set_less_t(), segment.get_segment_manager());

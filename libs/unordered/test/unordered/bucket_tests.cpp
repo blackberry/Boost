@@ -24,7 +24,7 @@ namespace bucket_tests {
 test::seed_t initialize_seed(54635);
 
 template <class X>
-void tests(X* = 0, test::random_generator generator = test::default_generator)
+void tests(X*, test::random_generator generator)
 {
     test::check_instances check_;
 
@@ -85,7 +85,13 @@ boost::unordered_multimap<test::object, test::object,
     test::hash, test::equal_to,
     test::allocator2<test::object> >* test_multimap;
 
-UNORDERED_TEST(tests, ((test_multimap_std_alloc)(test_set)(test_multiset)(test_map)(test_multimap)))
+using test::default_generator;
+using test::generate_collisions;
+
+UNORDERED_TEST(tests,
+    ((test_multimap_std_alloc)(test_set)(test_multiset)(test_map)(test_multimap))
+    ((default_generator)(generate_collisions))
+)
 
 }
 

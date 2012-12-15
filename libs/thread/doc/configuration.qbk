@@ -8,19 +8,13 @@
 
 [section:configuration Configuration]
 
-[section:system Boost.System]
-
-Boost.Thread uses by default Boost.System to define the exceptions. For backward compatibility and also for compilers that don't work well with Boost.System the user can define `BOOST_THREAD_DONT_USE_SYSTEM `.
-
-`BOOST_THREAD_USES_SYSTEM` is defined when Boost.Thread uses Boost.Move.
-
-[endsect]
 
 [section:chrono Boost.Chrono]
 
-Boost.Thread uses by default Boost.Chrono for the time related functions. For backward compatibility and also for compilers that don't work well with Boost.Chrono the user can define `BOOST_THREAD_DONT_USE_CHRONO`. If `BOOST_THREAD_DONT_USE_SYSTEM` is defined then `BOOST_THREAD_DONT_USE_CHRONO` is defined implicitly.
+Boost.Thread uses by default Boost.Chrono for the time related functions. For backward compatibility and also for compilers that don't work well with Boost.Chrono the user can define `BOOST_THREAD_DONT_USE_CHRONO`.
 
 `BOOST_THREAD_USES_CHRONO` is defined when Boost.Thread uses Boost.Chrono.
+
 
 [endsect]
 
@@ -29,7 +23,7 @@ Boost.Thread uses by default Boost.Chrono for the time related functions. For ba
 Boost.Thread uses by default an internal move semantic implementation. Since version 3.0.0 you can use the move emulation emulation provided by Boost.Move. 
 
 When `BOOST_THREAD_VERSION==2` define `BOOST_THREAD_USES_MOVE ` if you want to use Boost.Move interface.
-When `BOOST_THREAD_VERSION==3` define `BOOST_THREAD_DONT_USE_MOVE ` if you want to use boost::unique_future.
+When `BOOST_THREAD_VERSION==3` define `BOOST_THREAD_DONT_USE_MOVE ` if you don't want to use Boost.Move interface.
 
 [endsect]
 
@@ -44,7 +38,7 @@ When `BOOST_THREAD_VERSION==3` define `BOOST_THREAD_DONT_PROVIDE_GENERIC_SHARED_
 
 [section:shared_upwards Shared Locking Upwards Conversion]
 
-Boost.Threads includes in version 2 the Shared Locking Upwards Conversion as defined in [@http://home.roadrunner.com/~hinnant/bloomington/shared_mutex.html Shared Locking].
+Boost.Threads includes in version 3 the Shared Locking Upwards Conversion as defined in [@http://home.roadrunner.com/~hinnant/bloomington/shared_mutex.html Shared Locking].
 These conversions need to be used carefully to avoid deadlock or livelock. The user need to define explicitly `BOOST_THREAD_PROVIDES_SHARED_MUTEX_UPWARDS_CONVERSION` to get these upwards conversions. 
 
 When `BOOST_THREAD_VERSION==2` define `BOOST_THREAD_PROVIDES_SHARED_MUTEX_UPWARDS_CONVERSION ` if you want these features.
@@ -201,13 +195,16 @@ Some compilers don't work correctly with some of the added features.
 If __SUNPRO_CC < 0x5100 the library defines
 
 * `BOOST_THREAD_DONT_USE_MOVE`
+
+If __SUNPRO_CC < 0x5100 the library defines
+
 * `BOOST_THREAD_DONT_PROVIDE_FUTURE_CTOR_ALLOCATORS`
 
 
 [endsect]
 [section:vacpp VACPP]
 
-If __IBMCPP__ is defined the library defines
+If __IBMCPP__ < 1100 the library defines
 
 * `BOOST_THREAD_DONT_USE_CHRONO`
 

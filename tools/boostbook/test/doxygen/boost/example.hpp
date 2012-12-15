@@ -134,6 +134,20 @@ namespace example
      */
     template <typename TypeParameter, int NonTypeParameter>
     void namespace_func_template();
+
+    template<class T>
+    struct specialization_test {
+    };
+
+    template<class T>
+    struct specialization_test<T*> {
+        /** A constructor. */
+        specialization_test();
+        /** A destructor. */
+        ~specialization_test();
+        /** An assignment operator. */
+        specialization_test& operator=(const specialization_test&);
+    };
 }
 
 #define EXAMPLE(m) The macro

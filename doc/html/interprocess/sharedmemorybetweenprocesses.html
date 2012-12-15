@@ -498,17 +498,10 @@
           Windows shared memory creation is a bit different from portable shared
           memory creation: the size of the segment must be specified when creating
           the object and can't be specified through <code class="computeroutput"><span class="identifier">truncate</span></code>
-          like with the shared memory object.
-        </p>
-<p>
-          Take in care that when the last process attached to a shared memory is
-          destroyed <span class="bold"><strong>the shared memory is destroyed</strong></span>
-          so there is <span class="bold"><strong>no persistency</strong></span> with native
-          windows shared memory. Native windows shared memory has also another limitation:
-          a process can open and map the whole shared memory created by another process
-          but it can't know which is the size of that memory. This limitation is
-          imposed by the Windows API so the user must somehow transmit the size of
-          the segment to processes opening the segment.
+          like with the shared memory object. Take in care that when the last process
+          attached to a shared memory is destroyed <span class="bold"><strong>the shared
+          memory is destroyed</strong></span> so there is <span class="bold"><strong>no persistency</strong></span>
+          with native windows shared memory.
         </p>
 <p>
           Sharing memory between services and user applications is also different.
@@ -1044,9 +1037,9 @@
         </p>
 <p>
           One can, for example, mix in STL containers mapped regions from shared
-          memory and memory mapped files. The libraries that only depend on mapped
-          regions can be used to work with shared memory or memory mapped files without
-          recompiling them.
+          memory and memory mapped files. Libraries that only depend on mapped regions
+          can be used to work with shared memory or memory mapped files without recompiling
+          them.
         </p>
 </div>
 <div class="section">
@@ -1067,7 +1060,7 @@
           is going to be mapped in the same address.
         </p>
 <p>
-          If two processes map the same object in different addresses, this invalids
+          If two processes map the same object in different addresses, this invalidates
           the use of pointers in that memory, since the pointer (which is an absolute
           address) would only make sense for the process that wrote it. The solution
           for this is to use offsets (distance) between objects instead of pointers:

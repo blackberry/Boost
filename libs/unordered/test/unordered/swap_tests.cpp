@@ -40,7 +40,7 @@ void swap_test_impl(X& x1, X& x2)
 }
 
 template <class X>
-void swap_tests1(X*, test::random_generator generator = test::default_generator)
+void swap_tests1(X*, test::random_generator generator)
 {
     {
         test::check_instances check_;
@@ -76,10 +76,9 @@ void swap_tests1(X*, test::random_generator generator = test::default_generator)
 }
 
 template <class X>
-void swap_tests2(X* ptr = 0,
-    test::random_generator generator = test::default_generator)
+void swap_tests2(X* ptr, test::random_generator generator)
 {
-    swap_tests1(ptr);
+    swap_tests1(ptr, generator);
 
     typedef BOOST_DEDUCED_TYPENAME X::hasher hasher;
     typedef BOOST_DEDUCED_TYPENAME X::key_equal key_equal;
@@ -205,6 +204,9 @@ bool is_propagate(T*)
     return T::allocator_type::is_propagate_on_swap;
 }
 
+using test::default_generator;
+using test::generate_collisions;
+
 UNORDERED_AUTO_TEST(check_traits)
 {
     BOOST_TEST(!is_propagate(test_set));
@@ -213,17 +215,21 @@ UNORDERED_AUTO_TEST(check_traits)
 }
 
 UNORDERED_TEST(swap_tests1, (
-    (test_map_std_alloc)
-    (test_set)(test_multiset)(test_map)(test_multimap)
-    (test_set_prop_swap)(test_multiset_prop_swap)(test_map_prop_swap)(test_multimap_prop_swap)
-    (test_set_no_prop_swap)(test_multiset_no_prop_swap)(test_map_no_prop_swap)(test_multimap_no_prop_swap)
-))
+        (test_map_std_alloc)
+        (test_set)(test_multiset)(test_map)(test_multimap)
+        (test_set_prop_swap)(test_multiset_prop_swap)(test_map_prop_swap)(test_multimap_prop_swap)
+        (test_set_no_prop_swap)(test_multiset_no_prop_swap)(test_map_no_prop_swap)(test_multimap_no_prop_swap)
+    )
+    ((default_generator)(generate_collisions))
+)
 
 UNORDERED_TEST(swap_tests2, (
-    (test_set)(test_multiset)(test_map)(test_multimap)
-    (test_set_prop_swap)(test_multiset_prop_swap)(test_map_prop_swap)(test_multimap_prop_swap)
-    (test_set_no_prop_swap)(test_multiset_no_prop_swap)(test_map_no_prop_swap)(test_multimap_no_prop_swap)
-))
+        (test_set)(test_multiset)(test_map)(test_multimap)
+        (test_set_prop_swap)(test_multiset_prop_swap)(test_map_prop_swap)(test_multimap_prop_swap)
+        (test_set_no_prop_swap)(test_multiset_no_prop_swap)(test_map_no_prop_swap)(test_multimap_no_prop_swap)
+    )
+    ((default_generator)(generate_collisions))
+)
 
 }
 RUN_TESTS()

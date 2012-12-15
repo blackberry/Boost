@@ -1019,7 +1019,7 @@
             In the type computation above, <code class="computeroutput"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">result_of</span><span class="special">::</span><span class="identifier">as_child</span><span class="special">&lt;&gt;</span></code> is a metafunction that ensures
             its argument is a Proto expression type. If it isn't one already, it
             becomes a Proto terminal. We'll learn more about this metafunction, along
-            with <code class="computeroutput"><a class="link" href="../boost/proto/as_child_id1550862.html" title="Function as_child">proto::as_child()</a></code>, its runtime counterpart,
+            with <code class="computeroutput"><a class="link" href="../boost/proto/as_child_id1630303.html" title="Function as_child">proto::as_child()</a></code>, its runtime counterpart,
             <a class="link" href="users_guide.html#boost_proto.users_guide.front_end.customizing_expressions_in_your_domain.per_domain_as_child" title="Controlling How Child Expressions Are Captured">later</a>.
             For now, you can forget about it.
           </p></td></tr>
@@ -1106,9 +1106,9 @@
 <p>
           We could write a <code class="computeroutput"><span class="identifier">pow</span><span class="special">()</span></code>
           function using code like this, but it's verbose and error prone; it's too
-          easy to introduce subtle bugs by forgetting to call <code class="computeroutput"><a class="link" href="../boost/proto/as_child_id1550862.html" title="Function as_child">proto::as_child()</a></code>
+          easy to introduce subtle bugs by forgetting to call <code class="computeroutput"><a class="link" href="../boost/proto/as_child_id1630303.html" title="Function as_child">proto::as_child()</a></code>
           where necessary, resulting in code that seems to work but sometimes doesn't.
-          Proto provides a better way to construct expression nodes: <code class="computeroutput"><a class="link" href="../boost/proto/make_expr_id1527104.html" title="Function make_expr">proto::make_expr()</a></code>.
+          Proto provides a better way to construct expression nodes: <code class="computeroutput"><a class="link" href="../boost/proto/make_expr_id1606273.html" title="Function make_expr">proto::make_expr()</a></code>.
         </p>
 <h6>
 <a name="boost_proto.users_guide.front_end.making_lazy_functions.h1"></a>
@@ -1116,7 +1116,7 @@
           Functions Made Simple With <code class="literal">make_expr()</code></a>
         </h6>
 <p>
-          Proto provides a helper for building expression templates called <code class="computeroutput"><a class="link" href="../boost/proto/make_expr_id1527104.html" title="Function make_expr">proto::make_expr()</a></code>. We can concisely define
+          Proto provides a helper for building expression templates called <code class="computeroutput"><a class="link" href="../boost/proto/make_expr_id1606273.html" title="Function make_expr">proto::make_expr()</a></code>. We can concisely define
           the <code class="computeroutput"><span class="identifier">pow</span><span class="special">()</span></code>
           function with it as below.
         </p>
@@ -1144,22 +1144,22 @@
 <p>
           Subsequent template parameters to <code class="computeroutput"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">result_of</span><span class="special">::</span><span class="identifier">make_expr</span><span class="special">&lt;&gt;</span></code> represent child nodes. If a child
           type is not already a Proto expression, it is automatically made into a
-          terminal with <code class="computeroutput"><a class="link" href="../boost/proto/as_child_id1550862.html" title="Function as_child">proto::as_child()</a></code>.
+          terminal with <code class="computeroutput"><a class="link" href="../boost/proto/as_child_id1630303.html" title="Function as_child">proto::as_child()</a></code>.
           A type such as <code class="computeroutput"><span class="identifier">pow_fun</span><span class="special">&lt;</span><span class="identifier">Exp</span><span class="special">&gt;</span></code> results in terminal that is held by
           value, whereas a type like <code class="computeroutput"><span class="identifier">Arg</span>
           <span class="keyword">const</span> <span class="special">&amp;</span></code>
           (note the reference) indicates that the result should be held by reference.
         </p>
 <p>
-          In the function body is the runtime invocation of <code class="computeroutput"><a class="link" href="../boost/proto/make_expr_id1527104.html" title="Function make_expr">proto::make_expr()</a></code>.
-          It closely mirrors the return type calculation. <code class="computeroutput"><a class="link" href="../boost/proto/make_expr_id1527104.html" title="Function make_expr">proto::make_expr()</a></code>
+          In the function body is the runtime invocation of <code class="computeroutput"><a class="link" href="../boost/proto/make_expr_id1606273.html" title="Function make_expr">proto::make_expr()</a></code>.
+          It closely mirrors the return type calculation. <code class="computeroutput"><a class="link" href="../boost/proto/make_expr_id1606273.html" title="Function make_expr">proto::make_expr()</a></code>
           requires you to specify the node's tag type as a template parameter. The
           arguments to the function become the node's children. When a child should
           be stored by value, nothing special needs to be done. When a child should
           be stored by reference, you must use the <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">ref</span><span class="special">()</span></code> function to wrap the argument.
         </p>
 <p>
-          And that's it! <code class="computeroutput"><a class="link" href="../boost/proto/make_expr_id1527104.html" title="Function make_expr">proto::make_expr()</a></code>
+          And that's it! <code class="computeroutput"><a class="link" href="../boost/proto/make_expr_id1606273.html" title="Function make_expr">proto::make_expr()</a></code>
           is the lazy person's way to make a lazy funtion.
         </p>
 </div>
@@ -1824,7 +1824,7 @@
             <code class="literal">as_child</code> vs. <code class="literal">as_expr</code></a>
           </h6>
 <p>
-            Proto lets you independently customize the behavior of <code class="computeroutput"><a class="link" href="../boost/proto/as_child_id1550862.html" title="Function as_child">proto::as_child()</a></code> and <code class="computeroutput"><a class="link" href="../boost/proto/as_expr_id1550672.html" title="Function as_expr">proto::as_expr()</a></code>.
+            Proto lets you independently customize the behavior of <code class="computeroutput"><a class="link" href="../boost/proto/as_child_id1630303.html" title="Function as_child">proto::as_child()</a></code> and <code class="computeroutput"><a class="link" href="../boost/proto/as_expr_id1630112.html" title="Function as_expr">proto::as_expr()</a></code>.
             Both accept an object <code class="literal">x</code> and return a Proto expression
             by turning <code class="literal">x</code> it into a Proto terminal if necessary.
             Although similar, the two functions are used in different situations
@@ -1833,7 +1833,7 @@
             you want.
           </p>
 <p>
-            To wit: <code class="computeroutput"><a class="link" href="../boost/proto/as_expr_id1550672.html" title="Function as_expr">proto::as_expr()</a></code> is typically used by
+            To wit: <code class="computeroutput"><a class="link" href="../boost/proto/as_expr_id1630112.html" title="Function as_expr">proto::as_expr()</a></code> is typically used by
             <span class="emphasis"><em>you</em></span> to turn an object into a Proto expression that
             is to be held in a local variable, as so:
           </p>
@@ -1844,12 +1844,12 @@
             is already a Proto expression or not. The object <code class="computeroutput"><span class="identifier">l</span></code>
             is guaranteed to be a valid Proto expression. If <code class="computeroutput"><span class="identifier">x</span></code>
             is a non-Proto object, it is turned into a terminal expression that holds
-            <code class="computeroutput"><span class="identifier">x</span></code> <span class="emphasis"><em>by value</em></span>.<sup>[<a name="boost_proto.users_guide.front_end.customizing_expressions_in_your_domain.per_domain_as_child.f0" href="#ftn.boost_proto.users_guide.front_end.customizing_expressions_in_your_domain.per_domain_as_child.f0" class="footnote">4</a>]</sup> If <code class="computeroutput"><span class="identifier">x</span></code> is a
-            Proto object already, <code class="computeroutput"><a class="link" href="../boost/proto/as_expr_id1550672.html" title="Function as_expr">proto::as_expr()</a></code>
+            <code class="computeroutput"><span class="identifier">x</span></code> <span class="emphasis"><em>by value</em></span>.<sup>[<a name="boost_proto.users_guide.front_end.customizing_expressions_in_your_domain.per_domain_as_child.f0" href="#ftn.boost_proto.users_guide.front_end.customizing_expressions_in_your_domain.per_domain_as_child.f0" class="footnote">5</a>]</sup> If <code class="computeroutput"><span class="identifier">x</span></code> is a
+            Proto object already, <code class="computeroutput"><a class="link" href="../boost/proto/as_expr_id1630112.html" title="Function as_expr">proto::as_expr()</a></code>
             returns it <span class="emphasis"><em>by value</em></span> unmodified.
           </p>
 <p>
-            In contrast, <code class="computeroutput"><a class="link" href="../boost/proto/as_child_id1550862.html" title="Function as_child">proto::as_child()</a></code>
+            In contrast, <code class="computeroutput"><a class="link" href="../boost/proto/as_child_id1630303.html" title="Function as_child">proto::as_child()</a></code>
             is used internally by Proto to pre-process objects before making them
             children of another expression. Since it's internal to Proto, you don't
             see it explicitly, but it's there behind the scenes in expressions like
@@ -1859,12 +1859,12 @@
 </pre>
 <p>
             In this case, Proto builds a plus node from the two children. Both are
-            pre-processed by passing them to <code class="computeroutput"><a class="link" href="../boost/proto/as_child_id1550862.html" title="Function as_child">proto::as_child()</a></code>
+            pre-processed by passing them to <code class="computeroutput"><a class="link" href="../boost/proto/as_child_id1630303.html" title="Function as_child">proto::as_child()</a></code>
             before making them children of the new node. If <code class="computeroutput"><span class="identifier">x</span></code>
             is not a Proto expression, it becomes one by being wrapped in a Proto
-            terminal that holds it <span class="emphasis"><em>by reference</em></span>. If <code class="computeroutput"><span class="identifier">x</span></code> is already a Proto expression, <code class="computeroutput"><a class="link" href="../boost/proto/as_child_id1550862.html" title="Function as_child">proto::as_child()</a></code> returns it <span class="emphasis"><em>by
+            terminal that holds it <span class="emphasis"><em>by reference</em></span>. If <code class="computeroutput"><span class="identifier">x</span></code> is already a Proto expression, <code class="computeroutput"><a class="link" href="../boost/proto/as_child_id1630303.html" title="Function as_child">proto::as_child()</a></code> returns it <span class="emphasis"><em>by
             reference</em></span> unmodified. Contrast this with the above description
-            for <code class="computeroutput"><a class="link" href="../boost/proto/as_expr_id1550672.html" title="Function as_expr">proto::as_expr()</a></code>.
+            for <code class="computeroutput"><a class="link" href="../boost/proto/as_expr_id1630112.html" title="Function as_expr">proto::as_expr()</a></code>.
           </p>
 <p>
             The table below summarizes the above description.
@@ -1944,32 +1944,32 @@
 <tr><td align="left" valign="top"><p>
               There is one important place where Proto uses both <code class="computeroutput"><span class="identifier">as_expr</span></code>
               <span class="emphasis"><em>and</em></span> <code class="computeroutput"><span class="identifier">as_child</span></code>:
-              <code class="computeroutput"><a class="link" href="../boost/proto/make_expr_id1527104.html" title="Function make_expr">proto::make_expr()</a></code>. The <code class="computeroutput"><a class="link" href="../boost/proto/make_expr_id1527104.html" title="Function make_expr">proto::make_expr()</a></code> function requires
+              <code class="computeroutput"><a class="link" href="../boost/proto/make_expr_id1606273.html" title="Function make_expr">proto::make_expr()</a></code>. The <code class="computeroutput"><a class="link" href="../boost/proto/make_expr_id1606273.html" title="Function make_expr">proto::make_expr()</a></code> function requires
               you to specify for each child whether it should be held by value or
-              by reference. Proto uses <code class="computeroutput"><a class="link" href="../boost/proto/as_expr_id1550672.html" title="Function as_expr">proto::as_expr()</a></code>
-              to pre-process the children to be held by value, and <code class="computeroutput"><a class="link" href="../boost/proto/as_child_id1550862.html" title="Function as_child">proto::as_child()</a></code> for the ones to be
+              by reference. Proto uses <code class="computeroutput"><a class="link" href="../boost/proto/as_expr_id1630112.html" title="Function as_expr">proto::as_expr()</a></code>
+              to pre-process the children to be held by value, and <code class="computeroutput"><a class="link" href="../boost/proto/as_child_id1630303.html" title="Function as_child">proto::as_child()</a></code> for the ones to be
               held by reference.
             </p></td></tr>
 </table></div>
 <p>
-            Now that you know what <code class="computeroutput"><a class="link" href="../boost/proto/as_child_id1550862.html" title="Function as_child">proto::as_child()</a></code>
-            and <code class="computeroutput"><a class="link" href="../boost/proto/as_expr_id1550672.html" title="Function as_expr">proto::as_expr()</a></code> are, where they are
+            Now that you know what <code class="computeroutput"><a class="link" href="../boost/proto/as_child_id1630303.html" title="Function as_child">proto::as_child()</a></code>
+            and <code class="computeroutput"><a class="link" href="../boost/proto/as_expr_id1630112.html" title="Function as_expr">proto::as_expr()</a></code> are, where they are
             used, and what they do by default, you may decide that one or both of
             these functions should have different behavior for your domain. For instance,
-            given the above description of <code class="computeroutput"><a class="link" href="../boost/proto/as_child_id1550862.html" title="Function as_child">proto::as_child()</a></code>,
+            given the above description of <code class="computeroutput"><a class="link" href="../boost/proto/as_child_id1630303.html" title="Function as_child">proto::as_child()</a></code>,
             the following code is always wrong:
           </p>
 <pre class="programlisting"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">literal</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="identifier">i</span><span class="special">(</span><span class="number">0</span><span class="special">);</span>
 <span class="keyword">auto</span> <span class="identifier">l</span> <span class="special">=</span> <span class="identifier">i</span> <span class="special">+</span> <span class="number">42</span><span class="special">;</span> <span class="comment">// This is WRONG! Don't do this.</span>
 </pre>
 <p>
-            Why is this wrong? Because <code class="computeroutput"><a class="link" href="../boost/proto/as_child_id1550862.html" title="Function as_child">proto::as_child()</a></code>
+            Why is this wrong? Because <code class="computeroutput"><a class="link" href="../boost/proto/as_child_id1630303.html" title="Function as_child">proto::as_child()</a></code>
             will turn the integer literal 42 into a Proto terminal that holds a reference
             to a temporary integer initialized with 42. The lifetime of that temporary
             ends at the semicolon, guaranteeing that the local <code class="computeroutput"><span class="identifier">l</span></code>
             is left holding a dangling reference to a deceased integer. What to do?
-            One answer is to use <code class="computeroutput"><a class="link" href="../boost/proto/deep_copy_id1517094.html" title="Function template deep_copy">proto::deep_copy()</a></code>.
-            Another is to customize the behavior of <code class="computeroutput"><a class="link" href="../boost/proto/as_child_id1550862.html" title="Function as_child">proto::as_child()</a></code>
+            One answer is to use <code class="computeroutput"><a class="link" href="../boost/proto/deep_copy_id1594622.html" title="Function template deep_copy">proto::deep_copy()</a></code>.
+            Another is to customize the behavior of <code class="computeroutput"><a class="link" href="../boost/proto/as_child_id1630303.html" title="Function as_child">proto::as_child()</a></code>
             for your domain. Read on for the details.
           </p>
 <h6>
@@ -2018,7 +2018,7 @@
           </h6>
 <p>
             Although less common, Proto also lets you customize the behavior of
-            <code class="computeroutput"><a class="link" href="../boost/proto/as_expr_id1550672.html" title="Function as_expr">proto::as_expr()</a></code> on a per-domain basis.
+            <code class="computeroutput"><a class="link" href="../boost/proto/as_expr_id1630112.html" title="Function as_expr">proto::as_expr()</a></code> on a per-domain basis.
             The technique is identical to that for <code class="literal">as_child</code>. See
             below:
           </p>
@@ -2048,7 +2048,7 @@
 <p>
             Let's look again at the problem described above involving the C++11
             <code class="computeroutput"><span class="keyword">auto</span></code> keyword and the default
-            behavior of <code class="computeroutput"><a class="link" href="../boost/proto/as_child_id1550862.html" title="Function as_child">proto::as_child()</a></code>.
+            behavior of <code class="computeroutput"><a class="link" href="../boost/proto/as_child_id1630303.html" title="Function as_child">proto::as_child()</a></code>.
           </p>
 <pre class="programlisting"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">literal</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="identifier">i</span><span class="special">(</span><span class="number">0</span><span class="special">);</span>
 <span class="keyword">auto</span> <span class="identifier">l</span> <span class="special">=</span> <span class="identifier">i</span> <span class="special">+</span> <span class="number">42</span><span class="special">;</span> <span class="comment">// This is WRONG! Don't do this.</span>
@@ -2058,7 +2058,7 @@
             to hold the value 42. The local <code class="computeroutput"><span class="identifier">l</span></code>
             will be left holding a dangling reference to it after its lifetime is
             over. What if we want Proto to make expressions safe to store this way
-            in local variables? We can do so very easily by making <code class="computeroutput"><a class="link" href="../boost/proto/as_child_id1550862.html" title="Function as_child">proto::as_child()</a></code> behave just like <code class="computeroutput"><a class="link" href="../boost/proto/as_expr_id1550672.html" title="Function as_expr">proto::as_expr()</a></code>. The following code
+            in local variables? We can do so very easily by making <code class="computeroutput"><a class="link" href="../boost/proto/as_child_id1630303.html" title="Function as_child">proto::as_child()</a></code> behave just like <code class="computeroutput"><a class="link" href="../boost/proto/as_expr_id1630112.html" title="Function as_expr">proto::as_expr()</a></code>. The following code
             achieves this:
           </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span> <span class="keyword">typename</span> <span class="identifier">E</span> <span class="special">&gt;</span>
@@ -2781,7 +2781,7 @@
         </h6>
 <p>
           There is no simpler expression than a terminal, and no more basic operation
-          than extracting its value. As we've already seen, that is what <code class="computeroutput"><a class="link" href="../boost/proto/value_id1551456.html" title="Function value">proto::value()</a></code> is for.
+          than extracting its value. As we've already seen, that is what <code class="computeroutput"><a class="link" href="../boost/proto/value_id1630896.html" title="Function value">proto::value()</a></code> is for.
         </p>
 <pre class="programlisting"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">terminal</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <span class="special">&gt;::</span><span class="identifier">type</span> <span class="identifier">cout_</span> <span class="special">=</span> <span class="special">{</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span><span class="special">};</span>
 
@@ -2792,7 +2792,7 @@
 <span class="identifier">assert</span><span class="special">(</span> <span class="special">&amp;</span><span class="identifier">sout</span> <span class="special">==</span> <span class="special">&amp;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">);</span>
 </pre>
 <p>
-          To compute the return type of the <code class="computeroutput"><a class="link" href="../boost/proto/value_id1551456.html" title="Function value">proto::value()</a></code>
+          To compute the return type of the <code class="computeroutput"><a class="link" href="../boost/proto/value_id1630896.html" title="Function value">proto::value()</a></code>
           function, you can use <code class="computeroutput"><a class="link" href="../boost/proto/result_of/value.html" title="Struct template value">proto::result_of::value&lt;&gt;</a></code>.
           When the parameter to <code class="computeroutput"><a class="link" href="../boost/proto/result_of/value.html" title="Struct template value">proto::result_of::value&lt;&gt;</a></code>
           is a non-reference type, the result type of the metafunction is the type
@@ -2924,7 +2924,7 @@
 <p>
           Each non-terminal node in an expression tree corresponds to an operator
           in an expression, and the children correspond to the operands, or arguments
-          of the operator. To access them, you can use the <code class="computeroutput"><a class="link" href="../boost/proto/child_c_id1551295.html" title="Function child_c">proto::child_c()</a></code>
+          of the operator. To access them, you can use the <code class="computeroutput"><a class="link" href="../boost/proto/child_c_id1630735.html" title="Function child_c">proto::child_c()</a></code>
           function template, as demonstrated below:
         </p>
 <pre class="programlisting"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">terminal</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;::</span><span class="identifier">type</span> <span class="identifier">i</span> <span class="special">=</span> <span class="special">{</span><span class="number">42</span><span class="special">};</span>
@@ -3090,11 +3090,11 @@
 <p>
           Most operators in C++ are unary or binary, so accessing the only operand,
           or the left and right operands, are very common operations. For this reason,
-          Proto provides the <code class="computeroutput"><a class="link" href="../boost/proto/child_id1551053.html" title="Function child">proto::child()</a></code>,
-          <code class="computeroutput"><a class="link" href="../boost/proto/left_id1551562.html" title="Function left">proto::left()</a></code>, and <code class="computeroutput"><a class="link" href="../boost/proto/right_id1551686.html" title="Function right">proto::right()</a></code>
-          functions. <code class="computeroutput"><a class="link" href="../boost/proto/child_id1551053.html" title="Function child">proto::child()</a></code> and <code class="computeroutput"><a class="link" href="../boost/proto/left_id1551562.html" title="Function left">proto::left()</a></code>
+          Proto provides the <code class="computeroutput"><a class="link" href="../boost/proto/child_id1630493.html" title="Function child">proto::child()</a></code>,
+          <code class="computeroutput"><a class="link" href="../boost/proto/left_id1631003.html" title="Function left">proto::left()</a></code>, and <code class="computeroutput"><a class="link" href="../boost/proto/right_id1631126.html" title="Function right">proto::right()</a></code>
+          functions. <code class="computeroutput"><a class="link" href="../boost/proto/child_id1630493.html" title="Function child">proto::child()</a></code> and <code class="computeroutput"><a class="link" href="../boost/proto/left_id1631003.html" title="Function left">proto::left()</a></code>
           are synonymous with <code class="computeroutput"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">child_c</span><span class="special">&lt;</span><span class="number">0</span><span class="special">&gt;()</span></code>,
-          and <code class="computeroutput"><a class="link" href="../boost/proto/right_id1551686.html" title="Function right">proto::right()</a></code> is synonymous with <code class="computeroutput"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">child_c</span><span class="special">&lt;</span><span class="number">1</span><span class="special">&gt;()</span></code>.
+          and <code class="computeroutput"><a class="link" href="../boost/proto/right_id1631126.html" title="Function right">proto::right()</a></code> is synonymous with <code class="computeroutput"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">child_c</span><span class="special">&lt;</span><span class="number">1</span><span class="special">&gt;()</span></code>.
         </p>
 <p>
           There are also <code class="computeroutput"><a class="link" href="../boost/proto/result_of/child.html" title="Struct template child">proto::result_of::child&lt;&gt;</a></code>,
@@ -3129,7 +3129,7 @@
           all intermediate nodes and the terminals are held <span class="emphasis"><em>by value</em></span>.
           That way, you can safely assign the expression template to a local variable
           or return it from a function without worrying about dangling references.
-          You can do this with <code class="computeroutput"><a class="link" href="../boost/proto/deep_copy_id1517094.html" title="Function template deep_copy">proto::deep_copy()</a></code>
+          You can do this with <code class="computeroutput"><a class="link" href="../boost/proto/deep_copy_id1594622.html" title="Function template deep_copy">proto::deep_copy()</a></code>
           as fo llows:
         </p>
 <pre class="programlisting"><span class="comment">// OK, "ex" has no dangling references</span>
@@ -3164,7 +3164,7 @@
 <th align="left">Note</th>
 </tr>
 <tr><td align="left" valign="top"><p>
-            <code class="computeroutput"><a class="link" href="../boost/proto/deep_copy_id1517094.html" title="Function template deep_copy">proto::deep_copy()</a></code> makes no exception for
+            <code class="computeroutput"><a class="link" href="../boost/proto/deep_copy_id1594622.html" title="Function template deep_copy">proto::deep_copy()</a></code> makes no exception for
             arrays, which it stores by value. That can potentially cause a large
             amount of data to be copied.
           </p></td></tr>
@@ -3177,7 +3177,7 @@
 </h4></div></div></div>
 <p>
           Proto provides a utility for pretty-printing expression trees that comes
-          in very handy when you're trying to debug your EDSL. It's called <code class="computeroutput"><a class="link" href="../boost/proto/display_expr_id1516207.html" title="Function display_expr">proto::display_expr()</a></code>, and you pass it the expression
+          in very handy when you're trying to debug your EDSL. It's called <code class="computeroutput"><a class="link" href="../boost/proto/display_expr_id1593734.html" title="Function display_expr">proto::display_expr()</a></code>, and you pass it the expression
           to print and optionally, an <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span></code>
           to which to send the output. Consider:
         </p>
@@ -3194,7 +3194,7 @@
   , terminal(42)
 )</pre>
 <p>
-          In order to call <code class="computeroutput"><a class="link" href="../boost/proto/display_expr_id1516207.html" title="Function display_expr">proto::display_expr()</a></code>,
+          In order to call <code class="computeroutput"><a class="link" href="../boost/proto/display_expr_id1593734.html" title="Function display_expr">proto::display_expr()</a></code>,
           all the terminals in the expression must be Streamable (that is, they can
           be written to a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span></code>). In addition, the tag types
           must all be Streamable as well. Here is an example that includes a custom
@@ -4108,8 +4108,8 @@
           <span class="special">+</span> <span class="number">2</span> <span class="special">+</span> <span class="number">3</span> <span class="special">+</span>
           <span class="number">4</span></code> does not describe a flat sequence
           of terminals --- it describes a binary tree. We can treat it as a flat
-          sequence of terminals, however, using Proto's <code class="computeroutput"><a class="link" href="../boost/proto/flatten_id1524553.html" title="Function flatten">proto::flatten()</a></code>
-          function. <code class="computeroutput"><a class="link" href="../boost/proto/flatten_id1524553.html" title="Function flatten">proto::flatten()</a></code> returns a view which makes
+          sequence of terminals, however, using Proto's <code class="computeroutput"><a class="link" href="../boost/proto/flatten_id1603723.html" title="Function flatten">proto::flatten()</a></code>
+          function. <code class="computeroutput"><a class="link" href="../boost/proto/flatten_id1603723.html" title="Function flatten">proto::flatten()</a></code> returns a view which makes
           a tree appear as a flat Fusion sequence. If the top-most node has a tag
           type <code class="computeroutput"><span class="identifier">T</span></code>, then the elements
           of the flattened sequence are the child nodes that do <span class="emphasis"><em>not</em></span>
@@ -5144,8 +5144,8 @@ expression  ::= term (('+' term) | ('-' term))*
 <div class="itemizedlist"><ul class="itemizedlist" type="disc">
 <li class="listitem">
             A <span class="emphasis"><em>context</em></span> is like a function object that you pass
-            along with an expression to the <code class="computeroutput"><a class="link" href="../boost/proto/eval_id1518568.html" title="Function eval">proto::eval()</a></code>
-            function. It associates behaviors with node types. <code class="computeroutput"><a class="link" href="../boost/proto/eval_id1518568.html" title="Function eval">proto::eval()</a></code>
+            along with an expression to the <code class="computeroutput"><a class="link" href="../boost/proto/eval_id1596096.html" title="Function eval">proto::eval()</a></code>
+            function. It associates behaviors with node types. <code class="computeroutput"><a class="link" href="../boost/proto/eval_id1596096.html" title="Function eval">proto::eval()</a></code>
             walks the expression and invokes your context at each node.
           </li>
 <li class="listitem">
@@ -5185,13 +5185,13 @@ expression  ::= term (('+' term) | ('-' term))*
 </dl></div>
 <p>
           Once you have constructed a Proto expression tree, either by using Proto's
-          operator overloads or with <code class="computeroutput"><a class="link" href="../boost/proto/make_expr_id1527104.html" title="Function make_expr">proto::make_expr()</a></code>
+          operator overloads or with <code class="computeroutput"><a class="link" href="../boost/proto/make_expr_id1606273.html" title="Function make_expr">proto::make_expr()</a></code>
           and friends, you probably want to actually <span class="emphasis"><em>do</em></span> something
           with it. The simplest option is to use <code class="computeroutput"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">eval</span><span class="special">()</span></code>, a generic expression evaluator. To use
-          <code class="computeroutput"><a class="link" href="../boost/proto/eval_id1518568.html" title="Function eval">proto::eval()</a></code>, you'll need to define
-          a <span class="emphasis"><em>context</em></span> that tells <code class="computeroutput"><a class="link" href="../boost/proto/eval_id1518568.html" title="Function eval">proto::eval()</a></code>
+          <code class="computeroutput"><a class="link" href="../boost/proto/eval_id1596096.html" title="Function eval">proto::eval()</a></code>, you'll need to define
+          a <span class="emphasis"><em>context</em></span> that tells <code class="computeroutput"><a class="link" href="../boost/proto/eval_id1596096.html" title="Function eval">proto::eval()</a></code>
           how each node should be evaluated. This section goes through the nuts and
-          bolts of using <code class="computeroutput"><a class="link" href="../boost/proto/eval_id1518568.html" title="Function eval">proto::eval()</a></code>, defining evaluation contexts,
+          bolts of using <code class="computeroutput"><a class="link" href="../boost/proto/eval_id1596096.html" title="Function eval">proto::eval()</a></code>, defining evaluation contexts,
           and using the contexts that Proto provides.
         </p>
 <div class="note"><table border="0" summary="Note">
@@ -5262,11 +5262,11 @@ expression  ::= term (('+' term) | ('-' term))*
 <span class="special">}</span>
 </pre>
 <p>
-            Given an expression and an evaluation context, using <code class="computeroutput"><a class="link" href="../boost/proto/eval_id1518568.html" title="Function eval">proto::eval()</a></code>
-            is quite simple. Simply pass the expression and the context to <code class="computeroutput"><a class="link" href="../boost/proto/eval_id1518568.html" title="Function eval">proto::eval()</a></code> and it does the rest
+            Given an expression and an evaluation context, using <code class="computeroutput"><a class="link" href="../boost/proto/eval_id1596096.html" title="Function eval">proto::eval()</a></code>
+            is quite simple. Simply pass the expression and the context to <code class="computeroutput"><a class="link" href="../boost/proto/eval_id1596096.html" title="Function eval">proto::eval()</a></code> and it does the rest
             and returns the result. You can use the <code class="computeroutput"><span class="identifier">eval</span><span class="special">&lt;&gt;</span></code> metafunction in the <code class="computeroutput"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">result_of</span></code> namespace to compute the
-            return type of <code class="computeroutput"><a class="link" href="../boost/proto/eval_id1518568.html" title="Function eval">proto::eval()</a></code>. The following demonstrates
-            a use of <code class="computeroutput"><a class="link" href="../boost/proto/eval_id1518568.html" title="Function eval">proto::eval()</a></code>:
+            return type of <code class="computeroutput"><a class="link" href="../boost/proto/eval_id1596096.html" title="Function eval">proto::eval()</a></code>. The following demonstrates
+            a use of <code class="computeroutput"><a class="link" href="../boost/proto/eval_id1596096.html" title="Function eval">proto::eval()</a></code>:
           </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Expr</span><span class="special">&gt;</span>
 <span class="keyword">typename</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">result_of</span><span class="special">::</span><span class="identifier">eval</span><span class="special">&lt;</span><span class="identifier">Expr</span> <span class="keyword">const</span><span class="special">,</span> <span class="identifier">MyContext</span><span class="special">&gt;::</span><span class="identifier">type</span>
@@ -5280,9 +5280,9 @@ expression  ::= term (('+' term) | ('-' term))*
 <span class="special">}</span>
 </pre>
 <p>
-            What <code class="computeroutput"><a class="link" href="../boost/proto/eval_id1518568.html" title="Function eval">proto::eval()</a></code> does is also very simple.
+            What <code class="computeroutput"><a class="link" href="../boost/proto/eval_id1596096.html" title="Function eval">proto::eval()</a></code> does is also very simple.
             It defers most of the work to the context itself. Here essentially is
-            the implementation of <code class="computeroutput"><a class="link" href="../boost/proto/eval_id1518568.html" title="Function eval">proto::eval()</a></code>:
+            the implementation of <code class="computeroutput"><a class="link" href="../boost/proto/eval_id1596096.html" title="Function eval">proto::eval()</a></code>:
           </p>
 <pre class="programlisting"><span class="comment">// eval() dispatches to a nested "eval&lt;&gt;" function</span>
 <span class="comment">// object within the Context:</span>
@@ -5295,7 +5295,7 @@ expression  ::= term (('+' term) | ('-' term))*
 <span class="special">}</span>
 </pre>
 <p>
-            Really, <code class="computeroutput"><a class="link" href="../boost/proto/eval_id1518568.html" title="Function eval">proto::eval()</a></code> is nothing more than
+            Really, <code class="computeroutput"><a class="link" href="../boost/proto/eval_id1596096.html" title="Function eval">proto::eval()</a></code> is nothing more than
             a thin wrapper that dispatches to the appropriate handler within the
             context class. In the next section, we'll see how to implement a context
             class from scratch.
@@ -5307,7 +5307,7 @@ expression  ::= term (('+' term) | ('-' term))*
           an Evaluation Context</a>
 </h5></div></div></div>
 <p>
-            As we saw in the previous section, there is really not much to the <code class="computeroutput"><a class="link" href="../boost/proto/eval_id1518568.html" title="Function eval">proto::eval()</a></code> function. Rather, all
+            As we saw in the previous section, there is really not much to the <code class="computeroutput"><a class="link" href="../boost/proto/eval_id1596096.html" title="Function eval">proto::eval()</a></code> function. Rather, all
             the interesting expression evaluation goes on within a context class.
             This section shows how to implement one from scratch.
           </p>
@@ -5413,7 +5413,7 @@ expression  ::= term (('+' term) | ('-' term))*
 <span class="special">};</span>
 </pre>
 <p>
-            Now we can use <code class="computeroutput"><a class="link" href="../boost/proto/eval_id1518568.html" title="Function eval">proto::eval()</a></code> with the context class
+            Now we can use <code class="computeroutput"><a class="link" href="../boost/proto/eval_id1596096.html" title="Function eval">proto::eval()</a></code> with the context class
             above to evaluate calculator expressions as follows:
           </p>
 <pre class="programlisting"><span class="comment">// Evaluate an expression with a calculator_context</span>
@@ -5798,6 +5798,8 @@ j = 11
           With State Accumulation</a></span></dt>
 <dt><span class="section"><a href="users_guide.html#boost_proto.users_guide.back_end.expression_transformation.data">Passing
           Auxiliary Data to Transforms</a></span></dt>
+<dt><span class="section"><a href="users_guide.html#boost_proto.users_guide.back_end.expression_transformation.implicit_params">Implicit
+          Parameters to Primitive Transforms</a></span></dt>
 <dt><span class="section"><a href="users_guide.html#boost_proto.users_guide.back_end.expression_transformation.unpacking_expressions">Unpacking
           Expressions</a></span></dt>
 <dt><span class="section"><a href="users_guide.html#boost_proto.users_guide.back_end.expression_transformation.external_transforms">Separating
@@ -6455,7 +6457,7 @@ j = 11
 </pre>
 <p>
             ... they will get a compile-time error message on the line with the assertion
-            that reads something like this<sup>[<a name="boost_proto.users_guide.back_end.expression_transformation.example__calculator_arity.f0" href="#ftn.boost_proto.users_guide.back_end.expression_transformation.example__calculator_arity.f0" class="footnote">5</a>]</sup>:
+            that reads something like this<sup>[<a name="boost_proto.users_guide.back_end.expression_transformation.example__calculator_arity.f0" href="#ftn.boost_proto.users_guide.back_end.expression_transformation.example__calculator_arity.f0" class="footnote">6</a>]</sup>:
           </p>
 <pre class="programlisting">c:\boost\org\trunk\libs\proto\scratch\main.cpp(97) : error C2664: 'boost::mpl::asse
 rtion_failed' : cannot convert parameter 1 from 'boost::mpl::failed ************boo
@@ -6656,118 +6658,56 @@ st::mpl::assert_relation&lt;x,y,__formal&gt;::************' to 'boost::mpl::asse
             transforms will need to access auxiliary data that does <span class="emphasis"><em>not</em></span>
             accumulate, so bundling it with the state parameter is impractical. Instead,
             you can pass auxiliary data as a third parameter, known as the <span class="emphasis"><em>data</em></span>
-            parameter. Below we show an example involving string processing where
-            the data parameter is essential.
-          </p>
-<div class="note"><table border="0" summary="Note">
-<tr>
-<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../doc/src/images/note.png"></td>
-<th align="left">Note</th>
-</tr>
-<tr><td align="left" valign="top"><p>
-              All Proto grammars are function objects that take one, two or three
-              arguments: the expression, the state, and the data. There are no additional
-              arguments to know about, we promise. In Haskell, there is set of tree
-              traversal technologies known collectively as <a class="link" href="users_guide.html#boost_proto.users_guide.resources.SYB"><span class="quote">&#8220;<span class="quote">Scrap
-              Your Boilerplate</span>&#8221;</span></a>. In that framework, there are also
-              three parameters: the term, the accumulator, and the context. These
-              are Proto's expression, state and data parameters under different names.
-            </p></td></tr>
-</table></div>
-<p>
-            Expression templates are often used as an optimization to eliminate temporary
-            objects. Consider the problem of string concatenation: a series of concatenations
-            would result in the needless creation of temporary strings. We can use
-            Proto to make string concatenation very efficient. To make the problem
-            more interesting, we can apply a locale-sensitive transformation to each
-            character during the concatenation. The locale information will be passed
-            as the data parameter.
+            parameter.
           </p>
 <p>
-            Consider the following expression template:
+            Let's modify our previous example so that it writes each terminal to
+            <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span></code> before it puts it into a list.
+            This could be handy for debugging your transforms, for instance. We can
+            make it general by passing a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span></code>
+            into the transform in the data parameter. Within the transform itself,
+            we can retrieve the <code class="computeroutput"><span class="identifier">ostream</span></code>
+            with the <code class="computeroutput"><a class="link" href="../boost/proto/_data.html" title="Struct _data">proto::_data</a></code>
+            transform. The strategy is as follows: use the <code class="computeroutput"><a class="link" href="../boost/proto/and_.html" title="Struct template and_">proto::and_&lt;&gt;</a></code>
+            transform to chain two actions. The second action will create the <code class="computeroutput"><span class="identifier">fusion</span><span class="special">::</span><span class="identifier">cons</span><span class="special">&lt;&gt;</span></code>
+            node as before. The first action, however, will display the current expression.
+            For that, we first construct an instance of <code class="computeroutput"><a class="link" href="../boost/proto/functional/display_expr.html" title="Struct display_expr">proto::functional::display_expr</a></code> and then call
+            it.
           </p>
-<pre class="programlisting"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">lit</span><span class="special">(</span><span class="string">"hello"</span><span class="special">)</span> <span class="special">+</span> <span class="string">" "</span> <span class="special">+</span> <span class="string">"world"</span><span class="special">;</span>
-</pre>
-<p>
-            We would like to concatenate this string into a statically allocated
-            wide character buffer, widening each character in turn using the specified
-            locale. The first step is to write a grammar that describes this expression,
-            with transforms that calculate the total string length. Here it is:
-          </p>
-<pre class="programlisting"><span class="comment">// A grammar that matches string concatenation expressions, and</span>
-<span class="comment">// a transform that calculates the total string length.</span>
-<span class="keyword">struct</span> <span class="identifier">StringLength</span>
+<pre class="programlisting"><span class="comment">// Fold the terminals in output statements like</span>
+<span class="comment">// "cout_ &lt;&lt; 42 &lt;&lt; '\n'" into a Fusion cons-list.</span>
+<span class="keyword">struct</span> <span class="identifier">FoldToList</span>
   <span class="special">:</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">or_</span><span class="special">&lt;</span>
+        <span class="comment">// Don't add the ostream terminal to the list</span>
         <span class="identifier">proto</span><span class="special">::</span><span class="identifier">when</span><span class="special">&lt;</span>
-            <span class="comment">// When you find a character array ...</span>
-            <span class="identifier">proto</span><span class="special">::</span><span class="identifier">terminal</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">[</span><span class="identifier">proto</span><span class="special">::</span><span class="identifier">N</span><span class="special">]&gt;</span>
-            <span class="comment">// ... the length is the size of the array minus 1.</span>
-          <span class="special">,</span> <span class="identifier">mpl</span><span class="special">::</span><span class="identifier">prior</span><span class="special">&lt;</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">sizeof_</span><span class="special">&lt;</span><span class="identifier">proto</span><span class="special">::</span><span class="identifier">_value</span><span class="special">&gt;</span> <span class="special">&gt;()</span>
+            <span class="identifier">proto</span><span class="special">::</span><span class="identifier">terminal</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;</span> <span class="special">&gt;</span>
+          <span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_state</span>
         <span class="special">&gt;</span>
+        <span class="comment">// Put all other terminals at the head of the</span>
+        <span class="comment">// list that we're building in the "state" parameter</span>
       <span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">when</span><span class="special">&lt;</span>
-            <span class="comment">// The length of a concatenated string is ...</span>
-            <span class="identifier">proto</span><span class="special">::</span><span class="identifier">plus</span><span class="special">&lt;</span><span class="identifier">StringLength</span><span class="special">,</span> <span class="identifier">StringLength</span><span class="special">&gt;</span>
-            <span class="comment">// ... the sum of the lengths of each sub-string.</span>
-          <span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">fold</span><span class="special">&lt;</span>
-                <span class="identifier">_</span>
-              <span class="special">,</span> <span class="identifier">mpl</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&lt;</span><span class="number">0</span><span class="special">&gt;()</span>
-              <span class="special">,</span> <span class="identifier">mpl</span><span class="special">::</span><span class="identifier">plus</span><span class="special">&lt;</span><span class="identifier">StringLength</span><span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_state</span><span class="special">&gt;()</span>
+            <span class="identifier">proto</span><span class="special">::</span><span class="identifier">terminal</span><span class="special">&lt;</span><span class="identifier">_</span><span class="special">&gt;</span>
+          <span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">and_</span><span class="special">&lt;</span>
+                <span class="comment">// First, write the terminal to an ostream passed</span>
+                <span class="comment">// in the data parameter</span>
+                <span class="identifier">proto</span><span class="special">::</span><span class="identifier">lazy</span><span class="special">&lt;</span>
+                    <span class="identifier">proto</span><span class="special">::</span><span class="identifier">make</span><span class="special">&lt;</span><span class="identifier">proto</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">display_expr</span><span class="special">(</span><span class="identifier">proto</span><span class="special">::</span><span class="identifier">_data</span><span class="special">)&gt;(</span><span class="identifier">_</span><span class="special">)</span>
+                <span class="special">&gt;</span>
+                <span class="comment">// Then, constuct the new cons list.</span>
+              <span class="special">,</span> <span class="identifier">fusion</span><span class="special">::</span><span class="identifier">cons</span><span class="special">&lt;</span><span class="identifier">proto</span><span class="special">::</span><span class="identifier">_value</span><span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_state</span><span class="special">&gt;(</span>
+                    <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_value</span><span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_state</span>
+                <span class="special">)</span>
             <span class="special">&gt;</span>
         <span class="special">&gt;</span>
-    <span class="special">&gt;</span>
-<span class="special">{};</span>
-</pre>
-<p>
-            Notice the use of <code class="computeroutput"><a class="link" href="../boost/proto/fold.html" title="Struct template fold">proto::fold&lt;&gt;</a></code>. It is a primitive
-            transform that takes a sequence, a state, and function, just like <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">accumulate</span><span class="special">()</span></code>.
-            The three template parameters are transforms. The first yields the sequence
-            of expressions over which to fold, the second yields the initial state
-            of the fold, and the third is the function to apply at each iteration.
-            The use of <code class="computeroutput"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">_</span></code> as the first parameter might have
-            you confused. In addition to being Proto's wildcard, <code class="computeroutput"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">_</span></code>
-            is also a primitive transform that returns the current expression, which
-            (if it is a non-terminal) is a sequence of its child expressions.
-          </p>
-<p>
-            Next, we need a function object that accepts a narrow string, a wide
-            character buffer, and a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ctype</span><span class="special">&lt;&gt;</span></code> facet for doing the locale-specific
-            stuff. It's fairly straightforward.
-          </p>
-<pre class="programlisting"><span class="comment">// A function object that writes a narrow string</span>
-<span class="comment">// into a wide buffer.</span>
-<span class="keyword">struct</span> <span class="identifier">WidenCopy</span> <span class="special">:</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">callable</span>
-<span class="special">{</span>
-    <span class="keyword">typedef</span> <span class="keyword">wchar_t</span> <span class="special">*</span><span class="identifier">result_type</span><span class="special">;</span>
-
-    <span class="keyword">wchar_t</span> <span class="special">*</span>
-    <span class="keyword">operator</span><span class="special">()(</span><span class="keyword">char</span> <span class="keyword">const</span> <span class="special">*</span><span class="identifier">str</span><span class="special">,</span> <span class="keyword">wchar_t</span> <span class="special">*</span><span class="identifier">buf</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ctype</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">&gt;</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="identifier">ct</span><span class="special">)</span> <span class="keyword">const</span>
-    <span class="special">{</span>
-        <span class="keyword">for</span><span class="special">(;</span> <span class="special">*</span><span class="identifier">str</span><span class="special">;</span> <span class="special">++</span><span class="identifier">str</span><span class="special">,</span> <span class="special">++</span><span class="identifier">buf</span><span class="special">)</span>
-            <span class="special">*</span><span class="identifier">buf</span> <span class="special">=</span> <span class="identifier">ct</span><span class="special">.</span><span class="identifier">widen</span><span class="special">(*</span><span class="identifier">str</span><span class="special">);</span>
-        <span class="keyword">return</span> <span class="identifier">buf</span><span class="special">;</span>
-    <span class="special">}</span>
-<span class="special">};</span>
-</pre>
-<p>
-            Finally, we need some transforms that actually walk the concatenated
-            string expression, widens the characters and writes them to a buffer.
-            We will pass a <code class="computeroutput"><span class="keyword">wchar_t</span><span class="special">*</span></code>
-            as the state parameter and update it as we go. We'll also pass the <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ctype</span><span class="special">&lt;&gt;</span></code>
-            facet as the data parameter. It looks like this:
-          </p>
-<pre class="programlisting"><span class="comment">// Write concatenated strings into a buffer, widening</span>
-<span class="comment">// them as we go.</span>
-<span class="keyword">struct</span> <span class="identifier">StringCopy</span>
-  <span class="special">:</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">or_</span><span class="special">&lt;</span>
-        <span class="identifier">proto</span><span class="special">::</span><span class="identifier">when</span><span class="special">&lt;</span>
-            <span class="identifier">proto</span><span class="special">::</span><span class="identifier">terminal</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">[</span><span class="identifier">proto</span><span class="special">::</span><span class="identifier">N</span><span class="special">]&gt;</span>
-          <span class="special">,</span> <span class="identifier">WidenCopy</span><span class="special">(</span><span class="identifier">proto</span><span class="special">::</span><span class="identifier">_value</span><span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_state</span><span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_data</span><span class="special">)</span>
-        <span class="special">&gt;</span>
+        <span class="comment">// For left-shift operations, first fold the right</span>
+        <span class="comment">// child to a list using the current state. Use</span>
+        <span class="comment">// the result as the state parameter when folding</span>
+        <span class="comment">// the left child to a list.</span>
       <span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">when</span><span class="special">&lt;</span>
-            <span class="identifier">proto</span><span class="special">::</span><span class="identifier">plus</span><span class="special">&lt;</span><span class="identifier">StringCopy</span><span class="special">,</span> <span class="identifier">StringCopy</span><span class="special">&gt;</span>
-          <span class="special">,</span> <span class="identifier">StringCopy</span><span class="special">(</span>
-                <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_right</span>
-              <span class="special">,</span> <span class="identifier">StringCopy</span><span class="special">(</span><span class="identifier">proto</span><span class="special">::</span><span class="identifier">_left</span><span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_state</span><span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_data</span><span class="special">)</span>
+            <span class="identifier">proto</span><span class="special">::</span><span class="identifier">shift_left</span><span class="special">&lt;</span><span class="identifier">FoldToList</span><span class="special">,</span> <span class="identifier">FoldToList</span><span class="special">&gt;</span>
+          <span class="special">,</span> <span class="identifier">FoldToList</span><span class="special">(</span>
+                <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_left</span>
+              <span class="special">,</span> <span class="identifier">FoldToList</span><span class="special">(</span><span class="identifier">proto</span><span class="special">::</span><span class="identifier">_right</span><span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_state</span><span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_data</span><span class="special">)</span>
               <span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_data</span>
             <span class="special">)</span>
         <span class="special">&gt;</span>
@@ -6775,98 +6715,180 @@ st::mpl::assert_relation&lt;x,y,__formal&gt;::************' to 'boost::mpl::asse
 <span class="special">{};</span>
 </pre>
 <p>
-            Let's look more closely at the transform associated with non-terminals:
+            This is a lot to take in, no doubt. But focus on the second <code class="computeroutput"><span class="identifier">when</span></code> clause above. It says: when you
+            find a terminal, first display the terminal using the <code class="computeroutput"><span class="identifier">ostream</span></code>
+            you find in the data parameter, then take the value of the terminal and
+            the current state to build a new <code class="computeroutput"><span class="identifier">cons</span></code>
+            list. The function object <code class="computeroutput"><span class="identifier">display_expr</span></code>
+            does the job of printing the terminal, and <code class="computeroutput"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">and_</span><span class="special">&lt;&gt;</span></code> chains the actions together and
+            executes them in sequence, returning the result of the last one.
           </p>
-<pre class="programlisting"><span class="identifier">StringCopy</span><span class="special">(</span>
-    <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_right</span>
-  <span class="special">,</span> <span class="identifier">StringCopy</span><span class="special">(</span><span class="identifier">proto</span><span class="special">::</span><span class="identifier">_left</span><span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_state</span><span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_data</span><span class="special">)</span>
-  <span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_data</span>
-<span class="special">)</span>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../doc/src/images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+              Also new is <code class="computeroutput"><a class="link" href="../boost/proto/lazy.html" title="Struct template lazy">proto::lazy&lt;&gt;</a></code>. Sometimes you
+              don't have a ready-made callable object to execute. Instead, you want
+              to first make one and <span class="emphasis"><em>then</em></span> execute it. Above,
+              we need to create a <code class="computeroutput"><span class="identifier">display_expr</span></code>,
+              initializing it with our <code class="computeroutput"><span class="identifier">ostream</span></code>.
+              After that, we want to invoke it by passing it the current expression.
+              It's as if we were doing <code class="computeroutput"><span class="identifier">display_expr</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span><span class="special">)(</span><span class="emphasis"><em>the-expr</em></span><span class="special">)</span></code>.
+              We achieve this two-phase evaluation using <code class="computeroutput"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">lazy</span><span class="special">&lt;&gt;</span></code>. If this doesn't make sense
+              yet, don't worry about it.
+            </p></td></tr>
+</table></div>
+<p>
+            We can use the above transform as before, but now we can pass an <code class="computeroutput"><span class="identifier">ostream</span></code> as the third parameter and
+            get to watch the transform in action. Here's a sample usage:
+          </p>
+<pre class="programlisting"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">terminal</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span> <span class="special">&amp;&gt;::</span><span class="identifier">type</span> <span class="keyword">const</span> <span class="identifier">cout_</span> <span class="special">=</span> <span class="special">{</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span><span class="special">};</span>
+
+<span class="comment">// This is the type of the list we build below</span>
+<span class="keyword">typedef</span>
+    <span class="identifier">fusion</span><span class="special">::</span><span class="identifier">cons</span><span class="special">&lt;</span>
+        <span class="keyword">int</span>
+      <span class="special">,</span> <span class="identifier">fusion</span><span class="special">::</span><span class="identifier">cons</span><span class="special">&lt;</span>
+            <span class="keyword">double</span>
+          <span class="special">,</span> <span class="identifier">fusion</span><span class="special">::</span><span class="identifier">cons</span><span class="special">&lt;</span>
+                <span class="keyword">char</span>
+              <span class="special">,</span> <span class="identifier">fusion</span><span class="special">::</span><span class="identifier">nil</span>
+            <span class="special">&gt;</span>
+        <span class="special">&gt;</span>
+    <span class="special">&gt;</span>
+<span class="identifier">result_type</span><span class="special">;</span>
+
+<span class="comment">// Fold an output expression into a Fusion list, using</span>
+<span class="comment">// fusion::nil as the initial state of the transformation.</span>
+<span class="comment">// Pass std::cout as the data parameter so that we can track</span>
+<span class="comment">// the progress of the transform on the console.</span>
+<span class="identifier">FoldToList</span> <span class="identifier">to_list</span><span class="special">;</span>
+<span class="identifier">result_type</span> <span class="identifier">args</span> <span class="special">=</span> <span class="identifier">to_list</span><span class="special">(</span><span class="identifier">cout_</span> <span class="special">&lt;&lt;</span> <span class="number">1</span> <span class="special">&lt;&lt;</span> <span class="number">3.14</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">,</span> <span class="identifier">fusion</span><span class="special">::</span><span class="identifier">nil</span><span class="special">(),</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span><span class="special">);</span>
+
+<span class="comment">// Now "args" is the list: {1, 3.14, '\n'}</span>
 </pre>
 <p>
-            This bears a resemblance to the transform in the previous section that
-            folded an expression tree into a list. First we recurse on the left child,
-            writing its strings into the <code class="computeroutput"><span class="keyword">wchar_t</span><span class="special">*</span></code> passed in as the state parameter. That
-            returns the new value of the <code class="computeroutput"><span class="keyword">wchar_t</span><span class="special">*</span></code>, which is passed as state while transforming
-            the right child. Both invocations receive the same <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ctype</span><span class="special">&lt;&gt;</span></code>, which is passed in as the data
-            parameter.
+            This code displays the following:
           </p>
-<p>
-            With these pieces in our pocket, we can implement our concatenate-and-widen
-            function as follows:
-          </p>
-<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Expr</span><span class="special">&gt;</span>
-<span class="keyword">void</span> <span class="identifier">widen</span><span class="special">(</span> <span class="identifier">Expr</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="identifier">expr</span> <span class="special">)</span>
-<span class="special">{</span>
-    <span class="comment">// Make sure the expression conforms to our grammar</span>
-    <span class="identifier">BOOST_MPL_ASSERT</span><span class="special">((</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">matches</span><span class="special">&lt;</span><span class="identifier">Expr</span><span class="special">,</span> <span class="identifier">StringLength</span><span class="special">&gt;</span> <span class="special">));</span>
-
-    <span class="comment">// Calculate the length of the string and allocate a buffer statically</span>
-    <span class="keyword">static</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="keyword">const</span> <span class="identifier">length</span> <span class="special">=</span>
-        <span class="identifier">boost</span><span class="special">::</span><span class="identifier">result_of</span><span class="special">&lt;</span><span class="identifier">StringLength</span><span class="special">(</span><span class="identifier">Expr</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">::</span><span class="identifier">value</span><span class="special">;</span>
-    <span class="keyword">wchar_t</span> <span class="identifier">buffer</span><span class="special">[</span> <span class="identifier">length</span> <span class="special">+</span> <span class="number">1</span> <span class="special">]</span> <span class="special">=</span> <span class="special">{</span><span class="identifier">L</span><span class="char">'\0'</span><span class="special">};</span>
-
-    <span class="comment">// Get the current ctype facet</span>
-    <span class="identifier">std</span><span class="special">::</span><span class="identifier">locale</span> <span class="identifier">loc</span><span class="special">;</span>
-    <span class="identifier">std</span><span class="special">::</span><span class="identifier">ctype</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">&gt;</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="identifier">ct</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">use_facet</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">ctype</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">&gt;</span> <span class="special">&gt;(</span><span class="identifier">loc</span><span class="special">));</span>
-
-    <span class="comment">// Concatenate and widen the string expression</span>
-    <span class="identifier">StringCopy</span><span class="special">()(</span><span class="identifier">expr</span><span class="special">,</span> <span class="special">&amp;</span><span class="identifier">buffer</span><span class="special">[</span><span class="number">0</span><span class="special">],</span> <span class="identifier">ct</span><span class="special">);</span>
-
-    <span class="comment">// Write out the buffer.</span>
-    <span class="identifier">std</span><span class="special">::</span><span class="identifier">wcout</span> <span class="special">&lt;&lt;</span> <span class="identifier">buffer</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
-<span class="special">}</span>
-
-<span class="keyword">int</span> <span class="identifier">main</span><span class="special">()</span>
-<span class="special">{</span>
-    <span class="identifier">widen</span><span class="special">(</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">lit</span><span class="special">(</span><span class="string">"hello"</span><span class="special">)</span> <span class="special">+</span> <span class="string">" "</span> <span class="special">+</span> <span class="string">"world"</span> <span class="special">);</span>
-<span class="special">}</span>
-</pre>
-<p>
-            The above code displays:
-          </p>
-<pre class="programlisting">hello world
-</pre>
+<pre class="programlisting">terminal(
+)
+terminal(3.14)
+terminal(1)</pre>
 <p>
             This is a rather round-about way of demonstrating that you can pass extra
             data to a transform as a third parameter. There are no restrictions on
-            what this parameter can be, and (unlike the state parameter) Proto will
+            what this parameter can be, and, unlike the state parameter, Proto will
             never mess with it.
           </p>
 <h6>
 <a name="boost_proto.users_guide.back_end.expression_transformation.data.h0"></a>
-            <span><a name="boost_proto.users_guide.back_end.expression_transformation.data.implicit_parameters_to_primitive_transforms"></a></span><a class="link" href="users_guide.html#boost_proto.users_guide.back_end.expression_transformation.data.implicit_parameters_to_primitive_transforms">Implicit
-            Parameters to Primitive Transforms</a>
+            <span><a name="boost_proto.users_guide.back_end.expression_transformation.data.transform_environment_variables"></a></span><a class="link" href="users_guide.html#boost_proto.users_guide.back_end.expression_transformation.data.transform_environment_variables">Transform
+            Environment Variables</a>
           </h6>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../doc/src/images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+              <span class="emphasis"><em>This is an advanced topic. Feel free to skip if you are new
+              to Proto.</em></span>
+            </p></td></tr>
+</table></div>
 <p>
-            Let's use the above example to illustrate some other niceties of Proto
-            transforms. We've seen that grammars, when used as function objects,
-            can accept up to 3 parameters, and that when using these grammars in
-            callable transforms, you can also specify up to 3 parameters. Let's take
-            another look at the transform associated with non-terminals above:
+            The example above uses the data parameter as a transport mechanism for
+            an unstructured blob of data; in this case, a reference to an <code class="computeroutput"><span class="identifier">ostream</span></code>. As your Proto algorithms become
+            more sophisticated, you may find that an unstructured blob of data isn't
+            terribly convenient to work with. Different parts of your algorithm may
+            be interested in different bits of data. What you want, instead, is a
+            way to pass in a collection of <span class="emphasis"><em>environment variables</em></span>
+            to a transform, like a collection of key/value pairs. Then, you can easily
+            get at the piece of data you want by asking the data parameter for the
+            value associated with a particular key. Proto's <span class="emphasis"><em>transform environments</em></span>
+            give you just that.
           </p>
-<pre class="programlisting"><span class="identifier">StringCopy</span><span class="special">(</span>
-    <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_right</span>
-  <span class="special">,</span> <span class="identifier">StringCopy</span><span class="special">(</span><span class="identifier">proto</span><span class="special">::</span><span class="identifier">_left</span><span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_state</span><span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_data</span><span class="special">)</span>
+<p>
+            Let's start by defining a key.
+          </p>
+<pre class="programlisting"><span class="identifier">BOOST_PROTO_DEFINE_ENV_VAR</span><span class="special">(</span><span class="identifier">mykey_type</span><span class="special">,</span> <span class="identifier">mykey</span><span class="special">);</span>
+</pre>
+<p>
+            This defines a global constant <code class="computeroutput"><span class="identifier">mykey</span></code>
+            with the type <code class="computeroutput"><span class="identifier">mykey_type</span></code>.
+            We can use <code class="computeroutput"><span class="identifier">mykey</span></code> to store
+            a piece of assiciated data in a transform environment, as so:
+          </p>
+<pre class="programlisting"><span class="comment">// Call the MyEval algorithm with a transform environment containing</span>
+<span class="comment">// two key/value pairs: one for proto::data and one for mykey</span>
+<span class="identifier">MyEval</span><span class="special">()(</span> <span class="identifier">expr</span><span class="special">,</span> <span class="identifier">state</span><span class="special">,</span> <span class="special">(</span><span class="identifier">proto</span><span class="special">::</span><span class="identifier">data</span> <span class="special">=</span> <span class="number">42</span><span class="special">,</span> <span class="identifier">mykey</span> <span class="special">=</span> <span class="string">"hello world"</span><span class="special">)</span> <span class="special">);</span>
+</pre>
+<p>
+            The above means to invoke the <code class="computeroutput"><span class="identifier">MyEval</span></code>
+            algorithm with three parameters: an expression, an initial state, and
+            a transform environment containing two key/value pairs.
+          </p>
+<p>
+            From within a Proto algorithm, you can access the values associated with
+            different keys using the <code class="computeroutput"><a class="link" href="../boost/proto/_env_var.html" title="Struct template _env_var">proto::_env_var&lt;&gt;</a></code>
+            transform. For instance, <code class="computeroutput"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">_env_var</span><span class="special">&lt;</span><span class="identifier">mykey_type</span><span class="special">&gt;</span></code> would fetch the value <code class="computeroutput"><span class="string">"hello world"</span></code> from the transform
+            environment created above.
+          </p>
+<p>
+            The <code class="computeroutput"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">_data</span></code> transform has some additional
+            smarts. Rather than always returning the third parameter regarless of
+            whether it is a blob or a transform environment, it checks first to see
+            if it's a blob or not. If so, that's what gets returned. If not, it returns
+            the value associated with the <code class="computeroutput"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">data</span></code>
+            key. In the above example, that would be the value <code class="computeroutput"><span class="number">42</span></code>.
+          </p>
+<p>
+            There's a small host of functions, metafunction, and classes that you
+            can use to create and manipulate transform environments, some for testing
+            whether an object is a transform environment, some for coercing an object
+            to be a transform environment, and some for querying a transform environment
+            whether or not is has a value for a particular key. For an exhaustive
+            treatment of the topic, check out the reference for the <code class="computeroutput"><a class="link" href="reference.html#header.boost.proto.transform.env_hpp" title="Header &lt;boost/proto/transform/env.hpp&gt;">boost/proto/transform/env.hpp</a></code>
+            header.
+          </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="boost_proto.users_guide.back_end.expression_transformation.implicit_params"></a><a class="link" href="users_guide.html#boost_proto.users_guide.back_end.expression_transformation.implicit_params" title="Implicit Parameters to Primitive Transforms">Implicit
+          Parameters to Primitive Transforms</a>
+</h5></div></div></div>
+<p>
+            Let's use <code class="computeroutput"><span class="identifier">FoldToList</span></code>
+            example from the previous two sections to illustrate some other niceties
+            of Proto transforms. We've seen that grammars, when used as function
+            objects, can accept up to 3 parameters, and that when using these grammars
+            in callable transforms, you can also specify up to 3 parameters. Let's
+            take another look at the transform associated with non-terminals from
+            the last section:
+          </p>
+<pre class="programlisting"><span class="identifier">FoldToList</span><span class="special">(</span>
+    <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_left</span>
+  <span class="special">,</span> <span class="identifier">FoldToList</span><span class="special">(</span><span class="identifier">proto</span><span class="special">::</span><span class="identifier">_right</span><span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_state</span><span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_data</span><span class="special">)</span>
   <span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_data</span>
 <span class="special">)</span>
 </pre>
 <p>
-            Here we specify all three parameters to both invocations of the <code class="computeroutput"><span class="identifier">StringCopy</span></code> grammar. But we don't have
+            Here we specify all three parameters to both invocations of the <code class="computeroutput"><span class="identifier">FoldToList</span></code> grammar. But we don't have
             to specify all three. If we don't specify a third parameter, <code class="computeroutput"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">_data</span></code> is assumed. Likewise for the
             second parameter and <code class="computeroutput"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">_state</span></code>.
             So the above transform could have been written more simply as:
           </p>
-<pre class="programlisting"><span class="identifier">StringCopy</span><span class="special">(</span>
-    <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_right</span>
-  <span class="special">,</span> <span class="identifier">StringCopy</span><span class="special">(</span><span class="identifier">proto</span><span class="special">::</span><span class="identifier">_left</span><span class="special">)</span>
+<pre class="programlisting"><span class="identifier">FoldToList</span><span class="special">(</span>
+    <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_left</span>
+  <span class="special">,</span> <span class="identifier">StringCopy</span><span class="special">(</span><span class="identifier">proto</span><span class="special">::</span><span class="identifier">_right</span><span class="special">)</span>
 <span class="special">)</span>
 </pre>
 <p>
             The same is true for any primitive transform. The following are all equivalent:
           </p>
 <div class="table">
-<a name="boost_proto.users_guide.back_end.expression_transformation.data.t0"></a><p class="title"><b>Table&#160;20.9.&#160;Implicit Parameters to Primitive Transforms</b></p>
+<a name="boost_proto.users_guide.back_end.expression_transformation.implicit_params.t0"></a><p class="title"><b>Table&#160;20.9.&#160;Implicit Parameters to Primitive Transforms</b></p>
 <div class="table-contents"><table class="table" summary="Implicit Parameters to Primitive Transforms">
 <colgroup><col></colgroup>
 <thead><tr><th>
@@ -6878,32 +6900,32 @@ st::mpl::assert_relation&lt;x,y,__formal&gt;::************' to 'boost::mpl::asse
 <tr><td>
                     <p>
                       <code class="computeroutput"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">when</span><span class="special">&lt;</span><span class="identifier">_</span><span class="special">,</span>
-                      <span class="identifier">StringCopy</span><span class="special">&gt;</span></code>
+                      <span class="identifier">FoldToList</span><span class="special">&gt;</span></code>
                     </p>
                   </td></tr>
 <tr><td>
                     <p>
                       <code class="computeroutput"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">when</span><span class="special">&lt;</span><span class="identifier">_</span><span class="special">,</span>
-                      <span class="identifier">StringCopy</span><span class="special">()&gt;</span></code>
+                      <span class="identifier">FoldToList</span><span class="special">()&gt;</span></code>
                     </p>
                   </td></tr>
 <tr><td>
                     <p>
                       <code class="computeroutput"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">when</span><span class="special">&lt;</span><span class="identifier">_</span><span class="special">,</span>
-                      <span class="identifier">StringCopy</span><span class="special">(</span><span class="identifier">_</span><span class="special">)&gt;</span></code>
+                      <span class="identifier">FoldToList</span><span class="special">(</span><span class="identifier">_</span><span class="special">)&gt;</span></code>
                     </p>
                   </td></tr>
 <tr><td>
                     <p>
                       <code class="computeroutput"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">when</span><span class="special">&lt;</span><span class="identifier">_</span><span class="special">,</span>
-                      <span class="identifier">StringCopy</span><span class="special">(</span><span class="identifier">_</span><span class="special">,</span>
+                      <span class="identifier">FoldToList</span><span class="special">(</span><span class="identifier">_</span><span class="special">,</span>
                       <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_state</span><span class="special">)&gt;</span></code>
                     </p>
                   </td></tr>
 <tr><td>
                     <p>
                       <code class="computeroutput"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">when</span><span class="special">&lt;</span><span class="identifier">_</span><span class="special">,</span>
-                      <span class="identifier">StringCopy</span><span class="special">(</span><span class="identifier">_</span><span class="special">,</span>
+                      <span class="identifier">FoldToList</span><span class="special">(</span><span class="identifier">_</span><span class="special">,</span>
                       <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_state</span><span class="special">,</span>
                       <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_data</span><span class="special">)&gt;</span></code>
                     </p>
@@ -6942,13 +6964,11 @@ st::mpl::assert_relation&lt;x,y,__formal&gt;::************' to 'boost::mpl::asse
 <p>
               You might be tempted now to drop the <code class="computeroutput"><span class="identifier">_state</span></code>
               and <code class="computeroutput"><span class="identifier">_data</span></code> parameters
-              to <code class="computeroutput"><span class="identifier">WidenCopy</span><span class="special">(</span><span class="identifier">proto</span><span class="special">::</span><span class="identifier">_value</span><span class="special">,</span>
-              <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_state</span><span class="special">,</span>
-              <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_data</span><span class="special">)</span></code>.
-              That would be an error. <code class="computeroutput"><span class="identifier">WidenCopy</span></code>
-              is just a plain function object, not a primitive transform, so you
-              must specify all its arguments. We'll see later how to write your own
-              primitive transforms.
+              for all your callable transforms. That would be an error. You can only
+              do that for primitive transforms, and not all callables are primitive
+              transforms. Later on, we'll see what distinguishes ordinary callables
+              from their more powerful primitive transfor cousins, but the short
+              version is this: primitive transforms inherit from <code class="computeroutput"><a class="link" href="../boost/proto/transform.html" title="Struct template transform">proto::transform&lt;&gt;</a></code>.
             </p>
 </td></tr>
 </table></div>
@@ -6959,7 +6979,7 @@ st::mpl::assert_relation&lt;x,y,__formal&gt;::************' to 'boost::mpl::asse
             these two transforms are equivalent. Can you see why?
           </p>
 <div class="table">
-<a name="boost_proto.users_guide.back_end.expression_transformation.data.t1"></a><p class="title"><b>Table&#160;20.10.&#160;Two Equivalent Transforms</b></p>
+<a name="boost_proto.users_guide.back_end.expression_transformation.implicit_params.t1"></a><p class="title"><b>Table&#160;20.10.&#160;Two Equivalent Transforms</b></p>
 <div class="table-contents"><table class="table" summary="Two Equivalent Transforms">
 <colgroup>
 <col>
@@ -6968,12 +6988,12 @@ st::mpl::assert_relation&lt;x,y,__formal&gt;::************' to 'boost::mpl::asse
 <thead><tr>
 <th>
                     <p>
-                      Without <code class="literal">proto::fold&lt;&gt;</code>
+                      Without <code class="literal">proto::reverse_fold&lt;&gt;</code>
                     </p>
                   </th>
 <th>
                     <p>
-                      With <code class="literal">proto::fold&lt;&gt;</code>
+                      With <code class="literal">proto::reverse_fold&lt;&gt;</code>
                     </p>
                   </th>
 </tr></thead>
@@ -6981,9 +7001,9 @@ st::mpl::assert_relation&lt;x,y,__formal&gt;::************' to 'boost::mpl::asse
 <td>
                     <p>
 </p>
-<pre class="programlisting"><span class="identifier">StringCopy</span><span class="special">(</span>
-    <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_right</span>
-  <span class="special">,</span> <span class="identifier">StringCopy</span><span class="special">(</span><span class="identifier">proto</span><span class="special">::</span><span class="identifier">_left</span><span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_state</span><span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_data</span><span class="special">)</span>
+<pre class="programlisting"><span class="identifier">FoldToList</span><span class="special">(</span>
+    <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_left</span>
+  <span class="special">,</span> <span class="identifier">FoldToList</span><span class="special">(</span><span class="identifier">proto</span><span class="special">::</span><span class="identifier">_right</span><span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_state</span><span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_data</span><span class="special">)</span>
   <span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_data</span>
 <span class="special">)</span></pre>
 <p>
@@ -6992,7 +7012,7 @@ st::mpl::assert_relation&lt;x,y,__formal&gt;::************' to 'boost::mpl::asse
 <td>
                     <p>
 </p>
-<pre class="programlisting"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">fold</span><span class="special">&lt;</span><span class="identifier">_</span><span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_state</span><span class="special">,</span> <span class="identifier">StringCopy</span><span class="special">&gt;</span></pre>
+<pre class="programlisting"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">reverse_fold</span><span class="special">&lt;</span><span class="identifier">_</span><span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">_state</span><span class="special">,</span> <span class="identifier">FoldToList</span><span class="special">&gt;</span></pre>
 <p>
                     </p>
                   </td>
@@ -7393,6 +7413,37 @@ st::mpl::assert_relation&lt;x,y,__formal&gt;::************' to 'boost::mpl::asse
             The above code demonstrates how a single grammar can be used with different
             transforms specified externally. This makes it possible to reuse a grammar
             to drive several different computations.
+          </p>
+<h6>
+<a name="boost_proto.users_guide.back_end.expression_transformation.external_transforms.h0"></a>
+            <span><a name="boost_proto.users_guide.back_end.expression_transformation.external_transforms.separating_data_from_external_transforms"></a></span><a class="link" href="users_guide.html#boost_proto.users_guide.back_end.expression_transformation.external_transforms.separating_data_from_external_transforms">Separating
+            Data From External Transforms</a>
+          </h6>
+<p>
+            As described above, the external transforms feature usurps the data parameter,
+            which is intended to be a place where you can pass arbitrary data, and
+            gives it a specific meaning. But what if you are already using the data
+            parameter for something else? The answer is to use a transform environment.
+            By associating your external transforms with the <code class="computeroutput"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">transforms</span></code>
+            key, you are free to pass arbitrary data in other slots.
+          </p>
+<p>
+            To continue the above example, what if we also needed to pass a piece
+            of data into our transform along with the external transforms? It would
+            look like this:
+          </p>
+<pre class="programlisting"><span class="keyword">int</span> <span class="identifier">result3</span> <span class="special">=</span> <span class="identifier">calc_grammar_extern</span><span class="special">()(</span>
+    <span class="identifier">_1</span> <span class="special">/</span> <span class="identifier">_2</span>
+  <span class="special">,</span> <span class="identifier">fusion</span><span class="special">::</span><span class="identifier">make_vector</span><span class="special">(</span><span class="number">6</span><span class="special">,</span> <span class="number">0</span><span class="special">)</span>
+  <span class="special">,</span> <span class="special">(</span><span class="identifier">proto</span><span class="special">::</span><span class="identifier">data</span> <span class="special">=</span> <span class="number">42</span><span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">transforms</span> <span class="special">=</span> <span class="identifier">checked</span><span class="special">)</span>
+<span class="special">);</span>
+</pre>
+<p>
+            In the above invocation of the <code class="computeroutput"><span class="identifier">calc_grammar_extern</span></code>
+            algorithm, the map of external transforms is associated with the <code class="computeroutput"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">transforms</span></code> key and passed to the algorithm
+            in a transform environment. Also in the transform environment is a key/value
+            pair that associated the value <code class="computeroutput"><span class="number">42</span></code>
+            with the <code class="computeroutput"><span class="identifier">proto</span><span class="special">::</span><span class="identifier">data</span></code> key.
           </p>
 </div>
 <div class="section">
@@ -10753,7 +10804,7 @@ minus(
 <span class="keyword">struct</span> <span class="identifier">division_by_zero</span> <span class="special">:</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">exception</span> <span class="special">{};</span>
 
 <span class="keyword">struct</span> <span class="identifier">do_checked_divide</span>
-    <span class="special">:</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">callable</span>
+  <span class="special">:</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">callable</span>
 <span class="special">{</span>
     <span class="keyword">typedef</span> <span class="keyword">int</span> <span class="identifier">result_type</span><span class="special">;</span>
     <span class="keyword">int</span> <span class="keyword">operator</span><span class="special">()(</span><span class="keyword">int</span> <span class="identifier">left</span><span class="special">,</span> <span class="keyword">int</span> <span class="identifier">right</span><span class="special">)</span> <span class="keyword">const</span>
@@ -10971,12 +11022,12 @@ minus(
 </div>
 <div class="footnotes">
 <br><hr width="100" align="left">
-<div class="footnote"><p><sup>[<a id="ftn.boost_proto.users_guide.front_end.customizing_expressions_in_your_domain.per_domain_as_child.f0" href="#boost_proto.users_guide.front_end.customizing_expressions_in_your_domain.per_domain_as_child.f0" class="para">4</a>] </sup>
-              It's not always possible to hold something by value. By default, <code class="computeroutput"><a class="link" href="../boost/proto/as_expr_id1550672.html" title="Function as_expr">proto::as_expr()</a></code> makes an exception
+<div class="footnote"><p><sup>[<a id="ftn.boost_proto.users_guide.front_end.customizing_expressions_in_your_domain.per_domain_as_child.f0" href="#boost_proto.users_guide.front_end.customizing_expressions_in_your_domain.per_domain_as_child.f0" class="para">5</a>] </sup>
+              It's not always possible to hold something by value. By default, <code class="computeroutput"><a class="link" href="../boost/proto/as_expr_id1630112.html" title="Function as_expr">proto::as_expr()</a></code> makes an exception
               for functions, abstract types, and iostreams (types derived from <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ios_base</span></code>). These objects are held
               by reference. All others are held by value, even arrays.
             </p></div>
-<div class="footnote"><p><sup>[<a id="ftn.boost_proto.users_guide.back_end.expression_transformation.example__calculator_arity.f0" href="#boost_proto.users_guide.back_end.expression_transformation.example__calculator_arity.f0" class="para">5</a>] </sup>
+<div class="footnote"><p><sup>[<a id="ftn.boost_proto.users_guide.back_end.expression_transformation.example__calculator_arity.f0" href="#boost_proto.users_guide.back_end.expression_transformation.example__calculator_arity.f0" class="para">6</a>] </sup>
               This error message was generated with Microsoft Visual C++ 9.0. Different
               compilers will emit different messages with varying degrees of readability.
             </p></div>

@@ -321,4 +321,34 @@ void test_matrix_vector () {
 #endif
 #endif
 #endif
+
+#ifdef USE_MAPPED_VECTOR_OF_MAPPED_VECTOR
+#ifdef USE_STD_MAP
+#ifdef USE_FLOAT
+    std::cout << "float mapped_vector_of_mapped_vector" << std::endl;
+    test_my_matrix_vector<ublas::mapped_vector<float, std::map<std::size_t, float> >,
+                          ublas::mapped_vector_of_mapped_vector<float>, 3 > () ();
+#endif
+
+#ifdef USE_DOUBLE
+    std::cout << "double mapped_vector_of_mapped_vector" << std::endl;
+    test_my_matrix_vector<ublas::mapped_vector<double, std::map<std::size_t, double> >,
+                          ublas::mapped_vector_of_mapped_vector<double>, 3 > () ();
+#endif
+
+#ifdef USE_STD_COMPLEX
+#ifdef USE_FLOAT
+    std::cout << "std::complex<float> mapped_vector_of_mapped_vector" << std::endl;
+    test_my_matrix_vector<ublas::mapped_vector<std::complex<float>, std::map<std::size_t, std::complex<float> > >,
+                          ublas::mapped_vector_of_mapped_vector<std::complex<float> >, 3 > () ();
+#endif
+
+#ifdef USE_DOUBLE
+    std::cout << "std::complex<double> mapped_vector_of_mapped_vector" << std::endl;
+    test_my_matrix_vector<ublas::mapped_vector<std::complex<double>, std::map<std::size_t, std::complex<double> > >,
+                          ublas::mapped_vector_of_mapped_vector<std::complex<double> >, 3 > () ();
+#endif
+#endif
+#endif
+#endif
 }

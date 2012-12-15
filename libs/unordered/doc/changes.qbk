@@ -3,6 +3,9 @@
  / Distributed under the Boost Software License, Version 1.0. (See accompanying
  / file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) ]
 
+[template ticket[number]'''<ulink
+    url="https://svn.boost.org/trac/boost/ticket/'''[number]'''">'''#[number]'''</ulink>''']
+
 [section:changes Change Log]
 
 [h2 Review Version]
@@ -198,5 +201,23 @@ C++11 support has resulted in some breaking changes:
   Wang's hash function to pick which one to use. As modulus is very slow
   for 64 bit values.
 * Some internal changes.
+
+[h2 Boost 1.51.0]
+
+* Fix construction/destruction issue when using a C++11 compiler with a
+  C++03 allocator ([ticket 7100]).
+* Remove a `try..catch` to support compiling without exceptions.
+* Adjust SFINAE use to try to supprt g++ 3.4 ([ticket 7175]).
+* Updated to use the new config macros.
+
+[h2 Boost 1.52.0]
+
+* Faster assign, which assigns to existing nodes where possible, rather than
+  creating entirely new nodes and copy constructing.
+* Fixed bug in `erase_range` ([ticket 7471]).
+* Reverted some of the internal changes to how nodes are created, especially
+  for C++11 compilers. 'construct' and 'destroy' should work a little better
+  for C++11 allocators.
+* Simplified the implementation a bit. Hopefully more robust.
 
 [endsect]

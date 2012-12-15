@@ -28,7 +28,7 @@ using namespace boost;
 using std::cout;
 
 
-int test_main( int argc, char * argv[] )
+int test_main( int , char * [] )
 {
 
 #   ifdef NDEBUG
@@ -96,5 +96,6 @@ int test_main( int argc, char * argv[] )
         { cout<<"caught bad_numeric_cast #5\n"; caught_exception = true; }
     BOOST_CHECK ( caught_exception );
 
+    (void)ul; // Supressing GCC warning about set but unused wariable
     return 0 ;
 }

@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2006. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2006-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -19,12 +19,21 @@ namespace boost {
 namespace interprocess {
 namespace test {
 
+template<class T>
+struct is_copyable;
+
+template<>
+struct is_copyable<int>
+{
+   static const bool value = true;
+};
+
+
 class movable_int
 {
    BOOST_MOVABLE_BUT_NOT_COPYABLE(movable_int)
 
    public:
-
    movable_int()
       :  m_int(0)
    {}
@@ -64,6 +73,12 @@ class movable_int
    int get_int() const
    {  return m_int;  }
 
+   friend bool operator==(const movable_int &l, int r)
+   {  return l.get_int() == r;   }
+
+   friend bool operator==(int l, const movable_int &r)
+   {  return l == r.get_int();   }
+
    private:
    int m_int;
 };
@@ -77,11 +92,18 @@ std::basic_ostream<E, T> & operator<<
     return os;
 }
 
+
+template<>
+struct is_copyable<movable_int>
+{
+   static const bool value = false;
+};
+
 class movable_and_copyable_int
 {
    BOOST_COPYABLE_AND_MOVABLE(movable_and_copyable_int)
-   public:
 
+   public:
    movable_and_copyable_int()
       :  m_int(0)
    {}
@@ -94,12 +116,12 @@ class movable_and_copyable_int
       :  m_int(mmi.m_int)
    {}
   
-   movable_and_copyable_int &operator= (BOOST_COPY_ASSIGN_REF(movable_and_copyable_int) mi)
-   {  this->m_int = mi.m_int;    return *this;  }
-
    movable_and_copyable_int(BOOST_RV_REF(movable_and_copyable_int) mmi)
       :  m_int(mmi.m_int)
    {  mmi.m_int = 0; }
+
+   movable_and_copyable_int &operator= (BOOST_COPY_ASSIGN_REF(movable_and_copyable_int) mi)
+   {  this->m_int = mi.m_int;    return *this;  }
 
    movable_and_copyable_int & operator= (BOOST_RV_REF(movable_and_copyable_int) mmi)
    {  this->m_int = mmi.m_int;   mmi.m_int = 0;    return *this;  }
@@ -128,6 +150,12 @@ class movable_and_copyable_int
    int get_int() const
    {  return m_int;  }
 
+   friend bool operator==(const movable_and_copyable_int &l, int r)
+   {  return l.get_int() == r;   }
+
+   friend bool operator==(int l, const movable_and_copyable_int &r)
+   {  return l == r.get_int();   }
+
    private:
    int m_int;
 };
@@ -140,6 +168,12 @@ std::basic_ostream<E, T> & operator<<
     os << p.get_int();
     return os;
 }
+
+template<>
+struct is_copyable<movable_and_copyable_int>
+{
+   static const bool value = true;
+};
 
 class copyable_int
 {
@@ -156,9 +190,6 @@ class copyable_int
       :  m_int(mmi.m_int)
    {}
   
-   copyable_int & operator= (const copyable_int &mi)
-   {  this->m_int = mi.m_int; return *this;  }
-
    copyable_int & operator= (int i)
    {  this->m_int = i;  return *this;  }
 
@@ -183,8 +214,29 @@ class copyable_int
    int get_int() const
    {  return m_int;  }
 
+   friend bool operator==(const copyable_int &l, int r)
+   {  return l.get_int() == r;   }
+
+   friend bool operator==(int l, const copyable_int &r)
+   {  return l == r.get_int();   }
+
    private:
    int m_int;
+};
+
+template<class E, class T>
+std::basic_ostream<E, T> & operator<<
+   (std::basic_ostream<E, T> & os, copyable_int const & p)
+
+{
+    os << p.get_int();
+    return os;
+}
+
+template<>
+struct is_copyable<copyable_int>
+{
+   static const bool value = true;
 };
 
 class non_copymovable_int
@@ -222,20 +274,15 @@ class non_copymovable_int
    int get_int() const
    {  return m_int;  }
 
+   friend bool operator==(const non_copymovable_int &l, int r)
+   {  return l.get_int() == r;   }
+
+   friend bool operator==(int l, const non_copymovable_int &r)
+   {  return l == r.get_int();   }
+
    private:
    int m_int;
 };
-
-template<class E, class T>
-std::basic_ostream<E, T> & operator<<
-   (std::basic_ostream<E, T> & os, copyable_int const & p)
-
-{
-    os << p.get_int();
-    return os;
-}
-
-
 
 }  //namespace test {
 }  //namespace interprocess {

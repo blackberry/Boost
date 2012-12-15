@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2006-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2006-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -50,7 +50,7 @@ int main ()
    //use previously obtained handle to find the new pointer.
    mylist = static_cast<MyList *>
                (heap_memory.get_address_from_handle(list_handle));
- 
+
    //Fill list until there is no more memory in the buffer
    try{
       while(1) {
@@ -61,7 +61,7 @@ int main ()
       //memory is full
    }
 
-   //Let's obtain the new size of the list    
+   //Let's obtain the new size of the list
    MyList::size_type new_size = mylist->size();
 
    assert(new_size > old_size);

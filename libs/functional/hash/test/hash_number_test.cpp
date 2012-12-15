@@ -16,8 +16,6 @@
 
 #include <boost/preprocessor/cat.hpp>
 #include <boost/functional/hash/detail/limits.hpp>
-#include <boost/mpl/assert.hpp>
-#include <boost/type_traits/is_base_and_derived.hpp>
 
 #include "./compile_time.hpp"
 

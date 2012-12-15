@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -31,7 +31,7 @@ int main ()
    std::string process_id2(process_id);
    process_id2 += "_2";
    try{
-      const std::size_t FileSize = 99999*2;
+      const std::size_t FileSize = 99999*4;
       {
          //Remove shared memory
          shared_memory_object::remove(process_id.c_str());
@@ -59,7 +59,7 @@ int main ()
                               ,FileSize - FileSize/2
                               ,0);
 
-         //Fill two regions with a pattern  
+         //Fill two regions with a pattern
          unsigned char *filler = static_cast<unsigned char*>(region.get_address());
          for(std::size_t i = 0
             ;i < FileSize/2
@@ -129,6 +129,52 @@ int main ()
                return 1;
             }
          }
+         //Now shrink
+         const std::size_t original_region_size = region.get_size();
+         if(!region.shrink_by(region.get_size()/2, false) || region.get_size() != original_region_size/2){
+            return 1;
+         }
+         const std::size_t shrunk_region_size = region.get_size();
+         if(!region.shrink_by(region.get_size()/2, true) || region.get_size() != shrunk_region_size/2){
+            return 1;
+         }
+
+         //Now advise
+         #if defined(POSIX_MADV_NORMAL) || defined(MADV_NORMAL)
+         std::cout << "Advice normal" << std::endl;
+         if(!region.advise(mapped_region::advice_normal)){
+            return 1;
+         }
+         #endif
+
+         #if defined(POSIX_MADV_SEQUENTIAL) || defined(MADV_SEQUENTIAL)
+         std::cout << "Advice sequential" << std::endl;
+         if(!region.advise(mapped_region::advice_sequential)){
+            return 1;
+         }
+         #endif
+
+         #if defined(POSIX_MADV_RANDOM) || defined(MADV_RANDOM)
+         std::cout << "Advice random" << std::endl;
+         if(!region.advise(mapped_region::advice_random)){
+            return 1;
+         }
+         #endif
+
+         #if defined(POSIX_MADV_WILLNEED) || defined(MADV_WILLNEED)
+         std::cout << "Advice 'will need'" << std::endl;
+         if(!region.advise(mapped_region::advice_willneed)){
+            return 1;
+         }
+         #endif
+
+         #if defined(POSIX_MADV_DONTNEED) || (defined(MADV_DONTNEED) && defined(BOOST_INTERPROCESS_MADV_DONTNEED_HAS_NONDESTRUCTIVE_SEMANTICS))
+         std::cout << "Advice 'dont't need'" << std::endl;
+         if(!region.advise(mapped_region::advice_dontneed)){
+            return 1;
+         }
+         #endif
+
       }
       {
          //Check for busy address space

@@ -1,4 +1,4 @@
-# Copyright (c) 2004 Michael Stevens
+# Copyright (c) 2004-2011 Michael Stevens, David Bellot
 # Use, modification and distribution are subject to the
 # Boost Software License, Version 1.0. (See accompanying file
 # LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -31,11 +31,19 @@ UBLAS_TESTSET_SPARSE ?=
             # USE_RANGE USE_SLICE	 # Too complex for regression testing
             USE_UNBOUNDED_ARRAY
 			USE_MAP_ARRAY USE_STD_MAP
-            USE_MAPPED_VECTOR USE_COMPRESSED_VECTOR USE_COORDINATE_VECTOR
-            USE_MAPPED_MATRIX USE_COMPRESSED_MATRIX USE_COORDINATE_MATRIX 
+            USE_MAPPED_VECTOR USE_COMPRESSED_VECTOR 
+            USE_MAPPED_MATRIX USE_COMPRESSED_MATRIX 
 			;
 # Generalize VofV still failing
 #            USE_GENERALIZED_VECTOR_OF_VECTOR
+
+UBLAS_TESTSET_SPARSE_COO = [ modules.peek : UBLAS_TESTSET_SPARSE_COO ] ;
+UBLAS_TESTSET_SPARSE_COO ?= 
+            USE_DOUBLE USE_STD_COMPLEX
+            USE_UNBOUNDED_ARRAY
+            USE_COORDINATE_VECTOR
+            USE_COORDINATE_MATRIX 
+			;
 
 
 # Project settings
@@ -69,6 +77,20 @@ test-suite numeric/uBLAS
             test33.cpp
         : : :
             <define>$(UBLAS_TESTSET_SPARSE)
+            <define>$(UBLAS_TESTSET_SPARSE_COO)
+      ]
+      [ run test3.cpp
+            test31.cpp
+            test32.cpp
+            test33.cpp
+        : : :
+            <define>USE_FLOAT
+            <define>USE_DOUBLE 
+            <define>USE_STD_COMPLEX 
+            <define>USE_STD_MAP
+            <define>USE_MAPPED_VECTOR_OF_MAPPED_VECTOR 
+        : test3_mvov 
+        :
       ]
       [ run test4.cpp
             test42.cpp
@@ -132,6 +154,38 @@ test-suite numeric/uBLAS
       ]
       [ run test_complex_norms.cpp
       ]
-	[ run test_assignment.cpp
-	]
+	  [ run test_assignment.cpp
+	  ]
+	  [ run test_triangular.cpp
+        :
+        :
+        : <library>/boost/timer//boost_timer
+	  ]
+	  [ run test_ticket7296.cpp
+	  ]
+      [ run test_inplace_solve.cpp
+        : 
+        : 
+        : <define>$(UBLAS_TESTSET) 
+        : test_inplace_solve_basic
+        :
+      ]
+      [ run test_inplace_solve.cpp
+        : 
+        : 
+        : <define>$(UBLAS_TESTSET_SPARSE) <define>$(UBLAS_TESTSET_SPARSE_COO)
+        : test_inplace_solve_sparse
+        :
+      ]
+      [ run test_inplace_solve.cpp
+        : 
+        : 
+        : <define>USE_MAPPED_VECTOR_OF_MAPPED_VECTOR
+        : test_inplace_solve_mvov
+        :
+      ]
+      [ run test_coordinate_vector_inplace_merge.cpp 
+      ]
+      [ run test_coordinate_matrix_inplace_merge.cpp 
+      ]
     ;

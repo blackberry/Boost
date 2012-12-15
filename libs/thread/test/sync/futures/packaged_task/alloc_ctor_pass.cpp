@@ -25,7 +25,7 @@
 #include <boost/thread/future.hpp>
 #include <boost/detail/lightweight_test.hpp>
 #if defined BOOST_THREAD_PROVIDES_FUTURE_CTOR_ALLOCATORS
-#include <libs/thread/test/sync/futures/test_allocator.hpp>
+#include "../test_allocator.hpp"
 
 double fct()
 {
@@ -44,20 +44,27 @@ public:
   BOOST_THREAD_COPYABLE_AND_MOVABLE(A)
   static int n_moves;
   static int n_copies;
+  static int n_instances;
+  static int n_destroy;
 
   explicit A(long i) : data_(i)
   {
+    ++n_instances;
   }
   A(BOOST_THREAD_RV_REF(A) a) : data_(BOOST_THREAD_RV(a).data_)
   {
+    ++n_instances;
     ++n_moves; BOOST_THREAD_RV(a).data_ = -1;
   }
   A(const A& a) : data_(a.data_)
   {
+    ++n_instances;
     ++n_copies;
   }
   ~A()
   {
+    --n_instances;
+    ++n_destroy;
   }
 
   long operator()() const
@@ -68,6 +75,8 @@ public:
 
 int A::n_moves = 0;
 int A::n_copies = 0;
+int A::n_instances = 0;
+int A::n_destroy = 0;
 
 int main()
 {
@@ -83,6 +92,8 @@ int main()
   }
   BOOST_TEST(A::n_copies == 0);
   BOOST_TEST(A::n_moves > 0);
+  BOOST_TEST(A::n_instances == 0);
+  BOOST_TEST(A::n_destroy > 0);
   BOOST_TEST(test_alloc_base::count == 0);
   A::n_copies = 0;
   A::n_copies = 0;

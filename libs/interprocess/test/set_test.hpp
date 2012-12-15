@@ -1,6 +1,6 @@
 ////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -58,7 +58,7 @@ int set_test ()
 
       MyStdMultiSet *stdmultiset = new MyStdMultiSet;
 
-      //Test construction from a range  
+      //Test construction from a range
       {
          IntType aux_vect[50];
          for(int i = 0; i < 50; ++i){
@@ -567,7 +567,7 @@ int set_test_copyable ()
 
          shmmsetcopy = *shmmultiset;
          stdmsetcopy = *stdmultiset;
-        
+
          if(!CheckEqualContainers(&shmmsetcopy, &stdmsetcopy))
             return 1;
       }

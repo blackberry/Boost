@@ -9,7 +9,7 @@
 #include <boost/thread/thread.hpp>
 
 #include <boost/test/unit_test.hpp>
-#include <libs/thread/test/util.inl>
+#include "./util.inl"
 
 bool fake_predicate()
 {

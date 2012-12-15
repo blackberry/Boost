@@ -8,7 +8,8 @@ import testing ;
 project
     : requirements
         <toolset>intel:<debug-symbols>off
-        <toolset>msvc-7.1:<debug-symbols>off
+        # Turn off debug symbols on MSVC to bring down the size of object files
+        <toolset>msvc:<debug-symbols>off
         <toolset>msvc-8.0:<define>_SCL_SECURE_NO_DEPRECATE
         <toolset>msvc-8.0:<define>_CRT_SECURE_NO_DEPRECATE
         <toolset>msvc-9.0:<define>_SCL_SECURE_NO_DEPRECATE

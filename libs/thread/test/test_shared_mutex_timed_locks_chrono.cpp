@@ -6,8 +6,8 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/thread/thread.hpp>
 #include <boost/thread/shared_mutex.hpp>
-#include <libs/thread/test/util.inl>
-#include <libs/thread/test/shared_mutex_locking_thread.hpp>
+#include "./util.inl"
+#include "./shared_mutex_locking_thread.hpp"
 
 #if defined BOOST_THREAD_USES_CHRONO
 

@@ -12,11 +12,7 @@
 #endif
 
 #include <boost/detail/lightweight_test.hpp>
-
-#include <boost/mpl/assert.hpp>
-#include <boost/type_traits/is_base_and_derived.hpp>
 #include <string>
-
 #include "./compile_time.hpp"
 
 void string_tests()

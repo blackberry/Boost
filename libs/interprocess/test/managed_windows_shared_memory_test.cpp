@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -123,7 +123,7 @@ int main ()
             if(!shmem_vect)
                return -1;
          }
-     
+
          //Destroy and check it is not present
          w_shm_new.destroy_ptr(w_shm_vect);
          if(0 != w_shm_new.find<MyVect>("MyVector").first)

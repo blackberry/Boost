@@ -5,8 +5,8 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../thread.html" title="Chapter&#160;28.&#160;Thread 3.0.1">
-<link rel="prev" href="../thread.html" title="Chapter&#160;28.&#160;Thread 3.0.1">
+<link rel="up" href="../thread.html" title="Chapter&#160;28.&#160;Thread 3.1.0">
+<link rel="prev" href="../thread.html" title="Chapter&#160;28.&#160;Thread 3.1.0">
 <link rel="next" href="changes.html" title="History">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -51,6 +51,43 @@
       any case.
     </p>
 <p>
+      Boost.Thread depends on some non header-only libraries.
+    </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+          Boost.System: This dependency is mandatory and you will need to link with
+          the library.
+        </li>
+<li class="listitem">
+          Boost.Chrono: This dependency is optional (see below how to configure)
+          and you will need to link with the library if you use some of the time
+          related interfaces.
+        </li>
+<li class="listitem">
+          Boost.DateTime: This dependency is mandatory, but even if Boost.DateTime
+          is a non header-only library Boost.Thread uses only parts that are header-only,
+          so in principle you should not need to link with the library.
+        </li>
+</ul></div>
+<p>
+      It seems that there are some IDE (as e.g. Visual Studio) that deduce the libraries
+      that a program needs to link to inspecting the sources. Such IDE could force
+      to link to Boost.DateTime and/or Boost.Chrono.
+    </p>
+<p>
+      As the single mandatory dependency is to Boost.System, the following
+    </p>
+<pre class="programlisting"><span class="identifier">bjam</span> <span class="identifier">toolset</span><span class="special">=</span><span class="identifier">msvc</span><span class="special">-</span><span class="number">11.0</span> <span class="special">--</span><span class="identifier">build</span><span class="special">-</span><span class="identifier">type</span><span class="special">=</span><span class="identifier">complete</span> <span class="special">--</span><span class="identifier">with</span><span class="special">-</span><span class="identifier">thread</span>
+</pre>
+<p>
+      will install only boost_thread and boost_system.
+    </p>
+<p>
+      Users of such IDE should force the Boost.Chrono and Boost.DateTime build using
+    </p>
+<pre class="programlisting"><span class="identifier">bjam</span> <span class="identifier">toolset</span><span class="special">=</span><span class="identifier">msvc</span><span class="special">-</span><span class="number">11.0</span> <span class="special">--</span><span class="identifier">build</span><span class="special">-</span><span class="identifier">type</span><span class="special">=</span><span class="identifier">complete</span> <span class="special">--</span><span class="identifier">with</span><span class="special">-</span><span class="identifier">thread</span> <span class="special">--</span><span class="identifier">with</span><span class="special">-</span><span class="identifier">chrono</span> <span class="special">--</span><span class="identifier">with</span><span class="special">-</span><span class="identifier">date_time</span>
+</pre>
+<p>
       The following section describes all the macros used to configure Boost.Thread.
     </p>
 <div class="section">
@@ -58,7 +95,6 @@
 <a name="thread.build.configuration"></a><a class="link" href="build.html#thread.build.configuration" title="Configuration">Configuration</a>
 </h3></div></div></div>
 <div class="toc"><dl>
-<dt><span class="section"><a href="build.html#thread.build.configuration.system">Boost.System</a></span></dt>
 <dt><span class="section"><a href="build.html#thread.build.configuration.chrono">Boost.Chrono</a></span></dt>
 <dt><span class="section"><a href="build.html#thread.build.configuration.move">Boost.Move</a></span></dt>
 <dt><span class="section"><a href="build.html#thread.build.configuration.shared_gen">Shared Locking
@@ -80,30 +116,12 @@
 </dl></div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="thread.build.configuration.system"></a><a class="link" href="build.html#thread.build.configuration.system" title="Boost.System">Boost.System</a>
-</h4></div></div></div>
-<p>
-          Boost.Thread uses by default Boost.System to define the exceptions. For
-          backward compatibility and also for compilers that don't work well with
-          Boost.System the user can define <code class="computeroutput"><span class="identifier">BOOST_THREAD_DONT_USE_SYSTEM</span>
-          </code>.
-        </p>
-<p>
-          <code class="computeroutput"><span class="identifier">BOOST_THREAD_USES_SYSTEM</span></code>
-          is defined when Boost.Thread uses Boost.Move.
-        </p>
-</div>
-<div class="section">
-<div class="titlepage"><div><div><h4 class="title">
 <a name="thread.build.configuration.chrono"></a><a class="link" href="build.html#thread.build.configuration.chrono" title="Boost.Chrono">Boost.Chrono</a>
 </h4></div></div></div>
 <p>
           Boost.Thread uses by default Boost.Chrono for the time related functions.
           For backward compatibility and also for compilers that don't work well
           with Boost.Chrono the user can define <code class="computeroutput"><span class="identifier">BOOST_THREAD_DONT_USE_CHRONO</span></code>.
-          If <code class="computeroutput"><span class="identifier">BOOST_THREAD_DONT_USE_SYSTEM</span></code>
-          is defined then <code class="computeroutput"><span class="identifier">BOOST_THREAD_DONT_USE_CHRONO</span></code>
-          is defined implicitly.
         </p>
 <p>
           <code class="computeroutput"><span class="identifier">BOOST_THREAD_USES_CHRONO</span></code>
@@ -124,7 +142,7 @@
           <code class="computeroutput"><span class="identifier">BOOST_THREAD_USES_MOVE</span> </code>
           if you want to use Boost.Move interface. When <code class="computeroutput"><span class="identifier">BOOST_THREAD_VERSION</span><span class="special">==</span><span class="number">3</span></code> define
           <code class="computeroutput"><span class="identifier">BOOST_THREAD_DONT_USE_MOVE</span> </code>
-          if you want to use boost::unique_future.
+          if you don't want to use Boost.Move interface.
         </p>
 </div>
 <div class="section">
@@ -154,7 +172,7 @@
         Upwards Conversion</a>
 </h4></div></div></div>
 <p>
-          Boost.Threads includes in version 2 the Shared Locking Upwards Conversion
+          Boost.Threads includes in version 3 the Shared Locking Upwards Conversion
           as defined in <a href="http://home.roadrunner.com/~hinnant/bloomington/shared_mutex.html" target="_top">Shared
           Locking</a>. These conversions need to be used carefully to avoid deadlock
           or livelock. The user need to define explicitly <code class="computeroutput"><span class="identifier">BOOST_THREAD_PROVIDES_SHARED_MUTEX_UPWARDS_CONVERSION</span></code>
@@ -434,21 +452,22 @@
 <p>
           If __SUNPRO_CC &lt; 0x5100 the library defines
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
-<li class="listitem">
+<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
               <code class="computeroutput"><span class="identifier">BOOST_THREAD_DONT_USE_MOVE</span></code>
-            </li>
-<li class="listitem">
+            </li></ul></div>
+<p>
+          If __SUNPRO_CC &lt; 0x5100 the library defines
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
               <code class="computeroutput"><span class="identifier">BOOST_THREAD_DONT_PROVIDE_FUTURE_CTOR_ALLOCATORS</span></code>
-            </li>
-</ul></div>
+            </li></ul></div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="thread.build.limitations.vacpp"></a><a class="link" href="build.html#thread.build.limitations.vacpp" title="VACPP">VACPP</a>
 </h4></div></div></div>
 <p>
-          If __IBMCPP__ is defined the library defines
+          If __IBMCPP__ &lt; 1100 the library defines
         </p>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
               <code class="computeroutput"><span class="identifier">BOOST_THREAD_DONT_USE_CHRONO</span></code>

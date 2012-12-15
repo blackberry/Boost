@@ -95,8 +95,8 @@
 <dt><span class="section"><a href="interprocess/synchronization_mechanisms.html#interprocess.synchronization_mechanisms.mutexes">Mutexes</a></span></dt>
 <dt><span class="section"><a href="interprocess/synchronization_mechanisms.html#interprocess.synchronization_mechanisms.conditions">Conditions</a></span></dt>
 <dt><span class="section"><a href="interprocess/synchronization_mechanisms.html#interprocess.synchronization_mechanisms.semaphores">Semaphores</a></span></dt>
-<dt><span class="section"><a href="interprocess/synchronization_mechanisms.html#interprocess.synchronization_mechanisms.upgradable_mutexes">Upgradable
-      Mutexes</a></span></dt>
+<dt><span class="section"><a href="interprocess/synchronization_mechanisms.html#interprocess.synchronization_mechanisms.sharable_upgradable_mutexes">Sharable
+      and Upgradable Mutexes</a></span></dt>
 <dt><span class="section"><a href="interprocess/synchronization_mechanisms.html#interprocess.synchronization_mechanisms.lock_conversions">Lock
       Transfers Through Move Semantics</a></span></dt>
 <dt><span class="section"><a href="interprocess/synchronization_mechanisms.html#interprocess.synchronization_mechanisms.file_lock">File
@@ -251,16 +251,20 @@
 <dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.streams.vectorstream_hpp">Header &lt;boost/interprocess/streams/vectorstream.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.file_lock_hpp">Header &lt;boost/interprocess/sync/file_lock.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.interprocess_condition_hpp">Header &lt;boost/interprocess/sync/interprocess_condition.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.interprocess_condition_any_hpp">Header &lt;boost/interprocess/sync/interprocess_condition_any.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.interprocess_mutex_hpp">Header &lt;boost/interprocess/sync/interprocess_mutex.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.interprocess_recursive_mutex_hpp">Header &lt;boost/interprocess/sync/interprocess_recursive_mutex.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.interprocess_semaphore_hpp">Header &lt;boost/interprocess/sync/interprocess_semaphore.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.interprocess_sharable_mutex_hpp">Header &lt;boost/interprocess/sync/interprocess_sharable_mutex.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.interprocess_upgradable_mutex_hpp">Header &lt;boost/interprocess/sync/interprocess_upgradable_mutex.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.lock_options_hpp">Header &lt;boost/interprocess/sync/lock_options.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.mutex_family_hpp">Header &lt;boost/interprocess/sync/mutex_family.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.named_condition_hpp">Header &lt;boost/interprocess/sync/named_condition.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.named_condition_any_hpp">Header &lt;boost/interprocess/sync/named_condition_any.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.named_mutex_hpp">Header &lt;boost/interprocess/sync/named_mutex.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.named_recursive_mutex_hpp">Header &lt;boost/interprocess/sync/named_recursive_mutex.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.named_semaphore_hpp">Header &lt;boost/interprocess/sync/named_semaphore.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.named_sharable_mutex_hpp">Header &lt;boost/interprocess/sync/named_sharable_mutex.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.named_upgradable_mutex_hpp">Header &lt;boost/interprocess/sync/named_upgradable_mutex.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.null_mutex_hpp">Header &lt;boost/interprocess/sync/null_mutex.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.scoped_lock_hpp">Header &lt;boost/interprocess/sync/scoped_lock.hpp&gt;</a></span></dt>
@@ -382,7 +386,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: August 15, 2012 at 23:44:12 GMT</small></p></td>
+<td align="left"><p><small>Last revised: October 29, 2012 at 22:44:44 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>

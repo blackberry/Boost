@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2006-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2006-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -112,12 +112,12 @@ int main(int argc, char *argv[])
       std::pair<MyType*, managed_shared_memory::size_type> res;
 
       //Find the array
-      res = segment.find<MyType> ("MyType array"); 
+      res = segment.find<MyType> ("MyType array");
       //Length should be 10
       if(res.second != 10) return 1;
 
       //Find the object
-      res = segment.find<MyType> ("MyType instance"); 
+      res = segment.find<MyType> ("MyType instance");
       //Length should be 1
       if(res.second != 1) return 1;
 

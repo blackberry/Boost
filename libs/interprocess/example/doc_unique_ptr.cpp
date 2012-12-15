@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2006-2011.
+// (C) Copyright Ion Gaztanaga 2006-2012.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -97,11 +97,11 @@ int main ()
          unique_vector->push_back(boost::move(p));
          assert(unique_vector->back()->number_ == i);
       }
-    
+
       //Now create a list of unique pointers
       unique_ptr_list_t *unique_list =
          file.construct<unique_ptr_list_t>("unique list")(file.get_segment_manager());
- 
+
       //Pass ownership of all values to the list
       for(int i = 99; !unique_vector->empty(); --i){
          unique_list->push_front(boost::move(unique_vector->back()));
@@ -131,7 +131,7 @@ int main ()
       for(int i = 0; i < 100; ++i, ++list_it){
          assert((*list_it)->number_ == i);
       }
-    
+
       //Now destroy the list. All elements will be automatically deallocated.
       file.destroy_ptr(unique_list);
    }

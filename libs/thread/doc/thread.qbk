@@ -8,7 +8,7 @@
 
 [library Thread
     [quickbook 1.5]
-    [version 3.0.1]
+    [version 3.1.0]
     [authors [Williams, Anthony] [Botet Escriba, Vicente J.]]
     [copyright 2007-11 Anthony Williams]
     [copyright 2011-12 Vicente J. Botet Escriba]
@@ -135,6 +135,7 @@
 
 [template owns_lock_ref_link[link_text] [link thread.synchronization.locks.unique_lock.owns_lock [link_text]]]
 [def __owns_lock_ref__ [owns_lock_ref_link `owns_lock()`]]
+[def __owns_lock [owns_lock_ref_link `owns_lock()`]]
 
 [template owns_lock_shared_ref_link[link_text] [link thread.synchronization.locks.shared_lock.owns_lock [link_text]]]
 [def __owns_lock_shared_ref__ [owns_lock_shared_ref_link `owns_lock()`]]
@@ -158,15 +159,17 @@
 
 [def __lock_guard__ [link thread.synchronization.locks.lock_guard `boost::lock_guard`]]
 [def __unique_lock__ [unique_lock_link `boost::unique_lock`]]
+[def __unique_lock [unique_lock_link `boost::unique_lock`]]
 [def __shared_lock__ [link thread.synchronization.locks.shared_lock `boost::shared_lock`]]
 [def __upgrade_lock__ [link thread.synchronization.locks.upgrade_lock `boost::upgrade_lock`]]
 [def __upgrade_to_unique_lock__ [link thread.synchronization.locks.upgrade_to_unique_lock `boost::upgrade_to_unique_lock`]]
 [def __reverse_lock [link thread.synchronization.other_locks.reverse_lock `reverse_lock`]]
 [def __shared_lock_guard [link thread.synchronization.other_locks.shared_lock_guard `shared_lock_guard`]]
+[def __shared_lock_guard_constructor_adopt [link thread.synchronization.other_locks.shared_lock_guard `shared_lock_guard`]]
 
 
 [def __thread__ [link thread.thread_management.thread `boost::thread`]]
-[def __thread [link thread.thread_management.thread `boost::thread`]]
+[def __thread [link thread.thread_management.thread `thread`]]
 [def __thread_id__ [link thread.thread_management.thread.id `boost::thread::id`]]
 [template join_link[link_text] [link thread.thread_management.thread.join [link_text]]]
 [def __join__ [join_link `join()`]]

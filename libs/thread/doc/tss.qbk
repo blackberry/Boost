@@ -47,10 +47,16 @@ platforms such cleanup is only done for threads that are started with
 `boost::thread` unless `boost::on_thread_exit()` is called manually
 from that thread.
 
+[heading Rationale about the nature of the key]
+
+Boost.Thread uses the address of the `thread_specific_ptr` instance as key of the thread specific pointers. This avoids to create/destroy a key which will need a lock to protect from race conditions. This has a little performance liability, as the access must be done using an associative container.
+
 [section:thread_specific_ptr Class `thread_specific_ptr`]
 
-    #include <boost/thread/tss.hpp>
+  //  #include <boost/thread/tss.hpp>
 
+  namespace boost
+  {
     template <typename T>
     class thread_specific_ptr
     {
@@ -66,6 +72,7 @@ from that thread.
         T* release();
         void reset(T* new_value=0);
     };
+  }
 
 [section:default_constructor `thread_specific_ptr();`]
 
@@ -102,9 +109,13 @@ supplied `cleanup_function` will be used to destroy any thread-local objects whe
 
 [variablelist
 
+[[Requires:] [All the thread specific instances associated to this thread_specific_ptr (except maybe the one associated to this thread) must be null.]]
+
 [[Effects:] [Calls `this->reset()` to clean up the associated value for the current thread, and destroys `*this`.]]
 
 [[Throws:] [Nothing.]]
+
+[[Remarks:] [The requirement is due to the fact that in order to delete all these instances, the implementation should be forced to maintain a list of all the threads having an associated specific ptr, which is against the goal of thread specific data.]]
 
 ]
 

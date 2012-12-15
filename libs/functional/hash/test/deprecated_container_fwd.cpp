@@ -4,11 +4,3 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 #include <boost/functional/detail/container_fwd.hpp>
-
-typedef std::vector<int, std::allocator<int> > int_vector;
-
-#include <vector>
-
-int main() {
-    int_vector x;
-}

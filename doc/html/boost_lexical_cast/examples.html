@@ -72,6 +72,14 @@
 <span class="identifier">puts</span><span class="special">(</span><span class="identifier">buffer</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">file</span><span class="special">);</span>
 </pre>
 <p>
+      Following example takes part of the string and converts it to <code class="computeroutput"><span class="keyword">int</span></code>:
+</p>
+<pre class="programlisting"><span class="keyword">int</span> <span class="identifier">convert_strings_part</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&amp;</span> <span class="identifier">s</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">pos</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">n</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="keyword">return</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">lexical_cast</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;(</span><span class="identifier">s</span><span class="special">.</span><span class="identifier">data</span><span class="special">()</span> <span class="special">+</span> <span class="identifier">pos</span><span class="special">,</span> <span class="identifier">n</span><span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<p>
     </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

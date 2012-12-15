@@ -20,8 +20,6 @@ class SimpleAllocator
 {
 public:
 	typedef Ty value_type;
-	typedef typename std::allocator<Ty>::pointer pointer;
-	typedef typename std::allocator<Ty>::size_type size_type;
 
 	SimpleAllocator(int value)
 		: m_state(value)
@@ -32,12 +30,12 @@ public:
 		: m_state(other.m_state)
 	{}
 
-	pointer allocate(size_type n)
+	Ty* allocate(std::size_t n)
 	{
 		return m_allocator.allocate(n);
 	}
 
-	void deallocate(pointer p, size_type n)
+	void deallocate(Ty* p, std::size_t n)
 	{
 		m_allocator.deallocate(p, n);
 	}

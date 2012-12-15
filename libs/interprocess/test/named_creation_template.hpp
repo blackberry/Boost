@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -23,7 +23,7 @@ namespace boost { namespace interprocess { namespace test {
 
 template <class NamedResource>
 inline void create_then_open_then_open_or_create()
-{ 
+{
    try{
       //Create it and open it twice
       NamedResource nresource1(create_only);
@@ -38,7 +38,7 @@ inline void create_then_open_then_open_or_create()
 
 template <class NamedResource>
 inline void open_or_create_then_create()
-{ 
+{
    //Create it with open_or_create and try to create it twice
    NamedResource nresource1(open_or_create);
    try{
@@ -51,7 +51,7 @@ inline void open_or_create_then_create()
 
 template <class NamedResource>
 inline void dont_create_and_open()
-{ 
+{
    //Try to open it without creating
    try{
       NamedResource nresource1(open_only);

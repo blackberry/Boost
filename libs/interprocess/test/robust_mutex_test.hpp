@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2010-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2010-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -69,7 +69,7 @@ int robust_mutex_test(int argc, char *argv[])
       while(!*go_ahead){
          ipcdetail::thread_yield();
       }
-     
+
       std::cout << "... recovering mutex[0]" << std::endl;
       //First try to recover lock[0], put into consistent
       //state and relock it again

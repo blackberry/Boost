@@ -38,8 +38,20 @@
 <th align="left">Important</th>
 </tr>
 <tr><td align="left" valign="top"><p>
-        Please note that address-model=64 must be given to bjam command line on 64bit
-        Windows (boost-build issue).
+        Please note that <code class="computeroutput"><span class="identifier">address</span><span class="special">-</span><span class="identifier">model</span><span class="special">=</span><span class="number">64</span></code> must be
+        given to bjam command line on 64bit Windows for 64bit build; otherwise 32bit
+        code will be generated.
+      </p></td></tr>
+</table></div>
+<div class="important"><table border="0" summary="Important">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Important]" src="../../../../../doc/src/images/important.png"></td>
+<th align="left">Important</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+        For cross-compiling the lib you must specify certain additional properties
+        at bjam command line: <code class="computeroutput"><span class="identifier">target</span><span class="special">-</span><span class="identifier">os</span></code>, <code class="computeroutput"><span class="identifier">abi</span></code>, <code class="computeroutput"><span class="identifier">binary</span><span class="special">-</span><span class="identifier">format</span></code>,
+        <code class="computeroutput"><span class="identifier">architecture</span></code> and <code class="computeroutput"><span class="identifier">address</span><span class="special">-</span><span class="identifier">model</span></code>.
       </p></td></tr>
 </table></div>
 </div>

@@ -42,39 +42,117 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="interprocess.acknowledgements_notes.notes"></a><a class="link" href="acknowledgements_notes.html#interprocess.acknowledgements_notes.notes" title="Notes">Notes</a>
 </h3></div></div></div>
-<div class="toc"><dl><dt><span class="section"><a href="acknowledgements_notes.html#interprocess.acknowledgements_notes.notes.notes_windows">Notes
-        for Windows users</a></span></dt></dl></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="acknowledgements_notes.html#interprocess.acknowledgements_notes.notes.notes_windows">Notes
+        for Windows users</a></span></dt>
+<dt><span class="section"><a href="acknowledgements_notes.html#interprocess.acknowledgements_notes.notes.notes_linux">Notes
+        for Linux users</a></span></dt>
+</dl></div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="interprocess.acknowledgements_notes.notes.notes_windows"></a><a class="link" href="acknowledgements_notes.html#interprocess.acknowledgements_notes.notes.notes_windows" title="Notes for Windows users">Notes
         for Windows users</a>
 </h4></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="acknowledgements_notes.html#interprocess.acknowledgements_notes.notes.notes_windows.notes_windows_com_init">COM
+          Initialization</a></span></dt>
+<dt><span class="section"><a href="acknowledgements_notes.html#interprocess.acknowledgements_notes.notes.notes_windows.notes_windows_shm_folder">Shared
+          memory emulation folder</a></span></dt>
+</dl></div>
+<div class="section">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="interprocess.acknowledgements_notes.notes.notes_windows.notes_windows_com_init"></a><a class="link" href="acknowledgements_notes.html#interprocess.acknowledgements_notes.notes.notes_windows.notes_windows_com_init" title="COM Initialization">COM
+          Initialization</a>
+</h5></div></div></div>
 <p>
-          <span class="bold"><strong>Boost.Interprocess</strong></span> uses the COM library
-          to implement some features and initializes the COM library with concurrency
-          model <code class="computeroutput"><span class="identifier">COINIT_APARTMENTTHREADED</span></code>.
-          If the COM library was already initialized by the calling thread for other
-          model, <span class="bold"><strong>Boost.Interprocess</strong></span> handles this
-          gracefully and uses COM calls for the already initialized model. If for
-          some reason, you might want <span class="bold"><strong>Boost.Interprocess</strong></span>
-          to initialize the COM library with another model, define the macro <code class="computeroutput"><span class="identifier">BOOST_INTERPROCESS_WINDOWS_COINIT_MODEL</span></code>
-          before including <span class="bold"><strong>Boost.Interprocess</strong></span> to
-          one of these values:
-        </p>
+            <span class="bold"><strong>Boost.Interprocess</strong></span> uses the Windows
+            COM library to implement some features and initializes it with concurrency
+            model <code class="computeroutput"><span class="identifier">COINIT_APARTMENTTHREADED</span></code>.
+            If the COM library was already initialized by the calling thread for
+            another concurrency model, <span class="bold"><strong>Boost.Interprocess</strong></span>
+            handles this gracefully and uses COM calls for the already initialized
+            model. If for some reason, you want <span class="bold"><strong>Boost.Interprocess</strong></span>
+            to initialize the COM library with another model, define the macro <code class="computeroutput"><span class="identifier">BOOST_INTERPROCESS_WINDOWS_COINIT_MODEL</span></code>
+            before including <span class="bold"><strong>Boost.Interprocess</strong></span>
+            to one of these values:
+          </p>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc">
 <li class="listitem">
-              <code class="computeroutput"><span class="identifier">COINIT_APARTMENTTHREADED_BIPC</span></code>
-            </li>
+                <code class="computeroutput"><span class="identifier">COINIT_APARTMENTTHREADED_BIPC</span></code>
+              </li>
 <li class="listitem">
-              <code class="computeroutput"><span class="identifier">COINIT_MULTITHREADED_BIPC</span></code>
-            </li>
+                <code class="computeroutput"><span class="identifier">COINIT_MULTITHREADED_BIPC</span></code>
+              </li>
 <li class="listitem">
-              <code class="computeroutput"><span class="identifier">COINIT_DISABLE_OLE1DDE_BIPC</span></code>
-            </li>
+                <code class="computeroutput"><span class="identifier">COINIT_DISABLE_OLE1DDE_BIPC</span></code>
+              </li>
 <li class="listitem">
-              <code class="computeroutput"><span class="identifier">COINIT_SPEED_OVER_MEMORY_BIPC</span></code>
-            </li>
+                <code class="computeroutput"><span class="identifier">COINIT_SPEED_OVER_MEMORY_BIPC</span></code>
+              </li>
 </ul></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="interprocess.acknowledgements_notes.notes.notes_windows.notes_windows_shm_folder"></a><a class="link" href="acknowledgements_notes.html#interprocess.acknowledgements_notes.notes.notes_windows.notes_windows_shm_folder" title="Shared memory emulation folder">Shared
+          memory emulation folder</a>
+</h5></div></div></div>
+<p>
+            Shared memory (<code class="computeroutput"><span class="identifier">shared_memory_object</span></code>)
+            is implemented in windows using memory mapped files, placed in a directory
+            in the shared documents folder (<code class="computeroutput"><span class="identifier">SOFTWARE</span><span class="special">\</span><span class="identifier">Microsoft</span><span class="special">\</span><span class="identifier">Windows</span><span class="special">\</span><span class="identifier">CurrentVersion</span><span class="special">\</span><span class="identifier">Explorer</span><span class="special">\</span><span class="identifier">Shell</span> <span class="identifier">Folders</span><span class="special">\</span><span class="identifier">Common</span> <span class="identifier">AppData</span></code>).
+            This directory name is the last bootup time (obtained via COM calls),
+            so that each bootup shared memory is created in a new folder obtaining
+            kernel persistence shared memory.
+          </p>
+<p>
+            Unfortunately, due to COM implementation related errors, in Boost 1.48
+            &amp; Boost 1.49 the bootup-time folder was dumped and files were directly
+            created in shared documents folder, reverting to filesystem persistence
+            shared memory. Boost 1.50 fixed those issues and recovered bootup time
+            directory and kernel persistence. If you need to reproduce Boost 1.48
+            &amp; Boost 1.49 behaviour to communicate with applications compiled
+            with that version, comment <code class="computeroutput"><span class="preprocessor">#define</span>
+            <span class="identifier">BOOST_INTERPROCESS_HAS_KERNEL_BOOTTIME</span></code>
+            directive in the Windows configuration part of <code class="computeroutput"><span class="identifier">boost</span><span class="special">/</span><span class="identifier">interprocess</span><span class="special">/</span><span class="identifier">detail</span><span class="special">/</span><span class="identifier">workaround</span><span class="special">.</span><span class="identifier">hpp</span></code>.
+          </p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="interprocess.acknowledgements_notes.notes.notes_linux"></a><a class="link" href="acknowledgements_notes.html#interprocess.acknowledgements_notes.notes.notes_linux" title="Notes for Linux users">Notes
+        for Linux users</a>
+</h4></div></div></div>
+<div class="toc"><dl><dt><span class="section"><a href="acknowledgements_notes.html#interprocess.acknowledgements_notes.notes.notes_linux.notes_linux_overcommit">Overcommit</a></span></dt></dl></div>
+<div class="section">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="interprocess.acknowledgements_notes.notes.notes_linux.notes_linux_overcommit"></a><a class="link" href="acknowledgements_notes.html#interprocess.acknowledgements_notes.notes.notes_linux.notes_linux_overcommit" title="Overcommit">Overcommit</a>
+</h5></div></div></div>
+<p>
+            The committed address space is the total amount of virtual memory (swap
+            or physical memory/RAM) that the kernel might have to supply if all applications
+            decide to access all of the memory they've requested from the kernel.
+            By default, Linux allows processes to commit more virtual memory than
+            available in the system. If that memory is not accessed, no physical
+            memory + swap is actually used.
+          </p>
+<p>
+            The reason for this behaviour is that Linux tries to optimize memory
+            usage on forked processes; fork() creates a full copy of the process
+            space, but with overcommitted memory, in this new forked instance only
+            pages which have been written to actually need to be allocated by the
+            kernel. If applications access more memory than available, then the kernel
+            must free memory in the hard way: the OOM (Out Of Memory)-killer picks
+            some processes to kill in order to recover memory.
+          </p>
+<p>
+            <span class="bold"><strong>Boost.Interprocess</strong></span> has no way to change
+            this behaviour and users might suffer the OOM-killer when accessing shared
+            memory. According to the <a href="http://www.kernel.org/doc/Documentation/vm/overcommit-accounting" target="_top">Kernel
+            documentation</a>, the Linux kernel supports several overcommit modes.
+            If you need non-kill guarantees in your application, you should change
+            this overcommit behaviour.
+          </p>
+</div>
 </div>
 </div>
 <div class="section">
@@ -154,6 +232,8 @@
       Notes</a>
 </h3></div></div></div>
 <div class="toc"><dl>
+<dt><span class="section"><a href="acknowledgements_notes.html#interprocess.acknowledgements_notes.release_notes.release_notes_boost_1_52_00">Boost
+        1.52 Release</a></span></dt>
 <dt><span class="section"><a href="acknowledgements_notes.html#interprocess.acknowledgements_notes.release_notes.release_notes_boost_1_51_00">Boost
         1.51 Release</a></span></dt>
 <dt><span class="section"><a href="acknowledgements_notes.html#interprocess.acknowledgements_notes.release_notes.release_notes_boost_1_50_00">Boost
@@ -183,6 +263,42 @@
 </dl></div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
+<a name="interprocess.acknowledgements_notes.release_notes.release_notes_boost_1_52_00"></a><a class="link" href="acknowledgements_notes.html#interprocess.acknowledgements_notes.release_notes.release_notes_boost_1_52_00" title="Boost 1.52 Release">Boost
+        1.52 Release</a>
+</h4></div></div></div>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              Added <code class="computeroutput"><span class="identifier">shrink_by</span></code> and
+              <code class="computeroutput"><span class="identifier">advise</span></code> functions in
+              <code class="computeroutput"><span class="identifier">mapped_region</span></code>.
+            </li>
+<li class="listitem">
+              <span class="bold"><strong>ABI breaking</strong></span>Reimplemented <code class="computeroutput"><span class="identifier">message_queue</span></code> with a circular buffer
+              index (the old behavior used an ordered array, leading to excessive
+              copies). This should greatly increase performance but breaks ABI. Old
+              behaviour/ABI can be used undefining macro <code class="computeroutput"><span class="identifier">BOOST_INTERPROCESS_MSG_QUEUE_CIRCULAR_INDEX</span></code>
+              in <code class="computeroutput"><span class="identifier">boost</span><span class="special">/</span><span class="identifier">interprocess</span><span class="special">/</span><span class="identifier">detail</span><span class="special">/</span><span class="identifier">workaround</span><span class="special">.</span><span class="identifier">hpp</span></code>
+            </li>
+<li class="listitem">
+              Improved <code class="computeroutput"><span class="identifier">message_queue</span></code>
+              insertion time avoiding priority search for common cases (both array
+              and circular buffer configurations).
+            </li>
+<li class="listitem">
+              Implemented <code class="computeroutput"><span class="identifier">sharable_mutex</span></code>
+              and <code class="computeroutput"><span class="identifier">interproces_condition_any</span></code>.
+            </li>
+<li class="listitem">
+              Improved <code class="computeroutput"><span class="identifier">offset_ptr</span></code>
+              performance.
+            </li>
+<li class="listitem">
+              Added integer overflow checks.
+            </li>
+</ul></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
 <a name="interprocess.acknowledgements_notes.release_notes.release_notes_boost_1_51_00"></a><a class="link" href="acknowledgements_notes.html#interprocess.acknowledgements_notes.release_notes.release_notes_boost_1_51_00" title="Boost 1.51 Release">Boost
         1.51 Release</a>
 </h4></div></div></div>
@@ -191,10 +307,18 @@
               Synchronous and asynchronous flushing for <code class="computeroutput"><span class="identifier">mapped_region</span><span class="special">::</span><span class="identifier">flush</span></code>.
             </li>
 <li class="listitem">
-              Source &amp; ABI breaking: Removed <code class="computeroutput"><span class="identifier">get_offset</span></code>
-              method from <code class="computeroutput"><span class="identifier">mapped_region</span></code>
-              as it has no practical utility and <code class="computeroutput"><span class="identifier">m_offset</span></code>
+              <span class="bold"><strong>Source &amp; ABI breaking</strong></span>: Removed
+              <code class="computeroutput"><span class="identifier">get_offset</span></code> method from
+              <code class="computeroutput"><span class="identifier">mapped_region</span></code> as it
+              has no practical utility and <code class="computeroutput"><span class="identifier">m_offset</span></code>
               member was not for anything else.
+            </li>
+<li class="listitem">
+              <span class="bold"><strong>Source &amp; ABI breaking</strong></span>: Removed
+              <code class="computeroutput"><span class="identifier">flush</span></code> from <code class="computeroutput"><span class="identifier">managed_shared_memory</span></code>. as it is unspecified
+              according to POSIX: <a href="http://pubs.opengroup.org/onlinepubs/009695399/functions/msync.html" target="_top"><span class="emphasis"><em>"The
+              effect of msync() on a shared memory object or a typed memory object
+              is unspecified"</em></span> </a>.
             </li>
 <li class="listitem">
               Fixed bug <a href="https://svn.boost.org/trac/boost/ticket/7152" target="_top">#7152</a>,

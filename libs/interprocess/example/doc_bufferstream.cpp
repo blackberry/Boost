@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2006-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2006-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -93,7 +93,7 @@ int main ()
    //Clear errors and rewind
    mybufstream.clear();
    mybufstream.seekp(0, std::ios::beg);
- 
+
    //Now write again the data trying to do a buffer overflow
    for(int i = 0, m = data.size()*5; i < m; ++i){
       mybufstream << data[i%5] << std::endl;

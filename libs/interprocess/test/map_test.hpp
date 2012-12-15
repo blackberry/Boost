@@ -1,6 +1,6 @@
 ////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2006. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2006-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -67,7 +67,7 @@ int map_test ()
 
       MyStdMultiMap *stdmultimap = new MyStdMultiMap;
 
-      //Test construction from a range  
+      //Test construction from a range
       {
          //This is really nasty, but we have no other simple choice
          IntPairType aux_vect[50];
@@ -555,7 +555,7 @@ int map_test_copyable ()
          stdmapcopy  = *stdmap;
          shmmmapcopy = *shmmultimap;
          stdmmapcopy = *stdmultimap;
-        
+
          if(!CheckEqualContainers(&shmmapcopy, &stdmapcopy))
             return 1;
          if(!CheckEqualContainers(&shmmmapcopy, &stdmmapcopy))

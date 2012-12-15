@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////////////
 //
 // (C) Copyright Peter Dimov 2002-2005, 2007.
-// (C) Copyright Ion Gaztanaga 2006-2011.
+// (C) Copyright Ion Gaztanaga 2006-2012.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -144,7 +144,7 @@ int string_shared_ptr_vector_insertion_test()
    {
       managed_shared_memory shmem(create_only, process_name.c_str(), 20000);
 
-      { 
+      {
          const int NumElements = 100;
          //Construct the allocator of strings
          string_allocator_t string_allocator(shmem.get_segment_manager());
@@ -202,7 +202,7 @@ int string_shared_ptr_vector_insertion_test()
          }
          //Now fill a vector of weak_ptr-s
          string_weak_ptr_vector_t my_weakptr_vector(string_weak_ptr_allocator);
-         my_weakptr_vector.insert(my_weakptr_vector.begin(), NumElements, string_weak_ptr);     
+         my_weakptr_vector.insert(my_weakptr_vector.begin(), NumElements, string_weak_ptr);
          //The shared count should remain the same
          if(string_shared_ptr.use_count() != static_cast<long>(my_sharedptr_vector.size()+1)){
             return 1;

@@ -26,7 +26,7 @@ namespace minimal
     class destructible;
     class copy_constructible;
     class copy_constructible_equality_comparable;
-    class default_copy_constructible;
+    class default_assignable;
     class assignable;
 
     struct ampersand_operator_used {};
@@ -99,26 +99,29 @@ namespace minimal
         return false;
     }
 
-    class default_copy_constructible
+    class default_assignable
     {
     public:
-        default_copy_constructible(constructor_param const&) {}
+        default_assignable(constructor_param const&) {}
 
-        default_copy_constructible()
+        default_assignable()
         {
         }
 
-        default_copy_constructible(default_copy_constructible const&)
+        default_assignable(default_assignable const&)
         {
         }
 
-        ~default_copy_constructible()
+        default_assignable& operator=(default_assignable const&)
+        {
+            return *this;
+        }
+
+        ~default_assignable()
         {
         }
 
     private:
-        default_copy_constructible& operator=(
-            default_copy_constructible const&);
         ampersand_operator_used operator&() const {
             return ampersand_operator_used(); }
     };
@@ -148,7 +151,7 @@ namespace minimal
         movable1() {}
         explicit movable1(movable_init) {}
         movable1(BOOST_RV_REF(movable1)) {}
-        movable1& operator=(BOOST_RV_REF(movable1));
+        movable1& operator=(BOOST_RV_REF(movable1)) { return *this; }
         ~movable1() {}
     };
 
@@ -160,6 +163,7 @@ namespace minimal
         explicit movable2(movable_init) {}
         movable2(movable2&&) {}
         ~movable2() {}
+        movable2& operator=(movable2&&) { return *this; }
     private:
         movable2() {}
         movable2(movable2 const&);

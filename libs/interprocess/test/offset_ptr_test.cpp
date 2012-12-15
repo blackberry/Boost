@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2007. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2007-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -60,7 +60,7 @@ bool test_types_and_conversions()
    pcint_t  pcint(0);
    pvint_t  pvint(0);
    pcvint_t pcvint(0);
-  
+
    pint     = &dummy_int;
    pcint    = &dummy_int;
    pvint    = &dummy_int;
@@ -153,7 +153,7 @@ bool test_arithmetic()
    typedef offset_ptr<int> pint_t;
    const int NumValues = 5;
    int values[NumValues];
-  
+
    //Initialize p
    pint_t p = values;
    if(p.get() != values)

@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -201,7 +201,7 @@ int main ()
    heaplist->merge(otherheaplist, std::greater<int>());
    stdlist->merge(otherstdlist, std::greater<int>());
    if(!CheckEqual(userlist, stdlist, heaplist)) return 1;
-  
+
    user_buffer.destroy<MyUserList>(L"MyUserList");
    delete stdlist;
 
@@ -212,7 +212,7 @@ int main ()
       }
    }
    catch(boost::interprocess::bad_alloc &){}
-  
+
    MyHeapList::size_type heap_list_size = heaplist->size();
 
    //Copy heap buffer to another
@@ -246,7 +246,7 @@ int main ()
    }
    catch(boost::interprocess::bad_alloc &){}
 
-   MyUserList::size_type user_list_size = userlist->size(); 
+   MyUserList::size_type user_list_size = userlist->size();
 
    if(user_list_size <= heap_list_size){
       return 1;

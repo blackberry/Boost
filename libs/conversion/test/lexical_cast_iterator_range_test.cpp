@@ -46,24 +46,37 @@ template <class RngT>
 void do_test_iterator_range_impl(const RngT& rng)
 {
     BOOST_CHECK_EQUAL(lexical_cast<int>(rng), 1);
+    BOOST_CHECK_EQUAL(lexical_cast<int>(rng.begin(), rng.size()), 1);
     BOOST_CHECK_EQUAL(lexical_cast<unsigned int>(rng), 1u);
+    BOOST_CHECK_EQUAL(lexical_cast<unsigned int>(rng.begin(), rng.size()), 1u);
     BOOST_CHECK_EQUAL(lexical_cast<short>(rng), 1);
+    BOOST_CHECK_EQUAL(lexical_cast<short>(rng.begin(), rng.size()), 1);
     BOOST_CHECK_EQUAL(lexical_cast<unsigned short>(rng), 1u);
+    BOOST_CHECK_EQUAL(lexical_cast<unsigned short>(rng.begin(), rng.size()), 1u);
     BOOST_CHECK_EQUAL(lexical_cast<long int>(rng), 1);
+    BOOST_CHECK_EQUAL(lexical_cast<long int>(rng.begin(), rng.size()), 1);
     BOOST_CHECK_EQUAL(lexical_cast<unsigned long int>(rng), 1u);
+    BOOST_CHECK_EQUAL(lexical_cast<unsigned long int>(rng.begin(), rng.size()), 1u);
 
 #ifdef BOOST_STL_SUPPORTS_NEW_UNICODE_LOCALES
     BOOST_CHECK_EQUAL(lexical_cast<float>(rng), 1.0f);
+    BOOST_CHECK_EQUAL(lexical_cast<float>(rng.begin(), rng.size()), 1.0f);
     BOOST_CHECK_EQUAL(lexical_cast<double>(rng), 1.0);
+    BOOST_CHECK_EQUAL(lexical_cast<double>(rng.begin(), rng.size()), 1.0);
     BOOST_CHECK_EQUAL(lexical_cast<long double>(rng), 1.0L);
+    BOOST_CHECK_EQUAL(lexical_cast<long double>(rng.begin(), rng.size()), 1.0L);
     BOOST_CHECK_EQUAL(lexical_cast<class_with_user_defined_sream_operators>(rng), 1);
 #endif
 #if defined(BOOST_HAS_LONG_LONG)
     BOOST_CHECK_EQUAL(lexical_cast<boost::ulong_long_type>(rng), 1u);
+    BOOST_CHECK_EQUAL(lexical_cast<boost::ulong_long_type>(rng.begin(), rng.size()), 1u);
     BOOST_CHECK_EQUAL(lexical_cast<boost::long_long_type>(rng), 1);
+    BOOST_CHECK_EQUAL(lexical_cast<boost::long_long_type>(rng.begin(), rng.size()), 1);
 #elif defined(BOOST_HAS_MS_INT64)
     BOOST_CHECK_EQUAL(lexical_cast<unsigned __int64>(rng), 1u);
+    BOOST_CHECK_EQUAL(lexical_cast<unsigned __int64>(rng.begin(), rng.size()), 1u);
     BOOST_CHECK_EQUAL(lexical_cast<__int64>(rng), 1);
+    BOOST_CHECK_EQUAL(lexical_cast<__int64>(rng.begin(), rng.size()), 1);
 #endif
 }
 

@@ -28,7 +28,7 @@
 #include <boost/static_assert.hpp>
 
 #if defined BOOST_THREAD_PROVIDES_FUTURE_CTOR_ALLOCATORS
-#include <libs/thread/test/sync/futures/test_allocator.hpp>
+#include "../test_allocator.hpp"
 
 int main()
 {

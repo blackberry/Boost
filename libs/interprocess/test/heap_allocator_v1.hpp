@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -83,7 +83,7 @@ class heap_allocator_v1
    //!Obtains an heap_allocator_v1 of other type
    template<class T2>
    struct rebind
-   {  
+   {
       typedef heap_allocator_v1<T2, SegmentManager>     other;
    };
 

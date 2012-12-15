@@ -13,7 +13,7 @@
 
 #include <boost/test/unit_test.hpp>
 
-#include <libs/thread/test/util.inl>
+#include "./util.inl"
 
 #include <iostream>
 
@@ -341,6 +341,18 @@ void test_tss_cleanup_not_called_for_null_pointer()
     BOOST_CHECK(!tss_cleanup_called);
 }
 
+void test_tss_at_the_same_adress()
+{
+  for(int i=0; i<2; i++)
+  {
+    boost::thread_specific_ptr<Dummy> local_tss(tss_custom_cleanup);
+    local_tss.reset(new Dummy);
+    tss_cleanup_called=false;
+    BOOST_CHECK(tss_cleanup_called);
+    tss_cleanup_called=false;
+    BOOST_CHECK(!tss_cleanup_called);
+  }
+}
 
 
 boost::unit_test::test_suite* init_unit_test_suite(int, char*[])

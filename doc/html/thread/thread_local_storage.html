@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../thread.html" title="Chapter&#160;28.&#160;Thread 3.0.1">
+<link rel="up" href="../thread.html" title="Chapter&#160;28.&#160;Thread 3.1.0">
 <link rel="prev" href="synchronization.html" title="Synchronization">
 <link rel="next" href="time.html" title="Time Requirements">
 </head>
@@ -46,7 +46,7 @@
 <p>
       Though compilers often provide this facility in the form of extensions to the
       declaration syntax (such as <code class="computeroutput"><span class="identifier">__declspec</span><span class="special">(</span><span class="identifier">thread</span><span class="special">)</span></code>
-      or <code class="computeroutput"><a class="link" href="thread_management.html#thread.thread_management.thread" title="Class thread"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">thread</span></code></a></code>
+      or <code class="computeroutput"><a class="link" href="thread_management.html#thread.thread_management.thread" title="Class thread"><code class="computeroutput"><span class="identifier">thread</span></code></a></code>
       annotations on <code class="computeroutput"><span class="keyword">static</span></code> or namespace-scope
       variable declarations), such support is non-portable, and is often limited
       in some way, such as only supporting POD types.
@@ -98,6 +98,17 @@
       unless <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">on_thread_exit</span><span class="special">()</span></code>
       is called manually from that thread.
     </p>
+<h4>
+<a name="thread.thread_local_storage.h3"></a>
+      <span><a name="thread.thread_local_storage.rationale_about_the_nature_of_the_key"></a></span><a class="link" href="thread_local_storage.html#thread.thread_local_storage.rationale_about_the_nature_of_the_key">Rationale
+      about the nature of the key</a>
+    </h4>
+<p>
+      Boost.Thread uses the address of the <code class="computeroutput"><span class="identifier">thread_specific_ptr</span></code>
+      instance as key of the thread specific pointers. This avoids to create/destroy
+      a key which will need a lock to protect from race conditions. This has a little
+      performance liability, as the access must be done using an associative container.
+    </p>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="thread.thread_local_storage.thread_specific_ptr"></a><a class="link" href="thread_local_storage.html#thread.thread_local_storage.thread_specific_ptr" title="Class thread_specific_ptr">Class
@@ -114,23 +125,26 @@
         <span class="identifier">new_value</span><span class="special">=</span><span class="number">0</span><span class="special">);</span></code></a></span></dt>
 <dt><span class="section"><a href="thread_local_storage.html#thread.thread_local_storage.thread_specific_ptr.release"><code class="computeroutput"><span class="identifier">T</span><span class="special">*</span> <span class="identifier">release</span><span class="special">();</span></code></a></span></dt>
 </dl></div>
-<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">thread</span><span class="special">/</span><span class="identifier">tss</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<pre class="programlisting"><span class="comment">//  #include &lt;boost/thread/tss.hpp&gt;</span>
 
-<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
-<span class="keyword">class</span> <span class="identifier">thread_specific_ptr</span>
+<span class="keyword">namespace</span> <span class="identifier">boost</span>
 <span class="special">{</span>
-<span class="keyword">public</span><span class="special">:</span>
-    <span class="identifier">thread_specific_ptr</span><span class="special">();</span>
-    <span class="keyword">explicit</span> <span class="identifier">thread_specific_ptr</span><span class="special">(</span><span class="keyword">void</span> <span class="special">(*</span><span class="identifier">cleanup_function</span><span class="special">)(</span><span class="identifier">T</span><span class="special">*));</span>
-    <span class="special">~</span><span class="identifier">thread_specific_ptr</span><span class="special">();</span>
+  <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
+  <span class="keyword">class</span> <span class="identifier">thread_specific_ptr</span>
+  <span class="special">{</span>
+  <span class="keyword">public</span><span class="special">:</span>
+      <span class="identifier">thread_specific_ptr</span><span class="special">();</span>
+      <span class="keyword">explicit</span> <span class="identifier">thread_specific_ptr</span><span class="special">(</span><span class="keyword">void</span> <span class="special">(*</span><span class="identifier">cleanup_function</span><span class="special">)(</span><span class="identifier">T</span><span class="special">*));</span>
+      <span class="special">~</span><span class="identifier">thread_specific_ptr</span><span class="special">();</span>
 
-    <span class="identifier">T</span><span class="special">*</span> <span class="identifier">get</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
-    <span class="identifier">T</span><span class="special">*</span> <span class="keyword">operator</span><span class="special">-&gt;()</span> <span class="keyword">const</span><span class="special">;</span>
-    <span class="identifier">T</span><span class="special">&amp;</span> <span class="keyword">operator</span><span class="special">*()</span> <span class="keyword">const</span><span class="special">;</span>
+      <span class="identifier">T</span><span class="special">*</span> <span class="identifier">get</span><span class="special">()</span> <span class="keyword">const</span><span class="special">;</span>
+      <span class="identifier">T</span><span class="special">*</span> <span class="keyword">operator</span><span class="special">-&gt;()</span> <span class="keyword">const</span><span class="special">;</span>
+      <span class="identifier">T</span><span class="special">&amp;</span> <span class="keyword">operator</span><span class="special">*()</span> <span class="keyword">const</span><span class="special">;</span>
 
-    <span class="identifier">T</span><span class="special">*</span> <span class="identifier">release</span><span class="special">();</span>
-    <span class="keyword">void</span> <span class="identifier">reset</span><span class="special">(</span><span class="identifier">T</span><span class="special">*</span> <span class="identifier">new_value</span><span class="special">=</span><span class="number">0</span><span class="special">);</span>
-<span class="special">};</span>
+      <span class="identifier">T</span><span class="special">*</span> <span class="identifier">release</span><span class="special">();</span>
+      <span class="keyword">void</span> <span class="identifier">reset</span><span class="special">(</span><span class="identifier">T</span><span class="special">*</span> <span class="identifier">new_value</span><span class="special">=</span><span class="number">0</span><span class="special">);</span>
+  <span class="special">};</span>
+<span class="special">}</span>
 </pre>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -194,6 +208,11 @@
 <div class="variablelist">
 <p class="title"><b></b></p>
 <dl>
+<dt><span class="term">Requires:</span></dt>
+<dd><p>
+                All the thread specific instances associated to this thread_specific_ptr
+                (except maybe the one associated to this thread) must be null.
+              </p></dd>
 <dt><span class="term">Effects:</span></dt>
 <dd><p>
                 Calls <code class="computeroutput"><span class="keyword">this</span><span class="special">-&gt;</span><span class="identifier">reset</span><span class="special">()</span></code>
@@ -203,6 +222,13 @@
 <dt><span class="term">Throws:</span></dt>
 <dd><p>
                 Nothing.
+              </p></dd>
+<dt><span class="term">Remarks:</span></dt>
+<dd><p>
+                The requirement is due to the fact that in order to delete all these
+                instances, the implementation should be forced to maintain a list
+                of all the threads having an associated specific ptr, which is against
+                the goal of thread specific data.
               </p></dd>
 </dl>
 </div>

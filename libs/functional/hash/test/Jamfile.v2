@@ -1,5 +1,5 @@
 
-# Copyright 2005-2011 Daniel James.
+# Copyright 2005-2012 Daniel James.
 # Distributed under the Boost Software License, Version 1.0. (See accompanying
 # file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
@@ -22,6 +22,7 @@ test-suite functional/hash
         [ run hash_fwd_test_1.cpp ]
         [ run hash_fwd_test_2.cpp ]
         [ run hash_number_test.cpp ]
+        [ run hash_enum_test.cpp ]
         [ run hash_pointer_test.cpp ]
         [ run hash_function_pointer_test.cpp ]
         [ run hash_float_test.cpp ]
@@ -51,7 +52,7 @@ test-suite functional/hash
         [ run implicit_test.cpp ]
         [ run hash_no_ext_macro_1.cpp ]
         [ run hash_no_ext_macro_2.cpp ]
-        [ compile deprecated_container_fwd.cpp ]
+        [ compile-fail deprecated_container_fwd.cpp ]
     ;
 
 test-suite functional/hash_no_ext
@@ -64,5 +65,18 @@ test-suite functional/hash_no_ext
         [ run hash_string_test.cpp : : : <define>BOOST_HASH_NO_EXTENSIONS : no_ext_string_test ]
         [ run link_test.cpp link_test_2.cpp : : : <define>BOOST_HASH_NO_EXTENSIONS : no_ext_link_test ]
     ;
+
+# Tests to see if the floating point hash is using the binary hash.
+# Not run normally because on some platforms these should fail.
+test-suite functional/hash_no_generic_float
+    :
+        [ run hash_float_test.cpp
+            : : : <define>BOOST_HASH_DETAIL_TEST_WITHOUT_GENERIC
+            : hash_float_test_no_generic ]
+        [ run hash_long_double_test.cpp
+            : : : <define>BOOST_HASH_DETAIL_TEST_WITHOUT_GENERIC
+            : hash_long_double_test_no_generic ]
+    ;
+explicit functional/hash_no_generic_float ;
 
 build-project ../examples ;

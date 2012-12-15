@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -62,7 +62,7 @@ int main ()
                               ,FileSize - FileSize/2
                               );
 
-         //Fill two regions with a pattern  
+         //Fill two regions with a pattern
          unsigned char *filler = static_cast<unsigned char*>(region.get_address());
          for(std::size_t i = 0
             ;i < FileSize/2
@@ -92,7 +92,7 @@ int main ()
 
          //Create a memory buffer
          std::auto_ptr<unsigned char> memory (new unsigned char [FileSize/2 +1]);
-        
+
          //Fill buffer
          file.read(static_cast<char*>(static_cast<void*>(memory.get()))
                   , FileSize/2);

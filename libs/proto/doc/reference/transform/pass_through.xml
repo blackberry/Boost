@@ -18,10 +18,13 @@
       <struct name="pass_through">
         <template>
           <template-type-parameter name="Grammar"/>
+          <template-type-parameter name="Domain">
+            <default><classname>proto::deduce_domain</classname></default>
+          </template-type-parameter>
         </template>
-        <inherit><type><classname>proto::transform</classname>&lt; pass_through&lt;Grammar&gt; &gt;</type></inherit>
+        <inherit><type><classname>proto::transform</classname>&lt; pass_through&lt;Grammar, Domain&gt; &gt;</type></inherit>
         <purpose>A <conceptname>PrimitiveTransform</conceptname> that transforms the child expressions of an expression
-          node according to the corresponding children of a Grammar.</purpose>
+          node according to the corresponding children of a Grammar. The resulting expression is in the specified domain.</purpose>
         <description>
           <para>
             Given a Grammar such as <computeroutput><classname>proto::plus</classname>&lt;T0, T1&gt;</computeroutput>,
@@ -37,6 +40,13 @@
           <para>
             The above demonstrates how child transforms and child expressions are applied pairwise, and how the
             results are reassembled into a new expression node with the same tag type as the original.
+          </para>
+          <para>
+            The <code>Domain</code> template parameter determines which domain the resulting expression should
+            be in. If it is <code><classname>proto::deduce_domain</classname></code>, which is the default,
+            the resulting expression is in the same domain as the expression passed in. Otherwise, the resulting
+            expression is in the specified domain. Practically, that means the specified domain's generator is
+            used to post-process the resulting expression.
           </para>
           <para>
             The explicit use of <computeroutput>proto::pass_through&lt;&gt;</computeroutput> is not usually
@@ -107,9 +117,17 @@ struct Promote :
             <purpose>For exposition only</purpose>
             <type>typename Expr::proto_tag</type>
           </typedef>
-          <typedef name="D">
+          <typedef name="Deduce">
+            <purpose>For exposition only</purpose>
+            <type>boost::is_same&lt;Domain, <classname>deduce_domain</classname>&gt;</type>
+          </typedef>
+          <typedef name="DD">
             <purpose>For exposition only</purpose>
             <type>typename Expr::proto_domain</type>
+          </typedef>
+          <typedef name="D">
+            <purpose>For exposition only</purpose>
+            <type>typename mpl::if_&lt;Deduce, DD, Domain&gt;::type</type>
           </typedef>
           <typedef name="G">
             <purpose>For exposition only</purpose>

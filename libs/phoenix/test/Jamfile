@@ -9,6 +9,14 @@
 # bring in rules for testing
 import testing ;
 
+project
+    : requirements
+        <toolset>msvc:<define>_SCL_SECURE_NO_DEPRECATE
+        <toolset>msvc:<define>_SCL_SECURE_NO_WARNINGS
+        <toolset>msvc:<define>_CRT_SECURE_NO_DEPRECATE
+        <toolset>msvc:<define>_CRT_SECURE_NO_WARNINGS
+    ;
+
 local multi-threading = <library>/boost/thread
                         <threading>multi <define>BOOST_ALL_NO_LIB=1 ;
 

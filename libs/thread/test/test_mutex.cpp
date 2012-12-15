@@ -15,7 +15,7 @@
 #include <boost/test/unit_test.hpp>
 
 #define DEFAULT_EXECUTION_MONITOR_TYPE execution_monitor::use_sleep_only
-#include <libs/thread/test/util.inl>
+#include "./util.inl"
 
 template <typename M>
 struct test_lock
