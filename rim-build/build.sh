@@ -15,7 +15,7 @@ pushd $SCRIPT_DIR
 
 usage()
 {
-    echo "$0 <install|clean> <static|dynamic>"
+    echo "$0 <install|clean> <static|shared>"
 }
 
 echo_action()
@@ -115,7 +115,7 @@ if [ "$ACTION" != "install" ] && [ "$ACTION" != "clean" ] ; then
 fi
 
 LINK_TYPE=$2
-if [ "$LINK_TYPE" != "static" ] && [ "$LINK_TYPE" != "dynamic" ] ; then
+if [ "$LINK_TYPE" != "static" ] && [ "$LINK_TYPE" != "shared" ] ; then
     usage
     exit
 fi
