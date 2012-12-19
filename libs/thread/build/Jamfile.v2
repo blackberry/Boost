@@ -107,7 +107,7 @@ project boost/thread
 local rule default_threadapi ( )
 {
     local api = pthread ;
-    if [ os.name ] = "NT" { api = win32 ; }
+    if <target-os>windows in $(properties) { api = win32 ; }
     return $(api) ;
 }
 
