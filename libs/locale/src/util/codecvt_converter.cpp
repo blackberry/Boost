@@ -70,7 +70,7 @@ namespace util {
             if(!utf::is_valid_codepoint(u))
                 return illegal;
             int width = utf::utf_traits<char>::width(u);
-            ptrdiff_t d=end-begin;
+            std::ptrdiff_t d=end-begin;
             if(d < width)
                 return incomplete;
             utf::utf_traits<char>::encode(u,begin);
@@ -229,11 +229,11 @@ namespace util {
     // Real codecvt
 
     template<typename CharType>
-    class code_converter : public std::codecvt<CharType,char,mbstate_t> 
+    class code_converter : public std::codecvt<CharType,char,std::mbstate_t> 
     {
     public:
         code_converter(std::auto_ptr<base_converter> cvt,size_t refs = 0) :
-            std::codecvt<CharType,char,mbstate_t>(refs),
+            std::codecvt<CharType,char,std::mbstate_t>(refs),
             cvt_(cvt)
         {
             max_len_ = cvt_->max_len(); 
@@ -627,14 +627,14 @@ namespace util {
 
     };
 
-    static const char ensure_mbstate_size_is_at_least_2[sizeof(mbstate_t) >= 2 ? 1 : -1] = {0};
+    static const char ensure_mbstate_size_is_at_least_2[sizeof(std::mbstate_t) >= 2 ? 1 : -1] = {0};
     
     template<>
-    class code_converter<char> : public std::codecvt<char,char,mbstate_t>
+    class code_converter<char> : public std::codecvt<char,char,std::mbstate_t>
     {
     public:
         code_converter(std::auto_ptr<base_converter> /*cvt*/,size_t refs = 0) : 
-            std::codecvt<char,char,mbstate_t>(refs)  
+            std::codecvt<char,char,std::mbstate_t>(refs)  
         {
         }
     };

@@ -18,7 +18,7 @@ namespace impl_std {
     std::locale codecvt_bychar( std::locale const &in,
                                 std::string const &locale_name)
     {
-        return std::locale(in,new std::codecvt_byname<CharType,char,mbstate_t>(locale_name.c_str()));
+        return std::locale(in,new std::codecvt_byname<CharType,char,std::mbstate_t>(locale_name.c_str()));
     }
     
 
