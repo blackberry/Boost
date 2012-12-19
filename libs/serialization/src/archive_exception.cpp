@@ -98,7 +98,7 @@ archive_exception::archive_exception(
     }
 }
 BOOST_ARCHIVE_DECL(BOOST_PP_EMPTY())
-archive_exception::~archive_exception() throw () {}
+archive_exception::~archive_exception() /*throw ()*/ {}
 
 BOOST_ARCHIVE_DECL(const char *)
 archive_exception::what( ) const throw()
