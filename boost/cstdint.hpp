@@ -66,7 +66,7 @@
 
 # endif
 
-#ifdef __QNX__
+#if defined(__QNX__) && defined(_NTO_VERSION) && _NTO_VERSION < 800
 
 // QNX (Dinkumware stdlib) defines these as non-standard names.
 // Reflect to the standard names.
@@ -96,6 +96,7 @@ typedef ::uintfast64_t uint_fast64_t;
 # endif
 
 #endif
+
 
 namespace boost
 {
