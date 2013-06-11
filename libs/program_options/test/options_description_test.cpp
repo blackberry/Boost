@@ -228,6 +228,21 @@ void test_default_values()
    );   
 }
 
+void test_value_name()
+{
+    options_description desc("Supported options");
+    desc.add_options()
+        ("include", value<string>()->value_name("directory"), "Search for headers in 'directory'.")
+        ;
+
+    stringstream ss;
+    ss << desc;
+   BOOST_CHECK_EQUAL(ss.str(),
+"Supported options:\n"
+"  --include directory   Search for headers in 'directory'.\n"
+   );
+}
+
 
 int main(int, char* [])
 {
@@ -238,6 +253,7 @@ int main(int, char* [])
     test_long_default_value();
     test_word_wrapping();
     test_default_values();
+    test_value_name();
     return 0;
 }
 

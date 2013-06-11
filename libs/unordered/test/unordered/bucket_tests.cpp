@@ -4,9 +4,10 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 #include "../helpers/prefix.hpp"
-
 #include <boost/unordered_set.hpp>
 #include <boost/unordered_map.hpp>
+#include "../helpers/postfix.hpp"
+
 #include "../helpers/test.hpp"
 #include <algorithm>
 #include "../objects/test.hpp"
@@ -20,10 +21,10 @@
 
 namespace bucket_tests {
 
-test::seed_t seed(54635);
+test::seed_t initialize_seed(54635);
 
 template <class X>
-void tests(X* = 0, test::random_generator generator = test::default_generator)
+void tests(X*, test::random_generator generator)
 {
     test::check_instances check_;
 
@@ -67,20 +68,30 @@ void tests(X* = 0, test::random_generator generator = test::default_generator)
     }
 }
 
-boost::unordered_set<test::object,
-    test::hash, test::equal_to,
-    test::allocator<test::object> >* test_set;
-boost::unordered_multiset<test::object,
-    test::hash, test::equal_to,
-    test::allocator<test::object> >* test_multiset;
-boost::unordered_map<test::object, test::object,
-    test::hash, test::equal_to,
-    test::allocator<test::object> >* test_map;
 boost::unordered_multimap<test::object, test::object,
     test::hash, test::equal_to,
-    test::allocator<test::object> >* test_multimap;
+    std::allocator<test::object> >* test_multimap_std_alloc;
 
-UNORDERED_TEST(tests, ((test_set)(test_multiset)(test_map)(test_multimap)))
+boost::unordered_set<test::object,
+    test::hash, test::equal_to,
+    test::allocator2<test::object> >* test_set;
+boost::unordered_multiset<test::object,
+    test::hash, test::equal_to,
+    test::allocator1<test::object> >* test_multiset;
+boost::unordered_map<test::object, test::object,
+    test::hash, test::equal_to,
+    test::allocator1<test::object> >* test_map;
+boost::unordered_multimap<test::object, test::object,
+    test::hash, test::equal_to,
+    test::allocator2<test::object> >* test_multimap;
+
+using test::default_generator;
+using test::generate_collisions;
+
+UNORDERED_TEST(tests,
+    ((test_multimap_std_alloc)(test_set)(test_multiset)(test_map)(test_multimap))
+    ((default_generator)(generate_collisions))
+)
 
 }
 

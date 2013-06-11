@@ -8,13 +8,13 @@
 
 //  See http://www.boost.org/libs/system for documentation.
 
-#ifndef BOOST_CHRONO_TIMER_HPP
-#define BOOST_CHRONO_TIMER_HPP
+#ifndef BOOSTEX_CHRONO_TIMER_HPP
+#define BOOSTEX_CHRONO_TIMER_HPP
 
 #include <boost/chrono/chrono.hpp>
 #include <boost/system/error_code.hpp>
 
-namespace boost
+namespace boost_ex
 {
   namespace chrono
   {
@@ -23,7 +23,7 @@ namespace boost
 //                                    timer                                             //
 //--------------------------------------------------------------------------------------//
 
-    template <class Clock=high_resolution_clock>
+    template <class Clock=boost::chrono::high_resolution_clock>
     class timer
     {
     public:
@@ -31,32 +31,32 @@ namespace boost
       typedef typename Clock::duration    duration;
       typedef typename Clock::time_point  time_point;
 
-      explicit timer( system::error_code & ec = BOOST_CHRONO_THROWS )
+      explicit timer( boost::system::error_code & ec = BOOST_CHRONO_THROWS )
         { 
           start(ec); 
           }
 
      ~timer() {}  // never throws
 
-      void start( system::error_code & ec = BOOST_CHRONO_THROWS )
+      void start( boost::system::error_code & ec = BOOST_CHRONO_THROWS )
         { 
           m_start = clock::now( ec ); 
           }
 
-      duration elapsed( system::error_code & ec = BOOST_CHRONO_THROWS )
+      duration elapsed( boost::system::error_code & ec = BOOST_CHRONO_THROWS )
         { return clock::now( ec ) - m_start; }
 
     private:
       time_point m_start;
     };
 
-    typedef boost::chrono::timer< boost::chrono::system_clock > system_timer;
+    typedef chrono::timer< boost::chrono::system_clock > system_timer;
 #ifdef BOOST_CHRONO_HAS_CLOCK_STEADY
-    typedef boost::chrono::timer< boost::chrono::steady_clock > steady_timer;
+    typedef chrono::timer< boost::chrono::steady_clock > steady_timer;
 #endif
-    typedef boost::chrono::timer< boost::chrono::high_resolution_clock > high_resolution_timer;
+    typedef chrono::timer< boost::chrono::high_resolution_clock > high_resolution_timer;
 
   } // namespace chrono
-} // namespace boost
+} // namespace boost_ex
 
 #endif

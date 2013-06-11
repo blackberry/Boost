@@ -395,6 +395,8 @@ Unknown type element "<xsl:value-of select="local-name(.)"/>" in type.display.na
           <xsl:with-param name="compact" select="$compact"/>
           <xsl:with-param name="indentation" select="$indentation"/>
           <xsl:with-param name="is-reference" select="false()"/>
+          <xsl:with-param name="max-type-length" select="$max-type-length"/>
+          <xsl:with-param name="max-name-length" select="$max-name-length"/>
         </xsl:call-template>
       </xsl:otherwise>
     </xsl:choose>
@@ -1055,6 +1057,43 @@ Unknown type element "<xsl:value-of select="local-name(.)"/>" in type.display.na
     </xsl:call-template>
   </xsl:template>
 
+  <!-- Document template parameters -->
+  <xsl:template name="class-templates-reference">
+    <xsl:if test="(template/template-type-parameter/purpose|
+                  template/template-nontype-parameter/purpose)
+                  and not($template.param.brief)">
+      <refsect2>
+        <title>Template Parameters</title>
+        <orderedlist>
+          <xsl:for-each select="template/template-type-parameter|
+                template/template-nontype-parameter">
+            <listitem>
+              <para>
+                <xsl:variable name="link-to">
+                  <xsl:call-template name="generate.id"/>
+                </xsl:variable>
+
+                <xsl:call-template name="preformatted">
+                  <xsl:with-param name="text">
+                    <xsl:call-template name="template.parameter">
+                      <xsl:with-param name="parameter" select="."/>
+                      <xsl:with-param name="highlight" select="true()"/>
+                    </xsl:call-template>
+                  </xsl:with-param>
+                </xsl:call-template>
+              </para>
+              <xsl:if test="purpose">
+                <para>
+                  <xsl:apply-templates select="purpose/*"/>
+                </para>
+              </xsl:if>
+            </listitem>
+          </xsl:for-each>
+        </orderedlist>
+      </refsect2>
+    </xsl:if>
+  </xsl:template>
+
   <xsl:template name="member-typedefs-reference">
     <!-- True if there are any non-compacted typedefs -->
     <xsl:variable name="have-typedef-references"
@@ -1190,7 +1229,7 @@ Unknown type element "<xsl:value-of select="local-name(.)"/>" in type.display.na
           <xsl:apply-templates select="para" mode="annotation"/>
         </xsl:if>
         <xsl:apply-templates select="description"/>
-
+        <xsl:call-template name="class-templates-reference"/>
         <xsl:call-template name="class-members-reference"/>
         <xsl:apply-templates select="access" mode="namespace-reference"/>
 

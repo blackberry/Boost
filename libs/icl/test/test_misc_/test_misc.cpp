@@ -14,7 +14,7 @@ Copyright (c) 2008-2009: Joachim Faulhaber
 #include <vector>
 #include <boost/mpl/list.hpp>
 #include "../unit_test_unwarned.hpp"
-#include <boost/test/test_case_template.hpp>
+
 
 // interval instance types
 #include "../test_type_lists.hpp"
@@ -197,14 +197,14 @@ BOOST_AUTO_TEST_CASE(test_infinities)
     BOOST_CHECK_EQUAL( numeric_infinity<std::string>::value(), std::string() );
 
     //--------------------------------------------------------------------------
-    BOOST_CHECK_EQUAL( infinity<double>::value(),  (std::numeric_limits<double>::infinity)() );
-    BOOST_CHECK_EQUAL( infinity<int>::value(),     (std::numeric_limits<int>::max)() );
-    BOOST_CHECK_EQUAL( infinity<std::string>::value(), identity_element<std::string>::value() );
+    BOOST_CHECK_EQUAL( icl::infinity<double>::value(),  (std::numeric_limits<double>::infinity)() );
+    BOOST_CHECK_EQUAL( icl::infinity<int>::value(),     (std::numeric_limits<int>::max)() );
+    BOOST_CHECK_EQUAL( icl::infinity<std::string>::value(), icl::identity_element<std::string>::value() );
 
     //--------------------------------------------------------------------------
-    BOOST_CHECK_EQUAL( infinity<chrono::duration<double> >::value()
+    BOOST_CHECK_EQUAL( icl::infinity<chrono::duration<double> >::value()
                      , chrono::duration<double>((std::numeric_limits<double>::infinity)()) );
-    BOOST_CHECK_EQUAL( infinity<chrono::duration<int> >::value()
+    BOOST_CHECK_EQUAL( icl::infinity<chrono::duration<int> >::value()
                      , chrono::duration<int>((std::numeric_limits<int>::max)()) );
 }
 

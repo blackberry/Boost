@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2007-2009
+// (C) Copyright Ion Gaztanaga 2007-2012
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -31,12 +31,12 @@ struct my_treap_node_traits
    typedef my_node *                                  node_ptr;
    typedef const my_node *                            const_node_ptr;
 
-   static node_ptr get_parent(const_node_ptr n)       {  return n->parent_;   }  
-   static void set_parent(node_ptr n, node_ptr parent){  n->parent_ = parent; }  
-   static node_ptr get_left(const_node_ptr n)         {  return n->left_;     }  
-   static void set_left(node_ptr n, node_ptr left)    {  n->left_ = left;     }  
-   static node_ptr get_right(const_node_ptr n)        {  return n->right_;    }  
-   static void set_right(node_ptr n, node_ptr right)  {  n->right_ = right;   }  
+   static node_ptr get_parent(const_node_ptr n)       {  return n->parent_;   }
+   static void set_parent(node_ptr n, node_ptr parent){  n->parent_ = parent; }
+   static node_ptr get_left(const_node_ptr n)         {  return n->left_;     }
+   static void set_left(node_ptr n, node_ptr left)    {  n->left_ = left;     }
+   static node_ptr get_right(const_node_ptr n)        {  return n->right_;    }
+   static void set_right(node_ptr n, node_ptr right)  {  n->right_ = right;   }
 };
 
 struct node_ptr_compare
@@ -66,7 +66,7 @@ int main()
 
    //Now go to the next node
    n = algo::next_node(n);
-   assert(n == &three);      
+   assert(n == &three);
 
    //Erase a node just using a pointer to it
    algo::unlink(&two, node_ptr_priority());

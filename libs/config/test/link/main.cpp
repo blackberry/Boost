@@ -9,7 +9,7 @@
 
 int main()
 {
-#ifndef BOOST_NO_EXTERN_TEMPLATE
+#ifndef BOOST_NO_CXX11_EXTERN_TEMPLATE
    test_free_proc<int>(0);
    tester<int>::test();
 #endif

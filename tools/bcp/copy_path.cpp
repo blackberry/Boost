@@ -134,7 +134,7 @@ void bcp_implementation::copy_path(const fs::path& p)
          "(?|"
             "(namespace\\s+)boost(_\\w+)?(?:(\\s*::\\s*)phoenix)?"
          "|"
-            "(namespace\\s+)(adstl|phoenix|rapidxml)\\>"
+            "(namespace\\s+(?:detail::)?)(adstl|phoenix|rapidxml)\\>"
          "|"
             "()\\<boost((?:_(?!intrusive_tags)\\w+)?\\s*(?:::))(?:(\\s*)phoenix)?"
          "|"
@@ -154,11 +154,15 @@ void bcp_implementation::copy_path(const fs::path& p)
          "|"
             "(BOOST_CLASS_REQUIRE4?[^;]*)boost((?:_\\w+)?\\s*,)"
          "|"
+            "(::tr1::|TR1_DECL\\s+)boost(_\\w+\\s*)" // math tr1
+         "|"
+            "(\\(\\s*)boost(\\s*\\))\\s*(\\(\\s*)phoenix(\\s*\\))"
+         "|"
             "(\\(\\s*)boost(\\s*\\))"
          ")"
       );
 
-      regex_replace(std::back_inserter(v2), v1.begin(), v1.end(), namespace_matcher, "$1" + m_namespace_name + "$2(?3$3" + m_namespace_name + "phoenix)", boost::regex_constants::format_all);
+      regex_replace(std::back_inserter(v2), v1.begin(), v1.end(), namespace_matcher, "$1" + m_namespace_name + "$2(?3$3" + m_namespace_name + "phoenix?4$4)", boost::regex_constants::format_all);
       std::swap(v1, v2);
       v2.clear();
 
@@ -191,11 +195,11 @@ void bcp_implementation::copy_path(const fs::path& p)
             "\\s*\\{.*"
             "\\})([^\\{\\};]*)\\z"
             */
-            "namespace\\s+" + m_namespace_name + 
-            "\\s*\\{"
+            "(namespace)(\\s+)(" + m_namespace_name + ")"
+            "(adstl|phoenix|rapidxml)?(\\s*\\{)"
             );
          regex_replace(std::back_inserter(v2), v1.begin(), v1.end(), namespace_alias, 
-            "namespace " + m_namespace_name + "{} namespace boost = " + m_namespace_name + "; namespace " + m_namespace_name + "{");
+            "$1 $3$4 {} $1 (?4$4:boost) = $3$4; $1$2$3$4$5", boost::regex_constants::format_all);
          std::swap(v1, v2);
          v2.clear();
       }

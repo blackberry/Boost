@@ -1,4 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright 2012 Eric Niebler
+
+  Distributed under the Boost
+  Software License, Version 1.0. (See accompanying
+  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+  -->
 <header name="boost/proto/extends.hpp">
   <para>Macros and a base class for defining end-user expression types </para>
   <namespace name="boost">
@@ -72,12 +79,10 @@ struct my_expr
       , my_domain       // The domain associated with this expression extension
     &gt;
 {
-    typedef proto::extends&lt; Expr, my_expr&lt; Expr &gt;, my_domain &gt; base_type;
-    
     // An expression extension is constructed from the expression
     // it is extending.
     my_expr( Expr const &amp; e = Expr() )
-      : base_type( e )
+      : my_expr::proto_extends( e )
     {}
     
     // Unhide proto::extends::operator=
@@ -126,6 +131,9 @@ struct my_expr
         </typedef>
         <typedef name="proto_derived_expr">
           <type>Derived</type>
+        </typedef>
+        <typedef name="proto_extends">
+          <type>extends</type>
         </typedef>
         <typedef name="proto_tag">
           <type>typename proto_base_expr::proto_tag</type>

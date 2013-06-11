@@ -44,7 +44,7 @@ namespace boost
             BOOST_CHECK_EQUAL( boost::udistance(rng), result_fn.invocation_count() );
             
             fn_t result_fn2 = boost::for_each(boost::make_iterator_range(rng), fn_t(rng));
-            BOOST_CHECK_EQUAL( boost::udistance(rng), result_fn.invocation_count() );
+            BOOST_CHECK_EQUAL( boost::udistance(rng), result_fn2.invocation_count() );
 
             // Test the constant version
             const SinglePassRange& cref_rng = rng;

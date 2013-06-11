@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../interprocess.html" title="Chapter&#160;11.&#160;Boost.Interprocess">
+<link rel="up" href="../interprocess.html" title="Chapter&#160;12.&#160;Boost.Interprocess">
 <link rel="prev" href="architecture.html" title="Architecture and internals">
 <link rel="next" href="acknowledgements_notes.html" title="Acknowledgements, notes and links">
 </head>
@@ -60,7 +60,7 @@
    <span class="comment">//!The pointer type to be used by the rest of Interprocess framework</span>
    <span class="keyword">typedef</span> <span class="identifier">implementation_defined</span>   <span class="identifier">void_pointer</span><span class="special">;</span>
 
-   <span class="comment">//!Constructor. "size" is the total size of the managed memory segment, </span>
+   <span class="comment">//!Constructor. "size" is the total size of the managed memory segment,</span>
    <span class="comment">//!"extra_hdr_bytes" indicates the extra bytes after the sizeof(my_algorithm)</span>
    <span class="comment">//!that the allocator should not use at all.</span>
    <span class="identifier">my_algorithm</span> <span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">size</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">extra_hdr_bytes</span><span class="special">);</span>
@@ -234,10 +234,10 @@
 <span class="identifier">segment_mngr</span><span class="special">-&gt;</span><span class="identifier">construct</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;(</span><span class="string">"My_Int"</span><span class="special">)[</span><span class="number">32</span><span class="special">](</span><span class="number">0</span><span class="special">);</span>
 <span class="identifier">segment_mngr</span><span class="special">-&gt;</span><span class="identifier">destroy</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;(</span><span class="string">"My_Int"</span><span class="special">);</span>
 
-<span class="comment">//Initialize the custom, managed memory segment compatible </span>
+<span class="comment">//Initialize the custom, managed memory segment compatible</span>
 <span class="comment">//allocator with the segment manager.</span>
 <span class="comment">//</span>
-<span class="comment">//MySTLAllocator uses segment_mngr-&gt;xxx functions to </span>
+<span class="comment">//MySTLAllocator uses segment_mngr-&gt;xxx functions to</span>
 <span class="comment">//implement its allocation scheme</span>
 <span class="identifier">MySTLAllocator</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="identifier">stl_alloc</span><span class="special">(</span><span class="identifier">segment_mngr</span><span class="special">);</span>
 
@@ -433,7 +433,7 @@
 <span class="keyword">struct</span> <span class="identifier">is_node_index</span>
    <span class="special">&lt;</span><span class="identifier">my_index</span><span class="special">&lt;</span><span class="identifier">MapConfig</span><span class="special">&gt;</span> <span class="special">&gt;</span>
 <span class="special">{</span>
-   <span class="keyword">enum</span> <span class="special">{</span>   <span class="identifier">value</span> <span class="special">=</span> <span class="keyword">true</span> <span class="special">};</span>
+   <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">bool</span> <span class="identifier">value</span> <span class="special">=</span> <span class="keyword">true</span><span class="special">;</span>
 <span class="special">};</span>
 </pre>
 <p>
@@ -454,7 +454,7 @@
         Defining a new managed memory segment that uses the new index is easy. For
         example, a new managed shared memory that uses the new index:
       </p>
-<pre class="programlisting"><span class="comment">//!Defines a managed shared memory with a c-strings as </span>
+<pre class="programlisting"><span class="comment">//!Defines a managed shared memory with a c-strings as</span>
 <span class="comment">//!a keys, the red-black tree best fit algorithm (with process-shared mutexes</span>
 <span class="comment">//!and offset_ptr pointers) as raw shared memory management algorithm</span>
 <span class="comment">//!and a custom index</span>
@@ -470,7 +470,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2005-2010 Ion Gaztanaga<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2005-2011 Ion Gaztanaga<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

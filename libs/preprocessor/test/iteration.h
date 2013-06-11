@@ -28,7 +28,8 @@
 # define BOOST_PP_ITERATION_PARAMS_1 (4, (1, 5, <libs/preprocessor/test/iteration.h>, 0x0002))
 # include BOOST_PP_ITERATE()
 #
-# elif defined NO_FLAGS
+# else
+# if defined NO_FLAGS
 
 struct BOOST_PP_CAT(X, BOOST_PP_ITERATION()) {
     BEGIN
@@ -57,4 +58,5 @@ struct BOOST_PP_CAT(Z, BOOST_PP_CAT(BOOST_PP_ITERATION(), BOOST_PP_RELATIVE_ITER
 #
 # error should not get here!
 #
+# endif
 # endif

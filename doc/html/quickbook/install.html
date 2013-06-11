@@ -5,8 +5,8 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../quickbook.html" title="Chapter&#160;36.&#160;Quickbook 1.5">
-<link rel="prev" href="syntax.html" title="Syntax Summary">
+<link rel="up" href="../quickbook.html" title="Chapter&#160;37.&#160;Quickbook 1.5">
+<link rel="prev" href="versions.html" title="Language Versions">
 <link rel="next" href="editors.html" title="Editor Support">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -20,12 +20,11 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="syntax.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickbook.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="editors.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="versions.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickbook.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="editors.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="quickbook.install"></a><a class="link" href="install.html" title="Installation and configuration">Installation and configuration</a>
-</h2></div></div></div>
+<a name="quickbook.install"></a>Installation and configuration</h2></div></div></div>
 <div class="toc"><dl>
 <dt><span class="section"><a href="install.html#quickbook.install.macosx">Mac OS X</a></span></dt>
 <dt><span class="section"><a href="install.html#quickbook.install.windows">Windows 2000, XP, 2003, Vista,
@@ -100,12 +99,14 @@ using boostbook
               to a safe place. The traditional location is <code class="computeroutput">/usr/local/bin</code>.
             </li>
 <li class="listitem">
-              Add the following to your <code class="computeroutput">user-config.jam</code> file, using
-              the full path of the quickbook executable:
+              <p>
+                Add the following to your <code class="computeroutput">user-config.jam</code> file, using
+                the full path of the quickbook executable:
+              </p>
 <pre class="programlisting">using quickbook
     : /usr/local/bin/quickbook
     ;
- </pre>
+</pre>
             </li>
 </ol></div>
 <p>
@@ -164,17 +165,19 @@ using boostbook
               removing the version number from the directory name (for simplicity).
             </li>
 <li class="listitem">
-              Add the following to your <code class="computeroutput">user-config.jam</code> file, which
-              should live in your home directory (<code class="computeroutput">/Users/&lt;your_username&gt;</code>).
-              You must already have it somewhere or otherwise you could not be building
-              Boost (i.e. missing tools configuration).
+              <p>
+                Add the following to your <code class="computeroutput">user-config.jam</code> file, which
+                should live in your home directory (<code class="computeroutput">/Users/&lt;your_username&gt;</code>).
+                You must already have it somewhere or otherwise you could not be
+                building Boost (i.e. missing tools configuration).
+              </p>
 <pre class="programlisting">using xsltproc ;
 
 using boostbook
     : "/usr/local/share/xsl/docbook"
     : "/usr/local/share/xml/docbook/4.2"
     ;
- </pre>
+</pre>
             </li>
 </ol></div>
 <p>
@@ -195,11 +198,13 @@ using boostbook
               into: <code class="computeroutput">/usr/local/bin</code>.
             </li>
 <li class="listitem">
-              Add the following to your <code class="computeroutput">user-config.jam</code> file:
+              <p>
+                Add the following to your <code class="computeroutput">user-config.jam</code> file:
+              </p>
 <pre class="programlisting">using quickbook
     : "/usr/local/bin/quickbook" ;
     ;
- </pre>
+</pre>
             </li>
 </ol></div>
 <p>
@@ -218,11 +223,13 @@ using boostbook
               folder to install it.
             </li>
 <li class="listitem">
-              Add the following to your <code class="computeroutput">user-config.jam</code> file:
+              <p>
+                Add the following to your <code class="computeroutput">user-config.jam</code> file:
+              </p>
 <pre class="programlisting">using doxygen
     : /Applications/Doxygen.app/Contents/Resources/doxygen
     ;
- </pre>
+</pre>
             </li>
 </ol></div>
 </div>
@@ -277,12 +284,12 @@ using boostbook
             the version name): <code class="computeroutput">C:\Users\example\Documents\boost\xml\docbook-xsl</code>.
           </li>
 <li class="listitem">
-            Add the following to your <code class="computeroutput">user-config.jam</code> file, which should
-            live in your home directory (<code class="computeroutput">%HOMEDRIVE%%HOMEPATH%</code>). You
-            must already have it somewhere or otherwise you could not be building
-            Boost (i.e. missing tools configuration).
-          </li>
-</ol></div>
+            <p>
+              Add the following to your <code class="computeroutput">user-config.jam</code> file, which
+              should live in your home directory (<code class="computeroutput">%HOMEDRIVE%%HOMEPATH%</code>).
+              You must already have it somewhere or otherwise you could not be building
+              Boost (i.e. missing tools configuration).
+            </p>
 <pre class="programlisting">using xsltproc
     : "C:/Users/example/Documents/boost/xml/bin/xsltproc.exe"
     ;
@@ -292,6 +299,8 @@ using boostbook
     : "C:/Users/example/Documents/boost/xml/docbook-xml"
     ;
 </pre>
+          </li>
+</ol></div>
 <p>
         The above steps are enough to get a functional BoostBook setup. Quickbook
         will be automatically built when needed. If you want to avoid these rebuilds:
@@ -309,11 +318,13 @@ using boostbook
             <code class="computeroutput">C:\Users\example\Documents\boost\xml\bin</code>.
           </li>
 <li class="listitem">
-            Add the following to your <code class="computeroutput">user-config.jam</code> file:
+            <p>
+              Add the following to your <code class="computeroutput">user-config.jam</code> file:
+            </p>
 <pre class="programlisting">using quickbook
     : "C:/Users/example/Documents/boost/xml/bin/quickbook.exe"
     ;
- </pre>
+</pre>
           </li>
 </ol></div>
 </div>
@@ -371,20 +382,22 @@ using doxygen ;
             to a safe place. The traditional location is <code class="computeroutput">/usr/local/bin</code>.
           </li>
 <li class="listitem">
-            Add the following to your <code class="computeroutput">user-config.jam</code> file, using the
-            full path of the quickbook executable:
-          </li>
-</ol></div>
+            <p>
+              Add the following to your <code class="computeroutput">user-config.jam</code> file, using
+              the full path of the quickbook executable:
+            </p>
 <pre class="programlisting">using quickbook
     : /usr/local/bin/quickbook
     ;
 </pre>
+          </li>
+</ol></div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
 <td align="right"><div class="copyright-footer">Copyright &#169; 2002, 2004, 2006 Joel de Guzman,
-      Eric Niebler<p>
+      Eric Niebler<br>Copyright &#169; 2010, 2011 Daniel James<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
@@ -392,7 +405,7 @@ using doxygen ;
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="syntax.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickbook.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="editors.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="versions.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../quickbook.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="editors.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

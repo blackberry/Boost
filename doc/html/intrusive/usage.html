@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../intrusive.html" title="Chapter&#160;12.&#160;Boost.Intrusive">
+<link rel="up" href="../intrusive.html" title="Chapter&#160;13.&#160;Boost.Intrusive">
 <link rel="prev" href="intrusive_vs_nontrusive.html" title="Intrusive and non-intrusive containers">
 <link rel="next" href="usage_when.html" title="When to use?">
 </head>
@@ -150,9 +150,9 @@
             size is activated.
           </li>
 <li class="listitem">
-            <span class="bold"><strong><code class="computeroutput"><span class="identifier">size_type</span><span class="special">&lt;</span><span class="keyword">bool</span> <span class="identifier">Enabled</span><span class="special">&gt;</span></code></strong></span>:
-            Specifies a type that can hold the size of the container. This type will
-            be the type returned by <code class="computeroutput"><span class="identifier">list</span><span class="special">.</span><span class="identifier">size</span><span class="special">()</span></code> and the type stored in the intrusive
+            <span class="bold"><strong><code class="computeroutput"><span class="identifier">size_type</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">SizeType</span><span class="special">&gt;</span></code></strong></span>:
+            Specifies an unsigned type that can hold the size of the container. This
+            type will be the type returned by <code class="computeroutput"><span class="identifier">list</span><span class="special">.</span><span class="identifier">size</span><span class="special">()</span></code> and the type stored in the intrusive
             container if <code class="computeroutput"><span class="identifier">constant_time_size</span><span class="special">&lt;</span><span class="keyword">true</span><span class="special">&gt;</span></code> is requested. The user normally will
             not need to change this type, but some containers can have a <code class="computeroutput"><span class="identifier">size_type</span></code> that might be different from
             <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span></code> (for example, STL-like containers
@@ -169,26 +169,31 @@
 <pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">list</span><span class="special">&lt;</span><span class="identifier">Foo</span><span class="special">&gt;</span> <span class="identifier">FooList</span><span class="special">;</span>
 </pre>
 <p>
-        Example of a intrusive list with non constant-time size that will store Foo
-        objects:
+        Example of an intrusive list with non constant-time size that will store
+        Foo objects:
       </p>
 <pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">list</span><span class="special">&lt;</span><span class="identifier">Foo</span><span class="special">,</span> <span class="identifier">constant_time_size</span><span class="special">&lt;</span><span class="keyword">false</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">FooList</span><span class="special">;</span>
 </pre>
 <p>
-        Remember that the user must specify the base hook if the base hook has no
-        default tag (e.g: if more than one base hook is used):
+        Remember that the user must specify the base hook in the container declaration
+        if the base hook has no default tag, because that usually means that the
+        type has more than one base hook, and a container shall know which hook will
+        be using:
       </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">intrusive</span><span class="special">/</span><span class="identifier">list</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 
 <span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">intrusive</span><span class="special">;</span>
 
-<span class="keyword">struct</span> <span class="identifier">my_tag</span><span class="special">;</span>
+<span class="keyword">struct</span> <span class="identifier">my_tag1</span><span class="special">;</span>
+<span class="keyword">struct</span> <span class="identifier">my_tag2</span><span class="special">;</span>
 
-<span class="keyword">typedef</span> <span class="identifier">list_base_hook</span><span class="special">&lt;</span> <span class="identifier">tag</span><span class="special">&lt;</span><span class="identifier">my_tag</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">BaseHook</span><span class="special">;</span>
-<span class="keyword">class</span> <span class="identifier">Foo</span>   <span class="special">:</span>  <span class="keyword">public</span> <span class="identifier">BaseHook</span>
+<span class="keyword">typedef</span> <span class="identifier">list_base_hook</span><span class="special">&lt;</span> <span class="identifier">tag</span><span class="special">&lt;</span><span class="identifier">my_tag</span><span class="special">&gt;</span>  <span class="special">&gt;</span> <span class="identifier">BaseHook</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">list_base_hook</span><span class="special">&lt;</span> <span class="identifier">tag</span><span class="special">&lt;</span><span class="identifier">my_tag2</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">BaseHook2</span><span class="special">;</span>
+<span class="keyword">class</span> <span class="identifier">Foo</span>   <span class="special">:</span>  <span class="keyword">public</span> <span class="identifier">BaseHook</span><span class="special">,</span> <span class="keyword">public</span> <span class="identifier">BaseHook2</span>
 <span class="special">{</span> <span class="comment">/**/</span> <span class="special">};</span>
 
-<span class="keyword">typedef</span> <span class="identifier">list</span><span class="special">&lt;</span> <span class="identifier">Foo</span><span class="special">,</span> <span class="identifier">base_hook</span><span class="special">&lt;</span><span class="identifier">BaseHook</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">FooList</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">list</span><span class="special">&lt;</span> <span class="identifier">Foo</span><span class="special">,</span> <span class="identifier">base_hook</span><span class="special">&lt;</span><span class="identifier">BaseHook</span><span class="special">&gt;</span>  <span class="special">&gt;</span> <span class="identifier">FooList</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">list</span><span class="special">&lt;</span> <span class="identifier">Foo</span><span class="special">,</span> <span class="identifier">base_hook</span><span class="special">&lt;</span><span class="identifier">BaseHook2</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">FooList2</span><span class="special">;</span>
 </pre>
 <p>
         Once the list is defined, we can use it:
@@ -354,7 +359,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2005 Olaf Krzikalla<br>Copyright &#169; 2006-2010 Ion Gaztanaga<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2005 Olaf Krzikalla<br>Copyright &#169; 2006-2012 Ion Gaztanaga<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

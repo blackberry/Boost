@@ -35,6 +35,10 @@ int main() {}
 #endif
 #endif
 
+#if defined(__GNUC__)
+#pragma GCC diagnostic ignored "-Wfloat-equal"
+#endif
+
 #include <complex>
 #include <sstream>
 #include <boost/limits.hpp>

@@ -219,14 +219,14 @@ namespace test
             data_.last_ptr_ = &data_.first_;
         }
 
-        void erase(const_iterator start, const_iterator end) {
+        void erase(const_iterator i, const_iterator j) {
             node** ptr = &data_.first_;
 
-            while(*ptr != start.ptr_) {
+            while(*ptr != i.ptr_) {
                 ptr = &(*ptr)->next_;
             }
 
-            while(*ptr != end.ptr_) {
+            while(*ptr != j.ptr_) {
                 node* to_delete = *ptr;
                 *ptr = (*ptr)->next_;
                 --data_.size_;

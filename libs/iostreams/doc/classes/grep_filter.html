@@ -30,7 +30,7 @@
     The class template <CODE>basic_grep_filter</CODE> filters a character sequence line by line using a regular expression provided at construction, in a manner similar to the command-line utility <i>grep</i> (<A CLASS="bib_ref" HREF="../bibliography.html#grep">[IEEE]</A>). The filter uses regular expressions from the <A HREF="http://www.boost.org/libs/regex" TARGET="_top">Boost Regular Expression Library</A> (<A CLASS="bib_ref" HREF="../bibliography.html#maddock">[Maddock]</A>).
 </P>
 <P>
-    By default, the filtered character sequence consists of those lines of the unfilitered sequence that contain a subsequence matching the regular expression. By specifying appropriate options at construction, <CODE>basic_grep_filter</CODE> can be made to pass through only those lines which exactly match the regular expression (as if the option <i>-x</i> had been  passed to the command-line utility) or only those lines that <i>do not</i> contain a match (as if the option <i>-v</i> had been  passed to the command-line utility).
+    By default, the filtered character sequence consists of those lines of the unfiltered sequence that contain a subsequence matching the regular expression. By specifying appropriate options at construction, <CODE>basic_grep_filter</CODE> can be made to pass through only those lines which exactly match the regular expression (as if the option <i>-x</i> had been  passed to the command-line utility) or only those lines that <i>do not</i> contain a match (as if the option <i>-v</i> had been  passed to the command-line utility).
 </P>
 <P>
     A running count of the lines in the filtered character sequence is available via the member function <code><a href="#count">count</a></code>.

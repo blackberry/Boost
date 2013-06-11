@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../boost_lexical_cast.html" title="Chapter&#160;14.&#160;Boost.Lexical_Cast 1.0">
+<link rel="up" href="../boost_lexical_cast.html" title="Chapter&#160;15.&#160;Boost.Lexical_Cast 1.0">
 <link rel="prev" href="synopsis.html" title="Synopsis">
 <link rel="next" href="changes.html" title="Changes">
 </head>
@@ -99,10 +99,50 @@
                 will arise and the result will be the two's complement.
               </li></ul></div>
         </li></ul></div>
+<pre class="programlisting"></pre>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+          <span class="bold"><strong>Question:</strong></span> Why <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lexical_cast</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;(</span><span class="identifier">L</span><span class="char">'A'</span><span class="special">);</span></code> outputs
+          65 and <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lexical_cast</span><span class="special">&lt;</span><span class="keyword">wchar_t</span><span class="special">&gt;(</span><span class="identifier">L</span><span class="string">"65"</span><span class="special">);</span></code> does not throw?
+          <div class="itemizedlist"><ul class="itemizedlist" type="circle"><li class="listitem">
+                <span class="bold"><strong>Answer:</strong></span> If you are using an old
+                version of Visual Studio or compile code with /Zc:wchar_t- flag,
+                <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lexical_cast</span></code> sees single <code class="computeroutput"><span class="keyword">wchar_t</span></code> character as <code class="computeroutput"><span class="keyword">unsigned</span> <span class="keyword">short</span></code>.
+                It is not a <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lexical_cast</span></code>
+                mistake, but a limitation of compiler options that you use.
+              </li></ul></div>
+        </li></ul></div>
+<pre class="programlisting"></pre>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+          <span class="bold"><strong>Question:</strong></span> Why <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lexical_cast</span><span class="special">&lt;</span><span class="keyword">double</span><span class="special">&gt;(</span><span class="string">"-1.#IND"</span><span class="special">);</span></code> throws <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">bad_lexical_cast</span></code>?
+          <div class="itemizedlist"><ul class="itemizedlist" type="circle"><li class="listitem">
+                <span class="bold"><strong>Answer:</strong></span> <code class="computeroutput"><span class="string">"-1.#IND"</span></code>
+                is a compiler extension, that violates standard. You shall input
+                <code class="computeroutput"><span class="string">"-nan"</span></code>, <code class="computeroutput"><span class="string">"nan"</span></code>, <code class="computeroutput"><span class="string">"inf"</span></code>
+                , <code class="computeroutput"><span class="string">"-inf"</span></code> (case
+                insensitive) strings to get NaN and Inf values. <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lexical_cast</span><span class="special">&lt;</span><span class="identifier">string</span><span class="special">&gt;</span></code> outputs <code class="computeroutput"><span class="string">"-nan"</span></code>,
+                <code class="computeroutput"><span class="string">"nan"</span></code>, <code class="computeroutput"><span class="string">"inf"</span></code>, <code class="computeroutput"><span class="string">"-inf"</span></code>
+                strings, when has NaN or Inf input values.
+              </li></ul></div>
+        </li></ul></div>
+<pre class="programlisting"></pre>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+          <span class="bold"><strong>Question:</strong></span> What is the fastest way to convert
+          a non zero terminated string or a substring using <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lexical_cast</span></code>?
+          <div class="itemizedlist"><ul class="itemizedlist" type="circle"><li class="listitem">
+                <span class="bold"><strong>Answer:</strong></span> Use <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">iterator_range</span></code>
+                for conversion or <code class="computeroutput"><span class="identifier">lexical_cast</span></code>
+                overload with two parameters. For example, if you whant to convert
+                to <code class="computeroutput"><span class="keyword">int</span></code> two characters
+                from a string <code class="computeroutput"><span class="identifier">str</span></code>,
+                you shall write <code class="computeroutput"><span class="identifier">lexical_cast</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;(</span><span class="identifier">make_iterator_range</span><span class="special">(</span><span class="identifier">str</span><span class="special">.</span><span class="identifier">data</span><span class="special">(),</span> <span class="identifier">str</span><span class="special">.</span><span class="identifier">data</span><span class="special">()</span> <span class="special">+</span> <span class="number">2</span><span class="special">));</span></code>
+                or <code class="computeroutput"><span class="identifier">lexical_cast</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;(</span><span class="identifier">str</span><span class="special">.</span><span class="identifier">data</span><span class="special">(),</span>
+                <span class="number">2</span><span class="special">);</span></code>.
+              </li></ul></div>
+        </li></ul></div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2000-2005 Kevlin Henney<br>Copyright &#169; 2006-2010 Alexander Nasonov<br>Copyright &#169; 2011 Antony Polukhin<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2000-2005 Kevlin Henney<br>Copyright &#169; 2006-2010 Alexander Nasonov<br>Copyright &#169; 2011, 2012 Antony Polukhin<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

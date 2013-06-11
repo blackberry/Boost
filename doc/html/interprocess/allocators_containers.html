@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../interprocess.html" title="Chapter&#160;11.&#160;Boost.Interprocess">
+<link rel="up" href="../interprocess.html" title="Chapter&#160;12.&#160;Boost.Interprocess">
 <link rel="prev" href="managed_memory_segments.html" title="Managed Memory Segments">
 <link rel="next" href="memory_algorithms.html" title="Memory allocation algorithms">
 </head>
@@ -1346,7 +1346,7 @@
    <span class="comment">//Initialize the STL-like allocator</span>
    <span class="keyword">const</span> <span class="identifier">ShmemAllocator</span> <span class="identifier">alloc_inst</span> <span class="special">(</span><span class="identifier">segment</span><span class="special">.</span><span class="identifier">get_segment_manager</span><span class="special">());</span>
 
-   <span class="comment">//Construct the vector in the shared memory segment with the STL-like allocator </span>
+   <span class="comment">//Construct the vector in the shared memory segment with the STL-like allocator</span>
    <span class="comment">//from a range of iterators</span>
    <span class="identifier">MyVector</span> <span class="special">*</span><span class="identifier">myvector</span> <span class="special">=</span>
       <span class="identifier">segment</span><span class="special">.</span><span class="identifier">construct</span><span class="special">&lt;</span><span class="identifier">MyVector</span><span class="special">&gt;</span>
@@ -1454,17 +1454,17 @@
    <span class="identifier">StringAllocator</span>   <span class="identifier">stringallocator</span><span class="special">(</span><span class="identifier">shm</span><span class="special">.</span><span class="identifier">get_segment_manager</span><span class="special">());</span>
 
    <span class="comment">//This string is in only in this process (the pointer pointing to the</span>
-   <span class="comment">//buffer that will hold the text is not in shared memory). </span>
-   <span class="comment">//But the buffer that will hold "this is my text" is allocated from </span>
+   <span class="comment">//buffer that will hold the text is not in shared memory).</span>
+   <span class="comment">//But the buffer that will hold "this is my text" is allocated from</span>
    <span class="comment">//shared memory</span>
    <span class="identifier">MyShmString</span> <span class="identifier">mystring</span><span class="special">(</span><span class="identifier">charallocator</span><span class="special">);</span>
    <span class="identifier">mystring</span> <span class="special">=</span> <span class="string">"this is my text"</span><span class="special">;</span>
 
    <span class="comment">//This vector is only in this process (the pointer pointing to the</span>
-   <span class="comment">//buffer that will hold the MyShmString-s is not in shared memory). </span>
-   <span class="comment">//But the buffer that will hold 10 MyShmString-s is allocated from </span>
-   <span class="comment">//shared memory using StringAllocator. Since strings use a shared </span>
-   <span class="comment">//memory allocator (CharAllocator) the 10 buffers that hold </span>
+   <span class="comment">//buffer that will hold the MyShmString-s is not in shared memory).</span>
+   <span class="comment">//But the buffer that will hold 10 MyShmString-s is allocated from</span>
+   <span class="comment">//shared memory using StringAllocator. Since strings use a shared</span>
+   <span class="comment">//memory allocator (CharAllocator) the 10 buffers that hold</span>
    <span class="comment">//"this is my text" text are also in shared memory.</span>
    <span class="identifier">MyShmStringVector</span> <span class="identifier">myvector</span><span class="special">(</span><span class="identifier">stringallocator</span><span class="special">);</span>
    <span class="identifier">myvector</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">myvector</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="number">10</span><span class="special">,</span> <span class="identifier">mystring</span><span class="special">);</span>
@@ -1501,7 +1501,7 @@
           insert objects in the container, avoiding unnecessary copies.
         </p>
 <p>
-          To transfer the contents of a container to another one, use <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">interprocess</span><span class="special">::</span><span class="identifier">move</span><span class="special">()</span></code>
+          To transfer the contents of a container to another one, use <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">move</span><span class="special">()</span></code>
           function, as shown in the example. For more details about functions supporting
           move-semantics, see the reference section of Boost.Interprocess containers:
         </p>
@@ -1554,7 +1554,7 @@
       <span class="comment">//In the following line, no string copy-constructor will be called.</span>
       <span class="comment">//"move_me"'s contents will be transferred to the string created in</span>
       <span class="comment">//the vector</span>
-      <span class="identifier">myshmvector</span><span class="special">-&gt;</span><span class="identifier">push_back</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">interprocess</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">move_me</span><span class="special">));</span>
+      <span class="identifier">myshmvector</span><span class="special">-&gt;</span><span class="identifier">push_back</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">move_me</span><span class="special">));</span>
 
       <span class="comment">//The source string is in default constructed state</span>
       <span class="identifier">assert</span><span class="special">(</span><span class="identifier">move_me</span><span class="special">.</span><span class="identifier">empty</span><span class="special">());</span>
@@ -1568,9 +1568,9 @@
 
    <span class="comment">//...And insert one in the first position.</span>
    <span class="comment">//No string copy-constructor or assignments will be called, but</span>
-   <span class="comment">//move constructors and move-assignments. No memory allocation </span>
+   <span class="comment">//move constructors and move-assignments. No memory allocation</span>
    <span class="comment">//function will be called in this operations!!</span>
-   <span class="identifier">myshmvector</span><span class="special">-&gt;</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">myshmvector</span><span class="special">-&gt;</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">interprocess</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">string_to_compare</span><span class="special">));</span>
+   <span class="identifier">myshmvector</span><span class="special">-&gt;</span><span class="identifier">insert</span><span class="special">(</span><span class="identifier">myshmvector</span><span class="special">-&gt;</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">string_to_compare</span><span class="special">));</span>
 
    <span class="comment">//Destroy vector. This will free all strings that the vector contains</span>
    <span class="identifier">shm</span><span class="special">.</span><span class="identifier">destroy_ptr</span><span class="special">(</span><span class="identifier">myshmvector</span><span class="special">);</span>
@@ -1865,7 +1865,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2005-2010 Ion Gaztanaga<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2005-2011 Ion Gaztanaga<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

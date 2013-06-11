@@ -2,7 +2,7 @@
 // chat_message.hpp
 // ~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -67,12 +67,7 @@ public:
   {
     using namespace std; // For strncat and atoi.
     char header[header_length + 1] = "";
-#if defined(__QNX__)
-    // PR 155594: Call proper strcat function
-    strlcat(header, data_, header_length + 1);
-#else
     strncat(header, data_, header_length);
-#endif
     body_length_ = atoi(header);
     if (body_length_ > max_body_length)
     {

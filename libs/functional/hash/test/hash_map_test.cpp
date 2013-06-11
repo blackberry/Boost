@@ -27,7 +27,7 @@ using std::multimap;
 #define CONTAINER_TYPE multimap
 #include "./hash_map_test.hpp"
 
-#endif // TEST_EXTENSTIONS
+#endif // TEST_EXTENSIONS
 
 int main()
 {

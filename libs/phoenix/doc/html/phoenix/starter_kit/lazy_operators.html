@@ -69,6 +69,12 @@
 <span class="identifier">x</span><span class="special">[</span><span class="identifier">ref</span><span class="special">(</span><span class="identifier">i</span><span class="special">)]</span>       <span class="comment">// illegal (x is not a phoenix primitive or expression)</span>
 <span class="identifier">ref</span><span class="special">(</span><span class="identifier">x</span><span class="special">[</span><span class="identifier">ref</span><span class="special">(</span><span class="identifier">i</span><span class="special">)])</span>  <span class="comment">// illegal (x is not a phoenix primitive or expression)</span>
 </pre>
+<p>
+        Why are the last two expression illegal? Although <code class="computeroutput"><span class="keyword">operator</span><span class="special">[]</span></code> looks as much like a binary operator as
+        <code class="computeroutput"><span class="keyword">operator</span><span class="special">=</span></code>
+        above it; the difference is that the former must be a member (i.e. <code class="computeroutput"><span class="identifier">x</span></code> must have an <code class="computeroutput"><span class="keyword">operator</span><span class="special">[]</span></code> that takes a phoenix primitive or expression
+        as its argument). This will most likely not be the case.
+      </p>
 <div class="sidebar">
 <div class="titlepage"></div>
 <p>

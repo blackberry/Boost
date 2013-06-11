@@ -6,13 +6,13 @@
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/config for the most recent version.//
-//  Revision $Id: no_nullptr_fail.cpp 53445 2009-05-30 11:22:59Z bemandawes $
+//  Revision $Id: no_nullptr_fail.cpp 79537 2012-07-15 15:59:05Z marshall $
 //
 
 
-// Test file for macro BOOST_NO_NULLPTR
+// Test file for macro BOOST_NO_CXX11_NULLPTR
 // This file should not compile, if it does then
-// BOOST_NO_NULLPTR should not be defined.
+// BOOST_NO_CXX11_NULLPTR should not be defined.
 // See file boost_no_nullptr.ipp for details
 
 // Must not have BOOST_ASSERT_CONFIG set; it defeats
@@ -24,7 +24,7 @@
 #include <boost/config.hpp>
 #include "test.hpp"
 
-#ifdef BOOST_NO_NULLPTR
+#ifdef BOOST_NO_CXX11_NULLPTR
 #include "boost_no_nullptr.ipp"
 #else
 #error "this file should not compile"

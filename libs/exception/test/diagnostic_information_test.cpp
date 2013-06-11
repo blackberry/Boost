@@ -35,9 +35,6 @@ error1:
         {
         return "error1";
         }
-#if defined(__QNX__)
-    ~error1() throw () {}
-#endif
     };
 
 struct
@@ -67,9 +64,6 @@ error4:
         {
         return diagnostic_information_what(*this);
         }
-#if defined(__QNX__)
-    ~error4() throw () {}
-#endif
     };
 
 void

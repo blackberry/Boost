@@ -4,7 +4,7 @@
 <title>Sequential Or Parser (a || b)</title>
 <link rel="stylesheet" href="../../../../../../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
-<link rel="home" href="../../../../index.html" title="Spirit 2.5.1">
+<link rel="home" href="../../../../index.html" title="Spirit 2.5.2">
 <link rel="up" href="../operator.html" title="Parser Operators">
 <link rel="prev" href="sequence.html" title="Sequence Parser (a &gt;&gt; b)">
 <link rel="next" href="../stream.html" title="Stream Parsers">
@@ -221,7 +221,8 @@
 </p>
 <pre class="programlisting"><span class="identifier">test_parser</span><span class="special">(</span><span class="string">"123.456"</span><span class="special">,</span> <span class="identifier">int_</span> <span class="special">||</span> <span class="special">(</span><span class="char">'.'</span> <span class="special">&gt;&gt;</span> <span class="identifier">int_</span><span class="special">));</span>  <span class="comment">// full</span>
 <span class="identifier">test_parser</span><span class="special">(</span><span class="string">"123"</span><span class="special">,</span> <span class="identifier">int_</span> <span class="special">||</span> <span class="special">(</span><span class="char">'.'</span> <span class="special">&gt;&gt;</span> <span class="identifier">int_</span><span class="special">));</span>      <span class="comment">// just the whole number</span>
-<span class="identifier">test_parser</span><span class="special">(</span><span class="string">".456"</span><span class="special">,</span> <span class="identifier">int_</span> <span class="special">||</span> <span class="special">(</span><span class="char">'.'</span> <span class="special">&gt;&gt;</span> <span class="identifier">int_</span><span class="special">));</span>     <span class="comment">// just the fraction</span></pre>
+<span class="identifier">test_parser</span><span class="special">(</span><span class="string">".456"</span><span class="special">,</span> <span class="identifier">int_</span> <span class="special">||</span> <span class="special">(</span><span class="char">'.'</span> <span class="special">&gt;&gt;</span> <span class="identifier">int_</span><span class="special">));</span>     <span class="comment">// just the fraction</span>
+</pre>
 <p>
           </p>
 <p>

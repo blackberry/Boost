@@ -6,15 +6,15 @@
 
 //  See http://www.boost.org/libs/config for more information.
 
-//  MACRO:         BOOST_NO_DEFAULTED_FUNCTIONS 
+//  MACRO:         BOOST_NO_CXX11_DEFAULTED_FUNCTIONS 
 //  TITLE:         C++0x defaulted functions unavailable
 //  DESCRIPTION:   The compiler does not support C++0x defaulted functions
 
 #if defined(__GNUC__) && !defined(__GXX_EXPERIMENTAL_CXX0X__) && !defined(BOOST_INTEL_STDCXX0X)
-#  error Defaulted functions aren't really supported in non-C++0x mode
+#  error Defaulted functions are not supported in non-C++0x mode
 #endif
 
-namespace boost_no_defaulted_functions {
+namespace boost_no_cxx11_defaulted_functions {
 
   struct foo {
     foo() = default;

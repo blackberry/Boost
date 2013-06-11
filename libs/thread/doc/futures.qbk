@@ -1,5 +1,5 @@
 [/
-  (C) Copyright 2008-9 Anthony Williams.
+  (C) Copyright 2008-11 Anthony Williams.
   Distributed under the Boost Software License, Version 1.0.
   (See accompanying file LICENSE_1_0.txt or copy at
   http://www.boost.org/LICENSE_1_0.txt).
@@ -23,25 +23,26 @@
 
 
 [template unique_future_link[link_text] [link thread.synchronization.futures.reference.unique_future [link_text]]]
-[def __unique_future__ [unique_future_link `boost::unique_future`]]
+[def __unique_future__ [unique_future_link `future`]]
+[def __unique_future `future`]
 
 [template unique_future_get_link[link_text] [link thread.synchronization.futures.reference.unique_future.get [link_text]]]
-[def __unique_future_get__ [unique_future_get_link `boost::unique_future<R>::get()`]]
+[def __unique_future_get__ [unique_future_get_link `boost::future<R>::get()`]]
 
 [template unique_future_wait_link[link_text] [link thread.synchronization.futures.reference.unique_future.wait [link_text]]]
-[def __unique_future_wait__ [unique_future_wait_link `boost::unique_future<R>::wait()`]]
+[def __unique_future_wait__ [unique_future_wait_link `boost::future<R>::wait()`]]
 
 [template unique_future_is_ready_link[link_text] [link thread.synchronization.futures.reference.unique_future.is_ready [link_text]]]
-[def __unique_future_is_ready__ [unique_future_is_ready_link `boost::unique_future<R>::is_ready()`]]
+[def __unique_future_is_ready__ [unique_future_is_ready_link `boost::future<R>::is_ready()`]]
 
 [template unique_future_has_value_link[link_text] [link thread.synchronization.futures.reference.unique_future.has_value [link_text]]]
-[def __unique_future_has_value__ [unique_future_has_value_link `boost::unique_future<R>::has_value()`]]
+[def __unique_future_has_value__ [unique_future_has_value_link `boost::future<R>::has_value()`]]
 
 [template unique_future_has_exception_link[link_text] [link thread.synchronization.futures.reference.unique_future.has_exception [link_text]]]
-[def __unique_future_has_exception__ [unique_future_has_exception_link `boost::unique_future<R>::has_exception()`]]
+[def __unique_future_has_exception__ [unique_future_has_exception_link `boost::future<R>::has_exception()`]]
 
 [template unique_future_get_state_link[link_text] [link thread.synchronization.futures.reference.unique_future.get_state [link_text]]]
-[def __unique_future_get_state__ [unique_future_get_state_link `boost::unique_future<R>::get_state()`]]
+[def __unique_future_get_state__ [unique_future_get_state_link `boost::future<R>::get_state()`]]
 
 [template shared_future_link[link_text] [link thread.synchronization.futures.reference.shared_future [link_text]]]
 [def __shared_future__ [shared_future_link `boost::shared_future`]]
@@ -69,6 +70,7 @@
 
 [template packaged_task_link[link_text] [link thread.synchronization.futures.reference.packaged_task [link_text]]]
 [def __packaged_task__ [packaged_task_link `boost::packaged_task`]]
+[def __packaged_task [packaged_task_link `boost::packaged_task`]]
 
 [template wait_for_any_link[link_text] [link thread.synchronization.futures.reference.wait_for_any [link_text]]]
 [def __wait_for_any__ [wait_for_any_link `boost::wait_for_any()`]]
@@ -114,7 +116,7 @@ place of the return value.
     }
 
     boost::packaged_task<int> pt(calculate_the_answer_to_life_the_universe_and_everything);
-    boost::unique_future<int> fi=pt.get_future();
+    boost::__unique_future__<int> fi=pt.get_future();
 
     boost::thread task(boost::move(pt)); // launch task on a thread
 
@@ -132,7 +134,7 @@ future. A promise can therefore be used where the value may come from more than 
 produce multiple values.
 
     boost::promise<int> pi;
-    boost::unique_future<int> fi;
+    boost::__unique_future__<int> fi;
     fi=pi.get_future();
 
     pi.set_value(42);
@@ -174,7 +176,7 @@ call to `f.get()` invokes the callback `invoke_lazy_task`, which runs the task t
     {
         boost::packaged_task<int> task(calculate_the_answer_to_life_the_universe_and_everything);
         task.set_wait_callback(invoke_lazy_task);
-        boost::unique_future<int> f(task.get_future());
+        boost::__unique_future__<int> f(task.get_future());
 
         assert(f.get()==42);
     }

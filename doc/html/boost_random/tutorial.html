@@ -5,8 +5,8 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../boost_random.html" title="Chapter&#160;20.&#160;Boost.Random">
-<link rel="prev" href="../boost_random.html" title="Chapter&#160;20.&#160;Boost.Random">
+<link rel="up" href="../boost_random.html" title="Chapter&#160;21.&#160;Boost.Random">
+<link rel="prev" href="../boost_random.html" title="Chapter&#160;21.&#160;Boost.Random">
 <link rel="next" href="reference.html" title="Reference">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -47,7 +47,8 @@
 <p>
 </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">random</span><span class="special">/</span><span class="identifier">mersenne_twister</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
-<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">random</span><span class="special">/</span><span class="identifier">uniform_int_distribution</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></pre>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">random</span><span class="special">/</span><span class="identifier">uniform_int_distribution</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+</pre>
 <p>
       </p>
 <p>
@@ -59,7 +60,8 @@
       </p>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">random</span><span class="special">::</span><span class="identifier">mt19937</span> <span class="identifier">gen</span><span class="special">;</span></pre>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">random</span><span class="special">::</span><span class="identifier">mt19937</span> <span class="identifier">gen</span><span class="special">;</span>
+</pre>
 <p>
       </p>
 <div class="note"><table border="0" summary="Note">
@@ -132,7 +134,8 @@
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">random</span><span class="special">/</span><span class="identifier">mersenne_twister</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">random</span><span class="special">/</span><span class="identifier">discrete_distribution</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 
-<span class="identifier">boost</span><span class="special">::</span><span class="identifier">mt19937</span> <span class="identifier">gen</span><span class="special">;</span></pre>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">mt19937</span> <span class="identifier">gen</span><span class="special">;</span>
+</pre>
 <p>
       </p>
 <p>
@@ -160,7 +163,8 @@
 <pre class="programlisting"><span class="keyword">double</span> <span class="identifier">probabilities</span><span class="special">[]</span> <span class="special">=</span> <span class="special">{</span>
     <span class="number">0.5</span><span class="special">,</span> <span class="number">0.1</span><span class="special">,</span> <span class="number">0.1</span><span class="special">,</span> <span class="number">0.1</span><span class="special">,</span> <span class="number">0.1</span><span class="special">,</span> <span class="number">0.1</span>
 <span class="special">};</span>
-<span class="identifier">boost</span><span class="special">::</span><span class="identifier">random</span><span class="special">::</span><span class="identifier">discrete_distribution</span><span class="special">&lt;&gt;</span> <span class="identifier">dist</span><span class="special">(</span><span class="identifier">probabilities</span><span class="special">);</span></pre>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">random</span><span class="special">::</span><span class="identifier">discrete_distribution</span><span class="special">&lt;&gt;</span> <span class="identifier">dist</span><span class="special">(</span><span class="identifier">probabilities</span><span class="special">);</span>
+</pre>
 <p>
       </p>
 <p>
@@ -171,7 +175,6 @@
 <pre class="programlisting"><span class="keyword">int</span> <span class="identifier">roll_weighted_die</span><span class="special">()</span> <span class="special">{</span>
     <a class="co" name="boost_random.tutorial.generating_integers_with_different_probabilities.c0" href="tutorial.html#boost_random.tutorial.generating_integers_with_different_probabilities.c1"><img src="../../../doc/src/images/callouts/1.png" alt="1" border="0"></a><span class="keyword">return</span> <span class="identifier">dist</span><span class="special">(</span><span class="identifier">gen</span><span class="special">)</span> <span class="special">+</span> <span class="number">1</span><span class="special">;</span>
 <span class="special">}</span>
-
 </pre>
 <p>
       </p>
@@ -212,7 +215,6 @@
     <span class="special">}</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
 <span class="special">}</span>
-
 </pre>
 <p>
       </p>

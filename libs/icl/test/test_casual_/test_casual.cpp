@@ -15,7 +15,7 @@ Copyright (c) 2008-2009: Joachim Faulhaber
 #include <vector>
 #include <boost/mpl/list.hpp>
 #include "../unit_test_unwarned.hpp"
-#include <boost/test/test_case_template.hpp>
+
 
 // interval instance types
 #include "../test_type_lists.hpp"
@@ -32,6 +32,8 @@ Copyright (c) 2008-2009: Joachim Faulhaber
 #include <boost/icl/interval_set.hpp>
 #include <boost/icl/interval.hpp>
 
+#include <boost/scoped_ptr.hpp>
+
 using namespace std;
 using namespace boost;
 using namespace unit_test;
@@ -46,7 +48,10 @@ BOOST_AUTO_TEST_CASE(casual)
     typedef interval_set<T>                     IntervalSetT;
     typedef IntervalMapT::interval_type         IntervalT;
 
+    IntervalSetT is = IntervalSetT(I_I(1,1)) + IntervalSetT(I_I(3,3));
+
+    cout << is << endl;
+
     BOOST_CHECK_EQUAL(true, true);
 }
-
 

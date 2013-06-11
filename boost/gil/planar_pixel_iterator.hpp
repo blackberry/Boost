@@ -29,10 +29,6 @@
 #include "pixel.hpp"
 #include "step_iterator.hpp"
 
-#if defined(__QNX__)
-#include <stddef.h> // for ptrdiff_t
-#endif
-
 namespace boost { namespace gil {
 
 //forward declaration (as this file is included in planar_pixel_reference.hpp)

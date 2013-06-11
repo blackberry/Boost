@@ -1,9 +1,9 @@
 [/============================================================================
   Boost.Geometry (aka GGL, Generic Geometry Library)
 
-  Copyright (c) 2009-2011 Barend Gehrels, Amsterdam, the Netherlands.
-  Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
-  Copyright (c) 2009-2011 Bruno Lalande, Paris, France.
+  Copyright (c) 2009-2012 Barend Gehrels, Amsterdam, the Netherlands.
+  Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
+  Copyright (c) 2009-2012 Bruno Lalande, Paris, France.
 
   Use, modification and distribution is subject to the Boost Software License,
   Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -12,9 +12,8 @@
 
 [library Geometry
     [quickbook 1.5]
-    [version 1.0]
     [authors [Gehrels, Barend], [Lalande, Bruno], [Loskot, Mateusz]]
-    [copyright 2011 Barend Gehrels, Bruno Lalande, Mateusz Loskot]
+    [copyright 2009-2012 Barend Gehrels, Bruno Lalande, Mateusz Loskot]
     [purpose Documentation of Boost.Geometry library]
     [license
         Distributed under the Boost Software License, Version 1.0.
@@ -61,10 +60,6 @@
 [template qbk_ret[what] Returns [what]]
 [template qbk_out[what] GeometryOut is a [what]]
 
-[template concept[name type] The [name] Concept describes the requirements for a [type] type. 
-All algorithms in Boost.Geometry will check any geometry arguments against the concept requirements.]
-
-
 [def __boost__ Boost]
 [def __boost_geometry__ Boost.Geometry]
 [def __boost_array__ Boost.Array]
@@ -78,6 +73,35 @@ All algorithms in Boost.Geometry will check any geometry arguments against the c
 [def __ttmath__ [@http://www.ttmath.org/ ttmath]]
 [def __ogc__ [@http://www.opengeospatial.org OGC]]
 
+[def __ogc_sf__ [@http://www.opengeospatial.org/standards/sfa OGC Simple Feature Specification]]
+
+[/Templates]
+[template concept[name type]
+The [name] Concept describes the requirements for a [type] type. 
+All algorithms in Boost.Geometry will check any geometry arguments against the concept requirements.
+]
+
+[template heading_conformance_no_ogc[function]
+[heading Conformance]
+The function [function] is not defined by OGC.
+]
+
+[template heading_conformance_ogc[function ogc_function]
+[heading Conformance]
+The function [function] implements function [ogc_function] from the __ogc_sf__.
+]
+
+[template conformance_std[function std_function]
+The function [function] conforms to the [std_function] of the C++ std-library.
+]
+
+[template see_boost_range_sample[concept]
+[note See also the sample in the [@../../../range/doc/html/range/reference/extending/method_2.html Boost.Range documentation]
+  showing how a type can be adapted to a Boost.Range to fulfill the concept of a [concept]
+]
+]
+
+
 [heading Contributions]
 
 Boost.Geometry contains contributions by:
@@ -86,6 +110,7 @@ Boost.Geometry contains contributions by:
 * Alfredo Correa (adaption of Boost.Array)
 * Adam Wulkiewicz (spatial indexes) [footnote Currently an extension]
 * Federico Fern\u00E1ndez (spatial indexes) [footnote Currently an extension]
+* Karsten Ahnert (patch for cross-track distance)
 
 [include imports.qbk]
 
@@ -104,6 +129,7 @@ Boost.Geometry contains contributions by:
 
 [include reference.qbk]
 
+[include release_notes.qbk]
 
 [include about_documentation.qbk]
 [include acknowledgments.qbk]

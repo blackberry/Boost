@@ -1,39 +1,46 @@
-// Copyright Alexander Nasonov 2007-2008
-//
-// Distributed under the Boost Software License, Version 1.0. 
-// (See accompanying file LICENSE_1_0.txt or copy at 
+
+// Copyright (C) 2006-2009, 2012 Alexander Nasonov
+// Copyright (C) 2012 Lorenzo Caminiti
+// Distributed under the Boost Software License, Version 1.0
+// (see accompanying file LICENSE_1_0.txt or a copy at
 // http://www.boost.org/LICENSE_1_0.txt)
+// Home at http://www.boost.org/libs/scope_exit
+
+// No #include guard for this header.
 
 #include <boost/scope_exit.hpp>
+#include <boost/config.hpp>
 
-int tu1();
-int tu2();
+int tu1(void);
+int tu2(void);
 
-inline int inline_f()
-{
+inline int inline_f(void) {
     int i = 99;
     {
-        BOOST_SCOPE_EXIT( (&i) ) { i = -1; } BOOST_SCOPE_EXIT_END
+        BOOST_SCOPE_EXIT( (&i) ) {
+            i = -1;
+        } BOOST_SCOPE_EXIT_END
     }
     return i;
 }
 
-#if !defined(BOOST_SCOPE_EXIT_AUX_GCC)
-#error "BOOST_SCOPE_EXIT_AUX_GCC undefined!"
-#elif BOOST_SCOPE_EXIT_AUX_GCC == 0 || BOOST_SCOPE_EXIT_AUX_GCC >= 304
+#if !defined(BOOST_INTEL) && defined(__GNUC__) && \
+        (__GNUC__ * 100 + __GNUC_MINOR__) >= 304
 template<class Int>
-Int template_f(Int i)
-{
+Int template_f(Int i) {
     {
-        BOOST_SCOPE_EXIT_TPL( (&i) ) { ++i; } BOOST_SCOPE_EXIT_END
+        BOOST_SCOPE_EXIT_TPL( (&i) ) {
+            ++i;
+        } BOOST_SCOPE_EXIT_END
     }
     return i;
 }
 #else
-inline int template_f(int i)
-{
+inline int template_f(int i) {
     {
-        BOOST_SCOPE_EXIT( (&i) ) { ++i; } BOOST_SCOPE_EXIT_END
+        BOOST_SCOPE_EXIT( (&i) ) {
+            ++i;
+        } BOOST_SCOPE_EXIT_END
     }
     return i;
 }

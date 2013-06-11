@@ -16,59 +16,30 @@
 
 namespace quickbook
 {
-    struct file_position
-    {
-        file_position() : line(1), column(1) {}
-        file_position(int l, int c) : line(l), column(c) {}
-    
-        int line;
-        int column;
-    };
-    
     template <typename Iterator>
-    struct position_iterator
+    struct lookback_iterator
         : boost::forward_iterator_helper<
-            position_iterator<Iterator>,
+            lookback_iterator<Iterator>,
             typename boost::iterator_value<Iterator>::type,
             typename boost::iterator_difference<Iterator>::type,
             typename boost::iterator_pointer<Iterator>::type,
             typename boost::iterator_reference<Iterator>::type
         >
     {
-        position_iterator() {}
-        explicit position_iterator(Iterator base)
-            : original_(base), base_(base), previous_('\0'), position_() {}
-        explicit position_iterator(Iterator base, file_position const& position)
-            : original_(base), base_(base), previous_('\0'), position_(position) {}
+        lookback_iterator() {}
+        explicit lookback_iterator(Iterator base)
+            : original_(base), base_(base) {}
     
         friend bool operator==(
-            position_iterator const& x,
-            position_iterator const& y)
+            lookback_iterator const& x,
+            lookback_iterator const& y)
         {
             return x.base_ == y.base_;
         }
         
-        position_iterator& operator++()
+        lookback_iterator& operator++()
         {
-            char val = *base_;
-    
-            if (val == '\r') {
-                ++position_.line;
-                position_.column = 1;
-            }
-            else if (val == '\n') {
-                if (previous_ != '\r') {
-                    ++position_.line;
-                    position_.column = 1;
-                }
-            }
-            else {
-                ++position_.column;
-            }
-    
-            previous_ = val;
             ++base_;
-
             return *this;
         }
     
@@ -77,10 +48,6 @@ namespace quickbook
             return *base_;
         }
         
-        file_position const& get_position() const {
-            return position_;
-        }
-    
         Iterator base() const {
             return base_;
         }
@@ -96,8 +63,6 @@ namespace quickbook
     private:
         Iterator original_;
         Iterator base_;
-        char previous_;
-        file_position position_;
     };
 }
 

@@ -157,7 +157,6 @@ namespace archive {
 #endif // defined(__hpux)
 #endif // defined(_WIN32) || defined(__WIN32__) || defined(WIN32)
 
-//#include <boost/test/test_tools.hpp>
 #include <boost/detail/lightweight_test.hpp>
 
 #define BOOST_CHECK( P ) \

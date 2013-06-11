@@ -1,30 +1,38 @@
 /*
   Copyright 2008 Intel Corporation
- 
+
   Use, modification and distribution are subject to the Boost Software License,
   Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
   http://www.boost.org/LICENSE_1_0.txt).
 */
 #include <iostream>
+//#define BOOST_POLYGON_NO_DEPS
 #include <boost/polygon/polygon.hpp>
+
 namespace gtl = boost::polygon;
 using namespace boost::polygon::operators;
 #include <time.h>
 #include <stdlib.h>
 
+void assert_s(bool c, std::string msg) {
+  if(!c) {
+    std::cout << msg << std::endl;
+    exit( 1);
+  }
+}
+
 namespace boost { namespace polygon{
-    void addpoly(polygon_45_set_data<int>& pset,
-                 int* pts, int numpts) {
-      std::vector<point_data<int> > mppts;
-      for(unsigned int i = 0; i < numpts*2; i += 2) {
-        point_data<int>  pt(pts[i], pts[i+1]);
-        mppts.push_back(pt);
-      }
-      polygon_45_data<int> poly;
-      poly.set(mppts.begin(), mppts.end());
-      pset += poly;
+  void addpoly(polygon_45_set_data<int>& pset,
+               int* pts, unsigned int numpts) {
+    std::vector<point_data<int> > mppts;
+    for(unsigned int i = 0; i < numpts*2; i += 2) {
+      point_data<int>  pt(pts[i], pts[i+1]);
+      mppts.push_back(pt);
     }
-     
+    polygon_45_data<int> poly;
+    poly.set(mppts.begin(), mppts.end());
+    pset += poly;
+  }
 
   template <class T>
   std::ostream& operator << (std::ostream& o, const interval_data<T>& i)
@@ -39,11 +47,11 @@ namespace boost { namespace polygon{
   template <typename T>
   std::ostream& operator<<(std::ostream& o, const polygon_45_data<T>& poly) {
     o << "Polygon { ";
-    for(typename polygon_45_data<T>::iterator_type itr = poly.begin(); 
+    for(typename polygon_45_data<T>::iterator_type itr = poly.begin();
         itr != poly.end(); ++itr) {
       if(itr != poly.begin()) o << ", ";
       o << (*itr).get(HORIZONTAL) << " " << (*itr).get(VERTICAL);
-    } 
+    }
     o << " } ";
     return o;
   }
@@ -82,7 +90,7 @@ namespace boost { namespace polygon{
   std::istream& operator >> (std::istream& i, polygon_90_data<T>& r)
   {
     std::size_t size;
-    i >> size; 
+    i >> size;
     std::vector<T> vec;
     vec.reserve(size);
     for(std::size_t ii = 0; ii < size; ++ii) {
@@ -93,12 +101,12 @@ namespace boost { namespace polygon{
     r.set_compact(vec.begin(), vec.end());
     return i;
   }
-  
+
   template <typename T>
   std::ostream& operator << (std::ostream& o, const std::vector<polygon_90_data<T> >& r) {
     o << r.size() << ' ';
     for(std::size_t ii = 0; ii < r.size(); ++ii) {
-      o << (r[ii]); 
+      o << (r[ii]);
     }
     return o;
   }
@@ -118,14 +126,14 @@ namespace boost { namespace polygon{
   template <typename T>
   std::ostream& operator<<(std::ostream& o, const polygon_data<T>& poly) {
     o << "Polygon { ";
-    for(typename polygon_data<T>::iterator_type itr = poly.begin(); 
+    for(typename polygon_data<T>::iterator_type itr = poly.begin();
         itr != poly.end(); ++itr) {
       if(itr != poly.begin()) o << ", ";
       o << (*itr).get(HORIZONTAL) << " " << (*itr).get(VERTICAL);
-    } 
+    }
     o << " } ";
     return o;
-  } 
+  }
   template <typename T>
   std::ostream& operator << (std::ostream& o, const polygon_set_data<T>& r)
   {
@@ -139,7 +147,7 @@ namespace boost { namespace polygon{
   template <typename T>
   std::ostream& operator<<(std::ostream& o, const polygon_90_with_holes_data<T>& poly) {
     o << "Polygon With Holes { ";
-    for(typename polygon_90_with_holes_data<T>::iterator_type itr = poly.begin(); 
+    for(typename polygon_90_with_holes_data<T>::iterator_type itr = poly.begin();
         itr != poly.end(); ++itr) {
       if(itr != poly.begin()) o << ", ";
       o << (*itr).get(HORIZONTAL) << " " << (*itr).get(VERTICAL);
@@ -154,7 +162,7 @@ namespace boost { namespace polygon{
   template <typename T>
   std::ostream& operator<<(std::ostream& o, const polygon_45_with_holes_data<T>& poly) {
     o << "Polygon With Holes { ";
-    for(typename polygon_45_with_holes_data<T>::iterator_type itr = poly.begin(); 
+    for(typename polygon_45_with_holes_data<T>::iterator_type itr = poly.begin();
         itr != poly.end(); ++itr) {
       if(itr != poly.begin()) o << ", ";
       o << (*itr).get(HORIZONTAL) << " " << (*itr).get(VERTICAL);
@@ -169,7 +177,7 @@ namespace boost { namespace polygon{
   template <typename T>
   std::ostream& operator<<(std::ostream& o, const polygon_with_holes_data<T>& poly) {
     o << "Polygon With Holes { ";
-    for(typename polygon_with_holes_data<T>::iterator_type itr = poly.begin(); 
+    for(typename polygon_with_holes_data<T>::iterator_type itr = poly.begin();
         itr != poly.end(); ++itr) {
       if(itr != poly.begin()) o << ", ";
       o << (*itr).get(HORIZONTAL) << " " << (*itr).get(VERTICAL);
@@ -185,6 +193,11 @@ namespace boost { namespace polygon{
   std::ostream& operator << (std::ostream& o, const rectangle_data<T>& r)
   {
     return o << r.get(HORIZONTAL) << ' ' << r.get(VERTICAL);
+  }
+  template <class T>
+  std::ostream& operator << (std::ostream& o, const segment_data<T>& r)
+  {
+    return o << r.get(LOW) << ' ' << r.get(HIGH);
   }
 
 
@@ -204,7 +217,7 @@ namespace boost { namespace polygon{
       booleanOr.processInterval(container, interval_data<Unit>(0, 10), 1);
       booleanOr.advanceScan();
       booleanOr.processInterval(container, interval_data<Unit>(0, 10), -1);
-      if(container.size() != 2) { 
+      if(container.size() != 2) {
         std::cout << "Test one rectangle, wrong output size\n";
         return false;
       }
@@ -339,7 +352,7 @@ namespace boost { namespace polygon{
     polygon_90_set_data<int> ps90;
     polygon_45_set_data<int> ps45;
     polygon_set_data<int> ps;
-  
+
     assign(p, rect);
     assign(p90, view_as<polygon_90_concept>(p));
     if(!equivalence(p90, rect))
@@ -373,7 +386,7 @@ namespace boost { namespace polygon{
       std::cout << "fail 11\n";
     assign(p90wh, view_as<polygon_90_with_holes_concept>(p45wh));
     if(!equivalence(p90wh, rect))
-      std::cout << "fail 12\n"; 
+      std::cout << "fail 12\n";
     assign(p90, view_as<polygon_90_concept>(pwh));
     if(!equivalence(p90, rect))
       std::cout << "fail 13\n";
@@ -579,7 +592,7 @@ namespace boost { namespace polygon{
     //poly.set(points.begin(), points.end());
     //ps.insert(poly);
     polygon_45_set_data<int> preps(polys[0]);
-   
+
     ps.insert(polys[0]);
     convolve(polys[0], point_data<int>(0, 1) );
 
@@ -910,18 +923,18 @@ bool testPolygonAssign() {
   //assign(p_90, p_wh);
   //assign(p_90, p_45_wh);
   //assign(p_90, p_90_wh);
-  assign(p_wh, p); 
-  assign(p_wh, p_45); 
-  assign(p_wh, p_90); 
+  assign(p_wh, p);
+  assign(p_wh, p_45);
+  assign(p_wh, p_90);
   assign(p_wh1, p_wh);
   assign(p_wh, p_45_wh);
   assign(p_wh, p_90_wh);
-  //assign(p_45_wh, p); 
-  assign(p_45_wh, p_45); 
-  assign(p_45_wh, p_90); 
+  //assign(p_45_wh, p);
+  assign(p_45_wh, p_45);
+  assign(p_45_wh, p_90);
   //assign(p_45_wh, p_wh);
   assign(p_45_wh1, p_45_wh);
-  //assign(p_90_wh, p); 
+  //assign(p_90_wh, p);
   //assign(p_90_wh, p_45);
   assign(p_90_wh, p_90);
   assign(p_90_wh1, p_90_wh);
@@ -1026,7 +1039,7 @@ Polygon45 getRandomTriangle() {
   x(pts[1], x(pts[1]) + disp);
   if(dir)
     y(pts[1], y(pts[1]) + disp);
-  else 
+  else
     y(pts[1], y(pts[1]) - disp);
   return Polygon45(pts, pts+3);
 }
@@ -2138,23 +2151,23 @@ void max_cover_stress_test() {
 //     inline iterator_type begin() const {
 //       return polygon_traits<T>::begin_points(*t);
 //     }
-  
+
 //     /// Get the end iterator
 //     inline iterator_type end() const {
 //       return polygon_traits<T>::end_points(*t);
 //     }
-  
+
 //     /// Get the number of sides of the polygon
 //     inline unsigned int size() const {
 //       return polygon_traits<T>::size(*t);
 //     }
-  
+
 //     /// Get the winding direction of the polygon
 //     inline winding_direction winding() const {
 //       return polygon_traits<T>::winding(*t);
 //     }
 //   };
-  
+
 //   template <typename T1, typename T2>
 //   view_of<T1, T2> view_as(const T2& obj) { return view_of<T1, T2>(obj); }
 
@@ -2177,18 +2190,18 @@ void max_cover_stress_test() {
 //       return compact_iterator_type(polygon_traits<T>::begin_points(*t),
 //                                    polygon_traits<T>::end_points(*t));
 //     }
-  
+
 //     /// Get the end iterator
 //     inline compact_iterator_type end_compact() const {
 //       return compact_iterator_type(polygon_traits<T>::end_points(*t),
 //                                    polygon_traits<T>::end_points(*t));
 //     }
-  
+
 //     /// Get the number of sides of the polygon
 //     inline unsigned int size() const {
 //       return polygon_traits<T>::size(*t);
 //     }
-  
+
 //     /// Get the winding direction of the polygon
 //     inline winding_direction winding() const {
 //       return polygon_traits<T>::winding(*t);
@@ -2220,7 +2233,7 @@ bool test_colinear_duplicate_points() {
 
 bool test_extents() {
   PolygonSet psT(gtl::VERTICAL);
-  //int xy[] = { 126, 69, 54, 69, 54, 81, 126, 81 };    
+  //int xy[] = { 126, 69, 54, 69, 54, 81, 126, 81 };
   //CPolygonQuery polygon(0, 4, xy);
   //Rectangle rectIn(54, 69, 126, 81);
   polygon_data<int> polygon;
@@ -2231,11 +2244,11 @@ bool test_extents() {
   pts.push_back(Point(126, 81));
   set_points(polygon, pts.begin(), pts.end());
   psT.insert(view_as<polygon_90_concept>(polygon));
-  
+
   Rectangle rect, rect2;
   psT.extents(rect2);
   gtl::extents(rect, psT);
-  
+
   if (rect != rect2) {
     std::cout << "gtl::Rectangles differ: " << gtl::xl(rect)  << " " << gtl::xh(rect)  << " " << gtl::yl(rect)  << " " << gtl::yh(rect)  <<     std::endl;
         std::cout << "                        " << gtl::xl(rect2) << " " << gtl::xh(rect2) << " " << gtl::yl(rect2) << " " << gtl::yh(rect2) <<     std::endl;
@@ -2246,23 +2259,23 @@ bool test_extents() {
 
 bool test_extents2() {
   Polygon45Set psT;
-  Point xy[] = { Point(130, 50),   Point(50, 50),   Point(50, 100),   Point(119, 100),   
+  Point xy[] = { Point(130, 50),   Point(50, 50),   Point(50, 100),   Point(119, 100),
                  Point(119, 59),   Point(89, 89),   Point(59, 59),   Point(119, 59),   Point(119, 100),  Point(130, 100) };
   Polygon45 polygon(xy, xy+10);
-  
+
   psT.insert(polygon);
   psT += 2;
-  
+
   Rectangle rect, rect2;
   psT.extents(rect2);
-  gtl::extents(rect, psT);    
+  gtl::extents(rect, psT);
   std::cout << "Extents: " << gtl::xl(rect)   << " " << gtl::xh(rect)   << " " << gtl::yl(rect)   << " " << gtl::yh(rect)  <<   std::endl;
     std::cout << "Extents: " << gtl::xl(rect2)  << " " << gtl::xh(rect2)  << " " << gtl::yl(rect2)  << " " << gtl::yh(rect2) <<   std::endl;
     std::vector<Polygon45WithHoles> pwhs;
     psT.get(pwhs);
     for(unsigned int i = 0; i < pwhs.size(); ++i) {
       std::cout << pwhs[i] << std::endl;
-    }      
+    }
   return gtl::equivalence(rect, rect2);
 }
 
@@ -2398,7 +2411,7 @@ int main() {
   point_data<int> pt(1, 1);
   std::cout << contains(p, pt) << std::endl;
   std::cout << contains(p90, pt) << std::endl;
-  
+
   interval_data<int> ivl = construct<interval_data<int> >(0, 10);
   std::cout << get(ivl, LOW) << std::endl;
   set(ivl, HIGH, 20);
@@ -2646,7 +2659,7 @@ int main() {
     }
     std::cout << area(rv) << std::endl;
     std::cout << area(rv) << std::endl;
-    
+
     scale_up(rv, 10);
     std::cout << area(rv) << std::endl;
     scale_down(rv, 7);
@@ -2720,7 +2733,7 @@ int main() {
      std::cout << pwh << std::endl;
      std::cout << area(pwh) << std::endl;
      if(area(pwh) != 9900) return 1;
-     
+
     //test point scale up / down
     Point pt(10, 10);
     scale_up(pt, 25);
@@ -2964,7 +2977,7 @@ int main() {
     ps451.transform(tr);
     std::cout << (ps451 == ps452) << std::endl;
     if(ps451 != ps452) return 1;
-  
+
     //test polygon45set area
     std::cout << area(ps451) << std::endl;
     if(area(ps451) != 12.5) return 1;
@@ -3219,7 +3232,7 @@ int main() {
     ps45.insert(ps90);
     ps45.insert(p90whv);
     ps45.insert(p90whv + p90whv);
-    
+
     ps45.insert(polygon_90_with_holes_data<int>());
     polygon_with_holes_data<int> pwh;
     snap_to_45(pwh);
@@ -3451,7 +3464,7 @@ int main() {
     //if(!equivalence(ps, ps45)) {
     //  std::cout << "test 45 vs general resize up failed\n";
     //  return 1;
-    //}    
+    //}
     ps.shrink(9);
     ps45.resize(-9);
     if(!equivalence(ps, ps45)) {
@@ -3474,16 +3487,16 @@ int main() {
     std::cout << rupolys[0] << std::endl;
     std::cout << rupolys45[0] << std::endl;
     pts.clear();
-    pts.push_back(point_data<int>(12, -1));   
-    pts.push_back(point_data<int>(5, 6));   
-    pts.push_back(point_data<int>(5, 2));   
-    pts.push_back(point_data<int>(2, 2));   
-    pts.push_back(point_data<int>(2, 5));   
-    pts.push_back(point_data<int>(5, 2));   
-    pts.push_back(point_data<int>(5, 6));   
-    pts.push_back(point_data<int>(-1, 12));   
-    pts.push_back(point_data<int>(-1, -1));   
-    pts.push_back(point_data<int>(12, -1));   
+    pts.push_back(point_data<int>(12, -1));
+    pts.push_back(point_data<int>(5, 6));
+    pts.push_back(point_data<int>(5, 2));
+    pts.push_back(point_data<int>(2, 2));
+    pts.push_back(point_data<int>(2, 5));
+    pts.push_back(point_data<int>(5, 2));
+    pts.push_back(point_data<int>(5, 6));
+    pts.push_back(point_data<int>(-1, 12));
+    pts.push_back(point_data<int>(-1, -1));
+    pts.push_back(point_data<int>(12, -1));
     set_points(poly, pts.begin(), pts.end());
     //waived
     //if(!equivalence(ps, poly)) {
@@ -3494,64 +3507,64 @@ int main() {
     //if(!equivalence(ps, ps45)) {
     //  std::cout << "test 45 vs general resize up with holes failed\n";
     //  return 1;
-    //}    
+    //}
     ps.shrink(1);
     ps45.resize(-1);
     if(!equivalence(ps, ps45)) {
       std::cout << "test 45 vs general resize down with holes failed\n";
       return 1;
-    }    
+    }
     ps.shrink(10);
     ps45.resize(-10);
     if(!equivalence(ps, ps45)) {
       std::cout << "test 45 vs general resize down 2 with holes failed\n";
       return 1;
-    }    
+    }
   }
 
   {
 
-    Point pts[] = {construct<Point>(1565, 5735), 
-                   construct<Point>(915, 5735), 
-                   construct<Point>(915, 7085), 
-                   construct<Point>(1565, 7085) }; 
-    Polygon poly; 
-    set_points(poly, pts, pts+4); 
-    bool ret=gtl::contains(poly,gtl::construct<Point>(920, 7080)); 
+    Point pts[] = {construct<Point>(1565, 5735),
+                   construct<Point>(915, 5735),
+                   construct<Point>(915, 7085),
+                   construct<Point>(1565, 7085) };
+    Polygon poly;
+    set_points(poly, pts, pts+4);
+    bool ret=gtl::contains(poly,gtl::construct<Point>(920, 7080));
     if(!ret) {
       std::cout << "contains failed!" << std::endl;
       return 1;
     }
     polygon_data<int> poly_aa;
     set_points(poly_aa, pts, pts+4);
-    ret=gtl::contains(poly,gtl::construct<Point>(920, 7080)); 
+    ret=gtl::contains(poly,gtl::construct<Point>(920, 7080));
     if(!ret) {
       std::cout << "contains 90 failed!" << std::endl;
       return 1;
     }
     polygon_with_holes_data<int> pwh;
     polygon_90_with_holes_data<int> p90wh;
-    Point pts2[] = {construct<Point>(565, 15735), 
-                   construct<Point>(15, 15735), 
-                   construct<Point>(15, 17085), 
-                   construct<Point>(565, 17085) }; 
-    set_points(pwh, pts2, pts2+4); 
-    set_points(p90wh, pts2, pts2+4); 
+    Point pts2[] = {construct<Point>(565, 15735),
+                   construct<Point>(15, 15735),
+                   construct<Point>(15, 17085),
+                   construct<Point>(565, 17085) };
+    set_points(pwh, pts2, pts2+4);
+    set_points(p90wh, pts2, pts2+4);
     pwh.set_holes(&poly_aa, (&poly_aa)+1);
     p90wh.set_holes(&poly, (&poly)+1);
-    ret=gtl::contains(pwh,gtl::construct<Point>(920, 7080)); 
+    ret=gtl::contains(pwh,gtl::construct<Point>(920, 7080));
     if(ret) {
       std::cout << "contains wh failed!" << std::endl;
       return 1;
     }
-    ret=gtl::contains(p90wh,gtl::construct<Point>(920, 7080)); 
+    ret=gtl::contains(p90wh,gtl::construct<Point>(920, 7080));
     if(ret) {
       std::cout << "contains 90wh failed!" << std::endl;
       return 1;
     }
     std::reverse(pts, pts+4);
-    set_points(poly, pts, pts+4); 
-    ret=gtl::contains(poly,gtl::construct<Point>(920, 7080)); 
+    set_points(poly, pts, pts+4);
+    ret=gtl::contains(poly,gtl::construct<Point>(920, 7080));
     if(!ret) {
       std::cout << "reverse contains failed!" << std::endl;
       return 1;
@@ -3618,8 +3631,8 @@ int main() {
     testbug.insert(orr);
     std::cout << area(testbug) << std::endl;
     polygon_set_data<int> testbug2;
-    for(int i = 0; i < polys.size(); ++i) {
-      for(int j = 0; j < polys.size(); ++j) {
+    for(size_t i = 0; i < polys.size(); ++i) {
+      for(size_t j = 0; j < polys.size(); ++j) {
         testbug2.clear();
         testbug2.insert(polys[i]);
         testbug2.insert(polys[j]);
@@ -3634,7 +3647,75 @@ int main() {
       }
     }
   }
+
+  {
+    polygon_set_data<int> t_eq;
+    t_eq.insert(rectangle_data<int>(0, 0, 5, 10));
+    t_eq.insert(rectangle_data<int>(0, 5, 5, 10));
+    std::cout << t_eq <<std::endl;
+    polygon_set_data<int> t_eq2;
+    t_eq2 += rectangle_data<int>(0, 0, 5, 10);
+    std::cout << area(t_eq) <<std::endl;
+    std::cout << area(t_eq2) <<std::endl;   
+    std::cout << t_eq <<std::endl;
+    std::cout << t_eq2 <<std::endl;   
+    if(t_eq != t_eq2) {
+      std::cout << "equivalence failed" << std::endl;
+      return 1;
+    }    
+  }
+
+  if (1) {
+    using namespace boost::polygon;
+    typedef point_data<int> Point;
+    typedef segment_data<int> Dls;
+    Point pt1(0, 0);
+    Point pt2(10, 10);
+    Point pt3(20, 20);
+    Point pt4(20, 0);
+    Dls dls1(pt1, pt2);
+    Dls dls2(pt1, pt3);
+    Dls dls3(pt1, pt4);
+    Dls dls4(pt2, pt1);
+    typedef std::vector<segment_data<int> > Dlss;
+    Dlss dlss, result;
+    dlss.push_back(dls1);
+    dlss.push_back(dls2);
+    dlss.push_back(dls3);
+    dlss.push_back(dls4);
+    rectangle_data<int> rect;
+    envelope_segments(rect, dlss.begin(), dlss.end());
+    assert_s(area(rect) == 400.0, "envelope");
+    intersect_segments(result, dlss.begin(), dlss.end());
+    dlss.swap(result);
+    for (Dlss::iterator itr = dlss.begin(); itr != dlss.end(); ++itr) {
+      std::cout << *itr << std::endl;
+    }
+    assert_s(dlss.size() == 5, "intersection");
+    Dls dls5(Point(0,5), Point(5,0));
+    dlss.push_back(dls5);
+    std::cout << std::endl;
+    result.clear();
+    intersect_segments(result, dlss.begin(), dlss.end());
+    dlss.swap(result);
+    for (Dlss::iterator itr = dlss.begin(); itr != dlss.end(); ++itr) {
+      std::cout << *itr << std::endl;
+    }
+    assert_s(dlss.size() == 11, "intersection2");
+  }
+  
+  if (1) {
+    using namespace boost::polygon;
+    std::vector<std::pair<std::size_t, segment_data<int> > > segs;
+    segment_data<int> sarray[2];
+    sarray[0] = segment_data<int>(point_data<int>(0,0), point_data<int>(10,10));
+    sarray[1] = segment_data<int>(point_data<int>(10,0), point_data<int>(0,10));
+    std::iterator_traits<segment_data<int>*>::value_type s = sarray[0];
+    intersect_segments(segs, sarray, sarray+2);
+    std::cout << segs.size() << std::endl;
+    assert_s(segs.size() == 4, "intersection3");
+  }
+
   std::cout << "ALL TESTS COMPLETE\n";
   return 0;
 }
-

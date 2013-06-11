@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Object Interface</title>
 <link rel="stylesheet" href="../../../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="Chapter&#160;1.&#160;python 2.0">
 <link rel="up" href="../index.html" title="Chapter&#160;1.&#160;python 2.0">
 <link rel="prev" href="functions.html" title="Functions">
@@ -24,12 +24,13 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="python.object"></a> Object Interface</h2></div></div></div>
+<a name="python.object"></a>Object Interface</h2></div></div></div>
 <div class="toc"><dl>
 <dt><span class="section"><a href="object.html#python.basic_interface">Basic Interface</a></span></dt>
 <dt><span class="section"><a href="object.html#python.derived_object_types">Derived Object types</a></span></dt>
 <dt><span class="section"><a href="object.html#python.extracting_c___objects">Extracting C++ objects</a></span></dt>
 <dt><span class="section"><a href="object.html#python.enums">Enums</a></span></dt>
+<dt><span class="section"><a href="object.html#python.creating_python_object">Creating <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">python</span><span class="special">::</span><span class="identifier">object</span></code> from <code class="computeroutput"><span class="identifier">PyObject</span><span class="special">*</span></code></a></span></dt>
 </dl></div>
 <p>
       Python is dynamically typed, unlike C++ which is statically typed. Python variables
@@ -60,8 +61,6 @@
 <p>
         To illustrate, this Python code snippet:
       </p>
-<p>
-      </p>
 <pre class="programlisting"><span class="keyword">def</span> <span class="identifier">f</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">y</span><span class="special">):</span>
      <span class="keyword">if</span> <span class="special">(</span><span class="identifier">y</span> <span class="special">==</span> <span class="string">'foo'</span><span class="special">):</span>
          <span class="identifier">x</span><span class="special">[</span><span class="number">3</span><span class="special">:</span><span class="number">7</span><span class="special">]</span> <span class="special">=</span> <span class="string">'bar'</span>
@@ -74,8 +73,6 @@
 </pre>
 <p>
         Can be rewritten in C++ using Boost.Python facilities this way:
-      </p>
-<p>
       </p>
 <pre class="programlisting"><span class="identifier">object</span> <span class="identifier">f</span><span class="special">(</span><span class="identifier">object</span> <span class="identifier">x</span><span class="special">,</span> <span class="identifier">object</span> <span class="identifier">y</span><span class="special">)</span> <span class="special">{</span>
      <span class="keyword">if</span> <span class="special">(</span><span class="identifier">y</span> <span class="special">==</span> <span class="string">"foo"</span><span class="special">)</span>
@@ -147,9 +144,9 @@
       </p>
 <pre class="programlisting"><span class="keyword">void</span> <span class="identifier">f</span><span class="special">(</span><span class="identifier">str</span> <span class="identifier">name</span><span class="special">)</span>
 <span class="special">{</span>
-    <span class="identifier">object</span> <span class="identifier">n2</span> <span class="special">=</span> <span class="identifier">name</span><span class="special">.</span><span class="identifier">attr</span><span class="special">(</span><span class="string">"upper"</span><span class="special">)();</span>   <span class="comment">// NAME = name.upper()
-</span>    <span class="identifier">str</span> <span class="identifier">NAME</span> <span class="special">=</span> <span class="identifier">name</span><span class="special">.</span><span class="identifier">upper</span><span class="special">();</span>            <span class="comment">// better
-</span>    <span class="identifier">object</span> <span class="identifier">msg</span> <span class="special">=</span> <span class="string">"%s is bigger than %s"</span> <span class="special">%</span> <span class="identifier">make_tuple</span><span class="special">(</span><span class="identifier">NAME</span><span class="special">,</span><span class="identifier">name</span><span class="special">);</span>
+    <span class="identifier">object</span> <span class="identifier">n2</span> <span class="special">=</span> <span class="identifier">name</span><span class="special">.</span><span class="identifier">attr</span><span class="special">(</span><span class="string">"upper"</span><span class="special">)();</span>   <span class="comment">// NAME = name.upper()</span>
+    <span class="identifier">str</span> <span class="identifier">NAME</span> <span class="special">=</span> <span class="identifier">name</span><span class="special">.</span><span class="identifier">upper</span><span class="special">();</span>            <span class="comment">// better</span>
+    <span class="identifier">object</span> <span class="identifier">msg</span> <span class="special">=</span> <span class="string">"%s is bigger than %s"</span> <span class="special">%</span> <span class="identifier">make_tuple</span><span class="special">(</span><span class="identifier">NAME</span><span class="special">,</span><span class="identifier">name</span><span class="special">);</span>
 <span class="special">}</span>
 </pre>
 <p>
@@ -169,7 +166,7 @@
         do that in std C++.
       </p>
 <div class="sidebar">
-<p class="title"><b></b></p>
+<div class="titlepage"></div>
 <p>
         <span class="inlinemediaobject"><img src="../images/alert.png" alt="alert"></span> <span class="bold"><strong>Beware</strong></span> the common pitfall
         of forgetting that the constructors of most of Python's mutable types make
@@ -179,17 +176,17 @@
 <p>
         Python:
       </p>
-<pre class="programlisting"><span class="special">&gt;&gt;&gt;</span> <span class="identifier">d</span> <span class="special">=</span> <span class="identifier">dict</span><span class="special">(</span><span class="identifier">x</span><span class="special">.</span><span class="identifier">__dict__</span><span class="special">)</span>     <span class="comment"># copies x.__dict__
-</span><span class="special">&gt;&gt;&gt;</span> <span class="identifier">d</span><span class="special">[</span><span class="string">'whatever'</span><span class="special">]</span> <span class="special">=</span> <span class="number">3</span>        <span class="comment"># modifies the copy
-</span></pre>
+<pre class="programlisting"><span class="special">&gt;&gt;&gt;</span> <span class="identifier">d</span> <span class="special">=</span> <span class="identifier">dict</span><span class="special">(</span><span class="identifier">x</span><span class="special">.</span><span class="identifier">__dict__</span><span class="special">)</span>     <span class="comment"># copies x.__dict__</span>
+<span class="special">&gt;&gt;&gt;</span> <span class="identifier">d</span><span class="special">[</span><span class="string">'whatever'</span><span class="special">]</span> <span class="special">=</span> <span class="number">3</span>        <span class="comment"># modifies the copy</span>
+</pre>
 <p>
         C++:
       </p>
-<pre class="programlisting"><span class="identifier">dict</span> <span class="identifier">d</span><span class="special">(</span><span class="identifier">x</span><span class="special">.</span><span class="identifier">attr</span><span class="special">(</span><span class="string">"__dict__"</span><span class="special">));</span>  <span class="comment">// copies x.__dict__
-</span><span class="identifier">d</span><span class="special">[</span><span class="char">'whatever'</span><span class="special">]</span> <span class="special">=</span> <span class="number">3</span><span class="special">;</span>           <span class="comment">// modifies the copy
-</span></pre>
-<a name="derived_object_types.class__lt_t_gt__as_objects"></a><h3>
-<a name="id771905"></a>
+<pre class="programlisting"><span class="identifier">dict</span> <span class="identifier">d</span><span class="special">(</span><span class="identifier">x</span><span class="special">.</span><span class="identifier">attr</span><span class="special">(</span><span class="string">"__dict__"</span><span class="special">));</span>  <span class="comment">// copies x.__dict__</span>
+<span class="identifier">d</span><span class="special">[</span><span class="char">'whatever'</span><span class="special">]</span> <span class="special">=</span> <span class="number">3</span><span class="special">;</span>           <span class="comment">// modifies the copy</span>
+</pre>
+<h3>
+<a name="derived_object_types.class__lt_t_gt__as_objects"></a>
         class_&lt;T&gt; as objects
       </h3>
 <p>
@@ -217,8 +214,8 @@
         can be achieved with the <code class="literal">extract&lt;T&gt;</code> function. Consider
         the following:
       </p>
-<pre class="programlisting"><span class="keyword">double</span> <span class="identifier">x</span> <span class="special">=</span> <span class="identifier">o</span><span class="special">.</span><span class="identifier">attr</span><span class="special">(</span><span class="string">"length"</span><span class="special">);</span> <span class="comment">// compile error
-</span></pre>
+<pre class="programlisting"><span class="keyword">double</span> <span class="identifier">x</span> <span class="special">=</span> <span class="identifier">o</span><span class="special">.</span><span class="identifier">attr</span><span class="special">(</span><span class="string">"length"</span><span class="special">);</span> <span class="comment">// compile error</span>
+</pre>
 <p>
         In the code above, we got a compiler error because Boost.Python <code class="literal">object</code>
         can't be implicitly converted to <code class="literal">double</code>s. Instead, what
@@ -250,8 +247,8 @@
         facility in fact solves the mutable copying problem:
       </p>
 <pre class="programlisting"><span class="identifier">dict</span> <span class="identifier">d</span> <span class="special">=</span> <span class="identifier">extract</span><span class="special">&lt;</span><span class="identifier">dict</span><span class="special">&gt;(</span><span class="identifier">x</span><span class="special">.</span><span class="identifier">attr</span><span class="special">(</span><span class="string">"__dict__"</span><span class="special">));</span>
-<span class="identifier">d</span><span class="special">[</span><span class="string">"whatever"</span><span class="special">]</span> <span class="special">=</span> <span class="number">3</span><span class="special">;</span>          <span class="comment">// modifies x.__dict__ !
-</span></pre>
+<span class="identifier">d</span><span class="special">[</span><span class="string">"whatever"</span><span class="special">]</span> <span class="special">=</span> <span class="number">3</span><span class="special">;</span>          <span class="comment">// modifies x.__dict__ !</span>
+</pre>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
@@ -299,8 +296,6 @@
 <p>
         You can access those values in Python as
       </p>
-<p>
-      </p>
 <pre class="programlisting"><span class="special">&gt;&gt;&gt;</span> <span class="identifier">my_module</span><span class="special">.</span><span class="identifier">choice</span><span class="special">.</span><span class="identifier">red</span>
 <span class="identifier">my_module</span><span class="special">.</span><span class="identifier">choice</span><span class="special">.</span><span class="identifier">red</span>
 </pre>
@@ -308,19 +303,43 @@
         where my_module is the module where the enum is declared. You can also create
         a new scope around a class:
       </p>
-<p>
-      </p>
 <pre class="programlisting"><span class="identifier">scope</span> <span class="identifier">in_X</span> <span class="special">=</span> <span class="identifier">class_</span><span class="special">&lt;</span><span class="identifier">X</span><span class="special">&gt;(</span><span class="string">"X"</span><span class="special">)</span>
                 <span class="special">.</span><span class="identifier">def</span><span class="special">(</span> <span class="special">...</span> <span class="special">)</span>
                 <span class="special">.</span><span class="identifier">def</span><span class="special">(</span> <span class="special">...</span> <span class="special">)</span>
             <span class="special">;</span>
 
-<span class="comment">// Expose X::nested as X.nested
-</span><span class="identifier">enum_</span><span class="special">&lt;</span><span class="identifier">X</span><span class="special">::</span><span class="identifier">nested</span><span class="special">&gt;(</span><span class="string">"nested"</span><span class="special">)</span>
+<span class="comment">// Expose X::nested as X.nested</span>
+<span class="identifier">enum_</span><span class="special">&lt;</span><span class="identifier">X</span><span class="special">::</span><span class="identifier">nested</span><span class="special">&gt;(</span><span class="string">"nested"</span><span class="special">)</span>
     <span class="special">.</span><span class="identifier">value</span><span class="special">(</span><span class="string">"red"</span><span class="special">,</span> <span class="identifier">red</span><span class="special">)</span>
     <span class="special">.</span><span class="identifier">value</span><span class="special">(</span><span class="string">"blue"</span><span class="special">,</span> <span class="identifier">blue</span><span class="special">)</span>
     <span class="special">;</span>
 </pre>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="python.creating_python_object"></a>Creating <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">python</span><span class="special">::</span><span class="identifier">object</span></code> from <code class="computeroutput"><span class="identifier">PyObject</span><span class="special">*</span></code>
+</h3></div></div></div>
+<p>
+        When you want a <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">python</span><span class="special">::</span><span class="identifier">object</span></code> to manage a pointer to <code class="computeroutput"><span class="identifier">PyObject</span><span class="special">*</span></code>
+        pyobj one does:
+      </p>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">python</span><span class="special">::</span><span class="identifier">object</span> <span class="identifier">o</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">python</span><span class="special">::</span><span class="identifier">handle</span><span class="special">&lt;&gt;(</span><span class="identifier">pyobj</span><span class="special">));</span>
+</pre>
+<p>
+        In this case, the <code class="computeroutput"><span class="identifier">o</span></code> object,
+        manages the <code class="computeroutput"><span class="identifier">pyobj</span></code>, it won&#8217;t
+        increase the reference count on construction.
+      </p>
+<p>
+        Otherwise, to use a borrowed reference:
+      </p>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">python</span><span class="special">::</span><span class="identifier">object</span> <span class="identifier">o</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">python</span><span class="special">::</span><span class="identifier">handle</span><span class="special">&lt;&gt;(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">python</span><span class="special">::</span><span class="identifier">borrowed</span><span class="special">(</span><span class="identifier">pyobj</span><span class="special">)));</span>
+</pre>
+<p>
+        In this case, <code class="computeroutput"><span class="identifier">Py_INCREF</span></code> is
+        called, so <code class="computeroutput"><span class="identifier">pyobj</span></code> is not destructed
+        when object o goes out of scope.
+      </p>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

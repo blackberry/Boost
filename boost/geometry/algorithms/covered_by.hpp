@@ -1,8 +1,8 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -17,9 +17,8 @@
 
 #include <cstddef>
 
-
+#include <boost/geometry/algorithms/not_implemented.hpp>
 #include <boost/geometry/algorithms/within.hpp>
-
 
 #include <boost/geometry/strategies/cartesian/point_in_box.hpp>
 #include <boost/geometry/strategies/cartesian/box_in_box.hpp>
@@ -33,34 +32,29 @@ namespace dispatch
 
 template
 <
-    typename Tag1,
-    typename Tag2,
     typename Geometry1,
     typename Geometry2,
-    typename Strategy
+    typename Tag1 = typename tag<Geometry1>::type,
+    typename Tag2 = typename tag<Geometry2>::type
 >
-struct covered_by
-{
-    BOOST_MPL_ASSERT_MSG
-        (
-            false, NOT_OR_NOT_YET_IMPLEMENTED_FOR_THIS_GEOMETRY_TYPE
-            , (types<Geometry1, Geometry2>)
-        );
-};
+struct covered_by: not_implemented<Tag1, Tag2>
+{};
 
 
-template <typename Point, typename Box, typename Strategy>
-struct covered_by<point_tag, box_tag, Point, Box, Strategy>
+template <typename Point, typename Box>
+struct covered_by<Point, Box, point_tag, box_tag>
 {
+    template <typename Strategy>
     static inline bool apply(Point const& point, Box const& box, Strategy const& strategy)
     {
         return strategy.apply(point, box);
     }
 };
 
-template <typename Box1, typename Box2, typename Strategy>
-struct covered_by<box_tag, box_tag, Box1, Box2, Strategy>
+template <typename Box1, typename Box2>
+struct covered_by<Box1, Box2, box_tag, box_tag>
 {
+    template <typename Strategy>
     static inline bool apply(Box1 const& box1, Box2 const& box2, Strategy const& strategy)
     {
         assert_dimension_equal<Box1, Box2>();
@@ -70,9 +64,10 @@ struct covered_by<box_tag, box_tag, Box1, Box2, Strategy>
 
 
 
-template <typename Point, typename Ring, typename Strategy>
-struct covered_by<point_tag, ring_tag, Point, Ring, Strategy>
+template <typename Point, typename Ring>
+struct covered_by<Point, Ring, point_tag, ring_tag>
 {
+    template <typename Strategy>
     static inline bool apply(Point const& point, Ring const& ring, Strategy const& strategy)
     {
         return detail::within::point_in_ring
@@ -82,13 +77,14 @@ struct covered_by<point_tag, ring_tag, Point, Ring, Strategy>
                 order_as_direction<geometry::point_order<Ring>::value>::value,
                 geometry::closure<Ring>::value,
                 Strategy
-            >::apply(point, ring) >= 0;
+            >::apply(point, ring, strategy) >= 0;
     }
 };
 
-template <typename Point, typename Polygon, typename Strategy>
-struct covered_by<point_tag, polygon_tag, Point, Polygon, Strategy>
+template <typename Point, typename Polygon>
+struct covered_by<Point, Polygon, point_tag, polygon_tag>
 {
+    template <typename Strategy>
     static inline bool apply(Point const& point, Polygon const& polygon, Strategy const& strategy)
     {
         return detail::within::point_in_polygon
@@ -112,13 +108,13 @@ struct covered_by<point_tag, polygon_tag, Point, Polygon, Strategy>
 \details \details_check12{covered_by, is inside or on border}.
 \tparam Geometry1 \tparam_geometry
 \tparam Geometry2 \tparam_geometry
-\param geometry1 \param_geometry
-\param geometry2 \param_geometry
-\param geometry1 geometry which might be covered_by the second geometry
-\param geometry2 geometry which might contain the first geometry
-\return true if geometry1 is completely contained covered_by geometry2,
+\param geometry1 \param_geometry which might be inside or on the border of the second geometry
+\param geometry2 \param_geometry which might cover the first geometry
+\return true if geometry1 is inside of or on the border of geometry2,
     else false
 \note The default strategy is used for covered_by detection
+
+\qbk{[include reference/algorithms/covered_by.qbk]}
 
  */
 template<typename Geometry1, typename Geometry2>
@@ -151,11 +147,8 @@ inline bool covered_by(Geometry1 const& geometry1, Geometry2 const& geometry2)
 
     return dispatch::covered_by
         <
-            typename tag<Geometry1>::type,
-            typename tag<Geometry2>::type,
             Geometry1,
-            Geometry2,
-            strategy_type
+            Geometry2
         >::apply(geometry1, geometry2, strategy_type());
 }
 
@@ -165,15 +158,14 @@ inline bool covered_by(Geometry1 const& geometry1, Geometry2 const& geometry2)
 \details \details_check12{covered_by, is inside or on border}, \brief_strategy. \details_strategy_reasons
 \tparam Geometry1 \tparam_geometry
 \tparam Geometry2 \tparam_geometry
-\param geometry1 \param_geometry
-\param geometry2 \param_geometry
-\param geometry1 \param_geometry geometry which might be covered_by the second geometry
-\param geometry2 \param_geometry which might contain the first geometry
+\param geometry1 \param_geometry which might be inside or on the border of the second geometry
+\param geometry2 \param_geometry which might cover the first geometry
 \param strategy strategy to be used
-\return true if geometry1 is completely contained covered_by geometry2,
+\return true if geometry1 is inside of or on the border of geometry2,
     else false
 
 \qbk{distinguish,with strategy}
+\qbk{[include reference/algorithms/covered_by.qbk]}
 
 */
 template<typename Geometry1, typename Geometry2, typename Strategy>
@@ -193,11 +185,8 @@ inline bool covered_by(Geometry1 const& geometry1, Geometry2 const& geometry2,
 
     return dispatch::covered_by
         <
-            typename tag<Geometry1>::type,
-            typename tag<Geometry2>::type,
             Geometry1,
-            Geometry2,
-            Strategy
+            Geometry2
         >::apply(geometry1, geometry2, strategy);
 }
 

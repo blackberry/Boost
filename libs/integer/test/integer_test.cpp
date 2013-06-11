@@ -152,7 +152,7 @@ void do_test_bits()
    if(boost::detail::test_errors() != last_error_count)
    {
       last_error_count = boost::detail::test_errors();
-      std::cout << "Errors occured while testing with bit count = " << Bits << std::endl;
+      std::cout << "Errors occurred while testing with bit count = " << Bits << std::endl;
       std::cout << "Type int_t<" << Bits << ">::least was " << get_name_of_type(least_int(0)) << std::endl;
       std::cout << "Type int_t<" << Bits << ">::fast was " << get_name_of_type(fast_int(0)) << std::endl;
       std::cout << "Type uint_t<" << Bits << ">::least was " << get_name_of_type(least_uint(0)) << std::endl;

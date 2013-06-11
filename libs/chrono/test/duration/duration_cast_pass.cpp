@@ -18,6 +18,14 @@
 #define NOTHING ""
 #endif
 
+#ifdef BOOST_NO_CONSTEXPR
+#define BOOST_CONSTEXPR_ASSERT(C) BOOST_TEST(C)
+#else
+#include <boost/static_assert.hpp>
+#define BOOST_CONSTEXPR_ASSERT(C) BOOST_STATIC_ASSERT(C)
+#endif
+
+
 template <class ToDuration, class FromDuration>
 void
 test(const FromDuration& f, const ToDuration& d)
@@ -43,5 +51,9 @@ int main()
          boost::chrono::duration<double, boost::ratio<3600> >(7265./3600));
     test(boost::chrono::duration<int, boost::ratio<2, 3> >(9),
          boost::chrono::duration<int, boost::ratio<3, 5> >(10));
+    {
+      BOOST_CONSTEXPR boost::chrono::hours h = boost::chrono::duration_cast<boost::chrono::hours>(boost::chrono::milliseconds(7265000));
+      BOOST_CONSTEXPR_ASSERT(h.count() == 2);
+    }
     return boost::report_errors();
 }

@@ -22,7 +22,7 @@
 <div class="spirit-nav">
 <a accesskey="p" href="regex_format.html"><img src="../../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../deprecated_interfaces.html"><img src="../../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="regex_split.html"><img src="../../../../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
-<div class="section">
+<div class="section boost_regex_ref_deprecated_interfaces_regex_grep">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="boost_regex.ref.deprecated_interfaces.regex_grep"></a><a class="link" href="regex_grep.html" title="regex_grep (Deprecated)">regex_grep
         (Deprecated)</a>
@@ -57,15 +57,15 @@
           in place of a pair of iterators.
         </p>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Predicate</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">charT</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">traits</span><span class="special">&gt;</span>
-<span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="identifier">regex_grep</span><span class="special">(</span><span class="identifier">Predicate</span> <span class="identifier">foo</span><span class="special">,</span> 
-            <span class="keyword">const</span> <span class="identifier">charT</span><span class="special">*</span> <span class="identifier">str</span><span class="special">,</span> 
-            <span class="keyword">const</span> <span class="identifier">basic_regex</span><span class="special">&lt;</span><span class="identifier">charT</span><span class="special">,</span> <span class="identifier">traits</span><span class="special">&gt;&amp;</span> <span class="identifier">e</span><span class="special">,</span> 
+<span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="identifier">regex_grep</span><span class="special">(</span><span class="identifier">Predicate</span> <span class="identifier">foo</span><span class="special">,</span>
+            <span class="keyword">const</span> <span class="identifier">charT</span><span class="special">*</span> <span class="identifier">str</span><span class="special">,</span>
+            <span class="keyword">const</span> <span class="identifier">basic_regex</span><span class="special">&lt;</span><span class="identifier">charT</span><span class="special">,</span> <span class="identifier">traits</span><span class="special">&gt;&amp;</span> <span class="identifier">e</span><span class="special">,</span>
             <span class="identifier">boost</span><span class="special">::</span><span class="identifier">match_flag_type</span> <span class="identifier">flags</span> <span class="special">=</span> <span class="identifier">match_default</span><span class="special">);</span>
 
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Predicate</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">ST</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">SA</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">charT</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">traits</span><span class="special">&gt;</span>
-<span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="identifier">regex_grep</span><span class="special">(</span><span class="identifier">Predicate</span> <span class="identifier">foo</span><span class="special">,</span> 
-            <span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">charT</span><span class="special">,</span> <span class="identifier">ST</span><span class="special">,</span> <span class="identifier">SA</span><span class="special">&gt;&amp;</span> <span class="identifier">s</span><span class="special">,</span> 
-            <span class="keyword">const</span> <span class="identifier">basic_regex</span><span class="special">&lt;</span><span class="identifier">charT</span><span class="special">,</span> <span class="identifier">traits</span><span class="special">&gt;&amp;</span> <span class="identifier">e</span><span class="special">,</span> 
+<span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="identifier">regex_grep</span><span class="special">(</span><span class="identifier">Predicate</span> <span class="identifier">foo</span><span class="special">,</span>
+            <span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">charT</span><span class="special">,</span> <span class="identifier">ST</span><span class="special">,</span> <span class="identifier">SA</span><span class="special">&gt;&amp;</span> <span class="identifier">s</span><span class="special">,</span>
+            <span class="keyword">const</span> <span class="identifier">basic_regex</span><span class="special">&lt;</span><span class="identifier">charT</span><span class="special">,</span> <span class="identifier">traits</span><span class="special">&gt;&amp;</span> <span class="identifier">e</span><span class="special">,</span>
             <span class="identifier">boost</span><span class="special">::</span><span class="identifier">match_flag_type</span> <span class="identifier">flags</span> <span class="special">=</span> <span class="identifier">match_default</span><span class="special">);</span>
 </pre>
 <p>
@@ -131,23 +131,23 @@
 <p>
           Example: convert the example from <a class="link" href="../regex_search.html" title="regex_search"><code class="computeroutput"><span class="identifier">regex_search</span></code></a> to use <code class="computeroutput"><span class="identifier">regex_grep</span></code> instead:
         </p>
-<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">string</span><span class="special">&gt;</span> 
-<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">map</span><span class="special">&gt;</span> 
-<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">regex</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span> 
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">string</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">map</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">regex</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 
 <span class="comment">// IndexClasses: </span>
 <span class="comment">// takes the contents of a file in the form of a string </span>
 <span class="comment">// and searches for all the C++ class definitions, storing </span>
 <span class="comment">// their locations in a map of strings/int's </span>
-<span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">map</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">,</span> <span class="keyword">int</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">less</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">map_type</span><span class="special">;</span> 
+<span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">map</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">,</span> <span class="keyword">int</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">less</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">map_type</span><span class="special">;</span>
 
-<span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">re</span> <span class="special">=</span> 
+<span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">re</span> <span class="special">=</span>
    <span class="comment">// possibly leading whitespace:   </span>
-   <span class="string">"^[[:space:]]*"</span> 
+   <span class="string">"^[[:space:]]*"</span>
    <span class="comment">// possible template declaration:</span>
    <span class="string">"(template[[:space:]]*&lt;[^;:{]+&gt;[[:space:]]*)?"</span>
    <span class="comment">// class or struct:</span>
-   <span class="string">"(class|struct)[[:space:]]*"</span> 
+   <span class="string">"(class|struct)[[:space:]]*"</span>
    <span class="comment">// leading declspec macros etc:</span>
    <span class="string">"("</span>
       <span class="string">"\\&lt;\\w+\\&gt;"</span>
@@ -155,97 +155,97 @@
          <span class="string">"[[:blank:]]*\\([^)]*\\)"</span>
       <span class="string">")?"</span>
       <span class="string">"[[:space:]]*"</span>
-   <span class="string">")*"</span> 
+   <span class="string">")*"</span>
    <span class="comment">// the class name</span>
-   <span class="string">"(\\&lt;\\w*\\&gt;)[[:space:]]*"</span> 
-   <span class="comment">// template specialisation parameters</span>
-   <span class="string">"(&lt;[^;:{]+&gt;)?[[:space:]]*"</span>
-   <span class="comment">// terminate in { or :</span>
-   <span class="string">"(\\{|:[^;\\{()]*\\{)"</span><span class="special">;</span>
-
-<span class="identifier">boost</span><span class="special">::</span><span class="identifier">regex</span> <span class="identifier">expression</span><span class="special">(</span><span class="identifier">re</span><span class="special">);</span> 
-<span class="keyword">class</span> <span class="identifier">IndexClassesPred</span> 
-<span class="special">{</span> 
-   <span class="identifier">map_type</span><span class="special">&amp;</span> <span class="identifier">m</span><span class="special">;</span> 
-   <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">::</span><span class="identifier">const_iterator</span> <span class="identifier">base</span><span class="special">;</span> 
-<span class="keyword">public</span><span class="special">:</span> 
-   <span class="identifier">IndexClassesPred</span><span class="special">(</span><span class="identifier">map_type</span><span class="special">&amp;</span> <span class="identifier">a</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">::</span><span class="identifier">const_iterator</span> <span class="identifier">b</span><span class="special">)</span> <span class="special">:</span> <span class="identifier">m</span><span class="special">(</span><span class="identifier">a</span><span class="special">),</span> <span class="identifier">base</span><span class="special">(</span><span class="identifier">b</span><span class="special">)</span> <span class="special">{}</span> 
-   <span class="keyword">bool</span> <span class="keyword">operator</span><span class="special">()(</span><span class="keyword">const</span>  <span class="identifier">smatch</span><span class="special">&amp;</span> <span class="identifier">what</span><span class="special">)</span> 
-   <span class="special">{</span> 
-      <span class="comment">// what[0] contains the whole string </span>
-      <span class="comment">// what[5] contains the class name. </span>
-      <span class="comment">// what[6] contains the template specialisation if any. </span>
-      <span class="comment">// add class name and position to map: </span>
-      <span class="identifier">m</span><span class="special">[</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="identifier">what</span><span class="special">[</span><span class="number">5</span><span class="special">].</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">what</span><span class="special">[</span><span class="number">5</span><span class="special">].</span><span class="identifier">second</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="identifier">what</span><span class="special">[</span><span class="number">6</span><span class="special">].</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">what</span><span class="special">[</span><span class="number">6</span><span class="special">].</span><span class="identifier">second</span><span class="special">)]</span> <span class="special">=</span> 
-               <span class="identifier">what</span><span class="special">[</span><span class="number">5</span><span class="special">].</span><span class="identifier">first</span> <span class="special">-</span> <span class="identifier">base</span><span class="special">;</span> 
-      <span class="keyword">return</span> <span class="keyword">true</span><span class="special">;</span> 
-   <span class="special">}</span> 
-<span class="special">};</span> 
-<span class="keyword">void</span> <span class="identifier">IndexClasses</span><span class="special">(</span><span class="identifier">map_type</span><span class="special">&amp;</span> <span class="identifier">m</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&amp;</span> <span class="identifier">file</span><span class="special">)</span> 
-<span class="special">{</span> 
-   <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">::</span><span class="identifier">const_iterator</span> <span class="identifier">start</span><span class="special">,</span> <span class="identifier">end</span><span class="special">;</span> 
-   <span class="identifier">start</span> <span class="special">=</span> <span class="identifier">file</span><span class="special">.</span><span class="identifier">begin</span><span class="special">();</span> 
-   <span class="identifier">end</span> <span class="special">=</span> <span class="identifier">file</span><span class="special">.</span><span class="identifier">end</span><span class="special">();</span> 
-   <span class="identifier">regex_grep</span><span class="special">(</span><span class="identifier">IndexClassesPred</span><span class="special">(</span><span class="identifier">m</span><span class="special">,</span> <span class="identifier">start</span><span class="special">),</span> <span class="identifier">start</span><span class="special">,</span> <span class="identifier">end</span><span class="special">,</span> <span class="identifier">expression</span><span class="special">);</span> 
-<span class="special">}</span>
-</pre>
-<p>
-          Example: Use <code class="computeroutput"><span class="identifier">regex_grep</span></code>
-          to call a global callback function:
-        </p>
-<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">string</span><span class="special">&gt;</span> 
-<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">map</span><span class="special">&gt;</span> 
-<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">regex</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span> 
-
-<span class="comment">// purpose: </span>
-<span class="comment">// takes the contents of a file in the form of a string </span>
-<span class="comment">// and searches for all the C++ class definitions, storing </span>
-<span class="comment">// their locations in a map of strings/int's </span>
-<span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">map</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">,</span> <span class="keyword">int</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">less</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">map_type</span><span class="special">;</span> 
-
-<span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">re</span> <span class="special">=</span> 
-   <span class="comment">// possibly leading whitespace:   </span>
-   <span class="string">"^[[:space:]]*"</span> 
-   <span class="comment">// possible template declaration:</span>
-   <span class="string">"(template[[:space:]]*&lt;[^;:{]+&gt;[[:space:]]*)?"</span>
-   <span class="comment">// class or struct:</span>
-   <span class="string">"(class|struct)[[:space:]]*"</span> 
-   <span class="comment">// leading declspec macros etc:</span>
-   <span class="string">"("</span>
-      <span class="string">"\\&lt;\\w+\\&gt;"</span>
-      <span class="string">"("</span>
-         <span class="string">"[[:blank:]]*\\([^)]*\\)"</span>
-      <span class="string">")?"</span>
-      <span class="string">"[[:space:]]*"</span>
-   <span class="string">")*"</span> 
-   <span class="comment">// the class name</span>
-   <span class="string">"(\\&lt;\\w*\\&gt;)[[:space:]]*"</span> 
+   <span class="string">"(\\&lt;\\w*\\&gt;)[[:space:]]*"</span>
    <span class="comment">// template specialisation parameters</span>
    <span class="string">"(&lt;[^;:{]+&gt;)?[[:space:]]*"</span>
    <span class="comment">// terminate in { or :</span>
    <span class="string">"(\\{|:[^;\\{()]*\\{)"</span><span class="special">;</span>
 
 <span class="identifier">boost</span><span class="special">::</span><span class="identifier">regex</span> <span class="identifier">expression</span><span class="special">(</span><span class="identifier">re</span><span class="special">);</span>
-<span class="identifier">map_type</span> <span class="identifier">class_index</span><span class="special">;</span> 
-<span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">::</span><span class="identifier">const_iterator</span> <span class="identifier">base</span><span class="special">;</span> 
+<span class="keyword">class</span> <span class="identifier">IndexClassesPred</span>
+<span class="special">{</span>
+   <span class="identifier">map_type</span><span class="special">&amp;</span> <span class="identifier">m</span><span class="special">;</span>
+   <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">::</span><span class="identifier">const_iterator</span> <span class="identifier">base</span><span class="special">;</span>
+<span class="keyword">public</span><span class="special">:</span>
+   <span class="identifier">IndexClassesPred</span><span class="special">(</span><span class="identifier">map_type</span><span class="special">&amp;</span> <span class="identifier">a</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">::</span><span class="identifier">const_iterator</span> <span class="identifier">b</span><span class="special">)</span> <span class="special">:</span> <span class="identifier">m</span><span class="special">(</span><span class="identifier">a</span><span class="special">),</span> <span class="identifier">base</span><span class="special">(</span><span class="identifier">b</span><span class="special">)</span> <span class="special">{}</span>
+   <span class="keyword">bool</span> <span class="keyword">operator</span><span class="special">()(</span><span class="keyword">const</span>  <span class="identifier">smatch</span><span class="special">&amp;</span> <span class="identifier">what</span><span class="special">)</span>
+   <span class="special">{</span>
+      <span class="comment">// what[0] contains the whole string </span>
+      <span class="comment">// what[5] contains the class name. </span>
+      <span class="comment">// what[6] contains the template specialisation if any. </span>
+      <span class="comment">// add class name and position to map: </span>
+      <span class="identifier">m</span><span class="special">[</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="identifier">what</span><span class="special">[</span><span class="number">5</span><span class="special">].</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">what</span><span class="special">[</span><span class="number">5</span><span class="special">].</span><span class="identifier">second</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="identifier">what</span><span class="special">[</span><span class="number">6</span><span class="special">].</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">what</span><span class="special">[</span><span class="number">6</span><span class="special">].</span><span class="identifier">second</span><span class="special">)]</span> <span class="special">=</span>
+               <span class="identifier">what</span><span class="special">[</span><span class="number">5</span><span class="special">].</span><span class="identifier">first</span> <span class="special">-</span> <span class="identifier">base</span><span class="special">;</span>
+      <span class="keyword">return</span> <span class="keyword">true</span><span class="special">;</span>
+   <span class="special">}</span>
+<span class="special">};</span>
+<span class="keyword">void</span> <span class="identifier">IndexClasses</span><span class="special">(</span><span class="identifier">map_type</span><span class="special">&amp;</span> <span class="identifier">m</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&amp;</span> <span class="identifier">file</span><span class="special">)</span>
+<span class="special">{</span>
+   <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">::</span><span class="identifier">const_iterator</span> <span class="identifier">start</span><span class="special">,</span> <span class="identifier">end</span><span class="special">;</span>
+   <span class="identifier">start</span> <span class="special">=</span> <span class="identifier">file</span><span class="special">.</span><span class="identifier">begin</span><span class="special">();</span>
+   <span class="identifier">end</span> <span class="special">=</span> <span class="identifier">file</span><span class="special">.</span><span class="identifier">end</span><span class="special">();</span>
+   <span class="identifier">regex_grep</span><span class="special">(</span><span class="identifier">IndexClassesPred</span><span class="special">(</span><span class="identifier">m</span><span class="special">,</span> <span class="identifier">start</span><span class="special">),</span> <span class="identifier">start</span><span class="special">,</span> <span class="identifier">end</span><span class="special">,</span> <span class="identifier">expression</span><span class="special">);</span>
+<span class="special">}</span>
+</pre>
+<p>
+          Example: Use <code class="computeroutput"><span class="identifier">regex_grep</span></code>
+          to call a global callback function:
+        </p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">string</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">map</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">regex</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 
-<span class="keyword">bool</span> <span class="identifier">grep_callback</span><span class="special">(</span><span class="keyword">const</span>  <span class="identifier">boost</span><span class="special">::</span><span class="identifier">smatch</span><span class="special">&amp;</span> <span class="identifier">what</span><span class="special">)</span> 
-<span class="special">{</span> 
+<span class="comment">// purpose: </span>
+<span class="comment">// takes the contents of a file in the form of a string </span>
+<span class="comment">// and searches for all the C++ class definitions, storing </span>
+<span class="comment">// their locations in a map of strings/int's </span>
+<span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">map</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">,</span> <span class="keyword">int</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">less</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">map_type</span><span class="special">;</span>
+
+<span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">re</span> <span class="special">=</span>
+   <span class="comment">// possibly leading whitespace:   </span>
+   <span class="string">"^[[:space:]]*"</span>
+   <span class="comment">// possible template declaration:</span>
+   <span class="string">"(template[[:space:]]*&lt;[^;:{]+&gt;[[:space:]]*)?"</span>
+   <span class="comment">// class or struct:</span>
+   <span class="string">"(class|struct)[[:space:]]*"</span>
+   <span class="comment">// leading declspec macros etc:</span>
+   <span class="string">"("</span>
+      <span class="string">"\\&lt;\\w+\\&gt;"</span>
+      <span class="string">"("</span>
+         <span class="string">"[[:blank:]]*\\([^)]*\\)"</span>
+      <span class="string">")?"</span>
+      <span class="string">"[[:space:]]*"</span>
+   <span class="string">")*"</span>
+   <span class="comment">// the class name</span>
+   <span class="string">"(\\&lt;\\w*\\&gt;)[[:space:]]*"</span>
+   <span class="comment">// template specialisation parameters</span>
+   <span class="string">"(&lt;[^;:{]+&gt;)?[[:space:]]*"</span>
+   <span class="comment">// terminate in { or :</span>
+   <span class="string">"(\\{|:[^;\\{()]*\\{)"</span><span class="special">;</span>
+
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">regex</span> <span class="identifier">expression</span><span class="special">(</span><span class="identifier">re</span><span class="special">);</span>
+<span class="identifier">map_type</span> <span class="identifier">class_index</span><span class="special">;</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">::</span><span class="identifier">const_iterator</span> <span class="identifier">base</span><span class="special">;</span>
+
+<span class="keyword">bool</span> <span class="identifier">grep_callback</span><span class="special">(</span><span class="keyword">const</span>  <span class="identifier">boost</span><span class="special">::</span><span class="identifier">smatch</span><span class="special">&amp;</span> <span class="identifier">what</span><span class="special">)</span>
+<span class="special">{</span>
    <span class="comment">// what[0] contains the whole string </span>
    <span class="comment">// what[5] contains the class name. </span>
    <span class="comment">// what[6] contains the template specialisation if any. </span>
    <span class="comment">// add class name and position to map: </span>
-   <span class="identifier">class_index</span><span class="special">[</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="identifier">what</span><span class="special">[</span><span class="number">5</span><span class="special">].</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">what</span><span class="special">[</span><span class="number">5</span><span class="special">].</span><span class="identifier">second</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="identifier">what</span><span class="special">[</span><span class="number">6</span><span class="special">].</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">what</span><span class="special">[</span><span class="number">6</span><span class="special">].</span><span class="identifier">second</span><span class="special">)]</span> <span class="special">=</span> 
-               <span class="identifier">what</span><span class="special">[</span><span class="number">5</span><span class="special">].</span><span class="identifier">first</span> <span class="special">-</span> <span class="identifier">base</span><span class="special">;</span> 
-   <span class="keyword">return</span> <span class="keyword">true</span><span class="special">;</span> 
-<span class="special">}</span> 
-<span class="keyword">void</span> <span class="identifier">IndexClasses</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&amp;</span> <span class="identifier">file</span><span class="special">)</span> 
-<span class="special">{</span> 
-   <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">::</span><span class="identifier">const_iterator</span> <span class="identifier">start</span><span class="special">,</span> <span class="identifier">end</span><span class="special">;</span> 
-   <span class="identifier">start</span> <span class="special">=</span> <span class="identifier">file</span><span class="special">.</span><span class="identifier">begin</span><span class="special">();</span> 
-   <span class="identifier">end</span> <span class="special">=</span> <span class="identifier">file</span><span class="special">.</span><span class="identifier">end</span><span class="special">();</span> 
-   <span class="identifier">base</span> <span class="special">=</span> <span class="identifier">start</span><span class="special">;</span> 
-   <span class="identifier">regex_grep</span><span class="special">(</span><span class="identifier">grep_callback</span><span class="special">,</span> <span class="identifier">start</span><span class="special">,</span> <span class="identifier">end</span><span class="special">,</span> <span class="identifier">expression</span><span class="special">,</span> <span class="identifier">match_default</span><span class="special">);</span> 
+   <span class="identifier">class_index</span><span class="special">[</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="identifier">what</span><span class="special">[</span><span class="number">5</span><span class="special">].</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">what</span><span class="special">[</span><span class="number">5</span><span class="special">].</span><span class="identifier">second</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="identifier">what</span><span class="special">[</span><span class="number">6</span><span class="special">].</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">what</span><span class="special">[</span><span class="number">6</span><span class="special">].</span><span class="identifier">second</span><span class="special">)]</span> <span class="special">=</span>
+               <span class="identifier">what</span><span class="special">[</span><span class="number">5</span><span class="special">].</span><span class="identifier">first</span> <span class="special">-</span> <span class="identifier">base</span><span class="special">;</span>
+   <span class="keyword">return</span> <span class="keyword">true</span><span class="special">;</span>
+<span class="special">}</span>
+<span class="keyword">void</span> <span class="identifier">IndexClasses</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&amp;</span> <span class="identifier">file</span><span class="special">)</span>
+<span class="special">{</span>
+   <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">::</span><span class="identifier">const_iterator</span> <span class="identifier">start</span><span class="special">,</span> <span class="identifier">end</span><span class="special">;</span>
+   <span class="identifier">start</span> <span class="special">=</span> <span class="identifier">file</span><span class="special">.</span><span class="identifier">begin</span><span class="special">();</span>
+   <span class="identifier">end</span> <span class="special">=</span> <span class="identifier">file</span><span class="special">.</span><span class="identifier">end</span><span class="special">();</span>
+   <span class="identifier">base</span> <span class="special">=</span> <span class="identifier">start</span><span class="special">;</span>
+   <span class="identifier">regex_grep</span><span class="special">(</span><span class="identifier">grep_callback</span><span class="special">,</span> <span class="identifier">start</span><span class="special">,</span> <span class="identifier">end</span><span class="special">,</span> <span class="identifier">expression</span><span class="special">,</span> <span class="identifier">match_default</span><span class="special">);</span>
 <span class="special">}</span>
 </pre>
 <p>
@@ -253,110 +253,110 @@
           to call a class member function, use the standard library adapters <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">mem_fun</span></code> and <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">bind1st</span></code>
           to convert the member function into a predicate:
         </p>
-<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">string</span><span class="special">&gt;</span> 
-<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">map</span><span class="special">&gt;</span> 
-<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">regex</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span> 
-<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">functional</span><span class="special">&gt;</span> 
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">string</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">map</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">regex</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">functional</span><span class="special">&gt;</span>
 <span class="comment">// purpose: </span>
 <span class="comment">// takes the contents of a file in the form of a string </span>
 <span class="comment">// and searches for all the C++ class definitions, storing </span>
 <span class="comment">// their locations in a map of strings/int's </span>
 
-<span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">map</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">,</span> <span class="keyword">int</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">less</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">map_type</span><span class="special">;</span> 
-<span class="keyword">class</span> <span class="identifier">class_index</span> 
-<span class="special">{</span> 
-   <span class="identifier">boost</span><span class="special">::</span><span class="identifier">regex</span> <span class="identifier">expression</span><span class="special">;</span> 
-   <span class="identifier">map_type</span> <span class="identifier">index</span><span class="special">;</span> 
-   <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">::</span><span class="identifier">const_iterator</span> <span class="identifier">base</span><span class="special">;</span> 
-   <span class="keyword">bool</span>  <span class="identifier">grep_callback</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">smatch</span> <span class="identifier">what</span><span class="special">);</span> 
-<span class="keyword">public</span><span class="special">:</span> 
-   <span class="keyword">void</span> <span class="identifier">IndexClasses</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&amp;</span> <span class="identifier">file</span><span class="special">);</span> 
-   <span class="identifier">class_index</span><span class="special">()</span> 
-      <span class="special">:</span> <span class="identifier">index</span><span class="special">(),</span> 
-      <span class="identifier">expression</span><span class="special">(</span><span class="string">"^(template[[:space:]]*&lt;[^;:{]+&gt;[[:space:]]*)?"</span> 
-                  <span class="string">"(class|struct)[[:space:]]*(\\&lt;\\w+\\&gt;([[:blank:]]*\\([^)]*\\))?"</span> 
-                  <span class="string">"[[:space:]]*)*(\\&lt;\\w*\\&gt;)[[:space:]]*(&lt;[^;:{]+&gt;[[:space:]]*)?"</span> 
-                  <span class="string">"(\\{|:[^;\\{()]*\\{)"</span> 
-                  <span class="special">){}</span> 
-<span class="special">};</span> 
-<span class="keyword">bool</span>  <span class="identifier">class_index</span><span class="special">::</span><span class="identifier">grep_callback</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">smatch</span> <span class="identifier">what</span><span class="special">)</span> 
-<span class="special">{</span> 
+<span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">map</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">,</span> <span class="keyword">int</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">less</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">map_type</span><span class="special">;</span>
+<span class="keyword">class</span> <span class="identifier">class_index</span>
+<span class="special">{</span>
+   <span class="identifier">boost</span><span class="special">::</span><span class="identifier">regex</span> <span class="identifier">expression</span><span class="special">;</span>
+   <span class="identifier">map_type</span> <span class="identifier">index</span><span class="special">;</span>
+   <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">::</span><span class="identifier">const_iterator</span> <span class="identifier">base</span><span class="special">;</span>
+   <span class="keyword">bool</span>  <span class="identifier">grep_callback</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">smatch</span> <span class="identifier">what</span><span class="special">);</span>
+<span class="keyword">public</span><span class="special">:</span>
+   <span class="keyword">void</span> <span class="identifier">IndexClasses</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&amp;</span> <span class="identifier">file</span><span class="special">);</span>
+   <span class="identifier">class_index</span><span class="special">()</span>
+      <span class="special">:</span> <span class="identifier">index</span><span class="special">(),</span>
+      <span class="identifier">expression</span><span class="special">(</span><span class="string">"^(template[[:space:]]*&lt;[^;:{]+&gt;[[:space:]]*)?"</span>
+                  <span class="string">"(class|struct)[[:space:]]*(\\&lt;\\w+\\&gt;([[:blank:]]*\\([^)]*\\))?"</span>
+                  <span class="string">"[[:space:]]*)*(\\&lt;\\w*\\&gt;)[[:space:]]*(&lt;[^;:{]+&gt;[[:space:]]*)?"</span>
+                  <span class="string">"(\\{|:[^;\\{()]*\\{)"</span>
+                  <span class="special">){}</span>
+<span class="special">};</span>
+<span class="keyword">bool</span>  <span class="identifier">class_index</span><span class="special">::</span><span class="identifier">grep_callback</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">smatch</span> <span class="identifier">what</span><span class="special">)</span>
+<span class="special">{</span>
    <span class="comment">// what[0] contains the whole string </span>
    <span class="comment">// what[5] contains the class name. </span>
    <span class="comment">// what[6] contains the template specialisation if any. </span>
    <span class="comment">// add class name and position to map: </span>
-   <span class="identifier">index</span><span class="special">[</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="identifier">what</span><span class="special">[</span><span class="number">5</span><span class="special">].</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">what</span><span class="special">[</span><span class="number">5</span><span class="special">].</span><span class="identifier">second</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="identifier">what</span><span class="special">[</span><span class="number">6</span><span class="special">].</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">what</span><span class="special">[</span><span class="number">6</span><span class="special">].</span><span class="identifier">second</span><span class="special">)]</span> <span class="special">=</span> 
-               <span class="identifier">what</span><span class="special">[</span><span class="number">5</span><span class="special">].</span><span class="identifier">first</span> <span class="special">-</span> <span class="identifier">base</span><span class="special">;</span> 
-   <span class="keyword">return</span> <span class="keyword">true</span><span class="special">;</span> 
-<span class="special">}</span> 
+   <span class="identifier">index</span><span class="special">[</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="identifier">what</span><span class="special">[</span><span class="number">5</span><span class="special">].</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">what</span><span class="special">[</span><span class="number">5</span><span class="special">].</span><span class="identifier">second</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="identifier">what</span><span class="special">[</span><span class="number">6</span><span class="special">].</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">what</span><span class="special">[</span><span class="number">6</span><span class="special">].</span><span class="identifier">second</span><span class="special">)]</span> <span class="special">=</span>
+               <span class="identifier">what</span><span class="special">[</span><span class="number">5</span><span class="special">].</span><span class="identifier">first</span> <span class="special">-</span> <span class="identifier">base</span><span class="special">;</span>
+   <span class="keyword">return</span> <span class="keyword">true</span><span class="special">;</span>
+<span class="special">}</span>
 
-<span class="keyword">void</span> <span class="identifier">class_index</span><span class="special">::</span><span class="identifier">IndexClasses</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&amp;</span> <span class="identifier">file</span><span class="special">)</span> 
-<span class="special">{</span> 
-   <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">::</span><span class="identifier">const_iterator</span> <span class="identifier">start</span><span class="special">,</span> <span class="identifier">end</span><span class="special">;</span> 
-   <span class="identifier">start</span> <span class="special">=</span> <span class="identifier">file</span><span class="special">.</span><span class="identifier">begin</span><span class="special">();</span> 
-   <span class="identifier">end</span> <span class="special">=</span> <span class="identifier">file</span><span class="special">.</span><span class="identifier">end</span><span class="special">();</span> 
-   <span class="identifier">base</span> <span class="special">=</span> <span class="identifier">start</span><span class="special">;</span> 
-   <span class="identifier">regex_grep</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">bind1st</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">mem_fun</span><span class="special">(&amp;</span><span class="identifier">class_index</span><span class="special">::</span><span class="identifier">grep_callback</span><span class="special">),</span> <span class="keyword">this</span><span class="special">),</span> 
-            <span class="identifier">start</span><span class="special">,</span> 
-            <span class="identifier">end</span><span class="special">,</span> 
-            <span class="identifier">expression</span><span class="special">);</span> 
-<span class="special">}</span> 
+<span class="keyword">void</span> <span class="identifier">class_index</span><span class="special">::</span><span class="identifier">IndexClasses</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&amp;</span> <span class="identifier">file</span><span class="special">)</span>
+<span class="special">{</span>
+   <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">::</span><span class="identifier">const_iterator</span> <span class="identifier">start</span><span class="special">,</span> <span class="identifier">end</span><span class="special">;</span>
+   <span class="identifier">start</span> <span class="special">=</span> <span class="identifier">file</span><span class="special">.</span><span class="identifier">begin</span><span class="special">();</span>
+   <span class="identifier">end</span> <span class="special">=</span> <span class="identifier">file</span><span class="special">.</span><span class="identifier">end</span><span class="special">();</span>
+   <span class="identifier">base</span> <span class="special">=</span> <span class="identifier">start</span><span class="special">;</span>
+   <span class="identifier">regex_grep</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">bind1st</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">mem_fun</span><span class="special">(&amp;</span><span class="identifier">class_index</span><span class="special">::</span><span class="identifier">grep_callback</span><span class="special">),</span> <span class="keyword">this</span><span class="special">),</span>
+            <span class="identifier">start</span><span class="special">,</span>
+            <span class="identifier">end</span><span class="special">,</span>
+            <span class="identifier">expression</span><span class="special">);</span>
+<span class="special">}</span>
 </pre>
 <p>
           Finally, C++ Builder users can use C++ Builder's closure type as a callback
           argument:
         </p>
-<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">string</span><span class="special">&gt;</span> 
-<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">map</span><span class="special">&gt;</span> 
-<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">regex</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span> 
-<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">functional</span><span class="special">&gt;</span> 
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">string</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">map</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">regex</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">functional</span><span class="special">&gt;</span>
 <span class="comment">// purpose: </span>
 <span class="comment">// takes the contents of a file in the form of a string </span>
 <span class="comment">// and searches for all the C++ class definitions, storing </span>
 <span class="comment">// their locations in a map of strings/int's </span>
 
-<span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">map</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">,</span> <span class="keyword">int</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">less</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">map_type</span><span class="special">;</span> 
-<span class="keyword">class</span> <span class="identifier">class_index</span> 
-<span class="special">{</span> 
-   <span class="identifier">boost</span><span class="special">::</span><span class="identifier">regex</span> <span class="identifier">expression</span><span class="special">;</span> 
-   <span class="identifier">map_type</span> <span class="identifier">index</span><span class="special">;</span> 
-   <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">::</span><span class="identifier">const_iterator</span> <span class="identifier">base</span><span class="special">;</span> 
-   <span class="keyword">typedef</span>  <span class="identifier">boost</span><span class="special">::</span><span class="identifier">smatch</span> <span class="identifier">arg_type</span><span class="special">;</span> 
-   <span class="keyword">bool</span> <span class="identifier">grep_callback</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">arg_type</span><span class="special">&amp;</span> <span class="identifier">what</span><span class="special">);</span> 
-<span class="keyword">public</span><span class="special">:</span> 
-   <span class="keyword">typedef</span> <span class="keyword">bool</span> <span class="special">(</span><span class="identifier">__closure</span><span class="special">*</span> <span class="identifier">grep_callback_type</span><span class="special">)(</span><span class="keyword">const</span> <span class="identifier">arg_type</span><span class="special">&amp;);</span> 
-   <span class="keyword">void</span> <span class="identifier">IndexClasses</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&amp;</span> <span class="identifier">file</span><span class="special">);</span> 
-   <span class="identifier">class_index</span><span class="special">()</span> 
-      <span class="special">:</span> <span class="identifier">index</span><span class="special">(),</span> 
-      <span class="identifier">expression</span><span class="special">(</span><span class="string">"^(template[[:space:]]*&lt;[^;:{]+&gt;[[:space:]]*)?"</span> 
-                  <span class="string">"(class|struct)[[:space:]]*(\\&lt;\\w+\\&gt;([[:blank:]]*\\([^)]*\\))?"</span> 
-                  <span class="string">"[[:space:]]*)*(\\&lt;\\w*\\&gt;)[[:space:]]*(&lt;[^;:{]+&gt;[[:space:]]*)?"</span> 
-                  <span class="string">"(\\{|:[^;\\{()]*\\{)"</span> 
-                  <span class="special">){}</span> 
-<span class="special">};</span> 
+<span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">map</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">,</span> <span class="keyword">int</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">less</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">map_type</span><span class="special">;</span>
+<span class="keyword">class</span> <span class="identifier">class_index</span>
+<span class="special">{</span>
+   <span class="identifier">boost</span><span class="special">::</span><span class="identifier">regex</span> <span class="identifier">expression</span><span class="special">;</span>
+   <span class="identifier">map_type</span> <span class="identifier">index</span><span class="special">;</span>
+   <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">::</span><span class="identifier">const_iterator</span> <span class="identifier">base</span><span class="special">;</span>
+   <span class="keyword">typedef</span>  <span class="identifier">boost</span><span class="special">::</span><span class="identifier">smatch</span> <span class="identifier">arg_type</span><span class="special">;</span>
+   <span class="keyword">bool</span> <span class="identifier">grep_callback</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">arg_type</span><span class="special">&amp;</span> <span class="identifier">what</span><span class="special">);</span>
+<span class="keyword">public</span><span class="special">:</span>
+   <span class="keyword">typedef</span> <span class="keyword">bool</span> <span class="special">(</span><span class="identifier">__closure</span><span class="special">*</span> <span class="identifier">grep_callback_type</span><span class="special">)(</span><span class="keyword">const</span> <span class="identifier">arg_type</span><span class="special">&amp;);</span>
+   <span class="keyword">void</span> <span class="identifier">IndexClasses</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&amp;</span> <span class="identifier">file</span><span class="special">);</span>
+   <span class="identifier">class_index</span><span class="special">()</span>
+      <span class="special">:</span> <span class="identifier">index</span><span class="special">(),</span>
+      <span class="identifier">expression</span><span class="special">(</span><span class="string">"^(template[[:space:]]*&lt;[^;:{]+&gt;[[:space:]]*)?"</span>
+                  <span class="string">"(class|struct)[[:space:]]*(\\&lt;\\w+\\&gt;([[:blank:]]*\\([^)]*\\))?"</span>
+                  <span class="string">"[[:space:]]*)*(\\&lt;\\w*\\&gt;)[[:space:]]*(&lt;[^;:{]+&gt;[[:space:]]*)?"</span>
+                  <span class="string">"(\\{|:[^;\\{()]*\\{)"</span>
+                  <span class="special">){}</span>
+<span class="special">};</span>
 
-<span class="keyword">bool</span> <span class="identifier">class_index</span><span class="special">::</span><span class="identifier">grep_callback</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">arg_type</span><span class="special">&amp;</span> <span class="identifier">what</span><span class="special">)</span> 
-<span class="special">{</span> 
+<span class="keyword">bool</span> <span class="identifier">class_index</span><span class="special">::</span><span class="identifier">grep_callback</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">arg_type</span><span class="special">&amp;</span> <span class="identifier">what</span><span class="special">)</span>
+<span class="special">{</span>
    <span class="comment">// what[0] contains the whole string    </span>
 <span class="comment">// what[5] contains the class name.    </span>
 <span class="comment">// what[6] contains the template specialisation if any.    </span>
 <span class="comment">// add class name and position to map:    </span>
-<span class="identifier">index</span><span class="special">[</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="identifier">what</span><span class="special">[</span><span class="number">5</span><span class="special">].</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">what</span><span class="special">[</span><span class="number">5</span><span class="special">].</span><span class="identifier">second</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="identifier">what</span><span class="special">[</span><span class="number">6</span><span class="special">].</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">what</span><span class="special">[</span><span class="number">6</span><span class="special">].</span><span class="identifier">second</span><span class="special">)]</span> <span class="special">=</span> 
-               <span class="identifier">what</span><span class="special">[</span><span class="number">5</span><span class="special">].</span><span class="identifier">first</span> <span class="special">-</span> <span class="identifier">base</span><span class="special">;</span> 
-   <span class="keyword">return</span> <span class="keyword">true</span><span class="special">;</span> 
-<span class="special">}</span> 
+<span class="identifier">index</span><span class="special">[</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="identifier">what</span><span class="special">[</span><span class="number">5</span><span class="special">].</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">what</span><span class="special">[</span><span class="number">5</span><span class="special">].</span><span class="identifier">second</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="identifier">what</span><span class="special">[</span><span class="number">6</span><span class="special">].</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">what</span><span class="special">[</span><span class="number">6</span><span class="special">].</span><span class="identifier">second</span><span class="special">)]</span> <span class="special">=</span>
+               <span class="identifier">what</span><span class="special">[</span><span class="number">5</span><span class="special">].</span><span class="identifier">first</span> <span class="special">-</span> <span class="identifier">base</span><span class="special">;</span>
+   <span class="keyword">return</span> <span class="keyword">true</span><span class="special">;</span>
+<span class="special">}</span>
 
-<span class="keyword">void</span> <span class="identifier">class_index</span><span class="special">::</span><span class="identifier">IndexClasses</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&amp;</span> <span class="identifier">file</span><span class="special">)</span> 
-<span class="special">{</span> 
-   <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">::</span><span class="identifier">const_iterator</span> <span class="identifier">start</span><span class="special">,</span> <span class="identifier">end</span><span class="special">;</span> 
-   <span class="identifier">start</span> <span class="special">=</span> <span class="identifier">file</span><span class="special">.</span><span class="identifier">begin</span><span class="special">();</span> 
-   <span class="identifier">end</span> <span class="special">=</span> <span class="identifier">file</span><span class="special">.</span><span class="identifier">end</span><span class="special">();</span> 
-   <span class="identifier">base</span> <span class="special">=</span> <span class="identifier">start</span><span class="special">;</span> 
-   <span class="identifier">class_index</span><span class="special">::</span><span class="identifier">grep_callback_type</span> <span class="identifier">cl</span> <span class="special">=</span> <span class="special">&amp;(</span><span class="keyword">this</span><span class="special">-&gt;</span><span class="identifier">grep_callback</span><span class="special">);</span> 
-   <span class="identifier">regex_grep</span><span class="special">(</span><span class="identifier">cl</span><span class="special">,</span> 
-            <span class="identifier">start</span><span class="special">,</span> 
-            <span class="identifier">end</span><span class="special">,</span> 
-            <span class="identifier">expression</span><span class="special">);</span> 
+<span class="keyword">void</span> <span class="identifier">class_index</span><span class="special">::</span><span class="identifier">IndexClasses</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&amp;</span> <span class="identifier">file</span><span class="special">)</span>
+<span class="special">{</span>
+   <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">::</span><span class="identifier">const_iterator</span> <span class="identifier">start</span><span class="special">,</span> <span class="identifier">end</span><span class="special">;</span>
+   <span class="identifier">start</span> <span class="special">=</span> <span class="identifier">file</span><span class="special">.</span><span class="identifier">begin</span><span class="special">();</span>
+   <span class="identifier">end</span> <span class="special">=</span> <span class="identifier">file</span><span class="special">.</span><span class="identifier">end</span><span class="special">();</span>
+   <span class="identifier">base</span> <span class="special">=</span> <span class="identifier">start</span><span class="special">;</span>
+   <span class="identifier">class_index</span><span class="special">::</span><span class="identifier">grep_callback_type</span> <span class="identifier">cl</span> <span class="special">=</span> <span class="special">&amp;(</span><span class="keyword">this</span><span class="special">-&gt;</span><span class="identifier">grep_callback</span><span class="special">);</span>
+   <span class="identifier">regex_grep</span><span class="special">(</span><span class="identifier">cl</span><span class="special">,</span>
+            <span class="identifier">start</span><span class="special">,</span>
+            <span class="identifier">end</span><span class="special">,</span>
+            <span class="identifier">expression</span><span class="special">);</span>
 <span class="special">}</span>
 </pre>
 </div>

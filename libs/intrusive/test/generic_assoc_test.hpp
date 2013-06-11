@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 //
 // (C) Copyright Olaf Krzikalla 2004-2006.
-// (C) Copyright Ion Gaztanaga  2006-2009.
+// (C) Copyright Ion Gaztanaga  2006-2012.
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -41,8 +41,38 @@ struct has_insert_before
    static const bool value = false;
 };
 
+template<class T>
+struct has_const_searches
+{
+   static const bool value = true;
+};
+
+template<class T, bool = has_const_searches<T>::value>
+struct search_const_iterator
+{
+   typedef typename T::const_iterator type;
+};
+
+template<class T>
+struct search_const_iterator<T, false>
+{
+   typedef typename T::iterator type;
+};
+
+template<class T, bool = has_const_searches<T>::value>
+struct search_const_container
+{
+   typedef const T type;
+};
+
+template<class T>
+struct search_const_container<T, false>
+{
+   typedef T type;
+};
+
 template<class ValueTraits, template <class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none> class ContainerDefiner>
-struct test_generic_assoc 
+struct test_generic_assoc
 {
    typedef typename ValueTraits::value_type value_type;
    static void test_all(std::vector<value_type>& values);
@@ -134,7 +164,7 @@ void test_generic_assoc<ValueTraits, ContainerDefiner>::test_insert_erase_burst(
       typedef typename std::vector<value_type>::const_iterator cvec_iterator;
       //Random erasure
       std::vector<cvec_iterator> it_vector;
-      
+
       for(cvec_iterator it(values.begin()), itend(values.end())
          ; it != itend
          ; ++it){
@@ -325,17 +355,14 @@ void test_generic_assoc<ValueTraits, ContainerDefiner>::test_rebalance
       >::type assoc_type;
    typedef std::vector<value_type> orig_set_t;
    typedef typename orig_set_t::iterator iterator_t;
-   std::size_t num_values;
    orig_set_t original_testset;
    {
       assoc_type testset (values.begin(), values.end());
-      num_values = testset.size();
       original_testset.insert(original_testset.end(), testset.begin(), testset.end());
    }
    {
       assoc_type testset(values.begin(), values.end());
       testset.rebalance();
-      iterator_t it = original_testset.begin();
       TEST_INTRUSIVE_SEQUENCE_EXPECTED(original_testset, testset.begin());
    }
 
@@ -399,7 +426,7 @@ void test_generic_assoc<ValueTraits, ContainerDefiner>::test_insert_before
    {
       assoc_type testset;
       typedef typename std::vector<value_type>::iterator vec_iterator;
-      
+
       for(vec_iterator it(--values.end()); true; --it){
          testset.push_front(*it);
        if(it == values.begin()){

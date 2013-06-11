@@ -49,7 +49,7 @@ proceed to overwrite the old copy. Consider:
 
 [c++]
 
-   template <class T> swap(T& a, T& b)
+   template <class T> void swap(T& a, T& b)
    {
       T tmp(a);   // now we have two copies of a
       a = b;      // now we have two copies of b
@@ -60,7 +60,7 @@ But, we didn't want to have any copies of a or b, we just wanted to swap them. L
 
 [c++]
 
-   template <class T> swap(T& a, T& b)
+   template <class T> void swap(T& a, T& b)
    {
       T tmp(::boost::move(a));
       a = ::boost::move(b);   
@@ -782,6 +782,29 @@ emulation code for `unique_ptr`, David Abrahams suggested the use of `class rv` 
 and Klaus Triendl discovered how to bind const rlvalues using `class rv`.
 
 Many thanks to all boosters that have tested, reviewed and improved the library.
+
+[endsect]
+
+[section:release_notes Release Notes]
+
+[section:release_notes_boost_1_51_00 Boost 1.51 Release]
+
+*  Fixed bugs
+  [@https://svn.boost.org/trac/boost/ticket/7095 #7095],
+  [@https://svn.boost.org/trac/boost/ticket/7031 #7031].
+
+[endsect]
+
+[section:release_notes_boost_1_49_00 Boost 1.49 Release]
+
+*  Fixed bugs
+  [@https://svn.boost.org/trac/boost/ticket/6417 #6417],
+  [@https://svn.boost.org/trac/boost/ticket/6183 #6183],
+  [@https://svn.boost.org/trac/boost/ticket/6185 #6185],
+  [@https://svn.boost.org/trac/boost/ticket/6395 #6395],
+  [@https://svn.boost.org/trac/boost/ticket/6396 #6396],
+
+[endsect]
 
 [endsect]
 

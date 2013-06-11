@@ -34,6 +34,7 @@ namespace quickbook
                 { block_tags::important, "<important>", "</important>" },
                 { block_tags::note, "<note>", "</note>" },
                 { block_tags::tip, "<tip>", "</tip>" },
+                { block_tags::block, "", "" },
                 { block_tags::ordered_list, "<orderedlist>", "</orderedlist>" },
                 { block_tags::itemized_list, "<itemizedlist>", "</itemizedlist>" },
                 { block_tags::hr, "<para/>", 0 },

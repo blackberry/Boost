@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../interprocess.html" title="Chapter&#160;11.&#160;Boost.Interprocess">
+<link rel="up" href="../interprocess.html" title="Chapter&#160;12.&#160;Boost.Interprocess">
 <link rel="prev" href="offset_ptr.html" title="Mapping Address Independent Pointer: offset_ptr">
 <link rel="next" href="managed_memory_segments.html" title="Managed Memory Segments">
 </head>
@@ -33,8 +33,8 @@
 <dt><span class="section"><a href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.mutexes">Mutexes</a></span></dt>
 <dt><span class="section"><a href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.conditions">Conditions</a></span></dt>
 <dt><span class="section"><a href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.semaphores">Semaphores</a></span></dt>
-<dt><span class="section"><a href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.upgradable_mutexes">Upgradable
-      Mutexes</a></span></dt>
+<dt><span class="section"><a href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.sharable_upgradable_mutexes">Sharable
+      and Upgradable Mutexes</a></span></dt>
 <dt><span class="section"><a href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.lock_conversions">Lock
       Transfers Through Move Semantics</a></span></dt>
 <dt><span class="section"><a href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.file_lock">File
@@ -320,6 +320,17 @@
 <p>
           <span class="bold"><strong>Throws:</strong></span> An exception derived from <span class="bold"><strong>interprocess_exception</strong></span> on error.
         </p>
+<div class="important"><table border="0" summary="Important">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Important]" src="../../../doc/src/images/important.png"></td>
+<th align="left">Important</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">posix_time</span><span class="special">::</span><span class="identifier">ptime</span></code> absolute time points used by
+            Boost.Interprocess synchronization mechanisms are UTC time points, not
+            local time points
+          </p></td></tr>
+</table></div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -339,7 +350,7 @@
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">interprocess</span><span class="special">/</span><span class="identifier">sync</span><span class="special">/</span><span class="identifier">interprocess_recursive_mutex</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 </pre>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
-              <code class="computeroutput"><a class="link" href="../boost/interprocess/interprocess_recursive__id977749.html" title="Class interprocess_recursive_mutex">interprocess_recursive_mutex</a></code>:
+              <code class="computeroutput"><a class="link" href="../boost/interprocess/interprocess_rec_id1076588.html" title="Class interprocess_recursive_mutex">interprocess_recursive_mutex</a></code>:
               A recursive, anonymous mutex that can be placed in shared memory or
               memory mapped files.
             </li></ul></div>
@@ -420,6 +431,17 @@
           For more information, check the <code class="computeroutput"><a class="link" href="../boost/interprocess/scoped_lock.html" title="Class template scoped_lock">scoped_lock's
           reference</a></code>.
         </p>
+<div class="important"><table border="0" summary="Important">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Important]" src="../../../doc/src/images/important.png"></td>
+<th align="left">Important</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">posix_time</span><span class="special">::</span><span class="identifier">ptime</span></code> absolute time points used by
+            Boost.Interprocess synchronization mechanisms are UTC time points, not
+            local time points
+          </p></td></tr>
+</table></div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -731,11 +753,24 @@
               An anonymous condition variable that can be placed in shared memory
               or memory mapped files to be used with <code class="computeroutput"><a class="link" href="../boost/interprocess/interprocess_mutex.html" title="Class interprocess_mutex">boost::interprocess::interprocess_mutex</a></code>.
             </li></ul></div>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">interprocess</span><span class="special">/</span><span class="identifier">sync</span><span class="special">/</span><span class="identifier">interprocess_condition_any</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+</pre>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+              <code class="computeroutput"><a class="link" href="../boost/interprocess/interprocess_condition_any.html" title="Class interprocess_condition_any">interprocess_condition_any</a></code>:
+              An anonymous condition variable that can be placed in shared memory
+              or memory mapped files to be used with any lock type.
+            </li></ul></div>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">interprocess</span><span class="special">/</span><span class="identifier">sync</span><span class="special">/</span><span class="identifier">named_condition</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 </pre>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/interprocess/named_condition.html" title="Class named_condition">named_condition</a></code>:
               A named condition variable to be used with <code class="computeroutput"><a class="link" href="../boost/interprocess/named_mutex.html" title="Class named_mutex">named_mutex</a></code>.
+            </li></ul></div>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">interprocess</span><span class="special">/</span><span class="identifier">sync</span><span class="special">/</span><span class="identifier">named_condition_any</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+</pre>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+              <code class="computeroutput"><a class="link" href="../boost/interprocess/named_condition.html" title="Class named_condition">named_condition</a></code>:
+              A named condition variable to be used with any lock type.
             </li></ul></div>
 <p>
           Named conditions are similar to anonymous conditions, but they are used
@@ -1187,31 +1222,33 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="interprocess.synchronization_mechanisms.upgradable_mutexes"></a><a class="link" href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.upgradable_mutexes" title="Upgradable Mutexes">Upgradable
-      Mutexes</a>
+<a name="interprocess.synchronization_mechanisms.sharable_upgradable_mutexes"></a><a class="link" href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.sharable_upgradable_mutexes" title="Sharable and Upgradable Mutexes">Sharable
+      and Upgradable Mutexes</a>
 </h3></div></div></div>
 <div class="toc"><dl>
-<dt><span class="section"><a href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_whats_a_mutex">What's
-        An Upgradable Mutex?</a></span></dt>
-<dt><span class="section"><a href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_mutexes_operations">Upgradable
+<dt><span class="section"><a href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.upgradable_whats_a_mutex">What's
+        a Sharable and an Upgradable Mutex?</a></span></dt>
+<dt><span class="section"><a href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.upgradable_transitions">Lock
+        transitions for Upgradable Mutex</a></span></dt>
+<dt><span class="section"><a href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.sharable_upgradable_mutexes_operations">Upgradable
         Mutex Operations</a></span></dt>
-<dt><span class="section"><a href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_mutexes_mutex_interprocess_mutexes">Boost.Interprocess
-        Upgradable Mutex Types And Headers</a></span></dt>
-<dt><span class="section"><a href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_mutexes_locks">Sharable
+<dt><span class="section"><a href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.sharable_upgradable_mutexes_mutex_interprocess_mutexes">Boost.Interprocess
+        Sharable &amp; Upgradable Mutex Types And Headers</a></span></dt>
+<dt><span class="section"><a href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.sharable_upgradable_locks">Sharable
         Lock And Upgradable Lock</a></span></dt>
 </dl></div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_whats_a_mutex"></a><a class="link" href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_whats_a_mutex" title="What's An Upgradable Mutex?">What's
-        An Upgradable Mutex?</a>
+<a name="interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.upgradable_whats_a_mutex"></a><a class="link" href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.upgradable_whats_a_mutex" title="What's a Sharable and an Upgradable Mutex?">What's
+        a Sharable and an Upgradable Mutex?</a>
 </h4></div></div></div>
 <p>
-          An upgradable mutex is a special mutex that offers more locking possibilities
-          than a normal mutex. Sometimes, we can distinguish between <span class="bold"><strong>reading</strong></span>
-          the data and <span class="bold"><strong>modifying</strong></span> the data. If just
-          some threads need to modify the data, and a plain mutex is used to protect
-          the data from concurrent access, concurrency is pretty limited: two threads
-          that only read the data will be serialized instead of being executed concurrently.
+          Sharable and upgradable mutex are special mutex types that offers more
+          locking possibilities than a normal mutex. Sometimes, we can distinguish
+          between <span class="bold"><strong>reading</strong></span> the data and <span class="bold"><strong>modifying</strong></span> the data. If just some threads need to
+          modify the data, and a plain mutex is used to protect the data from concurrent
+          access, concurrency is pretty limited: two threads that only read the data
+          will be serialized instead of being executed concurrently.
         </p>
 <p>
           If we allow concurrent access to threads that just read the data but we
@@ -1219,25 +1256,30 @@
           threads that modify, we can increase performance. This is specially true
           in applications where data reading is more common than data modification
           and the synchronized data reading code needs some time to execute. With
-          an upgradable mutex we can acquire 3 lock types:
+          a sharable mutex we can acquire 2 lock types:
         </p>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc">
 <li class="listitem">
               <span class="bold"><strong>Exclusive lock</strong></span>: Similar to a plain
               mutex. If a thread acquires an exclusive lock, no other thread can
               acquire any lock (exclusive or other) until the exclusive lock is released.
-              If any thread has a sharable or upgradable lock a thread trying to
-              acquire an exclusive lock will block. This lock will be acquired by
-              threads that will modify the data.
+              If any thread other has any lock other than exclusive, a thread trying
+              to acquire an exclusive lock will block. This lock will be acquired
+              by threads that will modify the data.
             </li>
 <li class="listitem">
               <span class="bold"><strong>Sharable lock</strong></span>: If a thread acquires
-              a sharable lock, other threads can acquire a sharable lock or an upgradable
-              lock. If any thread has acquired the exclusive lock a thread trying
-              to acquire a sharable lock will block. This locking is executed by
-              threads that just need to read the data.
+              a sharable lock, other threads can't acquire the exclusive lock. If
+              any thread has acquired the exclusive lock a thread trying to acquire
+              a sharable lock will block. This locking is executed by threads that
+              just need to read the data.
             </li>
-<li class="listitem">
+</ul></div>
+<p>
+          With an upgradable mutex we can acquire previous locks plus a new upgradable
+          lock:
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
               <span class="bold"><strong>Upgradable lock</strong></span>: Acquiring an upgradable
               lock is similar to acquiring a <span class="bold"><strong>privileged sharable
               lock</strong></span>. If a thread acquires an upgradable lock, other threads
@@ -1256,14 +1298,60 @@
               can be sure that no other thread has modified it while doing the transition.
               <span class="bold"><strong>Only 1 thread can acquire the upgradable (privileged
               reader) lock</strong></span>.
-            </li>
-</ul></div>
+            </li></ul></div>
 <p>
           To sum up:
         </p>
 <div class="table">
-<a name="interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_whats_a_mutex.t0"></a><p class="title"><b>Table&#160;11.5.&#160;Locking Possibilities</b></p>
-<div class="table-contents"><table class="table" summary="Locking Possibilities">
+<a name="interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.upgradable_whats_a_mutex.t0"></a><p class="title"><b>Table&#160;12.5.&#160;Locking Possibilities for a Sharable Mutex</b></p>
+<div class="table-contents"><table class="table" summary="Locking Possibilities for a Sharable Mutex">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+                  <p>
+                    If a thread has acquired the...
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Other threads can acquire...
+                  </p>
+                </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+                  <p>
+                    Sharable lock
+                  </p>
+                </td>
+<td>
+                  <p>
+                    many sharable locks
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Exclusive lock
+                  </p>
+                </td>
+<td>
+                  <p>
+                    no locks
+                  </p>
+                </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break"><div class="table">
+<a name="interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.upgradable_whats_a_mutex.t1"></a><p class="title"><b>Table&#160;12.6.&#160;Locking Possibilities for an Upgradable Mutex</b></p>
+<div class="table-contents"><table class="table" summary="Locking Possibilities for an Upgradable Mutex">
 <colgroup>
 <col>
 <col>
@@ -1320,17 +1408,29 @@
 </tbody>
 </table></div>
 </div>
-<br class="table-break"><p>
-          A thread that has acquired a lock can try to acquire another lock type
-          atomically. All lock transitions are not guaranteed to succeed. Even if
-          a transition is guaranteed to succeed, some transitions will block the
-          thread waiting until other threads release the sharable locks. <span class="bold"><strong>Atomically</strong></span> means that no other thread will acquire
-          an Upgradable or Exclusive lock in the transition, <span class="bold"><strong>so
-          data is guaranteed to remain unchanged</strong></span>:
+<br class="table-break">
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.upgradable_transitions"></a><a class="link" href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.upgradable_transitions" title="Lock transitions for Upgradable Mutex">Lock
+        transitions for Upgradable Mutex</a>
+</h4></div></div></div>
+<p>
+          A sharable mutex has no option to change the acquired lock for another
+          lock atomically.
+        </p>
+<p>
+          On the other hand, for an upgradable mutex, a thread that has acquired
+          a lock can try to acquire another lock type atomically. All lock transitions
+          are not guaranteed to succeed. Even if a transition is guaranteed to succeed,
+          some transitions will block the thread waiting until other threads release
+          the sharable locks. <span class="bold"><strong>Atomically</strong></span> means that
+          no other thread will acquire an Upgradable or Exclusive lock in the transition,
+          <span class="bold"><strong>so data is guaranteed to remain unchanged</strong></span>:
         </p>
 <div class="table">
-<a name="interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_whats_a_mutex.t1"></a><p class="title"><b>Table&#160;11.6.&#160;Transition Possibilities</b></p>
-<div class="table-contents"><table class="table" summary="Transition Possibilities">
+<a name="interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.upgradable_transitions.t0"></a><p class="title"><b>Table&#160;12.7.&#160;Transition Possibilities for an Upgradable Mutex</b></p>
+<div class="table-contents"><table class="table" summary="Transition Possibilities for an Upgradable Mutex">
 <colgroup>
 <col>
 <col>
@@ -1436,18 +1536,20 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_mutexes_operations"></a><a class="link" href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_mutexes_operations" title="Upgradable Mutex Operations">Upgradable
+<a name="interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.sharable_upgradable_mutexes_operations"></a><a class="link" href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.sharable_upgradable_mutexes_operations" title="Upgradable Mutex Operations">Upgradable
         Mutex Operations</a>
 </h4></div></div></div>
 <div class="toc"><dl>
-<dt><span class="section"><a href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_mutexes_operations.upgradable_mutexes_operations_exclusive">Exclusive
-          Locking</a></span></dt>
-<dt><span class="section"><a href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_mutexes_operations.upgradable_mutexes_operations_sharable">Sharable
-          Locking</a></span></dt>
-<dt><span class="section"><a href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_mutexes_operations.upgradable_mutexes_operations_upgradable">Upgradable
-          Locking</a></span></dt>
-<dt><span class="section"><a href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_mutexes_operations.upgradable_mutexes_operations_demotions">Demotions</a></span></dt>
-<dt><span class="section"><a href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_mutexes_operations.upgradable_mutexes_operations_promotions">Promotions</a></span></dt>
+<dt><span class="section"><a href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.sharable_upgradable_mutexes_operations.sharable_upgradable_mutexes_operations_exclusive">Exclusive
+          Locking (Sharable &amp; Upgradable Mutexes)</a></span></dt>
+<dt><span class="section"><a href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.sharable_upgradable_mutexes_operations.sharable_upgradable_mutexes_operations_sharable">Sharable
+          Locking (Sharable &amp; Upgradable Mutexes)</a></span></dt>
+<dt><span class="section"><a href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.sharable_upgradable_mutexes_operations.upgradable_mutexes_operations_upgradable">Upgradable
+          Locking (Upgradable Mutex only)</a></span></dt>
+<dt><span class="section"><a href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.sharable_upgradable_mutexes_operations.upgradable_mutexes_operations_demotions">Demotions
+          (Upgradable Mutex only)</a></span></dt>
+<dt><span class="section"><a href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.sharable_upgradable_mutexes_operations.upgradable_mutexes_operations_promotions">Promotions
+          (Upgradable Mutex only)</a></span></dt>
 </dl></div>
 <p>
           All the upgradable mutex types from <span class="bold"><strong>Boost.Interprocess</strong></span>
@@ -1455,8 +1557,8 @@
         </p>
 <div class="section">
 <div class="titlepage"><div><div><h5 class="title">
-<a name="interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_mutexes_operations.upgradable_mutexes_operations_exclusive"></a><a class="link" href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_mutexes_operations.upgradable_mutexes_operations_exclusive" title="Exclusive Locking">Exclusive
-          Locking</a>
+<a name="interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.sharable_upgradable_mutexes_operations.sharable_upgradable_mutexes_operations_exclusive"></a><a class="link" href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.sharable_upgradable_mutexes_operations.sharable_upgradable_mutexes_operations_exclusive" title="Exclusive Locking (Sharable &amp; Upgradable Mutexes)">Exclusive
+          Locking (Sharable &amp; Upgradable Mutexes)</a>
 </h5></div></div></div>
 <div class="sidebar">
 <div class="titlepage"></div>
@@ -1466,9 +1568,9 @@
 </div>
 <p>
             <span class="bold"><strong>Effects:</strong></span> The calling thread tries to
-            obtain exclusive ownership of the mutex, and if another thread has exclusive,
-            sharable or upgradable ownership of the mutex, it waits until it can
-            obtain the ownership.
+            obtain exclusive ownership of the mutex, and if another thread has any
+            ownership of the mutex (exclusive or other), it waits until it can obtain
+            the ownership.
           </p>
 <p>
             <span class="bold"><strong>Throws:</strong></span> <span class="bold"><strong>interprocess_exception</strong></span>
@@ -1483,8 +1585,7 @@
 <p>
             <span class="bold"><strong>Effects:</strong></span> The calling thread tries to
             acquire exclusive ownership of the mutex without waiting. If no other
-            thread has exclusive, sharable or upgradable ownership of the mutex this
-            succeeds.
+            thread has any ownership of the mutex (exclusive or other) this succeeds.
           </p>
 <p>
             <span class="bold"><strong>Returns:</strong></span> If it can acquire exclusive
@@ -1504,8 +1605,8 @@
 <p>
             <span class="bold"><strong>Effects:</strong></span> The calling thread tries to
             acquire exclusive ownership of the mutex waiting if necessary until no
-            other thread has has exclusive, sharable or upgradable ownership of the
-            mutex or abs_time is reached.
+            other thread has any ownership of the mutex (exclusive or other) or abs_time
+            is reached.
           </p>
 <p>
             <span class="bold"><strong>Returns:</strong></span> If acquires exclusive ownership,
@@ -1535,8 +1636,8 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h5 class="title">
-<a name="interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_mutexes_operations.upgradable_mutexes_operations_sharable"></a><a class="link" href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_mutexes_operations.upgradable_mutexes_operations_sharable" title="Sharable Locking">Sharable
-          Locking</a>
+<a name="interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.sharable_upgradable_mutexes_operations.sharable_upgradable_mutexes_operations_sharable"></a><a class="link" href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.sharable_upgradable_mutexes_operations.sharable_upgradable_mutexes_operations_sharable" title="Sharable Locking (Sharable &amp; Upgradable Mutexes)">Sharable
+          Locking (Sharable &amp; Upgradable Mutexes)</a>
 </h5></div></div></div>
 <div class="sidebar">
 <div class="titlepage"></div>
@@ -1547,7 +1648,7 @@
 <p>
             <span class="bold"><strong>Effects:</strong></span> The calling thread tries to
             obtain sharable ownership of the mutex, and if another thread has exclusive
-            or upgradable ownership of the mutex, waits until it can obtain the ownership.
+            ownership of the mutex, waits until it can obtain the ownership.
           </p>
 <p>
             <span class="bold"><strong>Throws:</strong></span> <span class="bold"><strong>interprocess_exception</strong></span>
@@ -1562,7 +1663,7 @@
 <p>
             <span class="bold"><strong>Effects:</strong></span> The calling thread tries to
             acquire sharable ownership of the mutex without waiting. If no other
-            thread has has exclusive or upgradable ownership of the mutex this succeeds.
+            thread has exclusive ownership of the mutex this succeeds.
           </p>
 <p>
             <span class="bold"><strong>Returns:</strong></span> If it can acquire sharable
@@ -1582,8 +1683,7 @@
 <p>
             <span class="bold"><strong>Effects:</strong></span> The calling thread tries to
             acquire sharable ownership of the mutex waiting if necessary until no
-            other thread has has exclusive or upgradable ownership of the mutex or
-            abs_time is reached.
+            other thread has exclusive ownership of the mutex or abs_time is reached.
           </p>
 <p>
             <span class="bold"><strong>Returns:</strong></span> If acquires sharable ownership,
@@ -1613,8 +1713,8 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h5 class="title">
-<a name="interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_mutexes_operations.upgradable_mutexes_operations_upgradable"></a><a class="link" href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_mutexes_operations.upgradable_mutexes_operations_upgradable" title="Upgradable Locking">Upgradable
-          Locking</a>
+<a name="interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.sharable_upgradable_mutexes_operations.upgradable_mutexes_operations_upgradable"></a><a class="link" href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.sharable_upgradable_mutexes_operations.upgradable_mutexes_operations_upgradable" title="Upgradable Locking (Upgradable Mutex only)">Upgradable
+          Locking (Upgradable Mutex only)</a>
 </h5></div></div></div>
 <div class="sidebar">
 <div class="titlepage"></div>
@@ -1640,7 +1740,7 @@
 <p>
             <span class="bold"><strong>Effects:</strong></span> The calling thread tries to
             acquire upgradable ownership of the mutex without waiting. If no other
-            thread has has exclusive or upgradable ownership of the mutex this succeeds.
+            thread has exclusive or upgradable ownership of the mutex this succeeds.
           </p>
 <p>
             <span class="bold"><strong>Returns:</strong></span> If it can acquire upgradable
@@ -1660,8 +1760,7 @@
 <p>
             <span class="bold"><strong>Effects:</strong></span> The calling thread tries to
             acquire upgradable ownership of the mutex waiting if necessary until
-            no other thread has has exclusive or upgradable ownership of the mutex
-            or abs_time is reached.
+            no other thread has exclusive ownership of the mutex or abs_time is reached.
           </p>
 <p>
             <span class="bold"><strong>Returns:</strong></span> If acquires upgradable ownership,
@@ -1691,7 +1790,8 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h5 class="title">
-<a name="interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_mutexes_operations.upgradable_mutexes_operations_demotions"></a><a class="link" href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_mutexes_operations.upgradable_mutexes_operations_demotions" title="Demotions">Demotions</a>
+<a name="interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.sharable_upgradable_mutexes_operations.upgradable_mutexes_operations_demotions"></a><a class="link" href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.sharable_upgradable_mutexes_operations.upgradable_mutexes_operations_demotions" title="Demotions (Upgradable Mutex only)">Demotions
+          (Upgradable Mutex only)</a>
 </h5></div></div></div>
 <div class="sidebar">
 <div class="titlepage"></div>
@@ -1750,7 +1850,8 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h5 class="title">
-<a name="interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_mutexes_operations.upgradable_mutexes_operations_promotions"></a><a class="link" href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_mutexes_operations.upgradable_mutexes_operations_promotions" title="Promotions">Promotions</a>
+<a name="interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.sharable_upgradable_mutexes_operations.upgradable_mutexes_operations_promotions"></a><a class="link" href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.sharable_upgradable_mutexes_operations.upgradable_mutexes_operations_promotions" title="Promotions (Upgradable Mutex only)">Promotions
+          (Upgradable Mutex only)</a>
 </h5></div></div></div>
 <div class="sidebar">
 <div class="titlepage"></div>
@@ -1864,20 +1965,47 @@
 <p>
             <span class="bold"><strong>Throws:</strong></span> An exception derived from <span class="bold"><strong>interprocess_exception</strong></span> on error.
           </p>
+<div class="important"><table border="0" summary="Important">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Important]" src="../../../doc/src/images/important.png"></td>
+<th align="left">Important</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+              <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">posix_time</span><span class="special">::</span><span class="identifier">ptime</span></code> absolute time points used by
+              Boost.Interprocess synchronization mechanisms are UTC time points,
+              not local time points
+            </p></td></tr>
+</table></div>
 </div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_mutexes_mutex_interprocess_mutexes"></a><a class="link" href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_mutexes_mutex_interprocess_mutexes" title="Boost.Interprocess Upgradable Mutex Types And Headers">Boost.Interprocess
-        Upgradable Mutex Types And Headers</a>
+<a name="interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.sharable_upgradable_mutexes_mutex_interprocess_mutexes"></a><a class="link" href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.sharable_upgradable_mutexes_mutex_interprocess_mutexes" title="Boost.Interprocess Sharable &amp; Upgradable Mutex Types And Headers">Boost.Interprocess
+        Sharable &amp; Upgradable Mutex Types And Headers</a>
 </h4></div></div></div>
+<p>
+          Boost.Interprocess offers the following sharable mutex types:
+        </p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">interprocess</span><span class="special">/</span><span class="identifier">sync</span><span class="special">/</span><span class="identifier">interprocess_sharable_mutex</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+</pre>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+              <code class="computeroutput"><a class="link" href="../boost/interprocess/interprocess_sha_id1076961.html" title="Class interprocess_sharable_mutex">interprocess_sharable_mutex</a></code>:
+              A non-recursive, anonymous sharable mutex that can be placed in shared
+              memory or memory mapped files.
+            </li></ul></div>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">interprocess</span><span class="special">/</span><span class="identifier">sync</span><span class="special">/</span><span class="identifier">named_sharable_mutex</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+</pre>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+              <code class="computeroutput"><a class="link" href="../boost/interprocess/named_sharable_mutex.html" title="Class named_sharable_mutex">named_sharable_mutex</a></code>:
+              A non-recursive, named sharable mutex.
+            </li></ul></div>
 <p>
           Boost.Interprocess offers the following upgradable mutex types:
         </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">interprocess</span><span class="special">/</span><span class="identifier">sync</span><span class="special">/</span><span class="identifier">interprocess_upgradable_mutex</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 </pre>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
-              <code class="computeroutput"><a class="link" href="../boost/interprocess/interprocess_upgradable_id978122.html" title="Class interprocess_upgradable_mutex">interprocess_upgradable_mutex</a></code>:
+              <code class="computeroutput"><a class="link" href="../boost/interprocess/interprocess_upg_id1077221.html" title="Class interprocess_upgradable_mutex">interprocess_upgradable_mutex</a></code>:
               A non-recursive, anonymous upgradable mutex that can be placed in shared
               memory or memory mapped files.
             </li></ul></div>
@@ -1890,10 +2018,10 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_mutexes_locks"></a><a class="link" href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_mutexes_locks" title="Sharable Lock And Upgradable Lock">Sharable
+<a name="interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.sharable_upgradable_locks"></a><a class="link" href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.sharable_upgradable_locks" title="Sharable Lock And Upgradable Lock">Sharable
         Lock And Upgradable Lock</a>
 </h4></div></div></div>
-<div class="toc"><dl><dt><span class="section"><a href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_mutexes_locks.upgradable_mutexes_lock_types">Sharable
+<div class="toc"><dl><dt><span class="section"><a href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.sharable_upgradable_locks.upgradable_mutexes_lock_types">Sharable
           Lock And Upgradable Lock Headers</a></span></dt></dl></div>
 <p>
           As with plain mutexes, it's important to release the acquired lock even
@@ -1919,7 +2047,7 @@
         </p>
 <div class="section">
 <div class="titlepage"><div><div><h5 class="title">
-<a name="interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_mutexes_locks.upgradable_mutexes_lock_types"></a><a class="link" href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.upgradable_mutexes.upgradable_mutexes_locks.upgradable_mutexes_lock_types" title="Sharable Lock And Upgradable Lock Headers">Sharable
+<a name="interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.sharable_upgradable_locks.upgradable_mutexes_lock_types"></a><a class="link" href="synchronization_mechanisms.html#interprocess.synchronization_mechanisms.sharable_upgradable_mutexes.sharable_upgradable_locks.upgradable_mutexes_lock_types" title="Sharable Lock And Upgradable Lock Headers">Sharable
           Lock And Upgradable Lock Headers</a>
 </h5></div></div></div>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">interprocess</span><span class="special">/</span><span class="identifier">sync</span><span class="special">/</span><span class="identifier">sharable_lock</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
@@ -1930,17 +2058,15 @@
 <p>
           <code class="computeroutput"><span class="identifier">sharable_lock</span></code> calls <span class="bold"><strong>unlock_sharable()</strong></span> in its destructor, and <code class="computeroutput"><span class="identifier">upgradable_lock</span></code> calls <span class="bold"><strong>unlock_upgradable()</strong></span>
           in its destructor, so the upgradable mutex is always unlocked when an exception
-          occurs. Scoped lock has many constructors to lock, try_lock, timed_lock
-          a mutex or not to lock it at all.
+          occurs.
         </p>
 <pre class="programlisting"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">interprocess</span><span class="special">;</span>
 
-<span class="comment">//Let's create any mutex type:</span>
-<span class="identifier">MutexType</span> <span class="identifier">mutex</span><span class="special">;</span>
+<span class="identifier">SharableOrUpgradableMutex</span> <span class="identifier">sh_or_up_mutex</span><span class="special">;</span>
 
 <span class="special">{</span>
    <span class="comment">//This will call lock_sharable()</span>
-   <span class="identifier">sharable_lock</span><span class="special">&lt;</span><span class="identifier">MutexType</span><span class="special">&gt;</span> <span class="identifier">lock</span><span class="special">(</span><span class="identifier">mutex</span><span class="special">);</span>
+   <span class="identifier">sharable_lock</span><span class="special">&lt;</span><span class="identifier">SharableOrUpgradableMutex</span><span class="special">&gt;</span> <span class="identifier">lock</span><span class="special">(</span><span class="identifier">sh_or_up_mutex</span><span class="special">);</span>
 
    <span class="comment">//Some code</span>
 
@@ -1949,7 +2075,7 @@
 
 <span class="special">{</span>
    <span class="comment">//This won't lock the mutex()</span>
-   <span class="identifier">sharable_lock</span><span class="special">&lt;</span><span class="identifier">MutexType</span><span class="special">&gt;</span> <span class="identifier">lock</span><span class="special">(</span><span class="identifier">mutex</span><span class="special">,</span> <span class="identifier">defer_lock</span><span class="special">);</span>
+   <span class="identifier">sharable_lock</span><span class="special">&lt;</span><span class="identifier">SharableOrUpgradableMutex</span><span class="special">&gt;</span> <span class="identifier">lock</span><span class="special">(</span><span class="identifier">sh_or_up_mutex</span><span class="special">,</span> <span class="identifier">defer_lock</span><span class="special">);</span>
 
    <span class="comment">//Lock it on demand. This will call lock_sharable()</span>
    <span class="identifier">lock</span><span class="special">.</span><span class="identifier">lock</span><span class="special">();</span>
@@ -1961,7 +2087,7 @@
 
 <span class="special">{</span>
    <span class="comment">//This will call try_lock_sharable()</span>
-   <span class="identifier">sharable_lock</span><span class="special">&lt;</span><span class="identifier">MutexType</span><span class="special">&gt;</span> <span class="identifier">lock</span><span class="special">(</span><span class="identifier">mutex</span><span class="special">,</span> <span class="identifier">try_to_lock</span><span class="special">);</span>
+   <span class="identifier">sharable_lock</span><span class="special">&lt;</span><span class="identifier">SharableOrUpgradableMutex</span><span class="special">&gt;</span> <span class="identifier">lock</span><span class="special">(</span><span class="identifier">sh_or_up_mutex</span><span class="special">,</span> <span class="identifier">try_to_lock</span><span class="special">);</span>
 
    <span class="comment">//Check if the mutex has been successfully locked</span>
    <span class="keyword">if</span><span class="special">(</span><span class="identifier">lock</span><span class="special">){</span>
@@ -1974,7 +2100,7 @@
    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">posix_time</span><span class="special">::</span><span class="identifier">ptime</span> <span class="identifier">abs_time</span> <span class="special">=</span> <span class="special">...</span>
 
    <span class="comment">//This will call timed_lock_sharable()</span>
-   <span class="identifier">scoped_lock</span><span class="special">&lt;</span><span class="identifier">MutexType</span><span class="special">&gt;</span> <span class="identifier">lock</span><span class="special">(</span><span class="identifier">mutex</span><span class="special">,</span> <span class="identifier">abs_time</span><span class="special">);</span>
+   <span class="identifier">scoped_lock</span><span class="special">&lt;</span><span class="identifier">SharableOrUpgradableMutex</span><span class="special">&gt;</span> <span class="identifier">lock</span><span class="special">(</span><span class="identifier">sh_or_up_mutex</span><span class="special">,</span> <span class="identifier">abs_time</span><span class="special">);</span>
 
    <span class="comment">//Check if the mutex has been successfully locked</span>
    <span class="keyword">if</span><span class="special">(</span><span class="identifier">lock</span><span class="special">){</span>
@@ -1983,9 +2109,11 @@
    <span class="comment">//If the mutex was locked it will be unlocked</span>
 <span class="special">}</span>
 
+<span class="identifier">UpgradableMutex</span> <span class="identifier">up_mutex</span><span class="special">;</span>
+
 <span class="special">{</span>
    <span class="comment">//This will call lock_upgradable()</span>
-   <span class="identifier">upgradable_lock</span><span class="special">&lt;</span><span class="identifier">MutexType</span><span class="special">&gt;</span> <span class="identifier">lock</span><span class="special">(</span><span class="identifier">mutex</span><span class="special">);</span>
+   <span class="identifier">upgradable_lock</span><span class="special">&lt;</span><span class="identifier">UpgradableMutex</span><span class="special">&gt;</span> <span class="identifier">lock</span><span class="special">(</span><span class="identifier">up_mutex</span><span class="special">);</span>
 
    <span class="comment">//Some code</span>
 
@@ -1994,7 +2122,7 @@
 
 <span class="special">{</span>
    <span class="comment">//This won't lock the mutex()</span>
-   <span class="identifier">upgradable_lock</span><span class="special">&lt;</span><span class="identifier">MutexType</span><span class="special">&gt;</span> <span class="identifier">lock</span><span class="special">(</span><span class="identifier">mutex</span><span class="special">,</span> <span class="identifier">defer_lock</span><span class="special">);</span>
+   <span class="identifier">upgradable_lock</span><span class="special">&lt;</span><span class="identifier">UpgradableMutex</span><span class="special">&gt;</span> <span class="identifier">lock</span><span class="special">(</span><span class="identifier">up_mutex</span><span class="special">,</span> <span class="identifier">defer_lock</span><span class="special">);</span>
 
    <span class="comment">//Lock it on demand. This will call lock_upgradable()</span>
    <span class="identifier">lock</span><span class="special">.</span><span class="identifier">lock</span><span class="special">();</span>
@@ -2006,7 +2134,7 @@
 
 <span class="special">{</span>
    <span class="comment">//This will call try_lock_upgradable()</span>
-   <span class="identifier">upgradable_lock</span><span class="special">&lt;</span><span class="identifier">MutexType</span><span class="special">&gt;</span> <span class="identifier">lock</span><span class="special">(</span><span class="identifier">mutex</span><span class="special">,</span> <span class="identifier">try_to_lock</span><span class="special">);</span>
+   <span class="identifier">upgradable_lock</span><span class="special">&lt;</span><span class="identifier">UpgradableMutex</span><span class="special">&gt;</span> <span class="identifier">lock</span><span class="special">(</span><span class="identifier">up_mutex</span><span class="special">,</span> <span class="identifier">try_to_lock</span><span class="special">);</span>
 
    <span class="comment">//Check if the mutex has been successfully locked</span>
    <span class="keyword">if</span><span class="special">(</span><span class="identifier">lock</span><span class="special">){</span>
@@ -2019,7 +2147,7 @@
    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">posix_time</span><span class="special">::</span><span class="identifier">ptime</span> <span class="identifier">abs_time</span> <span class="special">=</span> <span class="special">...</span>
 
    <span class="comment">//This will call timed_lock_upgradable()</span>
-   <span class="identifier">scoped_lock</span><span class="special">&lt;</span><span class="identifier">MutexType</span><span class="special">&gt;</span> <span class="identifier">lock</span><span class="special">(</span><span class="identifier">mutex</span><span class="special">,</span> <span class="identifier">abs_time</span><span class="special">);</span>
+   <span class="identifier">scoped_lock</span><span class="special">&lt;</span><span class="identifier">UpgradableMutex</span><span class="special">&gt;</span> <span class="identifier">lock</span><span class="special">(</span><span class="identifier">up_mutex</span><span class="special">,</span> <span class="identifier">abs_time</span><span class="special">);</span>
 
    <span class="comment">//Check if the mutex has been successfully locked</span>
    <span class="keyword">if</span><span class="special">(</span><span class="identifier">lock</span><span class="special">){</span>
@@ -2033,6 +2161,17 @@
           and <code class="computeroutput"><a class="link" href="../boost/interprocess/sharable_lock.html" title="Class template sharable_lock">sharable_lock</a></code>
           offer more features and operations, see their reference for more informations
         </p>
+<div class="important"><table border="0" summary="Important">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Important]" src="../../../doc/src/images/important.png"></td>
+<th align="left">Important</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">posix_time</span><span class="special">::</span><span class="identifier">ptime</span></code> absolute time points used by
+            Boost.Interprocess synchronization mechanisms are UTC time points, not
+            local time points
+          </p></td></tr>
+</table></div>
 </div>
 </div>
 <div class="section">
@@ -2217,6 +2356,17 @@
    <span class="identifier">scoped_lock</span><span class="special">&lt;</span><span class="identifier">Mutex</span><span class="special">&gt;</span>      <span class="identifier">e_lock</span><span class="special">(</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">s_lock</span><span class="special">,</span> <span class="identifier">try_to_lock</span><span class="special">));</span>
 <span class="special">}</span>
 </pre>
+<div class="important"><table border="0" summary="Important">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Important]" src="../../../doc/src/images/important.png"></td>
+<th align="left">Important</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+              <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">posix_time</span><span class="special">::</span><span class="identifier">ptime</span></code> absolute time points used by
+              Boost.Interprocess synchronization mechanisms are UTC time points,
+              not local time points
+            </p></td></tr>
+</table></div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h5 class="title">
@@ -2550,7 +2700,7 @@
 <p>
           <span class="bold"><strong>Effects:</strong></span> The calling thread tries to acquire
           exclusive ownership of the file lock waiting if necessary until no other
-          thread has has exclusive or sharable ownership of the file lock or abs_time
+          thread has exclusive or sharable ownership of the file lock or abs_time
           is reached.
         </p>
 <p>
@@ -2602,7 +2752,7 @@
 <p>
           <span class="bold"><strong>Effects:</strong></span> The calling thread tries to acquire
           sharable ownership of the file lock without waiting. If no other thread
-          has has exclusive ownership of the file lock, this succeeds.
+          has exclusive ownership of the file lock, this succeeds.
         </p>
 <p>
           <span class="bold"><strong>Returns:</strong></span> If it can acquire sharable ownership
@@ -2622,7 +2772,7 @@
 <p>
           <span class="bold"><strong>Effects:</strong></span> The calling thread tries to acquire
           sharable ownership of the file lock waiting if necessary until no other
-          thread has has exclusive ownership of the file lock or abs_time is reached.
+          thread has exclusive ownership of the file lock or abs_time is reached.
         </p>
 <p>
           <span class="bold"><strong>Returns:</strong></span> If acquires sharable ownership,
@@ -2653,6 +2803,17 @@
           For more file locking methods, please <code class="computeroutput"><a class="link" href="../boost/interprocess/file_lock.html" title="Class file_lock">file_lock
           reference</a></code>.
         </p>
+<div class="important"><table border="0" summary="Important">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Important]" src="../../../doc/src/images/important.png"></td>
+<th align="left">Important</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+            <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">posix_time</span><span class="special">::</span><span class="identifier">ptime</span></code> absolute time points used by
+            Boost.Interprocess synchronization mechanisms are UTC time points, not
+            local time points
+          </p></td></tr>
+</table></div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -3042,7 +3203,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2005-2010 Ion Gaztanaga<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2005-2011 Ion Gaztanaga<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

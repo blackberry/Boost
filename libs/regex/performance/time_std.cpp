@@ -10,7 +10,7 @@
  */
 
 #include "regex_comparison.hpp"
-#ifndef BOOST_NO_0X_HDR_REGEX
+#ifndef BOOST_NO_CXX11_HDR_REGEX
 #include <iostream>
 #include <boost/timer.hpp>
 #include <regex>

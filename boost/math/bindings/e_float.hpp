@@ -318,6 +318,11 @@ inline e_float atan(const e_float& v)
    return ::ef::atan(v.value());
 }
 
+inline e_float atan2(const e_float& v, const e_float& u)
+{
+   return ::ef::atan2(v.value(), u.value());
+}
+
 inline e_float ldexp(const e_float& v, int e)
 {
    return v.value() * ::ef::pow2(e);
@@ -709,7 +714,7 @@ boost::math::ef::e_float bessel_i0(boost::math::ef::e_float x)
     }
     else                                // x in (15, \infty)
     {
-        boost::math::ef::e_float y = 1 / x - 1 / 15;
+        boost::math::ef::e_float y = 1 / x - boost::math::ef::e_float(1) / 15;
         r = evaluate_polynomial(P2, y) / evaluate_polynomial(Q2, y);
         factor = exp(x) / sqrt(x);
         value = factor * r;

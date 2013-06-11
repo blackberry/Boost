@@ -690,6 +690,95 @@ static void test_call()
   test_call_cref(std::plus<int>());
 }
 
+struct big_aggregating_structure {
+  int disable_small_objects_optimizations[32];
+    
+  big_aggregating_structure()
+  {
+    ++ global_int;
+  }
+    
+  big_aggregating_structure(const big_aggregating_structure&)
+  {
+    ++ global_int;
+  }
+
+  ~big_aggregating_structure()
+  {
+    -- global_int;
+  }
+    
+  void operator()() 
+  {
+    ++ global_int;
+  }
+
+  void operator()(int) 
+  {
+    ++ global_int;
+  }
+};
+
+template <class FunctionT>
+static void test_move_semantics() 
+{
+  typedef FunctionT f1_type;
+
+  big_aggregating_structure obj;
+  
+  f1_type f1 = obj;
+  global_int = 0;
+  f1();
+  
+  BOOST_CHECK(!f1.empty());
+  BOOST_CHECK(global_int == 1);
+  
+#ifndef BOOST_NO_RVALUE_REFERENCES
+  // Testing rvalue constructors
+  f1_type f2(static_cast<f1_type&&>(f1));
+  BOOST_CHECK(f1.empty());
+  BOOST_CHECK(!f2.empty());
+  BOOST_CHECK(global_int == 1);
+  f2();
+  BOOST_CHECK(global_int == 2);
+  
+  f1_type f3(static_cast<f1_type&&>(f2));
+  BOOST_CHECK(f1.empty());
+  BOOST_CHECK(f2.empty());
+  BOOST_CHECK(!f3.empty());
+  BOOST_CHECK(global_int == 2);
+  f3();
+  BOOST_CHECK(global_int == 3);
+    
+  // Testing move assignment
+  f1_type f4;
+  BOOST_CHECK(f4.empty());
+  f4 = static_cast<f1_type&&>(f3);
+  BOOST_CHECK(f1.empty());
+  BOOST_CHECK(f2.empty());
+  BOOST_CHECK(f3.empty());
+  BOOST_CHECK(!f4.empty());
+  BOOST_CHECK(global_int == 3);
+  f4();
+  BOOST_CHECK(global_int == 4);
+  
+  // Testing self move assignment
+  f4 = static_cast<f1_type&&>(f4);
+  BOOST_CHECK(!f4.empty());
+  BOOST_CHECK(global_int == 4);
+
+  // Testing, that no memory leaked when assigning to nonempty function
+  f4 = obj;
+  BOOST_CHECK(!f4.empty());
+  BOOST_CHECK(global_int == 4);
+  f1_type f5 = obj;
+  BOOST_CHECK(global_int == 5);
+  f4 = static_cast<f1_type&&>(f5);
+  BOOST_CHECK(global_int == 4);
+  
+#endif  
+}
+
 int test_main(int, char* [])
 {
   test_zero_args();
@@ -702,6 +791,8 @@ int test_main(int, char* [])
   test_exception();
   test_implicit();
   test_call();
+  test_move_semantics<function<void()> >();
+  test_move_semantics<boost::function0<void> >();
 
   return 0;
 }

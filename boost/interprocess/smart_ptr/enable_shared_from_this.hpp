@@ -3,7 +3,7 @@
 // This file is the adaptation for Interprocess of boost/enable_shared_from_this.hpp
 //
 // (C) Copyright Peter Dimov 2002
-// (C) Copyright Ion Gaztanaga 2006. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2006-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -53,14 +53,14 @@ class enable_shared_from_this
    shared_ptr<T, A, D> shared_from_this()
    {
       shared_ptr<T, A, D> p(_internal_weak_this);
-      BOOST_ASSERT(ipcdetail::get_pointer(p.get()) == this);
+      BOOST_ASSERT(ipcdetail::to_raw_pointer(p.get()) == this);
       return p;
    }
 
    shared_ptr<T const, A, D> shared_from_this() const
    {
       shared_ptr<T const, A, D> p(_internal_weak_this);
-      BOOST_ASSERT(ipcdetail::get_pointer(p.get()) == this);
+      BOOST_ASSERT(ipcdetail::to_raw_pointer(p.get()) == this);
       return p;
    }
 

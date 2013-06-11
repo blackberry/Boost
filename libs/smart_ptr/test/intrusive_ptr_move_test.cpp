@@ -30,8 +30,7 @@
 #include <boost/intrusive_ptr.hpp>
 #include <boost/detail/atomic_count.hpp>
 #include <boost/config.hpp>
-#include <algorithm>
-#include <functional>
+#include <utility>
 
 #if defined( BOOST_HAS_RVALUE_REFS )
 

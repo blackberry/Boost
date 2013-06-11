@@ -45,7 +45,7 @@ BOOST_UBLAS_TEST_DEF( test_vector_iteration )
             ++it
     ) {
         BOOST_UBLAS_DEBUG_TRACE( "*it = " << *it << " ==> " << v(ix) );
-        BOOST_UBLAS_TEST_CHECK( std::fabs(*it - v(ix)) <= TOL );
+        BOOST_UBLAS_TEST_CHECK( std::abs(*it - v(ix)) <= TOL );
         ++ix;
     }
 }
@@ -74,7 +74,7 @@ BOOST_UBLAS_TEST_DEF( test_vector_const_iteration )
             ++it
     ) {
         BOOST_UBLAS_DEBUG_TRACE( "*it = " << *it << " ==> " << v(ix) );
-        BOOST_UBLAS_TEST_CHECK( std::fabs(*it - v(ix)) <= TOL );
+        BOOST_UBLAS_TEST_CHECK( std::abs(*it - v(ix)) <= TOL );
         ++ix;
     }
 }
@@ -112,7 +112,7 @@ BOOST_UBLAS_TEST_DEF( test_row_major_matrix_iteration )
                 ++inner_it
         ) {
             BOOST_UBLAS_DEBUG_TRACE( "*it = " << *inner_it << " ==> " << A(row,col) );
-            BOOST_UBLAS_TEST_CHECK( std::fabs(*inner_it - A(row,col)) <= TOL );
+            BOOST_UBLAS_TEST_CHECK( std::abs(*inner_it - A(row,col)) <= TOL );
 
             ++col;
         }
@@ -154,7 +154,7 @@ BOOST_UBLAS_TEST_DEF( test_col_major_matrix_iteration )
                 ++inner_it
         ) {
             BOOST_UBLAS_DEBUG_TRACE( "*it = " << *inner_it << " ==> " << A(row,col) );
-            BOOST_UBLAS_TEST_CHECK( std::fabs(*inner_it - A(row,col)) <= TOL );
+            BOOST_UBLAS_TEST_CHECK( std::abs(*inner_it - A(row,col)) <= TOL );
 
             ++row;
         }

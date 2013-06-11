@@ -72,7 +72,7 @@ time2_demo contained this comment:
 
 namespace boost_ex {
     using boost::ratio;
-    
+
 namespace chrono {
 
   template <class Rep, class Period = ratio<1> >
@@ -387,22 +387,22 @@ namespace chrono {
     struct chrono_numeric_limits {
         static T lowest() throw() {return (std::numeric_limits<T>::min)  ();}
     };
-    
+
     template <class T>
     struct chrono_numeric_limits<T,true> {
         static T lowest() throw() {return (std::numeric_limits<T>::min)  ();}
     };
-    
+
     template <>
     struct chrono_numeric_limits<float,true> {
         static float lowest() throw() {return -(std::numeric_limits<float>::max) ();}
     };
-    
+
     template <>
     struct chrono_numeric_limits<double,true> {
         static double lowest() throw() {return -(std::numeric_limits<double>::max) ();}
     };
-    
+
     template <>
     struct chrono_numeric_limits<long double,true> {
         static long double lowest() throw() {return -(std::numeric_limits<long double>::max)();}
@@ -410,14 +410,14 @@ namespace chrono {
 
     template <class T>
     struct numeric_limits : chrono_numeric_limits<typename boost::remove_cv<T>::type> {};
-    
-  }        
+
+  }
   template <class Rep>
   struct duration_values
   {
       static  Rep zero() {return Rep(0);}
       static  Rep max BOOST_PREVENT_MACRO_SUBSTITUTION ()  {return (std::numeric_limits<Rep>::max)();}
-      
+
       static  Rep min BOOST_PREVENT_MACRO_SUBSTITUTION ()  {return detail::numeric_limits<Rep>::lowest();}
   };
 
@@ -443,7 +443,7 @@ struct common_type<boost_ex::chrono::duration<Rep1, Period1>,
 //----------------------------------------------------------------------------//
 
 namespace boost_ex {
-    
+
 namespace chrono {
 
     template <class Rep, class Period>
@@ -464,12 +464,12 @@ namespace chrono {
          explicit duration(const Rep2& r
 #if (defined(BOOST_MSVC) && (BOOST_MSVC == 1500)) || defined(__IBMCPP__)
 #else
-	 , typename boost::enable_if <
-                    boost::mpl::and_ <   
+   , typename boost::enable_if <
+                    boost::mpl::and_ <
                         boost::is_convertible<Rep2, rep>,
                         boost::mpl::or_ <
                             treat_as_floating_point<rep>,
-                            boost::mpl::and_ <    
+                            boost::mpl::and_ <
                                 boost::mpl::not_ < treat_as_floating_point<rep> >,
                                 boost::mpl::not_ < treat_as_floating_point<Rep2> >
                             >
@@ -477,7 +477,7 @@ namespace chrono {
                     >
                 >::type* = 0
 #endif
-	 )
+   )
                   : rep_(r) { }
         ~duration() {} //= default;
         duration(const duration& rhs) : rep_(rhs.rep_) {} // = default;
@@ -492,17 +492,17 @@ namespace chrono {
          duration(const duration<Rep2, Period2>& d
 #if (defined(BOOST_MSVC) && (BOOST_MSVC == 1500)) || defined(__IBMCPP__)
 #else
-		, typename boost::enable_if <
-                    boost::mpl::or_ < 
+    , typename boost::enable_if <
+                    boost::mpl::or_ <
                         treat_as_floating_point<rep>,
-                        boost::mpl::and_ < 
+                        boost::mpl::and_ <
                             boost::mpl::bool_ < boost::ratio_divide<Period2, period>::type::den == 1>,
                             boost::mpl::not_ < treat_as_floating_point<Rep2> >
                         >
                     >
                 >::type* = 0
 #endif
-		)
+    )
 //~ #ifdef        __GNUC__
             // GCC 4.2.4 refused to accept a definition at this point,
             // yet both VC++ 9.0 SP1 and Intel ia32 11.0 accepted the definition
@@ -580,13 +580,13 @@ namespace chrono {
     duration<typename boost::common_type<Rep1, Rep2>::type, Period>
 #else
 typename boost::enable_if <
-    boost::mpl::and_ < 
-        boost::is_convertible<Rep1, typename boost::common_type<Rep1, Rep2>::type>, 
+    boost::mpl::and_ <
+        boost::is_convertible<Rep1, typename boost::common_type<Rep1, Rep2>::type>,
         boost::is_convertible<Rep2, typename boost::common_type<Rep1, Rep2>::type>
     >,
     duration<typename boost::common_type<Rep1, Rep2>::type, Period>
   >::type
-#endif  
+#endif
   operator*(const duration<Rep1, Period>& d, const Rep2& s)
   {
       typedef typename boost::common_type<Rep1, Rep2>::type CR;
@@ -601,13 +601,13 @@ typename boost::enable_if <
     duration<typename boost::common_type<Rep1, Rep2>::type, Period>
 #else
   typename boost::enable_if <
-    boost::mpl::and_ < 
+    boost::mpl::and_ <
         boost::is_convertible<Rep1, typename boost::common_type<Rep1, Rep2>::type>,
         boost::is_convertible<Rep2, typename boost::common_type<Rep1, Rep2>::type>
     >,
     duration<typename boost::common_type<Rep1, Rep2>::type, Period>
   >::type
-#endif  
+#endif
   operator*(const Rep1& s, const duration<Rep2, Period>& d)
   {
       return d * s;
@@ -788,12 +788,12 @@ typename boost::enable_if <
     ToDuration
 #else
   typename boost::enable_if <boost_ex::chrono::detail::is_duration<ToDuration>, ToDuration>::type
-#endif  
+#endif
   duration_cast(const duration<Rep, Period>& fd)
   {
       return boost_ex::chrono::detail::duration_cast<duration<Rep, Period>, ToDuration>()(fd);
   }
 
-} 
+}
 }
 #endif // BOOST_EX_CHRONO_DURATION_HPP

@@ -5,8 +5,8 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../ratio.html" title="Chapter&#160;21.&#160;Boost.Ratio 1.0.1">
-<link rel="prev" href="../ratio.html" title="Chapter&#160;21.&#160;Boost.Ratio 1.0.1">
+<link rel="up" href="../ratio.html" title="Chapter&#160;22.&#160;Boost.Ratio 2.0.0">
+<link rel="prev" href="../ratio.html" title="Chapter&#160;22.&#160;Boost.Ratio 2.0.0">
 <link rel="next" href="reference.html" title="Reference">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -321,22 +321,19 @@
         For each <code class="computeroutput"><span class="identifier">ratio</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">,</span> <span class="identifier">D</span><span class="special">&gt;</span></code> there exists a <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">ratio</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">,</span>
         <span class="identifier">D</span><span class="special">&gt;,</span>
         <span class="identifier">CharT</span><span class="special">&gt;</span></code>
-        for which you can query two strings: <code class="computeroutput"><span class="identifier">short_name</span></code>
-        and <code class="computeroutput"><span class="identifier">long_name</span></code>. For those
-        <code class="computeroutput"><span class="identifier">ratio</span></code>'s that correspond to
-        an <a href="http://en.wikipedia.org/wiki/SI_prefix#List_of_SI_prefixes" target="_top">SI
-        prefix</a> long_name corresponds to the internationally recognized prefix,
-        stored as a <code class="computeroutput"><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">CharT</span><span class="special">&gt;</span></code>. For example <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">mega</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;::</span><span class="identifier">long_name</span><span class="special">()</span></code>
+        for which you can query two strings: <code class="computeroutput"><span class="identifier">symbol</span></code>
+        and <code class="computeroutput"><span class="identifier">prefix</span></code>. For those <code class="computeroutput"><span class="identifier">ratio</span></code>'s that correspond to an <a href="http://en.wikipedia.org/wiki/SI_prefix#List_of_SI_prefixes" target="_top">SI
+        prefix</a> prefix corresponds to the internationally recognized prefix,
+        stored as a <code class="computeroutput"><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">CharT</span><span class="special">&gt;</span></code>. For example <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">mega</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;::</span><span class="identifier">prefix</span><span class="special">()</span></code>
         returns <code class="computeroutput"><span class="identifier">string</span><span class="special">(</span><span class="string">"mega"</span><span class="special">)</span></code>.
         For those <code class="computeroutput"><span class="identifier">ratio</span></code>s that correspond
         to an <a href="http://en.wikipedia.org/wiki/SI_prefix#List_of_SI_prefixes" target="_top">SI
-        prefix</a> <code class="computeroutput"><span class="identifier">short_name</span></code>
-        corresponds to the internationally recognized symbol, stored as a <code class="computeroutput"><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">CharT</span><span class="special">&gt;</span></code>.
-        For example, <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">mega</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;::</span><span class="identifier">short_name</span><span class="special">()</span></code>
+        prefix</a> <code class="computeroutput"><span class="identifier">symbol</span></code> corresponds
+        to the internationally recognized symbol, stored as a <code class="computeroutput"><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">CharT</span><span class="special">&gt;</span></code>. For example, <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">mega</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;::</span><span class="identifier">symbol</span><span class="special">()</span></code>
         returns <code class="computeroutput"><span class="identifier">string</span><span class="special">(</span><span class="string">"M"</span><span class="special">)</span></code>.
         For all other <code class="computeroutput"><span class="identifier">ratio</span></code>s, both
-        <code class="computeroutput"><span class="identifier">long_name</span><span class="special">()</span></code>
-        and <code class="computeroutput"><span class="identifier">short_name</span><span class="special">()</span></code>
+        <code class="computeroutput"><span class="identifier">prefix</span><span class="special">()</span></code>
+        and <code class="computeroutput"><span class="identifier">symbol</span><span class="special">()</span></code>
         return a <code class="computeroutput"><span class="identifier">basic_string</span></code> containing
         "[<code class="computeroutput"><span class="identifier">ratio</span><span class="special">::</span><span class="identifier">num</span><span class="special">/</span><span class="identifier">ratio</span><span class="special">::</span><span class="identifier">den</span></code>]".
       </p>
@@ -367,8 +364,8 @@
         is 16 bits, and otherwise UTF-32.
       </p>
 <p>
-        The <code class="computeroutput"><span class="identifier">short_name</span></code> (Greek mu
-        or &#956;) for micro is defined by <a href="http://www.unicode.org/charts/PDF/U0080.pdf" target="_top">Unicode</a>
+        The <code class="computeroutput"><span class="identifier">symbol</span></code> (Greek mu or &#956;)
+        for micro is defined by <a href="http://www.unicode.org/charts/PDF/U0080.pdf" target="_top">Unicode</a>
         to be U+00B5.
       </p>
 <p>
@@ -382,31 +379,31 @@
     <span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">std</span><span class="special">;</span>
     <span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">;</span>
 
-    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"ratio_string&lt;deca, char&gt;::long_name() = "</span>
-         <span class="special">&lt;&lt;</span>  <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">deca</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;::</span><span class="identifier">long_name</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>
-    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"ratio_string&lt;deca, char&gt;::short_name() = "</span>
-         <span class="special">&lt;&lt;</span>  <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">deca</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;::</span><span class="identifier">short_name</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>
+    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"ratio_string&lt;deca, char&gt;::prefix() = "</span>
+         <span class="special">&lt;&lt;</span>  <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">deca</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;::</span><span class="identifier">prefix</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>
+    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"ratio_string&lt;deca, char&gt;::symbol() = "</span>
+         <span class="special">&lt;&lt;</span>  <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">deca</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;::</span><span class="identifier">symbol</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>
 
-    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"ratio_string&lt;giga, char&gt;::long_name() = "</span>
-         <span class="special">&lt;&lt;</span>  <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">giga</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;::</span><span class="identifier">long_name</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>
-    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"ratio_string&lt;giga, char&gt;::short_name() = "</span>
-         <span class="special">&lt;&lt;</span>  <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">giga</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;::</span><span class="identifier">short_name</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>
+    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"ratio_string&lt;giga, char&gt;::prefix() = "</span>
+         <span class="special">&lt;&lt;</span>  <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">giga</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;::</span><span class="identifier">prefix</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>
+    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"ratio_string&lt;giga, char&gt;::symbol() = "</span>
+         <span class="special">&lt;&lt;</span>  <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">giga</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;::</span><span class="identifier">symbol</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>
 
-    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"ratio_string&lt;ratio&lt;4, 6&gt;, char&gt;::long_name() = "</span>
-         <span class="special">&lt;&lt;</span>  <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">ratio</span><span class="special">&lt;</span><span class="number">4</span><span class="special">,</span> <span class="number">6</span><span class="special">&gt;,</span> <span class="keyword">char</span><span class="special">&gt;::</span><span class="identifier">long_name</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>
-    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"ratio_string&lt;ratio&lt;4, 6&gt;, char&gt;::short_name() = "</span>
-         <span class="special">&lt;&lt;</span>  <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">ratio</span><span class="special">&lt;</span><span class="number">4</span><span class="special">,</span> <span class="number">6</span><span class="special">&gt;,</span> <span class="keyword">char</span><span class="special">&gt;::</span><span class="identifier">short_name</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>
+    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"ratio_string&lt;ratio&lt;4, 6&gt;, char&gt;::prefix() = "</span>
+         <span class="special">&lt;&lt;</span>  <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">ratio</span><span class="special">&lt;</span><span class="number">4</span><span class="special">,</span> <span class="number">6</span><span class="special">&gt;,</span> <span class="keyword">char</span><span class="special">&gt;::</span><span class="identifier">prefix</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>
+    <span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"ratio_string&lt;ratio&lt;4, 6&gt;, char&gt;::symbol() = "</span>
+         <span class="special">&lt;&lt;</span>  <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">ratio</span><span class="special">&lt;</span><span class="number">4</span><span class="special">,</span> <span class="number">6</span><span class="special">&gt;,</span> <span class="keyword">char</span><span class="special">&gt;::</span><span class="identifier">symbol</span><span class="special">()</span> <span class="special">&lt;&lt;</span> <span class="char">'\n'</span><span class="special">;</span>
 <span class="special">}</span>
 </pre>
 <p>
         The output will be
       </p>
-<pre class="programlisting"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">deca</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;::</span><span class="identifier">long_name</span><span class="special">()</span> <span class="special">=</span> <span class="identifier">deca</span>
-<span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">deca</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;::</span><span class="identifier">short_name</span><span class="special">()</span> <span class="special">=</span> <span class="identifier">da</span>
-<span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">giga</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;::</span><span class="identifier">long_name</span><span class="special">()</span> <span class="special">=</span> <span class="identifier">giga</span>
-<span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">giga</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;::</span><span class="identifier">short_name</span><span class="special">()</span> <span class="special">=</span> <span class="identifier">G</span>
-<span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">ratio</span><span class="special">&lt;</span><span class="number">4</span><span class="special">,</span> <span class="number">6</span><span class="special">&gt;,</span> <span class="keyword">char</span><span class="special">&gt;::</span><span class="identifier">long_name</span><span class="special">()</span> <span class="special">=</span> <span class="special">[</span><span class="number">2</span><span class="special">/</span><span class="number">3</span><span class="special">]</span>
-<span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">ratio</span><span class="special">&lt;</span><span class="number">4</span><span class="special">,</span> <span class="number">6</span><span class="special">&gt;,</span> <span class="keyword">char</span><span class="special">&gt;::</span><span class="identifier">short_name</span><span class="special">()</span> <span class="special">=</span> <span class="special">[</span><span class="number">2</span><span class="special">/</span><span class="number">3</span><span class="special">]</span>
+<pre class="programlisting"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">deca</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;::</span><span class="identifier">prefix</span><span class="special">()</span> <span class="special">=</span> <span class="identifier">deca</span>
+<span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">deca</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;::</span><span class="identifier">symbol</span><span class="special">()</span> <span class="special">=</span> <span class="identifier">da</span>
+<span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">giga</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;::</span><span class="identifier">prefix</span><span class="special">()</span> <span class="special">=</span> <span class="identifier">giga</span>
+<span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">giga</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;::</span><span class="identifier">symbol</span><span class="special">()</span> <span class="special">=</span> <span class="identifier">G</span>
+<span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">ratio</span><span class="special">&lt;</span><span class="number">4</span><span class="special">,</span> <span class="number">6</span><span class="special">&gt;,</span> <span class="keyword">char</span><span class="special">&gt;::</span><span class="identifier">prefix</span><span class="special">()</span> <span class="special">=</span> <span class="special">[</span><span class="number">2</span><span class="special">/</span><span class="number">3</span><span class="special">]</span>
+<span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">ratio</span><span class="special">&lt;</span><span class="number">4</span><span class="special">,</span> <span class="number">6</span><span class="special">&gt;,</span> <span class="keyword">char</span><span class="special">&gt;::</span><span class="identifier">symbol</span><span class="special">()</span> <span class="special">=</span> <span class="special">[</span><span class="number">2</span><span class="special">/</span><span class="number">3</span><span class="special">]</span>
 </pre>
 <h5>
 <a name="ratio.users_guide.tutorial.h2"></a>
@@ -710,8 +707,8 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2008 Howard Hinnant<br>Copyright &#169; 2006, 2008 Beman Dawes<br>Copyright &#169; 2009-2011 Vicente J. Botet
-      Escriba<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008 Howard Hinnant<br>Copyright &#169; 2006, 2008 Beman Dawes<br>Copyright &#169; 2009-2012 Vicente
+      J. Botet Escriba<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

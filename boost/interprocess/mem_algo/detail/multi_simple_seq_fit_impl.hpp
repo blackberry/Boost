@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -18,7 +18,7 @@
 #include <boost/interprocess/detail/config_begin.hpp>
 #include <boost/interprocess/detail/workaround.hpp>
 
-#include <boost/pointer_to_other.hpp>
+#include <boost/intrusive/pointer_traits.hpp>
 
 #include <boost/interprocess/interprocess_fwd.hpp>
 #include <boost/interprocess/containers/allocation_type.hpp>
@@ -31,6 +31,7 @@
 #include <boost/type_traits/type_with_alignment.hpp>
 #include <boost/interprocess/detail/min_max.hpp>
 #include <boost/interprocess/sync/scoped_lock.hpp>
+#include <boost/intrusive/pointer_traits.hpp>
 #include <algorithm>
 #include <utility>
 #include <cstring>
@@ -68,14 +69,15 @@ class simple_seq_fit_impl
    /*!Pointer type to be used with the rest of the Interprocess framework*/
    typedef VoidPointer        void_pointer;
 
-   typedef typename std::iterator_traits<char_ptr>::difference_type difference_type;
+   typedef typename boost::intrusive::pointer_traits<char_ptr>::difference_type difference_type;
    typedef typename boost::make_unsigned<difference_type>::type size_type;
 
 
    private:
    struct block_ctrl;
-   typedef typename boost::
-      pointer_to_other<void_pointer, block_ctrl>::type block_ctrl_ptr;
+   typedef typename boost::intrusive::
+      pointer_traits<void_pointer>::template
+         rebind_pointer<block_ctrl>::type                         block_ctrl_ptr;
 
    /*!Block control structure*/
    struct block_ctrl
@@ -222,13 +224,13 @@ class simple_seq_fit_impl
    /*!Makes a new memory portion available for allocation*/
    void priv_add_segment(void *addr, size_type size);
 
-   enum { Alignment      = ::boost::alignment_of<boost::ipcdetail::max_align>::value  };
-   enum { BlockCtrlBytes = ipcdetail::ct_rounded_size<sizeof(block_ctrl), Alignment>::value  };
-   enum { BlockCtrlSize  = BlockCtrlBytes/Alignment   };
-   enum { MinBlockSize   = BlockCtrlSize + Alignment  };
+   static const std::size_t Alignment = ::boost::alignment_of<boost::ipcdetail::max_align>::value;
+   static const std::size_t BlockCtrlBytes = ipcdetail::ct_rounded_size<sizeof(block_ctrl), Alignment>::value;
+   static const std::size_t BlockCtrlSize  = BlockCtrlBytes/Alignment;
+   static const std::size_t MinBlockSize   = BlockCtrlSize + Alignment;
 
    public:
-   enum {   PayloadPerAllocation = BlockCtrlBytes  };
+   static const std::size_t PayloadPerAllocation = BlockCtrlBytes;
 };
 
 template<class MutexFamily, class VoidPointer>
@@ -319,7 +321,7 @@ inline bool simple_seq_fit_impl<MutexFamily, VoidPointer>::
    boost::interprocess::scoped_lock<interprocess_mutex> guard(m_header);
    //-----------------------
    return m_header.m_allocated == 0 &&
-          ipcdetail::get_pointer(m_header.m_root.m_next->m_next) == &m_header.m_root;
+          ipcdetail::to_raw_pointer(m_header.m_root.m_next->m_next) == &m_header.m_root;
 }
 
 template<class MutexFamily, class VoidPointer>
@@ -328,7 +330,7 @@ inline void simple_seq_fit_impl<MutexFamily, VoidPointer>::clear_free_memory()
    //-----------------------
    boost::interprocess::scoped_lock<interprocess_mutex> guard(m_header);
    //-----------------------
-   block_ctrl *block = ipcdetail::get_pointer(m_header.m_root.m_next);
+   block_ctrl *block = ipcdetail::to_raw_pointer(m_header.m_root.m_next);
 
    //Iterate through all free portions
    do{
@@ -336,7 +338,7 @@ inline void simple_seq_fit_impl<MutexFamily, VoidPointer>::clear_free_memory()
       std::memset( reinterpret_cast<char*>(block) + BlockCtrlBytes
                  , 0
                  , block->m_size*Alignment - BlockCtrlBytes);
-      block = ipcdetail::get_pointer(block->m_next);
+      block = ipcdetail::to_raw_pointer(block->m_next);
    }
    while(block != &m_header.m_root);
 }
@@ -348,14 +350,14 @@ inline bool simple_seq_fit_impl<MutexFamily, VoidPointer>::
    //-----------------------
    boost::interprocess::scoped_lock<interprocess_mutex> guard(m_header);
    //-----------------------
-   block_ctrl *block = ipcdetail::get_pointer(m_header.m_root.m_next);
+   block_ctrl *block = ipcdetail::to_raw_pointer(m_header.m_root.m_next);
 
    size_type free_memory = 0;
 
    //Iterate through all blocks obtaining their size
    do{
       //Free blocks's next must be always valid
-      block_ctrl *next = ipcdetail::get_pointer(block->m_next);
+      block_ctrl *next = ipcdetail::to_raw_pointer(block->m_next);
       if(!next){
          return false;
       }
@@ -566,7 +568,7 @@ std::pair<void *, bool> simple_seq_fit_impl<MutexFamily, VoidPointer>::
 
    //Get the root and the first memory block
    block_ctrl *prev                 = &m_header.m_root;
-   block_ctrl *block                = ipcdetail::get_pointer(prev->m_next);
+   block_ctrl *block                = ipcdetail::to_raw_pointer(prev->m_next);
    block_ctrl *root                 = &m_header.m_root;
    block_ctrl *biggest_block        = 0;
    block_ctrl *prev_biggest_block   = 0;
@@ -595,7 +597,7 @@ std::pair<void *, bool> simple_seq_fit_impl<MutexFamily, VoidPointer>::
          if(addr) return return_type(addr, false);
          //Bad luck, let's check next block
          prev  = block;
-         block = ipcdetail::get_pointer(block->m_next);
+         block = ipcdetail::to_raw_pointer(block->m_next);
       }
 
       //Bad luck finding preferred_size, now if we have any biggest_block
@@ -652,12 +654,12 @@ inline
    //Take the address where the previous block should go
    block_ctrl *root           = &m_header.m_root;
    block_ctrl *prev_2_block   = root;
-   block_ctrl *prev_block = ipcdetail::get_pointer(root->m_next);
+   block_ctrl *prev_block = ipcdetail::to_raw_pointer(root->m_next);
    while((reinterpret_cast<char*>(prev_block) + prev_block->m_size*Alignment)
             != (reinterpret_cast<char*>(ptr))
          && prev_block != root){
       prev_2_block = prev_block;
-      prev_block = ipcdetail::get_pointer(prev_block->m_next);
+      prev_block = ipcdetail::to_raw_pointer(prev_block->m_next);
    }
 
    if(prev_block == root || !prev_block->m_next)
@@ -725,8 +727,8 @@ inline bool simple_seq_fit_impl<MutexFamily, VoidPointer>::
    
    //Find the previous free block of next_block
    block_ctrl *prev = &m_header.m_root;
-   while(ipcdetail::get_pointer(prev->m_next) != next_block){
-      prev = ipcdetail::get_pointer(prev->m_next);
+   while(ipcdetail::to_raw_pointer(prev->m_next) != next_block){
+      prev = ipcdetail::to_raw_pointer(prev->m_next);
    }
 
    //Now insert merged block in the free list
@@ -940,15 +942,15 @@ void simple_seq_fit_impl<MutexFamily, VoidPointer>::priv_deallocate(void* addr)
    //This ordering comparison must be done with original pointers
    //types since their mapping to raw pointers can be different
    //in each process
-   while((ipcdetail::get_pointer(pos) != &m_header.m_root) && (block > pos)){
+   while((ipcdetail::to_raw_pointer(pos) != &m_header.m_root) && (block > pos)){
       prev = pos;
       pos = pos->m_next;
    }
 
    //Try to combine with upper block
-   if ((reinterpret_cast<char*>(ipcdetail::get_pointer(block))
+   if ((reinterpret_cast<char*>(ipcdetail::to_raw_pointer(block))
             + Alignment*block->m_size) == 
-        reinterpret_cast<char*>(ipcdetail::get_pointer(pos))){
+        reinterpret_cast<char*>(ipcdetail::to_raw_pointer(pos))){
 
       block->m_size += pos->m_size;
       block->m_next  = pos->m_next;
@@ -958,9 +960,9 @@ void simple_seq_fit_impl<MutexFamily, VoidPointer>::priv_deallocate(void* addr)
    }
 
    //Try to combine with lower block
-   if ((reinterpret_cast<char*>(ipcdetail::get_pointer(prev))
+   if ((reinterpret_cast<char*>(ipcdetail::to_raw_pointer(prev))
             + Alignment*prev->m_size) == 
-        reinterpret_cast<char*>(ipcdetail::get_pointer(block))){
+        reinterpret_cast<char*>(ipcdetail::to_raw_pointer(block))){
       prev->m_size += block->m_size;
       prev->m_next  = block->m_next;
    }

@@ -97,17 +97,6 @@ lib boost_unit_test_framework
     <link>shared:<define>BOOST_TEST_DYN_LINK=1
   ;
 
-lib boost_test
-  : # sources
-    $(PRG_EXEC_MON_SOURCES).cpp 
-    $(TEST_EXEC_MON_SOURCES).cpp
-    $(UTF_SOURCES).cpp
-  : # requirements
-  : # default build
-  : # usage-requirements
-    <link>shared:<define>BOOST_TEST_DYN_LINK=1
-  ;
-
 alias minimal : : : :
                    <toolset>msvc:<asynch-exceptions>on
        ;
@@ -118,6 +107,5 @@ alias included : : : :
 
 boost-install boost_prg_exec_monitor 
               boost_test_exec_monitor
-              boost_unit_test_framework
-              boost_test ;
+              boost_unit_test_framework ;
           

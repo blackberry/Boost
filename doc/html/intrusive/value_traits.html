@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../intrusive.html" title="Chapter&#160;12.&#160;Boost.Intrusive">
+<link rel="up" href="../intrusive.html" title="Chapter&#160;13.&#160;Boost.Intrusive">
 <link rel="prev" href="node_algorithms.html" title="Node algorithms with custom NodeTraits">
 <link rel="next" href="thread_safety.html" title="Thread safety guarantees">
 </head>
@@ -70,7 +70,7 @@
         <code class="computeroutput"><span class="identifier">ValueTraits</span></code> has the following
         interface:
       </p>
-<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">pointer_to_other</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">intrusive</span><span class="special">/</span><span class="identifier">pointer_traits</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">intrusive</span><span class="special">/</span><span class="identifier">link_mode</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 
 <span class="keyword">struct</span> <span class="identifier">my_value_traits</span>
@@ -79,8 +79,10 @@
    <span class="keyword">typedef</span> <span class="identifier">implementation_defined</span>                                    <span class="identifier">value_type</span><span class="special">;</span>
    <span class="keyword">typedef</span> <span class="identifier">node_traits</span><span class="special">::</span><span class="identifier">node_ptr</span>                                     <span class="identifier">node_ptr</span><span class="special">;</span>
    <span class="keyword">typedef</span> <span class="identifier">node_traits</span><span class="special">::</span><span class="identifier">const_node_ptr</span>                               <span class="identifier">const_node_ptr</span><span class="special">;</span>
-   <span class="keyword">typedef</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">pointer_to_other</span><span class="special">&lt;</span><span class="identifier">node_ptr</span><span class="special">,</span> <span class="identifier">value_type</span><span class="special">&gt;::</span><span class="identifier">type</span>       <span class="identifier">pointer</span><span class="special">;</span>
-   <span class="keyword">typedef</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">pointer_to_other</span><span class="special">&lt;</span><span class="identifier">node_ptr</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">value_type</span><span class="special">&gt;::</span><span class="identifier">type</span> <span class="identifier">const_pointer</span><span class="special">;</span>
+   <span class="keyword">typedef</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">intrusive</span><span class="special">::</span><span class="identifier">pointer_traits</span><span class="special">&lt;</span><span class="identifier">node_ptr</span><span class="special">&gt;::</span><span class="identifier">rebind_traits</span>
+      <span class="special">&lt;</span><span class="identifier">value_type</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">::</span><span class="identifier">pointer</span>                                    <span class="identifier">pointer</span><span class="special">;</span>
+   <span class="keyword">typedef</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">intrusive</span><span class="special">::</span><span class="identifier">pointer_traits</span><span class="special">&lt;</span><span class="identifier">node_ptr</span><span class="special">&gt;::</span><span class="identifier">rebind_traits</span>
+      <span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">value_type</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">::</span><span class="identifier">pointer</span>                              <span class="identifier">const_pointer</span><span class="special">;</span>
 
    <span class="keyword">static</span> <span class="keyword">const</span> <span class="identifier">link_mode_type</span> <span class="identifier">link_mode</span> <span class="special">=</span> <span class="identifier">some_linking_policy</span><span class="special">;</span>
 
@@ -147,9 +149,9 @@
             <code class="computeroutput"><span class="identifier">pointer</span></code> must be <code class="computeroutput"><span class="identifier">value_type</span><span class="special">*</span></code>.
             If <code class="computeroutput"><span class="identifier">node_ptr</span></code> is <code class="computeroutput"><span class="identifier">smart_ptr</span><span class="special">&lt;</span><span class="identifier">node_traits</span><span class="special">::</span><span class="identifier">node</span><span class="special">&gt;</span></code>,
             <code class="computeroutput"><span class="identifier">pointer</span></code> must be <code class="computeroutput"><span class="identifier">smart_ptr</span><span class="special">&lt;</span><span class="identifier">value_type</span><span class="special">&gt;</span></code>.
-            This can be generically achieved using <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">pointer_to_other</span></code>
-            utility from <span class="bold"><strong>Boost SmartPointers</strong></span> defined
-            in <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">pointer_to_other</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>.
+            This can be generically achieved using <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">intrusive</span><span class="special">::</span><span class="identifier">pointer_traits</span></code>
+            (portable implementation of C++11 <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">pointer_traits</span></code>)
+            or <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">pointer_to_other</span></code> utility from <span class="bold"><strong>Boost SmartPointers</strong></span> defined in <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">pointer_to_other</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>.
           </li>
 <li class="listitem">
             <span class="bold"><strong><span class="emphasis"><em>const_pointer</em></span></strong></span>:
@@ -161,8 +163,7 @@
             <code class="computeroutput"><span class="keyword">const</span> <span class="identifier">value_type</span><span class="special">*</span></code>. If <code class="computeroutput"><span class="identifier">node_ptr</span></code>
             is <code class="computeroutput"><span class="identifier">smart_ptr</span><span class="special">&lt;</span><span class="identifier">node_traits</span><span class="special">::</span><span class="identifier">node</span><span class="special">&gt;</span></code>,
             <code class="computeroutput"><span class="identifier">const_pointer</span></code> must be
-            <code class="computeroutput"><span class="identifier">smart_ptr</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">value_type</span><span class="special">&gt;</span></code> This can be generically achieved
-            using <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">pointer_to_other</span></code> utility from <span class="bold"><strong>Boost SmartPointers</strong></span> defined in <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">pointer_to_other</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>.
+            <code class="computeroutput"><span class="identifier">smart_ptr</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">value_type</span><span class="special">&gt;</span></code>.
           </li>
 <li class="listitem">
             <span class="bold"><strong><span class="emphasis"><em>link_mode</em></span></strong></span>: Indicates
@@ -235,7 +236,7 @@
 
 <span class="comment">//This node is the legacy type we can't modify and we want to insert in</span>
 <span class="comment">//intrusive list and slist containers using only two pointers, since</span>
-<span class="comment">//we know the object will never be at the same time in both lists. </span>
+<span class="comment">//we know the object will never be at the same time in both lists.</span>
 <span class="keyword">struct</span> <span class="identifier">legacy_value</span>
 <span class="special">{</span>
    <span class="identifier">legacy_value</span> <span class="special">*</span><span class="identifier">prev_</span><span class="special">;</span>
@@ -272,7 +273,7 @@
 <span class="special">};</span>
 
 <span class="comment">//This ValueTraits will configure list and slist. In this case,</span>
-<span class="comment">//legacy_node_traits::node is the same as the </span>
+<span class="comment">//legacy_node_traits::node is the same as the</span>
 <span class="comment">//legacy_value_traits::value_type so to_node_ptr/to_value_ptr</span>
 <span class="comment">//functions are trivial.</span>
 <span class="keyword">struct</span> <span class="identifier">legacy_value_traits</span>
@@ -289,7 +290,6 @@
    <span class="keyword">static</span> <span class="identifier">pointer</span> <span class="identifier">to_value_ptr</span><span class="special">(</span><span class="identifier">node_ptr</span> <span class="identifier">n</span><span class="special">)</span>                     <span class="special">{</span>  <span class="keyword">return</span> <span class="identifier">pointer</span><span class="special">(</span><span class="identifier">n</span><span class="special">);</span> <span class="special">}</span>
    <span class="keyword">static</span> <span class="identifier">const_pointer</span> <span class="identifier">to_value_ptr</span><span class="special">(</span><span class="identifier">const_node_ptr</span> <span class="identifier">n</span><span class="special">)</span>         <span class="special">{</span>  <span class="keyword">return</span> <span class="identifier">const_pointer</span><span class="special">(</span><span class="identifier">n</span><span class="special">);</span> <span class="special">}</span>
 <span class="special">};</span>
-
 </pre>
 <p>
       </p>
@@ -380,7 +380,7 @@
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">intrusive</span><span class="special">/</span><span class="identifier">list</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">vector</span><span class="special">&gt;</span>
 
-<span class="comment">//This is the node that will be used with algorithms. </span>
+<span class="comment">//This is the node that will be used with algorithms.</span>
 <span class="keyword">struct</span> <span class="identifier">simple_node</span>
 <span class="special">{</span>
    <span class="identifier">simple_node</span> <span class="special">*</span><span class="identifier">prev_</span><span class="special">;</span>
@@ -476,7 +476,7 @@
 
 <span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">intrusive</span><span class="special">;</span>
 
-<span class="comment">//Now define the needed value traits using </span>
+<span class="comment">//Now define the needed value traits using</span>
 <span class="keyword">typedef</span> <span class="identifier">derivation_value_traits</span><span class="special">&lt;</span><span class="identifier">value_1</span><span class="special">,</span> <span class="identifier">simple_node_traits</span><span class="special">,</span> <span class="identifier">normal_link</span><span class="special">&gt;</span> <span class="identifier">ValueTraits1</span><span class="special">;</span>
 <span class="keyword">typedef</span> <span class="identifier">derivation_value_traits</span><span class="special">&lt;</span><span class="identifier">value_2</span><span class="special">,</span> <span class="identifier">simple_node_traits</span><span class="special">,</span> <span class="identifier">normal_link</span><span class="special">&gt;</span> <span class="identifier">ValueTraits2</span><span class="special">;</span>
 
@@ -689,7 +689,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2005 Olaf Krzikalla<br>Copyright &#169; 2006-2010 Ion Gaztanaga<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2005 Olaf Krzikalla<br>Copyright &#169; 2006-2012 Ion Gaztanaga<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

@@ -2,7 +2,7 @@
     Boost.Wave: A Standard compliant C++ preprocessor library
     http://www.boost.org/
 
-    Copyright (c) 2001-2011 Hartmut Kaiser. Distributed under the Boost
+    Copyright (c) 2001-2012 Hartmut Kaiser. Distributed under the Boost
     Software License, Version 1.0. (See accompanying file
     LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
@@ -62,7 +62,7 @@ enum trace_flags {
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-//  Special error thrown whenever the #pragma wave system() directive is 
+//  Special error thrown whenever the #pragma wave system() directive is
 //  disabled
 //
 ///////////////////////////////////////////////////////////////////////////////
@@ -71,15 +71,15 @@ class bad_pragma_exception :
 {
 public:
     enum error_code {
-        pragma_system_not_enabled = 
+        pragma_system_not_enabled =
             boost::wave::preprocess_exception::last_error_number + 1,
         pragma_mismatched_push_pop,
     };
 
-    bad_pragma_exception(char const *what_, error_code code, int line_, 
-        int column_, char const *filename_) throw() 
-    :   boost::wave::preprocess_exception(what_, 
-            (boost::wave::preprocess_exception::error_code)code, line_, 
+    bad_pragma_exception(char const *what_, error_code code, std::size_t line_,
+        std::size_t column_, char const *filename_) throw()
+    :   boost::wave::preprocess_exception(what_,
+            (boost::wave::preprocess_exception::error_code)code, line_,
             column_, filename_)
     {
     }
@@ -128,10 +128,10 @@ public:
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-//  
+//
 //  The trace_macro_expansion policy is used to trace the macro expansion of
 //  macros whenever it is requested from inside the input stream to preprocess
-//  through the '#pragma wave_option(trace: enable)' directive. The macro 
+//  through the '#pragma wave_option(trace: enable)' directive. The macro
 //  tracing is disabled with the help of a '#pragma wave_option(trace: disable)'
 //  directive.
 //
@@ -148,13 +148,13 @@ class trace_macro_expansion
 public:
     trace_macro_expansion(
             bool preserve_whitespace_, bool preserve_bol_whitespace_,
-            std::ofstream &output_, std::ostream &tracestrm_, 
-            std::ostream &includestrm_, std::ostream &guardstrm_, 
-            trace_flags flags_, bool enable_system_command_, 
+            std::ofstream &output_, std::ostream &tracestrm_,
+            std::ostream &includestrm_, std::ostream &guardstrm_,
+            trace_flags flags_, bool enable_system_command_,
             bool& generate_output_, std::string const& default_outfile_)
-    :   outputstrm(output_), tracestrm(tracestrm_), 
-        includestrm(includestrm_), guardstrm(guardstrm_), 
-        level(0), flags(flags_), logging_flags(trace_nothing), 
+    :   outputstrm(output_), tracestrm(tracestrm_),
+        includestrm(includestrm_), guardstrm(guardstrm_),
+        level(0), flags(flags_), logging_flags(trace_nothing),
         enable_system_command(enable_system_command_),
         preserve_whitespace(preserve_whitespace_),
         preserve_bol_whitespace(preserve_bol_whitespace_),
@@ -167,9 +167,9 @@ public:
     {
     }
 
-    void enable_macro_counting()  
-    { 
-        logging_flags = trace_flags(logging_flags | trace_macro_counts); 
+    void enable_macro_counting()
+    {
+        logging_flags = trace_flags(logging_flags | trace_macro_counts);
     }
     std::map<std::string, std::size_t> const& get_macro_counts() const
     {
@@ -191,34 +191,39 @@ public:
         noexpandmacros.insert(name);
     }
 
+    void set_license_info(std::string const& info)
+    {
+        license_info = info;
+    }
+
     ///////////////////////////////////////////////////////////////////////////
-    //  
-    //  The function 'expanding_function_like_macro' is called whenever a 
+    //
+    //  The function 'expanding_function_like_macro' is called whenever a
     //  function-like macro is to be expanded.
     //
-    //  The parameter 'ctx' is a reference to the context object used for 
+    //  The parameter 'ctx' is a reference to the context object used for
     //  instantiating the preprocessing iterators by the user.
     //
-    //  The parameter 'macrodef' marks the position, where the macro to expand 
+    //  The parameter 'macrodef' marks the position, where the macro to expand
     //  is defined.
     //
     //  The parameter 'formal_args' holds the formal arguments used during the
     //  definition of the macro.
     //
-    //  The parameter 'definition' holds the macro definition for the macro to 
+    //  The parameter 'definition' holds the macro definition for the macro to
     //  trace.
     //
     //  The parameter 'macro_call' marks the position, where this macro invoked.
     //
-    //  The parameter 'arguments' holds the macro arguments used during the 
+    //  The parameter 'arguments' holds the macro arguments used during the
     //  invocation of the macro
     //
-    //  The parameters 'seqstart' and 'seqend' point into the input token 
+    //  The parameters 'seqstart' and 'seqend' point into the input token
     //  stream allowing to access the whole token sequence comprising the macro
     //  invocation (starting with the opening parenthesis and ending after the
     //  closing one).
     //
-    //  The return value defines whether the corresponding macro will be 
+    //  The return value defines whether the corresponding macro will be
     //  expanded (return false) or will be copied to the output (return true).
     //  Note: the whole argument list is copied unchanged to the output as well
     //        without any further processing.
@@ -228,24 +233,24 @@ public:
     // old signature
     template <typename ContainerT>
     void expanding_function_like_macro(
-        TokenT const &macrodef, std::vector<TokenT> const &formal_args, 
+        TokenT const &macrodef, std::vector<TokenT> const &formal_args,
         ContainerT const &definition,
-        TokenT const &macrocall, std::vector<ContainerT> const &arguments) 
+        TokenT const &macrocall, std::vector<ContainerT> const &arguments)
     {
         if (enabled_macro_counting())
             count_invocation(macrodef.get_value().c_str());
 
-        if (!enabled_macro_tracing()) 
+        if (!enabled_macro_tracing())
             return;
 #else
     // new signature
     template <typename ContextT, typename ContainerT, typename IteratorT>
-    bool 
+    bool
     expanding_function_like_macro(ContextT const& ctx,
-        TokenT const &macrodef, std::vector<TokenT> const &formal_args, 
+        TokenT const &macrodef, std::vector<TokenT> const &formal_args,
         ContainerT const &definition,
         TokenT const &macrocall, std::vector<ContainerT> const &arguments,
-        IteratorT const& seqstart, IteratorT const& seqend) 
+        IteratorT const& seqstart, IteratorT const& seqend)
     {
         if (enabled_macro_counting() || !noexpandmacros.empty()) {
             std::string name (macrodef.get_value().c_str());
@@ -257,14 +262,14 @@ public:
                 count_invocation(name.c_str());
         }
 
-        if (!enabled_macro_tracing()) 
+        if (!enabled_macro_tracing())
             return false;
 #endif
         if (0 == get_level()) {
         // output header line
         BOOST_WAVE_OSSTREAM stream;
 
-            stream 
+            stream
                 << macrocall.get_position() << ": "
                 << macrocall.get_value() << "(";
 
@@ -274,7 +279,7 @@ public:
                 if (i < arguments.size()-1)
                     stream << ", ";
             }
-            stream << ")" << std::endl; 
+            stream << ")" << std::endl;
             output(BOOST_WAVE_GETSTRING(stream));
             increment_level();
         }
@@ -283,27 +288,27 @@ public:
         {
         BOOST_WAVE_OSSTREAM stream;
 
-            stream 
+            stream
                 << macrodef.get_position() << ": see macro definition: "
                 << macrodef.get_value() << "(";
 
         // formal argument list
-            for (typename std::vector<TokenT>::size_type i = 0; 
-                i < formal_args.size(); ++i) 
+            for (typename std::vector<TokenT>::size_type i = 0;
+                i < formal_args.size(); ++i)
             {
                 stream << formal_args[i].get_value();
                 if (i < formal_args.size()-1)
                     stream << ", ";
             }
-            stream << ")" << std::endl; 
+            stream << ")" << std::endl;
             output(BOOST_WAVE_GETSTRING(stream));
         }
 
         if (formal_args.size() > 0) {
         // map formal and real arguments
             open_trace_body("invoked with\n");
-            for (typename std::vector<TokenT>::size_type j = 0; 
-                j < formal_args.size(); ++j) 
+            for (typename std::vector<TokenT>::size_type j = 0;
+                j < formal_args.size(); ++j)
             {
                 using namespace boost::wave;
 
@@ -312,15 +317,15 @@ public:
 #if BOOST_WAVE_SUPPORT_VARIADICS_PLACEMARKERS != 0
                 if (T_ELLIPSIS == token_id(formal_args[j])) {
                 // ellipsis
-                    for (typename ContainerT::size_type k = j; 
-                        k < arguments.size(); ++k) 
+                    for (typename ContainerT::size_type k = j;
+                        k < arguments.size(); ++k)
                     {
                         stream << boost::wave::util::impl::as_string(arguments[k]);
                         if (k < arguments.size()-1)
                             stream << ", ";
                     }
-                } 
-                else 
+                }
+                else
 #endif
                 {
                     stream << boost::wave::util::impl::as_string(arguments[j]);
@@ -338,17 +343,17 @@ public:
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    //  
-    //  The function 'expanding_object_like_macro' is called whenever a 
+    //
+    //  The function 'expanding_object_like_macro' is called whenever a
     //  object-like macro is to be expanded .
     //
-    //  The parameter 'ctx' is a reference to the context object used for 
+    //  The parameter 'ctx' is a reference to the context object used for
     //  instantiating the preprocessing iterators by the user.
     //
-    //  The parameter 'macrodef' marks the position, where the macro to expand 
+    //  The parameter 'macrodef' marks the position, where the macro to expand
     //  is defined.
     //
-    //  The definition 'definition' holds the macro definition for the macro to 
+    //  The definition 'definition' holds the macro definition for the macro to
     //  trace.
     //
     //  The parameter 'macrocall' marks the position, where this macro invoked.
@@ -357,20 +362,20 @@ public:
 #if BOOST_WAVE_USE_DEPRECIATED_PREPROCESSING_HOOKS != 0
     // old signature
     template <typename ContainerT>
-    void expanding_object_like_macro(TokenT const &macrodef, 
+    void expanding_object_like_macro(TokenT const &macrodef,
         ContainerT const &definition, TokenT const &macrocall)
     {
         if (enabled_macro_counting())
             count_invocation(macrodef.get_value().c_str());
 
-        if (!enabled_macro_tracing()) 
+        if (!enabled_macro_tracing())
             return;
 #else
     // new signature
     template <typename ContextT, typename ContainerT>
-    bool 
+    bool
     expanding_object_like_macro(ContextT const& ctx,
-        TokenT const &macrodef, ContainerT const &definition, 
+        TokenT const &macrodef, ContainerT const &definition,
         TokenT const &macrocall)
     {
         if (enabled_macro_counting() || !noexpandmacros.empty()) {
@@ -383,14 +388,14 @@ public:
                 count_invocation(name.c_str());
         }
 
-        if (!enabled_macro_tracing()) 
+        if (!enabled_macro_tracing())
             return false;
 #endif
         if (0 == get_level()) {
         // output header line
         BOOST_WAVE_OSSTREAM stream;
 
-            stream 
+            stream
                 << macrocall.get_position() << ": "
                 << macrocall.get_value() << std::endl;
             output(BOOST_WAVE_GETSTRING(stream));
@@ -401,7 +406,7 @@ public:
         {
         BOOST_WAVE_OSSTREAM stream;
 
-            stream 
+            stream
                 << macrodef.get_position() << ": see macro definition: "
                 << macrodef.get_value() << std::endl;
             output(BOOST_WAVE_GETSTRING(stream));
@@ -414,14 +419,14 @@ public:
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    //  
-    //  The function 'expanded_macro' is called whenever the expansion of a 
+    //
+    //  The function 'expanded_macro' is called whenever the expansion of a
     //  macro is finished but before the rescanning process starts.
     //
-    //  The parameter 'ctx' is a reference to the context object used for 
+    //  The parameter 'ctx' is a reference to the context object used for
     //  instantiating the preprocessing iterators by the user.
     //
-    //  The parameter 'result' contains the token sequence generated as the 
+    //  The parameter 'result' contains the token sequence generated as the
     //  result of the macro expansion.
     //
     ///////////////////////////////////////////////////////////////////////////
@@ -445,14 +450,14 @@ public:
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    //  
-    //  The function 'rescanned_macro' is called whenever the rescanning of a 
+    //
+    //  The function 'rescanned_macro' is called whenever the rescanning of a
     //  macro is finished.
     //
-    //  The parameter 'ctx' is a reference to the context object used for 
+    //  The parameter 'ctx' is a reference to the context object used for
     //  instantiating the preprocessing iterators by the user.
     //
-    //  The parameter 'result' contains the token sequence generated as the 
+    //  The parameter 'result' contains the token sequence generated as the
     //  result of the rescanning.
     //
     ///////////////////////////////////////////////////////////////////////////
@@ -466,7 +471,7 @@ public:
     void rescanned_macro(ContextT const& ctx,ContainerT const &result)
 #endif
     {
-        if (!enabled_macro_tracing() || get_level() == 0) 
+        if (!enabled_macro_tracing() || get_level() == 0)
             return;
 
         BOOST_WAVE_OSSTREAM stream;
@@ -480,37 +485,37 @@ public:
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    //  
-    //  The function 'interpret_pragma' is called whenever a #pragma command 
+    //
+    //  The function 'interpret_pragma' is called whenever a #pragma command
     //  directive is found which isn't known to the core Wave library, where
     //  command is the value defined as the BOOST_WAVE_PRAGMA_KEYWORD constant
     //  which defaults to "wave".
     //
-    //  The parameter 'ctx' is a reference to the context object used for 
+    //  The parameter 'ctx' is a reference to the context object used for
     //  instantiating the preprocessing iterators by the user.
     //
-    //  The parameter 'pending' may be used to push tokens back into the input 
-    //  stream, which are to be used as the replacement text for the whole 
+    //  The parameter 'pending' may be used to push tokens back into the input
+    //  stream, which are to be used as the replacement text for the whole
     //  #pragma directive.
     //
     //  The parameter 'option' contains the name of the interpreted pragma.
     //
-    //  The parameter 'values' holds the values of the parameter provided to 
+    //  The parameter 'values' holds the values of the parameter provided to
     //  the pragma operator.
     //
-    //  The parameter 'act_token' contains the actual #pragma token, which may 
+    //  The parameter 'act_token' contains the actual #pragma token, which may
     //  be used for error output.
     //
-    //  If the return value is 'false', the whole #pragma directive is 
+    //  If the return value is 'false', the whole #pragma directive is
     //  interpreted as unknown and a corresponding error message is issued. A
-    //  return value of 'true' signs a successful interpretation of the given 
+    //  return value of 'true' signs a successful interpretation of the given
     //  #pragma.
     //
     ///////////////////////////////////////////////////////////////////////////
     template <typename ContextT, typename ContainerT>
-    bool 
-    interpret_pragma(ContextT &ctx, ContainerT &pending, 
-        typename ContextT::token_type const &option, ContainerT const &valuetokens, 
+    bool
+    interpret_pragma(ContextT &ctx, ContainerT &pending,
+        typename ContextT::token_type const &option, ContainerT const &valuetokens,
         typename ContextT::token_type const &act_token)
     {
         typedef typename ContextT::token_type token_type;
@@ -540,7 +545,7 @@ public:
             // a corresponding error (actually its a remark),
                 typename ContextT::string_type msg(
                     boost::wave::util::impl::as_string(values));
-                BOOST_WAVE_THROW_CTX(ctx, bad_pragma_exception, 
+                BOOST_WAVE_THROW_CTX(ctx, bad_pragma_exception,
                     pragma_system_not_enabled,
                     msg.c_str(), act_token.get_position());
                 return false;
@@ -554,12 +559,12 @@ public:
         // stop the execution and output the argument
             typename ContextT::string_type msg(
                 boost::wave::util::impl::as_string(values));
-            BOOST_WAVE_THROW_CTX(ctx, boost::wave::preprocess_exception, 
+            BOOST_WAVE_THROW_CTX(ctx, boost::wave::preprocess_exception,
                 error_directive, msg.c_str(), act_token.get_position());
             return false;
         }
         if (option.get_value() == "option") {
-        // handle different options 
+        // handle different options
             return interpret_pragma_option(ctx, values, act_token);
         }
         return false;
@@ -570,26 +575,26 @@ public:
     //  The function 'emit_line_directive' is called whenever a #line directive
     //  has to be emitted into the generated output.
     //
-    //  The parameter 'ctx' is a reference to the context object used for 
+    //  The parameter 'ctx' is a reference to the context object used for
     //  instantiating the preprocessing iterators by the user.
     //
-    //  The parameter 'pending' may be used to push tokens back into the input 
+    //  The parameter 'pending' may be used to push tokens back into the input
     //  stream, which are to be used instead of the default output generated
     //  for the #line directive.
     //
-    //  The parameter 'act_token' contains the actual #pragma token, which may 
+    //  The parameter 'act_token' contains the actual #pragma token, which may
     //  be used for error output. The line number stored in this token can be
     //  used as the line number emitted as part of the #line directive.
     //
     //  If the return value is 'false', a default #line directive is emitted
-    //  by the library. A return value of 'true' will inhibit any further 
-    //  actions, the tokens contained in 'pending' will be copied verbatim 
+    //  by the library. A return value of 'true' will inhibit any further
+    //  actions, the tokens contained in 'pending' will be copied verbatim
     //  to the output.
     //
     ///////////////////////////////////////////////////////////////////////////
     template <typename ContextT, typename ContainerT>
-    bool 
-    emit_line_directive(ContextT const& ctx, ContainerT &pending, 
+    bool
+    emit_line_directive(ContextT const& ctx, ContainerT &pending,
         typename ContextT::token_type const& act_token)
     {
         if (!need_emit_line_directives(ctx.get_language()) ||
@@ -611,7 +616,7 @@ public:
         pos.set_column(column);      // account for '#line'
         pending.push_back(result_type(T_SPACE, " ", pos));
 
-    // 21 is the max required size for a 64 bit integer represented as a 
+    // 21 is the max required size for a 64 bit integer represented as a
     // string
     char buffer[22];
 
@@ -639,36 +644,36 @@ public:
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    //  
-    //  The function 'opened_include_file' is called whenever a file referred 
+    //
+    //  The function 'opened_include_file' is called whenever a file referred
     //  by an #include directive was successfully located and opened.
     //
-    //  The parameter 'ctx' is a reference to the context object used for 
+    //  The parameter 'ctx' is a reference to the context object used for
     //  instantiating the preprocessing iterators by the user.
     //
-    //  The parameter 'filename' contains the file system path of the 
-    //  opened file (this is relative to the directory of the currently 
+    //  The parameter 'filename' contains the file system path of the
+    //  opened file (this is relative to the directory of the currently
     //  processed file or a absolute path depending on the paths given as the
     //  include search paths).
     //
     //  The include_depth parameter contains the current include file depth.
     //
-    //  The is_system_include parameter denotes, whether the given file was 
+    //  The is_system_include parameter denotes, whether the given file was
     //  found as a result of a #include <...> directive.
-    //  
+    //
     ///////////////////////////////////////////////////////////////////////////
 #if BOOST_WAVE_USE_DEPRECIATED_PREPROCESSING_HOOKS != 0
     // old signature
-    void 
-    opened_include_file(std::string const &relname, std::string const &absname, 
-        std::size_t include_depth, bool is_system_include) 
+    void
+    opened_include_file(std::string const &relname, std::string const &absname,
+        std::size_t include_depth, bool is_system_include)
     {
 #else
     // new signature
     template <typename ContextT>
-    void 
-    opened_include_file(ContextT const& ctx, std::string const &relname, 
-        std::string const &absname, bool is_system_include) 
+    void
+    opened_include_file(ContextT const& ctx, std::string const &relname,
+        std::string const &absname, bool is_system_include)
     {
         std::size_t include_depth = ctx.get_iteration_depth();
 #endif
@@ -688,38 +693,38 @@ public:
 
 #if BOOST_WAVE_SUPPORT_PRAGMA_ONCE != 0
     ///////////////////////////////////////////////////////////////////////////
-    //  
-    //  The function 'detected_include_guard' is called whenever either a 
-    //  include file is about to be added to the list of #pragma once headers.
-    //  That means this header file will not be opened and parsed again even 
-    //  if it is specified in a later #include directive.
-    //  This function is called as the result of a detected include guard 
-    //  scheme. 
     //
-    //  The implemented heuristics for include guards detects two forms of 
+    //  The function 'detected_include_guard' is called whenever either a
+    //  include file is about to be added to the list of #pragma once headers.
+    //  That means this header file will not be opened and parsed again even
+    //  if it is specified in a later #include directive.
+    //  This function is called as the result of a detected include guard
+    //  scheme.
+    //
+    //  The implemented heuristics for include guards detects two forms of
     //  include guards:
-    // 
+    //
     //       #ifndef INCLUDE_GUARD_MACRO
     //       #define INCLUDE_GUARD_MACRO
     //       ...
     //       #endif
-    // 
+    //
     //   or
-    // 
+    //
     //       if !defined(INCLUDE_GUARD_MACRO)
     //       #define INCLUDE_GUARD_MACRO
     //       ...
     //       #endif
-    // 
+    //
     //  note, that the parenthesis are optional (i.e. !defined INCLUDE_GUARD_MACRO
-    //  will work as well). The code allows for any whitespace, newline and single 
+    //  will work as well). The code allows for any whitespace, newline and single
     //  '#' tokens before the #if/#ifndef and after the final #endif.
     //
-    //  The parameter 'ctx' is a reference to the context object used for 
+    //  The parameter 'ctx' is a reference to the context object used for
     //  instantiating the preprocessing iterators by the user.
     //
-    //  The parameter 'filename' contains the file system path of the 
-    //  opened file (this is relative to the directory of the currently 
+    //  The parameter 'filename' contains the file system path of the
+    //  opened file (this is relative to the directory of the currently
     //  processed file or a absolute path depending on the paths given as the
     //  include search paths).
     //
@@ -729,46 +734,46 @@ public:
     template <typename ContextT>
     void
     detected_include_guard(ContextT const& ctx, std::string const& filename,
-        std::string const& include_guard) 
+        std::string const& include_guard)
    {
         if (enabled_guard_tracing()) {
             guardstrm << include_guard << ":" << std::endl
                       << "  " << filename << std::endl;
         }
     }
-#endif 
+#endif
 
     ///////////////////////////////////////////////////////////////////////////
     //
-    //  The function 'may_skip_whitespace' will be called by the 
-    //  library whenever a token is about to be returned to the calling 
-    //  application. 
+    //  The function 'may_skip_whitespace' will be called by the
+    //  library whenever a token is about to be returned to the calling
+    //  application.
     //
-    //  The parameter 'ctx' is a reference to the context object used for 
+    //  The parameter 'ctx' is a reference to the context object used for
     //  instantiating the preprocessing iterators by the user.
     //
-    //  The 'token' parameter holds a reference to the current token. The policy 
+    //  The 'token' parameter holds a reference to the current token. The policy
     //  is free to change this token if needed.
     //
-    //  The 'skipped_newline' parameter holds a reference to a boolean value 
-    //  which should be set to true by the policy function whenever a newline 
-    //  is going to be skipped. 
+    //  The 'skipped_newline' parameter holds a reference to a boolean value
+    //  which should be set to true by the policy function whenever a newline
+    //  is going to be skipped.
     //
-    //  If the return value is true, the given token is skipped and the 
-    //  preprocessing continues to the next token. If the return value is 
-    //  false, the given token is returned to the calling application. 
+    //  If the return value is true, the given token is skipped and the
+    //  preprocessing continues to the next token. If the return value is
+    //  false, the given token is returned to the calling application.
     //
     //  ATTENTION!
-    //  Caution has to be used, because by returning true the policy function 
-    //  is able to force skipping even significant tokens, not only whitespace. 
+    //  Caution has to be used, because by returning true the policy function
+    //  is able to force skipping even significant tokens, not only whitespace.
     //
     ///////////////////////////////////////////////////////////////////////////
     template <typename ContextT>
-    bool may_skip_whitespace(ContextT const &ctx, TokenT &token, 
+    bool may_skip_whitespace(ContextT const &ctx, TokenT &token,
         bool &skipped_newline)
     {
         return this->base_type::may_skip_whitespace(
-                ctx, token, need_preserve_comments(ctx.get_language()), 
+                ctx, token, need_preserve_comments(ctx.get_language()),
                 preserve_bol_whitespace, skipped_newline) ?
             !preserve_whitespace : false;
     }
@@ -778,14 +783,14 @@ public:
     //  The function 'throw_exception' will be called by the library whenever a
     //  preprocessing exception occurs.
     //
-    //  The parameter 'ctx' is a reference to the context object used for 
+    //  The parameter 'ctx' is a reference to the context object used for
     //  instantiating the preprocessing iterators by the user.
     //
-    //  The parameter 'e' is the exception object containing detailed error 
+    //  The parameter 'e' is the exception object containing detailed error
     //  information.
     //
     //  The default behavior is to call the function boost::throw_exception.
-    //  
+    //
     ///////////////////////////////////////////////////////////////////////////
     template <typename ContextT>
     void
@@ -798,7 +803,7 @@ public:
         boost::throw_exception(e);
 #endif
     }
-    using base_type::throw_exception; 
+    using base_type::throw_exception;
 
 protected:
 #if BOOST_WAVE_SUPPORT_MS_EXTENSIONS != 0
@@ -820,8 +825,8 @@ protected:
     ///////////////////////////////////////////////////////////////////////////
     //  Interpret the different Wave specific pragma directives/operators
     template <typename ContextT, typename ContainerT>
-    bool 
-    interpret_pragma_trace(ContextT& ctx, ContainerT const &values, 
+    bool
+    interpret_pragma_trace(ContextT& ctx, ContainerT const &values,
         typename ContextT::token_type const &act_token)
     {
         typedef typename ContextT::token_type token_type;
@@ -833,8 +838,8 @@ protected:
         token_type const &value = values.front();
 
             if (value.get_value() == "enable" ||
-                value.get_value() == "on" || 
-                value.get_value() == "1") 
+                value.get_value() == "on" ||
+                value.get_value() == "1")
             {
             // #pragma wave trace(enable)
                 enable_tracing(static_cast<trace_flags>(
@@ -842,8 +847,8 @@ protected:
                 valid_option = true;
             }
             else if (value.get_value() == "disable" ||
-                value.get_value() == "off" || 
-                value.get_value() == "0") 
+                value.get_value() == "off" ||
+                value.get_value() == "0")
             {
             // #pragma wave trace(disable)
                 enable_tracing(static_cast<trace_flags>(
@@ -860,8 +865,8 @@ protected:
                 option_str += boost::wave::util::impl::as_string(values);
                 option_str += ")";
             }
-            BOOST_WAVE_THROW_CTX(ctx, boost::wave::preprocess_exception, 
-                ill_formed_pragma_option, option_str.c_str(), 
+            BOOST_WAVE_THROW_CTX(ctx, boost::wave::preprocess_exception,
+                ill_formed_pragma_option, option_str.c_str(),
                 act_token.get_position());
             return false;
         }
@@ -871,8 +876,8 @@ protected:
     ///////////////////////////////////////////////////////////////////////////
     //  interpret the pragma wave option(preserve: [0|1|2|3|push|pop]) directive
     template <typename ContextT>
-    static bool 
-    interpret_pragma_option_preserve_set(int mode, bool &preserve_whitespace, 
+    static bool
+    interpret_pragma_option_preserve_set(int mode, bool &preserve_whitespace,
         bool& preserve_bol_whitespace, ContextT &ctx)
     {
         switch(mode) {
@@ -919,7 +924,7 @@ protected:
     }
 
     template <typename ContextT, typename IteratorT>
-    bool 
+    bool
     interpret_pragma_option_preserve(ContextT &ctx, IteratorT &it,
         IteratorT end, typename ContextT::token_type const &act_token)
     {
@@ -950,14 +955,14 @@ protected:
             else if ((*it).get_value() == "pop") {
             // test for mismatched push/pop #pragmas
                 if (preserve_options.empty()) {
-                    BOOST_WAVE_THROW_CTX(ctx, bad_pragma_exception, 
-                        pragma_mismatched_push_pop, "preserve", 
+                    BOOST_WAVE_THROW_CTX(ctx, bad_pragma_exception,
+                        pragma_mismatched_push_pop, "preserve",
                         act_token.get_position());
                 }
 
             // pop output preserve from the internal option stack
                 bool result = interpret_pragma_option_preserve_set(
-                    preserve_options.top(), preserve_whitespace, 
+                    preserve_options.top(), preserve_whitespace,
                     preserve_bol_whitespace, ctx);
                 preserve_options.pop();
                 return result;
@@ -965,18 +970,18 @@ protected:
             return false;
         }
 
-        if (T_PP_NUMBER != id) 
+        if (T_PP_NUMBER != id)
             return false;
 
         using namespace std;    // some platforms have atoi in namespace std
         return interpret_pragma_option_preserve_set(
-            atoi((*it).get_value().c_str()), preserve_whitespace, 
+            atoi((*it).get_value().c_str()), preserve_whitespace,
             preserve_bol_whitespace, ctx);
     }
 
     //  interpret the pragma wave option(line: [0|1|2|push|pop]) directive
     template <typename ContextT, typename IteratorT>
-    bool 
+    bool
     interpret_pragma_option_line(ContextT &ctx, IteratorT &it,
         IteratorT end, typename ContextT::token_type const &act_token)
     {
@@ -985,7 +990,7 @@ protected:
         token_id id = util::impl::skip_whitespace(it, end);
         if (T_COLON == id)
             id = util::impl::skip_whitespace(it, end);
-        
+
         // implement push/pop
         if (T_IDENTIFIER == id) {
             if ((*it).get_value() == "push") {
@@ -1002,8 +1007,8 @@ protected:
             else if ((*it).get_value() == "pop") {
             // test for mismatched push/pop #pragmas
                 if (line_options.empty()) {
-                    BOOST_WAVE_THROW_CTX(ctx, bad_pragma_exception, 
-                        pragma_mismatched_push_pop, "line", 
+                    BOOST_WAVE_THROW_CTX(ctx, bad_pragma_exception,
+                        pragma_mismatched_push_pop, "line",
                         act_token.get_position());
                 }
 
@@ -1018,7 +1023,7 @@ protected:
             return false;
         }
 
-        if (T_PP_NUMBER != id) 
+        if (T_PP_NUMBER != id)
             return false;
 
         using namespace std;    // some platforms have atoi in namespace std
@@ -1033,17 +1038,18 @@ protected:
         return false;
     }
 
-    //  interpret the pragma wave option(output: ["filename"|null|default|push|pop]) 
+    //  interpret the pragma wave option(output: ["filename"|null|default|push|pop])
     //  directive
     template <typename ContextT>
-    bool 
-    interpret_pragma_option_output_open(boost::filesystem::path &fpath, 
+    bool
+    interpret_pragma_option_output_open(boost::filesystem::path &fpath,
         ContextT& ctx, typename ContextT::token_type const &act_token)
     {
         namespace fs = boost::filesystem;
 
         // ensure all directories for this file do exist
-        fs::create_directories(boost::wave::util::branch_path(fpath));
+        boost::wave::util::create_directories(
+            boost::wave::util::branch_path(fpath));
 
         // figure out, whether the file has been written to by us, if yes, we
         // append any output to this file, otherwise we overwrite it
@@ -1059,17 +1065,22 @@ protected:
 
         // open the new file
         outputstrm.open(fpath.string().c_str(), mode);
-        if (!outputstrm.is_open()) { 
-            BOOST_WAVE_THROW_CTX(ctx, boost::wave::preprocess_exception, 
+        if (!outputstrm.is_open()) {
+            BOOST_WAVE_THROW_CTX(ctx, boost::wave::preprocess_exception,
                 could_not_open_output_file,
                 fpath.string().c_str(), act_token.get_position());
             return false;
         }
+
+        // write license text, if file was created and if requested
+        if (mode == std::ios::out && !license_info.empty())
+            outputstrm << license_info;
+
         generate_output = true;
         current_outfile = fpath;
-        return true;        
+        return true;
     }
-    
+
     bool interpret_pragma_option_output_close(bool generate)
     {
         if (outputstrm.is_open())
@@ -1080,7 +1091,7 @@ protected:
     }
 
     template <typename ContextT, typename IteratorT>
-    bool 
+    bool
     interpret_pragma_option_output(ContextT &ctx, IteratorT &it,
         IteratorT end, typename ContextT::token_type const &act_token)
     {
@@ -1097,7 +1108,7 @@ protected:
         bool result = false;
         if (T_STRINGLIT == id) {
             namespace fs = boost::filesystem;
-            
+
             string_type fname ((*it).get_value());
             fs::path fpath (boost::wave::util::create_path(
                 util::impl::unescape_lit(fname.substr(1, fname.size()-2)).c_str()));
@@ -1108,7 +1119,7 @@ protected:
             if ((*it).get_value() == "null") {
             // suppress all output from this point on
                 result = interpret_pragma_option_output_close(false);
-            }        
+            }
             else if ((*it).get_value() == "push") {
             // initialize the current_outfile, if appropriate
                 if (output_options.empty() && current_outfile.empty() &&
@@ -1126,8 +1137,8 @@ protected:
             else if ((*it).get_value() == "pop") {
             // test for mismatched push/pop #pragmas
                 if (output_options.empty()) {
-                    BOOST_WAVE_THROW_CTX(ctx, bad_pragma_exception, 
-                        pragma_mismatched_push_pop, "output", 
+                    BOOST_WAVE_THROW_CTX(ctx, bad_pragma_exception,
+                        pragma_mismatched_push_pop, "output",
                         act_token.get_position());
                     return false;
                 }
@@ -1138,7 +1149,7 @@ protected:
                 current_outfile = opts.second;
                 if (!current_outfile.empty()) {
                 // re-open the last file
-                    result = interpret_pragma_option_output_open(current_outfile, 
+                    result = interpret_pragma_option_output_open(current_outfile,
                         ctx, act_token);
                 }
                 else {
@@ -1158,7 +1169,7 @@ protected:
                 else {
                 // there was a file name on the command line
                     fs::path fpath(boost::wave::util::create_path(default_outfile));
-                    result = interpret_pragma_option_output_open(fpath, ctx, 
+                    result = interpret_pragma_option_output_open(fpath, ctx,
                         act_token);
                 }
             }
@@ -1234,8 +1245,8 @@ protected:
     ///////////////////////////////////////////////////////////////////////////
     //  interpret the pragma wave option() directives
     template <typename ContextT, typename ContainerT>
-    bool 
-    interpret_pragma_option(ContextT &ctx, ContainerT const &cvalues, 
+    bool
+    interpret_pragma_option(ContextT &ctx, ContainerT const &cvalues,
         typename ContextT::token_type const &act_token)
     {
         using namespace boost::wave;
@@ -1254,17 +1265,17 @@ protected:
             token_type const &value = *it;
             if (value.get_value() == "preserve") {
             // #pragma wave option(preserve: [0|1|2|3|push|pop])
-                valid_option = interpret_pragma_option_preserve(ctx, it, end, 
+                valid_option = interpret_pragma_option_preserve(ctx, it, end,
                     act_token);
             }
             else if (value.get_value() == "line") {
             // #pragma wave option(line: [0|1|2|push|pop])
-                valid_option = interpret_pragma_option_line(ctx, it, end, 
+                valid_option = interpret_pragma_option_line(ctx, it, end,
                     act_token);
             }
             else if (value.get_value() == "output") {
             // #pragma wave option(output: ["filename"|null|default|push|pop])
-                valid_option = interpret_pragma_option_output(ctx, it, end, 
+                valid_option = interpret_pragma_option_output(ctx, it, end,
                     act_token);
             }
 
@@ -1277,12 +1288,12 @@ protected:
                     option_str += util::impl::as_string(values);
                     option_str += ")";
                 }
-                BOOST_WAVE_THROW_CTX(ctx, boost::wave::preprocess_exception, 
+                BOOST_WAVE_THROW_CTX(ctx, boost::wave::preprocess_exception,
                     ill_formed_pragma_option,
                     option_str.c_str(), act_token.get_position());
                 return false;
             }
-            
+
             token_id id = util::impl::skip_whitespace(it, end);
             if (id == T_COMMA)
                 util::impl::skip_whitespace(it, end);
@@ -1294,8 +1305,8 @@ protected:
     // interpret the #pragma wave system() directive
     template <typename ContextT, typename ContainerT>
     bool
-    interpret_pragma_system(ContextT& ctx, ContainerT &pending, 
-        ContainerT const &values, 
+    interpret_pragma_system(ContextT& ctx, ContainerT &pending,
+        ContainerT const &values,
         typename ContextT::token_type const &act_token)
     {
         typedef typename ContextT::token_type token_type;
@@ -1314,25 +1325,25 @@ protected:
         string_type error_str("unable to spawn command: ");
 
             error_str += native_cmd;
-            BOOST_WAVE_THROW_CTX(ctx, boost::wave::preprocess_exception, 
+            BOOST_WAVE_THROW_CTX(ctx, boost::wave::preprocess_exception,
                 ill_formed_pragma_option,
                 error_str.c_str(), act_token.get_position());
             return false;
         }
 
-    // rescan the content of the stdout_file and insert it as the 
+    // rescan the content of the stdout_file and insert it as the
     // _Pragma replacement
         typedef typename ContextT::lexer_type lexer_type;
         typedef typename ContextT::input_policy_type input_policy_type;
         typedef boost::wave::iteration_context<
-                ContextT, lexer_type, input_policy_type> 
+                ContextT, lexer_type, input_policy_type>
             iteration_context_type;
 
-    iteration_context_type iter_ctx(ctx, stdout_file.c_str(), 
+    iteration_context_type iter_ctx(ctx, stdout_file.c_str(),
         act_token.get_position(), ctx.get_language());
     ContainerT pragma;
 
-        for (/**/; iter_ctx.first != iter_ctx.last; ++iter_ctx.first) 
+        for (/**/; iter_ctx.first != iter_ctx.last; ++iter_ctx.first)
             pragma.push_back(*iter_ctx.first);
 
     // prepend the newly generated token sequence to the 'pending' container
@@ -1345,14 +1356,14 @@ protected:
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    //  The function enable_tracing is called, whenever the status of the 
+    //  The function enable_tracing is called, whenever the status of the
     //  tracing was changed.
     //  The parameter 'enable' is to be used as the new tracing status.
-    void enable_tracing(trace_flags flags) 
+    void enable_tracing(trace_flags flags)
         { logging_flags = flags; }
 
     //  The function tracing_enabled should return the current tracing status.
-    trace_flags tracing_enabled() 
+    trace_flags tracing_enabled()
         { return logging_flags; }
 
     //  Helper functions for generating the trace output
@@ -1389,21 +1400,21 @@ protected:
     int decrement_level() { BOOST_ASSERT(level > 0); return --level; }
     int get_level() const { return level; }
 
-    bool enabled_macro_tracing() const 
-    { 
-        return (flags & trace_macros) && (logging_flags & trace_macros); 
+    bool enabled_macro_tracing() const
+    {
+        return (flags & trace_macros) && (logging_flags & trace_macros);
     }
-    bool enabled_include_tracing() const 
-    { 
-        return (flags & trace_includes); 
+    bool enabled_include_tracing() const
+    {
+        return (flags & trace_includes);
     }
-    bool enabled_guard_tracing() const 
-    { 
-        return (flags & trace_guards); 
+    bool enabled_guard_tracing() const
+    {
+        return (flags & trace_guards);
     }
-    bool enabled_macro_counting() const 
-    { 
-        return logging_flags & trace_macro_counts; 
+    bool enabled_macro_counting() const
+    {
+        return logging_flags & trace_macro_counts;
     }
 
     void count_invocation(std::string const& name)
@@ -1431,8 +1442,8 @@ protected:
         }
         else if (value.get_value() == "1") {
         // print out the current elapsed time
-            std::cerr 
-                << value.get_position() << ": " 
+            std::cerr
+                << value.get_position() << ": "
                 << elapsed_time.format_elapsed_time()
                 << std::endl;
         }
@@ -1459,7 +1470,7 @@ private:
     bool preserve_bol_whitespace;   // enable begin of line whitespace preservation
     bool& generate_output;          // allow generated tokens to be streamed to output
     std::string const& default_outfile;         // name of the output file given on command line
-    boost::filesystem::path current_outfile;    // name of the current output file 
+    boost::filesystem::path current_outfile;    // name of the current output file
 
     stop_watch elapsed_time;        // trace timings
     std::set<boost::filesystem::path> written_by_us;    // all files we have written to
@@ -1473,6 +1484,8 @@ private:
     bool emit_relative_filenames;   // emit relative names in #line directives
 
     std::set<std::string> noexpandmacros;   // list of macros not to expand
+
+    std::string license_info;       // text to pre-pend to all generated output files
 };
 
 #undef BOOST_WAVE_GETSTRING

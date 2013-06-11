@@ -5,8 +5,8 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../move.html" title="Chapter&#160;15.&#160;Boost.Move">
-<link rel="prev" href="../move.html" title="Chapter&#160;15.&#160;Boost.Move">
+<link rel="up" href="../move.html" title="Chapter&#160;16.&#160;Boost.Move">
+<link rel="prev" href="../move.html" title="Chapter&#160;16.&#160;Boost.Move">
 <link rel="next" href="implementing_movable_classes.html" title="Implementing copyable and movable classes">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -44,7 +44,7 @@
       we don't: We often copy a <code class="computeroutput"><span class="identifier">vector</span></code>
       from one place to another, just to proceed to overwrite the old copy. Consider:
     </p>
-<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="identifier">swap</span><span class="special">(</span><span class="identifier">T</span><span class="special">&amp;</span> <span class="identifier">a</span><span class="special">,</span> <span class="identifier">T</span><span class="special">&amp;</span> <span class="identifier">b</span><span class="special">)</span>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">void</span> <span class="identifier">swap</span><span class="special">(</span><span class="identifier">T</span><span class="special">&amp;</span> <span class="identifier">a</span><span class="special">,</span> <span class="identifier">T</span><span class="special">&amp;</span> <span class="identifier">b</span><span class="special">)</span>
 <span class="special">{</span>
    <span class="identifier">T</span> <span class="identifier">tmp</span><span class="special">(</span><span class="identifier">a</span><span class="special">);</span>   <span class="comment">// now we have two copies of a</span>
    <span class="identifier">a</span> <span class="special">=</span> <span class="identifier">b</span><span class="special">;</span>      <span class="comment">// now we have two copies of b</span>
@@ -55,7 +55,7 @@
       But, we didn't want to have any copies of a or b, we just wanted to swap them.
       Let's try again:
     </p>
-<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="identifier">swap</span><span class="special">(</span><span class="identifier">T</span><span class="special">&amp;</span> <span class="identifier">a</span><span class="special">,</span> <span class="identifier">T</span><span class="special">&amp;</span> <span class="identifier">b</span><span class="special">)</span>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span> <span class="keyword">void</span> <span class="identifier">swap</span><span class="special">(</span><span class="identifier">T</span><span class="special">&amp;</span> <span class="identifier">a</span><span class="special">,</span> <span class="identifier">T</span><span class="special">&amp;</span> <span class="identifier">b</span><span class="special">)</span>
 <span class="special">{</span>
    <span class="identifier">T</span> <span class="identifier">tmp</span><span class="special">(::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">a</span><span class="special">));</span>
    <span class="identifier">a</span> <span class="special">=</span> <span class="special">::</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">move</span><span class="special">(</span><span class="identifier">b</span><span class="special">);</span>

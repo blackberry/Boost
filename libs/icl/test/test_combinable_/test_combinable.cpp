@@ -10,7 +10,7 @@ Copyright (c) 2008-2009: Joachim Faulhaber
 #include <string>
 #include <boost/mpl/list.hpp>
 #include "../unit_test_unwarned.hpp"
-#include <boost/test/test_case_template.hpp>
+
 
 // interval instance types
 #include "../test_type_lists.hpp"
@@ -204,7 +204,7 @@ void check_combine_pattern(const char* text,
 }
 
 
-BOOST_AUTO_TEST_CASE(test_itl_is_derivative)
+BOOST_AUTO_TEST_CASE(test_icl_is_derivative)
 {
     //--------------------------------------------------------------------------
     // 1.1
@@ -243,7 +243,7 @@ BOOST_AUTO_TEST_CASE(test_itl_is_derivative)
         );
 }
 
-BOOST_AUTO_TEST_CASE(test_itl_is_combinable)
+BOOST_AUTO_TEST_CASE(test_icl_is_combinable)
 {
     //--------------------------------------------------------------------------
     // 2.1
@@ -283,7 +283,7 @@ BOOST_AUTO_TEST_CASE(test_itl_is_combinable)
 
 }
 
-BOOST_AUTO_TEST_CASE(test_itl_is_container_right_combinable)
+BOOST_AUTO_TEST_CASE(test_icl_is_container_right_combinable)
 {
     //--------------------------------------------------------------------------
     // 3.1
@@ -338,7 +338,7 @@ BOOST_AUTO_TEST_CASE(test_itl_is_container_right_combinable)
 
 }
 
-BOOST_AUTO_TEST_CASE(test_itl_is_right_combinable)
+BOOST_AUTO_TEST_CASE(test_icl_is_right_combinable)
 {
     //--------------------------------------------------------------------------
     // 4.1
@@ -365,7 +365,7 @@ BOOST_AUTO_TEST_CASE(test_itl_is_right_combinable)
         );
 }
 
-BOOST_AUTO_TEST_CASE(test_itl_combines_right_to)
+BOOST_AUTO_TEST_CASE(test_icl_combines_right_to)
 {
     //--------------------------------------------------------------------------
     // 5.1
@@ -404,7 +404,7 @@ BOOST_AUTO_TEST_CASE(test_itl_combines_right_to)
         );
 }
 
-BOOST_AUTO_TEST_CASE(test_itl_is_companion)
+BOOST_AUTO_TEST_CASE(test_icl_is_companion)
 {
     //--------------------------------------------------------------------------
     // 6.1
@@ -431,7 +431,7 @@ BOOST_AUTO_TEST_CASE(test_itl_is_companion)
         );
 }
 
-BOOST_AUTO_TEST_CASE(test_itl_is_coarser_combinable)
+BOOST_AUTO_TEST_CASE(test_icl_is_coarser_combinable)
 {
     //--------------------------------------------------------------------------
     // 7.1
@@ -486,7 +486,7 @@ BOOST_AUTO_TEST_CASE(test_itl_is_coarser_combinable)
         );
 }
 
-BOOST_AUTO_TEST_CASE(test_itl_is_binary_combinable)
+BOOST_AUTO_TEST_CASE(test_icl_is_binary_combinable)
 {
     //--------------------------------------------------------------------------
     // 9.1

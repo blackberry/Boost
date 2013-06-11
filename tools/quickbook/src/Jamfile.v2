@@ -15,6 +15,8 @@ project quickbook
         <toolset>gcc:<cflags>-g0
         <toolset>darwin:<cflags>-g0
         <toolset>msvc:<cflags>/wd4709
+        <toolset>gcc:<define>BOOST_DETAIL_CONTAINER_FWD
+        <toolset>darwin:<define>BOOST_DETAIL_CONTAINER_FWD
     ;
 
 lib shell32 ;
@@ -24,11 +26,13 @@ exe quickbook
     quickbook.cpp
     actions.cpp
     doc_info_actions.cpp
-    actions_class.cpp
+    state.cpp
     utils.cpp
+    files.cpp
+    string_ref.cpp
     input_path.cpp
     values.cpp
-    id_generator.cpp
+    id_manager.cpp
     post_process.cpp
     collector.cpp
     template_stack.cpp

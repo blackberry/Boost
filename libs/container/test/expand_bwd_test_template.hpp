@@ -114,19 +114,19 @@ bool test_insert_with_expand_bwd()
    const int MemorySize = 1000;
 
    //Distance old and new buffer
-   const int Offset[]      = 
+   const int Offset[]      =
       {  350,  250,  150,  150,
          150,  50,   50,   50    };
    //Insert position
-   const int Position[]    = 
+   const int Position[]    =
       {  100,  100,  100,  100,
          100,  100,  100,  100   };
    //Initial vector size
-   const int InitialSize[] = 
+   const int InitialSize[] =
       {  200,  200,  200,  200,
          200,  200,  200,  200   };
    //Size of the data to insert
-   const int InsertSize[]  = 
+   const int InsertSize[]  =
       {  100,  100,  100,  200,
          300,  25,   100,  200   };
    //Number of tests
@@ -159,7 +159,7 @@ bool test_insert_with_expand_bwd()
                            , data_to_insert.begin(), data_to_insert.end());
          //Now check that values are equal
          if(!CheckEqualVector(vector, initial_data)){
-            std::cout << "test_assign_with_expand_bwd::CheckEqualVector failed." << std::endl 
+            std::cout << "test_assign_with_expand_bwd::CheckEqualVector failed." << std::endl
                      << "   Class: " << typeid(VectorWithExpandBwdAllocator).name() << std::endl
                      << "   Iteration: " << iteration << std::endl;
             return false;
@@ -215,13 +215,13 @@ bool test_assign_with_expand_bwd()
          vector.insert( vector.begin()
                      , initial_data.begin(), initial_data.end());
 
-         //Assign data 
+         //Assign data
          vector.assign(data_to_assign.begin(), data_to_assign.end());
          initial_data.assign(data_to_assign.begin(), data_to_assign.end());
 
          //Now check that values are equal
          if(!CheckEqualVector(vector, initial_data)){
-            std::cout << "test_assign_with_expand_bwd::CheckEqualVector failed." << std::endl 
+            std::cout << "test_assign_with_expand_bwd::CheckEqualVector failed." << std::endl
                      << "   Class: " << typeid(VectorWithExpandBwdAllocator).name() << std::endl
                      << "   Iteration: " << iteration << std::endl;
             return false;

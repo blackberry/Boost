@@ -89,7 +89,7 @@ int test_main(int argc, char** argv)
       Graph::lazy_add_edge lazy
         = add_edge(vertex(first->first, g2), vertex(first->second, g2), g2);
 
-      if (require_response_gen() % 100 < immediate_response_percent) {
+      if ((int)require_response_gen() % 100 < immediate_response_percent) {
         // Send out-of-band to require a response 
         std::pair<graph_traits<Graph>::edge_descriptor, bool> result(lazy);
         BOOST_CHECK(source(result.first, g2) == vertex(first->first, g2));
@@ -179,7 +179,7 @@ int test_main(int argc, char** argv)
       Graph::lazy_add_edge lazy
         = add_edge(vertex(first->first, g3), vertex(first->second, g3), g3);
 
-      if (require_response_gen() % 100 < immediate_response_percent) {
+      if ((int)require_response_gen() % 100 < immediate_response_percent) {
         // Send out-of-band to require a response 
         std::pair<graph_traits<Graph>::edge_descriptor, bool> result(lazy);
         BOOST_CHECK(source(result.first, g3) == vertex(first->first, g3));

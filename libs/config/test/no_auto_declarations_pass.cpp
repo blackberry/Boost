@@ -6,13 +6,13 @@
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/config for the most recent version.//
-//  Revision $Id: no_auto_declarations_pass.cpp 53445 2009-05-30 11:22:59Z bemandawes $
+//  Revision $Id: no_auto_declarations_pass.cpp 79537 2012-07-15 15:59:05Z marshall $
 //
 
 
-// Test file for macro BOOST_NO_AUTO_DECLARATIONS
+// Test file for macro BOOST_NO_CXX11_AUTO_DECLARATIONS
 // This file should compile, if it does not then
-// BOOST_NO_AUTO_DECLARATIONS should be defined.
+// BOOST_NO_CXX11_AUTO_DECLARATIONS should be defined.
 // See file boost_no_auto_declarations.ipp for details
 
 // Must not have BOOST_ASSERT_CONFIG set; it defeats
@@ -24,7 +24,7 @@
 #include <boost/config.hpp>
 #include "test.hpp"
 
-#ifndef BOOST_NO_AUTO_DECLARATIONS
+#ifndef BOOST_NO_CXX11_AUTO_DECLARATIONS
 #include "boost_no_auto_declarations.ipp"
 #else
 namespace boost_no_auto_declarations = empty_boost;

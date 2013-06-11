@@ -38,6 +38,7 @@ the user's locale:
 [[macro][description]]
 [[BOOST_REGEX_DYN_LINK][For Microsoft and Borland C++ builds, this tells Boost.Regex that it should link to the dll build of the Boost.Regex.  By default boost.regex will link to its static library build, even if the dynamic C runtime library is in use.]]
 [[BOOST_REGEX_NO_LIB][For Microsoft and Borland C++ builds, this tells Boost.Regex that it should not automatically select the library to link to.]]
+[[BOOST_REGEX_NO_FASTCALL][For Microsoft builds, this tells Boost.Regex to use the `__cdecl` calling convention rather than `__fastcall`.  Useful if you want to use the same library from both managed and unmanaged code.]]
 ]
 
 [endsect]

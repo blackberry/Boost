@@ -12,6 +12,7 @@
 //       Moved test of transform iterator into its own file. It to
 //       to be in iterator_adaptor_test.cpp.
 
+#include <boost/assert.hpp>
 #include <boost/config.hpp>
 #include <algorithm>
 #include <boost/iterator/transform_iterator.hpp>
@@ -106,12 +107,17 @@ struct polymorphic_mult_functor
 {
     //Implement result_of protocol
     template <class FArgs> struct result;
-    template <class F, class T> struct result<F(T       )> {typedef T type;};
-    template <class F, class T> struct result<F(T&      )> {typedef T type;};
-    template <class F, class T> struct result<F(const T&)> {typedef T type;};
+    template <class F, class T> struct result<const F(T       )> {typedef T type;};
+    template <class F, class T> struct result<const F(T&      )> {typedef T type;};
+    template <class F, class T> struct result<const F(const T&)> {typedef T type;};
+    template <class F, class T> struct result<F(T       )> {typedef void type;};
+    template <class F, class T> struct result<F(T&      )> {typedef void type;};
+    template <class F, class T> struct result<F(const T&)> {typedef void type;};
 
     template <class T> 
     T operator()(const T& _arg) const {return _arg*2;}
+    template <class T> 
+    void operator()(const T& _arg) { BOOST_ASSERT(0); }
 };
 
 int

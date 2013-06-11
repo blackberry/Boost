@@ -33,6 +33,8 @@
 
 #include <boost/math/special_functions/gamma.hpp> // for (incomplete) gamma.
 //   using boost::math::qamma_Q;
+#include "table_type.hpp"
+#include "test_out_of_range.hpp"
 
 #include <iostream>
    using std::cout;
@@ -484,7 +486,7 @@ void test_spots(RealType)
      x = quantile(complement(p6, poisson_quantile_data[i][1]));
      BOOST_CHECK_EQUAL(x, floor(poisson_quantile_data[i][3] + 0.5f));
   }
-
+   check_out_of_range<poisson_distribution<RealType> >(1);
 } // template <class RealType>void test_spots(RealType)
 
 //
@@ -599,11 +601,11 @@ int test_main(int, char* [])
 #endif
   }
 
-  #if !BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x582))
+#ifndef BOOST_MATH_NO_REAL_CONCEPT_TESTS
 #ifdef TEST_REAL_CONCEPT
   test_spots(boost::math::concepts::real_concept(0.)); // Test real concept.
 #endif
-  #endif
+#endif
 #endif
    return 0;
 } // int test_main(int, char* [])

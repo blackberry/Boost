@@ -6,13 +6,13 @@
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/config for the most recent version.//
-//  Revision $Id: no_decltype_n3276_pass.cpp 73153 2011-07-16 20:12:46Z eric_niebler $
+//  Revision $Id: no_decltype_n3276_pass.cpp 79537 2012-07-15 15:59:05Z marshall $
 //
 
 
-// Test file for macro BOOST_NO_DECLTYPE_N3276
+// Test file for macro BOOST_NO_CXX11_DECLTYPE_N3276
 // This file should compile, if it does not then
-// BOOST_NO_DECLTYPE_N3276 should be defined.
+// BOOST_NO_CXX11_DECLTYPE_N3276 should be defined.
 // See file boost_no_decltype_n3276.ipp for details
 
 // Must not have BOOST_ASSERT_CONFIG set; it defeats
@@ -24,7 +24,7 @@
 #include <boost/config.hpp>
 #include "test.hpp"
 
-#ifndef BOOST_NO_DECLTYPE_N3276
+#ifndef BOOST_NO_CXX11_DECLTYPE_N3276
 #include "boost_no_decltype_n3276.ipp"
 #else
 namespace boost_no_decltype_n3276 = empty_boost;

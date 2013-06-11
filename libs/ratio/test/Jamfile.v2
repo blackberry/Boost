@@ -26,7 +26,11 @@ project
         <toolset>msvc:<asynch-exceptions>on
         <define>BOOST_ENABLE_WARNINGS
         <define>BOOST_RATIO_USES_MPL_ASSERT
+        <define>BOOST_RATIO_VERSION=2
         <define>BOOST_MPL_NEXT_PRIOR_EXT
+        #<toolset>sun:<define>BOOST_COMMON_TYPE_DONT_USE_TYPEOF
+        #<toolset>sun:<define>BOOST_TYPEOF_EMULATION
+        <toolset>sun:<define>__typeof__=__typeof__ 
         <warnings>all
         <toolset>gcc:<cxxflags>-Wextra
         <toolset>gcc:<cxxflags>-Wno-long-long
@@ -117,3 +121,8 @@ project
         [ compile ratio_extensions/mpl_rational_constant_pass.cpp  ]
 
         ;
+
+    #test-suite "tickets"
+    #    :
+    #    [ run test_6498_pass.cpp  ]
+    #    ;

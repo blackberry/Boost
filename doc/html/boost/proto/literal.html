@@ -42,17 +42,17 @@
   <span class="keyword">typedef</span> <span class="keyword">typename</span> <a class="link" href="result_of/value.html" title="Struct template value">proto::result_of::value</a><span class="special">&lt;</span><span class="identifier">X</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span>          <a name="boost.proto.literal.const_reference"></a><span class="identifier">const_reference</span><span class="special">;</span>
 
   <span class="comment">// <a class="link" href="literal.html#boost.proto.literalconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="literal.html#id1459098-bb"><span class="identifier">literal</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> U<span class="special">&gt;</span> <a class="link" href="literal.html#id1459100-bb"><span class="identifier">literal</span></a><span class="special">(</span><span class="identifier">U</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> U<span class="special">&gt;</span> <a class="link" href="literal.html#id1459122-bb"><span class="identifier">literal</span></a><span class="special">(</span><span class="identifier">U</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> U<span class="special">&gt;</span> <a class="link" href="literal.html#id1459143-bb"><span class="identifier">literal</span></a><span class="special">(</span><a class="link" href="literal.html" title="Struct template literal">proto::literal</a><span class="special">&lt;</span> <span class="identifier">U</span><span class="special">,</span> <span class="identifier">Domain</span> <span class="special">&gt;</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="literal.html#id1605019-bb"><span class="identifier">literal</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> U<span class="special">&gt;</span> <a class="link" href="literal.html#id1605021-bb"><span class="identifier">literal</span></a><span class="special">(</span><span class="identifier">U</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> U<span class="special">&gt;</span> <a class="link" href="literal.html#id1605043-bb"><span class="identifier">literal</span></a><span class="special">(</span><span class="identifier">U</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> U<span class="special">&gt;</span> <a class="link" href="literal.html#id1605065-bb"><span class="identifier">literal</span></a><span class="special">(</span><a class="link" href="literal.html" title="Struct template literal">proto::literal</a><span class="special">&lt;</span> <span class="identifier">U</span><span class="special">,</span> <span class="identifier">Domain</span> <span class="special">&gt;</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="literal.html#id1459050-bb">public member functions</a></span>
-  <span class="identifier">reference</span> <a class="link" href="literal.html#id1459055-bb"><span class="identifier">get</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">const_reference</span> <a class="link" href="literal.html#id1459075-bb"><span class="identifier">get</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="literal.html#id1604972-bb">public member functions</a></span>
+  <span class="identifier">reference</span> <a class="link" href="literal.html#id1604977-bb"><span class="identifier">get</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">const_reference</span> <a class="link" href="literal.html#id1604996-bb"><span class="identifier">get</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="id2682531"></a><h2>Description</h2>
+<a name="id2872634"></a><h2>Description</h2>
 <p>
             A simple wrapper for a terminal, provided for ease of use. In all cases,
             <code class="computeroutput">proto::literal&lt;X&gt; l(x);</code> is equivalent to
@@ -63,38 +63,38 @@
             <code class="computeroutput"><a class="link" href="default_domain.html" title="Struct default_domain">proto::default_domain</a></code>.
           </p>
 <div class="refsect2">
-<a name="id2682580"></a><h3>
+<a name="id2872683"></a><h3>
 <a name="boost.proto.literalconstruct-copy-destruct"></a><code class="computeroutput">literal</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><a name="id1459098-bb"></a><span class="identifier">literal</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> U<span class="special">&gt;</span> <a name="id1459100-bb"></a><span class="identifier">literal</span><span class="special">(</span><span class="identifier">U</span> <span class="special">&amp;</span> u<span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> U<span class="special">&gt;</span> <a name="id1459122-bb"></a><span class="identifier">literal</span><span class="special">(</span><span class="identifier">U</span> <span class="keyword">const</span> <span class="special">&amp;</span> u<span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> U<span class="special">&gt;</span> <a name="id1459143-bb"></a><span class="identifier">literal</span><span class="special">(</span><a class="link" href="literal.html" title="Struct template literal">proto::literal</a><span class="special">&lt;</span> <span class="identifier">U</span><span class="special">,</span> <span class="identifier">Domain</span> <span class="special">&gt;</span> <span class="keyword">const</span> <span class="special">&amp;</span> u<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="id1605019-bb"></a><span class="identifier">literal</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> U<span class="special">&gt;</span> <a name="id1605021-bb"></a><span class="identifier">literal</span><span class="special">(</span><span class="identifier">U</span> <span class="special">&amp;</span> u<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> U<span class="special">&gt;</span> <a name="id1605043-bb"></a><span class="identifier">literal</span><span class="special">(</span><span class="identifier">U</span> <span class="keyword">const</span> <span class="special">&amp;</span> u<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> U<span class="special">&gt;</span> <a name="id1605065-bb"></a><span class="identifier">literal</span><span class="special">(</span><a class="link" href="literal.html" title="Struct template literal">proto::literal</a><span class="special">&lt;</span> <span class="identifier">U</span><span class="special">,</span> <span class="identifier">Domain</span> <span class="special">&gt;</span> <span class="keyword">const</span> <span class="special">&amp;</span> u<span class="special">)</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="id2682848"></a><h3>
-<a name="id1459050-bb"></a><code class="computeroutput">literal</code> public member functions</h3>
+<a name="id2872952"></a><h3>
+<a name="id1604972-bb"></a><code class="computeroutput">literal</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">reference</span> <a name="id1459055-bb"></a><span class="identifier">get</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">reference</span> <a name="id1604977-bb"></a><span class="identifier">get</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody><tr>
 <td><p><span class="term">Returns:</span></p></td>
-<td><code class="computeroutput"><a class="link" href="value_id1484619.html" title="Function value">proto::value</a>(*this)</code></td>
+<td><code class="computeroutput"><a class="link" href="value_id1630896.html" title="Function value">proto::value</a>(*this)</code></td>
 </tr></tbody>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">const_reference</span> <a name="id1459075-bb"></a><span class="identifier">get</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">const_reference</span> <a name="id1604996-bb"></a><span class="identifier">get</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody><tr>
 <td><p><span class="term">Returns:</span></p></td>
-<td><code class="computeroutput"><a class="link" href="value_id1484619.html" title="Function value">proto::value</a>(*this)</code></td>
+<td><code class="computeroutput"><a class="link" href="value_id1630896.html" title="Function value">proto::value</a>(*this)</code></td>
 </tr></tbody>
 </table></div>
 </li>

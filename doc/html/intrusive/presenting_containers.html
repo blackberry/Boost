@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../intrusive.html" title="Chapter&#160;12.&#160;Boost.Intrusive">
+<link rel="up" href="../intrusive.html" title="Chapter&#160;13.&#160;Boost.Intrusive">
 <link rel="prev" href="concepts_summary.html" title="Concept summary">
 <link rel="next" href="safe_hook.html" title="Safe hooks">
 </head>
@@ -124,12 +124,14 @@
 <div class="itemizedlist"><ul class="itemizedlist" type="disc">
 <li class="listitem">
           <span class="bold"><strong>Safe mode hooks</strong></span>: Hook constructor initializes
-          the internal data to a well-known safe state and intrusive containers check
-          that state before inserting a value in the container. When erasing an element
-          from the container, the container puts the hook in the safe state again.
-          This allows a safer use mode and it can be used to detect programming errors.
-          It implies a slight performance overhead in some operations and can convert
-          some constant time operations to linear time operations.
+          the internal <code class="computeroutput"><span class="identifier">node</span></code> to a
+          well-known safe state and intrusive containers check that state before
+          inserting a value in the container using that hook. When erasing an element
+          from the container, the container puts the <code class="computeroutput"><span class="identifier">node</span></code>
+          of the hook in the safe state again. This allows a safer use mode and it
+          can be used to detect programming errors. It implies a slight performance
+          overhead in some operations and can convert some constant time operations
+          to linear time operations.
         </li>
 <li class="listitem">
           <span class="bold"><strong>Auto-unlink hooks</strong></span>: The hook destructor
@@ -151,7 +153,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2005 Olaf Krzikalla<br>Copyright &#169; 2006-2010 Ion Gaztanaga<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2005 Olaf Krzikalla<br>Copyright &#169; 2006-2012 Ion Gaztanaga<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

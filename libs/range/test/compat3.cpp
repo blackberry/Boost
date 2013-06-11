@@ -53,9 +53,9 @@ void compat1()
     iterator_of< std::vector<int> >::type i = v.begin();
 }
 
-#include <boost/test/included/unit_test_framework.hpp> 
+#include <boost/test/included/unit_test.hpp> 
 
-using boost::unit_test_framework::test_suite;
+using boost::unit_test::test_suite;
 
 test_suite* init_unit_test_suite( int argc, char* argv[] )
 {

@@ -32,6 +32,10 @@
     </xsl:choose>
   </xsl:param>
 
+  <xsl:param name="boost.mathjax" select="0"/>
+  <xsl:param name="boost.mathjax.script"
+             select="'http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'"/>
+
   <xsl:param name="admon.style"/>
   <xsl:param name="admon.graphics">1</xsl:param>
   <xsl:param name="boostbook.verbose" select="0"/>
@@ -276,6 +280,61 @@ set       toc,title
   </xsl:template>
 
   <xsl:template name="generate.html.title"/>
+
+  <xsl:template match="*" mode="detect-math">
+    <xsl:variable name="is-chunk">
+      <xsl:call-template name="chunk"/>
+    </xsl:variable>
+    <xsl:if test="$is-chunk = '0'">
+      <xsl:apply-templates mode="detect-math"/>
+    </xsl:if>
+  </xsl:template>
+  
+  <xsl:template match="text()" mode="detect-math"/>
+  
+  <xsl:template match="textobject[@role='tex']" mode="detect-math">
+    <xsl:text>1</xsl:text>
+  </xsl:template>
+  
+  <xsl:template name="user.head.content">
+    <xsl:if test="$boost.mathjax = 1">
+      <xsl:variable name="has-math">
+        <xsl:apply-templates mode="detect-math" select="*"/>
+      </xsl:variable>
+      <xsl:if test="string($has-math) != ''">
+        <script type="text/javascript" src="{$boost.mathjax.script}"/>
+      </xsl:if>
+    </xsl:if>
+  </xsl:template>
+  
+  <xsl:template match="inlinemediaobject">
+    <xsl:choose>
+      <xsl:when test="$boost.mathjax = 1 and textobject[@role='tex']">
+        <xsl:variable name="content" select="string(textobject[@role='tex'])"/>
+        <xsl:variable name="plain-content">
+          <xsl:choose>
+            <!--strip $$-->
+            <xsl:when test="substring($content, 1, 1) = '$' and
+                            substring($content, string-length($content), 1) = '$'">
+              <xsl:value-of select="substring($content, 2, string-length($content) - 2)"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="$content"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:variable>
+        <script type="math/tex">
+          <xsl:value-of select="$plain-content"/>
+        </script>
+        <noscript>
+          <xsl:apply-imports/>
+        </noscript>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:apply-imports/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
   
 <!-- ============================================================ -->
 

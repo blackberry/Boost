@@ -1,12 +1,12 @@
 <html>
-	<head>
-		<title>BOOST_PP_SEQ_NIL</title>
+<head>
+        <title>BOOST_PP_SEQ_NIL</title>
 		<link rel="stylesheet" type="text/css" href="../styles.css">
-	</head>
-	<body>
-		<div style="margin-left:  0px;">
+</head>
+<body>
+		<div style="margin-left: 0px;">
 			The <b>BOOST_PP_SEQ_NIL</b> macro is a placeholder macro for an empty <i>seq</i>.&nbsp; 
-			It is only valid if it is elements are appended to the end of this empty 
+			It is only valid if it's elements are appended to the end of this empty 
 			"seq."&nbsp;
 		</div>
 		<h4>
@@ -63,38 +63,19 @@
 			Sample Code
 		</h4>
 		<div>
-			<pre>
-#include &lt;<a href="../headers/facilities/empty.html">boost/preprocessor/facilities/empty.hpp</a>&gt;
-#include &lt;<a href="../headers/seq/push_back.html">boost/preprocessor/seq/push_back.hpp</a>&gt;
-#include &lt;<a href="../headers/seq/push_front.html">boost/preprocessor/seq/push_front.hpp</a>&gt;
-#include &lt;<a href="../headers/seq/seq.html">boost/preprocessor/seq/seq.hpp</a>&gt;
-
-#define SEQ_L <a href="seq_nil.html">BOOST_PP_SEQ_NIL</a>
+			<pre>#include &lt;<a href="../headers/facilities/empty.html">boost/preprocessor/facilities/empty.hpp</a>&gt;<br>#include &lt;<a href="../headers/seq/push_back.html">boost/preprocessor/seq/push_back.hpp</a>&gt;<br>#include &lt;<a href="../headers/seq/push_front.html">boost/preprocessor/seq/push_front.hpp</a>&gt;<br>#include &lt;<a href="../headers/seq/seq.html">boost/preprocessor/seq/seq.hpp</a>&gt;<br><br>#define SEQ_L <a href="seq_nil.html">BOOST_PP_SEQ_NIL</a>
 #define SEQ_R <a href="empty.html">BOOST_PP_EMPTY</a>
-
-<a href="seq_push_back.html">BOOST_PP_SEQ_PUSH_BACK</a>(
-   <a href="seq_push_back.html">BOOST_PP_SEQ_PUSH_BACK</a>(SEQ_L, a), b
-)
-
-// expands to (a)(b)
-
-<a href="seq_push_front.html">BOOST_PP_SEQ_PUSH_FRONT</a>(
-   <a href="seq_push_front.html">BOOST_PP_SEQ_PUSH_FRONT</a>(SEQ_R, a), b
-)()
-
-// expands to (b)(a)
-</pre>
+<a href="seq_push_back.html">BOOST_PP_SEQ_PUSH_BACK</a>(<br>   <a href="seq_push_back.html">BOOST_PP_SEQ_PUSH_BACK</a>(SEQ_L, a), b<br>)<br><br>// expands to (a)(b)<br><br><a href="seq_push_front.html">BOOST_PP_SEQ_PUSH_FRONT</a>(<br>   <a href="seq_push_front.html">BOOST_PP_SEQ_PUSH_FRONT</a>(SEQ_R, a), b<br>)()<br><br>// expands to (b)(a)<br></pre>
 		</div>
 	<hr size="1">
 	<div style="margin-left: 0px;">
 		<i>© Copyright <a href="http://www.housemarque.com" target="_top">Housemarque Oy</a> 2002</i>
-		</br><i>© Copyright Paul Mensonides 2002</i>
+		<br><i>© Copyright Paul Mensonides 2002</i>
 	</div>
 	<div style="margin-left: 0px;">
 		<p><small>Distributed under the Boost Software License, Version 1.0. (See
 		accompanying file <a href="../../../../LICENSE_1_0.txt">LICENSE_1_0.txt</a> or
-		copy at <a href=
-		"http://www.boost.org/LICENSE_1_0.txt">www.boost.org/LICENSE_1_0.txt</a>)</small></p>
+		copy at <a href="http://www.boost.org/LICENSE_1_0.txt">www.boost.org/LICENSE_1_0.txt</a>)</small></p>
 	</div>
-	</body>
+</body>
 </html>

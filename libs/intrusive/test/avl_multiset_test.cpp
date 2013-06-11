@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 //
 // (C) Copyright Olaf Krzikalla 2004-2006.
-// (C) Copyright Ion Gaztanaga  2006-2009.
+// (C) Copyright Ion Gaztanaga  2006-2012.
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -12,7 +12,7 @@
 /////////////////////////////////////////////////////////////////////////////
 #include <boost/intrusive/detail/config_begin.hpp>
 #include <boost/intrusive/avl_set.hpp>
-#include <boost/intrusive/detail/pointer_to_other.hpp>
+#include <boost/intrusive/pointer_traits.hpp>
 #include "itestvalue.hpp"
 #include "smart_ptr.hpp"
 #include "generic_multiset_test.hpp"
@@ -24,7 +24,7 @@ template<class T, class O1, class O2, class O3, class O4>
 #else
 template<class T, class ...Options>
 #endif
-struct has_insert_before<boost::intrusive::avl_multiset<T, 
+struct has_insert_before<boost::intrusive::avl_multiset<T,
    #if !defined (BOOST_INTRUSIVE_VARIADIC_TEMPLATES)
    O1, O2, O3, O4
    #else
@@ -146,7 +146,7 @@ class test_main_template<VoidPointer, false>
    }
 };
 
-int main( int, char* [] ) 
+int main( int, char* [] )
 {
    test_main_template<void*, false>()();
    test_main_template<boost::intrusive::smart_ptr<void>, false>()();

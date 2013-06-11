@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2007-2010
+// (C) Copyright Ion Gaztanaga  2007-2012
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -49,7 +49,7 @@ void instantiate()
    list< Foo, base_hook<ListBaseHook> >   list_;   list_.clear();
    slist< Foo, base_hook<SListBaseHook> > slist_;  slist_.clear();
    set< Foo, base_hook<SetBaseHook> > set_;  set_.clear();
-   
+
    USet::bucket_type buckets[1];
    USet unordered_set_(USet::bucket_traits(buckets, 1));  unordered_set_.clear();
 }

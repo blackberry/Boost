@@ -3,10 +3,10 @@
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
-#include <boost/unordered/detail/allocator_helpers.hpp>
+#include <boost/unordered/detail/allocate.hpp>
 #include <boost/detail/lightweight_test.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/mpl/assert.hpp>
+#include <boost/static_assert.hpp>
 #include "../objects/test.hpp"
 
 template <class Tp> 
@@ -41,17 +41,23 @@ void test_simple_allocator()
     typedef boost::unordered::detail::allocator_traits<
         SimpleAllocator<T> > traits;
 
-    BOOST_MPL_ASSERT((boost::is_same<typename traits::allocator_type, SimpleAllocator<T> >));
+    BOOST_STATIC_ASSERT((boost::is_same<typename traits::allocator_type, SimpleAllocator<T> >::value));
 
-    BOOST_MPL_ASSERT((boost::is_same<typename traits::value_type, T>));
+    BOOST_STATIC_ASSERT((boost::is_same<typename traits::value_type, T>::value));
 
-    BOOST_MPL_ASSERT((boost::is_same<typename traits::pointer, T* >));
-    BOOST_MPL_ASSERT((boost::is_same<typename traits::const_pointer, T const*>));
-    //BOOST_MPL_ASSERT((boost::is_same<typename traits::void_pointer, void* >));
-    //BOOST_MPL_ASSERT((boost::is_same<typename traits::const_void_pointer, void const*>));
+    BOOST_STATIC_ASSERT((boost::is_same<typename traits::pointer, T* >::value));
+    BOOST_STATIC_ASSERT((boost::is_same<typename traits::const_pointer, T const*>::value));
+    //BOOST_STATIC_ASSERT((boost::is_same<typename traits::void_pointer, void* >::value));
+    //BOOST_STATIC_ASSERT((boost::is_same<typename traits::const_void_pointer, void const*>::value));
 
-    BOOST_MPL_ASSERT((boost::is_same<typename traits::difference_type, std::ptrdiff_t>));
-    BOOST_MPL_ASSERT((boost::is_same<typename traits::size_type, std::size_t>));
+    BOOST_STATIC_ASSERT((boost::is_same<typename traits::difference_type, std::ptrdiff_t>::value));
+
+#if BOOST_UNORDERED_USE_ALLOCATOR_TRAITS == 1
+    BOOST_STATIC_ASSERT((boost::is_same<typename traits::size_type,
+        std::make_unsigned<std::ptrdiff_t>::type>::value));
+#else
+    BOOST_STATIC_ASSERT((boost::is_same<typename traits::size_type, std::size_t>::value));
+#endif
 
     BOOST_TEST(!traits::propagate_on_container_copy_assignment::value);
     BOOST_TEST(!traits::propagate_on_container_move_assignment::value);

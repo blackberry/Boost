@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2007-2009
+// (C) Copyright Ion Gaztanaga  2007-2012
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -78,7 +78,8 @@ int main()
 
       //Test the objects inserted in the base hook list
       for(; vect_it != vect_itend; ++vect_it, ++list_it)
-         if(&*list_it  != &*vect_it)   return 1;
+         if(&*list_it  != &*vect_it)
+            return 1;
    }
 
    return 0;

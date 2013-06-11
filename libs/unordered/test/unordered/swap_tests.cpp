@@ -4,12 +4,13 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 #include "../helpers/prefix.hpp"
+#include <boost/unordered_set.hpp>
+#include <boost/unordered_map.hpp>
+#include "../helpers/postfix.hpp"
 
 #include <boost/config.hpp>
 #include <algorithm>
 #include <iterator>
-#include <boost/unordered_set.hpp>
-#include <boost/unordered_map.hpp>
 #include "../helpers/test.hpp"
 #include "../objects/test.hpp"
 #include "../objects/cxx11_allocator.hpp"
@@ -24,7 +25,7 @@
 namespace swap_tests
 {
 
-test::seed_t seed(783472);
+test::seed_t initialize_seed(783472);
 
 template <class X>
 void swap_test_impl(X& x1, X& x2)
@@ -39,7 +40,7 @@ void swap_test_impl(X& x1, X& x2)
 }
 
 template <class X>
-void swap_tests1(X*, test::random_generator generator = test::default_generator)
+void swap_tests1(X*, test::random_generator generator)
 {
     {
         test::check_instances check_;
@@ -75,10 +76,9 @@ void swap_tests1(X*, test::random_generator generator = test::default_generator)
 }
 
 template <class X>
-void swap_tests2(X* ptr = 0,
-    test::random_generator generator = test::default_generator)
+void swap_tests2(X* ptr, test::random_generator generator)
 {
-    swap_tests1(ptr);
+    swap_tests1(ptr, generator);
 
     typedef BOOST_DEDUCED_TYPENAME X::hasher hasher;
     typedef BOOST_DEDUCED_TYPENAME X::key_equal key_equal;
@@ -147,18 +147,22 @@ void swap_tests2(X* ptr = 0,
     }
 }
 
-boost::unordered_set<test::object,
-        test::hash, test::equal_to,
-        test::allocator<test::object> >* test_set;
-boost::unordered_multiset<test::object,
-        test::hash, test::equal_to,
-        test::allocator<test::object> >* test_multiset;
 boost::unordered_map<test::object, test::object,
         test::hash, test::equal_to,
-        test::allocator<test::object> >* test_map;
+        std::allocator<test::object> >* test_map_std_alloc;
+
+boost::unordered_set<test::object,
+        test::hash, test::equal_to,
+        test::allocator1<test::object> >* test_set;
+boost::unordered_multiset<test::object,
+        test::hash, test::equal_to,
+        test::allocator2<test::object> >* test_multiset;
+boost::unordered_map<test::object, test::object,
+        test::hash, test::equal_to,
+        test::allocator1<test::object> >* test_map;
 boost::unordered_multimap<test::object, test::object,
         test::hash, test::equal_to,
-        test::allocator<test::object> >* test_multimap;
+        test::allocator2<test::object> >* test_multimap;
 
 boost::unordered_set<test::object,
         test::hash, test::equal_to,
@@ -200,6 +204,9 @@ bool is_propagate(T*)
     return T::allocator_type::is_propagate_on_swap;
 }
 
+using test::default_generator;
+using test::generate_collisions;
+
 UNORDERED_AUTO_TEST(check_traits)
 {
     BOOST_TEST(!is_propagate(test_set));
@@ -208,16 +215,21 @@ UNORDERED_AUTO_TEST(check_traits)
 }
 
 UNORDERED_TEST(swap_tests1, (
-    (test_set)(test_multiset)(test_map)(test_multimap)
-    (test_set_prop_swap)(test_multiset_prop_swap)(test_map_prop_swap)(test_multimap_prop_swap)
-    (test_set_no_prop_swap)(test_multiset_no_prop_swap)(test_map_no_prop_swap)(test_multimap_no_prop_swap)
-))
+        (test_map_std_alloc)
+        (test_set)(test_multiset)(test_map)(test_multimap)
+        (test_set_prop_swap)(test_multiset_prop_swap)(test_map_prop_swap)(test_multimap_prop_swap)
+        (test_set_no_prop_swap)(test_multiset_no_prop_swap)(test_map_no_prop_swap)(test_multimap_no_prop_swap)
+    )
+    ((default_generator)(generate_collisions))
+)
 
 UNORDERED_TEST(swap_tests2, (
-    (test_set)(test_multiset)(test_map)(test_multimap)
-    (test_set_prop_swap)(test_multiset_prop_swap)(test_map_prop_swap)(test_multimap_prop_swap)
-    (test_set_no_prop_swap)(test_multiset_no_prop_swap)(test_map_no_prop_swap)(test_multimap_no_prop_swap)
-))
+        (test_set)(test_multiset)(test_map)(test_multimap)
+        (test_set_prop_swap)(test_multiset_prop_swap)(test_map_prop_swap)(test_multimap_prop_swap)
+        (test_set_no_prop_swap)(test_multiset_no_prop_swap)(test_map_no_prop_swap)(test_multimap_no_prop_swap)
+    )
+    ((default_generator)(generate_collisions))
+)
 
 }
 RUN_TESTS()

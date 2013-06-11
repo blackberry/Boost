@@ -180,18 +180,37 @@ People have complained about the name _foreach_. It's too long. `ALL CAPS` can
 get tiresome to look at. That may be true, but _foreach_ is merely following
 the [@http://www.boost.org/more/lib_guide.htm Boost Naming Convention]. That
 doesn't mean you're stuck with it, though. If you would like to use a different
-identifier (`foreach`, perhaps), you can simply do:
+identifier (`foreach_`, perhaps), you can simply do:
 
-    #define foreach         BOOST_FOREACH
-    #define reverse_foreach BOOST_REVERSE_FOREACH
+    #define foreach_         BOOST_FOREACH
+    #define foreach_r_       BOOST_REVERSE_FOREACH
 
 Only do this if you are sure that the identifier you choose will not cause
 name conflicts in your code.
 
-[note Do not use `#define foreach(x,y) BOOST_FOREACH(x,y)`.
+[note Do not use `#define foreach_(x,y) BOOST_FOREACH(x,y)`.
  This can be problematic if the arguments are macros themselves. This would
  result in an additional expansion of these macros. Instead, use the 
  form shown above.]
+
+Lastly, a word of warning. Lots of folks use a `foreach` macro as a short form
+for `BOOST_FOREACH`. I discourage this. It leads to name conflicts within the
+`BOOST_FOREACH` macro itself, where `foreach` is the name of a namespace. Besides,
+`foreach` is a common-eough identifier; even [@http://qt.digia.com/ Qt] defines
+it as a macro. If you insist on using `foreach`, you might try something like this:
+
+    #include <boost/foreach.hpp>
+    
+    namespace boost
+    {
+        // Suggested work-around for https://svn.boost.org/trac/boost/ticket/6131
+        namespace BOOST_FOREACH = foreach;
+    }
+    
+    #define foreach   BOOST_FOREACH
+
+This will work around /some/ of the problem you're likely to encounter, but not all.
+Prefer using a different identifier.
 
 [endsect]
 

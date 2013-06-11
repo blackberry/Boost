@@ -18,9 +18,9 @@ void test_lock_two_uncontended()
 
     BOOST_CHECK(!l1.owns_lock());
     BOOST_CHECK(!l2.owns_lock());
-    
+
     boost::lock(l1,l2);
-    
+
     BOOST_CHECK(l1.owns_lock());
     BOOST_CHECK(l2.owns_lock());
 }
@@ -30,11 +30,11 @@ struct wait_data
     boost::mutex m;
     bool flag;
     boost::condition_variable cond;
-    
+
     wait_data():
         flag(false)
     {}
-    
+
     void wait()
     {
         boost::mutex::scoped_lock l(m);
@@ -48,7 +48,7 @@ struct wait_data
     bool timed_wait(Duration d)
     {
         boost::system_time const target=boost::get_system_time()+d;
-        
+
         boost::mutex::scoped_lock l(m);
         while(!flag)
         {
@@ -59,7 +59,7 @@ struct wait_data
         }
         return true;
     }
-    
+
     void signal()
     {
         boost::mutex::scoped_lock l(m);
@@ -67,7 +67,7 @@ struct wait_data
         cond.notify_all();
     }
 };
-       
+
 
 void lock_mutexes_slowly(boost::mutex* m1,boost::mutex* m2,wait_data* locked,wait_data* quit)
 {
@@ -90,7 +90,7 @@ void test_lock_two_other_thread_locks_in_order()
     boost::mutex m1,m2;
     wait_data locked;
     wait_data release;
-    
+
     boost::thread t(lock_mutexes_slowly,&m1,&m2,&locked,&release);
     boost::this_thread::sleep(boost::posix_time::milliseconds(10));
 
@@ -98,7 +98,7 @@ void test_lock_two_other_thread_locks_in_order()
     BOOST_CHECK(locked.timed_wait(boost::posix_time::seconds(1)));
 
     release.signal();
-    
+
     BOOST_CHECK(t2.timed_join(boost::posix_time::seconds(1)));
 
     t.join();
@@ -109,7 +109,7 @@ void test_lock_two_other_thread_locks_in_opposite_order()
     boost::mutex m1,m2;
     wait_data locked;
     wait_data release;
-    
+
     boost::thread t(lock_mutexes_slowly,&m1,&m2,&locked,&release);
     boost::this_thread::sleep(boost::posix_time::milliseconds(10));
 
@@ -117,7 +117,7 @@ void test_lock_two_other_thread_locks_in_opposite_order()
     BOOST_CHECK(locked.timed_wait(boost::posix_time::seconds(1)));
 
     release.signal();
-    
+
     BOOST_CHECK(t2.timed_join(boost::posix_time::seconds(1)));
 
     t.join();
@@ -138,9 +138,9 @@ void test_lock_five_uncontended()
     BOOST_CHECK(!l3.owns_lock());
     BOOST_CHECK(!l4.owns_lock());
     BOOST_CHECK(!l5.owns_lock());
-    
+
     boost::lock(l1,l2,l3,l4,l5);
-    
+
     BOOST_CHECK(l1.owns_lock());
     BOOST_CHECK(l2.owns_lock());
     BOOST_CHECK(l3.owns_lock());
@@ -179,7 +179,7 @@ void test_lock_five_other_thread_locks_in_order()
     boost::mutex m1,m2,m3,m4,m5;
     wait_data locked;
     wait_data release;
-    
+
     boost::thread t(lock_five_mutexes_slowly,&m1,&m2,&m3,&m4,&m5,&locked,&release);
     boost::this_thread::sleep(boost::posix_time::milliseconds(10));
 
@@ -187,7 +187,7 @@ void test_lock_five_other_thread_locks_in_order()
     BOOST_CHECK(locked.timed_wait(boost::posix_time::seconds(3)));
 
     release.signal();
-    
+
     BOOST_CHECK(t2.timed_join(boost::posix_time::seconds(3)));
 
     t.join();
@@ -198,7 +198,7 @@ void test_lock_five_other_thread_locks_in_different_order()
     boost::mutex m1,m2,m3,m4,m5;
     wait_data locked;
     wait_data release;
-    
+
     boost::thread t(lock_five_mutexes_slowly,&m1,&m2,&m3,&m4,&m5,&locked,&release);
     boost::this_thread::sleep(boost::posix_time::milliseconds(10));
 
@@ -206,7 +206,7 @@ void test_lock_five_other_thread_locks_in_different_order()
     BOOST_CHECK(locked.timed_wait(boost::posix_time::seconds(3)));
 
     release.signal();
-    
+
     BOOST_CHECK(t2.timed_join(boost::posix_time::seconds(3)));
 
     t.join();
@@ -225,11 +225,11 @@ void lock_n(boost::mutex* mutexes,unsigned count)
 void test_lock_ten_other_thread_locks_in_different_order()
 {
     unsigned const num_mutexes=10;
-    
+
     boost::mutex mutexes[num_mutexes];
     wait_data locked;
     wait_data release;
-    
+
     boost::thread t(lock_five_mutexes_slowly,&mutexes[6],&mutexes[3],&mutexes[8],&mutexes[0],&mutexes[2],&locked,&release);
     boost::this_thread::sleep(boost::posix_time::milliseconds(10));
 
@@ -246,16 +246,16 @@ void test_lock_ten_other_thread_locks_in_different_order()
 struct dummy_mutex
 {
     bool is_locked;
-    
+
     dummy_mutex():
         is_locked(false)
     {}
-    
+
     void lock()
     {
         is_locked=true;
     }
-    
+
     bool try_lock()
     {
         if(is_locked)
@@ -265,7 +265,7 @@ struct dummy_mutex
         is_locked=true;
         return true;
     }
-    
+
     void unlock()
     {
         is_locked=false;
@@ -289,7 +289,7 @@ void test_lock_five_in_range()
     dummy_mutex mutexes[num_mutexes];
 
     boost::lock(mutexes,mutexes+num_mutexes);
-    
+
     for(unsigned i=0;i<num_mutexes;++i)
     {
         BOOST_CHECK(mutexes[i].is_locked);
@@ -306,7 +306,7 @@ public:
     explicit dummy_iterator(dummy_mutex* p_):
         p(p_)
     {}
-    
+
     bool operator==(dummy_iterator const& other) const
     {
         return p==other.p;
@@ -321,7 +321,7 @@ public:
     {
         return p<other.p;
     }
-    
+
     dummy_mutex& operator*() const
     {
         return *p;
@@ -331,22 +331,22 @@ public:
     {
         return p;
     }
-    
+
     dummy_iterator operator++(int)
     {
         dummy_iterator temp(*this);
         ++p;
         return temp;
     }
-    
+
     dummy_iterator& operator++()
     {
         ++p;
         return *this;
     }
-    
+
 };
-    
+
 
 void test_lock_five_in_range_custom_iterator()
 {
@@ -354,7 +354,7 @@ void test_lock_five_in_range_custom_iterator()
     dummy_mutex mutexes[num_mutexes];
 
     boost::lock(dummy_iterator(mutexes),dummy_iterator(mutexes+num_mutexes));
-    
+
     for(unsigned i=0;i<num_mutexes;++i)
     {
         BOOST_CHECK(mutexes[i].is_locked);
@@ -372,7 +372,7 @@ void test_lock_ten_in_range_inherited_mutex()
     dummy_mutex2 mutexes[num_mutexes];
 
     boost::lock(mutexes,mutexes+num_mutexes);
-    
+
     for(unsigned i=0;i<num_mutexes;++i)
     {
         BOOST_CHECK(mutexes[i].is_locked);
@@ -384,7 +384,7 @@ void test_try_lock_two_uncontended()
     dummy_mutex m1,m2;
 
     int const res=boost::try_lock(m1,m2);
-    
+
     BOOST_CHECK(res==-1);
     BOOST_CHECK(m1.is_locked);
     BOOST_CHECK(m2.is_locked);
@@ -398,7 +398,7 @@ void test_try_lock_two_first_locked()
         l2(m2,boost::defer_lock);
 
     int const res=boost::try_lock(l1,l2);
-    
+
     BOOST_CHECK(res==0);
     BOOST_CHECK(m1.is_locked);
     BOOST_CHECK(!m2.is_locked);
@@ -414,7 +414,7 @@ void test_try_lock_two_second_locked()
         l2(m2,boost::defer_lock);
 
     int const res=boost::try_lock(l1,l2);
-    
+
     BOOST_CHECK(res==1);
     BOOST_CHECK(!m1.is_locked);
     BOOST_CHECK(m2.is_locked);
@@ -425,7 +425,7 @@ void test_try_lock_two_second_locked()
 void test_try_lock_three()
 {
     int const num_mutexes=3;
-    
+
     for(int i=-1;i<num_mutexes;++i)
     {
         dummy_mutex mutexes[num_mutexes];
@@ -439,7 +439,7 @@ void test_try_lock_three()
             l3(mutexes[2],boost::defer_lock);
 
         int const res=boost::try_lock(l1,l2,l3);
-    
+
         BOOST_CHECK(res==i);
         for(int j=0;j<num_mutexes;++j)
         {
@@ -470,7 +470,7 @@ void test_try_lock_three()
 void test_try_lock_four()
 {
     int const num_mutexes=4;
-    
+
     for(int i=-1;i<num_mutexes;++i)
     {
         dummy_mutex mutexes[num_mutexes];
@@ -485,7 +485,7 @@ void test_try_lock_four()
             l4(mutexes[3],boost::defer_lock);
 
         int const res=boost::try_lock(l1,l2,l3,l4);
-    
+
         BOOST_CHECK(res==i);
         for(int j=0;j<num_mutexes;++j)
         {
@@ -518,7 +518,7 @@ void test_try_lock_four()
 void test_try_lock_five()
 {
     int const num_mutexes=5;
-    
+
     for(int i=-1;i<num_mutexes;++i)
     {
         dummy_mutex mutexes[num_mutexes];
@@ -534,7 +534,7 @@ void test_try_lock_five()
             l5(mutexes[4],boost::defer_lock);
 
         int const res=boost::try_lock(l1,l2,l3,l4,l5);
-    
+
         BOOST_CHECK(res==i);
         for(int j=0;j<num_mutexes;++j)
         {
@@ -568,9 +568,9 @@ void test_try_lock_five()
 
 
 
-boost::unit_test_framework::test_suite* init_unit_test_suite(int, char*[])
+boost::unit_test::test_suite* init_unit_test_suite(int, char*[])
 {
-    boost::unit_test_framework::test_suite* test =
+    boost::unit_test::test_suite* test =
         BOOST_TEST_SUITE("Boost.Threads: generic locks test suite");
 
     test->add(BOOST_TEST_CASE(&test_lock_two_uncontended));
@@ -591,4 +591,17 @@ boost::unit_test_framework::test_suite* init_unit_test_suite(int, char*[])
     test->add(BOOST_TEST_CASE(&test_try_lock_five));
 
     return test;
+}
+
+void remove_unused_warning()
+{
+
+  //../../../boost/test/results_collector.hpp:40:13: warning: unused function 'first_failed_assertion' [-Wunused-function]
+  //(void)first_failed_assertion;
+
+  //../../../boost/test/tools/floating_point_comparison.hpp:304:25: warning: unused variable 'check_is_close' [-Wunused-variable]
+  //../../../boost/test/tools/floating_point_comparison.hpp:326:25: warning: unused variable 'check_is_small' [-Wunused-variable]
+  (void)boost::test_tools::check_is_close;
+  (void)boost::test_tools::check_is_small;
+
 }

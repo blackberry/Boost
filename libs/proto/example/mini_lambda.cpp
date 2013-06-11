@@ -183,7 +183,7 @@ struct construct_helper
     { return T(); }
 
     // Generate BOOST_PROTO_MAX_ARITY overloads of the
-    // followig function call operator.
+    // following function call operator.
 #define BOOST_PROTO_LOCAL_MACRO(N, typename_A, A_const_ref, A_const_ref_a, a)\
     template<typename_A(N)>                                       \
     T operator()(A_const_ref_a(N)) const                          \

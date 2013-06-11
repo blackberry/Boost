@@ -10,7 +10,7 @@ Copyright (c) 2008-2009: Joachim Faulhaber
 #include <string>
 #include <boost/mpl/list.hpp>
 #include "../unit_test_unwarned.hpp"
-#include <boost/test/test_case_template.hpp>
+
 
 // interval instance types
 #include "../test_type_lists.hpp"
@@ -54,10 +54,10 @@ BOOST_AUTO_TEST_CASE
 {            interval_map_mixed_equal_4_bicremental_types<bicremental_type_3, int>(); }
 
 BOOST_AUTO_TEST_CASE
-(fastest_itl_partial_interval_map_mixed_inclusion_compare_4_bicremental_types)
+(fastest_icl_partial_interval_map_mixed_inclusion_compare_4_bicremental_types)
 {            partial_interval_map_mixed_inclusion_compare_4_bicremental_types<bicremental_type_4, int, partial_absorber>(); }
 
 BOOST_AUTO_TEST_CASE
-(fastest_itl_partial_interval_map_mixed_contains_4_bicremental_types)
+(fastest_icl_partial_interval_map_mixed_contains_4_bicremental_types)
 {            partial_interval_map_mixed_contains_4_bicremental_types<int, int, partial_absorber>(); }
 

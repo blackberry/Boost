@@ -29,7 +29,8 @@
 <div><div class="author"><h3 class="author">
 <span class="firstname">Ion</span> <span class="surname">Gaztanaga</span>
 </h3></div></div>
-<div><p class="copyright">Copyright &#169; 2009-2011 Ion Gaztanaga</p></div>
+<div><p class="copyright">Copyright &#169; 2009-2012 Ion
+      Gaztanaga</p></div>
 <div><div class="legalnotice">
 <a name="container.legal"></a><p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -70,10 +71,13 @@
 <dd><dl>
 <dt><span class="section"><a href="container/Cpp11_conformance.html#container.Cpp11_conformance.move_emplace">Move and Emplace</a></span></dt>
 <dt><span class="section"><a href="container/Cpp11_conformance.html#container.Cpp11_conformance.alloc_traits_move_traits">Stateful
-      allocators and Scoped allocators</a></span></dt>
+      allocators</a></span></dt>
+<dt><span class="section"><a href="container/Cpp11_conformance.html#container.Cpp11_conformance.scoped_allocator">Scoped
+      allocators</a></span></dt>
 <dt><span class="section"><a href="container/Cpp11_conformance.html#container.Cpp11_conformance.initializer_lists">Initializer
       lists</a></span></dt>
-<dt><span class="section"><a href="container/Cpp11_conformance.html#container.Cpp11_conformance.Vector_bool">vector&lt;bool&gt;</a></span></dt>
+<dt><span class="section"><a href="container/Cpp11_conformance.html#container.Cpp11_conformance.forward_list"><code class="computeroutput"><span class="identifier">forward_list</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="container/Cpp11_conformance.html#container.Cpp11_conformance.Vector_bool"><code class="computeroutput"><span class="identifier">vector</span><span class="special">&lt;</span><span class="keyword">bool</span><span class="special">&gt;</span></code></a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="container/other_features.html">Other features</a></span></dt>
 <dt><span class="section"><a href="container/history_and_reasons.html">History and reasons to use
@@ -87,12 +91,15 @@
 <dt><span class="section"><a href="container/index.html">Indexes</a></span></dt>
 <dt><span class="section"><a href="boost_container_header_reference.html">Boost.Container Header Reference</a></span></dt>
 <dd><dl>
+<dt><span class="section"><a href="boost_container_header_reference.html#header.boost.container.allocator_traits_hpp">Header &lt;boost/container/allocator_traits.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_container_header_reference.html#header.boost.container.container_fwd_hpp">Header &lt;boost/container/container_fwd.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_container_header_reference.html#header.boost.container.deque_hpp">Header &lt;boost/container/deque.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_container_header_reference.html#header.boost.container.flat_map_hpp">Header &lt;boost/container/flat_map.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_container_header_reference.html#header.boost.container.flat_set_hpp">Header &lt;boost/container/flat_set.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_container_header_reference.html#header.boost.container.list_hpp">Header &lt;boost/container/list.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_container_header_reference.html#header.boost.container.map_hpp">Header &lt;boost/container/map.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="boost_container_header_reference.html#header.boost.container.scoped_allocator_hpp">Header &lt;boost/container/scoped_allocator.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="boost_container_header_reference.html#header.boost.container.scoped_allocator_fwd_hpp">Header &lt;boost/container/scoped_allocator_fwd.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_container_header_reference.html#header.boost.container.set_hpp">Header &lt;boost/container/set.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_container_header_reference.html#header.boost.container.slist_hpp">Header &lt;boost/container/slist.hpp&gt;</a></span></dt>
 <dt><span class="section"><a href="boost_container_header_reference.html#header.boost.container.stable_vector_hpp">Header &lt;boost/container/stable_vector.hpp&gt;</a></span></dt>
@@ -102,6 +109,18 @@
 <dt><span class="section"><a href="container/acknowledgements_notes.html">Acknowledgements, notes
     and links</a></span></dt>
 <dt><span class="section"><a href="container/release_notes.html">Release Notes</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="container/release_notes.html#container.release_notes.release_notes_boost_1_52_00">Boost
+      1.52 Release</a></span></dt>
+<dt><span class="section"><a href="container/release_notes.html#container.release_notes.release_notes_boost_1_51_00">Boost
+      1.51 Release</a></span></dt>
+<dt><span class="section"><a href="container/release_notes.html#container.release_notes.release_notes_boost_1_50_00">Boost
+      1.50 Release</a></span></dt>
+<dt><span class="section"><a href="container/release_notes.html#container.release_notes.release_notes_boost_1_49_00">Boost
+      1.49 Release</a></span></dt>
+<dt><span class="section"><a href="container/release_notes.html#container.release_notes.release_notes_boost_1_48_00">Boost
+      1.48 Release</a></span></dt>
+</dl></dd>
 </dl>
 </div>
 <div class="section">
@@ -140,9 +159,9 @@
           <div class="itemizedlist"><ul class="itemizedlist" type="circle">
 <li class="listitem">
                 <code class="computeroutput"><a class="link" href="boost/container/flat_map.html" title="Class template flat_map">flat_map</a></code>,
-                <code class="computeroutput"><a class="link" href="boost/container/flat_map.html" title="Class template flat_map">flat_set</a></code>,
-                <code class="computeroutput"><a class="link" href="boost/container/flat_map.html" title="Class template flat_map">flat_multiset</a></code>
-                and <code class="computeroutput"><a class="link" href="boost/container/flat_map.html" title="Class template flat_map">flat_multiset</a></code>:
+                <code class="computeroutput"><a class="link" href="boost/container/flat_set.html" title="Class template flat_set">flat_set</a></code>,
+                <code class="computeroutput"><a class="link" href="boost/container/flat_multimap.html" title="Class template flat_multimap">flat_multimap</a></code>
+                and <code class="computeroutput"><a class="link" href="boost/container/flat_multiset.html" title="Class template flat_multiset">flat_multiset</a></code>:
                 drop-in replacements for standard associative containers but more
                 memory friendly and with faster searches.
               </li>
@@ -185,7 +204,7 @@
             Visual C++ &gt;= 7.1.
           </li>
 <li class="listitem">
-            GCC &gt;= 3.4.
+            GCC &gt;= 4.1.
           </li>
 <li class="listitem">
             Intel C++ &gt;= 9.0
@@ -195,7 +214,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: November 12, 2011 at 13:42:23 GMT</small></p></td>
+<td align="left"><p><small>Last revised: October 29, 2012 at 22:44:25 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>

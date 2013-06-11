@@ -23,6 +23,7 @@
 #include <boost/array.hpp>
 #include "functor.hpp"
 #include "handle_test_result.hpp"
+#include "table_type.hpp"
 
 #include <boost/math/tools/config.hpp>
 
@@ -61,15 +62,15 @@ void do_test_std_function(const A& data, const char* type_name, const char* func
    //
    result = boost::math::tools::test(
       data, 
-      bind_func(proc, 0), 
-      extract_result(1));
+      bind_func<value_type>(proc, 0), 
+      extract_result<value_type>(1));
    handle_test_result(result, data[result.worst()], result.worst(), type_name, function_name, test_name);
    if(inv_proc)
    {
       result = boost::math::tools::test(
          data, 
-         bind_func(inv_proc, 1), 
-         extract_result(0));
+         bind_func<value_type>(inv_proc, 1), 
+         extract_result<value_type>(0));
       handle_test_result(result, data[result.worst()], result.worst(), type_name, inv_function_name, test_name);
    }
 }
@@ -84,12 +85,12 @@ void test_spots()
    //
    // COS:
    //
-   boost::array<boost::array<long double, 2>, 4> cos_test_data = {
+   boost::array<boost::array<long double, 2>, 4> cos_test_data = {{
        0, 1,
        0.125L, 0.992197667229329053149096907788250869543327304736601263468910L,
        1.125L, 0.431176516798666176551969042921689826840697850225767471037314L,
        1.75L, -0.178246055649492090382676943942631358969920851291548272886063L,
-   };
+   }};
    unary_proc = std::cos;
    inv_unary_proc = std::acos;
    do_test_std_function(cos_test_data, "long double", "std::cos", "Mathematica data", unary_proc, "std::acos", inv_unary_proc);
@@ -99,14 +100,19 @@ void test_spots()
    //
    // SIN:
    //
-   boost::array<boost::array<long double, 2>, 6> sin_test_data = {
+   boost::array<boost::array<long double, 2>, 6> sin_test_data = {{
        0, 0,
        0.125L, 0.124674733385227689957442708712108467587834905641679257885515L,
        -0.125L, -0.124674733385227689957442708712108467587834905641679257885515L,
        1.125L, 0.902267594099095162918416128654829100758989018716070814389152L,
+#if LDBL_MAX_EXP > DBL_MAX_EXP
        1e-500L, 1e-500L,
        1e-1500L, 1e-1500L,
-   };
+#else
+       0, 0,
+       0, 0,
+#endif
+   }};
    unary_proc = std::sin;
    inv_unary_proc = std::asin;
    do_test_std_function(sin_test_data, "long double", "std::sin", "Mathematica data", unary_proc, "std::asin", inv_unary_proc);
@@ -116,19 +122,19 @@ void test_spots()
    //
    // TAN:
    //
-   boost::array<boost::array<long double, 2>, 7> tan_test_data = {
+   boost::array<boost::array<long double, 2>, 6> tan_test_data = {{
        0, 0,
        0.125L, 0.125655136575130967792678218629774000758665763892225542668867L,
        -0.125L, -0.125655136575130967792678218629774000758665763892225542668867L,
        1.125L, 2.09257127637217900442373398123488678225994171614872057291399L,
+#if LDBL_MAX_EXP > DBL_MAX_EXP
        1e-500L, 1e-500L,
        1e-1500L, 1e-1500L,
-#if LDBL_MAX_EXP > DBL_MAX_EXP
-       1.57079632679489661923132169163975144209858469968755291048747L, 1e500L,
 #else
        0, 0,
+       0, 0,
 #endif
-   };
+   }};
    unary_proc = std::tan;
    inv_unary_proc = std::atan;
    do_test_std_function(tan_test_data, "long double", "std::tan", "Mathematica data", unary_proc, "std::atan", inv_unary_proc);
@@ -138,7 +144,7 @@ void test_spots()
    //
    // EXP:
    //
-   boost::array<boost::array<long double, 2>, 16> exp_test_data = {
+   boost::array<boost::array<long double, 2>, 16> exp_test_data = {{
        0, 1,
        0.125L, 1.13314845306682631682900722781179387256550313174518162591282L,
        -0.125L, 0.882496902584595402864892143229050736222004824990650741770309L,
@@ -164,7 +170,7 @@ void test_spots()
        0, 1,
        0, 1,
 #endif
-   };
+   }};
    unary_proc = std::exp;
    inv_unary_proc = std::log;
    do_test_std_function(exp_test_data, "long double", "std::exp", "Mathematica data", unary_proc, "std::log", inv_unary_proc);
@@ -174,7 +180,7 @@ void test_spots()
    //
    // SQRT:
    //
-   boost::array<boost::array<long double, 2>, 8> sqrt_test_data = {
+   boost::array<boost::array<long double, 2>, 8> sqrt_test_data = {{
        1, 1,
        0.125L, 0.353553390593273762200422181052424519642417968844237018294170L,
        1.125L, 1.06066017177982128660126654315727355892725390653271105488251L,
@@ -189,7 +195,7 @@ void test_spots()
        1, 1,
        1, 1,
 #endif
-   };
+   }};
    unary_proc = std::sqrt;
    inv_unary_proc = 0;
    do_test_std_function(sqrt_test_data, "long double", "std::sqrt", "Mathematica data", unary_proc, "", inv_unary_proc);

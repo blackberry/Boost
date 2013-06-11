@@ -36,8 +36,8 @@
   <span class="identifier">iterator_range</span><span class="special">&lt;</span> <span class="keyword">typename</span> <span class="identifier">range_iterator</span><span class="special">&lt;</span> <span class="identifier">RangeT</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span> <span class="special">&gt;</span> 
   <span class="identifier">find_tail</span><span class="special">(</span><span class="identifier">RangeT</span> <span class="special">&amp;</span> Input<span class="special">,</span> <span class="keyword">int</span> N<span class="special">)</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="id3144829"></a><h2>Description</h2>
-<p>Get the tail of the input. Tail is a suffix of the string of the given size. If the input is shorter then required, whole input if considered to be the tail.</p>
+<a name="id3361108"></a><h2>Description</h2>
+<p>Get the tail of the input. Tail is a suffix of the string of the given size. If the input is shorter then required, whole input is considered to be the tail.</p>
 <p>
 
 </p>
@@ -64,7 +64,7 @@
 </tr>
 <tr>
 <td><p><span class="term"><code class="computeroutput">N</code></span></p></td>
-<td><p>Length of the tail. For N&gt;=0, at most N characters are extracted. For N&lt;0, size(Input)-|N| characters are extracted. </p></td>
+<td><p>Length of the tail. For N&gt;=0, at most N characters are extracted. For N&lt;0, at most size(Input)-|N| characters are extracted. </p></td>
 </tr>
 </tbody>
 </table></div></td>

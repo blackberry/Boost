@@ -1290,6 +1290,31 @@ void test_char(PTREE *)
 
 }
 
+void test_sort(PTREE *)
+{
+  PTREE pt;
+  pt.put(T("one"), T("v1"));
+  pt.put(T("two"), T("v2"));
+  pt.put(T("three"), T("v3"));
+  pt.put(T("four"), T("v4"));
+
+  pt.sort();
+
+  PTREE::iterator it = pt.begin();
+  BOOST_CHECK(std::distance(it, pt.end()) == 4);
+  BOOST_CHECK(it->first == T("four"));
+  BOOST_CHECK(it->second.data() == T("v4"));
+  ++it;
+  BOOST_CHECK(it->first == T("one"));
+  BOOST_CHECK(it->second.data() == T("v1"));
+  ++it;
+  BOOST_CHECK(it->first == T("three"));
+  BOOST_CHECK(it->second.data() == T("v3"));
+  ++it;
+  BOOST_CHECK(it->first == T("two"));
+  BOOST_CHECK(it->second.data() == T("v2"));
+}
+
 void test_leaks(PTREE *)
 {
     //BOOST_CHECK(PTREE::debug_get_instances_count() == 0);

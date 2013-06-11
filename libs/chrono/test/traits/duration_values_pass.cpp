@@ -16,7 +16,7 @@
 #include <limits>
 #include <boost/detail/lightweight_test.hpp>
 
-#include <libs/chrono/test/rep.h>
+#include "../rep.h"
 
 int main()
 {
@@ -26,7 +26,7 @@ int main()
            -(std::numeric_limits<double>::max)());
     BOOST_TEST((boost::chrono::duration_values<Rep>::min)() ==
            (std::numeric_limits<Rep>::min)());
-    
+
     BOOST_TEST((boost::chrono::duration_values<int>::max)() ==
            (std::numeric_limits<int>::max)());
     BOOST_TEST((boost::chrono::duration_values<double>::max)() ==

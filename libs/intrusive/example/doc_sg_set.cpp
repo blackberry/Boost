@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2007-2009
+// (C) Copyright Ion Gaztanaga  2007-2012
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -56,7 +56,7 @@ int main()
 
    BaseSet baseset;
    MemberMultiset membermultiset;
-   
+
    //Now insert them in the reverse order in the base hook sg_set
    for(VectIt it(values.begin()), itend(values.end()); it != itend; ++it){
       baseset.insert(*it);

@@ -2,63 +2,85 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><!--
     Copyright 2009-2010 Intel Corporation
     license banner
--->
-<title>Boost Polygon Library: Performance Analysis</title>
-    <meta http-equiv="content-type" content="text/html;charset=ISO-8859-1">
-<table style="margin: 0pt; padding: 0pt; width: 100%;" border="0" cellpadding="0" cellspacing="0"><tbody><tr>
+--><title>Boost Polygon Library: Performance Analysis</title>
+
+
+
+    <meta http-equiv="content-type" content="text/html;charset=ISO-8859-1" /><!-- <link type="text/css" rel="stylesheet" href="adobe_source.css"> --></head><body><table style="margin: 0pt; padding: 0pt; width: 100%;" border="0" cellpadding="0" cellspacing="0"><tbody><tr>
 <td style="background-color: rgb(238, 238, 238);" nowrap="1" valign="top">
     <div style="padding: 5px;" align="center">
-        <img border="0" src="images/boost.png" width="277" height="86"><a title="www.boost.org home page" href="http://www.boost.org/" tabindex="2" style="border: medium none ;">
+        <img src="images/boost.png" border="0" height="86" width="277" /><a title="www.boost.org home page" href="http://www.boost.org/" tabindex="2" style="border: medium none ;">
             </a>
     </div>
     <div style="margin: 5px;">
         <h3 class="navbar">Contents</h3>
         <ul>
-            <li><a href="index.htm">Boost.Polygon Main Page</a></li>
-			<li><a href="gtl_design_overview.htm">Polygon 
-			Library Design Overview</a></li>
-			<li><a href="gtl_isotropy.htm">Isotropy</a></li>
-            <li><a href="gtl_coordinate_concept.htm">Coordinate Concept</a></li>
-            <li><a href="gtl_interval_concept.htm">Interval Concept</a></li>
-            <li>
-			<a href="gtl_point_concept.htm">Point Concept</a></li>
-			<li><a href="gtl_rectangle_concept.htm">Rectangle Concept</a></li>
-			<li><a href="gtl_polygon_90_concept.htm">Polygon 90 Concept</a></li>
-			<li><a href="gtl_polygon_90_with_holes_concept.htm">Polygon 90 With Holes Concept</a></li>
-			<li><a href="gtl_polygon_45_concept.htm">Polygon 45 Concept</a></li>
-			<li><a href="gtl_polygon_45_with_holes_concept.htm">Polygon 45 With Holes Concept</a></li>
-			<li><a href="gtl_polygon_concept.htm">Polygon Concept</a></li>
-			<li><a href="gtl_polygon_with_holes_concept.htm">Polygon With Holes Concept</a></li>
-			<li><a href="gtl_polygon_90_set_concept.htm">Polygon 90 Set Concept</a></li>
-			<li><a href="gtl_polygon_45_set_concept.htm">Polygon 45 Set Concept</a></li>
-			<li><a href="gtl_polygon_set_concept.htm">Polygon Set Concept</a></li>
-			<li><a href="gtl_connectivity_extraction_90.htm">Connectivity Extraction 90</a></li>
-			<li><a href="gtl_connectivity_extraction_45.htm">Connectivity Extraction 45</a></li>
-			<li><a href="gtl_connectivity_extraction.htm">Connectivity Extraction</a></li>
-			<li><a href="gtl_property_merge_90.htm">Property Merge 90</a></li>
-			<li><a href="gtl_property_merge_45.htm">Property Merge 45</a></li>
-			<li><a href="gtl_property_merge.htm">Property Merge</a></li>
-        </ul>
+        <li><a href="index.htm">Boost.Polygon Main Page</a></li>
+        <li><a href="gtl_design_overview.htm">Design Overview</a></li>
+        <li><a href="gtl_isotropy.htm">Isotropy</a></li>
+        <li><a href="gtl_coordinate_concept.htm">Coordinate Concept</a></li>
+        <li><a href="gtl_interval_concept.htm">Interval Concept</a></li>
+        <li><a href="gtl_point_concept.htm">Point Concept</a></li>
+        <li><a href="gtl_segment_concept.htm">Segment Concept</a></li>
+        <li><a href="gtl_rectangle_concept.htm">Rectangle Concept</a></li>
+        <li><a href="gtl_polygon_90_concept.htm">Polygon 90 Concept</a></li>
+        <li><a href="gtl_polygon_90_with_holes_concept.htm">Polygon 90
+With Holes Concept</a></li>
+        <li><a href="gtl_polygon_45_concept.htm">Polygon 45 Concept</a></li>
+        <li><a href="gtl_polygon_45_with_holes_concept.htm">Polygon 45
+With Holes Concept</a></li>
+        <li><a href="gtl_polygon_concept.htm">Polygon Concept</a></li>
+        <li><a href="gtl_polygon_with_holes_concept.htm">Polygon With
+Holes Concept</a></li>
+        <li><a href="gtl_polygon_90_set_concept.htm">Polygon 90 Set
+Concept</a></li>
+        <li><a href="gtl_polygon_45_set_concept.htm">Polygon 45 Set
+Concept</a></li>
+        <li><a href="gtl_polygon_set_concept.htm">Polygon Set Concept</a></li>
+        <li><a href="gtl_connectivity_extraction_90.htm">Connectivity
+Extraction 90</a></li>
+        <li><a href="gtl_connectivity_extraction_45.htm">Connectivity
+Extraction 45</a></li>
+        <li><a href="gtl_connectivity_extraction.htm">Connectivity
+Extraction</a></li>
+        <li><a href="gtl_property_merge_90.htm">Property Merge 90</a></li>
+        <li><a href="gtl_property_merge_45.htm">Property Merge 45</a></li>
+        <li><a href="gtl_property_merge.htm">Property Merge</a></li>
+        <li><a href="voronoi_main.htm">Voronoi Main Page</a>
+        </li>
+        <li><a href="voronoi_benchmark.htm">Voronoi Benchmark</a></li>
+        <li><a href="voronoi_builder.htm">Voronoi Builder</a><br />
+        </li>
+        <li><a href="voronoi_diagram.htm">Voronoi Diagram</a></li>
+        <li><a href="voronoi_predicates.htm">Voronoi Predicates</a></li>
+        <li><a href="voronoi_robust_fpt.htm">Voronoi Robust FPT</a><br />
+        </li>
+        
+</ul>
         <h3 class="navbar">Other Resources</h3>
         <ul>
-            <li><a href="GTL_boostcon2009.pdf">GTL Boostcon 2009 Paper</a></li>
-             <li><a href="GTL_boostcon_draft03.pdf">GTL Boostcon 2009 
-				Presentation</a></li>
-             <li>Performance Analysis</li>
-        	<li><a href="gtl_tutorial.htm">Layout Versus Schematic Tutorial</a></li>
-        	<li><a href="gtl_minkowski_tutorial.htm">Minkowski Sum Tutorial</a></li>
-        </ul>
+        <li><a href="GTL_boostcon2009.pdf">GTL Boostcon 2009 Paper</a></li>
+        <li><a href="GTL_boostcon_draft03.pdf">GTL Boostcon 2009
+Presentation</a></li>
+        <li>Performance Analysis</li>
+        <li><a href="gtl_tutorial.htm">Layout Versus Schematic Tutorial</a></li>
+        <li><a href="gtl_minkowski_tutorial.htm">Minkowski Sum Tutorial</a></li>
+        <li><a href="voronoi_basic_tutorial.htm">Voronoi Basic Tutorial</a></li>
+        <li><a href="voronoi_advanced_tutorial.htm">Voronoi Advanced
+Tutorial</a></li>
+</ul>
     </div>
         <h3 class="navbar">Polygon Sponsor</h3>
     <div style="padding: 5px;" align="center">
-        <img border="0" src="images/intlogo.gif" width="127" height="51">
+        <img src="images/intlogo.gif" border="0" height="51" width="127" /><a title="www.adobe.com home page" href="http://www.adobe.com/" tabindex="2" style="border: medium none ;">
+            </a>
     </div>    
 </td>
 <td style="padding-left: 10px; padding-right: 10px; padding-bottom: 10px;" valign="top" width="100%">
 
 <!-- End Header -->
 
-<br>
+<br />
 <p>
 </p><h1>Polygon Set Algorithms Analysis</h1> 
 <p>Most non-trivial algorithms in the Boost.Polygon library are 
@@ -86,25 +108,25 @@ input size grows.&nbsp; Because intersection vertices are expected to be a
 constant factor of input vertices we can examine runtime complexity in terms of 
 input vertices.&nbsp; The operation performed was a union (Boolean OR) of the 
 input rectangles by each of the Manhattan, 45-degree and arbitrary angle 
-Booleans algorithms, which are labeled &quot;boolean 90&quot;, &quot;boolean 45&quot; and &quot;boolean&quot;.&nbsp; 
+Booleans algorithms, which are labeled "boolean 90", "boolean 45" and "boolean".&nbsp; 
 Also shown in the plot is the performance of the arbitrary angle Booleans 
 algorithm as prior to the addition of divide and conquer recursive subdivision, 
 which was described in the <a href="GTL_boostcon2009.pdf">paper</a> 
 <a href="GTL_boostcon_draft03.pdf">presented</a> at
 <a href="http://www.boostcon.com/home">boostcon</a> 2009.&nbsp; Finally, the 
 time required to sort the input points is shown as a common reference for O(n log n) 
-runtime to put the data into context.</p><img border="0" src="images/perf_graph.PNG" width="391" height="414"><p>
+runtime to put the data into context.</p><img src="images/perf_graph.PNG" border="0" height="414" width="391" /><p>
 We can see in the log-log plot that sorting and the three Booleans algorithms 
-provided by the Boost.Polygon library have nearly 45 degree &quot;linear&quot; 
+provided by the Boost.Polygon library have nearly 45 degree "linear" 
 scaling with empirical exponents just slightly larger than 1.0 and can be 
 observed to scale proportional to O(n log n) for 
-these inputs.&nbsp; The &quot;old boolean&quot; algorithm presented at boostcon 2009 
+these inputs.&nbsp; The "old boolean" algorithm presented at boostcon 2009 
 exhibits scaling close to the expected O(n<sup><font size="2">1.5</font></sup>) 
 scaling.&nbsp; Because the speedup provided by the divide and conquer approach 
 is algorithmic, the 10X potential performance improvement alluded to in the paper is 
 realized at inputs of 200,000 rectangles and larger.&nbsp; Even for small inputs 
 of 2K rectangles the algorithm is 2X faster and now can be expected to be 
-roughly as fast as <a href="http://www.cs.manchester.ac.uk/~toby/alan/software/">GPC</a> at small scales, 
+roughly as fast as <a href="http://www.cs.manchester.ac.uk/%7Etoby/alan/software/">GPC</a> at small scales, 
 while algorithmically faster at large scales.</p>
 <p>
 
@@ -116,10 +138,10 @@ work we can see that Manhattan Booleans cost roughly five units of O(n log n)
 work, 45-degree&nbsp; Booleans cost roughly
 
 
-</body>ten units of O(n log n) work and arbitrary angle Booleans cost roughly 
+ten units of O(n log n) work and arbitrary angle Booleans cost roughly 
 seventy units of O(n log n) work.&nbsp; Sorting the input vertices is the first 
 step in a Booleans algorithm and therefore provides a hard lower bound for the 
-runtime of an optimal Booleans algorithm.<p>
+runtime of an optimal Booleans algorithm.</p><p>
 
 
 One final thing to note about performance of the arbitrary angle Booleans 
@@ -137,17 +159,17 @@ double computation of the intersection of two line segments fails to produce an
 intersection point within one integer unit of both line segments.&nbsp; This 
 means that there is effectively no runtime penalty for the use of infinite 
 precision to ensure 100% robustness.&nbsp; Most inputs will process through the 
-algorithm without ever resorting to GMP.<tr>
+algorithm without ever resorting to GMP.</p></td></tr><tr>
 <td style="background-color: rgb(238, 238, 238);" nowrap="1" valign="top">
     &nbsp;</td>
 <td style="padding-left: 10px; padding-right: 10px; padding-bottom: 10px;" valign="top" width="100%">
 
 
-<table class="docinfo" rules="none" frame="void" id="table1">
+<table class="docinfo" id="table1" frame="void" rules="none">
 	<colgroup>
-		<col class="docinfo-name"><col class="docinfo-content">
+		<col class="docinfo-name" /><col class="docinfo-content" />
 	</colgroup>
-	<tbody vAlign="top">
+	<tbody valign="top">
 		<tr>
 			<th class="docinfo-name">Copyright:</th>
 			<td>Copyright © Intel Corporation 2008-2010.</td>
@@ -160,6 +182,6 @@ algorithm without ever resorting to GMP.<tr>
 			<a class="reference" target="_top" href="http://www.boost.org/LICENSE_1_0.txt">
 			http://www.boost.org/LICENSE_1_0.txt</a>)</td>
 		</tr>
-</table>
+</tbody></table>
 
-</html>
+</td></tr></tbody></table></body></html>

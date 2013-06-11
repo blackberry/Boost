@@ -30,6 +30,10 @@
 #endif
 #endif
 
+#if defined(__GNUC__)
+#pragma GCC diagnostic ignored "-Wfloat-equal"
+#endif
+
 char const* float_type(float*) { return "float"; }
 char const* float_type(double*) { return "double"; }
 char const* float_type(long double*) { return "long double"; }

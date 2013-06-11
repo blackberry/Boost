@@ -335,7 +335,7 @@ void bcp_implementation::add_file_dependencies(const fs::path& p, bool scanfile)
    // Now we need to scan for Boost.Preprocessor includes that
    // are included via preprocessor iteration:
    //
-   static const boost::regex ppfiles("^[[:blank:]]*#[[:blank:]]*define[[:blank:]]+(?:BOOST_PP_FILENAME|BOOST_PP_ITERATION_PARAMS|BOOST_PP_INDIRECT_SELF)[^\\n]+?[\"<]([^\">]+)[\">]");
+   static const boost::regex ppfiles("^[[:blank:]]*#[[:blank:]]*define[[:blank:]]+(?:BOOST_PP_FILENAME|BOOST_PP_ITERATION_PARAMS|BOOST_PP_INDIRECT_SELF)(?:[^\\n]|\\\\\\n)+?[\"<]([^\">]+)[\">]");
    i = boost::regex_token_iterator<const char*>(view.begin(), view.end(), ppfiles, 1);
    while(i != j)
    {

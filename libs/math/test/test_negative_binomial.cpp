@@ -37,6 +37,8 @@ using boost::math::negative_binomial_distribution;
 
 #include <boost/test/test_exec_monitor.hpp> // for test_main
 #include <boost/test/floating_point_comparison.hpp> // for BOOST_CHECK_CLOSE
+#include "table_type.hpp"
+#include "test_out_of_range.hpp"
 
 #include <iostream>
 using std::cout;
@@ -301,6 +303,13 @@ if(std::numeric_limits<RealType>::is_specialized)
   // Wolfram       0.517304753506834882009032744488738352004003696396461766326713
   // JM nonLanczos 0.51730475350664229 differs at the 13th decimal digit.
   // MathCAD       0.51730475342603199 differs at 10th decimal digit.
+
+  // Error tests:
+  check_out_of_range<negative_binomial_distribution<RealType> >(20, 0.5);
+  BOOST_CHECK_THROW(negative_binomial_distribution<RealType>(0, 0.5), std::domain_error);
+  BOOST_CHECK_THROW(negative_binomial_distribution<RealType>(-2, 0.5), std::domain_error);
+  BOOST_CHECK_THROW(negative_binomial_distribution<RealType>(20, -0.5), std::domain_error);
+  BOOST_CHECK_THROW(negative_binomial_distribution<RealType>(20, 1.5), std::domain_error);
 }
  // End of single spot tests using RealType
 
@@ -818,7 +827,7 @@ int test_main(int, char* [])
 #ifdef TEST_LDOUBLE
   test_spots(0.0L); // Test long double.
 #endif
-  #if !BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x582))
+#ifndef BOOST_MATH_NO_REAL_CONCEPT_TESTS
 #ifdef TEST_REAL_CONCEPT
     test_spots(boost::math::concepts::real_concept(0.)); // Test real concept.
 #endif

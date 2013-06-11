@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -21,7 +21,7 @@
 
 namespace boost {
 namespace container {
-namespace containers_detail {
+namespace container_detail {
 
 template<class VoidPointer>
 struct node_slist
@@ -43,7 +43,7 @@ struct is_stateless_segment_manager
    static const bool value = false;
 };
 
-}  //namespace containers_detail {
+}  //namespace container_detail {
 }  //namespace container {
 }  //namespace boost {
 

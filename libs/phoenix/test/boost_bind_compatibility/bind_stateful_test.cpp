@@ -35,11 +35,81 @@ class X
 {
 private:
 
-    int state_;
+    mutable int state_;
 
 public:
 
     X(): state_(0)
+    {
+    }
+
+    int state() const
+    {
+        return state_;
+    }
+
+    typedef int result_type;
+
+    int operator()() const
+    {
+        return state_ += 17041;
+    }
+
+    int operator()(int x1) const
+    {
+        return state_ += x1;
+    }
+
+    int operator()(int x1, int x2) const
+    {
+        return state_ += x1+x2;
+    }
+
+    int operator()(int x1, int x2, int x3) const
+    {
+        return state_ += x1+x2+x3;
+    }
+
+    int operator()(int x1, int x2, int x3, int x4) const
+    {
+        return state_ += x1+x2+x3+x4;
+    }
+
+    int operator()(int x1, int x2, int x3, int x4, int x5) const
+    {
+        return state_ += x1+x2+x3+x4+x5;
+    }
+
+    int operator()(int x1, int x2, int x3, int x4, int x5, int x6) const
+    {
+        return state_ += x1+x2+x3+x4+x5+x6;
+    }
+
+    int operator()(int x1, int x2, int x3, int x4, int x5, int x6, int x7) const
+    {
+        return state_ += x1+x2+x3+x4+x5+x6+x7;
+    }
+
+    int operator()(int x1, int x2, int x3, int x4, int x5, int x6, int x7, int x8) const
+    {
+        return state_ += x1+x2+x3+x4+x5+x6+x7+x8;
+    }
+
+    int operator()(int x1, int x2, int x3, int x4, int x5, int x6, int x7, int x8, int x9) const
+    {
+        return state_ += x1+x2+x3+x4+x5+x6+x7+x8+x9;
+    }
+};
+
+class Y
+{
+private:
+
+    int state_;
+
+public:
+
+    Y(): state_(0)
     {
     }
 
@@ -169,45 +239,43 @@ void stateful_function_object_test()
     ::test( bind( X(), 1, 2, 3, 4, 5, 6 ), 0, 1+2+3+4+5+6 );
     ::test( bind( X(), 1, 2, 3, 4, 5, 6, 7 ), 0, 1+2+3+4+5+6+7 );
     ::test( bind( X(), 1, 2, 3, 4, 5, 6, 7, 8 ), 0, 1+2+3+4+5+6+7+8 );
-    //::test( bind( X(), 1, 2, 3, 4, 5, 6, 7, 8, 9 ), 0, 1+2+3+4+5+6+7+8+9 );
+    ::test( bind( X(), 1, 2, 3, 4, 5, 6, 7, 8, 9 ), 0, 1+2+3+4+5+6+7+8+9 );
 
-    X x;
+    Y y;
 
-    int n = x.state();
+    int n = y.state();
 
-    ::test( bind( ref(x) ), n, 17041 );
+    ::test( bind( ref(y) ), n, 17041 );
     n += 3 * 17041;
 
-    ::test( bind( ref(x), 1 ), n, 1 );
+    ::test( bind( ref(y), 1 ), n, 1 );
     n += 3*1;
 
-    ::test( bind( ref(x), 1, 2 ), n, 1+2 );
+    ::test( bind( ref(y), 1, 2 ), n, 1+2 );
     n += 3*(1+2);
 
-    ::test( bind( ref(x), 1, 2, 3 ), n, 1+2+3 );
+    ::test( bind( ref(y), 1, 2, 3 ), n, 1+2+3 );
     n += 3*(1+2+3);
 
-    ::test( bind( ref(x), 1, 2, 3, 4 ), n, 1+2+3+4 );
+    ::test( bind( ref(y), 1, 2, 3, 4 ), n, 1+2+3+4 );
     n += 3*(1+2+3+4);
 
-    ::test( bind( ref(x), 1, 2, 3, 4, 5 ), n, 1+2+3+4+5 );
+    ::test( bind( ref(y), 1, 2, 3, 4, 5 ), n, 1+2+3+4+5 );
     n += 3*(1+2+3+4+5);
 
-    ::test( bind( ref(x), 1, 2, 3, 4, 5, 6 ), n, 1+2+3+4+5+6 );
+    ::test( bind( ref(y), 1, 2, 3, 4, 5, 6 ), n, 1+2+3+4+5+6 );
     n += 3*(1+2+3+4+5+6);
 
-    ::test( bind( ref(x), 1, 2, 3, 4, 5, 6, 7 ), n, 1+2+3+4+5+6+7 );
+    ::test( bind( ref(y), 1, 2, 3, 4, 5, 6, 7 ), n, 1+2+3+4+5+6+7 );
     n += 3*(1+2+3+4+5+6+7);
 
-    ::test( bind( ref(x), 1, 2, 3, 4, 5, 6, 7, 8 ), n, 1+2+3+4+5+6+7+8 );
+    ::test( bind( ref(y), 1, 2, 3, 4, 5, 6, 7, 8 ), n, 1+2+3+4+5+6+7+8 );
     n += 3*(1+2+3+4+5+6+7+8);
 
-    /*
-    ::test( bind( ref(x), 1, 2, 3, 4, 5, 6, 7, 8, 9 ), n, 1+2+3+4+5+6+7+8+9 );
+    ::test( bind( ref(y), 1, 2, 3, 4, 5, 6, 7, 8, 9 ), n, 1+2+3+4+5+6+7+8+9 );
     n += 3*(1+2+3+4+5+6+7+8+9);
-    */
 
-    BOOST_TEST( x.state() == n );
+    BOOST_TEST( y.state() == n );
 }
 
 void stateful_function_test()
@@ -222,7 +290,7 @@ void stateful_function_test()
     ::test( bind( f5, 0, 1, 2, 3, 4, 5 ), 0, 1+2+3+4+5 );
     ::test( bind( f6, 0, 1, 2, 3, 4, 5, 6 ), 0, 1+2+3+4+5+6 );
     ::test( bind( f7, 0, 1, 2, 3, 4, 5, 6, 7 ), 0, 1+2+3+4+5+6+7 );
-    //::test( bind( f8, 0, 1, 2, 3, 4, 5, 6, 7, 8 ), 0, 1+2+3+4+5+6+7+8 );
+    ::test( bind( f8, 0, 1, 2, 3, 4, 5, 6, 7, 8 ), 0, 1+2+3+4+5+6+7+8 );
 }
 
 int main()

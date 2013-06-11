@@ -73,7 +73,7 @@ bool BOOST_CONFIG_DECL check_options(
 #  include <boost/config/auto_link.hpp>
 #endif
 
-#ifndef BOOST_NO_EXTERN_TEMPLATE
+#ifndef BOOST_NO_CXX11_EXTERN_TEMPLATE
 
 template <class T>
 T test_free_proc(T v)
@@ -101,7 +101,7 @@ extern template BOOST_SYMBOL_IMPORT int test_free_proc<int>(int);
 extern template BOOST_SYMBOL_IMPORT int tester<int>::test();
 #endif
 
-#endif // BOOST_NO_EXTERN_TEMPLATE
+#endif // BOOST_NO_CXX11_EXTERN_TEMPLATE
 
 #endif // BOOST_LINK_TEST_HPP
 

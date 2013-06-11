@@ -2,7 +2,7 @@
 // detail/task_io_service.hpp
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~
 //
-// Copyright (c) 2003-2011 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+// Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -89,7 +89,7 @@ public:
   // Return whether a handler can be dispatched immediately.
   bool can_dispatch()
   {
-    return thread_call_stack::contains(this);
+    return thread_call_stack::contains(this) != 0;
   }
 
   // Request invocation of the given handler.
@@ -112,6 +112,16 @@ public:
   // that work_started() was previously called for each operation.
   BOOST_ASIO_DECL void post_deferred_completions(op_queue<operation>& ops);
 
+  // Request invocation of the given operation, preferring the thread-private
+  // queue if available, and return immediately. Assumes that work_started()
+  // has not yet been called for the operation.
+  BOOST_ASIO_DECL void post_private_immediate_completion(operation* op);
+
+  // Request invocation of the given operation, preferring the thread-private
+  // queue if available, and return immediately. Assumes that work_started()
+  // was previously called for the operation.
+  BOOST_ASIO_DECL void post_private_deferred_completion(operation* op);
+
   // Process unfinished operations as part of a shutdown_service operation.
   // Assumes that work_started() was previously called for the operations.
   BOOST_ASIO_DECL void abandon_operations(op_queue<operation>& ops);
@@ -120,15 +130,23 @@ private:
   // Structure containing information about an idle thread.
   struct thread_info;
 
-  // Run at most one operation. Blocks only if this_idle_thread is non-null.
+  // Request invocation of the given operation, avoiding the thread-private
+  // queue, and return immediately. Assumes that work_started() has not yet
+  // been called for the operation.
+  BOOST_ASIO_DECL void post_non_private_immediate_completion(operation* op);
+
+  // Request invocation of the given operation, avoiding the thread-private
+  // queue, and return immediately. Assumes that work_started() was previously
+  // called for the operation.
+  BOOST_ASIO_DECL void post_non_private_deferred_completion(operation* op);
+
+  // Run at most one operation. May block.
   BOOST_ASIO_DECL std::size_t do_run_one(mutex::scoped_lock& lock,
-      thread_info& this_thread, op_queue<operation>& private_op_queue,
-      const boost::system::error_code& ec);
+      thread_info& this_thread, const boost::system::error_code& ec);
 
   // Poll for at most one operation.
   BOOST_ASIO_DECL std::size_t do_poll_one(mutex::scoped_lock& lock,
-      op_queue<operation>& private_op_queue,
-      const boost::system::error_code& ec);
+      thread_info& this_thread, const boost::system::error_code& ec);
 
   // Stop the task and all idle threads.
   BOOST_ASIO_DECL void stop_all_threads(mutex::scoped_lock& lock);

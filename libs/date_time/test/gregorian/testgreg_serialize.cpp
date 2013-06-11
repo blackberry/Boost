@@ -43,6 +43,7 @@ int main(){
   date_duration dd(11);
   date_duration sv_dd(neg_infin);
   date_period dp(d,dd);
+  greg_year gy(1959);
   greg_month gm(Feb);
   greg_day gd(14);
   greg_weekday gwd(Friday);
@@ -62,6 +63,7 @@ int main(){
     save_to(oa, BOOST_SERIALIZATION_NVP(dd));
     save_to(oa, BOOST_SERIALIZATION_NVP(sv_dd));
     save_to(oa, BOOST_SERIALIZATION_NVP(dp));
+    save_to(oa, BOOST_SERIALIZATION_NVP(gy));
     save_to(oa, BOOST_SERIALIZATION_NVP(gm));
     save_to(oa, BOOST_SERIALIZATION_NVP(gd));
     save_to(oa, BOOST_SERIALIZATION_NVP(gwd));
@@ -78,6 +80,7 @@ int main(){
     save_to(oa, dd);
     save_to(oa, sv_dd);
     save_to(oa, dp);
+    save_to(oa, gy);
     save_to(oa, gm);
     save_to(oa, gd);
     save_to(oa, gwd);
@@ -108,6 +111,7 @@ int main(){
   date_duration dd2(not_a_date_time);
   date_duration sv_dd2(0);
   date_period dp2(date(2000,Jan,1),date_duration(1));
+  greg_year gy2(1960);
   greg_month gm2(Jan);
   greg_day gd2(1);
   greg_weekday gwd2(Monday);
@@ -126,6 +130,7 @@ int main(){
     ia >> BOOST_SERIALIZATION_NVP(dd2);
     ia >> BOOST_SERIALIZATION_NVP(sv_dd2);
     ia >> BOOST_SERIALIZATION_NVP(dp2);
+    ia >> BOOST_SERIALIZATION_NVP(gy2);
     ia >> BOOST_SERIALIZATION_NVP(gm2);
     ia >> BOOST_SERIALIZATION_NVP(gd2);
     ia >> BOOST_SERIALIZATION_NVP(gwd2);
@@ -142,6 +147,7 @@ int main(){
     ia >> dd2;
     ia >> sv_dd2;
     ia >> dp2;
+    ia >> gy2;
     ia >> gm2;
     ia >> gd2;
     ia >> gwd2;
@@ -164,6 +170,7 @@ int main(){
   check("date_duration", dd == dd2);
   check("special_value date_duration (neg_infin)", sv_dd == sv_dd2);
   check("date_period", dp == dp2);
+  check("greg_year", gy == gy2);
   check("greg_month", gm == gm2);
   check("greg_day", gd == gd2);
   check("greg_weekday", gwd == gwd2);

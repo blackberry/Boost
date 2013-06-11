@@ -8,15 +8,11 @@
 #   http://www.boost.org/LICENSE_1_0.txt)
 #==============================================================================
 
-alias quickbook
-    : src//quickbook
-    ;
-
-explicit quickbook ;
+# Install quickbook by default.
 
 install dist-bin
     :
-    quickbook
+    src//quickbook
     :
     <install-type>EXE
     <location>../../dist/bin
@@ -24,22 +20,12 @@ install dist-bin
     release
     ;
 
-install dist-lib
-    :
-    quickbook
-    :
-    <install-type>LIB
-    <location>../../dist/lib
-    :
-    release
-    ;
-
 # Target for quickbook toolset's auto build.
 
-alias quickbook-auto
-    : quickbook
+alias quickbook
+    : src//quickbook
     : release
     ;
 
-explicit quickbook-auto
+explicit quickbook
     ;

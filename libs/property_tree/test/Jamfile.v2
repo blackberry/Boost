@@ -10,12 +10,17 @@
 import testing ;
 
 test-suite "property_tree"
-   : [ run test_property_tree.cpp /boost/serialization//boost_serialization ]
-     [ run test_info_parser.cpp ]
-     [ run test_json_parser.cpp ]
-     [ run test_ini_parser.cpp ]
-     [ run test_xml_parser_rapidxml.cpp ]
+   : [ run test_property_tree.cpp /boost/serialization//boost_serialization
+       : : : <define>_SCL_SECURE_NO_WARNINGS=1 ]
+     [ run test_info_parser.cpp
+       : : : <define>_SCL_SECURE_NO_WARNINGS=1 ]
+     [ run test_json_parser.cpp
+       : : : <define>_SCL_SECURE_NO_WARNINGS=1 ]
+     [ run test_ini_parser.cpp
+       : : : <define>_SCL_SECURE_NO_WARNINGS=1 ]
+     [ run test_xml_parser_rapidxml.cpp
+       : : : <define>_SCL_SECURE_NO_WARNINGS=1 ]
 
-     [ run test_multi_module1.cpp test_multi_module2.cpp ]
-     #[ run test_registry_parser.cpp ]
+     [ run test_multi_module1.cpp test_multi_module2.cpp
+       : : : <define>_SCL_SECURE_NO_WARNINGS=1 ]
 ;

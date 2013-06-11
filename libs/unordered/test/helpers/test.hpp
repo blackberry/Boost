@@ -76,21 +76,29 @@ namespace test {
 
 // Run test with every combination of the parameters (a sequence of sequences)
 #define UNORDERED_TEST(name, parameters)                                    \
-    BOOST_PP_SEQ_FOR_EACH_PRODUCT(UNORDERED_TEST_OP, ((name)) parameters)   \
+    BOOST_PP_SEQ_FOR_EACH_PRODUCT(UNORDERED_TEST_OP,                        \
+        ((name))((1)) parameters)                                           \
+
+#define UNORDERED_TEST_REPEAT(name, n, parameters)                          \
+    BOOST_PP_SEQ_FOR_EACH_PRODUCT(UNORDERED_TEST_OP,                        \
+        ((name))((n)) parameters)                                           \
 
 #define UNORDERED_TEST_OP(r, product)                                       \
     UNORDERED_TEST_OP2(                                                     \
-        BOOST_PP_SEQ_HEAD(product),                                         \
-        BOOST_PP_SEQ_TAIL(product))                                         \
+        BOOST_PP_SEQ_ELEM(0, product),                                      \
+        BOOST_PP_SEQ_ELEM(1, product),                                      \
+        BOOST_PP_SEQ_TAIL(BOOST_PP_SEQ_TAIL(product)))                      \
 
-#define UNORDERED_TEST_OP2(name, params)                                    \
+#define UNORDERED_TEST_OP2(name, n, params)                                 \
     UNORDERED_AUTO_TEST(                                                    \
         BOOST_PP_SEQ_FOLD_LEFT(UNORDERED_TEST_OP_JOIN, name, params))       \
     {                                                                       \
-        name BOOST_PP_SEQ_TO_TUPLE(params);                                 \
+        for (int i = 0; i < n; ++i)                                         \
+            name BOOST_PP_SEQ_TO_TUPLE(params);                             \
     }                                                                       \
 
 #define UNORDERED_TEST_OP_JOIN(s, state, elem)                              \
     BOOST_PP_CAT(state, BOOST_PP_CAT(_, elem))                              \
+
 
 #endif

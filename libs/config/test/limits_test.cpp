@@ -5,7 +5,7 @@
  * accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
  *
- * $Id: limits_test.cpp 30181 2005-07-19 17:14:00Z johnmaddock $
+ * $Id: limits_test.cpp 79537 2012-07-15 15:59:05Z marshall $
  */
 
 #include <boost/limits.hpp>
@@ -154,9 +154,12 @@ void test_float_limits(const T &, const char * msg)
     // If one of these fail, your compiler may be optimizing incorrectly,
     // or the standard library is incorrectly configured.
     BOOST_CHECK(! (qnan == 42));
-    BOOST_CHECK(! (qnan == qnan));
     BOOST_CHECK(qnan != 42);
-    BOOST_CHECK(qnan != qnan);
+    if(lim::is_iec559)
+    {
+      BOOST_CHECK(! (qnan == qnan));
+      BOOST_CHECK(qnan != qnan);
+    }
 
     // The following tests may cause arithmetic traps.
     // BOOST_CHECK(! (qnan < 42));

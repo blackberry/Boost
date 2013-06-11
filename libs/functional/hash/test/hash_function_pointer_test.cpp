@@ -12,10 +12,6 @@
 #endif
 
 #include <boost/detail/lightweight_test.hpp>
-
-#include <boost/mpl/assert.hpp>
-#include <boost/type_traits/is_base_and_derived.hpp>
-
 #include "./compile_time.hpp"
 
 void void_func1() { static int x = 1; ++x; }
