@@ -166,6 +166,7 @@ int test_main(int, char *[])
         test_serialization(pt);
         test_bool(pt);
         test_char(pt);
+        test_sort(pt);
         test_leaks(pt);                  // must be a final test
     }
 #if 0
@@ -199,6 +200,7 @@ int test_main(int, char *[])
         test_serialization(pt);
         test_bool(pt);
         test_char(pt);
+        test_sort(pt);
         test_leaks(pt);                  // must be a final test
     }
 #endif
@@ -232,6 +234,7 @@ int test_main(int, char *[])
         test_serialization(pt);
         test_bool(pt);
         test_char(pt);
+        test_sort(pt);
         test_leaks(pt);                  // must be a final test
     }
 
@@ -265,6 +268,7 @@ int test_main(int, char *[])
         test_serialization(pt);
         test_bool(pt);
         test_char(pt);
+        test_sort(pt);
         test_leaks(pt);                  // must be a final test
     }
 #endif

@@ -21,6 +21,10 @@
 
 #ifdef _MSC_VER
 #  pragma warning(disable: 4127) // conditional expression is constant.
+#  pragma warning(disable: 4100) // unreferenced formal parameter.
+// Seems an entirely spurious warning - formal parameter T IS used - get error if /* T */
+//#  pragma warning(disable: 4535) // calling _set_se_translator() requires /EHa (in Boost.test)
+// Enable C++ Exceptions Yes With SEH Exceptions (/EHa) prevents warning 4535.
 #endif
 
 #include <boost/math/concepts/real_concept.hpp> // for real_concept
@@ -31,6 +35,9 @@ using boost::math::binomial_distribution;
 
 #include <boost/test/test_exec_monitor.hpp> // for test_main
 #include <boost/test/floating_point_comparison.hpp> // for BOOST_CHECK_CLOSE
+#include "table_type.hpp"
+
+#include "test_out_of_range.hpp"
 
 #include <iostream>
 using std::cout;
@@ -208,7 +215,7 @@ void test_spot(
 }
 
 template <class RealType> // Any floating-point type RealType.
-void test_spots(RealType)
+void test_spots(RealType T)
 {
   // Basic sanity checks, test data is to double precision only
   // so set tolerance to 100eps expressed as a persent, or
@@ -221,7 +228,8 @@ void test_spots(RealType)
   tolerance *= 100 * 1000;
   RealType tol2 = boost::math::tools::epsilon<RealType>() * 5 * 100;  // 5 eps as a persent
 
-  cout << "Tolerance = " << tolerance << "%." << endl;
+  cout << "Tolerance for type " << typeid(T).name()  << " is " << tolerance << " %" << endl;
+
 
   // Sources of spot test values:
 
@@ -626,13 +634,7 @@ void test_spots(RealType)
     //7 0.00036621093749999984 0.9999847412109375
     //8 1.52587890625e-005 1 1 0
   }
-#if !defined(TEST_REAL_CONCEPT)
 #define T RealType
-#else
-  // This reduces compile time and compiler memory usage by storing test data
-  // as an array of long double's rather than an array of real_concept's:
-#define T long double
-#endif
 #include "binomial_quantile.ipp"
 
   for(unsigned i = 0; i < binomial_quantile_data.size(); ++i)
@@ -710,6 +712,9 @@ void test_spots(RealType)
 #endif
   }
 
+   check_out_of_range<boost::math::binomial_distribution<RealType> >(1, 1); // (All) valid constructor parameter values.
+
+
 } // template <class RealType>void test_spots(RealType)
 
 int test_main(int, char* [])
@@ -734,7 +739,7 @@ int test_main(int, char* [])
 #ifdef TEST_LDOUBLE
   test_spots(0.0L); // Test long double.
 #endif
-#if !BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x582))
+#if !defined(BOOST_MATH_NO_REAL_CONCEPT_TESTS)
 #ifdef TEST_REAL_CONCEPT
   test_spots(boost::math::concepts::real_concept(0.)); // Test real concept.
 #endif
@@ -753,12 +758,16 @@ int test_main(int, char* [])
 
 Output is:
 
-Autorun "i:\boost-06-05-03-1300\libs\math\test\Math_test\debug\test_binomial.exe"
-Running 1 test case...
-Tolerance = 0.0119209%.
-Tolerance = 2.22045e-011%.
-Tolerance = 2.22045e-011%.
-Tolerance = 2.22045e-011%.
-*** No errors detected
+  Description: Autorun "J:\Cpp\MathToolkit\test\Math_test\Debug\test_binomial.exe"
+  Running 1 test case...
+  Tolerance for type float is 0.0119209 %
+  Tolerance for type double is 2.22045e-011 %
+  Tolerance for type long double is 2.22045e-011 %
+  Tolerance for type class boost::math::concepts::real_concept is 2.22045e-011 %
+  
+  *** No errors detected
+
+========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
+
 
 */

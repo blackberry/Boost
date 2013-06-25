@@ -4,7 +4,7 @@
 <title>Binary Native Endianness Parsers</title>
 <link rel="stylesheet" href="../../../../../../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
-<link rel="home" href="../../../../index.html" title="Spirit 2.5.1">
+<link rel="home" href="../../../../index.html" title="Spirit 2.5.2">
 <link rel="up" href="../binary.html" title="Binary Parsers">
 <link rel="prev" href="../binary.html" title="Binary Parsers">
 <link rel="next" href="binary_little.html" title="Binary Little Endianness Parser">
@@ -82,6 +82,18 @@
                       alias: boost::spirit::qi::qword</span></code>
                     </p>
                   </td></tr>
+<tr><td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">spirit</span><span class="special">::</span><span class="identifier">bin_float</span> <span class="comment">//
+                      alias: boost::spirit::qi::bin_float</span></code>
+                    </p>
+                  </td></tr>
+<tr><td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">spirit</span><span class="special">::</span><span class="identifier">bin_double</span> <span class="comment">//
+                      alias: boost::spirit::qi::bin_double</span></code>
+                    </p>
+                  </td></tr>
 </tbody>
 </table></div>
 <div class="note"><table border="0" summary="Note">
@@ -128,6 +140,18 @@
 <dd><p>
                   A 64 bit binary value or a <a class="link" href="../basics.html#spirit.qi.reference.basics.lazy_argument">Lazy
                   Argument</a> that evaluates to a 64 bit binary value. This value
+                  is always in native endian.
+                </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">f</span></code></span></dt>
+<dd><p>
+                  A float binary value or a <a class="link" href="../basics.html#spirit.qi.reference.basics.lazy_argument">Lazy
+                  Argument</a> that evaluates to a float binary value. This value
+                  is always in native endian.
+                </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">d</span></code></span></dt>
+<dd><p>
+                  A double binary value or a <a class="link" href="../basics.html#spirit.qi.reference.basics.lazy_argument">Lazy
+                  Argument</a> that evaluates to a double binary value. This value
                   is always in native endian.
                 </p></dd>
 </dl>
@@ -210,6 +234,30 @@
 <tr>
 <td>
                     <p>
+                      <code class="computeroutput"><span class="identifier">bin_float</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      Matches any float native endian binary.
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">bin_double</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      Matches any double native endian binary.
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
                       <code class="computeroutput"><span class="identifier">byte_</span><span class="special">(</span><span class="identifier">b</span><span class="special">)</span></code>
                     </p>
                   </td>
@@ -252,6 +300,30 @@
 <td>
                     <p>
                       Matches an exact 64 bit native endian binary.
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">bin_float</span><span class="special">(</span><span class="identifier">f</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      Matches an exact float native endian binary.
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">bin_double</span><span class="special">(</span><span class="identifier">d</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      Matches an exact double native endian binary.
                     </p>
                   </td>
 </tr>
@@ -330,6 +402,30 @@
 <tr>
 <td>
                     <p>
+                      <code class="computeroutput"><span class="identifier">bin_float</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="keyword">float</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">bin_double</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="keyword">double</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
                       <code class="computeroutput"><span class="identifier">byte_</span><span class="special">(</span><span class="identifier">b</span><span class="special">)</span></code>
                     </p>
                   </td>
@@ -367,6 +463,30 @@
 <td>
                     <p>
                       <code class="computeroutput"><span class="identifier">qword</span><span class="special">(</span><span class="identifier">qw</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">unused</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">bin_float</span><span class="special">(</span><span class="identifier">f</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">unused</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">bin_double</span><span class="special">(</span><span class="identifier">d</span><span class="special">)</span></code>
                     </p>
                   </td>
 <td>

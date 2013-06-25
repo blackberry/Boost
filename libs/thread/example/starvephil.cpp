@@ -1,7 +1,7 @@
 // Copyright (C) 2001-2003
 // William E. Kempf
 //
-//  Distributed under the Boost Software License, Version 1.0. (See accompanying 
+//  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 #include <boost/thread/mutex.hpp>
@@ -50,7 +50,7 @@ public:
                       << "very hot ..." << std::endl;
         }
         boost::xtime xt;
-        boost::xtime_get(&xt, boost::TIME_UTC);
+        boost::xtime_get(&xt, boost::TIME_UTC_);
         xt.sec += 3;
         boost::thread::sleep(xt);
         m_chickens += value;
@@ -85,7 +85,7 @@ void chef()
             std::cout << "(" << clock() << ") Chef: cooking ..." << std::endl;
         }
         boost::xtime xt;
-        boost::xtime_get(&xt, boost::TIME_UTC);
+        boost::xtime_get(&xt, boost::TIME_UTC_);
         xt.sec += 2;
         boost::thread::sleep(xt);
         {
@@ -111,7 +111,7 @@ struct phil
             if (m_id > 0)
             {
                 boost::xtime xt;
-                boost::xtime_get(&xt, boost::TIME_UTC);
+                boost::xtime_get(&xt, boost::TIME_UTC_);
                 xt.sec += 3;
                 boost::thread::sleep(xt);
             }
@@ -164,7 +164,7 @@ private:
     void* _param;
 };
 
-int main(int argc, char* argv[])
+int main()
 {
     boost::thread thrd_chef(&chef);
     phil p[] = { phil(0), phil(1), phil(2), phil(3), phil(4) };

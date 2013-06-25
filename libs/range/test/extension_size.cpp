@@ -40,7 +40,7 @@ namespace boost_range_extension_size_test
         impl_t m_impl;
     };
 
-    inline boost::range_difference<std::list<int> >::type
+    inline boost::range_size<std::list<int> >::type
     range_calculate_size(const FooWithoutSize& rng)
     {
         return 2u;

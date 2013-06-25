@@ -5,8 +5,8 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../interprocess.html" title="Chapter&#160;11.&#160;Boost.Interprocess">
-<link rel="prev" href="../interprocess.html" title="Chapter&#160;11.&#160;Boost.Interprocess">
+<link rel="up" href="../interprocess.html" title="Chapter&#160;12.&#160;Boost.Interprocess">
+<link rel="prev" href="../interprocess.html" title="Chapter&#160;12.&#160;Boost.Interprocess">
 <link rel="next" href="some_basic_explanations.html" title="Some basic explanations">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -76,7 +76,7 @@
       <span class="keyword">if</span><span class="special">(</span><span class="identifier">free_memory</span> <span class="special">&lt;=</span> <span class="identifier">segment</span><span class="special">.</span><span class="identifier">get_free_memory</span><span class="special">())</span>
          <span class="keyword">return</span> <span class="number">1</span><span class="special">;</span>
 
-      <span class="comment">//An handle from the base address can identify any byte of the shared </span>
+      <span class="comment">//An handle from the base address can identify any byte of the shared</span>
       <span class="comment">//memory segment even if it is mapped in different base addresses</span>
       <span class="identifier">managed_shared_memory</span><span class="special">::</span><span class="identifier">handle_t</span> <span class="identifier">handle</span> <span class="special">=</span> <span class="identifier">segment</span><span class="special">.</span><span class="identifier">get_handle_from_address</span><span class="special">(</span><span class="identifier">shptr</span><span class="special">);</span>
       <span class="identifier">std</span><span class="special">::</span><span class="identifier">stringstream</span> <span class="identifier">s</span><span class="special">;</span>
@@ -93,7 +93,7 @@
       <span class="comment">//Open managed segment</span>
       <span class="identifier">managed_shared_memory</span> <span class="identifier">segment</span><span class="special">(</span><span class="identifier">open_only</span><span class="special">,</span> <span class="string">"MySharedMemory"</span><span class="special">);</span>
 
-      <span class="comment">//An handle from the base address can identify any byte of the shared </span>
+      <span class="comment">//An handle from the base address can identify any byte of the shared</span>
       <span class="comment">//memory segment even if it is mapped in different base addresses</span>
       <span class="identifier">managed_shared_memory</span><span class="special">::</span><span class="identifier">handle_t</span> <span class="identifier">handle</span> <span class="special">=</span> <span class="number">0</span><span class="special">;</span>
 
@@ -375,7 +375,6 @@
 
    <span class="keyword">return</span> <span class="number">0</span><span class="special">;</span>
 <span class="special">};</span>
-
 </pre>
 <p>
       </p>
@@ -473,7 +472,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2005-2010 Ion Gaztanaga<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2005-2011 Ion Gaztanaga<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

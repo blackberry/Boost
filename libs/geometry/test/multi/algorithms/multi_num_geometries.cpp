@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 //
-// Copyright 2011 Barend Gehrels (barend@xs4all.nl), Amsterdam, the Netherlands
+// Copyright (c) 2011-2012 Barend Gehrels, Amsterdam, the Netherlands.
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -10,7 +10,8 @@
 #include <boost/geometry/algorithms/num_geometries.hpp>
 #include <boost/geometry/multi/algorithms/num_geometries.hpp>
 
-#include <boost/geometry/domains/gis/io/wkt/wkt.hpp>
+#include <boost/geometry/io/wkt/wkt.hpp>
+#include <boost/geometry/multi/io/wkt/wkt.hpp>
 
 #include <boost/geometry/geometries/geometries.hpp>
 #include <boost/geometry/geometries/point_xy.hpp>

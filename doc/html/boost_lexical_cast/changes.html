@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../boost_lexical_cast.html" title="Chapter&#160;14.&#160;Boost.Lexical_Cast 1.0">
+<link rel="up" href="../boost_lexical_cast.html" title="Chapter&#160;15.&#160;Boost.Lexical_Cast 1.0">
 <link rel="prev" href="frequently_asked_questions.html" title="Frequently Asked Questions">
 <link rel="next" href="performance.html" title="Performance">
 </head>
@@ -27,6 +27,55 @@
 <a name="boost_lexical_cast.changes"></a><a class="link" href="changes.html" title="Changes">Changes</a>
 </h2></div></div></div>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+          <span class="bold"><strong>boost 1.52.0 :</strong></span>
+          <div class="itemizedlist"><ul class="itemizedlist" type="circle">
+<li class="listitem">
+                Restored compilation on MSVC-2003 (was broken in 1.51.0).
+              </li>
+<li class="listitem">
+                Added <code class="computeroutput"><span class="identifier">lexical_cast</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">CharType</span><span class="special">*</span>
+                <span class="identifier">chars</span><span class="special">,</span>
+                <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">count</span><span class="special">)</span></code> function overload.
+              </li>
+</ul></div>
+        </li>
+<li class="listitem">
+          <span class="bold"><strong>boost 1.51.0 :</strong></span>
+          <div class="itemizedlist"><ul class="itemizedlist" type="circle"><li class="listitem">
+                Better performance, less memory usage for <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="identifier">character_type</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code> and <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="identifier">character_type</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span></code> conversions.
+              </li></ul></div>
+        </li>
+<li class="listitem">
+          <span class="bold"><strong>boost 1.50.0 :</strong></span>
+          <div class="itemizedlist"><ul class="itemizedlist" type="circle">
+<li class="listitem">
+                <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">bad_lexical_cast</span></code> exception is now
+                globaly visible and can be catched even if code is compiled with
+                -fvisibility=hidden.
+              </li>
+<li class="listitem">
+                Now it is possible to compile library with disabled exceptions.
+              </li>
+<li class="listitem">
+                Better performance, less memory usage and bugfixes for <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">iterator_range</span><span class="special">&lt;</span><span class="identifier">character_type</span><span class="special">*&gt;</span></code>
+                conversions.
+              </li>
+</ul></div>
+        </li>
+<li class="listitem">
+          <span class="bold"><strong>boost 1.49.0 :</strong></span>
+          <div class="itemizedlist"><ul class="itemizedlist" type="circle">
+<li class="listitem">
+                Restored work with typedefed wchar_t (compilation flag /Zc:wchar_t-
+                for Visual Studio).
+              </li>
+<li class="listitem">
+                Better performance and less memory usage for <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">container</span><span class="special">::</span><span class="identifier">basic_string</span></code>
+                conversions.
+              </li>
+</ul></div>
+        </li>
 <li class="listitem">
           <span class="bold"><strong>boost 1.48.0 :</strong></span>
           <div class="itemizedlist"><ul class="itemizedlist" type="circle">
@@ -131,7 +180,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2000-2005 Kevlin Henney<br>Copyright &#169; 2006-2010 Alexander Nasonov<br>Copyright &#169; 2011 Antony Polukhin<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2000-2005 Kevlin Henney<br>Copyright &#169; 2006-2010 Alexander Nasonov<br>Copyright &#169; 2011, 2012 Antony Polukhin<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

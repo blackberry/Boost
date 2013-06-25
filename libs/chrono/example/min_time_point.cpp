@@ -39,6 +39,7 @@ void print_duration(std::ostream& os, duration<Rep, Period> d)
     os << d.count() << " * " << Period::num << '/' << Period::den << " seconds\n";
 }
 
+namespace my_ns {
 // Example min utility:  returns the earliest time_point
 //   Being able to *easily* write this function is a major feature!
 template <class Clock, class Duration1, class Duration2>
@@ -49,7 +50,7 @@ min BOOST_PREVENT_MACRO_SUBSTITUTION  (time_point<Clock, Duration1> t1, time_poi
 {
     return t2 < t1 ? t2 : t1;
 }
-
+}
 void test_min()
 {
 #if 1
@@ -60,7 +61,7 @@ void test_min()
     typedef boost::common_type<T1, T2>::type T3;
     /*auto*/ T1 t1 = system_clock::now() + seconds(3);
     /*auto*/ T2 t2 = system_clock::now() + nanoseconds(3);
-    /*auto*/ T3 t3 = (min)(t1, t2);
+    /*auto*/ T3 t3 = (my_ns::min)(t1, t2);
 #else
     BOOST_AUTO(t1, system_clock::now() + seconds(3));
     BOOST_AUTO(t2, system_clock::now() + nanoseconds(3));

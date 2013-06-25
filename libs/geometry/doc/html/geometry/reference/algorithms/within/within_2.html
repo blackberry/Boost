@@ -4,7 +4,7 @@
 <title>within</title>
 <link rel="stylesheet" href="../../../../../../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
-<link rel="home" href="../../../../index.html" title="Chapter&#160;1.&#160;Geometry 1.0">
+<link rel="home" href="../../../../index.html" title="Chapter&#160;1.&#160;Geometry">
 <link rel="up" href="../within.html" title="within">
 <link rel="prev" href="../within.html" title="within">
 <link rel="next" href="within_3_with_strategy.html" title="within (with strategy)">
@@ -27,7 +27,7 @@
 <a name="geometry.reference.algorithms.within.within_2"></a><a class="link" href="within_2.html" title="within">within</a>
 </h5></div></div></div>
 <p>
-            <a class="indexterm" name="id900314"></a>
+            <a class="indexterm" name="id912666"></a>
 Checks if the first geometry is completely inside the second geometry.
           </p>
 <h6>
@@ -100,7 +100,8 @@ Checks if the first geometry is completely inside the second geometry.
                   </td>
 <td>
                     <p>
-                      geometry which might be within the second geometry
+                      A model of the specified concept which might be within the
+                      second geometry
                     </p>
                   </td>
 </tr>
@@ -122,7 +123,8 @@ Checks if the first geometry is completely inside the second geometry.
                   </td>
 <td>
                     <p>
-                      geometry which might contain the first geometry
+                      A model of the specified concept which might contain the first
+                      geometry
                     </p>
                   </td>
 </tr>
@@ -153,11 +155,34 @@ Checks if the first geometry is completely inside the second geometry.
           </p>
 <h6>
 <a name="geometry.reference.algorithms.within.within_2.h5"></a>
+            <span><a name="geometry.reference.algorithms.within.within_2.conformance"></a></span><a class="link" href="within_2.html#geometry.reference.algorithms.within.within_2.conformance">Conformance</a>
+          </h6>
+<p>
+            The function within implements function Within from the <a href="http://www.opengeospatial.org/standards/sfa" target="_top">OGC
+            Simple Feature Specification</a>.
+          </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../../../../../../doc/src/images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+              OGC defines within as completely within and not on the border. See
+              the notes for within / on the border
+            </p></td></tr>
+</table></div>
+<h6>
+<a name="geometry.reference.algorithms.within.within_2.h6"></a>
             <span><a name="geometry.reference.algorithms.within.within_2.supported_geometries"></a></span><a class="link" href="within_2.html#geometry.reference.algorithms.within.within_2.supported_geometries">Supported
             geometries</a>
           </h6>
 <div class="informaltable"><table class="table">
 <colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
 <col>
 <col>
 <col>
@@ -169,7 +194,22 @@ Checks if the first geometry is completely inside the second geometry.
                   </th>
 <th>
                     <p>
+                      Point
+                    </p>
+                  </th>
+<th>
+                    <p>
+                      Segment
+                    </p>
+                  </th>
+<th>
+                    <p>
                       Box
+                    </p>
+                  </th>
+<th>
+                    <p>
+                      Linestring
                     </p>
                   </th>
 <th>
@@ -184,11 +224,22 @@ Checks if the first geometry is completely inside the second geometry.
                   </th>
 <th>
                     <p>
+                      MultiPoint
+                    </p>
+                  </th>
+<th>
+                    <p>
+                      MultiLinestring
+                    </p>
+                  </th>
+<th>
+                    <p>
                       MultiPolygon
                     </p>
                   </th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>
                     <p>
                       Point
@@ -196,7 +247,106 @@ Checks if the first geometry is completely inside the second geometry.
                   </td>
 <td>
                     <p>
-                      <span class="inlinemediaobject"><img src="../../../../img/ok.png" alt="ok"></span>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      Segment
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      Box
                     </p>
                   </td>
 <td>
@@ -206,7 +356,7 @@ Checks if the first geometry is completely inside the second geometry.
                   </td>
 <td>
                     <p>
-                      <span class="inlinemediaobject"><img src="../../../../img/ok.png" alt="ok"></span>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
                     </p>
                   </td>
 <td>
@@ -214,10 +364,364 @@ Checks if the first geometry is completely inside the second geometry.
                       <span class="inlinemediaobject"><img src="../../../../img/ok.png" alt="ok"></span>
                     </p>
                   </td>
-</tr></tbody>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      Linestring
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      Ring
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/ok.png" alt="ok"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      Polygon
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/ok.png" alt="ok"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      MultiPoint
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      MultiLinestring
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      MultiPolygon
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/ok.png" alt="ok"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <span class="inlinemediaobject"><img src="../../../../img/nyi.png" alt="nyi"></span>
+                    </p>
+                  </td>
+</tr>
+</tbody>
+</table></div>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../../../../../../doc/src/images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+              In this status matrix above: columns are types of first parameter and
+              rows are types of second parameter. So a point can be checked to be
+              within a polygon, but not vice versa.
+            </p></td></tr>
 </table></div>
 <h6>
-<a name="geometry.reference.algorithms.within.within_2.h6"></a>
+<a name="geometry.reference.algorithms.within.within_2.h7"></a>
             <span><a name="geometry.reference.algorithms.within.within_2.notes"></a></span><a class="link" href="within_2.html#geometry.reference.algorithms.within.within_2.notes">Notes</a>
           </h6>
 <p>
@@ -232,14 +736,22 @@ Checks if the first geometry is completely inside the second geometry.
             polygon. There is a specific strategy which returns false in this case.
           </p>
 <h6>
-<a name="geometry.reference.algorithms.within.within_2.h7"></a>
+<a name="geometry.reference.algorithms.within.within_2.h8"></a>
             <span><a name="geometry.reference.algorithms.within.within_2.complexity"></a></span><a class="link" href="within_2.html#geometry.reference.algorithms.within.within_2.complexity">Complexity</a>
           </h6>
 <p>
             Linear
           </p>
 <h6>
-<a name="geometry.reference.algorithms.within.within_2.h8"></a>
+<a name="geometry.reference.algorithms.within.within_2.h9"></a>
+            <span><a name="geometry.reference.algorithms.within.within_2.see_also"></a></span><a class="link" href="within_2.html#geometry.reference.algorithms.within.within_2.see_also">See
+            also</a>
+          </h6>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+                <a class="link" href="../covered_by.html" title="covered_by">covered_by</a>
+              </li></ul></div>
+<h6>
+<a name="geometry.reference.algorithms.within.within_2.h10"></a>
             <span><a name="geometry.reference.algorithms.within.within_2.example"></a></span><a class="link" href="within_2.html#geometry.reference.algorithms.within.within_2.example">Example</a>
           </h6>
 <p>
@@ -254,7 +766,7 @@ Checks if the first geometry is completely inside the second geometry.
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">/</span><span class="identifier">geometries</span><span class="special">/</span><span class="identifier">point_xy</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">/</span><span class="identifier">geometries</span><span class="special">/</span><span class="identifier">polygon</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 
-<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">/</span><span class="identifier">domains</span><span class="special">/</span><span class="identifier">gis</span><span class="special">/</span><span class="identifier">io</span><span class="special">/</span><span class="identifier">wkt</span><span class="special">/</span><span class="identifier">wkt</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">/</span><span class="identifier">io</span><span class="special">/</span><span class="identifier">wkt</span><span class="special">/</span><span class="identifier">wkt</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 
 
 <span class="keyword">int</span> <span class="identifier">main</span><span class="special">()</span>
@@ -273,7 +785,6 @@ Checks if the first geometry is completely inside the second geometry.
 
     <span class="keyword">return</span> <span class="number">0</span><span class="special">;</span>
 <span class="special">}</span>
-
 </pre>
 <p>
           </p>
@@ -287,7 +798,8 @@ Checks if the first geometry is completely inside the second geometry.
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2011 Barend Gehrels, Bruno Lalande, Mateusz Loskot<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2009-2012 Barend
+      Gehrels, Bruno Lalande, Mateusz Loskot<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

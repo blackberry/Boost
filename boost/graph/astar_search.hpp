@@ -25,7 +25,7 @@
 #include <boost/graph/detail/d_ary_heap.hpp>
 #include <boost/property_map/property_map.hpp>
 #include <boost/property_map/vector_property_map.hpp>
-
+#include <boost/concept/assert.hpp>
 
 namespace boost {
 
@@ -34,7 +34,7 @@ namespace boost {
   struct AStarHeuristicConcept {
     void constraints()
     {
-      function_requires< CopyConstructibleConcept<Heuristic> >();
+      BOOST_CONCEPT_ASSERT(( CopyConstructibleConcept<Heuristic> ));
       h(u);
     }
     Heuristic h;
@@ -58,7 +58,7 @@ namespace boost {
   struct AStarVisitorConcept {
     void constraints()
     {
-      function_requires< CopyConstructibleConcept<Visitor> >();
+      BOOST_CONCEPT_ASSERT(( CopyConstructibleConcept<Visitor> ));
       vis.initialize_vertex(u, g);
       vis.discover_vertex(u, g);
       vis.examine_vertex(u, g);
@@ -158,6 +158,7 @@ namespace boost {
 
       template <class Edge, class Graph>
       void tree_edge(Edge e, const Graph& g) {
+        using boost::get;
         m_decreased = relax(e, g, m_weight, m_predecessor, m_distance,
                             m_combine, m_compare);
 
@@ -173,6 +174,7 @@ namespace boost {
 
       template <class Edge, class Graph>
       void gray_target(Edge e, const Graph& g) {
+        using boost::get;
         m_decreased = relax(e, g, m_weight, m_predecessor, m_distance,
                             m_combine, m_compare);
 
@@ -189,6 +191,7 @@ namespace boost {
 
       template <class Edge, class Graph>
       void black_target(Edge e, const Graph& g) {
+        using boost::get;
         m_decreased = relax(e, g, m_weight, m_predecessor, m_distance,
                             m_combine, m_compare);
 
@@ -367,8 +370,8 @@ namespace boost {
        detail::make_property_map_from_arg_pack_gen<tag::rank_map, D>(D())(g, arg_pack),
        detail::make_property_map_from_arg_pack_gen<tag::distance_map, D>(D())(g, arg_pack),
        detail::override_const_property(arg_pack, _weight_map, g, edge_weight),
-       detail::override_const_property(arg_pack, _vertex_index_map, g, vertex_index),
        detail::make_color_map_from_arg_pack(g, arg_pack),
+       detail::override_const_property(arg_pack, _vertex_index_map, g, vertex_index),
        arg_pack[_distance_compare | std::less<D>()],
        arg_pack[_distance_combine | closed_plus<D>(inf)],
        inf,

@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2009. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -24,41 +24,27 @@ static const std::size_t SemCount      = 1;
 static const std::size_t RecSemCount   = 100;
 static const char *      SemName = test::get_process_id_name();
 
-struct semaphore_deleter
-{
-   ~semaphore_deleter()
-   {  named_semaphore::remove(SemName); }
-};
-
 //This wrapper is necessary to plug this class
-//in named creation tests and interprocess_mutex tests
-class named_semaphore_test_wrapper
-   : public semaphore_deleter, public named_semaphore
+//in lock tests
+class lock_test_wrapper
+   : public named_semaphore
 {
    public:
-   named_semaphore_test_wrapper()
-      :  named_semaphore(open_or_create, SemName, SemCount)
-   {  ++count_;   }
 
-   named_semaphore_test_wrapper(create_only_t)
-      :  named_semaphore(create_only, SemName, SemCount)
-   {  ++count_;   }
+   lock_test_wrapper(create_only_t, const char *name, unsigned int count = 1)
+      :  named_semaphore(create_only, name, count)
+   {}
 
-   named_semaphore_test_wrapper(open_only_t)
-      :  named_semaphore(open_only, SemName)
-   {  ++count_;   }
+   lock_test_wrapper(open_only_t, const char *name)
+      :  named_semaphore(open_only, name)
+   {}
 
-   named_semaphore_test_wrapper(open_or_create_t)
-      :  named_semaphore(open_or_create, SemName, SemCount)
-   {  ++count_;   }
+   lock_test_wrapper(open_or_create_t, const char *name, unsigned int count = 1)
+      :  named_semaphore(open_or_create, name, count)
+   {}
 
-   ~named_semaphore_test_wrapper()
-   {
-      if(--count_){
-         ipcdetail::interprocess_tester::
-            dont_close_on_destruction(static_cast<named_semaphore&>(*this));
-      }
-   }
+   ~lock_test_wrapper()
+   {}
 
    void lock()
    {  this->wait();  }
@@ -71,40 +57,60 @@ class named_semaphore_test_wrapper
 
    void unlock()
    {  this->post();  }
-
-   protected:
-   named_semaphore_test_wrapper(int initial_count)
-      :  named_semaphore(create_only, SemName, initial_count)
-   {}
-
-   static int count_;
 };
-
-int named_semaphore_test_wrapper::count_ = 0;
 
 //This wrapper is necessary to plug this class
 //in recursive tests
-class recursive_named_semaphore_test_wrapper
-   :  public named_semaphore_test_wrapper
+class recursive_test_wrapper
+   :  public lock_test_wrapper
 {
    public:
-   recursive_named_semaphore_test_wrapper()
-      :  named_semaphore_test_wrapper(RecSemCount)
+   recursive_test_wrapper(create_only_t, const char *name)
+      :  lock_test_wrapper(create_only, name, RecSemCount)
    {}
 
-   static int count_;
+   recursive_test_wrapper(open_only_t, const char *name)
+      :  lock_test_wrapper(open_only, name)
+   {}
+
+   recursive_test_wrapper(open_or_create_t, const char *name)
+      :  lock_test_wrapper(open_or_create, name, RecSemCount)
+   {}
 };
 
-int recursive_named_semaphore_test_wrapper::count_ = 0;
+bool test_named_semaphore_specific()
+{
+   //Test persistance
+   {
+      named_semaphore sem(create_only, SemName, 3);
+   }
+   {
+      named_semaphore sem(open_only, SemName);
+      BOOST_INTERPROCES_CHECK(sem.try_wait() == true);
+      BOOST_INTERPROCES_CHECK(sem.try_wait() == true);
+      BOOST_INTERPROCES_CHECK(sem.try_wait() == true);
+      BOOST_INTERPROCES_CHECK(sem.try_wait() == false);
+      sem.post();
+   }
+   {
+      named_semaphore sem(open_only, SemName);
+      BOOST_INTERPROCES_CHECK(sem.try_wait() == true);
+      BOOST_INTERPROCES_CHECK(sem.try_wait() == false);
+   }
+
+   named_semaphore::remove(SemName);
+   return true;
+}
 
 int main ()
 {
    try{
       named_semaphore::remove(SemName);
-      test::test_named_creation<named_semaphore_test_wrapper>();
-      test::test_all_lock<named_semaphore_test_wrapper>();
-      test::test_all_recursive_lock<recursive_named_semaphore_test_wrapper>();
-      test::test_all_mutex<false, named_semaphore_test_wrapper>();
+      test::test_named_creation< test::named_sync_creation_test_wrapper<lock_test_wrapper> >();
+      test::test_all_lock< test::named_sync_wrapper<lock_test_wrapper> >();
+      test::test_all_mutex<test::named_sync_wrapper<lock_test_wrapper> >();
+      test::test_all_recursive_lock<test::named_sync_wrapper<recursive_test_wrapper> >();
+      test_named_semaphore_specific();
    }
    catch(std::exception &ex){
       named_semaphore::remove(SemName);

@@ -4,36 +4,36 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 #include "../helpers/prefix.hpp"
-
-#include <utility>
 #include <boost/unordered_map.hpp>
 #include <boost/unordered_set.hpp>
+#include "../helpers/postfix.hpp"
+
+#include <utility>
 
 namespace x
 {
     struct D { boost::unordered_map<D, D> x; };
 }
 
-namespace test
+namespace incomplete_test
 {
     // Declare, but don't define some types.
 
     struct value;
     struct hash;
     struct equals;
-    template <class T>
-    struct malloc_allocator;
+    template <class T> struct allocator;
 
     // Declare some instances
     
     typedef boost::unordered_map<value, value, hash, equals,
-        malloc_allocator<std::pair<value const, value> > > map;
+        allocator<std::pair<value const, value> > > map;
     typedef boost::unordered_multimap<value, value, hash, equals,
-        malloc_allocator<std::pair<value const, value> > > multimap;
+        allocator<std::pair<value const, value> > > multimap;
     typedef boost::unordered_set<value, hash, equals,
-        malloc_allocator<value> > set;
+        allocator<value> > set;
     typedef boost::unordered_multiset<value, hash, equals,
-        malloc_allocator<value> > multiset;
+        allocator<value> > multiset;
     
     // Now define the types which are stored as members, as they are needed for
     // declaring struct members.
@@ -48,12 +48,17 @@ namespace test
         bool operator()(T const&, T const&) const { return true; }
     };
 
-}
+    // This is a dubious way to implement an allocator, but good enough
+    // for this test.
+    template <typename T>
+    struct allocator : std::allocator<T> {
+        allocator() {}
 
-#include "../helpers/allocator.hpp"
+        template <typename T2>
+        allocator(const allocator<T2>& other) :
+            std::allocator<T>(other) {}
+    };
 
-namespace test
-{
     // Declare some members of a structs.
     //
     // Incomplete hash, equals and allocator aren't here supported at the
@@ -61,19 +66,19 @@ namespace test
     
     struct struct1 {
         boost::unordered_map<struct1, struct1, hash, equals,
-            malloc_allocator<std::pair<struct1 const, struct1> > > x;
+            allocator<std::pair<struct1 const, struct1> > > x;
     };
     struct struct2 {
         boost::unordered_multimap<struct2, struct2, hash, equals,
-            malloc_allocator<std::pair<struct2 const, struct2> > > x;
+            allocator<std::pair<struct2 const, struct2> > > x;
     };
     struct struct3 {
         boost::unordered_set<struct3, hash, equals,
-            malloc_allocator<struct3> > x;
+            allocator<struct3> > x;
     };
     struct struct4 {
         boost::unordered_multiset<struct4, hash, equals,
-            malloc_allocator<struct4> > x;
+            allocator<struct4> > x;
     };
     
     // Now define the value type.
@@ -82,15 +87,15 @@ namespace test
 
     // Create some instances.
     
-    test::map m1;
-    test::multimap m2;
-    test::set s1;
-    test::multiset s2;
+    incomplete_test::map m1;
+    incomplete_test::multimap m2;
+    incomplete_test::set s1;
+    incomplete_test::multiset s2;
 
-    test::struct1 c1;
-    test::struct2 c2;
-    test::struct3 c3;
-    test::struct4 c4;
+    incomplete_test::struct1 c1;
+    incomplete_test::struct2 c2;
+    incomplete_test::struct3 c3;
+    incomplete_test::struct4 c4;
 
     // Now declare, but don't define, the operators required for comparing
     // elements.
@@ -112,7 +117,7 @@ namespace test
     
     void use_types()
     {
-        test::value x;
+        incomplete_test::value x;
         m1[x] = x;
         m2.insert(std::make_pair(x, x));
         s1.insert(x);
@@ -144,5 +149,5 @@ int main() {
     // This could just be a compile test, but I like to be able to run these
     // things. It's probably irrational, but I find it reassuring.
 
-    test::use_types();
+    incomplete_test::use_types();
 }

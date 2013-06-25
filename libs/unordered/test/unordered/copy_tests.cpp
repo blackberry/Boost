@@ -4,9 +4,10 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 #include "../helpers/prefix.hpp"
-
 #include <boost/unordered_set.hpp>
 #include <boost/unordered_map.hpp>
+#include "../helpers/postfix.hpp"
+
 #include "../helpers/test.hpp"
 #include "../objects/test.hpp"
 #include "../objects/cxx11_allocator.hpp"
@@ -15,14 +16,13 @@
 #include "../helpers/equivalent.hpp"
 #include "../helpers/invariants.hpp"
 
-test::seed_t seed(9063);
+test::seed_t initialize_seed(9063);
 
 namespace copy_tests
 {
 
 template <class T>
-void copy_construct_tests1(T*,
-    test::random_generator const& generator = test::default_generator)
+void copy_construct_tests1(T*, test::random_generator const& generator)
 {
     typedef BOOST_DEDUCED_TYPENAME T::allocator_type allocator_type;
 
@@ -81,11 +81,8 @@ void copy_construct_tests1(T*,
 }
 
 template <class T>
-void copy_construct_tests2(T* ptr,
-    test::random_generator const& generator = test::default_generator)
+void copy_construct_tests2(T*, test::random_generator const& generator)
 {
-    copy_construct_tests1(ptr);
-
     BOOST_DEDUCED_TYPENAME T::hasher hf(1);
     BOOST_DEDUCED_TYPENAME T::key_equal eq(1);
     BOOST_DEDUCED_TYPENAME T::allocator_type al(1);
@@ -154,16 +151,16 @@ void copy_construct_tests2(T* ptr,
 
 boost::unordered_set<test::object,
     test::hash, test::equal_to,
-    test::allocator<test::object> >* test_set;
+    test::allocator1<test::object> >* test_set;
 boost::unordered_multiset<test::object,
     test::hash, test::equal_to,
-    test::allocator<test::object> >* test_multiset;
+    test::allocator2<test::object> >* test_multiset;
 boost::unordered_map<test::object, test::object,
     test::hash, test::equal_to,
-    test::allocator<test::object> >* test_map;
+    test::allocator1<test::object> >* test_map;
 boost::unordered_multimap<test::object, test::object,
     test::hash, test::equal_to,
-    test::allocator<test::object> >* test_multimap;
+    test::allocator2<test::object> >* test_multimap;
 
 boost::unordered_set<test::object,
         test::hash, test::equal_to,
@@ -207,6 +204,7 @@ UNORDERED_TEST(copy_construct_tests1, (
         (test_set_select_copy)(test_multiset_select_copy)(test_map_select_copy)(test_multimap_select_copy)
         (test_set_no_select_copy)(test_multiset_no_select_copy)(test_map_no_select_copy)(test_multimap_no_select_copy)
     )
+    ((default_generator)(generate_collisions))
 )
 
 UNORDERED_TEST(copy_construct_tests2, (

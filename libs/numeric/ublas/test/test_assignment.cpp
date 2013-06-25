@@ -26,7 +26,7 @@ typename AE::value_type mean_square(const matrix_expression<AE> &me) {
     typename AE::size_type i, j;
     for (i=0; i!= me().size1(); i++) {
         for (j=0; j!= me().size2(); j++) {
-            s+=std::fabs(me()(i,j));
+          s+= scalar_traits<typename AE::value_type>::type_abs(me()(i,j));
         }
     }
     return s/me().size1()*me().size2();
@@ -39,7 +39,7 @@ typename AE::value_type mean_square(const vector_expression<AE> &ve) {
     typename AE::value_type s(0);
     typename AE::size_type i;
     for (i=0; i!= ve().size(); i++) {
-            s+=std::fabs(ve()(i));
+            s+=scalar_traits<typename AE::value_type>::type_abs(ve()(i));
         }
     return s/ve().size();
 }

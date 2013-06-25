@@ -10,7 +10,7 @@
     \author John Maddock and Paul A. Bristow
   */
 //  Copyright John Maddock 2008.
-//  Copyright Paul A. Bristow 2008, 2009
+//  Copyright Paul A. Bristow 2008, 2009, 2012
 //  Use, modification and distribution are subject to the
 //  Boost Software License, Version 1.0. (See accompanying file
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -391,7 +391,18 @@ int main()
    nc_t_plotter.add(boost::math::non_central_t(10, 0), "v=10, &#x3B4;=0");
    nc_t_plotter.add(boost::math::non_central_t(10, 5), "v=10, &#x3B4;=5");
    nc_t_plotter.add(boost::math::non_central_t(10, 10), "v=10, &#x3B4;=10");
+   nc_t_plotter.add(boost::math::non_central_t(std::numeric_limits<double>::infinity(), 15), "v=inf, &#x3B4;=15");
    nc_t_plotter.plot("Non Central T PDF", "nc_t_pdf.svg");
+
+   distribution_plotter<boost::math::non_central_t>
+     nc_t_CDF_plotter(false);
+   nc_t_CDF_plotter.add(boost::math::non_central_t(10, -10), "v=10, &#x3B4;=-10");
+   nc_t_CDF_plotter.add(boost::math::non_central_t(10, -5), "v=10, &#x3B4;=-5");
+   nc_t_CDF_plotter.add(boost::math::non_central_t(10, 0), "v=10, &#x3B4;=0");
+   nc_t_CDF_plotter.add(boost::math::non_central_t(10, 5), "v=10, &#x3B4;=5");
+   nc_t_CDF_plotter.add(boost::math::non_central_t(10, 10), "v=10, &#x3B4;=10");
+   nc_t_CDF_plotter.add(boost::math::non_central_t(std::numeric_limits<double>::infinity(), 15), "v=inf, &#x3B4;=15");
+   nc_t_CDF_plotter.plot("Non Central T CDF", "nc_t_cdf.svg");
 
    distribution_plotter<boost::math::beta_distribution<> >
       beta_plotter;
@@ -498,6 +509,26 @@ int main()
    rayleigh_cdf_plotter.add(boost::math::rayleigh_distribution<>(4), "&#x3C3;=4");
    rayleigh_cdf_plotter.add(boost::math::rayleigh_distribution<>(10), "&#x3C3;=10");
    rayleigh_cdf_plotter.plot("Rayleigh Distribution CDF", "rayleigh_cdf.svg");
+
+   distribution_plotter<boost::math::skew_normal_distribution<> >
+      skew_normal_plotter;
+   skew_normal_plotter.add(boost::math::skew_normal_distribution<>(0,1,0), "{0,1,0}");
+   skew_normal_plotter.add(boost::math::skew_normal_distribution<>(0,1,1), "{0,1,1}");
+   skew_normal_plotter.add(boost::math::skew_normal_distribution<>(0,1,4), "{0,1,4}");
+   skew_normal_plotter.add(boost::math::skew_normal_distribution<>(0,1,20), "{0,1,20}");
+   skew_normal_plotter.add(boost::math::skew_normal_distribution<>(0,1,-2), "{0,1,-2}");
+   skew_normal_plotter.add(boost::math::skew_normal_distribution<>(-2,0.5,-1), "{-2,0.5,-1}");
+   skew_normal_plotter.plot("Skew Normal Distribution PDF", "skew_normal_pdf.svg");
+
+   distribution_plotter<boost::math::skew_normal_distribution<> >
+      skew_normal_cdf_plotter(false);
+   skew_normal_cdf_plotter.add(boost::math::skew_normal_distribution<>(0,1,0), "{0,1,0}");
+   skew_normal_cdf_plotter.add(boost::math::skew_normal_distribution<>(0,1,1), "{0,1,1}");
+   skew_normal_cdf_plotter.add(boost::math::skew_normal_distribution<>(0,1,4), "{0,1,4}");
+   skew_normal_cdf_plotter.add(boost::math::skew_normal_distribution<>(0,1,20), "{0,1,20}");
+   skew_normal_cdf_plotter.add(boost::math::skew_normal_distribution<>(0,1,-2), "{0,1,-2}");
+   skew_normal_cdf_plotter.add(boost::math::skew_normal_distribution<>(-2,0.5,-1), "{-2,0.5,-1}");
+   skew_normal_cdf_plotter.plot("Skew Normal Distribution CDF", "skew_normal_cdf.svg");
 
    distribution_plotter<boost::math::triangular_distribution<> >
       triangular_plotter;
@@ -622,4 +653,4 @@ int main()
    hypergeometric_plotter2.add(boost::math::hypergeometric_distribution<>(450, 50, 500), "N=500, r=50, n=450");
    hypergeometric_plotter2.plot("Hypergeometric Distribution PDF", "hypergeometric_pdf_2.svg");
 
-}
+} // int main()

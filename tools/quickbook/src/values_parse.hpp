@@ -44,7 +44,7 @@ namespace quickbook {
             return true;
         }
 
-        void success() { builder.finish_list(); }
+        void success(parse_iterator, parse_iterator) { builder.finish_list(); }
         void failure() { builder.clear_list(); }
 
         value_builder& builder;
@@ -57,24 +57,15 @@ namespace quickbook {
             typedef void type;
         };
 
-        value_entry(value_builder& b)
-            : b(b) {}
+        value_entry(value_builder& b, file_ptr* current_file)
+            : b(b), current_file(current_file) {}
 
-        template <typename Iterator>
-        void operator()(Iterator begin, Iterator end,
+        void operator()(parse_iterator begin, parse_iterator end,
                 value::tag_type tag = value::default_tag) const
         {
-            b.insert(qbk_value(begin, end, tag));
+            b.insert(qbk_value(*current_file, begin.base(), end.base(), tag));
         }
 
-        template <typename Iterator>
-        void operator()(Iterator begin, Iterator,
-                std::string const& v,
-                value::tag_type tag = value::default_tag) const
-        {
-            b.insert(qbk_value(v, begin.get_position(), tag));
-        }
-        
         void operator()(int v,
             value::tag_type tag = value::default_tag) const
         {
@@ -82,22 +73,9 @@ namespace quickbook {
         }
 
         value_builder& b;
+        file_ptr* current_file;
     };
 
-    struct value_reset
-    {
-        typedef void result_type;
-    
-        value_reset(value_builder& b)
-            : b(b) {}
-
-        void operator()() const {
-            b.reset();
-        }
-
-        value_builder& b;
-    };
-    
     struct value_sort
     {
         typedef void result_type;
@@ -114,12 +92,11 @@ namespace quickbook {
 
     struct value_parser
     {
-        value_parser()
+        value_parser(file_ptr* current_file)
             : builder()
             , save(builder)
             , list(builder)
-            , entry(builder)
-            , reset(builder)
+            , entry(value_entry(builder, current_file))
             , sort(builder)
             {}
     
@@ -129,7 +106,6 @@ namespace quickbook {
         scoped_parser<value_builder_save> save;
         scoped_parser<value_builder_list> list;
         ph::function<value_entry> entry;
-        ph::function<value_reset> reset;
         ph::function<value_sort> sort;
     };
 }

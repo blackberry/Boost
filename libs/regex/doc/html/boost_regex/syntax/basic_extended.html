@@ -22,14 +22,14 @@
 <div class="spirit-nav">
 <a accesskey="p" href="perl_syntax.html"><img src="../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../syntax.html"><img src="../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="basic_syntax.html"><img src="../../../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
-<div class="section">
+<div class="section boost_regex_syntax_basic_extended">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="boost_regex.syntax.basic_extended"></a><a class="link" href="basic_extended.html" title="POSIX Extended Regular Expression Syntax">POSIX Extended Regular
       Expression Syntax</a>
 </h3></div></div></div>
-<a name="boost_regex.syntax.basic_extended.synopsis"></a><h4>
-<a name="boost_regex.syntax.basic_extended.synopsis-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.synopsis">Synopsis</a>
+<h4>
+<a name="boost_regex.syntax.basic_extended.h0"></a>
+        <span><a name="boost_regex.syntax.basic_extended.synopsis"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.synopsis">Synopsis</a>
       </h4>
 <p>
         The POSIX-Extended regular expression syntax is supported by the POSIX C
@@ -43,19 +43,19 @@
 <span class="comment">// e2 a case insensitive POSIX-Extended expression:</span>
 <span class="identifier">boost</span><span class="special">::</span><span class="identifier">regex</span> <span class="identifier">e2</span><span class="special">(</span><span class="identifier">my_expression</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">regex</span><span class="special">::</span><span class="identifier">extended</span><span class="special">|</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">regex</span><span class="special">::</span><span class="identifier">icase</span><span class="special">);</span>
 </pre>
-<a name="boost_regex.posix_extended_syntax"></a><a name="boost_regex.syntax.basic_extended.posix_extended_syntax"></a><h4>
-<a name="boost_regex.syntax.basic_extended.posix_extended_syntax-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.posix_extended_syntax">POSIX
-        Extended Syntax</a>
+<a name="boost_regex.posix_extended_syntax"></a><h4>
+<a name="boost_regex.syntax.basic_extended.h1"></a>
+        <span><a name="boost_regex.syntax.basic_extended.posix_extended_syntax"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.posix_extended_syntax">POSIX Extended
+        Syntax</a>
       </h4>
 <p>
         In POSIX-Extended regular expressions, all characters match themselves except
         for the following special characters:
       </p>
 <pre class="programlisting">.[{}()\*+?|^$</pre>
-<a name="boost_regex.syntax.basic_extended.wildcard_"></a><h5>
-<a name="boost_regex.syntax.basic_extended.wildcard_-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.wildcard_">Wildcard:</a>
+<h5>
+<a name="boost_regex.syntax.basic_extended.h2"></a>
+        <span><a name="boost_regex.syntax.basic_extended.wildcard_"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.wildcard_">Wildcard:</a>
       </h5>
 <p>
         The single character '.' when used outside of a character set will match
@@ -71,9 +71,9 @@
             is passed to the matching algorithms.
           </li>
 </ul></div>
-<a name="boost_regex.syntax.basic_extended.anchors_"></a><h5>
-<a name="boost_regex.syntax.basic_extended.anchors_-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.anchors_">Anchors:</a>
+<h5>
+<a name="boost_regex.syntax.basic_extended.h3"></a>
+        <span><a name="boost_regex.syntax.basic_extended.anchors_"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.anchors_">Anchors:</a>
       </h5>
 <p>
         A '^' character shall match the start of a line when used as the first character
@@ -83,9 +83,9 @@
         A '$' character shall match the end of a line when used as the last character
         of an expression, or the last character of a sub-expression.
       </p>
-<a name="boost_regex.syntax.basic_extended.marked_sub_expressions_"></a><h5>
-<a name="boost_regex.syntax.basic_extended.marked_sub_expressions_-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.marked_sub_expressions_">Marked
+<h5>
+<a name="boost_regex.syntax.basic_extended.h4"></a>
+        <span><a name="boost_regex.syntax.basic_extended.marked_sub_expressions_"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.marked_sub_expressions_">Marked
         sub-expressions:</a>
       </h5>
 <p>
@@ -95,9 +95,9 @@
         matching algorithms. Marked sub-expressions can also repeated, or referred
         to by a back-reference.
       </p>
-<a name="boost_regex.syntax.basic_extended.repeats_"></a><h5>
-<a name="boost_regex.syntax.basic_extended.repeats_-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.repeats_">Repeats:</a>
+<h5>
+<a name="boost_regex.syntax.basic_extended.h5"></a>
+        <span><a name="boost_regex.syntax.basic_extended.repeats_"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.repeats_">Repeats:</a>
       </h5>
 <p>
         Any atom (a single character, a marked sub-expression, or a character class)
@@ -181,9 +181,10 @@ cab
         Will raise an error, as there is nothing for the <code class="computeroutput"><span class="special">*</span></code>
         operator to be applied to.
       </p>
-<a name="boost_regex.syntax.basic_extended.back_references_"></a><h5>
-<a name="boost_regex.syntax.basic_extended.back_references_-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.back_references_">Back references:</a>
+<h5>
+<a name="boost_regex.syntax.basic_extended.h6"></a>
+        <span><a name="boost_regex.syntax.basic_extended.back_references_"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.back_references_">Back
+        references:</a>
       </h5>
 <p>
         An escape character followed by a digit <span class="emphasis"><em>n</em></span>, where <span class="emphasis"><em>n</em></span>
@@ -211,9 +212,9 @@ cab
           regular expressions, this is a compatible extension to that standard.
         </p></td></tr>
 </table></div>
-<a name="boost_regex.syntax.basic_extended.alternation"></a><h5>
-<a name="boost_regex.syntax.basic_extended.alternation-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.alternation">Alternation</a>
+<h5>
+<a name="boost_regex.syntax.basic_extended.h7"></a>
+        <span><a name="boost_regex.syntax.basic_extended.alternation"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.alternation">Alternation</a>
       </h5>
 <p>
         The <code class="computeroutput"><span class="special">|</span></code> operator will match either
@@ -224,9 +225,9 @@ cab
         Parenthesis can be used to group alternations, for example: <code class="computeroutput"><span class="identifier">ab</span><span class="special">(</span><span class="identifier">d</span><span class="special">|</span><span class="identifier">ef</span><span class="special">)</span></code>
         will match either of "abd" or "abef".
       </p>
-<a name="boost_regex.syntax.basic_extended.character_sets_"></a><h5>
-<a name="boost_regex.syntax.basic_extended.character_sets_-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.character_sets_">Character
+<h5>
+<a name="boost_regex.syntax.basic_extended.h8"></a>
+        <span><a name="boost_regex.syntax.basic_extended.character_sets_"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.character_sets_">Character
         sets:</a>
       </h5>
 <p>
@@ -237,18 +238,17 @@ cab
 <p>
         A bracket expression may contain any combination of the following:
       </p>
-<a name="boost_regex.syntax.basic_extended.single_characters_"></a><h6>
-<a name="boost_regex.syntax.basic_extended.single_characters_-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.single_characters_">Single
-        characters:</a>
+<h6>
+<a name="boost_regex.syntax.basic_extended.h9"></a>
+        <span><a name="boost_regex.syntax.basic_extended.single_characters_"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.single_characters_">Single characters:</a>
       </h6>
 <p>
         For example <code class="computeroutput"><span class="special">[</span><span class="identifier">abc</span><span class="special">]</span></code>, will match any of the characters 'a', 'b',
         or 'c'.
       </p>
-<a name="boost_regex.syntax.basic_extended.character_ranges_"></a><h6>
-<a name="boost_regex.syntax.basic_extended.character_ranges_-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.character_ranges_">Character
+<h6>
+<a name="boost_regex.syntax.basic_extended.h10"></a>
+        <span><a name="boost_regex.syntax.basic_extended.character_ranges_"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.character_ranges_">Character
         ranges:</a>
       </h6>
 <p>
@@ -262,18 +262,18 @@ cab
         which case whether a character appears within a range is determined by comparing
         the code points of the characters only.
       </p>
-<a name="boost_regex.syntax.basic_extended.negation_"></a><h6>
-<a name="boost_regex.syntax.basic_extended.negation_-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.negation_">Negation:</a>
+<h6>
+<a name="boost_regex.syntax.basic_extended.h11"></a>
+        <span><a name="boost_regex.syntax.basic_extended.negation_"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.negation_">Negation:</a>
       </h6>
 <p>
         If the bracket-expression begins with the ^ character, then it matches the
         complement of the characters it contains, for example <code class="computeroutput"><span class="special">[^</span><span class="identifier">a</span><span class="special">-</span><span class="identifier">c</span><span class="special">]</span></code> matches any character that is not in the
         range <code class="computeroutput"><span class="identifier">a</span><span class="special">-</span><span class="identifier">c</span></code>.
       </p>
-<a name="boost_regex.syntax.basic_extended.character_classes_"></a><h6>
-<a name="boost_regex.syntax.basic_extended.character_classes_-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.character_classes_">Character
+<h6>
+<a name="boost_regex.syntax.basic_extended.h12"></a>
+        <span><a name="boost_regex.syntax.basic_extended.character_classes_"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.character_classes_">Character
         classes:</a>
       </h6>
 <p>
@@ -281,9 +281,9 @@ cab
         matches the named character class "name", for example <code class="computeroutput"><span class="special">[[:</span><span class="identifier">lower</span><span class="special">:]]</span></code> matches any lower case character. See
         <a class="link" href="character_classes.html" title="Character Class Names">character class names</a>.
       </p>
-<a name="boost_regex.syntax.basic_extended.collating_elements_"></a><h6>
-<a name="boost_regex.syntax.basic_extended.collating_elements_-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.collating_elements_">Collating
+<h6>
+<a name="boost_regex.syntax.basic_extended.h13"></a>
+        <span><a name="boost_regex.syntax.basic_extended.collating_elements_"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.collating_elements_">Collating
         Elements:</a>
       </h6>
 <p>
@@ -309,9 +309,9 @@ cab
 <p>
         matches a NUL character.
       </p>
-<a name="boost_regex.syntax.basic_extended.equivalence_classes_"></a><h6>
-<a name="boost_regex.syntax.basic_extended.equivalence_classes_-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.equivalence_classes_">Equivalence
+<h6>
+<a name="boost_regex.syntax.basic_extended.h14"></a>
+        <span><a name="boost_regex.syntax.basic_extended.equivalence_classes_"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.equivalence_classes_">Equivalence
         classes:</a>
       </h6>
 <p>
@@ -326,17 +326,17 @@ cab
         this feature can not be relied upon to work portably across all platforms,
         or even all locales on one platform.
       </p>
-<a name="boost_regex.syntax.basic_extended.combinations_"></a><h6>
-<a name="boost_regex.syntax.basic_extended.combinations_-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.combinations_">Combinations:</a>
+<h6>
+<a name="boost_regex.syntax.basic_extended.h15"></a>
+        <span><a name="boost_regex.syntax.basic_extended.combinations_"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.combinations_">Combinations:</a>
       </h6>
 <p>
         All of the above can be combined in one character set declaration, for example:
         <code class="computeroutput"><span class="special">[[:</span><span class="identifier">digit</span><span class="special">:]</span><span class="identifier">a</span><span class="special">-</span><span class="identifier">c</span><span class="special">[.</span><span class="identifier">NUL</span><span class="special">.]]</span></code>.
       </p>
-<a name="boost_regex.syntax.basic_extended.escapes"></a><h5>
-<a name="boost_regex.syntax.basic_extended.escapes-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.escapes">Escapes</a>
+<h5>
+<a name="boost_regex.syntax.basic_extended.h16"></a>
+        <span><a name="boost_regex.syntax.basic_extended.escapes"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.escapes">Escapes</a>
       </h5>
 <p>
         The POSIX standard defines no escape sequences for POSIX-Extended regular
@@ -360,9 +360,9 @@ cab
         However, that's rather restrictive, so the following standard-compatible
         extensions are also supported by Boost.Regex:
       </p>
-<a name="boost_regex.syntax.basic_extended.escapes_matching_a_specific_character"></a><h6>
-<a name="boost_regex.syntax.basic_extended.escapes_matching_a_specific_character-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.escapes_matching_a_specific_character">Escapes
+<h6>
+<a name="boost_regex.syntax.basic_extended.h17"></a>
+        <span><a name="boost_regex.syntax.basic_extended.escapes_matching_a_specific_character"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.escapes_matching_a_specific_character">Escapes
         matching a specific character</a>
       </h6>
 <p>
@@ -549,9 +549,9 @@ cab
 </tr>
 </tbody>
 </table></div>
-<a name="boost_regex.syntax.basic_extended._quot_single_character_quot__character_classes_"></a><h6>
-<a name="boost_regex.syntax.basic_extended._quot_single_character_quot__character_classes_-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended._quot_single_character_quot__character_classes_">"Single
+<h6>
+<a name="boost_regex.syntax.basic_extended.h18"></a>
+        <span><a name="boost_regex.syntax.basic_extended._quot_single_character_quot__character_classes_"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended._quot_single_character_quot__character_classes_">"Single
         character" character classes:</a>
       </h6>
 <p>
@@ -703,9 +703,9 @@ cab
 </tr>
 </tbody>
 </table></div>
-<a name="boost_regex.syntax.basic_extended.character_properties"></a><h6>
-<a name="boost_regex.syntax.basic_extended.character_properties-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.character_properties">Character
+<h6>
+<a name="boost_regex.syntax.basic_extended.h19"></a>
+        <span><a name="boost_regex.syntax.basic_extended.character_properties"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.character_properties">Character
         Properties</a>
       </h6>
 <p>
@@ -810,9 +810,10 @@ cab
         For example <code class="computeroutput"><span class="special">\</span><span class="identifier">pd</span></code>
         matches any "digit" character, as does <code class="computeroutput"><span class="special">\</span><span class="identifier">p</span><span class="special">{</span><span class="identifier">digit</span><span class="special">}</span></code>.
       </p>
-<a name="boost_regex.syntax.basic_extended.word_boundaries"></a><h6>
-<a name="boost_regex.syntax.basic_extended.word_boundaries-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.word_boundaries">Word Boundaries</a>
+<h6>
+<a name="boost_regex.syntax.basic_extended.h20"></a>
+        <span><a name="boost_regex.syntax.basic_extended.word_boundaries"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.word_boundaries">Word
+        Boundaries</a>
       </h6>
 <p>
         The following escape sequences match the boundaries of words:
@@ -885,9 +886,9 @@ cab
 </tr>
 </tbody>
 </table></div>
-<a name="boost_regex.syntax.basic_extended.buffer_boundaries"></a><h6>
-<a name="boost_regex.syntax.basic_extended.buffer_boundaries-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.buffer_boundaries">Buffer
+<h6>
+<a name="boost_regex.syntax.basic_extended.h21"></a>
+        <span><a name="boost_regex.syntax.basic_extended.buffer_boundaries"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.buffer_boundaries">Buffer
         boundaries</a>
       </h6>
 <p>
@@ -976,9 +977,9 @@ cab
 </tr>
 </tbody>
 </table></div>
-<a name="boost_regex.syntax.basic_extended.continuation_escape"></a><h6>
-<a name="boost_regex.syntax.basic_extended.continuation_escape-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.continuation_escape">Continuation
+<h6>
+<a name="boost_regex.syntax.basic_extended.h22"></a>
+        <span><a name="boost_regex.syntax.basic_extended.continuation_escape"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.continuation_escape">Continuation
         Escape</a>
       </h6>
 <p>
@@ -988,9 +989,9 @@ cab
         iterating over the matches contained within a text, and you want each subsequence
         match to start where the last one ended.
       </p>
-<a name="boost_regex.syntax.basic_extended.quoting_escape"></a><h6>
-<a name="boost_regex.syntax.basic_extended.quoting_escape-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.quoting_escape">Quoting
+<h6>
+<a name="boost_regex.syntax.basic_extended.h23"></a>
+        <span><a name="boost_regex.syntax.basic_extended.quoting_escape"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.quoting_escape">Quoting
         escape</a>
       </h6>
 <p>
@@ -1002,9 +1003,9 @@ cab
 <pre class="programlisting"><span class="special">\*+</span><span class="identifier">a</span>
 <span class="special">\*+</span><span class="identifier">aaa</span>
 </pre>
-<a name="boost_regex.syntax.basic_extended.unicode_escapes"></a><h6>
-<a name="boost_regex.syntax.basic_extended.unicode_escapes-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.unicode_escapes">Unicode
+<h6>
+<a name="boost_regex.syntax.basic_extended.h24"></a>
+        <span><a name="boost_regex.syntax.basic_extended.unicode_escapes"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.unicode_escapes">Unicode
         escapes</a>
       </h6>
 <div class="informaltable"><table class="table">
@@ -1053,18 +1054,18 @@ cab
 </tr>
 </tbody>
 </table></div>
-<a name="boost_regex.syntax.basic_extended.any_other_escape"></a><h6>
-<a name="boost_regex.syntax.basic_extended.any_other_escape-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.any_other_escape">Any other
-        escape</a>
+<h6>
+<a name="boost_regex.syntax.basic_extended.h25"></a>
+        <span><a name="boost_regex.syntax.basic_extended.any_other_escape"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.any_other_escape">Any
+        other escape</a>
       </h6>
 <p>
         Any other escape sequence matches the character that is escaped, for example
         \@ matches a literal '@'.
       </p>
-<a name="boost_regex.syntax.basic_extended.operator_precedence"></a><h5>
-<a name="boost_regex.syntax.basic_extended.operator_precedence-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.operator_precedence">Operator
+<h5>
+<a name="boost_regex.syntax.basic_extended.h26"></a>
+        <span><a name="boost_regex.syntax.basic_extended.operator_precedence"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.operator_precedence">Operator
         precedence</a>
       </h5>
 <p>
@@ -1099,9 +1100,9 @@ cab
             Alternation <code class="computeroutput"><span class="special">|</span></code>
           </li>
 </ol></div>
-<a name="boost_regex.syntax.basic_extended.what_gets_matched"></a><h5>
-<a name="boost_regex.syntax.basic_extended.what_gets_matched-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.what_gets_matched">What
+<h5>
+<a name="boost_regex.syntax.basic_extended.h27"></a>
+        <span><a name="boost_regex.syntax.basic_extended.what_gets_matched"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.what_gets_matched">What
         Gets Matched</a>
       </h5>
 <p>
@@ -1109,13 +1110,13 @@ cab
         possible match is obtained using the <a class="link" href="leftmost_longest_rule.html" title="The Leftmost Longest Rule">leftmost-longest
         rule</a>.
       </p>
-<a name="boost_regex.syntax.basic_extended.variations"></a><h4>
-<a name="boost_regex.syntax.basic_extended.variations-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.variations">Variations</a>
+<h4>
+<a name="boost_regex.syntax.basic_extended.h28"></a>
+        <span><a name="boost_regex.syntax.basic_extended.variations"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.variations">Variations</a>
       </h4>
-<a name="boost_regex.syntax.basic_extended.egrep"></a><h5>
-<a name="boost_regex.syntax.basic_extended.egrep-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.egrep">Egrep</a>
+<h5>
+<a name="boost_regex.syntax.basic_extended.h29"></a>
+        <span><a name="boost_regex.syntax.basic_extended.egrep"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.egrep">Egrep</a>
       </h5>
 <p>
         When an expression is compiled with the <a class="link" href="../ref/syntax_option_type.html" title="syntax_option_type">flag
@@ -1134,9 +1135,9 @@ cab
         <code class="computeroutput"><span class="identifier">egrep</span></code>, and with grep when
         used with the -E option.
       </p>
-<a name="boost_regex.syntax.basic_extended.awk"></a><h5>
-<a name="boost_regex.syntax.basic_extended.awk-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.awk">awk</a>
+<h5>
+<a name="boost_regex.syntax.basic_extended.h30"></a>
+        <span><a name="boost_regex.syntax.basic_extended.awk"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.awk">awk</a>
       </h5>
 <p>
         In addition to the <a class="link" href="basic_extended.html#boost_regex.posix_extended_syntax">POSIX-Extended
@@ -1148,9 +1149,9 @@ cab
         specification are required to be supported - however Boost.Regex supports
         these by default anyway.
       </p>
-<a name="boost_regex.syntax.basic_extended.options"></a><h4>
-<a name="boost_regex.syntax.basic_extended.options-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.options">Options</a>
+<h4>
+<a name="boost_regex.syntax.basic_extended.h31"></a>
+        <span><a name="boost_regex.syntax.basic_extended.options"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.options">Options</a>
       </h4>
 <p>
         There are a <a class="link" href="../ref/syntax_option_type/syntax_option_type_extended.html" title="Options for POSIX Extended Regular Expressions">variety
@@ -1161,9 +1162,9 @@ cab
         and <code class="computeroutput"><span class="identifier">icase</span></code> options</a>
         modify how the case and locale sensitivity are to be applied.
       </p>
-<a name="boost_regex.syntax.basic_extended.references"></a><h4>
-<a name="boost_regex.syntax.basic_extended.references-heading"></a>
-        <a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.references">References</a>
+<h4>
+<a name="boost_regex.syntax.basic_extended.h32"></a>
+        <span><a name="boost_regex.syntax.basic_extended.references"></a></span><a class="link" href="basic_extended.html#boost_regex.syntax.basic_extended.references">References</a>
       </h4>
 <p>
         <a href="http://www.opengroup.org/onlinepubs/000095399/basedefs/xbd_chap09.html" target="_top">IEEE

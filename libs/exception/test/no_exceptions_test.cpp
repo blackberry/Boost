@@ -21,9 +21,6 @@ my_exception:
         {
         return "my_exception";
         }
-#if defined(__QNX__)
-    ~my_exception() throw() {}
-#endif
     };
 
 typedef boost::error_info<struct my_tag,int> my_int;

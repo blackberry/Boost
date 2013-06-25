@@ -131,8 +131,8 @@ function gcc_gen()
 # LIBS=     additional library files
 
 # compiler:
-CXX=g++
-LINKER=g++ -shared
+CXX?=g++
+LINKER=\$(CXX) -shared
 
 #
 # compiler options for release build:
@@ -215,8 +215,8 @@ function gcc_gen_shared()
 # LIBS=     additional library files
 
 # compiler:
-CXX=g++
-LINKER=g++ -shared
+CXX?=g++
+LINKER=\$(CXX) -shared
 
 #
 # compiler options for release build:

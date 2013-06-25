@@ -44,9 +44,6 @@ using std::endl;
 using std::ofstream;
 using std::ifstream;
 using std::string;
-#if defined(__QNX__)
-using std::isspace;
-#endif
 
 int
 main()
@@ -106,7 +103,7 @@ main()
     useThisIStringStream is("(100 200 300)");
 
     vector<int, int, int> ti;
-    BOOST_TEST(bool((is >> ti) != 0));
+    BOOST_TEST(bool(is >> ti) != 0);
     BOOST_TEST(ti == make_vector(100, 200, 300));
 
     // Note that strings are problematic:

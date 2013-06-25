@@ -9,6 +9,7 @@
 
 #include <cassert>
 #include "template_stack.hpp"
+#include "files.hpp"
 
 #ifdef BOOST_MSVC
 #pragma warning(disable : 4355)
@@ -16,29 +17,28 @@
 
 namespace quickbook
 {
-    template_body::template_body(
+    template_symbol::template_symbol(
+            std::string const& identifier,
+            std::vector<std::string> const& params,
             value const& content,
-            fs::path const& filename,
-            content_type type
-        )
-        : content(content)
-        , filename(filename)
-        , type(type)
+            template_scope const* lexical_parent)
+       : identifier(identifier)
+       , params(params)
+       , content(content)
+       , lexical_parent(lexical_parent)
     {
         assert(content.get_tag() == template_tags::block ||
-            content.get_tag() == template_tags::phrase);
-    }
-
-    bool template_body::is_block() const
-    {
-        return content.get_tag() == template_tags::block;
+            content.get_tag() == template_tags::phrase ||
+            content.get_tag() == template_tags::snippet);
     }
 
     template_stack::template_stack()
         : scope(template_stack::parser(*this))
         , scopes()
+        , parent_1_4(0)
     {
         scopes.push_front(template_scope());
+        parent_1_4 = &scopes.front();
     }
     
     template_symbol* template_stack::find(std::string const& symbol) const
@@ -68,11 +68,10 @@ namespace quickbook
         return scopes.front();
     }
     
-    // TODO: Should symbols defined by '[import]' use the current scope?
     bool template_stack::add(template_symbol const& ts)
     {
         BOOST_ASSERT(!scopes.empty());
-        BOOST_ASSERT(ts.parent);
+        BOOST_ASSERT(ts.lexical_parent);
         
         if (this->find_top_scope(ts.identifier)) {
             return false;
@@ -88,17 +87,32 @@ namespace quickbook
     {
         template_scope const& old_front = scopes.front();
         scopes.push_front(template_scope());
-        set_parent_scope(old_front);
+        scopes.front().parent_1_4 = parent_1_4;
+        scopes.front().parent_scope = &old_front;
+        parent_1_4 = &scopes.front();
     }
 
     void template_stack::pop()
     {
+        parent_1_4 = scopes.front().parent_1_4;
         scopes.pop_front();
     }
 
-    void template_stack::set_parent_scope(template_scope const& parent)
+    void template_stack::start_template(template_symbol const* symbol)
     {
-        scopes.front().parent_scope = &parent;
+        // Quickbook 1.4-: When expanding the template continue to use the
+        //                 current scope (the dynamic scope).
+        // Quickbook 1.5+: Use the scope the template was defined in
+        //                 (the static scope).
+        if (symbol->content.get_file()->version() >= 105u)
+        {
+            parent_1_4 = scopes.front().parent_1_4;
+            scopes.front().parent_scope = symbol->lexical_parent;
+        }
+        else
+        {
+            scopes.front().parent_scope = scopes.front().parent_1_4;
+        }
     }
 }
 

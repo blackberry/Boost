@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 //
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -218,8 +218,33 @@ void test_strategy()
 }
 
 
+void test_large_integers()
+{
+    typedef bg::model::point<int, 2, bg::cs::cartesian> int_point_type;
+    typedef bg::model::point<double, 2, bg::cs::cartesian> double_point_type;
+
+    std::string const polygon_li = "POLYGON((1872000 528000,1872000 192000,1536119 192000,1536000 528000,1200000 528000,1200000 863880,1536000 863880,1872000 863880,1872000 528000))";
+    bg::model::polygon<int_point_type> int_poly;
+    bg::model::polygon<double_point_type> double_poly;
+    bg::read_wkt(polygon_li, int_poly);
+    bg::read_wkt(polygon_li, double_poly);
+
+    std::string const point_li = "POINT(1592000 583950)";
+    int_point_type int_point;
+    double_point_type double_point;
+    bg::read_wkt(point_li, int_point);
+    bg::read_wkt(point_li, double_point);
+
+    bool wi = bg::within(int_point, int_poly);
+    bool wd = bg::within(double_point, double_poly);
+
+    BOOST_CHECK_MESSAGE(wi == wd, "within<a double> different from within<an int>");
+}
+
 int test_main( int , char* [] )
 {
+    test_large_integers();
+
     test_all<bg::model::d2::point_xy<int> >();
     test_all<bg::model::d2::point_xy<double> >();
 

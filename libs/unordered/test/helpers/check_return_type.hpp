@@ -6,7 +6,7 @@
 #if !defined(BOOST_UNORDERED_TEST_HELPERS_CHECK_RETURN_TYPE_HEADER)
 #define BOOST_UNORDERED_TEST_HELPERS_CHECK_RETURN_TYPE_HEADER
 
-#include <boost/mpl/assert.hpp>
+#include <boost/static_assert.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 
@@ -18,19 +18,19 @@ namespace test
         template <class T2>
         static void equals(T2)
         {
-            BOOST_MPL_ASSERT((boost::is_same<T1, T2>));
+            BOOST_STATIC_ASSERT((boost::is_same<T1, T2>::value));
         }
 
         template <class T2>
         static void equals_ref(T2&)
         {
-            BOOST_MPL_ASSERT((boost::is_same<T1, T2>));
+            BOOST_STATIC_ASSERT((boost::is_same<T1, T2>::value));
         }
 
         template <class T2>
         static void convertible(T2)
         {
-            BOOST_MPL_ASSERT((boost::is_convertible<T2, T1>));
+            BOOST_STATIC_ASSERT((boost::is_convertible<T2, T1>::value));
         }
     };
 }

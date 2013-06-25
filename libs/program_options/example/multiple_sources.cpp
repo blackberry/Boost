@@ -18,7 +18,7 @@ using namespace std;
 template<class T>
 ostream& operator<<(ostream& os, const vector<T>& v)
 {
-    copy(v.begin(), v.end(), ostream_iterator<T>(cout, " ")); 
+    copy(v.begin(), v.end(), ostream_iterator<T>(os, " ")); 
     return os;
 }
 

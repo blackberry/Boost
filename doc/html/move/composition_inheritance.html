@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../move.html" title="Chapter&#160;15.&#160;Boost.Move">
+<link rel="up" href="../move.html" title="Chapter&#160;16.&#160;Boost.Move">
 <link rel="prev" href="implementing_movable_classes.html" title="Implementing copyable and movable classes">
 <link rel="next" href="movable_only_classes.html" title="Movable but Non-Copyable Types">
 </head>
@@ -52,6 +52,8 @@
 
    <span class="keyword">virtual</span> <span class="identifier">Base</span> <span class="special">*</span><span class="identifier">clone</span><span class="special">()</span> <span class="keyword">const</span>
    <span class="special">{</span>  <span class="keyword">return</span> <span class="keyword">new</span> <span class="identifier">Base</span><span class="special">(*</span><span class="keyword">this</span><span class="special">);</span>  <span class="special">}</span>
+
+   <span class="keyword">virtual</span> <span class="special">~</span><span class="identifier">Base</span><span class="special">(){}</span>
 <span class="special">};</span>
 
 <span class="keyword">class</span> <span class="identifier">Member</span>

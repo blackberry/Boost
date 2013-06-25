@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../ratio.html" title="Chapter&#160;21.&#160;Boost.Ratio 1.0.1">
+<link rel="up" href="../ratio.html" title="Chapter&#160;22.&#160;Boost.Ratio 2.0.0">
 <link rel="prev" href="users_guide.html" title="User's Guide">
 <link rel="next" href="appendices.html" title="Appendices">
 </head>
@@ -27,10 +27,119 @@
 <a name="ratio.reference"></a><a class="link" href="reference.html" title="Reference">Reference </a>
 </h2></div></div></div>
 <div class="toc"><dl>
+<dt><span class="section"><a href="reference.html#ratio.reference.config_hpp">Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">ratio</span><span class="special">/</span><span class="identifier">config</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="reference.html#ratio.reference.std">C++0x Recommendation</a></span></dt>
 <dt><span class="section"><a href="reference.html#ratio.reference.io">Ratio I/O</a></span></dt>
 <dt><span class="section"><a href="reference.html#ratio.reference.mpl">Rational Constant</a></span></dt>
 </dl></div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="ratio.reference.config_hpp"></a><a class="link" href="reference.html#ratio.reference.config_hpp" title="Header &lt;boost/ratio/config.hpp&gt;">Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">ratio</span><span class="special">/</span><span class="identifier">config</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
+</h3></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="reference.html#ratio.reference.config_hpp.ext">Extensions</a></span></dt>
+<dt><span class="section"><a href="reference.html#ratio.reference.config_hpp.deprecated">Deprecated</a></span></dt>
+<dt><span class="section"><a href="reference.html#ratio.reference.config_hpp.version">Version</a></span></dt>
+<dt><span class="section"><a href="reference.html#ratio.reference.config_hpp.assert">Static Assert</a></span></dt>
+</dl></div>
+<pre class="programlisting"><span class="comment">// Configuration macros</span>
+<span class="preprocessor">#define</span> <a class="link" href="reference.html#ratio.reference.config_hpp.version" title="Version"><code class="computeroutput"><span class="identifier">BOOST_RATIO_VERSION</span> </code></a>
+<span class="preprocessor">#define</span> <a class="link" href="reference.html#ratio.reference.config_hpp.ext" title="Extensions"><code class="computeroutput"><span class="identifier">BOOST_RATIO_EXTENSIONS</span></code></a>
+<span class="preprocessor">#define</span> <a class="link" href="reference.html#ratio.reference.config_hpp.deprecated" title="Deprecated"><code class="computeroutput"><span class="identifier">BOOST_RATIO_PROVIDES_DEPRECATED_FEATURES_SINCE_V2_0_0</span></code></a>
+<span class="preprocessor">#define</span> <a class="link" href="reference.html#ratio.reference.config_hpp.deprecated" title="Deprecated"><code class="computeroutput"><span class="identifier">BOOST_RATIO_DONT_PROVIDE_DEPRECATED_FEATURES_SINCE_V2_0_0</span> </code></a>
+<span class="preprocessor">#define</span> <a class="link" href="reference.html#ratio.reference.config_hpp.assert" title="Static Assert"><code class="computeroutput"><span class="identifier">BOOST_RATIO_USES_STATIC_ASSERT</span></code></a>
+<span class="preprocessor">#define</span> <a class="link" href="reference.html#ratio.reference.config_hpp.assert" title="Static Assert"><code class="computeroutput"><span class="identifier">BOOST_RATIO_USES_MPL_ASSERT</span></code></a>
+<span class="preprocessor">#define</span> <a class="link" href="reference.html#ratio.reference.config_hpp.assert" title="Static Assert"><code class="computeroutput"><span class="identifier">BOOST_RATIO_USES_ARRAY_ASSERT</span></code></a>
+</pre>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="ratio.reference.config_hpp.ext"></a><a class="link" href="reference.html#ratio.reference.config_hpp.ext" title="Extensions">Extensions</a>
+</h4></div></div></div>
+<p>
+          When <a class="link" href="reference.html#ratio.reference.config_hpp.ext" title="Extensions"><code class="computeroutput"><span class="identifier">BOOST_RATIO_EXTENSIONS</span></code></a>
+          is defined, <span class="bold"><strong>Boost.Ratio</strong></span> provides in addition
+          some extension to the C++ standard, see below.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="ratio.reference.config_hpp.deprecated"></a><a class="link" href="reference.html#ratio.reference.config_hpp.deprecated" title="Deprecated">Deprecated</a>
+</h4></div></div></div>
+<p>
+          When <a class="link" href="reference.html#ratio.reference.config_hpp.deprecated" title="Deprecated"><code class="computeroutput"><span class="identifier">BOOST_RATIO_PROVIDES_DEPRECATED_FEATURES_SINCE_V2_0_0</span></code></a>
+          is defined the deprecated features stated as DEPRECATED V2 are provided.
+        </p>
+<p>
+          When <a class="link" href="reference.html#ratio.reference.config_hpp.deprecated" title="Deprecated"><code class="computeroutput"><span class="identifier">BOOST_RATIO_DONT_PROVIDE_DEPRECATED_FEATURES_SINCE_V2_0_0</span>
+          </code></a> is defined the deprecated features stated as DEPRECATED
+          V2 are NOT provided.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="ratio.reference.config_hpp.version"></a><a class="link" href="reference.html#ratio.reference.config_hpp.version" title="Version">Version</a>
+</h4></div></div></div>
+<p>
+          <a class="link" href="reference.html#ratio.reference.config_hpp.version" title="Version"><code class="computeroutput"><span class="identifier">BOOST_RATIO_VERSION</span>
+          </code></a> stands for the Boost.Ratio version which can be 1 or 2.
+          The default up to 1.55 is version 1. Since 1.56 it will be 2.
+        </p>
+<p>
+          When <a class="link" href="reference.html#ratio.reference.config_hpp.version" title="Version"><code class="computeroutput"><span class="identifier">BOOST_RATIO_VERSION</span>
+          </code></a> is 1 <a class="link" href="reference.html#ratio.reference.config_hpp.deprecated" title="Deprecated"><code class="computeroutput"><span class="identifier">BOOST_RATIO_PROVIDES_DEPRECATED_FEATURES_SINCE_V2_0_0</span></code></a>
+          is defined by default.
+        </p>
+<p>
+          When <a class="link" href="reference.html#ratio.reference.config_hpp.version" title="Version"><code class="computeroutput"><span class="identifier">BOOST_RATIO_VERSION</span>
+          </code></a> is 2 <a class="link" href="reference.html#ratio.reference.config_hpp.deprecated" title="Deprecated"><code class="computeroutput"><span class="identifier">BOOST_RATIO_DONT_PROVIDE_DEPRECATED_FEATURES_SINCE_V2_0_0</span>
+          </code></a> is defined by default.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="ratio.reference.config_hpp.assert"></a><a class="link" href="reference.html#ratio.reference.config_hpp.assert" title="Static Assert">Static Assert</a>
+</h4></div></div></div>
+<p>
+          When BOOST_NO_STATIC_ASSERT is defined, the user can select the way static
+          assertions are reported. Define
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+              <a class="link" href="reference.html#ratio.reference.config_hpp.assert" title="Static Assert"><code class="computeroutput"><span class="identifier">BOOST_RATIO_USES_STATIC_ASSERT</span></code></a>
+              to use Boost.StaticAssert.
+            </li>
+<li class="listitem">
+              <a class="link" href="reference.html#ratio.reference.config_hpp.assert" title="Static Assert"><code class="computeroutput"><span class="identifier">BOOST_RATIO_USES_MPL_ASSERT</span></code></a>
+              to use <span class="bold"><strong>Boost.MPL</strong></span> static assertions.
+            </li>
+<li class="listitem">
+              <a class="link" href="reference.html#ratio.reference.config_hpp.assert" title="Static Assert"><code class="computeroutput"><span class="identifier">BOOST_RATIO_USES_ARRAY_ASSERT</span></code></a>
+              to use <span class="bold"><strong>Boost.Ratio</strong></span> internal static
+              assertions.
+            </li>
+</ul></div>
+<p>
+          The default behavior is as if <a class="link" href="reference.html#ratio.reference.config_hpp.assert" title="Static Assert"><code class="computeroutput"><span class="identifier">BOOST_RATIO_USES_ARRAY_ASSERT</span></code></a>
+          was defined.
+        </p>
+<p>
+          When <a class="link" href="reference.html#ratio.reference.config_hpp.assert" title="Static Assert"><code class="computeroutput"><span class="identifier">BOOST_RATIO_USES_MPL_ASSERT</span></code></a>
+          is not defined the following symbols are defined as shown:
+        </p>
+<pre class="programlisting"><span class="preprocessor">#define</span> <span class="identifier">BOOST_RATIO_OVERFLOW_IN_ADD</span> <span class="string">"overflow in ratio add"</span>
+<span class="preprocessor">#define</span> <span class="identifier">BOOST_RATIO_OVERFLOW_IN_SUB</span> <span class="string">"overflow in ratio sub"</span>
+<span class="preprocessor">#define</span> <span class="identifier">BOOST_RATIO_OVERFLOW_IN_MUL</span> <span class="string">"overflow in ratio mul"</span>
+<span class="preprocessor">#define</span> <span class="identifier">BOOST_RATIO_OVERFLOW_IN_DIV</span> <span class="string">"overflow in ratio div"</span>
+<span class="preprocessor">#define</span> <span class="identifier">BOOST_RATIO_NUMERATOR_IS_OUT_OF_RANGE</span> <span class="string">"ratio numerator is out of range"</span>
+<span class="preprocessor">#define</span> <span class="identifier">BOOST_RATIO_DIVIDE_BY_0</span> <span class="string">"ratio divide by 0"</span>
+<span class="preprocessor">#define</span> <span class="identifier">BOOST_RATIO_DENOMINATOR_IS_OUT_OF_RANGE</span> <span class="string">"ratio denominator is out of range"</span>
+</pre>
+<p>
+          Depending upon the static assertion system used, a hint as to the failing
+          assertion will appear in some form in the compiler diagnostic output.
+        </p>
+</div>
+</div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="ratio.reference.std"></a><a class="link" href="reference.html#ratio.reference.std" title="C++0x Recommendation">C++0x Recommendation</a>
@@ -108,8 +217,6 @@
 <a name="ratio.reference.std.ratio_hpp"></a><a class="link" href="reference.html#ratio.reference.std.ratio_hpp" title="Header &lt;boost/ratio/ratio.hpp&gt;">Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">ratio</span><span class="special">/</span><span class="identifier">ratio</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
 </h4></div></div></div>
 <div class="toc"><dl>
-<dt><span class="section"><a href="reference.html#ratio.reference.std.ratio_hpp.conf">Configuration
-          Macros</a></span></dt>
 <dt><span class="section"><a href="reference.html#ratio.reference.std.ratio_hpp.ratio">Class Template
           <code class="computeroutput"><span class="identifier">ratio</span><span class="special">&lt;&gt;</span></code></a></span></dt>
 <dt><span class="section"><a href="reference.html#ratio.reference.std.ratio_hpp.ratio_arithmetic"><code class="computeroutput"><span class="identifier">ratio</span></code> Arithmetic</a></span></dt>
@@ -128,58 +235,6 @@
           254/10000 meters - which <a class="link" href="reference.html#ratio.reference.std.ratio_hpp.ratio" title="Class Template ratio&lt;&gt;"><code class="computeroutput"><span class="identifier">ratio</span></code></a> will reduce to 127/5000
           meters).
         </p>
-<pre class="programlisting"><span class="comment">// Configuration macros</span>
-<span class="preprocessor">#define</span> <a class="link" href="reference.html#ratio.reference.std.ratio_hpp.conf" title="Configuration Macros"><code class="computeroutput"><span class="identifier">BOOST_RATIO_USES_STATIC_ASSERT</span></code></a>
-<span class="preprocessor">#define</span> <a class="link" href="reference.html#ratio.reference.std.ratio_hpp.conf" title="Configuration Macros"><code class="computeroutput"><span class="identifier">BOOST_RATIO_USES_MPL_ASSERT</span></code></a>
-<span class="preprocessor">#define</span> <a class="link" href="reference.html#ratio.reference.std.ratio_hpp.conf" title="Configuration Macros"><code class="computeroutput"><span class="identifier">BOOST_RATIO_USES_ARRAY_ASSERT</span></code></a>
-<span class="preprocessor">#define</span> <a class="link" href="reference.html#ratio.reference.std.ratio_hpp.extensions" title="Extensions"><code class="computeroutput"><span class="identifier">BOOST_RATIO_EXTENSIONS</span></code></a>
-</pre>
-<div class="section">
-<div class="titlepage"><div><div><h5 class="title">
-<a name="ratio.reference.std.ratio_hpp.conf"></a><a class="link" href="reference.html#ratio.reference.std.ratio_hpp.conf" title="Configuration Macros">Configuration
-          Macros</a>
-</h5></div></div></div>
-<p>
-            When BOOST_NO_STATIC_ASSERT is defined, the user can select the way static
-            assertions are reported. Define
-          </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
-<li class="listitem">
-                BOOST_RATIO_USES_STATIC_ASSERT to use Boost.StaticAssert.
-              </li>
-<li class="listitem">
-                BOOST_RATIO_USES_MPL_ASSERT to use <span class="bold"><strong>Boost.MPL</strong></span>
-                static assertions.
-              </li>
-<li class="listitem">
-                BOOST_RATIO_USES_RATIO_ASSERT to use <span class="bold"><strong>Boost.Ratio</strong></span>
-                static assertions.
-              </li>
-</ul></div>
-<p>
-            The default behavior is as if BOOST_RATIO_USES_ARRAY_ASSERT is defined.
-          </p>
-<p>
-            When BOOST_RATIO_USES_MPL_ASSERT is not defined the following symbols
-            are defined as shown:
-          </p>
-<pre class="programlisting"><span class="preprocessor">#define</span> <span class="identifier">BOOST_RATIO_OVERFLOW_IN_ADD</span> <span class="string">"overflow in ratio add"</span>
-<span class="preprocessor">#define</span> <span class="identifier">BOOST_RATIO_OVERFLOW_IN_SUB</span> <span class="string">"overflow in ratio sub"</span>
-<span class="preprocessor">#define</span> <span class="identifier">BOOST_RATIO_OVERFLOW_IN_MUL</span> <span class="string">"overflow in ratio mul"</span>
-<span class="preprocessor">#define</span> <span class="identifier">BOOST_RATIO_OVERFLOW_IN_DIV</span> <span class="string">"overflow in ratio div"</span>
-<span class="preprocessor">#define</span> <span class="identifier">BOOST_RATIO_NUMERATOR_IS_OUT_OF_RANGE</span> <span class="string">"ratio numerator is out of range"</span>
-<span class="preprocessor">#define</span> <span class="identifier">BOOST_RATIO_DIVIDE_BY_0</span> <span class="string">"ratio divide by 0"</span>
-<span class="preprocessor">#define</span> <span class="identifier">BOOST_RATIO_DENOMINATOR_IS_OUT_OF_RANGE</span> <span class="string">"ratio denominator is out of range"</span>
-</pre>
-<p>
-            Depending upon the static assertion system used, a hint as to the failing
-            assertion will appear in some form in the compiler diagnostic output.
-          </p>
-<p>
-            When BOOST_RATIO_EXTENSIONS is defined, <span class="bold"><strong>Boost.Ratio</strong></span>
-            provides in addition some extenion to the C++ standard, see below.
-          </p>
-</div>
 <div class="section">
 <div class="titlepage"><div><div><h5 class="title">
 <a name="ratio.reference.std.ratio_hpp.ratio"></a><a class="link" href="reference.html#ratio.reference.std.ratio_hpp.ratio" title="Class Template ratio&lt;&gt;">Class Template
@@ -192,7 +247,7 @@
     <span class="keyword">static</span> <span class="keyword">const</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">intmax_t</span> <span class="identifier">den</span><span class="special">;</span>
     <span class="keyword">typedef</span> <span class="identifier">ratio</span><span class="special">&lt;</span><span class="identifier">num</span><span class="special">,</span> <span class="identifier">den</span><span class="special">&gt;</span> <span class="identifier">type</span><span class="special">;</span>
 
-    <span class="preprocessor">#ifdef</span> <span class="identifier">BOOST_RATIO_EXTENSIONS</span>
+    <span class="preprocessor">#ifdef</span> <a class="link" href="reference.html#ratio.reference.config_hpp.ext" title="Extensions"><code class="computeroutput"><span class="identifier">BOOST_RATIO_EXTENSIONS</span></code></a>
     <span class="keyword">typedef</span> <span class="identifier">mpl</span><span class="special">::</span><span class="identifier">rational_c_tag</span> <span class="identifier">tag</span><span class="special">;</span>
     <span class="keyword">typedef</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">rational</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">intmax_t</span><span class="special">&gt;</span> <span class="identifier">value_type</span><span class="special">;</span>
     <span class="keyword">typedef</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">intmax_t</span> <span class="identifier">num_type</span><span class="special">;</span>
@@ -256,7 +311,8 @@
             and Assignment</a>
 </h6></div></div></div>
 <p>
-              Included only if BOOST_RATIO_EXTENSIONS is defined.
+              Included only if <a class="link" href="reference.html#ratio.reference.config_hpp.ext" title="Extensions"><code class="computeroutput"><span class="identifier">BOOST_RATIO_EXTENSIONS</span></code></a> is
+              defined.
             </p>
 <h7><a name="ratio.reference.std.ratio_hpp.ratio.ca.h0"></a>
               <span><a name="ratio.reference.std.ratio_hpp.ratio.ca.default_constructor"></a></span><a class="link" href="reference.html#ratio.reference.std.ratio_hpp.ratio.ca.default_constructor">Default
@@ -303,7 +359,8 @@
             Metafunctions</a>
 </h6></div></div></div>
 <p>
-              Included only if BOOST_RATIO_EXTENSIONS is defined.
+              Included only if <a class="link" href="reference.html#ratio.reference.config_hpp.ext" title="Extensions"><code class="computeroutput"><span class="identifier">BOOST_RATIO_EXTENSIONS</span></code></a> is
+              defined.
             </p>
 <p>
               In order to work with <span class="bold"><strong>Boost.MPL</strong></span> numeric
@@ -321,7 +378,8 @@
 <a name="ratio.reference.std.ratio_hpp.ratio.obs"></a><a class="link" href="reference.html#ratio.reference.std.ratio_hpp.ratio.obs" title="Observers">Observers</a>
 </h6></div></div></div>
 <p>
-              Included only if BOOST_RATIO_EXTENSIONS is defined.
+              Included only if <a class="link" href="reference.html#ratio.reference.config_hpp.ext" title="Extensions"><code class="computeroutput"><span class="identifier">BOOST_RATIO_EXTENSIONS</span></code></a> is
+              defined.
             </p>
 <pre class="programlisting"><span class="keyword">static</span> <span class="identifier">value_type</span> <span class="identifier">value</span><span class="special">();</span>
 <span class="identifier">value_type</span> <span class="keyword">operator</span><span class="special">()()</span> <span class="keyword">const</span><span class="special">;</span>
@@ -587,8 +645,9 @@
 <a name="ratio.reference.std.ratio_hpp.extensions"></a><a class="link" href="reference.html#ratio.reference.std.ratio_hpp.extensions" title="Extensions">Extensions</a>
 </h5></div></div></div>
 <p>
-            When <a class="link" href="reference.html#ratio.reference.std.ratio_hpp.extensions" title="Extensions"><code class="computeroutput"><span class="identifier">BOOST_RATIO_EXTENSIONS</span></code></a> is defined
-            <span class="bold"><strong>Boost.Ratio</strong></span> provides the following extensions:
+            When <a class="link" href="reference.html#ratio.reference.config_hpp.ext" title="Extensions"><code class="computeroutput"><span class="identifier">BOOST_RATIO_EXTENSIONS</span></code></a>
+            is defined <span class="bold"><strong>Boost.Ratio</strong></span> provides the
+            following extensions:
           </p>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc">
 <li class="listitem">
@@ -620,6 +679,12 @@
 <div class="titlepage"><div><div><h4 class="title">
 <a name="ratio.reference.io.ratio_io_hpp"></a><a class="link" href="reference.html#ratio.reference.io.ratio_io_hpp" title="Header &lt;boost/ratio/ratio_io.hpp&gt;">Header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">ratio</span><span class="special">/</span><span class="identifier">ratio_io</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></a>
 </h4></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="reference.html#ratio.reference.io.ratio_io_hpp.ratio_string">Template
+          Class <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;&gt;</span></code></a></span></dt>
+<dt><span class="section"><a href="reference.html#ratio.reference.io.ratio_io_hpp.spe">Specializations
+          for <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;&gt;</span></code></a></span></dt>
+</dl></div>
 <p>
           This header provides <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;&gt;</span></code> which can generate a textual representation
           of a <code class="computeroutput"><span class="identifier">ratio</span><span class="special">&lt;&gt;</span></code>
@@ -627,14 +692,1304 @@
           These strings can be useful for I/O.
         </p>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
-    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Ratio</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">CharT</span><span class="special">&gt;</span>
-    <span class="keyword">struct</span> <span class="identifier">ratio_string</span>
-    <span class="special">{</span>
-        <span class="keyword">static</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">CharT</span><span class="special">&gt;</span> <span class="identifier">short_name</span><span class="special">();</span>
-        <span class="keyword">static</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">CharT</span><span class="special">&gt;</span> <span class="identifier">long_name</span><span class="special">();</span>
-    <span class="special">};</span>
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Ratio</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">charT</span><span class="special">&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">;</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">atto</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">atto</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">atto</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">atto</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;;</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">femto</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">femto</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">femto</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">femto</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;;</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">pico</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">pico</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">pico</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">pico</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;;</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">nano</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">nano</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">nano</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">nano</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;;</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">micro</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">micro</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">micro</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">micro</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;;</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">milli</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">milli</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">milli</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">milli</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;;</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">centi</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">centi</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">centi</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">centi</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;;</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">deci</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">deci</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">deci</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">deci</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;;</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">deca</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">deca</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">deca</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">deca</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;;</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">hecto</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">hecto</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">hecto</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">hecto</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;;</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">kilo</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">kilo</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">kilo</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">kilo</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;;</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">mega</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">mega</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">mega</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">mega</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;;</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">giga</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">giga</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">giga</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">giga</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;;</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">tera</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">tera</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">tera</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">tera</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;;</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">peta</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">peta</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">peta</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">peta</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;;</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">exa</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">exa</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">exa</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;;</span>
+    <span class="keyword">template</span> <span class="special">&lt;&gt;</span> <span class="keyword">struct</span> <span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">exa</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;;</span>
 <span class="special">}</span>
 </pre>
+<div class="section">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="ratio.reference.io.ratio_io_hpp.ratio_string"></a><a class="link" href="reference.html#ratio.reference.io.ratio_io_hpp.ratio_string" title="Template Class ratio_string&lt;&gt;">Template
+          Class <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;&gt;</span></code></a>
+</h5></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Ratio</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">CharT</span><span class="special">&gt;</span>
+<span class="keyword">struct</span> <span class="identifier">ratio_string</span>
+<span class="special">{</span>
+    <span class="keyword">static</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">CharT</span><span class="special">&gt;</span> <span class="identifier">symbol</span><span class="special">();</span>
+    <span class="keyword">static</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">CharT</span><span class="special">&gt;</span> <span class="identifier">prefix</span><span class="special">();</span>
+    <span class="keyword">static</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">CharT</span><span class="special">&gt;</span> <span class="identifier">short_name</span><span class="special">();</span> <span class="comment">// DEPRECATED V2</span>
+    <span class="keyword">static</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">CharT</span><span class="special">&gt;</span> <span class="identifier">long_name</span><span class="special">();</span> <span class="comment">// DEPRECATED V2</span>
+<span class="special">};</span>
+</pre>
+<p>
+            The class template ratio_string provides textual representations of the
+            associated ratio appropriate for the character type charT.
+          </p>
+<p>
+            The primary template provides generic strings. Specializations provide
+            the same static member functions but these functions return the English
+            SI prefix and symbol names as specified by the General Conference on
+            Weights and Measures.
+          </p>
+<div class="section">
+<div class="titlepage"><div><div><h6 class="title">
+<a name="ratio.reference.io.ratio_io_hpp.ratio_string.prefix"></a><a class="link" href="reference.html#ratio.reference.io.ratio_io_hpp.ratio_string.prefix" title="Static Member function prefix()">Static
+            Member function <code class="computeroutput"><span class="identifier">prefix</span><span class="special">()</span></code></a>
+</h6></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Ratio</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">CharT</span><span class="special">&gt;</span>
+<span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">charT</span><span class="special">&gt;</span>
+<span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">Ratio</span><span class="special">,</span> <span class="identifier">CharT</span><span class="special">&gt;::</span><span class="identifier">prefix</span><span class="special">();</span>
+</pre>
+<p>
+              <span class="bold"><strong>Returns</strong></span>: A basic_string of the form:
+              [Ratio::num/Ratio::den]
+            </p>
+<p>
+              <span class="bold"><strong>Example</strong></span>: <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">ratio</span><span class="special">&lt;</span><span class="number">2</span><span class="special">,</span> <span class="number">60</span><span class="special">&gt;,</span> <span class="keyword">wchar_t</span><span class="special">&gt;::</span><span class="identifier">prefix</span><span class="special">()</span></code> returns <code class="computeroutput"><span class="identifier">L</span><span class="string">"[1/30]"</span></code>.
+            </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h6 class="title">
+<a name="ratio.reference.io.ratio_io_hpp.ratio_string.symbol"></a><a class="link" href="reference.html#ratio.reference.io.ratio_io_hpp.ratio_string.symbol" title="Static Member function symbol()">Static
+            Member function <code class="computeroutput"><span class="identifier">symbol</span><span class="special">()</span></code></a>
+</h6></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Ratio</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">CharT</span><span class="special">&gt;</span>
+<span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">charT</span><span class="special">&gt;</span>
+<span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">Ratio</span><span class="special">,</span> <span class="identifier">CharT</span><span class="special">&gt;::</span><span class="identifier">symbol</span><span class="special">();</span>
+</pre>
+<p>
+              <span class="bold"><strong>Returns</strong></span>: prefix().
+            </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h6 class="title">
+<a name="ratio.reference.io.ratio_io_hpp.ratio_string.long_name"></a><a class="link" href="reference.html#ratio.reference.io.ratio_io_hpp.ratio_string.long_name" title="Static Member function long_name() DEPRECATED V2">Static
+            Member function <code class="computeroutput"><span class="identifier">long_name</span><span class="special">()</span></code> DEPRECATED V2</a>
+</h6></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Ratio</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">CharT</span><span class="special">&gt;</span>
+<span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">charT</span><span class="special">&gt;</span>
+<span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">Ratio</span><span class="special">,</span> <span class="identifier">CharT</span><span class="special">&gt;::</span><span class="identifier">long_name</span><span class="special">();</span>
+</pre>
+<p>
+              <span class="bold"><strong>Returns</strong></span>: prefix().
+            </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h6 class="title">
+<a name="ratio.reference.io.ratio_io_hpp.ratio_string.short_name"></a><a class="link" href="reference.html#ratio.reference.io.ratio_io_hpp.ratio_string.short_name" title="Static Member function short_name() DEPRECATED V2">Static
+            Member function <code class="computeroutput"><span class="identifier">short_name</span><span class="special">()</span></code> DEPRECATED V2</a>
+</h6></div></div></div>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Ratio</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">CharT</span><span class="special">&gt;</span>
+<span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">charT</span><span class="special">&gt;</span>
+<span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">Ratio</span><span class="special">,</span> <span class="identifier">CharT</span><span class="special">&gt;::</span><span class="identifier">short_name</span><span class="special">();</span>
+</pre>
+<p>
+              <span class="bold"><strong>Returns</strong></span>: symbol().
+            </p>
+</div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h5 class="title">
+<a name="ratio.reference.io.ratio_io_hpp.spe"></a><a class="link" href="reference.html#ratio.reference.io.ratio_io_hpp.spe" title="Specializations for ratio_string&lt;&gt;">Specializations
+          for <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;&gt;</span></code></a>
+</h5></div></div></div>
+<p>
+            With compilers supporting char16_t and char32_t and with a standard library
+            don't providing std::u16string and std::u32string you will need to define
+            the macros BOOST_NO_CXX11_U16STRING and BOOST_NO_CXX11_U32STRING until
+            Boost.Config defines them.
+          </p>
+<p>
+            For each specialization the table gives the return value for <code class="computeroutput"><span class="identifier">prefix</span><span class="special">()</span></code>
+            and <code class="computeroutput"><span class="identifier">symbol</span><span class="special">()</span></code>.
+          </p>
+<div class="table">
+<a name="ratio.reference.io.ratio_io_hpp.spe.the_return_values_of_specializations_of_ratio_string"></a><p class="title"><b>Table&#160;22.1.&#160;The return values of specializations of ratio_string</b></p>
+<div class="table-contents"><table class="table" summary="The return values of specializations of ratio_string">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+                    <p>
+                      Specialization
+                    </p>
+                  </th>
+<th>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">prefix</span><span class="special">()</span></code>
+                    </p>
+                  </th>
+<th>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">symbol</span><span class="special">()</span></code>
+                    </p>
+                  </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">atto</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"atto"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"a"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">atto</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"atto"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"a"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">atto</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"atto"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"a"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">atto</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"atto"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"a"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">femto</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"femto"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"f"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">femto</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"femto"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"f"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">femto</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"femto"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"f"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">femto</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"femto"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"f"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">pico</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"pico"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"p"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">pico</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"pico"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"p"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">pico</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"pico"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"p"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">pico</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"pico"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"p"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">nano</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"nano"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"a"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">nano</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"nano"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"a"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">nano</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"nano"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"a"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">nano</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"nano"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"a"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">micro</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"micro"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u8</span><span class="string">"\u00B5"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">micro</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"micro"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"\u00B5"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">micro</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"micro"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"\u00B5"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">micro</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"micro"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">Lu8</span><span class="string">"\u00B5"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">milli</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"milli"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"m"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">milli</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"milli"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"m"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">milli</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"milli"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"m"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">milli</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"milli"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"m"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">centi</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"centi"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"c"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">centi</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"centi"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"c"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">centi</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"centi"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"c"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">centi</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"centi"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"c"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">deci</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"deci"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"d"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">deci</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"deci"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"d"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">deci</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"deci"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"d"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">deci</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"deci"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"d"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">deca</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"deca"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"da"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">deca</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"deca"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"da"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">deca</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"deca"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"da"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">deca</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"deca"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"da"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">hecto</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"hecto"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"h"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">hecto</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"hecto"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"h"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">hecto</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"hecto"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"h"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">hecto</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"hecto"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"h"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">kilo</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"kilo"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"k"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">kilo</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"kilo"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"k"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">kilo</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"kilo"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"k"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">kilo</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"kilo"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"k"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">mega</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"mega"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"M"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">mega</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"mega"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"M"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">mega</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"mega"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"M"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">mega</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"mega"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"M"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">giga</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"giga"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"G"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">giga</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"giga"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"G"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">giga</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"giga"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"G"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">giga</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"giga"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"G"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">tera</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"tera"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"T"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">tera</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"tera"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"T"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">tera</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"tera"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"T"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">tera</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"tera"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"T"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">peta</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"peta"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"P"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">peta</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"peta"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"P"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">peta</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"peta"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"P"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">peta</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"peta"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"P"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">exa</span><span class="special">,</span> <span class="keyword">char</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"exa"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="string">"E"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">exa</span><span class="special">,</span> <span class="identifier">char16_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"exa"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">u</span><span class="string">"E"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">exa</span><span class="special">,</span> <span class="identifier">char32_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"exa"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">U</span><span class="string">"E"</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">ratio_string</span><span class="special">&lt;</span><span class="identifier">exa</span><span class="special">,</span> <span class="keyword">wchar_t</span><span class="special">&gt;</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"exa"</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">L</span><span class="string">"E"</span></code>
+                    </p>
+                  </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break">
+</div>
 </div>
 </div>
 <div class="section">
@@ -1565,8 +2920,8 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2008 Howard Hinnant<br>Copyright &#169; 2006, 2008 Beman Dawes<br>Copyright &#169; 2009-2011 Vicente J. Botet
-      Escriba<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2008 Howard Hinnant<br>Copyright &#169; 2006, 2008 Beman Dawes<br>Copyright &#169; 2009-2012 Vicente
+      J. Botet Escriba<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

@@ -20,6 +20,7 @@ using ::boost::math::concepts::real_concept;
 //#include <boost/math/tools/test.hpp>
 #include <boost/test/test_exec_monitor.hpp> // for test_main
 #include <boost/test/floating_point_comparison.hpp> // for BOOST_CHECK_CLOSE_FRACTION
+#include "test_out_of_range.hpp"
 
 #include <boost/math/distributions/inverse_gamma.hpp> // for inverse_gamma_distribution
 using boost::math::inverse_gamma_distribution;
@@ -323,7 +324,7 @@ void test_spots(RealType)
     inverse_gamma_distribution<RealType>(static_cast<RealType>(8)),
     static_cast<RealType>(1.1))), std::domain_error
     );
-
+   check_out_of_range<inverse_gamma_distribution<RealType> >(1, 1);
 } // template <class RealType>void test_spots(RealType)
 
 int test_main(int, char* [])
@@ -402,7 +403,7 @@ int test_main(int, char* [])
   test_spots(0.0); // Test double. OK at decdigits 7, tolerance = 1e07 %
 #ifndef BOOST_MATH_NO_LONG_DOUBLE_MATH_FUNCTIONS
   test_spots(0.0L); // Test long double.
-#if !BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x0582))
+#ifndef BOOST_MATH_NO_REAL_CONCEPT_TESTS
   test_spots(boost::math::concepts::real_concept(0.)); // Test real concept.
 #endif
 #else

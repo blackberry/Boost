@@ -12,15 +12,21 @@
 #define BOOST_SPIRIT_FWD_HPP
 
 #include "iterator.hpp"
+#include <boost/intrusive_ptr.hpp>
 
 namespace quickbook
 {
-    struct actions;
+    struct state;
     struct quickbook_grammar;
     struct collector;
-    struct id_generator;
+    struct id_manager;
+    struct section_info;
+    struct file;
+    struct template_symbol;
+    typedef boost::intrusive_ptr<file> file_ptr;
 
-    typedef position_iterator<std::string::const_iterator> iterator;
+    typedef std::string::const_iterator string_iterator;
+    typedef lookback_iterator<string_iterator> parse_iterator;
 
     inline void ignore_variable(void const*) {} 
 }

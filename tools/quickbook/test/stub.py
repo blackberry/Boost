@@ -4,6 +4,8 @@
 # License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 # http://www.boost.org/LICENSE_1_0.txt)
 
+#` This should appear when =stub.py= is included.
+
 #[foo_py
 """`
     This is the Python [*['foo]] function.

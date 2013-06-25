@@ -83,7 +83,7 @@ public:
         const char * e1 = NULL,
         const char * e2 = NULL
     );
-    ~archive_exception() throw ();
+    ~archive_exception() /*throw ()*/;
     virtual const char *what( ) const throw();
 protected:
     archive_exception();

@@ -4,7 +4,7 @@
 <title>for_each_point</title>
 <link rel="stylesheet" href="../../../../../../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
-<link rel="home" href="../../../../index.html" title="Chapter&#160;1.&#160;Geometry 1.0">
+<link rel="home" href="../../../../index.html" title="Chapter&#160;1.&#160;Geometry">
 <link rel="up" href="../for_each.html" title="for_each">
 <link rel="prev" href="for_each_point_2_const_version.html" title="for_each_point (const version)">
 <link rel="next" href="for_each_segment_2_const_version.html" title="for_each_segment (const version)">
@@ -27,7 +27,7 @@
 <a name="geometry.reference.algorithms.for_each.for_each_point_2"></a><a class="link" href="for_each_point_2.html" title="for_each_point">for_each_point</a>
 </h5></div></div></div>
 <p>
-            <a class="indexterm" name="id866525"></a>
+            <a class="indexterm" name="id876799"></a>
 Applies function <span class="bold"><strong>f</strong></span> to each point.
           </p>
 <h6>
@@ -146,6 +146,17 @@ Applies function <span class="bold"><strong>f</strong></span> to each point.
           </p>
 <h6>
 <a name="geometry.reference.algorithms.for_each.for_each_point_2.h4"></a>
+            <span><a name="geometry.reference.algorithms.for_each.for_each_point_2.conformance"></a></span><a class="link" href="for_each_point_2.html#geometry.reference.algorithms.for_each.for_each_point_2.conformance">Conformance</a>
+          </h6>
+<p>
+            The function for_each_point is not defined by OGC.
+          </p>
+<p>
+            The function for_each_point conforms to the std::for_each function of
+            the C++ std-library.
+          </p>
+<h6>
+<a name="geometry.reference.algorithms.for_each.for_each_point_2.h5"></a>
             <span><a name="geometry.reference.algorithms.for_each.for_each_point_2.example"></a></span><a class="link" href="for_each_point_2.html#geometry.reference.algorithms.for_each.for_each_point_2.example">Example</a>
           </h6>
 <p>
@@ -158,7 +169,7 @@ Applies function <span class="bold"><strong>f</strong></span> to each point.
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">/</span><span class="identifier">geometries</span><span class="special">/</span><span class="identifier">point_xy</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">/</span><span class="identifier">geometries</span><span class="special">/</span><span class="identifier">polygon</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
-<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">/</span><span class="identifier">domains</span><span class="special">/</span><span class="identifier">gis</span><span class="special">/</span><span class="identifier">io</span><span class="special">/</span><span class="identifier">wkt</span><span class="special">/</span><span class="identifier">wkt</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">/</span><span class="identifier">io</span><span class="special">/</span><span class="identifier">wkt</span><span class="special">/</span><span class="identifier">wkt</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 
 
 
@@ -198,7 +209,6 @@ Applies function <span class="bold"><strong>f</strong></span> to each point.
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"Rounded: "</span> <span class="special">&lt;&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">geometry</span><span class="special">::</span><span class="identifier">wkt</span><span class="special">(</span><span class="identifier">poly</span><span class="special">)</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
     <span class="keyword">return</span> <span class="number">0</span><span class="special">;</span>
 <span class="special">}</span>
-
 </pre>
 <p>
           </p>
@@ -210,7 +220,8 @@ Applies function <span class="bold"><strong>f</strong></span> to each point.
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2011 Barend Gehrels, Bruno Lalande, Mateusz Loskot<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2009-2012 Barend
+      Gehrels, Bruno Lalande, Mateusz Loskot<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

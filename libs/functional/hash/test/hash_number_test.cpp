@@ -16,8 +16,6 @@
 
 #include <boost/preprocessor/cat.hpp>
 #include <boost/functional/hash/detail/limits.hpp>
-#include <boost/mpl/assert.hpp>
-#include <boost/type_traits/is_base_and_derived.hpp>
 
 #include "./compile_time.hpp"
 
@@ -26,6 +24,10 @@
 #pragma warning(disable:4127) // conditional expression is constant
 #pragma warning(disable:4309) // truncation of constant value
 #pragma warning(disable:4310) // cast truncates constant value
+#endif
+
+#if defined(__GNUC__)
+#pragma GCC diagnostic ignored "-Wfloat-equal"
 #endif
 
 template <class T>

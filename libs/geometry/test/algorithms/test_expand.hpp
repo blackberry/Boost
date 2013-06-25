@@ -1,7 +1,7 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library) 
 // Unit Test
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -14,9 +14,9 @@
 
 #include <boost/geometry/algorithms/expand.hpp>
 #include <boost/geometry/strategies/strategies.hpp>
-#include <boost/geometry/domains/gis/io/wkt/read_wkt.hpp>
+#include <boost/geometry/io/wkt/read.hpp>
 #include <boost/geometry/algorithms/assign.hpp>
-#include <boost/geometry/util/write_dsv.hpp>
+#include <boost/geometry/io/dsv/write.hpp>
 
 
 template <typename Geometry, typename Box>

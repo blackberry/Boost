@@ -19,21 +19,21 @@ int main()
     using namespace std;
     using namespace boost;
 
-    cout << "ratio_string<deca, char>::long_name() = "
-             <<  ratio_string<boost::deca, char>::long_name() << '\n';
-    cout << "ratio_string<deca, char>::short_name() = "
-             <<  ratio_string<boost::deca, char>::short_name() << '\n';
+    cout << "ratio_string<deca, char>::prefix() = "
+             <<  ratio_string<boost::deca, char>::prefix() << '\n';
+    cout << "ratio_string<deca, char>::symbol() = "
+             <<  ratio_string<boost::deca, char>::symbol() << '\n';
 
-    cout << "ratio_string<giga, char>::long_name() = "
-             <<  ratio_string<boost::giga, char>::long_name() << '\n';
-    cout << "ratio_string<giga, char>::short_name() = "
-             <<  ratio_string<boost::giga, char>::short_name() << '\n';
+    cout << "ratio_string<giga, char>::prefix() = "
+             <<  ratio_string<boost::giga, char>::prefix() << '\n';
+    cout << "ratio_string<giga, char>::symbol() = "
+             <<  ratio_string<boost::giga, char>::symbol() << '\n';
 
-    cout << "ratio_string<ratio<4, 6>, char>::long_name() = "
-             <<  ratio_string<boost::ratio<4, 6>, char>::long_name() << '\n';
-    cout << "ratio_string<ratio<4, 6>, char>::short_name() = "
-             <<  ratio_string<boost::ratio<4, 6>, char>::short_name() << '\n';
-        
+    cout << "ratio_string<ratio<4, 6>, char>::prefix() = "
+             <<  ratio_string<boost::ratio<4, 6>, char>::prefix() << '\n';
+    cout << "ratio_string<ratio<4, 6>, char>::symbol() = "
+             <<  ratio_string<boost::ratio<4, 6>, char>::symbol() << '\n';
+
     return 0;
 }
 

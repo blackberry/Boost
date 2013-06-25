@@ -40,14 +40,14 @@ of 16-digits, separated into groups of 4-digits, and separated by either a
 space or a hyphen. Before storing a credit card number in a database 
 (not necessarily something your customers will appreciate!), we may want to 
 verify that the number is in the correct format. To match any digit we could 
-use the regular expression [0-9], however ranges of characters like this are 
+use the regular expression \[0-9\], however ranges of characters like this are 
 actually locale dependent. Instead we should use the POSIX standard 
 form \[\[:digit:\]\], or the Boost.Regex and Perl shorthand for this \\d (note 
 that many older libraries tended to be hard-coded to the C-locale, 
 consequently this was not an issue for them). That leaves us with the 
 following regular expression to validate credit card number formats:
 
-[pre (\d{4}[- ]){3}\d{4}]
+[pre (\d{4}\[- \]){3}\d{4}]
 
 Here the parenthesis act to group (and mark for future reference) 
 sub-expressions, and the {4} means "repeat exactly 4 times". This is an 

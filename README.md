@@ -1,99 +1,65 @@
-# Blackberry Port of Boost 1.48.0
+Boost for BlackBerry 10
+-----------------------
 
-Port of Boost to the BlackBerry 10 platform.
+Current Boost Version: 1.52.0.
 
-Ported libraries:
+For the most part, Boost requires almost _no_ changes to work in BlackBerry 10 ("BB10").  All required code changes are pushed upstream whenever possible.
 
-- *Boost.Date_Time
-- Boost.Filesystem
-- Boost.Program_options
-- Boost.Random
-- *Boost.Regex
-- Boost.System
-- Boost.Thread
 
-Ported headers:
+What isn't upstreamed is how to build it, as it is BB10 specific.  That can be found here.
 
-- Listed in boost/include/headers.txt
+In particular, there is a `blackberry-config.jam` that helps build Boost for the device.
+There is also a simple `bbbb` script (`bbbb.sh` or `bbbb.bat`) to Build Boost for BlackBerry.  Basically the script shows the required command bjam command line for building boost.
 
-Note: there a few unresolved test failures involving `Boost.Date_Time` and `Boost.Regex` See the "Known issues with tests" section.
 
-## Prerequisites
+Requirements
+------------
 
-- Blackberry Native SDK (NDK) for Tablet OS
+You must have the BB10 NDK setup in order to build Boost for BB10.  It can be downloaded at <http:://developer.blackberry.com>.
+The BB10 NDK needs to be in your path for the boost build to work.  (ie use the `bbndk-env` script to help with that.)
 
-## Build Instructions
 
-1. Open a command prompt (building from Linux and Windows works; Mac has not been tested).
-2. Execute bbndk-env.bat or bbndk-env.sh from root of NDK install.
-3. Navigate to local boost repo.
-4. Change to the rim-build directory. The build.sh script can build static or dynamic libraries. For example, to build dynamic libraries, use this command:
+Build Instructions
+------------------
 
-        ./build.sh install dynamic
+1. run bbndk-env (.bat or .sh) to set up the BB10 NDK environment variables.
+1. run bootstrap (.bat or .sh) as you normally would to get Boost.Build set up.
+1. (optional) build Boost for your host platform, to check that everything is set up correctly.
+1. run bbbb (.bat or .sh) to build Boost for BlackBerry10.
 
-    This will invoke the bjam executable to build the libraries in subdirectories of bin.v2 as well as copy them to a staging directory (under rim-build/boost-stage).
+Tests
+-----
 
-    All the libraries are compiled, not just the ported ones. The Boost.Python library can be enabled by setting the `PYTHON_SRC_DIR` variable in build.sh to the Python source location.
+Currently, it is not easy to run the tests to verify boost was built correctly.  (This is because the tests need to run on device, not locally, and doing that is a bit tricky...)
 
-    Use `./build.sh clean <static|dynamic>` to clean the build.
+Note this means much of the boost is untested on BB10 (although much of it is used internally by BlackBerry and tested by other means).
 
-## Test Instructions
 
-1. Change to the rim-test directory.
-2. Run the build-tests.sh script which will invoke bjam on each test directory read from the test.list file. You can choose to skip some tests by commenting them out with a "#". The build script will build and attempt to run the tests. The test failures can be ignored since they aren't being run on a BB 10 device.
-3. The test binaries can either be copied over to a device in development mode (using scp) or the top-level boost directory can be NFS-mounted on the device. It will be easier to recompile and rerun tests with the latter setup but some of the filesystem tests may fail due to issues with NFS. NFS setup instructions are below.
-4. To run the tests, go to /accounts/devuser/boost and run the run-tests.sh script:
+Known Caveats
+-------------
 
-        ./run-tests.sh <arm|x86> 2> run.err > run.out &
+Boost.Context probably doesn't work on QNX/BB10.
+Boost.Python only works if you can find a version of python for QNX. (ie find a version of python for linux and you are close, but you will need to build it yourself for QNX.)
 
-    Use the tail command to observe the progress of the tests, e.g. `tail -f run.out`.
 
-### NFS setup for Ubuntu Linux and PlayBook over USB (optional)
-
-1. On your Linux machine, obtain the packages to install the NFS server:
-
-        sudo apt-get install nfs-kernel-server nfs-common portmap
-
-2. Edit the NFS exports file as follows:
-
-        sudo vi /etc/exports
-
-3. Add the following line:
-
-        <Path to boost repo> 169.254.0.1(rw,all_squash,async,insecure,no_subtree_check,anonuid=<UID>,anongid=<GID>)
-
-4. Make the NFS server reread the configuration:
-
-        sudo service nfs-kernel-server reload
-
-5. On the PlayBook, issue the following command to mount the NFS-exported directory:
-
-        fs-nfs3 169.254.0.2:<Path to boost repo on server> /accounts/devuser/boost
-
-### Known issues with tests
-
-Some of the filesystem tests may fail when run from an NFS mount.
-
-Failures for Boost.Date_Time:
-
-    bin.v2/libs/date_time/test/teststreams.test/qcc/debug/architecture-arm/target-os-qnxnto/threading-multi/teststreams
-
-Failures for Boost.Regex:
-
-    bin.v2/libs/regex/test/regex_regress_recursive.test/qcc/debug/architecture-arm/target-os-qnxnto/threading-multi/regex_regress_recursive
-    bin.v2/libs/regex/test/regex_regress_threaded.test/qcc/debug/architecture-arm/target-os-qnxnto/threading-multi/regex_regress_threaded
-    bin.v2/libs/regex/test/regex_regress.test/qcc/debug/architecture-arm/target-os-qnxnto/threading-multi/regex_regress
-
-## Repository Committers
+Repository Committers
+---------------------
 
 * [Eduardo Pelegri-Llopart](https://github.com/pelegri)
 * [Clifford Hung](https://github.com/hungc)
+* [Tony Van Eerd](https://github.com/tvaneerd-rim)
 
 
-## Bug Reporting and Feature Requests
+Bug Reporting and Feature Requests
+----------------------------------
+
 
 If you find a bug or have an enhancement request, simply file an [Issue](https://github.com/blackberry/Boost/issues) and send a message (via github messages) to the Committers to the project to let them know that you have filed an [Issue](https://github.com/blackberry/Boost/issues).
 
-## Disclaimer
+
+Disclaimer
+----------
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+

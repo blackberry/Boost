@@ -22,7 +22,7 @@
 <div class="spirit-nav">
 <a accesskey="p" href="locale.html"><img src="../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../configuration.html"><img src="../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="algorithm.html"><img src="../../../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
-<div class="section">
+<div class="section boost_regex_configuration_linkage">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="boost_regex.configuration.linkage"></a><a class="link" href="linkage.html" title="Linkage Options">Linkage Options</a>
 </h3></div></div></div>
@@ -69,6 +69,21 @@
                 <p>
                   For Microsoft and Borland C++ builds, this tells Boost.Regex that
                   it should not automatically select the library to link to.
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  BOOST_REGEX_NO_FASTCALL
+                </p>
+              </td>
+<td>
+                <p>
+                  For Microsoft builds, this tells Boost.Regex to use the <code class="computeroutput"><span class="identifier">__cdecl</span></code> calling convention rather
+                  than <code class="computeroutput"><span class="identifier">__fastcall</span></code>.
+                  Useful if you want to use the same library from both managed and
+                  unmanaged code.
                 </p>
               </td>
 </tr>

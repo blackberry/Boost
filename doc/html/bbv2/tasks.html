@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../bbv2.html" title="Chapter&#160;38.&#160;Boost.Build V2 User Manual">
+<link rel="up" href="../bbv2.html" title="Chapter&#160;39.&#160;Boost.Build V2 User Manual">
 <link rel="prev" href="overview.html" title="Overview">
 <link rel="next" href="reference.html" title="Reference">
 </head>
@@ -44,7 +44,7 @@
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="bbv2.tasks.programs"></a>Programs</h3></div></div></div>
-<a class="indexterm" name="id3820852"></a><p>
+<a class="indexterm" name="id4100521"></a><p>
       Programs are created using the <code class="computeroutput">exe</code> rule, which follows the
       <a class="link" href="overview.html#bbv2.main-target-rule-syntax">common syntax</a>. For
       example:
@@ -55,7 +55,7 @@ exe hello : hello.cpp some_library.lib /some_project//library
           ;
 </pre>
 <p>
-      This will create an executable file from the sources -- in this case, one
+      This will create an executable file from the sources&#8212;in this case, one
       C++ file, one library file present in the same directory, and another
       library that is created by Boost.Build. Generally, sources can include C
       and C++ files, object files and libraries. Boost.Build will automatically
@@ -80,7 +80,7 @@ exe hello : hello.cpp some_library.lib /some_project//library
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="bbv2.tasks.libraries"></a>Libraries</h3></div></div></div>
-<p>
+<a class="indexterm" name="id4100593"></a><p>
       Library targets are created using the <code class="computeroutput">lib</code> rule, which
       follows the <a class="link" href="overview.html#bbv2.main-target-rule-syntax">common syntax
       </a>. For example:
@@ -91,66 +91,79 @@ lib helpers : helpers.cpp ;
 <p>
       This will define a library target named <code class="computeroutput">helpers</code> built from
       the <code class="computeroutput">helpers.cpp</code> source file.
+      It can be either a static library or a shared library,
+      depending on the value of the <a class="link" href="reference.html#bbv2.overview.builtins.features.link">&lt;link&gt;</a> feature.
     </p>
 <p>
-      Depending on the given &lt;link&gt; feature value the library will be
-      either static or shared.
-    </p>
-<p>
-      Library targets may be used to represent:
+      Library targets can represent:
       </p>
 <div class="itemizedlist"><ul class="itemizedlist" type="disc">
 <li class="listitem"><p>
-            <code class="computeroutput">Built libraries</code> that get built from specified sources,
-            as is the one in the example above. 
+            Libraries that should be built from source,
+            as in the example above.
           </p></li>
 <li class="listitem"><p>
-            <code class="computeroutput">Prebuilt libraries</code> which already exist on the system
-            and are just supposed to be used by the build system. Such
-            libraries may be searched for by the tools using them (typically
-            linkers referencing the library using the <code class="option">-l</code>
-            option) or their path may be known in advance by the build system.
-            
+            Prebuilt libraries which already exist on the system.
+            Such libraries can be searched for by the tools using them (typically
+            with the linker's <code class="option">-l</code> option) or their paths can be
+            known in advance by the build system.
           </p></li>
 </ul></div>
 <p>
     </p>
 <p>
-      The syntax for these case is given below:
+      The syntax for prebuilt libraries is given below:
 </p>
 <pre class="programlisting">
 lib z : : &lt;name&gt;z &lt;search&gt;/home/ghost ;
 lib compress : : &lt;file&gt;/opt/libs/compress.a ;
 </pre>
 <p>
-      The <code class="computeroutput">name</code> property specifies the name that should be passed to
-      the <code class="option">-l</code> option, and the <code class="computeroutput">file</code> property
-      specifies the file location. The <code class="varname">search</code> feature
-      specifies paths in which to search for the library. That feature can be
-      specified several times or it can be omitted, in which case only the
-      default compiler paths will be searched.
+      The <code class="computeroutput">name</code> property specifies the name of the library
+      without the standard prefixes and suffixes.  For example, depending
+      on the system, <code class="computeroutput">z</code> could refer to a file called
+      z.so, libz.a, or z.lib, etc.  The <code class="computeroutput">search</code> feature
+      specifies paths in which to search for the library in addition
+      to the default compiler paths. <code class="computeroutput">search</code> can be specified
+      several times or it can be omitted, in which case only the default
+      compiler paths will be searched. The <code class="computeroutput">file</code> property
+      specifies the file location.
     </p>
 <p>
-      The difference between using the <code class="varname">file</code> feature as
-      opposed to the <code class="varname">name</code> feature together with the <code class="varname">
-      search</code> feature is that <code class="varname">file</code> is more precise.
-      A specific file will be used as opposed to the <code class="varname">search</code>
-      feature only adding a library path, or the <code class="varname">name</code> feature
-      giving only the basic name of the library. The search rules are specific
-      to the linker used. For example, given these definition:
+      The difference between using the <code class="computeroutput">file</code> feature and
+      using a combination of the <code class="computeroutput">name</code> and <code class="computeroutput">search</code>
+      features is that <code class="computeroutput">file</code> is more precise.
+      
+      </p>
+<div class="warning"><table border="0" summary="Warning">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="../../../doc/src/images/warning.png"></td>
+<th align="left">Warning</th>
+</tr>
+<tr><td align="left" valign="top">
+<p>
+          The value of the <code class="computeroutput">search</code> feature is just added to the
+          linker search path.  When linking to multiple libraries,
+          the paths specified by <code class="computeroutput">search</code> are combined without
+          regard to which <code class="computeroutput">lib</code> target each path came from.
+          Thus, given
 </p>
 <pre class="programlisting">
-lib a : : &lt;variant&gt;release &lt;file&gt;/pool/release/a.so ;
-lib a : : &lt;variant&gt;debug &lt;file&gt;/pool/debug/a.so ;
-lib b : : &lt;variant&gt;release &lt;file&gt;/pool/release/b.so ;
-lib b : : &lt;variant&gt;debug &lt;file&gt;/pool/debug/b.so ;
+lib a : : &lt;name&gt;a &lt;search&gt;/pool/release ;
+lib b : : &lt;name&gt;b &lt;search&gt;/pool/debug ;
 </pre>
 <p>
-      It is possible to use a release version of <code class="computeroutput">a</code> and debug
-      version of <code class="computeroutput">b</code>. Had we used the <code class="varname">name</code> and
-      <code class="varname">search</code> features, the linker would have always picked
-      either the release or the debug versions.
-      
+          If /pool/release/a.so, /pool/release/b.so, /pool/debug/a.so,
+          and /pool/release/b.so all exist, the linker will probably
+          take both <code class="computeroutput">a</code> and <code class="computeroutput">b</code> from the same
+          directory, instead of finding <code class="computeroutput">a</code> in /pool/release
+          and <code class="computeroutput">b</code> in /pool/debug.  If you need to distinguish
+          between multiple libraries with the same name, it's safer
+          to use <code class="computeroutput">file</code>.
+        </p>
+</td></tr>
+</table></div>
+<p>
     </p>
 <p>
       For convenience, the following syntax is allowed:
@@ -190,18 +203,18 @@ lib png : z : &lt;name&gt;png ;
 </tr>
 <tr><td align="left" valign="top">
 <p>
-        When a library has a shared library defined as its source, or a static
-        library has another static library defined as its source then any target
+        When a library has a shared library as a source, or a static
+        library has another static library as a source then any target
         linking to the first library with automatically link to its source
         library as well.
       </p>
 <p>
-        On the other hand, when a shared library has a static library defined as
-        its source then the first library will be built so that it completely
+        On the other hand, when a shared library has a static library as
+        a source then the first library will be built so that it completely
         includes the second one.
       </p>
 <p>
-        If you do not want shared libraries to include all libraries specified
+        If you do not want a shared library to include all the libraries specified
         in its sources (especially statically linked ones), you would need to
         use the following:
 </p>
@@ -211,15 +224,16 @@ lib a : a.cpp : &lt;use&gt;b : : &lt;library&gt;b ;
 </pre>
 <p>
         This specifies that library <code class="computeroutput">a</code> uses library <code class="computeroutput">b</code>,
-        and causes all executables that link to <code class="computeroutput">a</code> also link to
-        <code class="computeroutput">b</code>. In this case, even for shared linking, the
-        <code class="computeroutput">a</code> library will not even refer to <code class="computeroutput">b</code>.
+        and causes all executables that link to <code class="computeroutput">a</code> to link to
+        <code class="computeroutput">b</code> also. In this case, even for shared linking, the
+        <code class="computeroutput">a</code> library will not refer to <code class="computeroutput">b</code>.
       </p>
 </td></tr>
 </table></div>
 <p>
-      One Boost.Build feature that is often very useful for defining library
-      targets are usage requirements.  For example, imagine that
+      
+      <a class="link" href="overview.html#bbv2.overview.targets" title="Declaring Targets">Usage requirements</a> are often
+      very useful for defining library targets. For example, imagine that
       you want you build a <code class="computeroutput">helpers</code> library and its interface is
       described in its <code class="computeroutput">helpers.hpp</code> header file located in the same
       directory as the <code class="computeroutput">helpers.cpp</code> source file. Then you could add
@@ -293,7 +307,7 @@ exe main : main.cpp static_libraries ;
       files.
     </p>
 <h4>
-<a name="id3821411"></a>Basic install</h4>
+<a name="id4101129"></a>Basic install</h4>
 <p>
       For installing a built target you should use the <code class="computeroutput">install</code>
       rule, which follows the <a class="link" href="overview.html#bbv2.main-target-rule-syntax">
@@ -332,7 +346,7 @@ install dist2 : hello helpers : &lt;location&gt;$(DIST) ;
       variables</a>
     </p>
 <h4>
-<a name="id3821524"></a>Installing with all dependencies</h4>
+<a name="id4101242"></a>Installing with all dependencies</h4>
 <p>
       Specifying the names of all libraries to install can be boring. The
       <code class="computeroutput">install</code> allows you to specify only the top-level executable
@@ -356,8 +370,8 @@ install dist : hello
       otherwise, all found target will be installed.
     </p>
 <h4>
-<a name="id3821577"></a>Preserving Directory Hierarchy</h4>
-<a class="indexterm" name="id3821580"></a><p>
+<a name="id4101296"></a>Preserving Directory Hierarchy</h4>
+<a class="indexterm" name="id4101299"></a><p>
       By default, the <code class="computeroutput">install</code> rule will strip paths from its
       sources. So, if sources include <code class="filename">a/b/c.hpp</code>, the
       <code class="filename">a/b</code> part will be ignored. To make the
@@ -381,7 +395,7 @@ install headers
       an entire directory tree.
     </p>
 <h4>
-<a name="id3821656"></a>Installing into Several Directories</h4>
+<a name="id4101375"></a>Installing into Several Directories</h4>
 <p>
       The <a class="link" href="tasks.html#bbv2.tasks.alias" title="Alias"><code class="computeroutput">alias</code></a> rule can be
       used when targets need to be installed into several directories:
@@ -395,7 +409,7 @@ install install-lib : helper : /usr/lib ;
     </p>
 <p>
       Because the <code class="computeroutput">install</code> rule just copies targets, most free
-      features <sup>[<a name="id3821692" href="#ftn.id3821692" class="footnote">12</a>]</sup> have no
+      features <sup>[<a name="id4101411" href="#ftn.id4101411" class="footnote">13</a>]</sup> have no
       effect when used in requirements of the <code class="computeroutput">install</code> rule. The
       only two that matter are <a class="link" href="reference.html#bbv2.builtin.features.dependency">
       <code class="varname">dependency</code></a> and, on Unix, <a class="link" href="reference.html#bbv2.reference.features.dll-path"><code class="varname">dll-path</code>
@@ -429,7 +443,7 @@ unit-test helpers_test : helpers_test.cpp helpers ;
     </p>
 <p>
       The <code class="computeroutput">unit-test</code> rule behaves like the
-      <code class="computeroutput">exe</code> rule, but after the executable is created
+      <a class="link" href="tasks.html#bbv2.tasks.programs" title="Programs">exe</a> rule, but after the executable is created
       it is also run. If the executable returns an error code, the build system
       will also return an error and will try running the executable on the next
       invocation until it runs successfully. This behaviour ensures that you can
@@ -504,7 +518,7 @@ rule run ( sources + : args * : input-files * : requirements * : target-name ?
       target-name</code></em>.output</code>.
     </p>
 <p>
-      <a class="indexterm" name="id3822013"></a>
+      <a class="indexterm" name="id4101733"></a>
       If the <code class="literal">preserve-test-targets</code> feature has the value
       <code class="literal">off</code>, then <code class="computeroutput">run</code> and the <code class="computeroutput">run-fail</code>
       rules will remove the executable after running it.  This somewhat decreases
@@ -523,8 +537,8 @@ boost-test(<em class="replaceable"><code>test-type</code></em>) <em class="repla
 <p>
     </p>
 <p>
-      It is possible to process the list of tests, the output of bjam during
-      command run, and the presense/absense of the <code class="filename">*.test</code>
+      It is possible to process the list of tests, Boost.Build output
+      and the presense/absense of the <code class="filename">*.test</code>
       files created when test passes into human-readable status table of tests.
       Such processing utilities are not included in Boost.Build.
     </p>
@@ -533,12 +547,12 @@ boost-test(<em class="replaceable"><code>test-type</code></em>) <em class="repla
 <div class="titlepage"><div><div><h3 class="title">
 <a name="bbv2.builtins.raw"></a>Custom commands</h3></div></div></div>
 <p>
-      When you use most of main target rules, Boost.Build automatically figures
-      what commands to run and it what order. As soon as you want to use new
+      For most main target rules, Boost.Build automatically figures out
+      the commands to run.  When you want to use new
       file types or support new tools, one approach is to extend Boost.Build to
-      smoothly support them, as documented in <a class="xref" href="extender.html" title="Extender Manual">the section called &#8220;Extender Manual&#8221;</a>.
-      However, if there is only a single place where the new tool is used, it
-      might be easier to just explicitly specify the commands to run.
+      support them smoothly, as documented in <a class="xref" href="extender.html" title="Extender Manual">the section called &#8220;Extender Manual&#8221;</a>.
+      However, if the new tool is only used in a single place, it
+      might be easier just to specify the commands to run explicitly.
     </p>
 <p>
       
@@ -547,8 +561,8 @@ boost-test(<em class="replaceable"><code>test-type</code></em>) <em class="repla
       of source file, by running a command you specify. The <code class="computeroutput">
       notfile</code> rule allows you to run an arbitrary command,
       without creating any files. And finaly, the <code class="computeroutput">generate
-      </code> rule allows you to describe transformation using
-      Boost.Build's virtual targets. This is higher-level than file names that
+      </code> rule allows you to describe a transformation using
+      Boost.Build's virtual targets. This is higher-level than the file names that
       the <code class="computeroutput">make</code> rule operates with and allows you to
       create more than one target, create differently named targets depending on
       properties or use more than one tool.
@@ -560,8 +574,8 @@ boost-test(<em class="replaceable"><code>test-type</code></em>) <em class="repla
       command.
     </p>
 <p>
-      Suppose you want to create file <code class="filename">file.out</code> from file
-      <code class="filename">file.in</code> by running command <span class="command"><strong>
+      Suppose you want to create the file <code class="filename">file.out</code> from
+      the file <code class="filename">file.in</code> by running the command <span class="command"><strong>
       in2out</strong></span>. Here is how you would do this in Boost.Build:
 </p>
 <pre class="programlisting">
@@ -572,7 +586,7 @@ actions in2out
 }
 </pre>
 <p>
-      If you run <span class="command"><strong>bjam</strong></span> and <code class="filename">file.out</code> does
+      If you run <span class="command"><strong>b2</strong></span> and <code class="filename">file.out</code> does
       not exist, Boost.Build will run the <span class="command"><strong>in2out</strong></span> command to
       create that file. For more details on specifying actions, see <a class="xref" href="overview.html#bbv2.overview.jam_language.actions">the section called &#8220;Boost.Jam Language&#8221;</a>.
     </p>
@@ -719,7 +733,7 @@ exe main : main.cpp pch ;
       Making this mechanism work across main target boundaries is possible, but
       imposes certain overhead. For that reason, if there is implicit dependency
       on files from other main targets, the <code class="literal">&lt;implicit-dependency&gt;
-      </code> [ link ] feature must be used, for example:
+      </code> feature must be used, for example:
 </p>
 <pre class="programlisting">
 lib parser : parser.y ;
@@ -734,7 +748,7 @@ exe app : app.cpp : &lt;implicit-dependency&gt;parser ;
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="bbv2.tasks.crosscompile"></a>Cross-compilation</h3></div></div></div>
-<a class="indexterm" name="id3822604"></a><p>Boost.Build supports cross compilation with the gcc and msvc
+<a class="indexterm" name="id4102313"></a><p>Boost.Build supports cross compilation with the gcc and msvc
     toolsets.</p>
 <p>
       When using gcc, you first need to specify your cross compiler
@@ -748,7 +762,7 @@ using gcc : arm : arm-none-linux-gnueabi-g++ ;
       just request that this compiler version to be used:
     </p>
 <pre class="screen">
-bjam toolset=gcc-arm
+b2 toolset=gcc-arm
 </pre>
 <p>
       If you want to target different operating system from the host, you need
@@ -757,9 +771,9 @@ bjam toolset=gcc-arm
     </p>
 <pre class="screen">
 # On windows box
-bjam toolset=gcc-arm <span class="bold"><strong>target-os=linux</strong></span>
+b2 toolset=gcc-arm <span class="bold"><strong>target-os=linux</strong></span>
 # On Linux box
-bjam toolset=gcc-mingw <span class="bold"><strong>target-os=windows</strong></span>
+b2 toolset=gcc-mingw <span class="bold"><strong>target-os=windows</strong></span>
 </pre>
 <p>
       For the complete list of allowed opeating system names, please see the documentation for 
@@ -773,7 +787,7 @@ bjam toolset=gcc-mingw <span class="bold"><strong>target-os=windows</strong></sp
 </div>
 <div class="footnotes">
 <br><hr width="100" align="left">
-<div class="footnote"><p><sup>[<a id="ftn.id3821692" href="#id3821692" class="para">12</a>] </sup>see the definition of "free" in <a class="xref" href="reference.html#bbv2.reference.features.attributes" title="Feature Attributes">the section called &#8220;Feature Attributes&#8221;</a>.</p></div>
+<div class="footnote"><p><sup>[<a id="ftn.id4101411" href="#id4101411" class="para">13</a>] </sup>see the definition of "free" in <a class="xref" href="reference.html#bbv2.reference.features.attributes" title="Feature Attributes">the section called &#8220;Feature Attributes&#8221;</a>.</p></div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

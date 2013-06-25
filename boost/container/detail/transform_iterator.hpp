@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011.
+// (C) Copyright Ion Gaztanaga 2005-2012.
 // (C) Copyright Gennaro Prota 2003 - 2004.
 //
 // Distributed under the Boost Software License, Version 1.0.
@@ -11,8 +11,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef BOOST_CONTAINERS_DETAIL_TRANSFORM_ITERATORS_HPP
-#define BOOST_CONTAINERS_DETAIL_TRANSFORM_ITERATORS_HPP
+#ifndef BOOST_CONTAINER_DETAIL_TRANSFORM_ITERATORS_HPP
+#define BOOST_CONTAINER_DETAIL_TRANSFORM_ITERATORS_HPP
 
 #if (defined _MSC_VER) && (_MSC_VER >= 1200)
 #  pragma once
@@ -24,7 +24,7 @@
 #include <iterator>
 
 namespace boost {
-namespace container { 
+namespace container {
 
 template <class PseudoReference>
 struct operator_arrow_proxy
@@ -59,7 +59,7 @@ class transform_iterator
    : public UnaryFunction
    , public std::iterator
       < typename Iterator::iterator_category
-      , typename containers_detail::remove_reference<typename UnaryFunction::result_type>::type
+      , typename container_detail::remove_reference<typename UnaryFunction::result_type>::type
       , typename Iterator::difference_type
       , operator_arrow_proxy<typename UnaryFunction::result_type>
       , typename UnaryFunction::result_type>
@@ -74,7 +74,7 @@ class transform_iterator
    {}
 
    //Constructors
-   transform_iterator& operator++() 
+   transform_iterator& operator++()
    { increment();   return *this;   }
 
    transform_iterator operator++(int)
@@ -168,9 +168,9 @@ make_transform_iterator(Iterator it, UnaryFunc fun)
    return transform_iterator<Iterator, UnaryFunc>(it, fun);
 }
 
-}  //namespace container { 
+}  //namespace container {
 }  //namespace boost {
 
 #include <boost/container/detail/config_end.hpp>
 
-#endif   //#ifndef BOOST_CONTAINERS_DETAIL_TRANSFORM_ITERATORS_HPP
+#endif   //#ifndef BOOST_CONTAINER_DETAIL_TRANSFORM_ITERATORS_HPP

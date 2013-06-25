@@ -44,7 +44,7 @@
   <span class="special">}</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="id2819222"></a><h2>Description</h2>
+<a name="id3024730"></a><h2>Description</h2>
 <p>
             It is sometimes desirable to define a grammar that can be customized with different sets of transforms.
             To do that, where you would normally specify a transform within a grammar, you can instead put
@@ -95,7 +95,11 @@
 <span class="identifier">my_transforms</span> <span class="identifier">trx</span><span class="special">;</span>
 
 <span class="comment">// Evaluate "i+c" using my_grammar with the specified transforms:</span>
-<span class="identifier">my_grammar</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="identifier">i</span> <span class="special">+</span> <span class="identifier">c</span><span class="special">,</span> <span class="number">0</span><span class="special">,</span> <span class="identifier">trx</span><span class="special">)</span><span class="special">;</span></pre>
+<span class="identifier">my_grammar</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="identifier">i</span> <span class="special">+</span> <span class="identifier">c</span><span class="special">,</span> <span class="number">0</span><span class="special">,</span> <span class="identifier">trx</span><span class="special">)</span><span class="special">;</span>
+
+<span class="comment">// If you would also like to pass arbitrary data along with the</span>
+<span class="comment">// transforms, you can use a transform environment, as so:</span>
+<span class="identifier">my_grammar</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="identifier">i</span> <span class="special">+</span> <span class="identifier">c</span><span class="special">,</span> <span class="number">0</span><span class="special">,</span> <span class="special">(</span><span class="identifier">proto</span><span class="special">::</span><span class="identifier">data</span> <span class="special">=</span> <span class="number">42</span><span class="special">,</span> <span class="identifier">proto</span><span class="special">::</span><span class="identifier">transforms</span> <span class="special">=</span> <span class="identifier">trx</span><span class="special">)</span><span class="special">)</span><span class="special">;</span></pre>
 <p>
           </p>
 </div>

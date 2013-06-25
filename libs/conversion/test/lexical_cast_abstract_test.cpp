@@ -28,7 +28,7 @@ void test_abstract();
 
 unit_test::test_suite *init_unit_test_suite(int, char *[])
 {
-    unit_test_framework::test_suite *suite =
+    unit_test::test_suite *suite =
         BOOST_TEST_SUITE("lexical_cast unit test");
     suite->add(BOOST_TEST_CASE(&test_abstract));
 

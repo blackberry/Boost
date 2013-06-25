@@ -1,7 +1,7 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 // Unit Test
 //
-// Copyright (c) 2009-2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2009-2012 Barend Gehrels, Amsterdam, the Netherlands.
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -15,6 +15,8 @@
 //#define BOOST_GEOMETRY_ROBUSTNESS_USE_DIFFERENCE
 
 
+#include <geometry_test_common.hpp>
+
 // For mixing int/float
 #if defined(_MSC_VER)
 #pragma warning( disable : 4244 )
@@ -22,18 +24,15 @@
 #endif
 
 
-#include <boost/geometry/geometry.hpp>
-#include <boost/geometry/multi/multi.hpp>
-
+#include <boost/geometry.hpp>
+#include <boost/geometry/geometries/geometries.hpp>
+#include <boost/geometry/geometries/point_xy.hpp>
 #include <boost/geometry/multi/geometries/multi_polygon.hpp>
-
-#include <boost/geometry/algorithms/detail/overlay/debug_turn_info.hpp>
-
-#include <boost/geometry/domains/gis/io/wkt/wkt.hpp>
 #include <boost/geometry/extensions/io/svg/svg_mapper.hpp>
 
-#include <geometry_test_common.hpp>
-
+#include <boost/geometry/algorithms/detail/overlay/debug_turn_info.hpp>
+#include <boost/geometry/algorithms/intersects.hpp>
+#include <boost/geometry/algorithms/touches.hpp>
 
 struct p_q_settings
 {
@@ -50,6 +49,19 @@ struct p_q_settings
     {}
 };
 
+template <typename Geometry>
+inline typename bg::default_area_result<Geometry>::type p_q_area(Geometry const& g)
+{
+    try
+    {
+        return bg::area(g);
+    }
+    catch(bg::empty_input_exception const&)
+    {
+        return 0;
+    }
+}
+
 template <typename OutputType, typename CalculationType, typename G1, typename G2>
 static bool test_overlay_p_q(std::string const& caseid,
             G1 const& p, G2 const& q,
@@ -62,15 +74,15 @@ static bool test_overlay_p_q(std::string const& caseid,
 
     bg::model::multi_polygon<OutputType> out_i, out_u, out_d, out_d2;
 
-    CalculationType area_p = bg::area(p);
-    CalculationType area_q = bg::area(q);
+    CalculationType area_p = p_q_area(p);
+    CalculationType area_q = p_q_area(q);
     CalculationType area_d1 = 0, area_d2 = 0;
 
     bg::intersection(p, q, out_i);
-    CalculationType area_i = bg::area(out_i);
+    CalculationType area_i = p_q_area(out_i);
 
     bg::union_(p, q, out_u);
-    CalculationType area_u = bg::area(out_u);
+    CalculationType area_u = p_q_area(out_u);
 
     double sum = (area_p + area_q) - area_u - area_i;
 
@@ -80,8 +92,8 @@ static bool test_overlay_p_q(std::string const& caseid,
     {
         bg::difference(p, q, out_d);
         bg::difference(q, p, out_d2);
-        area_d1 = bg::area(out_d);
-        area_d2 = bg::area(out_d2);
+        area_d1 = p_q_area(out_d);
+        area_d2 = p_q_area(out_d2);
         double sum_d1 = (area_u - area_q) - area_d1;
         double sum_d2 = (area_u - area_p) - area_d2;
         bool wrong_d1 = std::abs(sum_d1) > settings.tolerance;
@@ -89,6 +101,19 @@ static bool test_overlay_p_q(std::string const& caseid,
 
         if (wrong_d1 || wrong_d2)
         {
+            wrong = true;
+        }
+    }
+
+    if (true)
+    {
+        if ((area_i > 0 && bg::touches(p, q))
+            || (area_i <= 0 && bg::intersects(p, q) && ! bg::touches(p, q)))
+        {
+            std::cout << "Wrong 'touch'! " 
+                << " Intersection area: " << area_i
+                << " Touch gives: " << std::boolalpha << bg::touches(p, q)
+                << std::endl;
             wrong = true;
         }
     }

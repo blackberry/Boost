@@ -1,6 +1,6 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2011 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2011-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -36,7 +36,7 @@ void create_svg(std::string const& filename, Geometry const& a, Geometry const& 
     mapper.map(a, "fill-opacity:0.5;fill:rgb(153,204,0);stroke:rgb(153,204,0);stroke-width:2");
     mapper.map(b, "fill-opacity:0.3;fill:rgb(51,51,153);stroke:rgb(51,51,153);stroke-width:2");
     int i = 0;
-    BOOST_FOREACH(Geometry const& g, range)
+    BOOST_FOREACH(typename boost::range_value<Range>::type const& g, range)
     {
         mapper.map(g, "opacity:0.8;fill:none;stroke:rgb(255,128,0);stroke-width:4;stroke-dasharray:1,7;stroke-linecap:round");
         std::ostringstream out;
@@ -44,6 +44,11 @@ void create_svg(std::string const& filename, Geometry const& a, Geometry const& 
         mapper.text(boost::geometry::return_centroid<point_type>(g), out.str(),
                     "fill:rgb(0,0,0);font-family:Arial;font-size:10px");
     }
+#else
+    boost::ignore_unused_variable_warning(filename);
+    boost::ignore_unused_variable_warning(a);
+    boost::ignore_unused_variable_warning(b);
+    boost::ignore_unused_variable_warning(range);
 #endif    
 }
 

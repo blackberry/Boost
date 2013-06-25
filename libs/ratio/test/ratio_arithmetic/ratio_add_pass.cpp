@@ -20,6 +20,12 @@
 
 void test()
 {
+  {
+  typedef boost::ratio<0> R1;
+  typedef boost::ratio<0> R2;
+  typedef boost::ratio_add<R1, R2> R;
+  BOOST_RATIO_STATIC_ASSERT(R::num == 0 && R::den == 1, NOTHING, ());
+  }
     {
     typedef boost::ratio<1, 1> R1;
     typedef boost::ratio<1, 1> R2;
@@ -65,7 +71,7 @@ void test()
     BOOST_RATIO_STATIC_ASSERT(R::num == 127970191639601LL && R::den == 5177331081415LL, NOTHING, ());
     }
     {
-    typedef boost::ratio<BOOST_RATIO_INTMAX_C(0x7FFFFFFFFFFFFFFF), 1> R1;
+    typedef boost::ratio<BOOST_RATIO_INTMAX_T_MAX, 1> R1;
     typedef boost::ratio<-1, 1> R2;
     typedef boost::ratio_add<R1, R2>::type RT;
     }

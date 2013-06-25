@@ -6,13 +6,13 @@
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/config for the most recent version.//
-//  Revision $Id: no_function_template_default_args_fail.cpp 56678 2009-10-09 16:16:02Z johnmaddock $
+//  Revision $Id: no_function_template_default_args_fail.cpp 79537 2012-07-15 15:59:05Z marshall $
 //
 
 
-// Test file for macro BOOST_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS
+// Test file for macro BOOST_NO_CXX11_FUNCTION_TEMPLATE_DEFAULT_ARGS
 // This file should not compile, if it does then
-// BOOST_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS should not be defined.
+// BOOST_NO_CXX11_FUNCTION_TEMPLATE_DEFAULT_ARGS should not be defined.
 // See file boost_no_function_template_default_args.ipp for details
 
 // Must not have BOOST_ASSERT_CONFIG set; it defeats
@@ -24,7 +24,7 @@
 #include <boost/config.hpp>
 #include "test.hpp"
 
-#ifdef BOOST_NO_FUNCTION_TEMPLATE_DEFAULT_ARGS
+#ifdef BOOST_NO_CXX11_FUNCTION_TEMPLATE_DEFAULT_ARGS
 #include "boost_no_function_template_default_args.ipp"
 #else
 #error "this file should not compile"

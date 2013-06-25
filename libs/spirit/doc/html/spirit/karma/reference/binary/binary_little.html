@@ -4,7 +4,7 @@
 <title>Binary Little Endianness Generators</title>
 <link rel="stylesheet" href="../../../../../../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
-<link rel="home" href="../../../../index.html" title="Spirit 2.5.1">
+<link rel="home" href="../../../../index.html" title="Spirit 2.5.2">
 <link rel="up" href="../binary.html" title="Binary Generators">
 <link rel="prev" href="binary_native.html" title="Binary Native Endianness Generators">
 <link rel="next" href="binary_big.html" title="Binary Big Endianness Generators">
@@ -76,6 +76,18 @@
                       alias: boost::spirit::karma::little_qword</span></code>
                     </p>
                   </td></tr>
+<tr><td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">spirit</span><span class="special">::</span><span class="identifier">little_bin_float</span> <span class="comment">//
+                      alias: boost::spirit::karma::little_bin_float</span></code>
+                    </p>
+                  </td></tr>
+<tr><td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">spirit</span><span class="special">::</span><span class="identifier">little_bin_double</span> <span class="comment">//
+                      alias: boost::spirit::karma::little_bin_double</span></code>
+                    </p>
+                  </td></tr>
 </tbody>
 </table></div>
 <div class="note"><table border="0" summary="Note">
@@ -119,6 +131,18 @@
 <dd><p>
                   A 64 bit binary value or a <a class="link" href="../basics.html#spirit.karma.reference.basics.lazy_argument">Lazy
                   Argument</a> that evaluates to a 64 bit binary value. This value
+                  is always interpreted using native endianness.
+                </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">f</span></code></span></dt>
+<dd><p>
+                  A float binary value or a <a class="link" href="../basics.html#spirit.karma.reference.basics.lazy_argument">Lazy
+                  Argument</a> that evaluates to a float binary value. This value
+                  is always interpreted using native endianness.
+                </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">d</span></code></span></dt>
+<dd><p>
+                  A double binary value or a <a class="link" href="../basics.html#spirit.karma.reference.basics.lazy_argument">Lazy
+                  Argument</a> that evaluates to a double binary value. This value
                   is always interpreted using native endianness.
                 </p></dd>
 </dl>
@@ -198,6 +222,34 @@
 <tr>
 <td>
                     <p>
+                      <code class="computeroutput"><span class="identifier">little_bin_float</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      Output the binary representation of the mandatory float attribute
+                      in little endian representation. This generator never fails
+                      (unless the underlying output stream reports an error).
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">little_bin_double</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      Output the binary representation of the mandatory double attribute
+                      in little endian representation. This generator never fails
+                      (unless the underlying output stream reports an error).
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
                       <code class="computeroutput"><span class="identifier">little_word</span><span class="special">(</span><span class="identifier">w</span><span class="special">)</span></code>
                     </p>
                   </td>
@@ -237,6 +289,34 @@
                       bits of the immediate parameter in little endian representation.
                       This generator never fails (unless the underlying output stream
                       reports an error).
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">little_bin_float</span><span class="special">(</span><span class="identifier">f</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      Output the binary representation of the immediate float parameter
+                      in little endian representation. This generator never fails
+                      (unless the underlying output stream reports an error).
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">little_bin_double</span><span class="special">(</span><span class="identifier">d</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      Output the binary representation of the immediate double parameter
+                      in little endian representation. This generator never fails
+                      (unless the underlying output stream reports an error).
                     </p>
                   </td>
 </tr>
@@ -306,6 +386,32 @@
 <tr>
 <td>
                     <p>
+                      <code class="computeroutput"><span class="identifier">little_bin_float</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="keyword">float</span></code>, attribute
+                      is mandatory (otherwise compilation will fail)
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">little_bin_double</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="keyword">double</span></code>, attribute
+                      is mandatory (otherwise compilation will fail)
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
                       <code class="computeroutput"><span class="identifier">little_word</span><span class="special">(</span><span class="identifier">w</span><span class="special">)</span></code>
                     </p>
                   </td>
@@ -331,6 +437,30 @@
 <td>
                     <p>
                       <code class="computeroutput"><span class="identifier">little_qword</span><span class="special">(</span><span class="identifier">qw</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">unused</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">little_bin_float</span><span class="special">(</span><span class="identifier">f</span><span class="special">)</span></code>
+                    </p>
+                  </td>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">unused</span></code>
+                    </p>
+                  </td>
+</tr>
+<tr>
+<td>
+                    <p>
+                      <code class="computeroutput"><span class="identifier">little_bin_double</span><span class="special">(</span><span class="identifier">d</span><span class="special">)</span></code>
                     </p>
                   </td>
 <td>

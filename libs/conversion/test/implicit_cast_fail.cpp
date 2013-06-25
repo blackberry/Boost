@@ -19,4 +19,6 @@ struct foo
 int test_main(int, char*[])
 {
     foo x = implicit_cast<foo>("foobar");
+    (void)x;  // warning suppression.
+    return 0;
 }

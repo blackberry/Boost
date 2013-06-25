@@ -1,9 +1,9 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 // Unit Test
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -73,10 +73,6 @@ void test_2d()
 
     test_centroid<bg::model::box<P> >("POLYGON((1 2,3 4))", 2, 3);
     test_centroid<P>("POINT(3 3)", 3, 3);
-
-    //test_centroid_exception<bg::model::linestring<P> >("LINESTRING EMPTY");
-///    test_centroid_exception<bg::model::polygon<P> >("POLYGON EMPTY");
-//    test_centroid_exception<bg::model::ring<P> >("POLYGON EMPTY");
 }
 
 
@@ -97,6 +93,39 @@ void test_5d()
                                              4.9202312983547678, 0.69590937869808345, 1.2632138719797417, 6.0468332057401986, 23.082402715244868);
 }
 
+template <typename P>
+void test_exceptions()
+{
+    test_centroid_exception<bg::model::linestring<P> >();
+    test_centroid_exception<bg::model::polygon<P> >();
+    test_centroid_exception<bg::model::ring<P> >();
+}
+
+void test_large_integers()
+{
+    typedef bg::model::point<int, 2, bg::cs::cartesian> int_point_type;
+    typedef bg::model::point<double, 2, bg::cs::cartesian> double_point_type;
+
+    bg::model::polygon<int_point_type> int_poly;
+    bg::model::polygon<double_point_type> double_poly;
+
+    std::string const polygon_li = "POLYGON((1872000 528000,1872000 192000,1536119 192000,1536000 528000,1200000 528000,1200000 863880,1536000 863880,1872000 863880,1872000 528000))";
+    bg::read_wkt(polygon_li, int_poly);
+    bg::read_wkt(polygon_li, double_poly);
+
+    int_point_type int_centroid;
+    double_point_type double_centroid;
+
+    bg::centroid(int_poly, int_centroid);
+    bg::centroid(double_poly, double_centroid);
+
+    int_point_type double_centroid_as_int;
+    bg::assign(int_centroid, double_centroid_as_int);
+
+    BOOST_CHECK_EQUAL(bg::get<0>(int_centroid), bg::get<0>(double_centroid_as_int));
+    BOOST_CHECK_EQUAL(bg::get<1>(int_centroid), bg::get<1>(double_centroid_as_int));
+}
+
 
 int test_main(int, char* [])
 {
@@ -112,6 +141,9 @@ int test_main(int, char* [])
     test_2d<bg::model::d2::point_xy<ttmath_big> >();
     test_3d<boost::tuple<ttmath_big, ttmath_big, ttmath_big> >();
 #endif
+
+    test_large_integers();
+    test_exceptions<bg::model::d2::point_xy<double> >();
 
     return 0;
 }

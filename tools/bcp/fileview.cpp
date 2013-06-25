@@ -38,7 +38,7 @@ fileview::~fileview()
 {
 }
 
-fileview::fileview(const fileview& that)
+fileview::fileview(const fileview& )
 {
 }
 

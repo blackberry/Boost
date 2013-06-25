@@ -1,14 +1,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:(null)1="http://www.w3.org/TR/REC-html40"><head><!--
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:(null)1="http://www.w3.org/TR/REC-html40" lang="en"><head>
+<!--
     Copyright 2009-2010 Intel Corporation
     license banner
--->
-<title>Boost Polygon Library: Overview</title>
-    <meta http-equiv="content-type" content="text/html;charset=ISO-8859-1">
-<table style="margin: 0pt; padding: 0pt; width: 100%;" border="0" cellpadding="0" cellspacing="0"><tbody><tr>
+--><title>Boost Polygon Library: Overview</title>
+
+
+
+    <meta http-equiv="content-type" content="text/html;charset=ISO-8859-1" /><!-- <link type="text/css" rel="stylesheet" href="adobe_source.css"> --></head><body><table style="margin: 0pt; padding: 0pt; width: 100%;" border="0" cellpadding="0" cellspacing="0"><tbody><tr>
 <td style="background-color: rgb(238, 238, 238);" nowrap="1" valign="top">
     <div style="padding: 5px;" align="center">
-        <img border="0" src="images/boost.png" width="277" height="86"><a title="www.boost.org home page" href="http://www.boost.org/" tabindex="2" style="border: medium none ;">
+        <img src="images/boost.png" border="0" height="86" width="277" /><a title="www.boost.org home page" href="http://www.boost.org/" tabindex="2" style="border: medium none ;">
             </a>
     </div>
     <div style="margin: 5px;">
@@ -21,6 +23,8 @@
             <li><a href="gtl_interval_concept.htm">Interval Concept</a></li>
             <li>
 			<a href="gtl_point_concept.htm">Point Concept</a></li>
+        <li><a href="gtl_segment_concept.htm">Segment Concept</a></li>
+
 			<li><a href="gtl_rectangle_concept.htm">Rectangle Concept</a></li>
 			<li><a href="gtl_polygon_90_concept.htm">Polygon 90 Concept</a></li>
 			<li><a href="gtl_polygon_90_with_holes_concept.htm">Polygon 90 With Holes Concept</a></li>
@@ -37,6 +41,18 @@
 			<li><a href="gtl_property_merge_90.htm">Property Merge 90</a></li>
 			<li><a href="gtl_property_merge_45.htm">Property Merge 45</a></li>
 			<li><a href="gtl_property_merge.htm">Property Merge</a></li>
+        <li><a href="voronoi_main.htm">Voronoi Main Page<br />
+</a></li>
+        <li><a href="voronoi_benchmark.htm">Voronoi Benchmark</a><br />
+        </li>
+        <li><a href="voronoi_builder.htm">Voronoi Builder</a></li>
+        <li><a href="voronoi_diagram.htm">Voronoi Diagram<br />
+</a></li>
+        <li><a href="voronoi_predicates.htm">Voronoi Predicates</a></li>
+        <li><a href="voronoi_robust_fpt.htm">Voronoi Robust FPT</a><br />
+        </li>
+        
+
         </ul>
         <h3 class="navbar">Other Resources</h3>
         <ul>
@@ -46,23 +62,27 @@
              <li><a href="analysis.htm">Performance Analysis</a></li>
         	<li><a href="gtl_tutorial.htm">Layout Versus Schematic Tutorial</a></li>
         	<li><a href="gtl_minkowski_tutorial.htm">Minkowski Sum Tutorial</a></li>
+        <li><a href="voronoi_basic_tutorial.htm">Voronoi Basic Tutorial</a></li>
+        <li><a href="voronoi_advanced_tutorial.htm">Voronoi Advanced Tutorial</a></li>
+
         </ul>
     </div>
         <h3 class="navbar">Polygon Sponsor</h3>
     <div style="padding: 5px;" align="center">
-        <img border="0" src="images/intlogo.gif" width="127" height="51">
+        <img src="images/intlogo.gif" border="0" height="51" width="127" /><a title="www.adobe.com home page" href="http://www.adobe.com/" tabindex="2" style="border: medium none ;">
+            </a>
     </div>    
 </td>
 <td style="padding-left: 10px; padding-right: 10px; padding-bottom: 10px;" valign="top" width="100%">
 
 <!-- End Header -->
 
-<br>
+<br />
 <p>
 </p><h1>Polygon Library Design Overview</h1>
 
 <p> 
-<p>The Polygon library uses C++-Concepts inspired template programming to 
+</p><p>The Polygon library uses C++-Concepts inspired template programming to 
 provide generic library functions overloaded on concept type.&nbsp; There are 
 currently thirteen concepts in the Polygon library type system.&nbsp; A concept 
 object in the Polygon library is just an empty struct similar to a tag that 
@@ -70,7 +90,7 @@ would be used for tag dispatching.&nbsp;&nbsp; These concepts are shown in the
 refinement diagram below.</p>
 
 
-</body><img border="0" src="images/refinements.png" width="466" height="369"><p>
+<img src="images/refinements.png" border="0" height="369" width="466" /><p>
 The arrows between diagram bubbles show concept refinement relationships.&nbsp; This is 
 similar, but not identical to, inheritance relationships between normal classes.&nbsp; 
 A refinement of a concept narrows down the definition of a more general concept.&nbsp; 
@@ -123,7 +143,7 @@ type has been mapped to a concept through traits it needs to be registered
 as that conceptual type with the library by 
 specializing the geometry_concept meta-function.&nbsp; Once mapped and 
 registered, a user data type can be used interchangeably with library data types 
-in the generic free functions that are overloaded on concept.<p>Traits for 
+in the generic free functions that are overloaded on concept.</p><p>Traits for 
 mapping a data type to a concept are broken down into mutable and read only 
 traits.&nbsp; Read only traits are specialized internally to work with any types 
 that are refinements of a concept.&nbsp; The mutable traits are defined only for 
@@ -135,7 +155,7 @@ registered as a polygon_concept and the read only traits but not the mutable
 traits defined for that triangle type.&nbsp; This would allow the triangle type 
 to be passed into any API that expects a const reference to an object that models 
 polygon.&nbsp; 
-<p>An object that is a model of a given concept can usually be viewed as a model of any of its 
+</p><p>An object that is a model of a given concept can usually be viewed as a model of any of its 
 refinements if it is determined at runtime to conform to the restrictions of 
 those concepts.&nbsp; This concept casting is accomplished through the
 <font face="Courier New">view_as&lt;&gt;()</font> function.&nbsp; For example if 
@@ -146,17 +166,17 @@ and can be viewed as a rectangle with the following syntax:</p>
 passed into any interface that expects an object of the conceptual type 
 specified in its template parameter.&nbsp; The exception to this ability to 
 concept cast geometric objects is that polygon set objects cannot be viewed as 
-individual polygons or rectangles.</p> <tr>
+individual polygons or rectangles.</p> </td></tr><tr>
 <td style="background-color: rgb(238, 238, 238);" nowrap="1" valign="top">
     &nbsp;</td>
 <td style="padding-left: 10px; padding-right: 10px; padding-bottom: 10px;" valign="top" width="100%">
 
 
-<table class="docinfo" rules="none" frame="void" id="table1">
+<table class="docinfo" id="table1" frame="void" rules="none">
 	<colgroup>
-		<col class="docinfo-name"><col class="docinfo-content">
+		<col class="docinfo-name" /><col class="docinfo-content" />
 	</colgroup>
-	<tbody vAlign="top">
+	<tbody valign="top">
 		<tr>
 			<th class="docinfo-name">Copyright:</th>
 			<td>Copyright © Intel Corporation 2008-2010.</td>
@@ -169,6 +189,6 @@ individual polygons or rectangles.</p> <tr>
 			<a class="reference" target="_top" href="http://www.boost.org/LICENSE_1_0.txt">
 			http://www.boost.org/LICENSE_1_0.txt</a>)</td>
 		</tr>
-</table>
+</tbody></table>
 
-</html>
+</td></tr></tbody></table></body></html>

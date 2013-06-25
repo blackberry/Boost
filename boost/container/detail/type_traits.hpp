@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 // (C) Copyright John Maddock 2000.
-// (C) Copyright Ion Gaztanaga 2005-2011.
+// (C) Copyright Ion Gaztanaga 2005-2012.
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
@@ -12,8 +12,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef BOOST_CONTAINERS_CONTAINER_DETAIL_TYPE_TRAITS_HPP
-#define BOOST_CONTAINERS_CONTAINER_DETAIL_TYPE_TRAITS_HPP
+#ifndef BOOST_CONTAINER_CONTAINER_DETAIL_TYPE_TRAITS_HPP
+#define BOOST_CONTAINER_CONTAINER_DETAIL_TYPE_TRAITS_HPP
 
 #if (defined _MSC_VER) && (_MSC_VER >= 1200)
 #  pragma once
@@ -24,10 +24,17 @@
 #include <boost/move/move.hpp>
 
 namespace boost {
-namespace container { 
-namespace containers_detail {
+namespace container {
+namespace container_detail {
 
 struct nat{};
+
+template <typename U>
+struct LowPriorityConversion
+{
+   // Convertible from T with user-defined-conversion rank.
+   LowPriorityConversion(const U&) { }
+};
 
 //boost::alignment_of yields to 10K lines of preprocessed code, so we
 //need an alternative
@@ -194,10 +201,10 @@ struct remove_ref_const
    typedef typename remove_const< typename remove_reference<T>::type >::type type;
 };
 
-} // namespace containers_detail
-}  //namespace container { 
+} // namespace container_detail
+}  //namespace container {
 }  //namespace boost {
 
 #include <boost/container/detail/config_end.hpp>
 
-#endif   //#ifndef BOOST_CONTAINERS_CONTAINER_DETAIL_TYPE_TRAITS_HPP
+#endif   //#ifndef BOOST_CONTAINER_CONTAINER_DETAIL_TYPE_TRAITS_HPP

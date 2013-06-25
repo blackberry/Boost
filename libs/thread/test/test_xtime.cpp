@@ -2,7 +2,7 @@
 // William E. Kempf
 // Copyright (C) 2008 Anthony Williams
 //
-//  Distributed under the Boost Software License, Version 1.0. (See accompanying 
+//  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 #include <boost/thread/detail/config.hpp>
@@ -17,8 +17,8 @@ void test_xtime_cmp()
 {
     boost::xtime xt1, xt2, cur;
     BOOST_CHECK_EQUAL(
-        boost::xtime_get(&cur, boost::TIME_UTC),
-        static_cast<int>(boost::TIME_UTC));
+        boost::xtime_get(&cur, boost::TIME_UTC_),
+        static_cast<int>(boost::TIME_UTC_));
 
     xt1 = xt2 = cur;
     xt1.nsec -= 1;
@@ -42,14 +42,14 @@ void test_xtime_get()
     boost::xtime orig, cur, old;
     BOOST_CHECK_EQUAL(
         boost::xtime_get(&orig,
-            boost::TIME_UTC), static_cast<int>(boost::TIME_UTC));
+            boost::TIME_UTC_), static_cast<int>(boost::TIME_UTC_));
     old = orig;
 
     for (int x=0; x < 100; ++x)
     {
         BOOST_CHECK_EQUAL(
-            boost::xtime_get(&cur, boost::TIME_UTC),
-            static_cast<int>(boost::TIME_UTC));
+            boost::xtime_get(&cur, boost::TIME_UTC_),
+            static_cast<int>(boost::TIME_UTC_));
         BOOST_CHECK(boost::xtime_cmp(cur, orig) >= 0);
         BOOST_CHECK(boost::xtime_cmp(cur, old) >= 0);
         old = cur;
@@ -85,7 +85,7 @@ void test_xtime_condvar_backwards_compatibility()
     boost::condition_variable cond;
     boost::condition_variable_any cond_any;
     boost::mutex m;
-    
+
     boost::mutex::scoped_lock lk(m);
     cond.timed_wait(lk,boost::get_xtime(boost::get_system_time()+boost::posix_time::milliseconds(10)));
     cond.timed_wait(lk,boost::get_xtime(boost::get_system_time()+boost::posix_time::milliseconds(10)),predicate);
@@ -95,9 +95,9 @@ void test_xtime_condvar_backwards_compatibility()
 
 
 
-boost::unit_test_framework::test_suite* init_unit_test_suite(int, char*[])
+boost::unit_test::test_suite* init_unit_test_suite(int, char*[])
 {
-    boost::unit_test_framework::test_suite* test =
+    boost::unit_test::test_suite* test =
         BOOST_TEST_SUITE("Boost.Threads: xtime test suite");
 
     test->add(BOOST_TEST_CASE(&test_xtime_cmp));
@@ -106,4 +106,18 @@ boost::unit_test_framework::test_suite* init_unit_test_suite(int, char*[])
     test->add(BOOST_TEST_CASE(&test_xtime_condvar_backwards_compatibility));
 
     return test;
+}
+
+void remove_unused_warning()
+{
+
+  //../../../boost/test/results_collector.hpp:40:13: warning: unused function 'first_failed_assertion' [-Wunused-function]
+  //(void)boost::unit_test::first_failed_assertion;
+
+  //../../../boost/test/tools/floating_point_comparison.hpp:304:25: warning: unused variable 'check_is_close' [-Wunused-variable]
+  //../../../boost/test/tools/floating_point_comparison.hpp:326:25: warning: unused variable 'check_is_small' [-Wunused-variable]
+  (void)boost::test_tools::check_is_close;
+  (void)boost::test_tools::check_is_small;
+
+
 }

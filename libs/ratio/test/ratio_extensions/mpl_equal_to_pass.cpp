@@ -20,7 +20,6 @@
 #define NOTHING ""
 #endif
 
-#define BOOST_RATIO_INTMAX_T_MAX (0x7FFFFFFFFFFFFFFFLL)
 
 void test()
 {

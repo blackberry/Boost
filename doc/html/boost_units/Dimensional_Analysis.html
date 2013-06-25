@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../boost_units.html" title="Chapter&#160;31.&#160;Boost.Units 1.1.0">
+<link rel="up" href="../boost_units.html" title="Chapter&#160;32.&#160;Boost.Units 1.1.0">
 <link rel="prev" href="Quick_Start.html" title="Quick Start">
 <link rel="next" href="Units.html" title="Units">
 </head>
@@ -112,7 +112,6 @@
 <span class="keyword">struct</span> <span class="identifier">mass_base_dimension</span> <span class="special">:</span> <span class="identifier">base_dimension</span><span class="special">&lt;</span><span class="identifier">mass_base_dimension</span><span class="special">,</span><span class="number">2</span><span class="special">&gt;</span> <span class="special">{</span> <span class="special">};</span>
 <span class="comment">/// base dimension of time</span>
 <span class="keyword">struct</span> <span class="identifier">time_base_dimension</span> <span class="special">:</span> <span class="identifier">base_dimension</span><span class="special">&lt;</span><span class="identifier">time_base_dimension</span><span class="special">,</span><span class="number">3</span><span class="special">&gt;</span> <span class="special">{</span> <span class="special">};</span>
-
 </pre>
 <p>
     </p>
@@ -140,7 +139,6 @@
 <span class="keyword">typedef</span> <span class="identifier">make_dimension_list</span><span class="special">&lt;</span>
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">list</span><span class="special">&lt;</span> <span class="identifier">dim</span><span class="special">&lt;</span> <span class="identifier">time_base_dimension</span><span class="special">,</span><span class="identifier">static_rational</span><span class="special">&lt;</span><span class="number">1</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="special">&gt;</span>
 <span class="special">&gt;::</span><span class="identifier">type</span>     <span class="identifier">time_dimension</span><span class="special">;</span>
-
 </pre>
 <p>
     </p>
@@ -171,7 +169,6 @@
                       <span class="identifier">dim</span><span class="special">&lt;</span> <span class="identifier">length_base_dimension</span><span class="special">,</span><span class="identifier">static_rational</span><span class="special">&lt;</span><span class="number">2</span><span class="special">&gt;</span> <span class="special">&gt;,</span>
                       <span class="identifier">dim</span><span class="special">&lt;</span> <span class="identifier">time_base_dimension</span><span class="special">,</span><span class="identifier">static_rational</span><span class="special">&lt;-</span><span class="number">2</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="special">&gt;</span>
 <span class="special">&gt;::</span><span class="identifier">type</span>    <span class="identifier">energy_dimension</span><span class="special">;</span>
-
 </pre>
 <p>
     </p>

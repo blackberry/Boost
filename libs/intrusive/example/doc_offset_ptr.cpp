@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2006-2011
+// (C) Copyright Ion Gaztanaga  2006-2012
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -61,7 +61,7 @@ int main()
    const int ShmSize    = 50000;
    const char *ShmName  = get_shared_memory_name();
    {
-      //Erase all old shared memory 
+      //Erase all old shared memory
       ip::shared_memory_object::remove(ShmName);
       ip::managed_shared_memory shm(ip::create_only, ShmName, ShmSize);
 
@@ -72,7 +72,7 @@ int main()
             shm_allocator_t;
       typedef ip::vector<shared_memory_data, shm_allocator_t> shm_vector_t;
       shm_allocator_t shm_alloc(shm.get_segment_manager());
-      shm_vector_t *pshm_vect = 
+      shm_vector_t *pshm_vect =
          shm.construct<shm_vector_t>(ip::anonymous_instance)(shm_alloc);
       pshm_vect->resize(MaxElem);
 

@@ -6,15 +6,15 @@
 
 //  See http://www.boost.org/libs/config for more information.
 
-//  MACRO:         BOOST_NO_DELETED_FUNCTIONS 
+//  MACRO:         BOOST_NO_CXX11_DELETED_FUNCTIONS 
 //  TITLE:         C++0x =delete functions unavailable
 //  DESCRIPTION:   The compiler does not support C++0x =delete functions
 
 #if defined(__GNUC__) && !defined(__GXX_EXPERIMENTAL_CXX0X__) && !defined(BOOST_INTEL_STDCXX0X)
-#  error Deleted functions aren't really supported in non-C++0x mode
+#  error Deleted functions are not supported in non-C++0x mode
 #endif
 
-namespace boost_no_deleted_functions {
+namespace boost_no_cxx11_deleted_functions {
 
   struct foo {
     foo() = delete;

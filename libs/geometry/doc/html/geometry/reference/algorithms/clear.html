@@ -4,7 +4,7 @@
 <title>clear</title>
 <link rel="stylesheet" href="../../../../../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
-<link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Geometry 1.0">
+<link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Geometry">
 <link rel="up" href="../algorithms.html" title="Algorithms">
 <link rel="prev" href="centroid/return_centroid_2_with_strategy.html" title="return_centroid (with strategy)">
 <link rel="next" href="convert.html" title="convert">
@@ -27,7 +27,7 @@
 <a name="geometry.reference.algorithms.clear"></a><a class="link" href="clear.html" title="clear">clear</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="id842892"></a>
+          <a class="indexterm" name="id843981"></a>
 Clears a linestring, ring or polygon (exterior+interiors) or multi*.
         </p>
 <h6>
@@ -126,6 +126,149 @@ Clears a linestring, ring or polygon (exterior+interiors) or multi*.
         </p>
 <h6>
 <a name="geometry.reference.algorithms.clear.h4"></a>
+          <span><a name="geometry.reference.algorithms.clear.conformance"></a></span><a class="link" href="clear.html#geometry.reference.algorithms.clear.conformance">Conformance</a>
+        </h6>
+<p>
+          The function clear is not defined by OGC.
+        </p>
+<p>
+          The function clear conforms to the clear() method of the C++ std-library.
+        </p>
+<h6>
+<a name="geometry.reference.algorithms.clear.h5"></a>
+          <span><a name="geometry.reference.algorithms.clear.supported_geometries"></a></span><a class="link" href="clear.html#geometry.reference.algorithms.clear.supported_geometries">Supported
+          geometries</a>
+        </h6>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+                  <p>
+                    Geometry
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Status
+                  </p>
+                </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+                  <p>
+                    Point
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Segment
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Box
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Linestring
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Ring
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Polygon
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    MultiPoint
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    MultiLinestring
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    MultiPolygon
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+</tr>
+</tbody>
+</table></div>
+<h6>
+<a name="geometry.reference.algorithms.clear.h6"></a>
           <span><a name="geometry.reference.algorithms.clear.behavior"></a></span><a class="link" href="clear.html#geometry.reference.algorithms.clear.behavior">Behavior</a>
         </h6>
 <div class="informaltable"><table class="table">
@@ -257,14 +400,14 @@ Clears a linestring, ring or polygon (exterior+interiors) or multi*.
 </tbody>
 </table></div>
 <h6>
-<a name="geometry.reference.algorithms.clear.h5"></a>
+<a name="geometry.reference.algorithms.clear.h7"></a>
           <span><a name="geometry.reference.algorithms.clear.complexity"></a></span><a class="link" href="clear.html#geometry.reference.algorithms.clear.complexity">Complexity</a>
         </h6>
 <p>
           Constant
         </p>
 <h6>
-<a name="geometry.reference.algorithms.clear.h6"></a>
+<a name="geometry.reference.algorithms.clear.h8"></a>
           <span><a name="geometry.reference.algorithms.clear.example"></a></span><a class="link" href="clear.html#geometry.reference.algorithms.clear.example">Example</a>
         </h6>
 <p>
@@ -310,7 +453,6 @@ Clears a linestring, ring or polygon (exterior+interiors) or multi*.
 
     <span class="keyword">return</span> <span class="number">0</span><span class="special">;</span>
 <span class="special">}</span>
-
 </pre>
 <p>
         </p>
@@ -325,7 +467,8 @@ Clears a linestring, ring or polygon (exterior+interiors) or multi*.
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2011 Barend Gehrels, Bruno Lalande, Mateusz Loskot<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2009-2012 Barend
+      Gehrels, Bruno Lalande, Mateusz Loskot<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

@@ -21,7 +21,8 @@ namespace test
             is_select_on_copy = 0,
             is_propagate_on_swap = 0,
             is_propagate_on_assign = 0,
-            is_propagate_on_move = 0
+            is_propagate_on_move = 0,
+            cxx11_construct = 0
         };
     };
 
@@ -31,7 +32,8 @@ namespace test
             is_select_on_copy = 1,
             is_propagate_on_swap = 1,
             is_propagate_on_assign = 1,
-            is_propagate_on_move = 1
+            is_propagate_on_move = 1,
+            cxx11_construct = 1
         };
     };
     
@@ -168,10 +170,10 @@ namespace test
             new(p) T(t);
         }
 
-#if defined(BOOST_UNORDERED_STD_FORWARD_MOVE)
-        template<typename... Args> void construct(T* p, Args&&... args) {
+#if !defined(BOOST_NO_VARIADIC_TEMPLATES)
+        template<typename... Args> void construct(T* p, BOOST_FWD_REF(Args)... args) {
             detail::tracker.track_construct((void*) p, sizeof(T), tag_);
-            new(p) T(std::forward<Args>(args)...);
+            new(p) T(boost::forward<Args>(args)...);
         }
 #endif
 
@@ -289,6 +291,20 @@ namespace test
             test::derived_type)
     {
         return x.tag_ == y.tag_;
+    }
+
+    // Function to check how many times an allocator has been selected,
+    // return 0 for other allocators.
+
+    struct convert_from_anything
+    {
+        template <typename T>
+        convert_from_anything(T const&) {}
+    };
+
+    inline int selected_count(convert_from_anything)
+    {
+        return 0;
     }
 
     template <typename T, typename Flags>

@@ -333,6 +333,51 @@ void test_to()
 }
 
 
+void test_skip(char const *enc,char const *utf,char const *name,char const *opt=0)
+{
+    if(opt!=0) {
+        if(boost::locale::conv::to_utf<char>(enc,name) == opt) {
+            test_skip(enc,opt,name);
+            return;
+        }
+    }
+    TEST(boost::locale::conv::to_utf<char>(enc,name) == utf);
+    TEST(boost::locale::conv::to_utf<wchar_t>(enc,name) == boost::locale::conv::utf_to_utf<wchar_t>(utf));
+    #ifdef BOOST_HAS_CHAR16_T
+    TEST(boost::locale::conv::to_utf<char16_t>(enc,name) == boost::locale::conv::utf_to_utf<char16_t>(utf));
+    #endif
+    #ifdef BOOST_HAS_CHAR32_T
+    TEST(boost::locale::conv::to_utf<char32_t>(enc,name) == boost::locale::conv::utf_to_utf<char32_t>(utf));
+    #endif
+}
+
+void test_simple_conversions()
+{
+    namespace blc=boost::locale::conv;
+    std::cout << "- Testing correct invalid bytes skipping" << std::endl;
+    try {
+        std::cout << "-- ISO-8859-8" << std::endl;
+        test_skip("test \xE0\xE1\xFB-","test \xd7\x90\xd7\x91-","ISO-8859-8");
+        test_skip("\xFB","","ISO-8859-8");
+        test_skip("test \xE0\xE1\xFB","test \xd7\x90\xd7\x91","ISO-8859-8");
+        test_skip("\xFB-","-","ISO-8859-8");
+    }
+    catch(blc::invalid_charset_error const &) {
+        std::cout <<"--- not supported" << std::endl;
+    }
+    try {
+        std::cout << "-- cp932" << std::endl;
+        test_skip("test\xE0\xA0 \x83\xF8-","test\xe7\x87\xbf -","cp932","test\xe7\x87\xbf ");
+        test_skip("\x83\xF8","","cp932");
+        test_skip("test\xE0\xA0 \x83\xF8","test\xe7\x87\xbf ","cp932");
+        test_skip("\x83\xF8-","-","cp932","");
+    }
+    catch(blc::invalid_charset_error const &) {
+        std::cout <<"--- not supported" << std::endl;
+    }
+}
+
+
 int main()
 {
     try {
@@ -353,6 +398,8 @@ int main()
         #if !defined(BOOST_LOCALE_WITH_ICU) && !defined(BOOST_LOCALE_WITH_ICONV) && (defined(BOOST_WINDOWS) || defined(__CYGWIN__))
         test_iso_8859_8 = IsValidCodePage(28598)!=0;
         #endif
+
+        test_simple_conversions();
         
         
         for(int type = 0; type < int(def.size()); type ++ ) {

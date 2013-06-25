@@ -18,6 +18,7 @@
 [import ../example/map_assign.cpp]
 [import ../example/futures.cpp]
 [import ../example/mini_lambda.cpp]
+[import ../example/external_transforms.cpp]
 
 [/===============]
 [section Examples]
@@ -40,7 +41,7 @@ A trivial example which builds and expression template and evaluates it.
 [section:calc1 Calc1: Defining an Evaluation Context]
 [/==================================================]
 
-A simple example that builds a miniature domain-specific embedded language for lazy arithmetic expressions, with TR1 bind-style argument placeholders.
+A simple example that builds a miniature embedded domain-specific language for lazy arithmetic expressions, with TR1 bind-style argument placeholders.
 
 [Calc1]
 
@@ -152,9 +153,19 @@ An advanced example of a Proto transform that implements Howard Hinnant's design
 [section:lambda Lambda: A Simple Lambda Library with Proto]
 [/========================================================]
 
-This is an advanced example that shows how to implement a simple lambda DSEL with Proto, like the Boost.Lambda_library. It uses contexts, transforms and expression extension.
+This is an advanced example that shows how to implement a simple lambda EDSL with Proto, like the Boost.Lambda_library. It uses contexts, transforms and expression extension.
 
 [Lambda]
+
+[endsect]
+
+[/===============================================================================]
+[section:checked_calc Checked Calculator: A Simple Example of External Transforms]
+[/===============================================================================]
+
+This is an advanced example that shows how to externally parameterize a grammar's transforms. It defines a calculator EDSL with a grammar that can perform either checked or unchecked arithmetic.
+
+[CheckedCalc]
 
 [endsect]
 

@@ -12,6 +12,15 @@
 #  include <boost/type_traits/is_enum.hpp>
 #endif
 
+#ifndef BOOST_NO_SCOPED_ENUMS
+
+enum class test_enum
+{
+   a, b
+};
+
+#endif
+
 TT_TEST_BEGIN(is_enum)
 
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_enum<int>::value, false);
@@ -24,6 +33,9 @@ BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_enum<int&&>::value, false);
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_enum<boost::noncopyable>::value, false);
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_enum<void>::value, false);
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_enum<test_abc1>::value, false);
+#ifndef BOOST_NO_SCOPED_ENUMS
+BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_enum<test_enum>::value, true);
+#endif
 
 TT_TEST_END
 

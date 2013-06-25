@@ -10,6 +10,7 @@
 
 #include <boost/shared_ptr.hpp>
 #include <boost/detail/lightweight_test.hpp>
+#include <utility>
 
 #if defined( BOOST_HAS_RVALUE_REFS )
 

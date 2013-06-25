@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../bbv2.html" title="Chapter&#160;38.&#160;Boost.Build V2 User Manual">
+<link rel="up" href="../bbv2.html" title="Chapter&#160;39.&#160;Boost.Build V2 User Manual">
 <link rel="prev" href="extender.html" title="Extender Manual">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -25,29 +25,29 @@
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="bbv2.faq"></a>Frequently Asked Questions</h2></div></div></div>
 <div class="toc"><dl>
-<dt><span class="section"><a href="faq.html#id3831705">
+<dt><span class="section"><a href="faq.html#bbv2.faq.featurevalue">
       How do I get the current value of feature in Jamfile?
     </a></span></dt>
-<dt><span class="section"><a href="faq.html#id3831767">
+<dt><span class="section"><a href="faq.html#bbv2.faq.duplicate">
       I am getting a "Duplicate name of actual target" error. What does that
       mean?
     </a></span></dt>
 <dt><span class="section"><a href="faq.html#bbv2.faq.envar">
       Accessing environment variables
     </a></span></dt>
-<dt><span class="section"><a href="faq.html#id3832034">
+<dt><span class="section"><a href="faq.html#bbv2.faq.proporder">
       How to control properties order?
     </a></span></dt>
-<dt><span class="section"><a href="faq.html#id3832089">
+<dt><span class="section"><a href="faq.html#bbv2.faq.liborder">
       How to control the library linking order on Unix?
     </a></span></dt>
 <dt><span class="section"><a href="faq.html#bbv2.faq.external">
       Can I get capture external program output using a Boost.Jam variable?
     </a></span></dt>
-<dt><span class="section"><a href="faq.html#id3832233">
+<dt><span class="section"><a href="faq.html#bbv2.faq.projectroot">
       How to get the project root (a.k.a. Jamroot) location?
     </a></span></dt>
-<dt><span class="section"><a href="faq.html#id3832260">
+<dt><span class="section"><a href="faq.html#bbv2.faq.flags">
       How to change compilation flags for one file?
     </a></span></dt>
 <dt><span class="section"><a href="faq.html#bbv2.faq.dll-path">
@@ -59,13 +59,13 @@
 </dl></div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="id3831705"></a>
+<a name="bbv2.faq.featurevalue"></a>
       How do I get the current value of feature in Jamfile?
     </h3></div></div></div>
 <p>
       This is not possible, since Jamfile does not have "current" value of any
       feature, be it toolset, build variant or anything else. For a single
-      invocation of <code class="filename">bjam</code>, any given main target can be
+      run of Boost.Build, any given main target can be
       built with several property sets. For example, user can request two build
       variants on the command line. Or one library is built as shared when used
       from one application, and as static when used from another. Each Jamfile
@@ -89,7 +89,7 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="id3831767"></a>
+<a name="bbv2.faq.duplicate"></a>
       I am getting a "Duplicate name of actual target" error. What does that
       mean?
     </h3></div></div></div>
@@ -230,7 +230,7 @@ exe a : a.cpp : &lt;include&gt;$(SOME_LIBRARY_PATH) ;
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="id3832034"></a>
+<a name="bbv2.faq.proporder"></a>
       How to control properties order?
     </h3></div></div></div>
 <p>
@@ -261,7 +261,7 @@ exe a : a.cpp : &lt;include&gt;a&amp;&amp;b ;
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="id3832089"></a>
+<a name="bbv2.faq.liborder"></a>
       How to control the library linking order on Unix?
     </h3></div></div></div>
 <p>
@@ -317,7 +317,7 @@ local gtk_includes = [ SHELL "gtk-config --cflags" ] ;
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="id3832233"></a>
+<a name="bbv2.faq.projectroot"></a>
       How to get the project root (a.k.a. Jamroot) location?
     </h3></div></div></div>
 <p>
@@ -333,7 +333,7 @@ path-constant TOP : . ;
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="id3832260"></a>
+<a name="bbv2.faq.flags"></a>
       How to change compilation flags for one file?
     </h3></div></div></div>
 <p>

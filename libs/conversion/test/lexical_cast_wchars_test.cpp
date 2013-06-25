@@ -2,7 +2,7 @@
 //
 //  See http://www.boost.org for most recent version, including documentation.
 //
-//  Copyright Antony Polukhin, 2011.
+//  Copyright Antony Polukhin, 2011-2012.
 //
 //  Distributed under the Boost
 //  Software License, Version 1.0. (See accompanying file
@@ -17,40 +17,70 @@
 #endif
 
 #include <boost/lexical_cast.hpp>
-
-#include <boost/cstdint.hpp>
 #include <boost/test/unit_test.hpp>
-#include <boost/test/floating_point_comparison.hpp>
 
 using namespace boost;
 
-void test_char_types_conversions()
+#if defined(BOOST_NO_STRINGSTREAM) || defined(BOOST_NO_STD_WSTRING)
+#define BOOST_LCAST_NO_WCHAR_T
+#endif
+
+template <class CharT>
+void test_impl(const CharT* wc_arr)
 {
-#ifndef BOOST_LCAST_NO_WCHAR_T
+    typedef CharT                       wide_char;
+    typedef std::basic_string<CharT>    wide_string;
     const char c_arr[]            = "Test array of chars";
     const unsigned char uc_arr[]  = "Test array of chars";
     const signed char sc_arr[]    = "Test array of chars";
-    const wchar_t wc_arr[]        =L"Test array of chars";
 
     // Following tests depend on realization of std::locale
     // and pass for popular compilers and STL realizations
-    BOOST_CHECK(boost::lexical_cast<wchar_t>(c_arr[0]) == wc_arr[0]);
-    BOOST_CHECK(boost::lexical_cast<std::wstring>(c_arr) == std::wstring(wc_arr));
+    BOOST_CHECK(boost::lexical_cast<wide_char>(c_arr[0]) == wc_arr[0]);
+    BOOST_CHECK(boost::lexical_cast<wide_string>(c_arr) == wide_string(wc_arr));
 
-    BOOST_CHECK(boost::lexical_cast<std::wstring>(sc_arr) == std::wstring(wc_arr) );
-    BOOST_CHECK(boost::lexical_cast<std::wstring>(uc_arr) == std::wstring(wc_arr) );
+    BOOST_CHECK(boost::lexical_cast<wide_string>(sc_arr) == wide_string(wc_arr) );
+    BOOST_CHECK(boost::lexical_cast<wide_string>(uc_arr) == wide_string(wc_arr) );
 
-    BOOST_CHECK_EQUAL(boost::lexical_cast<wchar_t>(uc_arr[0]), wc_arr[0]);
-    BOOST_CHECK_EQUAL(boost::lexical_cast<wchar_t>(sc_arr[0]), wc_arr[0]);
+    BOOST_CHECK_EQUAL(boost::lexical_cast<wide_char>(uc_arr[0]), wc_arr[0]);
+    BOOST_CHECK_EQUAL(boost::lexical_cast<wide_char>(sc_arr[0]), wc_arr[0]);
+}
+
+
+void test_char_types_conversions_wchar_t()
+{
+#ifndef BOOST_LCAST_NO_WCHAR_T
+    test_impl(L"Test array of chars");
 #endif
-    BOOST_CHECK(1);
+
+    BOOST_CHECK(true);
+}
+
+void test_char_types_conversions_char16_t()
+{
+#if !defined(BOOST_NO_CHAR16_T) && !defined(BOOST_NO_UNICODE_LITERALS) && defined(BOOST_STL_SUPPORTS_NEW_UNICODE_LOCALES)
+    test_impl(u"Test array of chars");
+#endif
+
+    BOOST_CHECK(true);
+}
+
+void test_char_types_conversions_char32_t()
+{
+#if !defined(BOOST_NO_CHAR32_T) && !defined(BOOST_NO_UNICODE_LITERALS) && defined(BOOST_STL_SUPPORTS_NEW_UNICODE_LOCALES)
+    test_impl(U"Test array of chars");
+#endif
+
+    BOOST_CHECK(true);
 }
 
 unit_test::test_suite *init_unit_test_suite(int, char *[])
 {
-    unit_test_framework::test_suite *suite =
-        BOOST_TEST_SUITE("lexical_cast char<->wchar_t unit test");
-    suite->add(BOOST_TEST_CASE(&test_char_types_conversions));
+    unit_test::test_suite *suite =
+        BOOST_TEST_SUITE("lexical_cast char => wide characters unit test (widening test)");
+    suite->add(BOOST_TEST_CASE(&test_char_types_conversions_wchar_t));
+    suite->add(BOOST_TEST_CASE(&test_char_types_conversions_char16_t));
+    suite->add(BOOST_TEST_CASE(&test_char_types_conversions_char32_t));
 
     return suite;
 }

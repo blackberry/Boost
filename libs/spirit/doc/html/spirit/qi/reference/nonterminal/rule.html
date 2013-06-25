@@ -4,7 +4,7 @@
 <title>Parser Rule</title>
 <link rel="stylesheet" href="../../../../../../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
-<link rel="home" href="../../../../index.html" title="Spirit 2.5.1">
+<link rel="home" href="../../../../index.html" title="Spirit 2.5.2">
 <link rel="up" href="../nonterminal.html" title="Nonterminal Parsers">
 <link rel="prev" href="../nonterminal.html" title="Nonterminal Parsers">
 <link rel="next" href="grammar.html" title="Parser Grammar">
@@ -465,7 +465,8 @@
 <span class="keyword">using</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">spirit</span><span class="special">::</span><span class="identifier">qi</span><span class="special">::</span><span class="identifier">_a</span><span class="special">;</span>
 <span class="keyword">using</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">spirit</span><span class="special">::</span><span class="identifier">ascii</span><span class="special">::</span><span class="identifier">alpha</span><span class="special">;</span>
 <span class="keyword">using</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">spirit</span><span class="special">::</span><span class="identifier">ascii</span><span class="special">::</span><span class="identifier">char_</span><span class="special">;</span>
-<span class="keyword">using</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">spirit</span><span class="special">::</span><span class="identifier">ascii</span><span class="special">::</span><span class="identifier">space_type</span><span class="special">;</span></pre>
+<span class="keyword">using</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">spirit</span><span class="special">::</span><span class="identifier">ascii</span><span class="special">::</span><span class="identifier">space_type</span><span class="special">;</span>
+</pre>
 <p>
           </p>
 <p>
@@ -475,7 +476,8 @@
 </p>
 <pre class="programlisting"><span class="identifier">rule</span><span class="special">&lt;</span><span class="keyword">char</span> <span class="keyword">const</span><span class="special">*&gt;</span> <span class="identifier">r</span><span class="special">;</span>
 <span class="identifier">r</span> <span class="special">=</span> <span class="identifier">int_</span><span class="special">;</span>
-<span class="identifier">test_parser</span><span class="special">(</span><span class="string">"123"</span><span class="special">,</span> <span class="identifier">r</span><span class="special">);</span></pre>
+<span class="identifier">test_parser</span><span class="special">(</span><span class="string">"123"</span><span class="special">,</span> <span class="identifier">r</span><span class="special">);</span>
+</pre>
 <p>
           </p>
 <p>
@@ -487,7 +489,8 @@
 <span class="identifier">ra</span> <span class="special">=</span> <span class="identifier">int_</span><span class="special">;</span>
 <span class="keyword">int</span> <span class="identifier">i</span><span class="special">;</span>
 <span class="identifier">test_parser_attr</span><span class="special">(</span><span class="string">"123"</span><span class="special">,</span> <span class="identifier">ra</span><span class="special">,</span> <span class="identifier">i</span><span class="special">);</span>
-<span class="identifier">assert</span><span class="special">(</span><span class="identifier">i</span> <span class="special">==</span>  <span class="number">123</span><span class="special">);</span></pre>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">i</span> <span class="special">==</span>  <span class="number">123</span><span class="special">);</span>
+</pre>
 <p>
           </p>
 <p>
@@ -501,7 +504,8 @@
 <span class="identifier">test_phrase_parser_attr</span><span class="special">(</span><span class="string">"123 456 789"</span><span class="special">,</span> <span class="identifier">rs</span><span class="special">,</span> <span class="identifier">v</span><span class="special">);</span>
 <span class="identifier">assert</span><span class="special">(</span><span class="identifier">v</span><span class="special">[</span><span class="number">0</span><span class="special">]</span> <span class="special">==</span>  <span class="number">123</span><span class="special">);</span>
 <span class="identifier">assert</span><span class="special">(</span><span class="identifier">v</span><span class="special">[</span><span class="number">1</span><span class="special">]</span> <span class="special">==</span>  <span class="number">456</span><span class="special">);</span>
-<span class="identifier">assert</span><span class="special">(</span><span class="identifier">v</span><span class="special">[</span><span class="number">2</span><span class="special">]</span> <span class="special">==</span>  <span class="number">789</span><span class="special">);</span></pre>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">v</span><span class="special">[</span><span class="number">2</span><span class="special">]</span> <span class="special">==</span>  <span class="number">789</span><span class="special">);</span>
+</pre>
 <p>
           </p>
 <p>

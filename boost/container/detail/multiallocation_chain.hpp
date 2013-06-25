@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -8,8 +8,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef BOOST_CONTAINERS_DETAIL_MULTIALLOCATION_CHAIN_HPP
-#define BOOST_CONTAINERS_DETAIL_MULTIALLOCATION_CHAIN_HPP
+#ifndef BOOST_CONTAINER_DETAIL_MULTIALLOCATION_CHAIN_HPP
+#define BOOST_CONTAINER_DETAIL_MULTIALLOCATION_CHAIN_HPP
 
 #include "config_begin.hpp"
 #include <boost/container/container_fwd.hpp>
@@ -17,13 +17,13 @@
 #include <boost/container/detail/type_traits.hpp>
 #include <boost/container/detail/transform_iterator.hpp>
 #include <boost/intrusive/slist.hpp>
-#include <boost/pointer_to_other.hpp>
+#include <boost/intrusive/pointer_traits.hpp>
 #include <boost/type_traits/make_unsigned.hpp>
 #include <boost/move/move.hpp>
 
 namespace boost {
 namespace container {
-namespace containers_detail {
+namespace container_detail {
 
 template<class VoidPointer>
 class basic_multiallocation_chain
@@ -33,8 +33,10 @@ class basic_multiallocation_chain
                         ,bi::link_mode<bi::normal_link>
                         > node;
 
-   typedef typename boost::pointer_to_other<VoidPointer, char>::type   char_ptr;
-   typedef typename std::iterator_traits<char_ptr>::difference_type    difference_type;
+   typedef typename boost::intrusive::pointer_traits
+      <VoidPointer>::template rebind_pointer<char>::type    char_ptr;
+   typedef typename boost::intrusive::
+      pointer_traits<char_ptr>::difference_type             difference_type;
 
    typedef bi::slist< node
                     , bi::linear<true>
@@ -43,13 +45,29 @@ class basic_multiallocation_chain
                     > slist_impl_t;
    slist_impl_t slist_impl_;
 
-   static node & to_node(VoidPointer p)
-   {  return *static_cast<node*>(static_cast<void*>(containers_detail::get_pointer(p))); }
+   typedef typename boost::intrusive::pointer_traits
+      <VoidPointer>::template rebind_pointer<node>::type    node_ptr;
+   typedef typename boost::intrusive::
+      pointer_traits<node_ptr>                              node_ptr_traits;
+
+   static node & build_node(const VoidPointer &p)
+   {
+      return *::new (static_cast<node*>(static_cast<void*>(container_detail::to_raw_pointer(p)))) node;
+   }
+
+   static VoidPointer destroy_node(node &n)
+   {
+      VoidPointer retptr = node_ptr_traits::pointer_to(n);
+      n.~node();
+      return retptr;
+   }
+
+   static node_ptr to_node_ptr(VoidPointer p)
+   {  return node_ptr_traits::static_cast_from(p);   }
 
    BOOST_MOVABLE_BUT_NOT_COPYABLE(basic_multiallocation_chain)
 
    public:
-
 
    typedef VoidPointer  void_pointer;
    typedef typename slist_impl_t::iterator iterator;
@@ -92,34 +110,38 @@ class basic_multiallocation_chain
    {  slist_impl_.clear(); }
 
    iterator insert_after(iterator it, void_pointer m)
-   {  return slist_impl_.insert_after(it, to_node(m));   }
+   {  return slist_impl_.insert_after(it, build_node(m));   }
 
    void push_front(void_pointer m)
-   {  return slist_impl_.push_front(to_node(m));   }
+   {  return slist_impl_.push_front(build_node(m));  }
 
    void push_back(void_pointer m)
-   {  return slist_impl_.push_back(to_node(m));   }
+   {  return slist_impl_.push_back(build_node(m));   }
 
-   void pop_front()
-   {  return slist_impl_.pop_front();   }
+   void_pointer pop_front()
+   {
+      node & n = slist_impl_.front();
+      void_pointer ret = destroy_node(n);
+      slist_impl_.pop_front();
+      return ret;
+   }
 
-   void *front()
-   {  return &*slist_impl_.begin();   }
+   void splice_after(iterator after_this, basic_multiallocation_chain &x, iterator before_begin_, iterator before_end)
+   {  slist_impl_.splice_after(after_this, x.slist_impl_, before_begin_, before_end);   }
 
-   void splice_after(iterator after_this, basic_multiallocation_chain &x, iterator before_begin, iterator before_end)
-   {  slist_impl_.splice_after(after_this, x.slist_impl_, before_begin, before_end);   }
-
-   void splice_after(iterator after_this, basic_multiallocation_chain &x, iterator before_begin, iterator before_end, size_type n)
-   {  slist_impl_.splice_after(after_this, x.slist_impl_, before_begin, before_end, n);   }
+   void splice_after(iterator after_this, basic_multiallocation_chain &x, iterator before_begin_, iterator before_end, size_type n)
+   {  slist_impl_.splice_after(after_this, x.slist_impl_, before_begin_, before_end, n);   }
 
    void splice_after(iterator after_this, basic_multiallocation_chain &x)
    {  slist_impl_.splice_after(after_this, x.slist_impl_);   }
 
-   void incorporate_after(iterator after_this, void_pointer begin , iterator before_end)
-   {  slist_impl_.incorporate_after(after_this, &to_node(begin), &to_node(before_end));   }
+   void incorporate_after(iterator after_this, void_pointer begin_ , iterator before_end)
+   {
+      slist_impl_.incorporate_after(after_this, to_node_ptr(begin_), to_node_ptr(before_end));
+   }
 
-   void incorporate_after(iterator after_this, void_pointer begin, void_pointer before_end, size_type n)
-   {  slist_impl_.incorporate_after(after_this, &to_node(begin), &to_node(before_end), n);   }
+   void incorporate_after(iterator after_this, void_pointer begin_, void_pointer before_end, size_type n)
+   {  slist_impl_.incorporate_after(after_this, to_node_ptr(begin_), to_node_ptr(before_end), n);   }
 
    void swap(basic_multiallocation_chain &x)
    {  slist_impl_.swap(x.slist_impl_);   }
@@ -140,7 +162,7 @@ class basic_multiallocation_chain
 template<class T>
 struct cast_functor
 {
-   typedef typename containers_detail::add_reference<T>::type result_type;
+   typedef typename container_detail::add_reference<T>::type result_type;
    template<class U>
    result_type operator()(U &ptr) const
    {  return *static_cast<T*>(static_cast<void*>(&ptr));  }
@@ -154,19 +176,21 @@ class transform_multiallocation_chain
 
    MultiallocationChain   holder_;
    typedef typename MultiallocationChain::void_pointer   void_pointer;
-   typedef typename boost::pointer_to_other
-      <void_pointer, T>::type                            pointer;
+   typedef typename boost::intrusive::pointer_traits
+      <void_pointer>                                     void_pointer_traits;
+   typedef typename void_pointer_traits::template
+      rebind_pointer<T>::type                            pointer;
+   typedef typename boost::intrusive::pointer_traits
+      <pointer>                                          pointer_traits;
 
-   static pointer cast(void_pointer p)
-   {
-      return pointer(static_cast<T*>(containers_detail::get_pointer(p)));
-   }
+   static pointer cast(const void_pointer &p)
+   {  return pointer_traits::static_cast_from(p);  }
 
    public:
    typedef transform_iterator
       < typename MultiallocationChain::iterator
-      , containers_detail::cast_functor <T> >                 iterator;
-   typedef typename MultiallocationChain::size_type           size_type;
+      , container_detail::cast_functor <T> >             iterator;
+   typedef typename MultiallocationChain::size_type      size_type;
 
    transform_multiallocation_chain()
       : holder_()
@@ -193,17 +217,14 @@ class transform_multiallocation_chain
    void swap(transform_multiallocation_chain &other_chain)
    {  holder_.swap(other_chain.holder_); }
 
-   void splice_after(iterator after_this, transform_multiallocation_chain &x, iterator before_begin, iterator before_end, size_type n)
-   {  holder_.splice_after(after_this.base(), x.holder_, before_begin.base(), before_end.base(), n);  }
+   void splice_after(iterator after_this, transform_multiallocation_chain &x, iterator before_begin_, iterator before_end, size_type n)
+   {  holder_.splice_after(after_this.base(), x.holder_, before_begin_.base(), before_end.base(), n);  }
 
-   void incorporate_after(iterator after_this, void_pointer begin, void_pointer before_end, size_type n)
-   {  holder_.incorporate_after(after_this.base(), begin, before_end, n);  }
+   void incorporate_after(iterator after_this, pointer begin_, pointer before_end, size_type n)
+   {  holder_.incorporate_after(after_this.base(), begin_, before_end, n);  }
 
-   void pop_front()
-   {  holder_.pop_front();  }
-
-   pointer front()
-   {  return cast(holder_.front());   }
+   pointer pop_front()
+   {  return cast(holder_.pop_front());  }
 
    bool empty() const
    {  return holder_.empty(); }
@@ -232,8 +253,11 @@ class transform_multiallocation_chain
    static iterator iterator_to(pointer p)
    {  return iterator(MultiallocationChain::iterator_to(p));  }
 
-   std::pair<void_pointer, void_pointer> extract_data()
-   {  return holder_.extract_data();  }
+   std::pair<pointer, pointer> extract_data()
+   {
+      std::pair<void_pointer, void_pointer> data(holder_.extract_data());
+      return std::pair<pointer, pointer>(cast(data.first), cast(data.second));
+   }
 
    MultiallocationChain extract_multiallocation_chain()
    {
@@ -243,10 +267,10 @@ class transform_multiallocation_chain
 
 }}}
 
-// namespace containers_detail {
+// namespace container_detail {
 // namespace container {
 // namespace boost {
 
 #include <boost/container/detail/config_end.hpp>
 
-#endif   //BOOST_CONTAINERS_DETAIL_MULTIALLOCATION_CHAIN_HPP
+#endif   //BOOST_CONTAINER_DETAIL_MULTIALLOCATION_CHAIN_HPP

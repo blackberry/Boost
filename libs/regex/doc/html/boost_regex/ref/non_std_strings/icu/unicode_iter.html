@@ -22,14 +22,14 @@
 <div class="spirit-nav">
 <a accesskey="p" href="unicode_algo.html"><img src="../../../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../icu.html"><img src="../../../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../../../index.html"><img src="../../../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="../mfc_strings.html"><img src="../../../../../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
-<div class="section">
+<div class="section boost_regex_ref_non_std_strings_icu_unicode_iter">
 <div class="titlepage"><div><div><h5 class="title">
 <a name="boost_regex.ref.non_std_strings.icu.unicode_iter"></a><a class="link" href="unicode_iter.html" title="Unicode Aware Regex Iterators">Unicode
           Aware Regex Iterators</a>
 </h5></div></div></div>
-<a name="boost_regex.ref.non_std_strings.icu.unicode_iter.u32regex_iterator"></a><h5>
-<a name="boost_regex.ref.non_std_strings.icu.unicode_iter.u32regex_iterator-heading"></a>
-            <a class="link" href="unicode_iter.html#boost_regex.ref.non_std_strings.icu.unicode_iter.u32regex_iterator">u32regex_iterator</a>
+<h5>
+<a name="boost_regex.ref.non_std_strings.icu.unicode_iter.h0"></a>
+            <span><a name="boost_regex.ref.non_std_strings.icu.unicode_iter.u32regex_iterator"></a></span><a class="link" href="unicode_iter.html#boost_regex.ref.non_std_strings.icu.unicode_iter.u32regex_iterator">u32regex_iterator</a>
           </h5>
 <p>
             Type <code class="computeroutput"><span class="identifier">u32regex_iterator</span></code>
@@ -54,30 +54,30 @@
             from a string, there are a series of non-member helper functions called
             make_u32regex_iterator:
           </p>
-<pre class="programlisting"><span class="identifier">u32regex_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="keyword">char</span><span class="special">*&gt;</span> 
-   <span class="identifier">make_u32regex_iterator</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">s</span><span class="special">,</span> 
-                          <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span> 
+<pre class="programlisting"><span class="identifier">u32regex_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="keyword">char</span><span class="special">*&gt;</span>
+   <span class="identifier">make_u32regex_iterator</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">s</span><span class="special">,</span>
+                          <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span>
                           <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_flag_type</span> <span class="identifier">m</span> <span class="special">=</span> <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_default</span><span class="special">);</span>
-                          
-<span class="identifier">u32regex_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="keyword">wchar_t</span><span class="special">*&gt;</span> 
-   <span class="identifier">make_u32regex_iterator</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">wchar_t</span><span class="special">*</span> <span class="identifier">s</span><span class="special">,</span> 
-                          <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span> 
+
+<span class="identifier">u32regex_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="keyword">wchar_t</span><span class="special">*&gt;</span>
+   <span class="identifier">make_u32regex_iterator</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">wchar_t</span><span class="special">*</span> <span class="identifier">s</span><span class="special">,</span>
+                          <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span>
                           <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_flag_type</span> <span class="identifier">m</span> <span class="special">=</span> <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_default</span><span class="special">);</span>
-                          
-<span class="identifier">u32regex_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">UChar</span><span class="special">*&gt;</span> 
-   <span class="identifier">make_u32regex_iterator</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">UChar</span><span class="special">*</span> <span class="identifier">s</span><span class="special">,</span> 
-                          <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span> 
+
+<span class="identifier">u32regex_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">UChar</span><span class="special">*&gt;</span>
+   <span class="identifier">make_u32regex_iterator</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">UChar</span><span class="special">*</span> <span class="identifier">s</span><span class="special">,</span>
+                          <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span>
                           <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_flag_type</span> <span class="identifier">m</span> <span class="special">=</span> <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_default</span><span class="special">);</span>
-                          
+
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">charT</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Traits</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Alloc</span><span class="special">&gt;</span>
-<span class="identifier">u32regex_iterator</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">charT</span><span class="special">,</span> <span class="identifier">Traits</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;::</span><span class="identifier">const_iterator</span><span class="special">&gt;</span> 
-   <span class="identifier">make_u32regex_iterator</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">charT</span><span class="special">,</span> <span class="identifier">Traits</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;&amp;</span> <span class="identifier">s</span><span class="special">,</span> 
-                          <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span> 
+<span class="identifier">u32regex_iterator</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">charT</span><span class="special">,</span> <span class="identifier">Traits</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;::</span><span class="identifier">const_iterator</span><span class="special">&gt;</span>
+   <span class="identifier">make_u32regex_iterator</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">charT</span><span class="special">,</span> <span class="identifier">Traits</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;&amp;</span> <span class="identifier">s</span><span class="special">,</span>
+                          <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span>
                           <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_flag_type</span> <span class="identifier">m</span> <span class="special">=</span> <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_default</span><span class="special">);</span>
-                          
-<span class="identifier">u32regex_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">UChar</span><span class="special">*&gt;</span> 
-   <span class="identifier">make_u32regex_iterator</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">UnicodeString</span><span class="special">&amp;</span> <span class="identifier">s</span><span class="special">,</span> 
-                          <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span> 
+
+<span class="identifier">u32regex_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">UChar</span><span class="special">*&gt;</span>
+   <span class="identifier">make_u32regex_iterator</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">UnicodeString</span><span class="special">&amp;</span> <span class="identifier">s</span><span class="special">,</span>
+                          <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span>
                           <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_flag_type</span> <span class="identifier">m</span> <span class="special">=</span> <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_default</span><span class="special">);</span>
 </pre>
 <p>
@@ -93,7 +93,7 @@
 <span class="special">{</span>
    <span class="comment">// enumerate and print all the currency symbols, along</span>
    <span class="comment">// with any associated numeric values:</span>
-   <span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">re</span> <span class="special">=</span> 
+   <span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">re</span> <span class="special">=</span>
       <span class="string">"([[:Sc:]][[:Cf:][:Cc:][:Z*:]]*)?"</span>
       <span class="string">"([[:Nd:]]+(?:[[:Po:]][[:Nd:]]+)?)?"</span>
       <span class="string">"(?(1)"</span>
@@ -103,7 +103,7 @@
          <span class="string">"[[:Sc:]]"</span>
       <span class="string">")"</span><span class="special">;</span>
    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">u32regex</span> <span class="identifier">r</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">make_u32regex</span><span class="special">(</span><span class="identifier">re</span><span class="special">);</span>
-   <span class="identifier">boost</span><span class="special">::</span><span class="identifier">u32regex_iterator</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">::</span><span class="identifier">const_iterator</span><span class="special">&gt;</span> 
+   <span class="identifier">boost</span><span class="special">::</span><span class="identifier">u32regex_iterator</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">::</span><span class="identifier">const_iterator</span><span class="special">&gt;</span>
          <span class="identifier">i</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">make_u32regex_iterator</span><span class="special">(</span><span class="identifier">text</span><span class="special">,</span> <span class="identifier">r</span><span class="special">)),</span> <span class="identifier">j</span><span class="special">;</span>
    <span class="keyword">while</span><span class="special">(</span><span class="identifier">i</span> <span class="special">!=</span> <span class="identifier">j</span><span class="special">)</span>
    <span class="special">{</span>
@@ -125,9 +125,9 @@
 <p>
             Provided of course that the input is encoded as UTF-8.
           </p>
-<a name="boost_regex.ref.non_std_strings.icu.unicode_iter.u32regex_token_iterator"></a><h5>
-<a name="boost_regex.ref.non_std_strings.icu.unicode_iter.u32regex_token_iterator-heading"></a>
-            <a class="link" href="unicode_iter.html#boost_regex.ref.non_std_strings.icu.unicode_iter.u32regex_token_iterator">u32regex_token_iterator</a>
+<h5>
+<a name="boost_regex.ref.non_std_strings.icu.unicode_iter.h1"></a>
+            <span><a name="boost_regex.ref.non_std_strings.icu.unicode_iter.u32regex_token_iterator"></a></span><a class="link" href="unicode_iter.html#boost_regex.ref.non_std_strings.icu.unicode_iter.u32regex_token_iterator">u32regex_token_iterator</a>
           </h5>
 <p>
             Type <code class="computeroutput"><span class="identifier">u32regex_token_iterator</span></code>
@@ -152,40 +152,40 @@
             from a string, there are a series of non-member helper functions called
             <code class="computeroutput"><span class="identifier">make_u32regex_token_iterator</span></code>:
           </p>
-<pre class="programlisting"><span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="keyword">char</span><span class="special">*&gt;</span> 
+<pre class="programlisting"><span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="keyword">char</span><span class="special">*&gt;</span>
    <span class="identifier">make_u32regex_token_iterator</span><span class="special">(</span>
-         <span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">s</span><span class="special">,</span> 
-         <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span> 
-         <span class="keyword">int</span> <span class="identifier">sub</span><span class="special">,</span> 
+         <span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">s</span><span class="special">,</span>
+         <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span>
+         <span class="keyword">int</span> <span class="identifier">sub</span><span class="special">,</span>
          <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_flag_type</span> <span class="identifier">m</span> <span class="special">=</span> <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_default</span><span class="special">);</span>
-                               
-<span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="keyword">wchar_t</span><span class="special">*&gt;</span> 
+
+<span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="keyword">wchar_t</span><span class="special">*&gt;</span>
    <span class="identifier">make_u32regex_token_iterator</span><span class="special">(</span>
-         <span class="keyword">const</span> <span class="keyword">wchar_t</span><span class="special">*</span> <span class="identifier">s</span><span class="special">,</span> 
-         <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span> 
-         <span class="keyword">int</span> <span class="identifier">sub</span><span class="special">,</span> 
+         <span class="keyword">const</span> <span class="keyword">wchar_t</span><span class="special">*</span> <span class="identifier">s</span><span class="special">,</span>
+         <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span>
+         <span class="keyword">int</span> <span class="identifier">sub</span><span class="special">,</span>
          <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_flag_type</span> <span class="identifier">m</span> <span class="special">=</span> <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_default</span><span class="special">);</span>
-                                
-<span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">UChar</span><span class="special">*&gt;</span> 
+
+<span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">UChar</span><span class="special">*&gt;</span>
    <span class="identifier">make_u32regex_token_iterator</span><span class="special">(</span>
-         <span class="keyword">const</span> <span class="identifier">UChar</span><span class="special">*</span> <span class="identifier">s</span><span class="special">,</span> 
-         <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span> 
-         <span class="keyword">int</span> <span class="identifier">sub</span><span class="special">,</span> 
+         <span class="keyword">const</span> <span class="identifier">UChar</span><span class="special">*</span> <span class="identifier">s</span><span class="special">,</span>
+         <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span>
+         <span class="keyword">int</span> <span class="identifier">sub</span><span class="special">,</span>
          <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_flag_type</span> <span class="identifier">m</span> <span class="special">=</span> <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_default</span><span class="special">);</span>
-                                
+
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">charT</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Traits</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Alloc</span><span class="special">&gt;</span>
-<span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">charT</span><span class="special">,</span> <span class="identifier">Traits</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;::</span><span class="identifier">const_iterator</span><span class="special">&gt;</span> 
+<span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">charT</span><span class="special">,</span> <span class="identifier">Traits</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;::</span><span class="identifier">const_iterator</span><span class="special">&gt;</span>
    <span class="identifier">make_u32regex_token_iterator</span><span class="special">(</span>
-         <span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">charT</span><span class="special">,</span> <span class="identifier">Traits</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;&amp;</span> <span class="identifier">s</span><span class="special">,</span> 
-         <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span> 
-         <span class="keyword">int</span> <span class="identifier">sub</span><span class="special">,</span> 
+         <span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">charT</span><span class="special">,</span> <span class="identifier">Traits</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;&amp;</span> <span class="identifier">s</span><span class="special">,</span>
+         <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span>
+         <span class="keyword">int</span> <span class="identifier">sub</span><span class="special">,</span>
          <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_flag_type</span> <span class="identifier">m</span> <span class="special">=</span> <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_default</span><span class="special">);</span>
-                                
-<span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">UChar</span><span class="special">*&gt;</span> 
+
+<span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">UChar</span><span class="special">*&gt;</span>
    <span class="identifier">make_u32regex_token_iterator</span><span class="special">(</span>
-         <span class="keyword">const</span> <span class="identifier">UnicodeString</span><span class="special">&amp;</span> <span class="identifier">s</span><span class="special">,</span> 
-         <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span> 
-         <span class="keyword">int</span> <span class="identifier">sub</span><span class="special">,</span> 
+         <span class="keyword">const</span> <span class="identifier">UnicodeString</span><span class="special">&amp;</span> <span class="identifier">s</span><span class="special">,</span>
+         <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span>
+         <span class="keyword">int</span> <span class="identifier">sub</span><span class="special">,</span>
          <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_flag_type</span> <span class="identifier">m</span> <span class="special">=</span> <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_default</span><span class="special">);</span>
 </pre>
 <p>
@@ -194,43 +194,43 @@
             found in text <span class="emphasis"><em>s</em></span>, using match_flags <span class="emphasis"><em>m</em></span>.
           </p>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">N</span><span class="special">&gt;</span>
-<span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="keyword">char</span><span class="special">*&gt;</span> 
+<span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="keyword">char</span><span class="special">*&gt;</span>
    <span class="identifier">make_u32regex_token_iterator</span><span class="special">(</span>
-         <span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">p</span><span class="special">,</span> 
-         <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span> 
-         <span class="keyword">const</span> <span class="keyword">int</span> <span class="special">(&amp;</span><span class="identifier">submatch</span><span class="special">)[</span><span class="identifier">N</span><span class="special">],</span> 
+         <span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">p</span><span class="special">,</span>
+         <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span>
+         <span class="keyword">const</span> <span class="keyword">int</span> <span class="special">(&amp;</span><span class="identifier">submatch</span><span class="special">)[</span><span class="identifier">N</span><span class="special">],</span>
          <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_flag_type</span> <span class="identifier">m</span> <span class="special">=</span> <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_default</span><span class="special">);</span>
-                                
+
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">N</span><span class="special">&gt;</span>
-<span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="keyword">wchar_t</span><span class="special">*&gt;</span> 
+<span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="keyword">wchar_t</span><span class="special">*&gt;</span>
    <span class="identifier">make_u32regex_token_iterator</span><span class="special">(</span>
-         <span class="keyword">const</span> <span class="keyword">wchar_t</span><span class="special">*</span> <span class="identifier">p</span><span class="special">,</span> 
-         <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span> 
-         <span class="keyword">const</span> <span class="keyword">int</span> <span class="special">(&amp;</span><span class="identifier">submatch</span><span class="special">)[</span><span class="identifier">N</span><span class="special">],</span> 
+         <span class="keyword">const</span> <span class="keyword">wchar_t</span><span class="special">*</span> <span class="identifier">p</span><span class="special">,</span>
+         <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span>
+         <span class="keyword">const</span> <span class="keyword">int</span> <span class="special">(&amp;</span><span class="identifier">submatch</span><span class="special">)[</span><span class="identifier">N</span><span class="special">],</span>
          <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_flag_type</span> <span class="identifier">m</span> <span class="special">=</span> <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_default</span><span class="special">);</span>
-                                
+
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">N</span><span class="special">&gt;</span>
-<span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">UChar</span><span class="special">*&gt;</span> 
+<span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">UChar</span><span class="special">*&gt;</span>
    <span class="identifier">make_u32regex_token_iterator</span><span class="special">(</span>
-         <span class="keyword">const</span> <span class="identifier">UChar</span><span class="special">*</span> <span class="identifier">p</span><span class="special">,</span> 
-         <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span> 
-         <span class="keyword">const</span> <span class="keyword">int</span> <span class="special">(&amp;</span><span class="identifier">submatch</span><span class="special">)[</span><span class="identifier">N</span><span class="special">],</span> 
+         <span class="keyword">const</span> <span class="identifier">UChar</span><span class="special">*</span> <span class="identifier">p</span><span class="special">,</span>
+         <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span>
+         <span class="keyword">const</span> <span class="keyword">int</span> <span class="special">(&amp;</span><span class="identifier">submatch</span><span class="special">)[</span><span class="identifier">N</span><span class="special">],</span>
          <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_flag_type</span> <span class="identifier">m</span> <span class="special">=</span> <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_default</span><span class="special">);</span>
-                                
+
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">charT</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Traits</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Alloc</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">N</span><span class="special">&gt;</span>
-<span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">charT</span><span class="special">,</span> <span class="identifier">Traits</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;::</span><span class="identifier">const_iterator</span><span class="special">&gt;</span> 
+<span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">charT</span><span class="special">,</span> <span class="identifier">Traits</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;::</span><span class="identifier">const_iterator</span><span class="special">&gt;</span>
    <span class="identifier">make_u32regex_token_iterator</span><span class="special">(</span>
-         <span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">charT</span><span class="special">,</span> <span class="identifier">Traits</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;&amp;</span> <span class="identifier">p</span><span class="special">,</span> 
-         <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span> 
-         <span class="keyword">const</span> <span class="keyword">int</span> <span class="special">(&amp;</span><span class="identifier">submatch</span><span class="special">)[</span><span class="identifier">N</span><span class="special">],</span> 
+         <span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">charT</span><span class="special">,</span> <span class="identifier">Traits</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;&amp;</span> <span class="identifier">p</span><span class="special">,</span>
+         <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span>
+         <span class="keyword">const</span> <span class="keyword">int</span> <span class="special">(&amp;</span><span class="identifier">submatch</span><span class="special">)[</span><span class="identifier">N</span><span class="special">],</span>
          <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_flag_type</span> <span class="identifier">m</span> <span class="special">=</span> <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_default</span><span class="special">);</span>
-                                
+
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">N</span><span class="special">&gt;</span>
-<span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">UChar</span><span class="special">*&gt;</span> 
+<span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">UChar</span><span class="special">*&gt;</span>
    <span class="identifier">make_u32regex_token_iterator</span><span class="special">(</span>
-         <span class="keyword">const</span> <span class="identifier">UnicodeString</span><span class="special">&amp;</span> <span class="identifier">s</span><span class="special">,</span> 
-         <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span> 
-         <span class="keyword">const</span> <span class="keyword">int</span> <span class="special">(&amp;</span><span class="identifier">submatch</span><span class="special">)[</span><span class="identifier">N</span><span class="special">],</span> 
+         <span class="keyword">const</span> <span class="identifier">UnicodeString</span><span class="special">&amp;</span> <span class="identifier">s</span><span class="special">,</span>
+         <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span>
+         <span class="keyword">const</span> <span class="keyword">int</span> <span class="special">(&amp;</span><span class="identifier">submatch</span><span class="special">)[</span><span class="identifier">N</span><span class="special">],</span>
          <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_flag_type</span> <span class="identifier">m</span> <span class="special">=</span> <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_default</span><span class="special">);</span>
 </pre>
 <p>
@@ -238,40 +238,40 @@
             for each submatch in regular expression <span class="emphasis"><em>e</em></span>, found
             in text <span class="emphasis"><em>s</em></span>, using match_flags <span class="emphasis"><em>m</em></span>.
           </p>
-<pre class="programlisting"><span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="keyword">char</span><span class="special">*&gt;</span> 
+<pre class="programlisting"><span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="keyword">char</span><span class="special">*&gt;</span>
    <span class="identifier">make_u32regex_token_iterator</span><span class="special">(</span>
-         <span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">p</span><span class="special">,</span> 
-         <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span> 
-         <span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;&amp;</span> <span class="identifier">submatch</span><span class="special">,</span> 
+         <span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">p</span><span class="special">,</span>
+         <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span>
+         <span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;&amp;</span> <span class="identifier">submatch</span><span class="special">,</span>
          <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_flag_type</span> <span class="identifier">m</span> <span class="special">=</span> <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_default</span><span class="special">);</span>
-                                
-<span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="keyword">wchar_t</span><span class="special">*&gt;</span> 
+
+<span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="keyword">wchar_t</span><span class="special">*&gt;</span>
    <span class="identifier">make_u32regex_token_iterator</span><span class="special">(</span>
-         <span class="keyword">const</span> <span class="keyword">wchar_t</span><span class="special">*</span> <span class="identifier">p</span><span class="special">,</span> 
-         <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span> 
-         <span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;&amp;</span> <span class="identifier">submatch</span><span class="special">,</span> 
+         <span class="keyword">const</span> <span class="keyword">wchar_t</span><span class="special">*</span> <span class="identifier">p</span><span class="special">,</span>
+         <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span>
+         <span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;&amp;</span> <span class="identifier">submatch</span><span class="special">,</span>
          <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_flag_type</span> <span class="identifier">m</span> <span class="special">=</span> <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_default</span><span class="special">);</span>
-                                
-<span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">UChar</span><span class="special">*&gt;</span> 
+
+<span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">UChar</span><span class="special">*&gt;</span>
    <span class="identifier">make_u32regex_token_iterator</span><span class="special">(</span>
-         <span class="keyword">const</span> <span class="identifier">UChar</span><span class="special">*</span> <span class="identifier">p</span><span class="special">,</span> 
-         <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span> 
-         <span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;&amp;</span> <span class="identifier">submatch</span><span class="special">,</span> 
+         <span class="keyword">const</span> <span class="identifier">UChar</span><span class="special">*</span> <span class="identifier">p</span><span class="special">,</span>
+         <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span>
+         <span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;&amp;</span> <span class="identifier">submatch</span><span class="special">,</span>
          <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_flag_type</span> <span class="identifier">m</span> <span class="special">=</span> <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_default</span><span class="special">);</span>
-                                
+
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">charT</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Traits</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Alloc</span><span class="special">&gt;</span>
-<span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">charT</span><span class="special">,</span> <span class="identifier">Traits</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;::</span><span class="identifier">const_iterator</span><span class="special">&gt;</span> 
+<span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">charT</span><span class="special">,</span> <span class="identifier">Traits</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;::</span><span class="identifier">const_iterator</span><span class="special">&gt;</span>
    <span class="identifier">make_u32regex_token_iterator</span><span class="special">(</span>
-         <span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">charT</span><span class="special">,</span> <span class="identifier">Traits</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;&amp;</span> <span class="identifier">p</span><span class="special">,</span> 
-         <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span> 
-         <span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;&amp;</span> <span class="identifier">submatch</span><span class="special">,</span> 
+         <span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span><span class="special">&lt;</span><span class="identifier">charT</span><span class="special">,</span> <span class="identifier">Traits</span><span class="special">,</span> <span class="identifier">Alloc</span><span class="special">&gt;&amp;</span> <span class="identifier">p</span><span class="special">,</span>
+         <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span>
+         <span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;&amp;</span> <span class="identifier">submatch</span><span class="special">,</span>
          <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_flag_type</span> <span class="identifier">m</span> <span class="special">=</span> <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_default</span><span class="special">);</span>
-                                
-<span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">UChar</span><span class="special">*&gt;</span> 
+
+<span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">UChar</span><span class="special">*&gt;</span>
    <span class="identifier">make_u32regex_token_iterator</span><span class="special">(</span>
-         <span class="keyword">const</span> <span class="identifier">UnicodeString</span><span class="special">&amp;</span> <span class="identifier">s</span><span class="special">,</span> 
-         <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span> 
-         <span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;&amp;</span> <span class="identifier">submatch</span><span class="special">,</span> 
+         <span class="keyword">const</span> <span class="identifier">UnicodeString</span><span class="special">&amp;</span> <span class="identifier">s</span><span class="special">,</span>
+         <span class="keyword">const</span> <span class="identifier">u32regex</span><span class="special">&amp;</span> <span class="identifier">e</span><span class="special">,</span>
+         <span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;&amp;</span> <span class="identifier">submatch</span><span class="special">,</span>
          <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_flag_type</span> <span class="identifier">m</span> <span class="special">=</span> <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_default</span><span class="special">);</span>
 </pre>
 <p>
@@ -287,7 +287,7 @@
 <span class="special">{</span>
    <span class="comment">// enumerate and print all the currency symbols, along</span>
    <span class="comment">// with any associated numeric values:</span>
-   <span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">re</span> <span class="special">=</span> 
+   <span class="keyword">const</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">re</span> <span class="special">=</span>
       <span class="string">"([[:Sc:]][[:Cf:][:Cc:][:Z*:]]*)?"</span>
       <span class="string">"([[:Nd:]]+(?:[[:Po:]][[:Nd:]]+)?)?"</span>
       <span class="string">"(?(1)"</span>
@@ -297,7 +297,7 @@
          <span class="string">"[[:Sc:]]"</span>
       <span class="string">")"</span><span class="special">;</span>
    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">u32regex</span> <span class="identifier">r</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">make_u32regex</span><span class="special">(</span><span class="identifier">re</span><span class="special">);</span>
-   <span class="identifier">boost</span><span class="special">::</span><span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">::</span><span class="identifier">const_iterator</span><span class="special">&gt;</span> 
+   <span class="identifier">boost</span><span class="special">::</span><span class="identifier">u32regex_token_iterator</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">::</span><span class="identifier">const_iterator</span><span class="special">&gt;</span>
       <span class="identifier">i</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">make_u32regex_token_iterator</span><span class="special">(</span><span class="identifier">text</span><span class="special">,</span> <span class="identifier">r</span><span class="special">,</span> <span class="number">1</span><span class="special">)),</span> <span class="identifier">j</span><span class="special">;</span>
    <span class="keyword">while</span><span class="special">(</span><span class="identifier">i</span> <span class="special">!=</span> <span class="identifier">j</span><span class="special">)</span>
    <span class="special">{</span>

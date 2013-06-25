@@ -15,6 +15,6 @@
 
 #include <boost/ratio/ratio.hpp>
 
-typedef boost::ratio<BOOST_RATIO_INTMAX_C(0x7FFFFFFFFFFFFFFF), 1> R1;
+typedef boost::ratio<BOOST_RATIO_INTMAX_T_MAX, 1> R1;
 typedef boost::ratio<1,2> R2;
 typedef boost::ratio_divide<R1, R2>::type RT;

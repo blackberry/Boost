@@ -1,7 +1,7 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 
-// Copyright (c) 2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2011 Akira Takahashi
+// Copyright (c) 2011-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2011-2012 Akira Takahashi
 
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -18,7 +18,7 @@
 #include <boost/geometry/geometries/adapted/boost_fusion.hpp>
 
 #include <boost/geometry/strategies/strategies.hpp>
-#include <boost/geometry/util/write_dsv.hpp>
+#include <boost/geometry/io/dsv/write.hpp>
 
 BOOST_GEOMETRY_REGISTER_BOOST_FUSION_CS(cs::cartesian);
 

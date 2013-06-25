@@ -2,7 +2,7 @@
     Boost.Wave: A Standard compliant C++ preprocessor library
     http://www.boost.org/
 
-    Copyright (c) 2001-2011 Hartmut Kaiser. Distributed under the Boost
+    Copyright (c) 2001-2012 Hartmut Kaiser. Distributed under the Boost
     Software License, Version 1.0. (See accompanying file
     LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
@@ -19,7 +19,7 @@
 
 #define CPP_VERSION_FULL_STR        BOOST_PP_STRINGIZE(CPP_VERSION_FULL)
 
-#define CPP_VERSION_DATE            20110507L
-#define CPP_VERSION_DATE_STR        "20110507"
+#define CPP_VERSION_DATE            20120523L
+#define CPP_VERSION_DATE_STR        "20120523"
 
 #endif // !defined(CPP_VERSION_HPP_CE4FE67F_63F9_468D_8364_C855F89D3C5D_INCLUDED)

@@ -1,9 +1,9 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # ===========================================================================
-#  Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-#  Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-#  Copyright (c) 2009-2011 Mateusz Loskot (mateusz@loskot.net), London, UK
+#  Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+#  Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+#  Copyright (c) 2009-2012 Mateusz Loskot (mateusz@loskot.net), London, UK
 # 
 #  Use, modification and distribution is subject to the Boost Software License,
 #  Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -68,12 +68,12 @@ def cs_to_quickbook(section):
 call_doxygen()
 
 algorithms = ["append", "assign", "make", "clear"
-    , "area", "buffer", "centroid", "convert", "correct"
+    , "area", "buffer", "centroid", "convert", "correct", "covered_by"
     , "convex_hull", "difference", "disjoint", "distance" 
     , "envelope", "equals", "expand", "for_each", "intersection", "intersects" 
     , "length", "num_geometries", "num_interior_rings", "num_points" 
     , "overlaps", "perimeter", "reverse", "simplify", "sym_difference" 
-    , "transform", "union", "unique", "within"]
+    , "touches", "transform", "union", "unique", "within"]
 
 access_functions = ["get", "set", "exterior_ring", "interior_rings"
     , "num_points", "num_interior_rings", "num_geometries"]
@@ -148,4 +148,4 @@ group_to_quickbook("arithmetic")
 group_to_quickbook("register")
 group_to_quickbook("enum")
 
-os.system("bjam") 
+os.system("../../../b2") 

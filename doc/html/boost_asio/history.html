@@ -28,6 +28,138 @@
 </h2></div></div></div>
 <h4>
 <a name="boost_asio.history.h0"></a>
+      <span><a name="boost_asio.history.asio_1_8_2___boost_1_51"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_8_2___boost_1_51">Asio
+      1.8.2 / Boost 1.51</a>
+    </h4>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+          Fixed an incompatibility between <code class="computeroutput"><span class="identifier">ip</span><span class="special">::</span><span class="identifier">tcp</span><span class="special">::</span><span class="identifier">iostream</span></code>
+          and C++11 (<a href="https://svn.boost.org/trac/boost/ticket/7162" target="_top">#7162</a>).
+        </li>
+<li class="listitem">
+          Decorated GCC attribute names with underscores to prevent interaction with
+          user-defined macros (<a href="https://svn.boost.org/trac/boost/ticket/6415" target="_top">#6415</a>).
+        </li>
+<li class="listitem">
+          Added missing <code class="computeroutput"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">cctype</span><span class="special">&gt;</span></code>, needed for some versions of MinGW.
+        </li>
+<li class="listitem">
+          Changed to use <code class="literal">gcc</code>'s atomic builtins on ARM CPUs, when
+          available (<a href="https://svn.boost.org/trac/boost/ticket/7140" target="_top">#7140</a>).
+        </li>
+<li class="listitem">
+          Changed strand destruction to be a no-op, to allow strand objects to be
+          destroyed after their associated <code class="computeroutput"><span class="identifier">io_service</span></code>
+          has been destroyed.
+        </li>
+<li class="listitem">
+          Added support for some newer versions of glibc which provide the <code class="computeroutput"><span class="identifier">epoll_create1</span><span class="special">()</span></code>
+          function but always fail with <code class="computeroutput"><span class="identifier">ENOSYS</span></code>
+          (<a href="https://svn.boost.org/trac/boost/ticket/7012" target="_top">#7012</a>).
+        </li>
+<li class="listitem">
+          Changed the SSL implementation to throw an exception if SSL engine initialisation
+          fails (<a href="https://svn.boost.org/trac/boost/ticket/6303" target="_top">#6303</a>).
+        </li>
+<li class="listitem">
+          Fixed another regression in <code class="computeroutput"><span class="identifier">buffered_write_stream</span></code>
+          (<a href="https://svn.boost.org/trac/boost/ticket/6310" target="_top">#6310</a>).
+        </li>
+<li class="listitem">
+          Implemented various minor performance improvements, primarily targeted
+          at Linux x86 and x86-64 platforms.
+        </li>
+</ul></div>
+<h4>
+<a name="boost_asio.history.h1"></a>
+      <span><a name="boost_asio.history.asio_1_8_1___boost_1_50"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_8_1___boost_1_50">Asio
+      1.8.1 / Boost 1.50</a>
+    </h4>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+          Changed the <code class="computeroutput"><span class="identifier">epoll_reactor</span></code>
+          backend to do lazy registration for <code class="computeroutput"><span class="identifier">EPOLLOUT</span></code>
+          events.
+        </li>
+<li class="listitem">
+          Fixed the <code class="computeroutput"><span class="identifier">epoll_reactor</span></code>
+          handling of out-of-band data, which was broken by an incomplete fix in
+          the last release.
+        </li>
+<li class="listitem">
+          Changed Asio's SSL wrapper to respect OpenSSL's <code class="computeroutput"><span class="identifier">OPENSSL_NO_ENGINE</span></code>
+          feature test <code class="computeroutput"><span class="preprocessor">#define</span></code>
+          (<a href="https://svn.boost.org/trac/boost/ticket/6432" target="_top">#6432</a>).
+        </li>
+<li class="listitem">
+          Fixed <code class="computeroutput"><span class="identifier">windows</span><span class="special">::</span><span class="identifier">object_handle</span></code> so that it works with Windows
+          compilers that support C++11 move semantics (such as <code class="literal">g++</code>).
+        </li>
+<li class="listitem">
+          Improved the performance of strand rescheduling.
+        </li>
+<li class="listitem">
+          Added support for <code class="literal">g++</code> 4.7 when compiling in C++11 mode
+          (<a href="https://svn.boost.org/trac/boost/ticket/6620" target="_top">#6620</a>).
+        </li>
+<li class="listitem">
+          Fixed a problem where <code class="computeroutput"><span class="identifier">signal_set</span></code>
+          handlers were not being delivered when the <code class="computeroutput"><span class="identifier">io_service</span></code>
+          was constructed with a <code class="computeroutput"><span class="identifier">concurrency_hint</span></code>
+          of 1 (<a href="https://svn.boost.org/trac/boost/ticket/6657" target="_top">#6657</a>).
+        </li>
+</ul></div>
+<h4>
+<a name="boost_asio.history.h2"></a>
+      <span><a name="boost_asio.history.asio_1_8_0___boost_1_49"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_8_0___boost_1_49">Asio
+      1.8.0 / Boost 1.49</a>
+    </h4>
+<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<li class="listitem">
+          Added a new class template <code class="computeroutput"><span class="identifier">basic_waitable_timer</span></code>
+          based around the C++11 clock type requirements. It may be used with the
+          clocks from the C++11 <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">chrono</span><span class="special">&gt;</span></code>
+          library facility or, if those are not available, Boost.Chrono. The typedefs
+          <code class="computeroutput"><span class="identifier">high_resolution_timer</span></code>,
+          <code class="computeroutput"><span class="identifier">steady_timer</span></code> and <code class="computeroutput"><span class="identifier">system_timer</span></code> may be used to create timer
+          objects for the standard clock types.
+        </li>
+<li class="listitem">
+          Added a new <code class="computeroutput"><span class="identifier">windows</span><span class="special">::</span><span class="identifier">object_handle</span></code> class for performing waits
+          on Windows kernel objects. Thanks go to Boris Schaeling for contributing
+          substantially to the development of this feature.
+        </li>
+<li class="listitem">
+          On Linux, <code class="computeroutput"><span class="identifier">connect</span><span class="special">()</span></code>
+          can return EAGAIN in certain circumstances. Remapped this to another error
+          so that it doesn't look like a non-blocking operation (<a href="https://svn.boost.org/trac/boost/ticket/6048" target="_top">#6048</a>).
+        </li>
+<li class="listitem">
+          Fixed a compile error on NetBSD (<a href="https://svn.boost.org/trac/boost/ticket/6098" target="_top">#6098</a>).
+        </li>
+<li class="listitem">
+          Fixed deadlock on Mac OS X (<a href="https://svn.boost.org/trac/boost/ticket/6275" target="_top">#6275</a>).
+        </li>
+<li class="listitem">
+          Fixed a regression in <code class="computeroutput"><span class="identifier">buffered_write_stream</span></code>
+          (<a href="https://svn.boost.org/trac/boost/ticket/6310" target="_top">#6310</a>).
+        </li>
+<li class="listitem">
+          Fixed a non-paged pool "leak" on Windows when an <code class="computeroutput"><span class="identifier">io_service</span></code> is repeatedly run without
+          anything to do (<a href="https://svn.boost.org/trac/boost/ticket/6321" target="_top">#6321</a>).
+        </li>
+<li class="listitem">
+          Reverted earlier change to allow some speculative operations to be performed
+          without holding the lock, as it introduced a race condition in some multithreaded
+          scenarios.
+        </li>
+<li class="listitem">
+          Fixed a bug where the second buffer in an array of two buffers may be ignored
+          if the first buffer is empty.
+        </li>
+</ul></div>
+<h4>
+<a name="boost_asio.history.h3"></a>
       <span><a name="boost_asio.history.asio_1_6_1___boost_1_48"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_6_1___boost_1_48">Asio
       1.6.1 / Boost 1.48</a>
     </h4>
@@ -87,7 +219,7 @@
           type.
         </li>
 <li class="listitem">
-          Fixed a crash due that occurs when using the Intel C++ compiler (<a href="https://svn.boost.org/trac/boost/ticket/5763" target="_top">#5763</a>).
+          Fixed a crash that occurs when using the Intel C++ compiler (<a href="https://svn.boost.org/trac/boost/ticket/5763" target="_top">#5763</a>).
         </li>
 <li class="listitem">
           Changed the initialisation of the OpenSSL library so that it supports all
@@ -121,7 +253,7 @@
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h1"></a>
+<a name="boost_asio.history.h4"></a>
       <span><a name="boost_asio.history.asio_1_6_0___boost_1_47"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_6_0___boost_1_47">Asio
       1.6.0 / Boost 1.47</a>
     </h4>
@@ -353,7 +485,7 @@
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h2"></a>
+<a name="boost_asio.history.h5"></a>
       <span><a name="boost_asio.history.asio_1_4_9___boost_1_46_1"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_4_9___boost_1_46_1">Asio
       1.4.9 / Boost 1.46.1</a>
     </h4>
@@ -385,7 +517,7 @@
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h3"></a>
+<a name="boost_asio.history.h6"></a>
       <span><a name="boost_asio.history.asio_1_4_8___boost_1_46"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_4_8___boost_1_46">Asio
       1.4.8 / Boost 1.46</a>
     </h4>
@@ -400,7 +532,7 @@
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h4"></a>
+<a name="boost_asio.history.h7"></a>
       <span><a name="boost_asio.history.asio_1_4_7___boost_1_45"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_4_7___boost_1_45">Asio
       1.4.7 / Boost 1.45</a>
     </h4>
@@ -482,7 +614,7 @@
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h5"></a>
+<a name="boost_asio.history.h8"></a>
       <span><a name="boost_asio.history.asio_1_4_6___boost_1_44"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_4_6___boost_1_44">Asio
       1.4.6 / Boost 1.44</a>
     </h4>
@@ -558,7 +690,7 @@
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h6"></a>
+<a name="boost_asio.history.h9"></a>
       <span><a name="boost_asio.history.asio_1_4_5___boost_1_43"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_4_5___boost_1_43">Asio
       1.4.5 / Boost 1.43</a>
     </h4>
@@ -625,7 +757,7 @@
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h7"></a>
+<a name="boost_asio.history.h10"></a>
       <span><a name="boost_asio.history.asio_1_4_4___boost_1_42"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_4_4___boost_1_42">Asio
       1.4.4 / Boost 1.42</a>
     </h4>
@@ -690,7 +822,7 @@
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h8"></a>
+<a name="boost_asio.history.h11"></a>
       <span><a name="boost_asio.history.asio_1_4_3___boost_1_40"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_4_3___boost_1_40">Asio
       1.4.3 / Boost 1.40</a>
     </h4>
@@ -747,7 +879,7 @@
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h9"></a>
+<a name="boost_asio.history.h12"></a>
       <span><a name="boost_asio.history.asio_1_4_2___boost_1_39"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_4_2___boost_1_39">Asio
       1.4.2 / Boost 1.39</a>
     </h4>
@@ -799,7 +931,7 @@
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h10"></a>
+<a name="boost_asio.history.h13"></a>
       <span><a name="boost_asio.history.asio_1_4_1___boost_1_38"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_4_1___boost_1_38">Asio
       1.4.1 / Boost 1.38</a>
     </h4>
@@ -831,7 +963,7 @@
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h11"></a>
+<a name="boost_asio.history.h14"></a>
       <span><a name="boost_asio.history.asio_1_4_0___boost_1_37"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_4_0___boost_1_37">Asio
       1.4.0 / Boost 1.37</a>
     </h4>
@@ -866,7 +998,7 @@
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h12"></a>
+<a name="boost_asio.history.h15"></a>
       <span><a name="boost_asio.history.asio_1_2_0___boost_1_36"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_2_0___boost_1_36">Asio
       1.2.0 / Boost 1.36</a>
     </h4>
@@ -919,7 +1051,7 @@
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h13"></a>
+<a name="boost_asio.history.h16"></a>
       <span><a name="boost_asio.history.asio_1_0_0___boost_1_35"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_0_0___boost_1_35">Asio
       1.0.0 / Boost 1.35</a>
     </h4>
@@ -929,8 +1061,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2011 Christopher
-      M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2012 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

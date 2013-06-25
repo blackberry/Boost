@@ -96,7 +96,7 @@ all pairs edges convolutions and the all pairs of polygons to point
 convolutions.&nbsp; First we implement a function that convolves all pairs of 
 edges represented by iterator pairs over points.&nbsp; We assume that the first 
 point is equal to the last point in each sequence because we know the polygons 
-that gave rise to the iterators were produced by the Boost.Polygon algorithm for 
+that gave rise to the iterators were produce by the Boost.Polygon algorithm for 
 general polygon formation.</p>
 <p><font face="Courier New" size="2">template &lt;typename itrT1, typename itrT2&gt;<br>
 void convolve_two_point_sequences(polygon_set&amp; result, itrT1 ab, itrT1 ae, itrT2 
@@ -177,7 +177,7 @@ end_points(*itrh), b_polygons);<br>
 &nbsp;&nbsp;&nbsp; }<br>
 &nbsp; }<br>
 }</font></p>
-<p>We test the convolution of two polygon sets with the code shown below that 
+<p>We test the convolution of two polygon set with the code shown below that 
 produces the first example shown in this tutorial.<font face="Courier New" size="2">
 </font></p>
 <p><font face="Courier New" size="2">polygon_set a, b, c;<br>
@@ -197,6 +197,7 @@ pts.push_back(point(-40, 0+300));<br>
 polygon poly;<br>
 boost::polygon::set_points(poly, pts.begin(), pts.end());<br>
 b+=poly;<br>
+polys.clear();<br>
 convolve_two_polygon_sets(c, a, b);</font></p>
 <p>Output (a is blue, b is green and c is red):</p>
 <p><img border="0" src="images/convolution1.PNG" width="438" height="404"></p>

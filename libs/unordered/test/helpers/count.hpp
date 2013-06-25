@@ -52,30 +52,22 @@ namespace test {
         }
     };
 
-    template <class T>
-    struct counted_object
-    {
-        static object_count count_;
-
-        counted_object() { count_.construct(); }
-        counted_object(counted_object const&) { count_.construct(); }
-        ~counted_object() { count_.destruct(); }
-    };
-
-    template <class T> object_count counted_object<T>::count_;
-
-    struct globally_counted_object
-        : counted_object<globally_counted_object> {};
-
     // This won't be a problem as I'm only using a single compile unit
     // in each test (this is actually require by the minimal test
     // framework).
     // 
     // boostinspect:nounnamed
     namespace {
-        object_count& global_object_count = globally_counted_object::count_;
+        object_count global_object_count;
     }
     
+    struct counted_object
+    {
+        counted_object() { global_object_count.construct(); }
+        counted_object(counted_object const&) { global_object_count.construct(); }
+        ~counted_object() { global_object_count.destruct(); }
+    };
+
     struct check_instances {
         int instances;
         

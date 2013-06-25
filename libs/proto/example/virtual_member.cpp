@@ -75,7 +75,7 @@ namespace mini_lambda
         static const value_type value = N::value;
     };
 
-    // Some keyword types for our lambda DSEL
+    // Some keyword types for our lambda EDSL
     namespace keyword
     {
         struct if_ {};
@@ -87,27 +87,7 @@ namespace mini_lambda
     }
 
     // Forward declaration for the mini-lambda grammar
-    struct grammar;
-
-    // A callable PolymorphicFunctionObject that evaluates
-    // if/then/else expressions.
-    struct eval_if_else : proto::callable
-    {
-        typedef void result_type;
-
-        template<typename If, typename Then, typename Else, typename Args>
-        void operator()(If const &if_, Then const &then_, Else const &else_, Args const &args) const
-        {
-            if(grammar()(if_, 0, args))
-            {
-                grammar()(then_, 0, args);
-            }
-            else
-            {
-                grammar()(else_, 0, args);
-            }
-        }
-    };
+    struct eval_if_else;
 
     // Forward declaration for the mini-lambda expression wrapper
     template<class E>
@@ -155,6 +135,26 @@ namespace mini_lambda
             >
         >
     {};
+
+    // A callable PolymorphicFunctionObject that evaluates
+    // if/then/else expressions.
+    struct eval_if_else : proto::callable
+    {
+        typedef void result_type;
+
+        template<typename If, typename Then, typename Else, typename Args>
+        void operator()(If const &if_, Then const &then_, Else const &else_, Args const &args) const
+        {
+            if(grammar()(if_, 0, args))
+            {
+                grammar()(then_, 0, args);
+            }
+            else
+            {
+                grammar()(else_, 0, args);
+            }
+        }
+    };
 
     // Define the mini-lambda domain, in which all expressions are
     // wrapped in mini_lambda::expression.

@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2004-2011. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2004-2012. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -21,9 +21,8 @@
 int main ()
 {
    using namespace boost::interprocess;
-
-   test::test_mutex_lock_timeout<true, interprocess_mutex>();
-   test::test_mutex_lock_timeout<true, interprocess_recursive_mutex>();
+   test::test_mutex_lock_timeout<interprocess_mutex>();
+   test::test_mutex_lock_timeout<interprocess_recursive_mutex>();
 
    return 0;
 }

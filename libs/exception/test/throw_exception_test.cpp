@@ -22,9 +22,6 @@ exception2:
     std::exception,
     boost::exception
     {
-#if defined(__QNX__)
-        ~exception2() throw() {}
-#endif
     };
 
 void

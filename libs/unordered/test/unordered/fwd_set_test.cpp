@@ -4,8 +4,8 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 #include "../helpers/prefix.hpp"
-
 #include <boost/unordered/unordered_set_fwd.hpp>
+#include "../helpers/postfix.hpp"
 
 struct true_type { char x[100]; };
 struct false_type { char x; };

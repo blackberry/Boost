@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2006-2009
+// (C) Copyright Ion Gaztanaga  2006-2012
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -33,7 +33,7 @@ typedef list<MyClass>   BaseList;
 
 //Define a list that will store MyClass using the public member hook
 typedef list< MyClass
-            , member_hook< MyClass, list_member_hook<>, &MyClass::member_hook_> 
+            , member_hook< MyClass, list_member_hook<>, &MyClass::member_hook_>
             > MemberList;
 
 int main()

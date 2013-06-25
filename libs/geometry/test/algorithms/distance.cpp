@@ -1,9 +1,9 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 // Unit Test
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -194,7 +194,11 @@ void test_all()
     test_geometry<P, P>("POINT(0 3)", "POINT(4 0)", 5.0);
     test_geometry<P, bg::model::linestring<P> >("POINT(1 3)", "LINESTRING(1 1,4 4)", sqrt(2.0));
     test_geometry<P, bg::model::linestring<P> >("POINT(3 1)", "LINESTRING(1 1,4 4)", sqrt(2.0));
+    test_geometry<P, bg::model::linestring<P> >("POINT(50 50)", "LINESTRING(50 40, 40 50)", sqrt(50.0));
+    test_geometry<P, bg::model::linestring<P> >("POINT(50 50)", "LINESTRING(50 40, 40 50, 0 90)", sqrt(50.0));
     test_geometry<bg::model::linestring<P>, P>("LINESTRING(1 1,4 4)", "POINT(1 3)", sqrt(2.0));
+    test_geometry<bg::model::linestring<P>, P>("LINESTRING(50 40, 40 50)", "POINT(50 50)", sqrt(50.0));
+    test_geometry<bg::model::linestring<P>, P>("LINESTRING(50 40, 40 50, 0 90)", "POINT(50 50)", sqrt(50.0));
 
     // Rings
     test_geometry<P, bg::model::ring<P> >("POINT(1 3)", "POLYGON((1 1,4 4,5 0,1 1))", sqrt(2.0));
@@ -221,11 +225,70 @@ void test_all()
     // open
     test_geometry<P, bg::model::polygon<P, true, false> >("POINT(2 2)", "POLYGON ((0 0,1 9,8 1),(1 1,4 1,1 4))", 0.5 * sqrt(2.0));
 
+    // Should (currently) give compiler assertion
+    // test_geometry<bg::model::polygon<P>, bg::model::polygon<P> >(donut, donut, 0.5 * sqrt(2.0));
 
     // DOES NOT COMPILE - cannot do read_wkt (because boost::array is not variably sized)
     // test_geometry<P, boost::array<P, 2> >("POINT(3 1)", "LINESTRING(1 1,4 4)", sqrt(2.0));
 
     test_geometry<P, test::wrapped_boost_array<P, 2> >("POINT(3 1)", "LINESTRING(1 1,4 4)", sqrt(2.0));
+
+}
+
+template <typename P>
+void test_empty_input()
+{
+    P p;
+    bg::model::linestring<P> line_empty;
+    bg::model::polygon<P> poly_empty;
+    bg::model::ring<P> ring_empty;
+
+    test_empty_input(p, line_empty);
+    test_empty_input(p, poly_empty);
+    test_empty_input(p, ring_empty);
+}
+
+void test_large_integers()
+{
+    typedef bg::model::point<int, 2, bg::cs::cartesian> int_point_type;
+    typedef bg::model::point<double, 2, bg::cs::cartesian> double_point_type;
+
+    // point-point
+    {
+        std::string const a = "POINT(2544000 528000)";
+        std::string const b = "POINT(2768040 528000)";
+        int_point_type ia, ib;
+        double_point_type da, db;
+        bg::read_wkt(a, ia);
+        bg::read_wkt(b, ib);
+        bg::read_wkt(a, da);
+        bg::read_wkt(b, db);
+
+        BOOST_AUTO(idist, bg::distance(ia, ib));
+        BOOST_AUTO(ddist, bg::distance(da, db));
+
+        BOOST_CHECK_MESSAGE(std::abs(idist - ddist) < 0.1, 
+                "within<a double> different from within<an int>");
+    }
+    // Point-segment
+    {
+        std::string const a = "POINT(2600000 529000)";
+        std::string const b = "LINESTRING(2544000 528000, 2768040 528000)";
+        int_point_type ia;
+        double_point_type da;
+        bg::model::segment<int_point_type> ib;
+        bg::model::segment<double_point_type> db;
+        bg::read_wkt(a, ia);
+        bg::read_wkt(b, ib);
+        bg::read_wkt(a, da);
+        bg::read_wkt(b, db);
+
+        BOOST_AUTO(idist, bg::distance(ia, ib));
+        BOOST_AUTO(ddist, bg::distance(da, db));
+
+        BOOST_CHECK_MESSAGE(std::abs(idist - ddist) < 0.1, 
+                "within<a double> different from within<an int>");
+    }
 }
 
 int test_main(int, char* [])
@@ -237,6 +300,8 @@ int test_main(int, char* [])
     //test_all<test::test_point>(); // located here because of 3D
 #endif
 
+    test_large_integers();
+
     test_all<bg::model::d2::point_xy<int> >();
     test_all<boost::tuple<float, float> >();
     test_all<bg::model::d2::point_xy<float> >();
@@ -245,6 +310,8 @@ int test_main(int, char* [])
 #ifdef HAVE_TTMATH
     test_all<bg::model::d2::point_xy<ttmath_big> >();
 #endif
+
+    test_empty_input<bg::model::d2::point_xy<int> >();
 
     return 0;
 }

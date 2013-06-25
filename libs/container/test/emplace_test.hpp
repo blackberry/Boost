@@ -157,7 +157,7 @@ static EmplaceIntPair * expected_pair = initialize_emplace_int_pair();
 
 
 template<class Container>
-bool test_emplace_back(containers_detail::true_)
+bool test_emplace_back(container_detail::true_)
 {
    std::cout << "Starting test_emplace_back." << std::endl << "  Class: "
       << typeid(Container).name() << std::endl;
@@ -194,11 +194,11 @@ bool test_emplace_back(containers_detail::true_)
 }
 
 template<class Container>
-bool test_emplace_back(containers_detail::false_)
+bool test_emplace_back(container_detail::false_)
 {  return true;   }
 
 template<class Container>
-bool test_emplace_front(containers_detail::true_)
+bool test_emplace_front(container_detail::true_)
 {
    std::cout << "Starting test_emplace_front." << std::endl << "  Class: "
       << typeid(Container).name() << std::endl;
@@ -234,11 +234,11 @@ bool test_emplace_front(containers_detail::true_)
 }
 
 template<class Container>
-bool test_emplace_front(containers_detail::false_)
+bool test_emplace_front(container_detail::false_)
 {  return true;   }
 
 template<class Container>
-bool test_emplace_before(containers_detail::true_)
+bool test_emplace_before(container_detail::true_)
 {
    std::cout << "Starting test_emplace_before." << std::endl << "  Class: "
       << typeid(Container).name() << std::endl;
@@ -309,11 +309,11 @@ bool test_emplace_before(containers_detail::true_)
 }
 
 template<class Container>
-bool test_emplace_before(containers_detail::false_)
+bool test_emplace_before(container_detail::false_)
 {  return true;   }
 
 template<class Container>
-bool test_emplace_after(containers_detail::true_)
+bool test_emplace_after(container_detail::true_)
 {
    std::cout << "Starting test_emplace_after." << std::endl << "  Class: "
       << typeid(Container).name() << std::endl;
@@ -383,11 +383,11 @@ bool test_emplace_after(containers_detail::true_)
 }
 
 template<class Container>
-bool test_emplace_after(containers_detail::false_)
+bool test_emplace_after(container_detail::false_)
 {  return true;   }
 
 template<class Container>
-bool test_emplace_assoc(containers_detail::true_)
+bool test_emplace_assoc(container_detail::true_)
 {
    std::cout << "Starting test_emplace_assoc." << std::endl << "  Class: "
       << typeid(Container).name() << std::endl;
@@ -423,11 +423,11 @@ bool test_emplace_assoc(containers_detail::true_)
 }
 
 template<class Container>
-bool test_emplace_assoc(containers_detail::false_)
+bool test_emplace_assoc(container_detail::false_)
 {  return true;   }
 
 template<class Container>
-bool test_emplace_hint(containers_detail::true_)
+bool test_emplace_hint(container_detail::true_)
 {
    std::cout << "Starting test_emplace_hint." << std::endl << "  Class: "
       << typeid(Container).name() << std::endl;
@@ -466,11 +466,11 @@ bool test_emplace_hint(containers_detail::true_)
 }
 
 template<class Container>
-bool test_emplace_hint(containers_detail::false_)
+bool test_emplace_hint(container_detail::false_)
 {  return true;   }
 
 template<class Container>
-bool test_emplace_assoc_pair(containers_detail::true_)
+bool test_emplace_assoc_pair(container_detail::true_)
 {
    std::cout << "Starting test_emplace_assoc_pair." << std::endl << "  Class: "
       << typeid(Container).name() << std::endl;
@@ -478,15 +478,9 @@ bool test_emplace_assoc_pair(containers_detail::true_)
    new(&expected_pair[0].first) EmplaceInt();
    new(&expected_pair[0].second) EmplaceInt();
    new(&expected_pair[1].first) EmplaceInt(1);
-   new(&expected_pair[1].second) EmplaceInt();
+   new(&expected_pair[1].second) EmplaceInt(1);
    new(&expected_pair[2].first) EmplaceInt(2);
    new(&expected_pair[2].second) EmplaceInt(2);
-   new(&expected_pair[3].first) EmplaceInt(3);
-   new(&expected_pair[3].second) EmplaceInt(2, 3);
-   new(&expected_pair[4].first) EmplaceInt(4);
-   new(&expected_pair[4].second) EmplaceInt(2, 3, 4);
-   new(&expected_pair[5].first) EmplaceInt(5);
-   new(&expected_pair[5].second) EmplaceInt(2, 3, 4, 5);
    {
       Container c;
       c.emplace();
@@ -494,7 +488,7 @@ bool test_emplace_assoc_pair(containers_detail::true_)
          std::cout << "Error after c.emplace();\n";
          return false;
       }
-      c.emplace(1);
+      c.emplace(1, 1);
       if(!test_expected_container(c, &expected_pair[0], 2)){
          std::cout << "Error after c.emplace(1);\n";
          return false;
@@ -504,31 +498,16 @@ bool test_emplace_assoc_pair(containers_detail::true_)
          std::cout << "Error after c.emplace(2, 2);\n";
          return false;
       }
-      c.emplace(3, 2, 3);
-      if(!test_expected_container(c, &expected_pair[0], 4)){
-         std::cout << "Error after c.emplace(3, 2, 3);\n";
-         return false;
-      }
-      c.emplace(4, 2, 3, 4);
-      if(!test_expected_container(c, &expected_pair[0], 5)){
-         std::cout << "Error after c.emplace(4, 2, 3, 4);\n";
-         return false;
-      }
-      c.emplace(5, 2, 3, 4, 5);
-      if(!test_expected_container(c, &expected_pair[0], 6)){
-         std::cout << "Error after c.emplace(5, 2, 3, 4, 5);\n";
-         return false;
-      }
    }
    return true;
 }
 
 template<class Container>
-bool test_emplace_assoc_pair(containers_detail::false_)
+bool test_emplace_assoc_pair(container_detail::false_)
 {  return true;   }
 
 template<class Container>
-bool test_emplace_hint_pair(containers_detail::true_)
+bool test_emplace_hint_pair(container_detail::true_)
 {
    std::cout << "Starting test_emplace_hint_pair." << std::endl << "  Class: "
       << typeid(Container).name() << std::endl;
@@ -536,15 +515,9 @@ bool test_emplace_hint_pair(containers_detail::true_)
    new(&expected_pair[0].first) EmplaceInt();
    new(&expected_pair[0].second) EmplaceInt();
    new(&expected_pair[1].first) EmplaceInt(1);
-   new(&expected_pair[1].second) EmplaceInt();
+   new(&expected_pair[1].second) EmplaceInt(1);
    new(&expected_pair[2].first) EmplaceInt(2);
    new(&expected_pair[2].second) EmplaceInt(2);
-   new(&expected_pair[3].first) EmplaceInt(3);
-   new(&expected_pair[3].second) EmplaceInt(2, 3);
-   new(&expected_pair[4].first) EmplaceInt(4);
-   new(&expected_pair[4].second) EmplaceInt(2, 3, 4);
-   new(&expected_pair[5].first) EmplaceInt(5);
-   new(&expected_pair[5].second) EmplaceInt(2, 3, 4, 5);
    {
       Container c;
       typename Container::const_iterator it;
@@ -553,7 +526,7 @@ bool test_emplace_hint_pair(containers_detail::true_)
          std::cout << "Error after c.emplace(1);\n";
          return false;
       }
-      it = c.emplace_hint(it, 1);
+      it = c.emplace_hint(it, 1, 1);
       if(!test_expected_container(c, &expected_pair[0], 2)){
          std::cout << "Error after c.emplace(it, 1);\n";
          return false;
@@ -563,44 +536,29 @@ bool test_emplace_hint_pair(containers_detail::true_)
          std::cout << "Error after c.emplace(it, 2, 2);\n";
          return false;
       }
-      it = c.emplace_hint(it, 3, 2, 3);
-      if(!test_expected_container(c, &expected_pair[0], 4)){
-         std::cout << "Error after c.emplace(it, 3, 2, 3);\n";
-         return false;
-      }
-      it = c.emplace_hint(it, 4, 2, 3, 4);
-      if(!test_expected_container(c, &expected_pair[0], 5)){
-         std::cout << "Error after c.emplace(it, 4, 2, 3, 4);\n";
-         return false;
-      }
-      it = c.emplace_hint(it, 5, 2, 3, 4, 5);
-      if(!test_expected_container(c, &expected_pair[0], 6)){
-         std::cout << "Error after c.emplace(it, 5, 2, 3, 4, 5);\n";
-         return false;
-      }
    }
    return true;
 }
 
 template<class Container>
-bool test_emplace_hint_pair(containers_detail::false_)
+bool test_emplace_hint_pair(container_detail::false_)
 {  return true;   }
 
 template <EmplaceOptions O, EmplaceOptions Mask>
 struct emplace_active
 {
    static const bool value = (0 != (O & Mask));
-   typedef containers_detail::bool_<value> type;
+   typedef container_detail::bool_<value> type;
    operator type() const{  return type(); }
 };
 
 template<class Container, EmplaceOptions O>
 bool test_emplace()
 {
-//   if(!test_emplace_back<Container>(emplace_active<O, EMPLACE_BACK>()))
-//      return false;
+   if(!test_emplace_back<Container>(emplace_active<O, EMPLACE_BACK>()))
+      return false;
    if(!test_emplace_front<Container>(emplace_active<O, EMPLACE_FRONT>()))
-      return false;/*
+      return false;
    if(!test_emplace_before<Container>(emplace_active<O, EMPLACE_BEFORE>()))
       return false;
    if(!test_emplace_after<Container>(emplace_active<O, EMPLACE_AFTER>()))
@@ -612,7 +570,7 @@ bool test_emplace()
    if(!test_emplace_assoc_pair<Container>(emplace_active<O, EMPLACE_ASSOC_PAIR>()))
       return false;
    if(!test_emplace_hint_pair<Container>(emplace_active<O, EMPLACE_HINT_PAIR>()))
-      return false;*/
+      return false;
    return true;
 }
 

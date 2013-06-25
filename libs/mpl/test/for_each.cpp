@@ -8,7 +8,7 @@
 // See http://www.boost.org/libs/mpl for documentation.
 
 // $Id: for_each.cpp 66257 2010-10-29 21:36:38Z eric_niebler $
-// $Date: 2010-10-29 17:36:38 -0400 (Fri, 29 Oct 2010) $
+// $Date: 2010-10-29 14:36:38 -0700 (Fri, 29 Oct 2010) $
 // $Revision: 66257 $
 
 #include <boost/mpl/for_each.hpp>

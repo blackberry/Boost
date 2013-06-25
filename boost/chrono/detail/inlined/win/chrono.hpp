@@ -23,7 +23,7 @@ namespace chrono
 namespace chrono_detail
 {
 
-  BOOST_CHRONO_INLINE double get_nanosecs_per_tic() BOOST_CHRONO_NOEXCEPT
+  BOOST_CHRONO_INLINE double get_nanosecs_per_tic() BOOST_NOEXCEPT
   {
       boost::detail::win32::LARGE_INTEGER_ freq;
       if ( !boost::detail::win32::QueryPerformanceFrequency( &freq ) )
@@ -33,7 +33,7 @@ namespace chrono_detail
 
 }
 
-  steady_clock::time_point steady_clock::now() BOOST_CHRONO_NOEXCEPT
+  steady_clock::time_point steady_clock::now() BOOST_NOEXCEPT
   {
     static double nanosecs_per_tic = chrono_detail::get_nanosecs_per_tic();
 
@@ -42,6 +42,7 @@ namespace chrono_detail
             (!boost::detail::win32::QueryPerformanceCounter( &pcount )) )
     {
       BOOST_ASSERT(0 && "Boost::Chrono - Internal Error");
+      return steady_clock::time_point();
     }
 
     return steady_clock::time_point(steady_clock::duration(
@@ -86,7 +87,7 @@ namespace chrono_detail
 #endif
 
   BOOST_CHRONO_INLINE
-  system_clock::time_point system_clock::now() BOOST_CHRONO_NOEXCEPT
+  system_clock::time_point system_clock::now() BOOST_NOEXCEPT
   {
     boost::detail::win32::FILETIME_ ft;
   #if defined(UNDER_CE)
@@ -124,7 +125,7 @@ namespace chrono_detail
 #endif
 
   BOOST_CHRONO_INLINE
-  std::time_t system_clock::to_time_t(const system_clock::time_point& t) BOOST_CHRONO_NOEXCEPT
+  std::time_t system_clock::to_time_t(const system_clock::time_point& t) BOOST_NOEXCEPT
   {
       __int64 temp = t.time_since_epoch().count();
 
@@ -139,7 +140,7 @@ namespace chrono_detail
   }
 
   BOOST_CHRONO_INLINE
-  system_clock::time_point system_clock::from_time_t(std::time_t t) BOOST_CHRONO_NOEXCEPT
+  system_clock::time_point system_clock::from_time_t(std::time_t t) BOOST_NOEXCEPT
   {
       __int64 temp = t;
       temp *= 10000000;

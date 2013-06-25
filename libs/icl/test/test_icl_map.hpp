@@ -19,7 +19,7 @@ template
     ICL_IntervalMap_TEMPLATE(_T,_U,Traits,Trt) IntervalMap
 #endif
 >
-void itl_map_contains_4_bicremental_types()
+void icl_map_contains_4_bicremental_types()
 {
     typedef IntervalMap<T,U,Trt> IntervalMapT;
     typedef icl::map<T,U,Trt> MapT;
@@ -39,10 +39,6 @@ void itl_map_contains_4_bicremental_types()
     BOOST_CHECK( contains(map_a, key_value_pair) );
     BOOST_CHECK( within(key_value_pair, map_a) );
 
-    //found = map_a.find(MK_v(5));
-
-    //BOOST_CHECK_EQUAL( found == map_a.end(), true );
-    //BOOST_CHECK_EQUAL( map_a(MK_v(5)), MK_u(0) );
 }
 
 
@@ -55,7 +51,7 @@ template
     ICL_IntervalMap_TEMPLATE(_T,_U,Traits,Trt) IntervalMap
 #endif
 >
-void itl_map_find_4_bicremental_types()
+void icl_map_find_4_bicremental_types()
 {
     typedef IntervalMap<T,U,Trt> IntervalMapT;
     typedef icl::map<T,U,Trt> MapT;
@@ -87,7 +83,7 @@ template
     ICL_IntervalMap_TEMPLATE(_T,_U,Traits,Trt) IntervalMap
 #endif
 >
-void itl_map_inclusion_compare_4_bicremental_types()
+void icl_map_inclusion_compare_4_bicremental_types()
 {
     typedef IntervalMap<T,U,Trt> IntervalMapT;
     typedef icl::map<T,U,Trt> MapT;
@@ -150,6 +146,39 @@ void itl_map_inclusion_compare_4_bicremental_types()
     BOOST_CHECK_EQUAL( inclusion_compare(set_a, map_c), inclusion::unrelated );
     BOOST_CHECK_EQUAL( inclusion_compare(map_c, set_a), inclusion::unrelated );
 
+}
+
+
+template 
+<
+    class T, class U, class Trt, 
+#if (defined(__GNUC__) && (__GNUC__ < 4)) //MEMO Can be simplified, if gcc-3.4 is obsolete
+    ICL_IntervalMap_TEMPLATE(T,U,Traits,Trt) IntervalMap
+#else
+    ICL_IntervalMap_TEMPLATE(_T,_U,Traits,Trt) IntervalMap
+#endif
+>
+void icl_map_move_4_discrete_types()
+{
+    typedef icl::map<T,U,Trt> MapT;
+    typedef typename MapT::element_type map_element_type;
+
+    map_element_type kv_6_3(MK_v(6), MK_u(3));
+
+    MapT map_b;
+    map_b.add(kv_6_3);
+    MapT mv_cons_1(boost::move(MapT().add(kv_6_3)));
+    MapT cp_cons_1(map_b);
+
+    BOOST_CHECK_EQUAL( mv_cons_1, cp_cons_1 );
+    BOOST_CHECK_EQUAL( map_b, cp_cons_1 );
+
+    MapT mv_ass_1, cp_ass_1;
+    mv_ass_1 = boost::move(MapT().add(kv_6_3));
+    cp_ass_1 = map_b;
+
+    BOOST_CHECK_EQUAL( mv_ass_1, cp_ass_1 );
+    BOOST_CHECK_EQUAL( map_b, cp_ass_1 );
 }
 
 

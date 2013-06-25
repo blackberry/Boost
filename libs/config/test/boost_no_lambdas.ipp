@@ -6,15 +6,15 @@
 
 //  See http://www.boost.org/libs/config for more information.
 
-//  MACRO:         BOOST_NO_LAMBDAS
+//  MACRO:         BOOST_NO_CXX11_LAMBDAS
 //  TITLE:         C++0x lambda feature unavailable
 //  DESCRIPTION:   The compiler does not support the C++0x lambda feature
 
 #if defined(__GNUC__) && !defined(__GXX_EXPERIMENTAL_CXX0X__) && !defined(BOOST_INTEL_STDCXX0X)
-#  error This feature isn't really available in non-C++0x mode
+#  error This feature is not available in non-C++0x mode
 #endif
 
-namespace boost_no_lambdas {
+namespace boost_no_cxx11_lambdas {
 
 int test()
 {

@@ -134,6 +134,11 @@ void test_conditionals()
    TEST_INVALID_REGEX("(?<=*|\\B)", perl);
    TEST_INVALID_REGEX("(?<!a|bc)de", perl);
    TEST_INVALID_REGEX("(?<=a|bc)de", perl);
+
+   // Bug reports:
+   TEST_REGEX_SEARCH("\\b(?:(?:(one)|(two)|(three))(?:,|\\b)){3,}(?(1)|(?!))(?(2)|(?!))(?(3)|(?!))", perl, "one,two,two, one", match_default, make_array(-2, -2));
+   TEST_REGEX_SEARCH("\\b(?:(?:(one)|(two)|(three))(?:,|\\b)){3,}(?(1)|(?!))(?(2)|(?!))(?(3)|(?!))", perl, "one,three,two", match_default, make_array(0, 13, 0, 3, 10, 13, 4, 9, -2, -2));
+   TEST_REGEX_SEARCH("\\b(?:(?:(one)|(two)|(three))(?:,|\\b)){3,}(?(1)|(?!))(?(2)|(?!))(?(3)|(?!))", perl, "one,two,two,one,three,four", match_default, make_array(0, 22, 12, 15, 8, 11, 16, 21, -2, -2));
 }
 
 void test_options()
@@ -750,11 +755,11 @@ void test_recursion()
    TEST_REGEX_SEARCH("^X(?7)(a)(?|(b|(?|(r)|(t))(s))|(q))(c)(d)(Y)", perl, "XYabcdY", match_default, make_array(0, 7, 2, 3, 3, 4, -1, -1, -1, -1, 4, 5, 5, 6, 6, 7, -2, -2));
    TEST_REGEX_SEARCH_W(L"\\x{100}*(\\d+|\"(?1)\")", perl, L"1234", match_default, make_array(0, 4, 0, 4, -2, -2));
    TEST_REGEX_SEARCH_W(L"\\x{100}*(\\d+|\"(?1)\")", perl, L"\"1234\"", match_default, make_array(0, 6, 0, 6, -2, -2));
-   TEST_REGEX_SEARCH_W(L"\\x{100}*(\\d+|\"(?1)\")", perl, L"\x100"L"1234", match_default, make_array(0, 5, 1, 5, -2, -2));
-   TEST_REGEX_SEARCH_W(L"\\x{100}*(\\d+|\"(?1)\")", perl, L"\"\x100"L"1234\"", match_default, make_array(1, 6, 2, 6, -2, -2));
-   TEST_REGEX_SEARCH_W(L"\\x{100}*(\\d+|\"(?1)\")", perl, L"\x100\x100"L"12ab", match_default, make_array(0, 4, 2, 4, -2, -2));
-   TEST_REGEX_SEARCH_W(L"\\x{100}*(\\d+|\"(?1)\")", perl, L"\x100\x100"L"\"12\"", match_default, make_array(0, 6, 2, 6, -2, -2));
-   TEST_REGEX_SEARCH_W(L"\\x{100}*(\\d+|\"(?1)\")", perl, L"\x100\x100"L"abcd", match_default, make_array(-2, -2));
+   TEST_REGEX_SEARCH_W(L"\\x{100}*(\\d+|\"(?1)\")", perl, L"\x100" L"1234", match_default, make_array(0, 5, 1, 5, -2, -2));
+   TEST_REGEX_SEARCH_W(L"\\x{100}*(\\d+|\"(?1)\")", perl, L"\"\x100" L"1234\"", match_default, make_array(1, 6, 2, 6, -2, -2));
+   TEST_REGEX_SEARCH_W(L"\\x{100}*(\\d+|\"(?1)\")", perl, L"\x100\x100" L"12ab", match_default, make_array(0, 4, 2, 4, -2, -2));
+   TEST_REGEX_SEARCH_W(L"\\x{100}*(\\d+|\"(?1)\")", perl, L"\x100\x100" L"\"12\"", match_default, make_array(0, 6, 2, 6, -2, -2));
+   TEST_REGEX_SEARCH_W(L"\\x{100}*(\\d+|\"(?1)\")", perl, L"\x100\x100" L"abcd", match_default, make_array(-2, -2));
 
    TEST_REGEX_SEARCH("(ab|c)(?-1)", perl, "abc", match_default, make_array(0, 3, 0, 2, -2, -2));
    TEST_REGEX_SEARCH("xy(?+1)(abc)", perl, "xyabcabc", match_default, make_array(0, 8, 5, 8, -2, -2));

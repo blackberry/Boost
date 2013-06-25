@@ -4,7 +4,7 @@
 <title>buffer</title>
 <link rel="stylesheet" href="../../../../../../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
-<link rel="home" href="../../../../index.html" title="Chapter&#160;1.&#160;Geometry 1.0">
+<link rel="home" href="../../../../index.html" title="Chapter&#160;1.&#160;Geometry">
 <link rel="up" href="../buffer.html" title="buffer">
 <link rel="prev" href="../buffer.html" title="buffer">
 <link rel="next" href="return_buffer.html" title="return_buffer">
@@ -27,7 +27,7 @@
 <a name="geometry.reference.algorithms.buffer.buffer"></a><a class="link" href="buffer.html" title="buffer">buffer</a>
 </h5></div></div></div>
 <p>
-            <a class="indexterm" name="id835156"></a>
+            <a class="indexterm" name="id836066"></a>
 Calculates the buffer of a geometry.
           </p>
 <h6>
@@ -192,6 +192,25 @@ Calculates the buffer of a geometry.
           </p>
 <h6>
 <a name="geometry.reference.algorithms.buffer.buffer.h4"></a>
+            <span><a name="geometry.reference.algorithms.buffer.buffer.conformance"></a></span><a class="link" href="buffer.html#geometry.reference.algorithms.buffer.buffer.conformance">Conformance</a>
+          </h6>
+<p>
+            The function buffer implements function Buffer from the <a href="http://www.opengeospatial.org/standards/sfa" target="_top">OGC
+            Simple Feature Specification</a>.
+          </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../../../../../../doc/src/images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+              The current implemetation only enlarges a box, which is not defined
+              by OGC. A next version of the library will contain a more complete
+              implementation
+            </p></td></tr>
+</table></div>
+<h6>
+<a name="geometry.reference.algorithms.buffer.buffer.h5"></a>
             <span><a name="geometry.reference.algorithms.buffer.buffer.behavior"></a></span><a class="link" href="buffer.html#geometry.reference.algorithms.buffer.buffer.behavior">Behavior</a>
           </h6>
 <div class="informaltable"><table class="table">
@@ -229,7 +248,8 @@ Calculates the buffer of a geometry.
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2011 Barend Gehrels, Bruno Lalande, Mateusz Loskot<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2009-2012 Barend
+      Gehrels, Bruno Lalande, Mateusz Loskot<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

@@ -773,4 +773,9 @@ const char *bug_data_pr5203 =
     "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
     "<name>\xD0\xAE\xD0\xBD\xD0\xB8\xD1\x82</name>";
 
+// Quoting attributes
+const char *bug_data_pr4840 =
+    "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+    "<start a=\"hello &quot;world&quot;\"/>";
+
 #endif

@@ -6,13 +6,13 @@
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/config for the most recent version.//
-//  Revision $Id: no_unicode_literals_pass.cpp 51606 2009-03-04 14:28:36Z bemandawes $
+//  Revision $Id: no_unicode_literals_pass.cpp 79537 2012-07-15 15:59:05Z marshall $
 //
 
 
-// Test file for macro BOOST_NO_UNICODE_LITERALS
+// Test file for macro BOOST_NO_CXX11_UNICODE_LITERALS
 // This file should compile, if it does not then
-// BOOST_NO_UNICODE_LITERALS should be defined.
+// BOOST_NO_CXX11_UNICODE_LITERALS should be defined.
 // See file boost_no_unicode_literals.ipp for details
 
 // Must not have BOOST_ASSERT_CONFIG set; it defeats
@@ -24,7 +24,7 @@
 #include <boost/config.hpp>
 #include "test.hpp"
 
-#ifndef BOOST_NO_UNICODE_LITERALS
+#ifndef BOOST_NO_CXX11_UNICODE_LITERALS
 #include "boost_no_unicode_literals.ipp"
 #else
 namespace boost_no_unicode_literals = empty_boost;

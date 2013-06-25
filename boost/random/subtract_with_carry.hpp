@@ -7,7 +7,7 @@
  *
  * See http://www.boost.org for most recent version including documentation.
  *
- * $Id: subtract_with_carry.hpp 72951 2011-07-07 04:57:37Z steven_watanabe $
+ * $Id: subtract_with_carry.hpp 80996 2012-10-16 03:11:52Z marshall $
  *
  * Revision history
  *  2002-03-02  created
@@ -354,7 +354,7 @@ public:
                                                boost::uint32_t, value)
     { init_modulus(); seed(value); }
     /**
-     * Creates a new \subtract_with_carry_01_engine and seeds with with values
+     * Creates a new \subtract_with_carry_01_engine and seeds with values
      * produced by seq.generate().
      */
     BOOST_RANDOM_DETAIL_SEED_SEQ_CONSTRUCTOR(subtract_with_carry_01_engine,
@@ -456,17 +456,10 @@ public:
     {
         std::ios_base::fmtflags oldflags =
             os.flags(os.dec | os.fixed | os.left); 
-#if defined(__QNX__)
-        // Ensure the number will match after converting back from the textual representation
-        int oldprec = os.precision(1);
-#endif
         for(unsigned int j = 0; j < f.long_lag; ++j)
             os << (f.compute(j) * f._modulus) << ' ';
         os << (f.carry * f._modulus);
         os.flags(oldflags);
-#if defined(__QNX__)
-        os.precision(oldprec);
-#endif
         return os;
     }
     

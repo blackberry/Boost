@@ -1,9 +1,9 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 // Unit Test
 
-// Copyright (c) 2007-2011 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2011 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2011 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -21,7 +21,7 @@
 #include <boost/geometry/algorithms/disjoint.hpp>
 #include <boost/geometry/geometries/geometries.hpp>
 #include <boost/geometry/geometries/point_xy.hpp>
-#include <boost/geometry/domains/gis/io/wkt/read_wkt.hpp>
+#include <boost/geometry/io/wkt/read.hpp>
 #include <boost/geometry/strategies/strategies.hpp>
 
 #include <test_common/test_point.hpp>
@@ -112,6 +112,76 @@ void test_all()
     test_disjoint<ls, ls>("ls/ls 2", "linestring(0 0,1 1)", "linestring(1 0,2 1)", true);
     test_disjoint<segment, segment>("s/s 1", "linestring(0 0,1 1)", "linestring(1 0,0 1)", false);
     test_disjoint<segment, segment>("s/s 2", "linestring(0 0,1 1)", "linestring(1 0,2 1)", true);
+
+    // Collinear opposite
+    test_disjoint<ls, ls>("ls/ls co", "linestring(0 0,2 2)", "linestring(1 1,0 0)", false);
+    // Collinear opposite and equal
+    test_disjoint<ls, ls>("ls/ls co-e", "linestring(0 0,1 1)", "linestring(1 1,0 0)", false);
+
+
+    // Problem described by Volker/Albert 2012-06-01
+    test_disjoint<polygon, box>("volker_albert_1", 
+        "POLYGON((1992 3240,1992 1440,3792 1800,3792 3240,1992 3240))", 
+        "BOX(1941 2066, 2055 2166)", false);
+
+    test_disjoint<polygon, box>("volker_albert_2", 
+        "POLYGON((1941 2066,2055 2066,2055 2166,1941 2166))", 
+        "BOX(1941 2066, 2055 2166)", false);
+
+    // Degenerate linestrings
+    {
+        // Submitted by Zachary on the Boost.Geometry Mailing List, on 2012-01-29
+        std::string const a = "linestring(100 10, 0 10)";
+        std::string const b = "linestring(50 10, 50 10)"; // one point only, with same y-coordinate
+        std::string const c = "linestring(100 10, 100 10)"; // idem, at left side
+        test_disjoint<ls, ls>("dls/dls 1", a, b, false);
+        test_disjoint<ls, ls>("dls/dls 2", b, a, false);
+        test_disjoint<segment, segment>("ds/ds 1", a, b, false);
+        test_disjoint<segment, segment>("ds/ds 2", b, a, false);
+        test_disjoint<ls, ls>("dls/dls 1", a, c, false);
+    }
+
+    // Linestrings making angles normally ignored
+    {
+        // These (non-disjoint) cases 
+        // correspond to the test "segment_intersection_collinear"
+
+        // Collinear ('a')
+        //       a1---------->a2
+        // b1--->b2
+        test_disjoint<ls, ls>("n1", "linestring(2 0,0 6)", "linestring(0 0,2 0)", false);
+
+        //       a1---------->a2
+        //                    b1--->b2
+        test_disjoint<ls, ls>("n7", "linestring(2 0,6 0)", "linestring(6 0,8 0)", false);
+
+        // Collinear - opposite ('f')
+        //       a1---------->a2
+        // b2<---b1
+        test_disjoint<ls, ls>("o1", "linestring(2 0,6 0)", "linestring(2 0,0 0)", false);
+    }
+
+    {
+        // Starting in the middle ('s')
+        //           b2
+        //           ^
+        //           |
+        //           |
+        // a1--------b1----->a2
+        test_disjoint<ls, ls>("case_s", "linestring(0 0,4 0)", "linestring(2 0,2 2)", false); 
+
+        // Collinear, but disjoint
+        test_disjoint<ls, ls>("c-d", "linestring(2 0,6 0)", "linestring(7 0,8 0)", true);
+
+        // Parallel, disjoint
+        test_disjoint<ls, ls>("c-d", "linestring(2 0,6 0)", "linestring(2 1,6 1)", true);
+
+        // Error still there until 1.48 (reported "error", was reported to disjoint, so that's why it did no harm)
+        test_disjoint<ls, ls>("case_recursive_boxes_1", 
+            "linestring(10 7,10 6)", "linestring(10 10,10 9)", true);
+
+    }
+
     // TODO test_disjoint<segment, ls>("s/ls 1", "linestring(0 0,1 1)", "linestring(1 0,0 1)", false);
     // TODO test_disjoint<segment, ls>("s/ls 2", "linestring(0 0,1 1)", "linestring(1 0,2 1)", true);
     // TODO test_disjoint<ls, segment>("ls/s 1", "linestring(0 0,1 1)", "linestring(1 0,0 1)", false);

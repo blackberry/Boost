@@ -13,10 +13,12 @@
 
 namespace boost_no_std_typeinfo
 {
+void quiet_warning(const std::type_info*){}
 
 int test()
 {
    std::type_info * p = 0;
+   quiet_warning(p);
    return 0;
 }
 

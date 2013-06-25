@@ -819,5 +819,32 @@ void interval_set_element_iter_4_discrete_types()
     BOOST_CHECK_EQUAL( vec == dest, true );
 }
 
+
+template <ICL_IntervalSet_TEMPLATE(_T) IntervalSet, class T>
+void interval_set_move_4_discrete_types()
+{
+    typedef IntervalSet<T> IntervalSetT;
+    typedef typename IntervalSetT::interval_type IntervalT;
+    typedef std::vector<T> VectorT;
+
+    //JODO static_cast fails for gcc compilers
+    //IntervalSetT set_A(boost::move(static_cast<IntervalSetT&>(IntervalSetT(I_D(0,4)))));
+    IntervalSetT set_A(boost::move(static_cast<IntervalSetT&>(IntervalSetT(I_D(0,4)).add(I_D(0,0)) )));
+    IntervalSetT set_B(boost::move(static_cast<IntervalSetT&>(IntervalSetT(I_D(0,2)).add(I_D(2,4)).add(I_D(0,4)))));
+
+    BOOST_CHECK( icl::is_element_equal(set_A, set_B) );
+    BOOST_CHECK_EQUAL( set_A, join(set_B) );
+
+    //JODO static_cast fails for gcc compilers
+    //set_A = boost::move(static_cast<IntervalSetT&>(IntervalSetT(I_I(1,4))));
+    set_A = boost::move(static_cast<IntervalSetT&>(IntervalSetT(I_I(1,4)).add(I_D(0,0))));
+    set_B = boost::move(static_cast<IntervalSetT&>(IntervalSetT(C_I(0,2)).insert(I_D(3,5)).add(C_D(0,5))));
+
+    BOOST_CHECK( icl::is_element_equal(set_A, set_B) );
+    BOOST_CHECK_EQUAL( set_A, join(set_B) );
+}
+
+
+
 #endif // LIBS_ICL_TEST_TEST_INTERVAL_SET_SHARED_HPP_JOFA_080920
 

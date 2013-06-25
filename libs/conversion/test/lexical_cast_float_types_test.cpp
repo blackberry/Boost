@@ -31,7 +31,7 @@ using namespace boost;
 
 unit_test::test_suite *init_unit_test_suite(int, char *[])
 {
-    unit_test_framework::test_suite *suite =
+    unit_test::test_suite *suite =
         BOOST_TEST_SUITE("lexical_cast float types unit test");
     suite->add(BOOST_TEST_CASE(&test_conversion_from_to_float));
     suite->add(BOOST_TEST_CASE(&test_conversion_from_to_double));
@@ -105,13 +105,13 @@ void test_conversion_from_to_float_for_locale()
 
 
 /*
- * Converts char* [and wchar_t] to float number type and checks, that generated
- * number is in interval [base_value-epsilon, base_value+epsilon].
+ * Converts char* [and wchar_t*] to float number type and checks, that generated
+ * number does not exceeds allowed epsilon.
  */
 #ifndef BOOST_LCAST_NO_WCHAR_T
 #define CHECK_CLOSE_ABS_DIFF(VAL,PREFIX)                                                          \
     converted_val = lexical_cast<test_t>(#VAL);                                                   \
-    BOOST_CHECK_CLOSE_FRACTION( (VAL ## L? VAL ## L : std::numeric_limits<test_t>::epsilon()),             \
+    BOOST_CHECK_CLOSE_FRACTION( (VAL ## L? VAL ## L : std::numeric_limits<test_t>::epsilon()),    \
                        (converted_val ? converted_val : std::numeric_limits<test_t>::epsilon()),  \
                        std::numeric_limits<test_t>::epsilon()                                     \
                      );                                                                           \
@@ -120,7 +120,7 @@ void test_conversion_from_to_float_for_locale()
 #else
 #define CHECK_CLOSE_ABS_DIFF(VAL,TYPE)                                                            \
     converted_val = lexical_cast<test_t>(#VAL);                                                   \
-    BOOST_CHECK_CLOSE_FRACTION( (VAL ## L? VAL ## L : std::numeric_limits<test_t>::epsilon()),             \
+    BOOST_CHECK_CLOSE_FRACTION( (VAL ## L? VAL ## L : std::numeric_limits<test_t>::epsilon()),    \
                        (converted_val ? converted_val : std::numeric_limits<test_t>::epsilon()),  \
                        std::numeric_limits<test_t>::epsilon()                                     \
                      );
@@ -237,7 +237,7 @@ void test_converion_to_float_types()
     CHECK_CLOSE_ABS_DIFF(-10101.0E-011, test_t);
     CHECK_CLOSE_ABS_DIFF(-10101093, test_t);
     CHECK_CLOSE_ABS_DIFF(10101093, test_t);
-    
+
     CHECK_CLOSE_ABS_DIFF(-.34, test_t);
     CHECK_CLOSE_ABS_DIFF(.34, test_t);
     CHECK_CLOSE_ABS_DIFF(.34e10, test_t);
@@ -261,6 +261,7 @@ void test_converion_to_float_types()
     BOOST_CHECK_THROW(lexical_cast<test_t>(".e"), bad_lexical_cast);
     BOOST_CHECK_THROW(lexical_cast<test_t>(".11111111111111111111111111111111111111111111111111111111111111111111ee"), bad_lexical_cast);
     BOOST_CHECK_THROW(lexical_cast<test_t>(".11111111111111111111111111111111111111111111111111111111111111111111e-"), bad_lexical_cast);
+    BOOST_CHECK_THROW(lexical_cast<test_t>("."), bad_lexical_cast);
 
     BOOST_CHECK_THROW(lexical_cast<test_t>("-B"), bad_lexical_cast);
     BOOST_CHECK_THROW(lexical_cast<test_t>("0xB"), bad_lexical_cast);
@@ -276,6 +277,7 @@ void test_converion_to_float_types()
     BOOST_CHECK_THROW(lexical_cast<test_t>("-"), bad_lexical_cast);
     BOOST_CHECK_THROW(lexical_cast<test_t>('\0'), bad_lexical_cast);
     BOOST_CHECK_THROW(lexical_cast<test_t>('-'), bad_lexical_cast);
+    BOOST_CHECK_THROW(lexical_cast<test_t>('.'), bad_lexical_cast);
 }
 
 template <class T>
@@ -285,7 +287,7 @@ void test_float_typess_for_overflows()
     test_t minvalue = (std::numeric_limits<test_t>::min)();
     std::string s_min_value = lexical_cast<std::string>(minvalue);
     BOOST_CHECK_CLOSE_FRACTION(minvalue, lexical_cast<test_t>(minvalue), (std::numeric_limits<test_t>::epsilon()));
-    BOOST_CHECK_CLOSE_FRACTION(minvalue, lexical_cast<test_t>(s_min_value), (std::numeric_limits<test_t>::epsilon()));
+    BOOST_CHECK_CLOSE_FRACTION(minvalue, lexical_cast<test_t>(s_min_value), (std::numeric_limits<test_t>::epsilon() * 2));
 
     test_t maxvalue = (std::numeric_limits<test_t>::max)();
     std::string s_max_value = lexical_cast<std::string>(maxvalue);
@@ -324,13 +326,14 @@ void test_float_typess_for_overflows()
 
 #undef CHECK_CLOSE_ABS_DIFF
 
+// Epsilon is multiplied by 2 because of two lexical conversions
 #define TEST_TO_FROM_CAST_AROUND_TYPED(VAL,STRING_TYPE)                             \
     test_value = VAL + std::numeric_limits<test_t>::epsilon() * i ;                 \
     converted_val = lexical_cast<test_t>( lexical_cast<STRING_TYPE>(test_value) );  \
-    BOOST_CHECK_CLOSE_FRACTION(                                                              \
+    BOOST_CHECK_CLOSE_FRACTION(                                                     \
             test_value,                                                             \
             converted_val,                                                          \
-            std::numeric_limits<test_t>::epsilon()                                  \
+            std::numeric_limits<test_t>::epsilon() * 2                              \
         );
 
 /*

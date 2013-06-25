@@ -10,9 +10,9 @@
 //
 
 
-// Test file for macro BOOST_NO_UNIFIED_INITIALIZATION_SYNTAX
+// Test file for macro BOOST_NO_CXX11_UNIFIED_INITIALIZATION_SYNTAX
 // This file should not compile, if it does then
-// BOOST_NO_UNIFIED_INITIALIZATION_SYNTAX should not be defined.
+// BOOST_NO_CXX11_UNIFIED_INITIALIZATION_SYNTAX should not be defined.
 // See file boost_no_unified_init.ipp for details
 
 // Must not have BOOST_ASSERT_CONFIG set; it defeats
@@ -24,7 +24,7 @@
 #include <boost/config.hpp>
 #include "test.hpp"
 
-#ifdef BOOST_NO_UNIFIED_INITIALIZATION_SYNTAX
+#ifdef BOOST_NO_CXX11_UNIFIED_INITIALIZATION_SYNTAX
 #include "boost_no_unified_init.ipp"
 #else
 #error "this file should not compile"

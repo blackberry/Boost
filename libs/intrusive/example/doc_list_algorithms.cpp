@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2006-2009
+// (C) Copyright Ion Gaztanaga  2006-2012
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -25,10 +25,10 @@ struct my_list_node_traits
    typedef my_node                                    node;
    typedef my_node *                                  node_ptr;
    typedef const my_node *                            const_node_ptr;
-   static node_ptr get_next(const_node_ptr n)         {  return n->next_;  }  
-   static void set_next(node_ptr n, node_ptr next)    {  n->next_ = next;  }  
-   static node *get_previous(const_node_ptr n)        {  return n->prev_;  }  
-   static void set_previous(node_ptr n, node_ptr prev){  n->prev_ = prev;  }  
+   static node_ptr get_next(const_node_ptr n)         {  return n->next_;  }
+   static void set_next(node_ptr n, node_ptr next)    {  n->next_ = next;  }
+   static node *get_previous(const_node_ptr n)        {  return n->prev_;  }
+   static void set_previous(node_ptr n, node_ptr prev){  n->prev_ = prev;  }
 };
 
 int main()

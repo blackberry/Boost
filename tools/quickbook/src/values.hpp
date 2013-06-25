@@ -16,14 +16,14 @@
 #include <cassert>
 #include <boost/scoped_ptr.hpp>
 #include <boost/iterator/iterator_traits.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <stdexcept>
 #include "fwd.hpp"
+#include "string_ref.hpp"
+#include "files.hpp"
 
 namespace quickbook
 {
     struct value;
-    struct stored_value;
     struct value_builder;
     struct value_error;
 
@@ -40,7 +40,6 @@ namespace quickbook
 
         public:
             typedef int tag_type;
-            typedef boost::iterator_range<quickbook::iterator> qbk_range;
 
         protected:
             explicit value_node(tag_type);
@@ -49,18 +48,17 @@ namespace quickbook
         public:
             virtual char const* type_name() const = 0;
             virtual value_node* clone() const = 0;
-            virtual value_node* store();
 
-            virtual file_position get_position() const;
-            virtual std::string get_quickbook() const;
-            virtual std::string get_boostbook() const;
-            virtual qbk_range get_quickbook_range() const;
+            virtual file_ptr get_file() const;
+            virtual string_iterator get_position() const;
+            virtual string_ref get_quickbook() const;
+            virtual std::string get_encoded() const;
             virtual int get_int() const;
 
             virtual bool check() const;
             virtual bool empty() const;
+            virtual bool is_encoded() const;
             virtual bool is_list() const;
-            virtual bool is_string() const;
             virtual bool equals(value_node*) const;
 
             virtual value_node* get_list() const;
@@ -89,7 +87,6 @@ namespace quickbook
             typedef iterator const_iterator;
             typedef value_node::tag_type tag_type;
             enum { default_tag = 0 };
-            typedef boost::iterator_range<quickbook::iterator> qbk_range;
 
         protected:
             explicit value_base(value_node* base)
@@ -104,22 +101,22 @@ namespace quickbook
         public:
             bool check() const { return value_->check(); }
             bool empty() const { return value_->empty(); }
+            bool is_encoded() const { return value_->is_encoded(); }
             bool is_list() const { return value_->is_list(); }
-            bool is_string() const { return value_->is_string(); }
 
             iterator begin() const;
             iterator end() const;
 
             // Item accessors
             int get_tag() const { return value_->tag_; }
-            file_position get_position() const
+            file_ptr get_file() const
+            { return value_->get_file(); }
+            string_iterator get_position() const
             { return value_->get_position(); }
-            std::string get_quickbook() const
+            string_ref get_quickbook() const
             { return value_->get_quickbook(); }
-            qbk_range get_quickbook_range() const
-            { return value_->get_quickbook_range(); }
-            std::string get_boostbook() const
-            { return value_->get_boostbook(); }
+            std::string get_encoded() const
+            { return value_->get_encoded(); }
             int get_int() const
             { return value_->get_int(); }
 
@@ -134,7 +131,6 @@ namespace quickbook
             // value_builder needs to access 'value_' to get the node
             // from a value.
             friend struct quickbook::value_builder;
-            friend struct quickbook::stored_value;
         };
         
         ////////////////////////////////////////////////////////////////////////
@@ -215,6 +211,8 @@ namespace quickbook
 
             void append(value_node*);
             void sort();
+
+            bool empty() const;
         private:
             value_node* head_;
             value_node** back_;
@@ -237,32 +235,26 @@ namespace quickbook
         void swap(value& x) { detail::value_counted::swap(x); }
     };
     
-    struct stored_value : public detail::value_counted
-    {
-    public:
-        stored_value();
-        stored_value(stored_value const&);
-        stored_value(detail::value_base const&);
-        stored_value& operator=(stored_value);
-        void swap(stored_value& x) { detail::value_counted::swap(x); }
-    };
-
     // Empty
     value empty_value(value::tag_type = value::default_tag);
 
     // Integers
     value int_value(int, value::tag_type = value::default_tag);
 
-    // Boostbook and quickbook strings
-    value qbk_value(iterator, iterator, value::tag_type = value::default_tag);
-    value qbk_value(std::string const&,
-            file_position = file_position(),
+    // String types
+
+    // Quickbook strings contain a reference to the original quickbook source.
+    value qbk_value(file_ptr const&, string_iterator, string_iterator,
             value::tag_type = value::default_tag);
-    value bbk_value(std::string const&, value::tag_type = value::default_tag);
-    value qbk_bbk_value(std::string const&,
+
+    // Encoded strings are either plain text or boostbook.
+    value encoded_value(std::string const&,
             value::tag_type = value::default_tag);
-    value qbk_bbk_value(iterator, iterator, std::string const&,
-            value::tag_type = value::default_tag);
+
+    // An encoded quickbook string is an encoded string that contains a
+    // reference to the quickbook source it was generated from.
+    value encoded_qbk_value(file_ptr const&, string_iterator, string_iterator,
+            std::string const&, value::tag_type = value::default_tag);
 
     ////////////////////////////////////////////////////////////////////////////
     // Value Builder
@@ -279,8 +271,6 @@ namespace quickbook
 
         value release();
 
-        void reset();
-        void set_tag(value::tag_type);
         void insert(value const&);
         void extend(value const&);
 
@@ -288,6 +278,8 @@ namespace quickbook
         void finish_list();
         void clear_list();
         void sort_list();
+
+        bool empty() const;
 
     private:
         detail::value_list_builder current;
