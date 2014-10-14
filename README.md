@@ -22,8 +22,8 @@ The BB10 NDK needs to be in your path for the boost build to work.  (ie use the 
 Build Instructions
 ------------------
 
-1. run bbndk-env (.bat or .sh) to set up the BB10 NDK environment variables.
 1. run bootstrap (.bat or .sh) as you normally would to get Boost.Build set up.
+1. run bbndk-env (.bat or .sh) to set up the BB10 NDK environment variables.
 1. (optional) build Boost for your host platform, to check that everything is set up correctly.
 1. run bbbb (.bat or .sh) to build Boost for BlackBerry10.
 
