@@ -18,7 +18,7 @@
 
 //   bool unlock();
 
-#include <boost/thread/locks.hpp>
+#include <boost/thread/lock_types.hpp>
 //#include <boost/thread/mutex.hpp>
 #include <boost/detail/lightweight_test.hpp>
 

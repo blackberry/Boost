@@ -1,6 +1,6 @@
 /* Boost.MultiIndex test for observer memfuns.
  *
- * Copyright 2003-2008 Joaquin M Lopez Munoz.
+ * Copyright 2003-2013 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -15,7 +15,7 @@
 #include <vector>
 #include "pre_multi_index.hpp"
 #include "employee.hpp"
-#include <boost/test/test_tools.hpp>
+#include <boost/detail/lightweight_test.hpp>
 
 using namespace boost::multi_index;
 
@@ -38,9 +38,9 @@ void test_observers()
 
     employee_set_by_name::const_iterator it0=i1.equal_range("John").first;
     employee_set_by_name::const_iterator it1=it0;++it1;
-    BOOST_CHECK(k(*it0)=="John"&&k(*it1)=="John");
-    BOOST_CHECK(h(k(*it0))==h(k(*it1)));
-    BOOST_CHECK(eq(k(*it0),k(*it1))==true);
+    BOOST_TEST(k(*it0)=="John"&&k(*it1)=="John");
+    BOOST_TEST(h(k(*it0))==h(k(*it1)));
+    BOOST_TEST(eq(k(*it0),k(*it1))==true);
   }
   {
     employee_set_by_age::key_from_value k=i2.key_extractor();
@@ -49,8 +49,8 @@ void test_observers()
 
     employee_set_by_age::const_iterator it0=i2.find(31);
     employee_set_by_age::const_iterator it1=i2.find(40);
-    BOOST_CHECK(k(*it0)==31&&k(*it1)==40);
-    BOOST_CHECK(c(k(*it0),k(*it1))==true);
-    BOOST_CHECK(vc(*it0,*it1)==true);
+    BOOST_TEST(k(*it0)==31&&k(*it1)==40);
+    BOOST_TEST(c(k(*it0),k(*it1))==true);
+    BOOST_TEST(vc(*it0,*it1)==true);
   }
 }

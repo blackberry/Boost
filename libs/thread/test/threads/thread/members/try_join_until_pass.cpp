@@ -19,7 +19,7 @@
 //        bool try_join_until(const chrono::time_point<Clock, Duration>& t);
 
 #define BOOST_THREAD_VESRION 3
-#include <boost/thread/thread.hpp>
+#include <boost/thread/thread_only.hpp>
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/locks.hpp>
 #include <new>
@@ -89,7 +89,7 @@ int main()
   {
     boost::thread t0( (G()));
     BOOST_TEST(t0.joinable());
-    t0.try_join_until(boost::chrono::steady_clock::now()+boost::chrono::milliseconds(50));
+    t0.try_join_until(boost::chrono::steady_clock::now()+boost::chrono::milliseconds(150));
     BOOST_TEST(!t0.joinable());
   }
   {
@@ -141,7 +141,7 @@ int main()
   {
     boost::thread t0( (G()));
     BOOST_TEST(t0.joinable());
-    t0.try_join_until(boost::chrono::steady_clock::now()+boost::chrono::milliseconds(50));
+    t0.try_join_until(boost::chrono::steady_clock::now()+boost::chrono::milliseconds(150));
     try
     {
       t0.join();

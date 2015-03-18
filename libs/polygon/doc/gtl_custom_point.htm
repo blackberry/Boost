@@ -1,11 +1,8 @@
-<html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
 
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-<title>Custom Point</title>
-</head>
 
-<body>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><title>Custom Point</title></head><body>
 
 <p><font face="Courier New">/*<br>
 Copyright 2008 Intel Corporation<br>
@@ -95,7 +92,11 @@ return point.y;<br>&nbsp; &nbsp;
 };<br>&nbsp; &nbsp; 
 <br>&nbsp; &nbsp; 
 template &lt;&gt;<br>&nbsp; &nbsp; 
-struct point_mutable_traits&lt;CPoint&gt; {<br>&nbsp; &nbsp; 
+struct point_mutable_traits&lt;CPoint&gt; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; typedef int coordinate_type;<br>
+<br>
+</font></p>
+<p><font face="Courier New">&nbsp; &nbsp; 
 &nbsp; &nbsp; 
 static inline void set(CPoint&amp; point, orientation_2d orient, int value) {<br>&nbsp; &nbsp; 
 &nbsp; &nbsp; 
@@ -137,11 +138,12 @@ return 0;<br>}<br>&nbsp; &nbsp;
 &nbsp;</font></p>
 
 
-<table class="docinfo" rules="none" frame="void" id="table1">
+
+<table class="docinfo" id="table1" frame="void" rules="none">
 	<colgroup>
 		<col class="docinfo-name"><col class="docinfo-content">
 	</colgroup>
-	<tbody vAlign="top">
+	<tbody valign="top">
 		<tr>
 			<th class="docinfo-name">Copyright:</th>
 			<td>Copyright © Intel Corporation 2008-2010.</td>
@@ -154,8 +156,6 @@ return 0;<br>}<br>&nbsp; &nbsp;
 			<a class="reference" target="_top" href="http://www.boost.org/LICENSE_1_0.txt">
 			http://www.boost.org/LICENSE_1_0.txt</a>)</td>
 		</tr>
-</table>
+</tbody></table>
 
-</body>
-
-</html>
+</body></html>

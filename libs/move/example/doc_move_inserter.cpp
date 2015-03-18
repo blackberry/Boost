@@ -9,10 +9,13 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
+#include <boost/move/detail/config_begin.hpp>
+
 //[move_inserter_example
 #include <boost/container/list.hpp>
 #include "movable.hpp"
 #include <cassert>
+#include <algorithm>
 
 using namespace ::boost::container;
 
@@ -27,10 +30,9 @@ void test_move_inserter(list_t &l2, MoveInsertIterator mit)
    assert(!l.begin()->moved());
    l2.clear();
 
-   //Move construct
-   for(l_iterator itbeg = l.begin(), itend = l.end(); itbeg != itend; ++itbeg){
-      *mit = *itbeg;
-   }
+   //Move insert into l2 containers
+   std::copy(l.begin(), l.end(), mit);
+
    //Check size and status
    assert(l2.size() == l.size());
    assert(l.begin()->moved());
@@ -46,3 +48,5 @@ int main()
    return 0;
 }
 //]
+
+#include <boost/move/detail/config_end.hpp>

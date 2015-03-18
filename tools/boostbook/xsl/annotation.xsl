@@ -20,7 +20,9 @@
   <xsl:key name="macros" match="macro" use="@name"/>
   <xsl:key name="headers" match="header" use="@name"/>
   <xsl:key name="globals" match="namespace/data-member|header/data-member" use="@name"/>
-  <xsl:key name="named-entities" match="class|struct|union|concept|function|overloaded-function|macro|library|namespace/data-member|header/data-member|*[attribute::id]" use="translate(@name|@id, $uppercase-letters, $lowercase-letters)"/>
+  <xsl:key name="named-entities"
+    match="class|struct|union|concept|function|overloaded-function|macro|library|namespace/data-member|header/data-member|*[attribute::id]"
+    use="translate(@name|@id, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')"/>
 
   <xsl:template match="function|overloaded-function" mode="generate.id">
     <xsl:call-template name="fully-qualified-id">
@@ -398,6 +400,14 @@
     </computeroutput>
   </xsl:template>
 
+  <xsl:template match="code[@language='c++']" mode="annotation">
+    <computeroutput>
+      <xsl:apply-templates mode="annotation">
+        <xsl:with-param name="highlight" select="true()"/>
+      </xsl:apply-templates>
+    </computeroutput>
+  </xsl:template>
+
   <xsl:template match="bold" mode="annotation">
     <emphasis role="bold">
       <xsl:apply-templates mode="annotation"/>
@@ -420,11 +430,7 @@
     <xsl:param name="highlight" select="false()"/>
 
     <xsl:element name="{name(.)}">
-      <xsl:for-each select="./@*">
-        <xsl:attribute name="{name(.)}">
-          <xsl:value-of select="."/>
-        </xsl:attribute>
-      </xsl:for-each>
+      <xsl:copy-of select="./@*"/>
       <xsl:apply-templates select="./*|./text()" mode="annotation">
         <xsl:with-param name="highlight" select="$highlight"/>
       </xsl:apply-templates>

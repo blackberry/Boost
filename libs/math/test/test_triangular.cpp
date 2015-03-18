@@ -16,7 +16,8 @@
 #endif
 
 #include <boost/math/concepts/real_concept.hpp> // for real_concept
-#include <boost/test/test_exec_monitor.hpp> // Boost.Test
+#define BOOST_TEST_MAIN
+#include <boost/test/unit_test.hpp> // Boost.Test
 #include <boost/test/floating_point_comparison.hpp>
 
 #include <boost/math/distributions/triangular.hpp>
@@ -26,6 +27,7 @@ using boost::math::triangular_distribution;
 #include "test_out_of_range.hpp"
 
 #include <iostream>
+#include <iomanip>
 using std::cout;
 using std::endl;
 using std::scientific;
@@ -494,7 +496,7 @@ void test_spots(RealType)
   else
   { // real_concept case, does has_infinfity == false, so can't check it throws.
     // cout << std::numeric_limits<RealType>::infinity() << ' '
-    // << boost::math::fpclassify(std::numeric_limits<RealType>::infinity()) << endl;
+    // << (boost::math::fpclassify)(std::numeric_limits<RealType>::infinity()) << endl;
     // value of std::numeric_limits<RealType>::infinity() is zero, so FPclassify is zero,
     // so (boost::math::isfinite)(std::numeric_limits<RealType>::infinity()) does not detect infinity.
     // so these tests would never throw.
@@ -528,7 +530,7 @@ void test_spots(RealType)
   check_out_of_range<triangular_distribution<RealType> >(-1, 0, 1);
 } // template <class RealType>void test_spots(RealType)
 
-int test_main(int, char* [])
+BOOST_AUTO_TEST_CASE( test_main )
 {
   //  double toleps = std::numeric_limits<double>::epsilon(); // 5 eps as a fraction.
   double tol5eps = std::numeric_limits<double>::epsilon() * 5; // 5 eps as a fraction.
@@ -680,8 +682,8 @@ int test_main(int, char* [])
         "to pass.</note>" << std::cout;
   #endif
 
-  return 0;
-} // int test_main(int, char* [])
+  
+} // BOOST_AUTO_TEST_CASE( test_main )
 
 /*
 

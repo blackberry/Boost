@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Class slot_base</title>
 <link rel="stylesheet" href="../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
 <link rel="up" href="../../signals2/reference.html#header.boost.signals2.slot_base_hpp" title="Header &lt;boost/signals2/slot_base.hpp&gt;">
 <link rel="prev" href="slot/arg.html" title="Class template arg">
@@ -37,21 +37,24 @@
   <span class="comment">// types</span>
   <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="emphasis"><em><span class="identifier">implementation</span><span class="special">-</span><span class="identifier">detail</span></em></span><span class="special">&gt;</span> <a name="boost.signals2.slot_base.locked_container_type"></a><span class="identifier">locked_container_type</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="slot_base.html#id884313-bb">tracking</a></span>
-  <span class="keyword">bool</span> <a class="link" href="slot_base.html#id884317-bb"><span class="identifier">expired</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="identifier">locked_container_type</span> <a class="link" href="slot_base.html#id1238819-bb"><span class="identifier">lock</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="slot_base.html#idp208153744-bb">tracking</a></span>
+  <span class="keyword">bool</span> <a class="link" href="slot_base.html#idp208154192-bb"><span class="identifier">expired</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">locked_container_type</span> <a class="link" href="slot_base.html#idp161590960-bb"><span class="identifier">lock</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="id3324288"></a><h2>Description</h2>
+<a name="idp429956192"></a><h2>Description</h2>
 <p></p>
 <div class="refsect2">
-<a name="id3324294"></a><h3>
-<a name="id884313-bb"></a><code class="computeroutput">slot_base</code> tracking</h3>
+<a name="idp429956992"></a><h3>
+<a name="idp208153744-bb"></a><code class="computeroutput">slot_base</code> tracking</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">bool</span> <a name="id884317-bb"></a><span class="identifier">expired</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
-<div class="variablelist"><table border="0">
+<pre class="literallayout"><span class="keyword">bool</span> <a name="idp208154192-bb"></a><span class="identifier">expired</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody><tr>
 <td><p><span class="term">Returns:</span></p></td>
 <td><p><code class="computeroutput">true</code> if any tracked object has expired.</p></td>
@@ -59,9 +62,12 @@
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">locked_container_type</span> <a name="id1238819-bb"></a><span class="identifier">lock</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
-<div class="variablelist"><table border="0">
+<pre class="literallayout"><span class="identifier">locked_container_type</span> <a name="idp161590960-bb"></a><span class="identifier">lock</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term">Returns:</span></p></td>

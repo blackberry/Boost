@@ -14,6 +14,10 @@
 #ifndef BOOST_INTERPROCESS_INTRUSIVE_PTR_HPP_INCLUDED
 #define BOOST_INTERPROCESS_INTRUSIVE_PTR_HPP_INCLUDED
 
+#if defined(_MSC_VER)
+#  pragma once
+#endif
+
 //!\file
 //!Describes an intrusive ownership pointer.
 
@@ -56,12 +60,12 @@ class intrusive_ptr
    //!Provides the type of the stored pointer.
    typedef T element_type;
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    private:
    typedef VoidPointer VP;
    typedef intrusive_ptr this_type;
    typedef pointer this_type::*unspecified_bool_type;
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public:
    //!Constructor. Initializes internal pointer to 0.
@@ -166,10 +170,10 @@ class intrusive_ptr
    void swap(intrusive_ptr & rhs)
    {  ipcdetail::do_swap(m_ptr, rhs.m_ptr);  }
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    private:
    pointer m_ptr;
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 };
 
 //!Returns a.get() == b.get().
@@ -277,7 +281,7 @@ inline boost::interprocess::intrusive_ptr<T, VP>reinterpret_pointer_cast
 
 } // namespace interprocess
 
-/// @cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
 #if defined(_MSC_VER) && (_MSC_VER < 1400)
 //!Returns p.get().
@@ -287,7 +291,7 @@ inline T *to_raw_pointer(boost::interprocess::intrusive_ptr<T, VP> p)
 {  return p.get();   }
 #endif
 
-/// @endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 } // namespace boost
 

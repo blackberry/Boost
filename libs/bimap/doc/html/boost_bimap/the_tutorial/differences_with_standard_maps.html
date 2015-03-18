@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Differences with standard maps</title>
 <link rel="stylesheet" href="../../boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
 <link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Bimap">
 <link rel="up" href="../the_tutorial.html" title="The tutorial">
 <link rel="prev" href="the_collection_of_relations_type.html" title="The collection of relations type">
@@ -22,7 +22,7 @@
 <div class="spirit-nav">
 <a accesskey="p" href="the_collection_of_relations_type.html"><img src="../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../the_tutorial.html"><img src="../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="useful_functions.html"><img src="../../../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
-<div class="section">
+<div class="section boost_bimap_the_tutorial_differences_with_standard_maps">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="boost_bimap.the_tutorial.differences_with_standard_maps"></a><a class="link" href="differences_with_standard_maps.html" title="Differences with standard maps">Differences
       with standard maps</a>
@@ -35,7 +35,7 @@
 <dt><span class="section"><a href="differences_with_standard_maps.html#boost_bimap.the_tutorial.differences_with_standard_maps.complexity_of_operations">Complexity
         of operations</a></span></dt>
 </dl></div>
-<div class="section">
+<div class="section boost_bimap_the_tutorial_differences_with_standard_maps_insertion">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="boost_bimap.the_tutorial.differences_with_standard_maps.insertion"></a><a class="link" href="differences_with_standard_maps.html#boost_bimap.the_tutorial.differences_with_standard_maps.insertion" title="Insertion">Insertion</a>
 </h4></div></div></div>
@@ -48,8 +48,8 @@
 <pre class="programlisting"><span class="identifier">bimap</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&gt;</span> <span class="identifier">bm</span><span class="special">;</span>
 
 <span class="identifier">bm</span><span class="special">.</span><span class="identifier">left</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="number">1</span><span class="special">,</span><span class="string">"orange"</span><span class="special">);</span>
-<span class="identifier">bm</span><span class="special">.</span><span class="identifier">left</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="number">2</span><span class="special">,</span><span class="string">"orange"</span><span class="special">);</span> <span class="comment">// No effect! returns make_pair(iter,false)
-</span></pre>
+<span class="identifier">bm</span><span class="special">.</span><span class="identifier">left</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="number">2</span><span class="special">,</span><span class="string">"orange"</span><span class="special">);</span> <span class="comment">// No effect! returns make_pair(iter,false)</span>
+</pre>
 <p>
           The insertion will only succeed if it is allowed by all views of the <code class="computeroutput"><span class="identifier">bimap</span></code>. In the next snippet we define
           the right collection as a multiset, when we try to insert the same two
@@ -60,14 +60,14 @@
 <pre class="programlisting"><span class="identifier">bimap</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="identifier">multiset_of</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">bm</span><span class="special">;</span>
 
 <span class="identifier">bm</span><span class="special">.</span><span class="identifier">left</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="number">1</span><span class="special">,</span><span class="string">"orange"</span><span class="special">);</span>
-<span class="identifier">bm</span><span class="special">.</span><span class="identifier">left</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="number">2</span><span class="special">,</span><span class="string">"orange"</span><span class="special">);</span> <span class="comment">// Insertion succeed!
-</span></pre>
+<span class="identifier">bm</span><span class="special">.</span><span class="identifier">left</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span><span class="number">2</span><span class="special">,</span><span class="string">"orange"</span><span class="special">);</span> <span class="comment">// Insertion succeed!</span>
+</pre>
 <p>
           If we use a custom collection of relation type, the insertion has to be
           allowed by it too.
         </p>
 </div>
-<div class="section">
+<div class="section boost_bimap_the_tutorial_differences_with_standard_maps_iterator__value_type">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="boost_bimap.the_tutorial.differences_with_standard_maps.iterator__value_type"></a><a class="link" href="differences_with_standard_maps.html#boost_bimap.the_tutorial.differences_with_standard_maps.iterator__value_type" title="iterator::value_type">iterator::value_type</a>
 </h4></div></div></div>
@@ -85,8 +85,8 @@
 <span class="identifier">bm_type</span> <span class="identifier">bm</span><span class="special">;</span>
 <span class="identifier">bm</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span> <span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">relation</span><span class="special">(</span> <span class="number">1</span><span class="special">,</span> <span class="string">"one"</span> <span class="special">)</span> <span class="special">);</span>
 <span class="special">...</span>
-<span class="identifier">bm</span><span class="special">.</span><span class="identifier">left</span><span class="special">.</span><span class="identifier">find</span><span class="special">(</span><span class="number">1</span><span class="special">)-&gt;</span><span class="identifier">second</span> <span class="special">=</span> <span class="string">"1"</span><span class="special">;</span> <span class="comment">// Valid
-</span></pre>
+<span class="identifier">bm</span><span class="special">.</span><span class="identifier">left</span><span class="special">.</span><span class="identifier">find</span><span class="special">(</span><span class="number">1</span><span class="special">)-&gt;</span><span class="identifier">second</span> <span class="special">=</span> <span class="string">"1"</span><span class="special">;</span> <span class="comment">// Valid</span>
+</pre>
 <p>
           In this case, when the iterator is dereferenced the return type is <span class="emphasis"><em>signature-compatible</em></span>
           with a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="keyword">int</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&gt;</span></code>.
@@ -340,7 +340,7 @@
 </tbody>
 </table></div>
 </div>
-<div class="section">
+<div class="section boost_bimap_the_tutorial_differences_with_standard_maps_operator_____and_at__">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="boost_bimap.the_tutorial.differences_with_standard_maps.operator_____and_at__"></a><a class="link" href="differences_with_standard_maps.html#boost_bimap.the_tutorial.differences_with_standard_maps.operator_____and_at__" title="operator[] and at()">operator[]
         and at()</a>
@@ -353,8 +353,8 @@
         </p>
 <pre class="programlisting"><span class="identifier">bimap</span><span class="special">&lt;</span> <span class="identifier">unorderd_set_of</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&gt;,</span> <span class="identifier">list_of</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">bm</span><span class="special">;</span>
 
-<span class="identifier">bm</span><span class="special">.</span><span class="identifier">left</span><span class="special">[</span><span class="string">"one"</span><span class="special">]</span> <span class="special">=</span> <span class="number">1</span><span class="special">;</span> <span class="comment">// Ok
-</span></pre>
+<span class="identifier">bm</span><span class="special">.</span><span class="identifier">left</span><span class="special">[</span><span class="string">"one"</span><span class="special">]</span> <span class="special">=</span> <span class="number">1</span><span class="special">;</span> <span class="comment">// Ok</span>
+</pre>
 <p>
           The standard defines an access function for <code class="computeroutput"><span class="identifier">map</span></code>
           and <code class="computeroutput"><span class="identifier">unordered_map</span></code>:
@@ -379,50 +379,47 @@
           <a href="../../../../example/at_function_examples.cpp" target="_top">Go to source code</a>
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">bimap</span><span class="special">&lt;</span> <span class="identifier">set_of</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="special">&gt;,</span> <span class="identifier">list_of</span><span class="special">&lt;</span> <span class="keyword">int</span> <span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">bm_type</span><span class="special">;</span>
 <span class="identifier">bm_type</span> <span class="identifier">bm</span><span class="special">;</span>
 
 <span class="keyword">try</span>
 <span class="special">{</span>
-    <span class="identifier">bm</span><span class="special">.</span><span class="identifier">left</span><span class="special">.</span><span class="identifier">at</span><span class="special">(</span><span class="string">"one"</span><span class="special">)</span> <span class="special">=</span> <span class="number">1</span><span class="special">;</span> <span class="comment">// throws std::out_of_range
-</span><span class="special">}</span>
+    <span class="identifier">bm</span><span class="special">.</span><span class="identifier">left</span><span class="special">.</span><span class="identifier">at</span><span class="special">(</span><span class="string">"one"</span><span class="special">)</span> <span class="special">=</span> <span class="number">1</span><span class="special">;</span> <span class="comment">// throws std::out_of_range</span>
+<span class="special">}</span>
 <span class="keyword">catch</span><span class="special">(</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">out_of_range</span> <span class="special">&amp;</span> <span class="identifier">e</span> <span class="special">)</span> <span class="special">{}</span>
 
 <span class="identifier">assert</span><span class="special">(</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">empty</span><span class="special">()</span> <span class="special">);</span>
 
-<span class="identifier">bm</span><span class="special">.</span><span class="identifier">left</span><span class="special">[</span><span class="string">"one"</span><span class="special">]</span> <span class="special">=</span> <span class="number">1</span><span class="special">;</span> <span class="comment">// Ok
-</span>
-<span class="identifier">assert</span><span class="special">(</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">left</span><span class="special">.</span><span class="identifier">at</span><span class="special">(</span><span class="string">"one"</span><span class="special">)</span> <span class="special">==</span> <span class="number">1</span> <span class="special">);</span> <span class="comment">// Ok
-</span></pre>
+<span class="identifier">bm</span><span class="special">.</span><span class="identifier">left</span><span class="special">[</span><span class="string">"one"</span><span class="special">]</span> <span class="special">=</span> <span class="number">1</span><span class="special">;</span> <span class="comment">// Ok</span>
+
+<span class="identifier">assert</span><span class="special">(</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">left</span><span class="special">.</span><span class="identifier">at</span><span class="special">(</span><span class="string">"one"</span><span class="special">)</span> <span class="special">==</span> <span class="number">1</span> <span class="special">);</span> <span class="comment">// Ok</span>
+</pre>
 <p>
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">bimap</span><span class="special">&lt;</span> <span class="identifier">multiset_of</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&gt;,</span> <span class="identifier">unordered_set_of</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">bm_type</span><span class="special">;</span>
 <span class="identifier">bm_type</span> <span class="identifier">bm</span><span class="special">;</span>
 
-<span class="identifier">bm</span><span class="special">.</span><span class="identifier">right</span><span class="special">[</span><span class="number">1</span><span class="special">]</span> <span class="special">=</span> <span class="string">"one"</span><span class="special">;</span> <span class="comment">// compilation error
-</span>
+<span class="identifier">bm</span><span class="special">.</span><span class="identifier">right</span><span class="special">[</span><span class="number">1</span><span class="special">]</span> <span class="special">=</span> <span class="string">"one"</span><span class="special">;</span> <span class="comment">// compilation error</span>
+
 <span class="identifier">bm</span><span class="special">.</span><span class="identifier">right</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span> <span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">right_value_type</span><span class="special">(</span><span class="number">1</span><span class="special">,</span><span class="string">"one"</span><span class="special">)</span> <span class="special">);</span>
 
-<span class="identifier">assert</span><span class="special">(</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">right</span><span class="special">.</span><span class="identifier">at</span><span class="special">(</span><span class="number">1</span><span class="special">)</span> <span class="special">==</span> <span class="string">"one"</span> <span class="special">);</span> <span class="comment">// Ok
-</span>
+<span class="identifier">assert</span><span class="special">(</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">right</span><span class="special">.</span><span class="identifier">at</span><span class="special">(</span><span class="number">1</span><span class="special">)</span> <span class="special">==</span> <span class="string">"one"</span> <span class="special">);</span> <span class="comment">// Ok</span>
+
 <span class="keyword">try</span>
 <span class="special">{</span>
-    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">right</span><span class="special">.</span><span class="identifier">at</span><span class="special">(</span><span class="number">2</span><span class="special">);</span> <span class="comment">// throws std::out_of_range
-</span><span class="special">}</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">right</span><span class="special">.</span><span class="identifier">at</span><span class="special">(</span><span class="number">2</span><span class="special">);</span> <span class="comment">// throws std::out_of_range</span>
+<span class="special">}</span>
 <span class="keyword">catch</span><span class="special">(</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">out_of_range</span> <span class="special">&amp;</span> <span class="identifier">e</span> <span class="special">)</span> <span class="special">{}</span>
 
-<span class="identifier">bm</span><span class="special">.</span><span class="identifier">right</span><span class="special">.</span><span class="identifier">at</span><span class="special">(</span><span class="number">1</span><span class="special">)</span> <span class="special">=</span> <span class="string">"1"</span><span class="special">;</span> <span class="comment">// compilation error
-</span>
+<span class="identifier">bm</span><span class="special">.</span><span class="identifier">right</span><span class="special">.</span><span class="identifier">at</span><span class="special">(</span><span class="number">1</span><span class="special">)</span> <span class="special">=</span> <span class="string">"1"</span><span class="special">;</span> <span class="comment">// compilation error</span>
 </pre>
 <p>
         </p>
 </div>
-<div class="section">
+<div class="section boost_bimap_the_tutorial_differences_with_standard_maps_complexity_of_operations">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="boost_bimap.the_tutorial.differences_with_standard_maps.complexity_of_operations"></a><a class="link" href="differences_with_standard_maps.html#boost_bimap.the_tutorial.differences_with_standard_maps.complexity_of_operations" title="Complexity of operations">Complexity
         of operations</a>
@@ -435,7 +432,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2006 -2007 Matias Capeletto<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2006-2012 Matias Capeletto<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

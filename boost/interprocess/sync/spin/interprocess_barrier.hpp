@@ -12,6 +12,10 @@
 #include <boost/interprocess/detail/posix_time_types_wrk.hpp>
 #include <boost/interprocess/sync/scoped_lock.hpp>
 
+#if defined(_MSC_VER)
+#  pragma once
+#endif
+
 namespace boost {
 namespace interprocess {
 

@@ -46,12 +46,6 @@ namespace quickbook
     int load_snippets(fs::path const& file, std::vector<template_symbol>& storage,
         std::string const& extension, value::tag_type load_type);
 
-    std::string syntax_highlight(
-        parse_iterator first, parse_iterator last,
-        quickbook::state& state,
-        std::string const& source_mode,
-        bool is_block);
-
     struct xinclude_path {
         xinclude_path(fs::path const& path, std::string const& uri) :
             path(path), uri(uri) {}
@@ -119,12 +113,12 @@ namespace quickbook
         quickbook::state& state;
     };
 
-    struct list_item_action
+    struct explicit_list_action
     {
         //  implicit paragraphs
         //  doesn't output the paragraph if it's only whitespace.
 
-        list_item_action(
+        explicit_list_action(
             quickbook::state& state)
         : state(state) {}
 
@@ -149,15 +143,11 @@ namespace quickbook
     {
         //  Handles simple text formats
 
-        simple_phrase_action(
-            collector& out
-          , quickbook::state& state)
-        : out(out)
-        , state(state) {}
+        simple_phrase_action(quickbook::state& state)
+        : state(state) {}
 
         void operator()(char) const;
 
-        collector& out;
         quickbook::state& state;
     };
 
@@ -178,12 +168,9 @@ namespace quickbook
     {
         // Handles macro substitutions
 
-        do_macro_action(collector& phrase, quickbook::state& state)
-            : phrase(phrase)
-            , state(state) {}
+        do_macro_action(quickbook::state& state) : state(state) {}
 
         void operator()(std::string const& str) const;
-        collector& phrase;
         quickbook::state& state;
     };
 
@@ -191,13 +178,12 @@ namespace quickbook
     {
         // Prints a space
 
-        raw_char_action(collector& out)
-            : out(out) {}
+        raw_char_action(quickbook::state& state) : state(state) {}
 
         void operator()(char ch) const;
         void operator()(parse_iterator first, parse_iterator last) const;
 
-        collector& out;
+        quickbook::state& state;
     };
 
     struct plain_char_action
@@ -205,36 +191,29 @@ namespace quickbook
         // Prints a single plain char.
         // Converts '<' to "&lt;"... etc See utils.hpp
 
-        plain_char_action(collector& phrase, quickbook::state& state)
-        : phrase(phrase)
-        , state(state) {}
+        plain_char_action(quickbook::state& state) : state(state) {}
 
         void operator()(char ch) const;
         void operator()(parse_iterator first, parse_iterator last) const;
 
-        collector& phrase;
         quickbook::state& state;
     };
     
     struct escape_unicode_action
     {
-        escape_unicode_action(collector& phrase, quickbook::state& state)
-        : phrase(phrase)
-        , state(state) {}
+        escape_unicode_action(quickbook::state& state) : state(state) {}
+
         void operator()(parse_iterator first, parse_iterator last) const;
 
-        collector& phrase;
         quickbook::state& state;
     };
 
     struct break_action
     {
-        break_action(collector& phrase, quickbook::state& state)
-        : phrase(phrase), state(state) {}
+        break_action(quickbook::state& state) : state(state) {}
 
         void operator()(parse_iterator f, parse_iterator) const;
 
-        collector& phrase;
         quickbook::state& state;
     };
 
@@ -264,6 +243,101 @@ namespace quickbook
         quickbook::state& state;
         std::vector<std::string> saved_anchors;
         value::tag_type tag;
+    };
+
+    // member_action
+    //
+    // Action for calling a member function taking two parse iterators.
+
+    template <typename T>
+    struct member_action
+    {
+        typedef void(T::*member_function)(parse_iterator, parse_iterator);
+
+        T& l;
+        member_function mf;
+
+        member_action(T& l, member_function mf) : l(l), mf(mf) {}
+
+        void operator()(parse_iterator first, parse_iterator last) const {
+            (l.*mf)(first, last);
+        }
+    };
+
+    // member_action1
+    //
+    // Action for calling a member function taking two parse iterators and a value.
+
+    template <typename T, typename Arg1>
+    struct member_action1
+    {
+        typedef void(T::*member_function)(parse_iterator, parse_iterator, Arg1);
+
+        T& l;
+        member_function mf;
+
+        member_action1(T& l, member_function mf) : l(l), mf(mf) {}
+
+        struct impl
+        {
+            member_action1 a;
+            Arg1 value;
+
+            impl(member_action1& a, Arg1 value) :
+                a(a), value(value)
+            {}
+
+            void operator()(parse_iterator first, parse_iterator last) const {
+                (a.l.*a.mf)(first, last, value);
+            }
+        };
+
+        impl operator()(Arg1 a1) {
+            return impl(*this, a1);
+        }
+    };
+
+    // member_action_value
+    //
+    // Action for calling a unary member function.
+
+    template <typename T, typename Value>
+    struct member_action_value
+    {
+        typedef void(T::*member_function)(Value);
+
+        T& l;
+        member_function mf;
+
+        member_action_value(T& l, member_function mf) : l(l), mf(mf) {}
+
+        void operator()(Value v) const {
+            (l.*mf)(v);
+        }
+    };
+
+    // member_action_value
+    //
+    // Action for calling a unary member function with a fixed value.
+
+    template <typename T, typename Value>
+    struct member_action_fixed_value
+    {
+        typedef void(T::*member_function)(Value);
+
+        T& l;
+        member_function mf;
+        Value v;
+
+        member_action_fixed_value(T& l, member_function mf, Value v) : l(l), mf(mf), v(v) {}
+
+        void operator()() const {
+            (l.*mf)(v);
+        }
+
+        void operator()(parse_iterator first, parse_iterator last) const {
+            (l.*mf)(v);
+        }
     };
 }
 

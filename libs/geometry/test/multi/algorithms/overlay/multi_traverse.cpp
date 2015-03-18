@@ -23,6 +23,7 @@
 #include <boost/geometry/multi/core/ring_type.hpp>
 
 #include <boost/geometry/multi/algorithms/correct.hpp>
+#include <boost/geometry/multi/algorithms/envelope.hpp>
 #include <boost/geometry/multi/algorithms/num_points.hpp>
 #include <boost/geometry/multi/algorithms/detail/overlay/copy_segments.hpp>
 #include <boost/geometry/multi/algorithms/detail/overlay/copy_segment_point.hpp>
@@ -159,7 +160,7 @@ void test_geometries()
         );
     test_traverse_intersection::apply
         (
-            "case_96_multi", 2, 1.0,
+            "case_96_multi", 1, 0.5,
             case_96_multi[0], case_96_multi[1]
         );
     test_traverse_intersection::apply
@@ -386,7 +387,7 @@ void test_geometries()
 
     test_traverse_union::apply
         (
-            "case_recursive_boxes_3", 8, 49.5,
+            "case_recursive_boxes_3", 7, 49.5,
             case_recursive_boxes_3[0], case_recursive_boxes_3[1]
         );
 

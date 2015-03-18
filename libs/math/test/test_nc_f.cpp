@@ -22,7 +22,8 @@
 
 #include <boost/math/concepts/real_concept.hpp> // for real_concept
 #include <boost/math/distributions/non_central_f.hpp> // for chi_squared_distribution
-#include <boost/test/test_exec_monitor.hpp> // for test_main
+#define BOOST_TEST_MAIN
+#include <boost/test/unit_test.hpp> // for test_main
 #include <boost/test/results_collector.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/test/floating_point_comparison.hpp> // for BOOST_CHECK_CLOSE
@@ -32,6 +33,7 @@
 #include "handle_test_result.hpp"
 
 #include <iostream>
+#include <iomanip>
 using std::cout;
 using std::endl;
 #include <limits>
@@ -164,70 +166,86 @@ void test_spot(
 template <class RealType> // Any floating-point type RealType.
 void test_spots(RealType)
 {
-   RealType tolerance = (std::max)(
-      boost::math::tools::epsilon<RealType>() * 100,
-      (RealType)1e-6) * 100;
+   RealType tolerance = boost::math::tools::epsilon<RealType>() * 10000;
 
-   cout << "Tolerance = " << tolerance << "%." << endl;
+   cout << "Tolerance = " << (tolerance / 100) << "%." << endl;
 
    //
-   // Spot tests use values computed by the R statistical
-   // package and the pbeta and dbeta functions:
+   // Spot tests from Mathematica computed values:
    //
+   test_spot(
+      RealType(5),                   // alpha
+      RealType(2),                   // beta
+      RealType(1),                   // non-centrality param
+      RealType(1.5),                   // F statistic
+      RealType(0.49845842011686358665786775091245664L),           // CDF
+      RealType(1 - 0.49845842011686358665786775091245664L),         // Complement of CDF
+      RealType(0.20251311620629730205859816288225385L),           // PDF
+      RealType(tolerance));
+
    test_spot(
      RealType(2),                   // alpha
      RealType(5),                   // beta
      RealType(1),                   // non-centrality param
      RealType(2),                   // F statistic
-     RealType(0.6493871),           // CDF
-     RealType(1-0.6493871),         // Complement of CDF
-     RealType(0.1551262),           // PDF
+     RealType(0.64938711196845800322066756609406894L),           // CDF
+     RealType(1 - 0.64938711196845800322066756609406894L),         // Complement of CDF
+     RealType(0.15512617916132011524583796078456003L),           // PDF
      RealType(tolerance));
    test_spot(
      RealType(100),                 // alpha
      RealType(5),                   // beta
      RealType(15),                  // non-centrality param
      RealType(105),                 // F statistic
-     RealType(0.999962),            // CDF
-     RealType(1-0.999962),          // Complement of CDF
-     RealType(8.95623e-07),         // PDF
-     RealType(tolerance));
+     RealType(0.99996207325249555786258005958906310L),            // CDF
+     RealType(0.000037926747504442137419940410936905407L),          // Complement of CDF
+     RealType(8.9562292619539161551049126260104435e-7),         // PDF
+     RealType(tolerance * 10));
    test_spot(
      RealType(100),                 // alpha
      RealType(5),                   // beta
      RealType(15),                  // non-centrality param
      RealType(1.5),                 // F statistic
-     RealType(0.5759232),           // CDF
-     RealType(1-0.5759232),         // Complement of CDF
-     RealType(0.3674375),           // PDF
-     RealType(tolerance));
+     RealType(0.57592315596686179870591317303126895L),           // CDF
+     RealType(1 - 0.57592315596686179870591317303126895L),         // Complement of CDF
+     RealType(0.36743745541686900593212039288061162L),           // PDF
+     RealType(tolerance * 5));
    test_spot(
      RealType(5),                   // alpha
      RealType(100),                 // beta
      RealType(102),                 // non-centrality param
      RealType(25),                  // F statistic
-     RealType(0.7499338),           // CDF
-     RealType(1-0.7499338),         // Complement of CDF
-     RealType(0.0544676),           // PDF
-     RealType(tolerance));
-   test_spot(
-     RealType(85),                  // alpha
-     RealType(100),                 // beta
-     RealType(245),                 // non-centrality param
-     RealType(3.5),                 // F statistic
-     RealType(0.2697244),           // CDF
-     RealType(1-0.2697244),         // Complement of CDF
-     RealType(0.5435237),           // PDF
-     RealType(tolerance));
+     RealType(0.74993383259829917593356265102363267L),           // CDF
+     RealType(1 - 0.74993383259829917593356265102363267L),         // Complement of CDF
+     RealType(0.054467600423154020554785779421659007L),           // PDF
+     RealType(tolerance * 5));
    test_spot(
      RealType(85),                  // alpha
      RealType(100),                 // beta
      RealType(0.5),                 // non-centrality param
      RealType(1.25),                // F statistic
-     RealType(0.8522862),           // CDF
-     RealType(1-0.8522862),         // Complement of CDF
-     RealType(0.8851028),           // PDF
-     RealType(tolerance));
+     RealType(0.85228624977948142884820398473385455L),           // CDF
+     RealType(0.14771375022051857115179601526614545L),         // Complement of CDF
+     RealType(0.88510283331631848299643323511414868L),           // PDF
+     RealType(tolerance * 5));
+
+   //
+   // Spot tests use values computed by the R statistical
+   // package and the pbeta and dbeta functions:
+   //
+   tolerance = (std::max)(
+      boost::math::tools::epsilon<RealType>() * 100,
+      (RealType)1e-6) * 100;
+
+   test_spot(
+      RealType(85),                  // alpha
+      RealType(100),                 // beta
+      RealType(245),                 // non-centrality param
+      RealType(3.5),                 // F statistic
+      RealType(0.2697244),           // CDF
+      RealType(1 - 0.2697244),         // Complement of CDF
+      RealType(0.54352369104452836465948073900030320L),           // PDF
+      RealType(tolerance));
 
    BOOST_MATH_STD_USING
 
@@ -294,7 +312,7 @@ void test_spots(RealType)
    BOOST_CHECK_THROW(quantile(boost::math::non_central_f_distribution<RealType>(1, 1, 1), 2), std::domain_error);
 } // template <class RealType>void test_spots(RealType)
 
-int test_main(int, char* [])
+BOOST_AUTO_TEST_CASE( test_main )
 {
    BOOST_MATH_CONTROL_FP;
    // Basic sanity-check spot values.
@@ -309,6 +327,6 @@ int test_main(int, char* [])
 #endif
 #endif
 
-   return 0;
-} // int test_main(int, char* [])
+   
+} // BOOST_AUTO_TEST_CASE( test_main )
 

@@ -10,6 +10,9 @@
 #include <iostream>
 #include <string>
 
+// If defined, tests are run without rescaling-to-integer or robustness policy
+// This multi_union currently contains no tests for double which then fail
+// #define BOOST_GEOMETRY_NO_ROBUSTNESS
 
 #include <algorithms/test_union.hpp>
 #include <algorithms/test_overlay.hpp>
@@ -106,6 +109,21 @@ void test_areal()
     test_one<Polygon, MultiPolygon, MultiPolygon>("case_recursive_boxes_3",
         case_recursive_boxes_3[0], case_recursive_boxes_3[1],
         17, 0, 159, 56.5); // Area from SQL Server
+
+    test_one<Polygon, MultiPolygon, MultiPolygon>("ggl_list_20120915_h2_a",
+         ggl_list_20120915_h2[0], ggl_list_20120915_h2[1],
+         1, 0, 12, 23.0); // Area from SQL Server
+    test_one<Polygon, MultiPolygon, MultiPolygon>("ggl_list_20120915_h2_b",
+         ggl_list_20120915_h2[0], ggl_list_20120915_h2[2],
+         1, 0, 12, 23.0); // Area from SQL Server
+
+    test_one<Polygon, MultiPolygon, MultiPolygon>("ggl_list_20140212_sybren",
+         ggl_list_20140212_sybren[0], ggl_list_20140212_sybren[1],
+         2, 0, 16, 0.002471626);
+
+    test_one<Polygon, MultiPolygon, MultiPolygon>("ticket_9081",
+        ticket_9081[0], ticket_9081[1],
+        3, 0, 31, 0.2187385);
 }
 
 template <typename P>
@@ -133,9 +151,14 @@ int test_main(int, char* [])
 {
     test_all<bg::model::d2::point_xy<double> >();
 
-#ifdef HAVE_TTMATH
+#if ! defined(BOOST_GEOMETRY_TEST_ONLY_ONE_TYPE)
+    test_all<bg::model::d2::point_xy<float> >();
+
+#if defined(HAVE_TTMATH)
     std::cout << "Testing TTMATH" << std::endl;
     test_all<bg::model::d2::point_xy<ttmath_big> >();
+#endif
+
 #endif
 
     return 0;

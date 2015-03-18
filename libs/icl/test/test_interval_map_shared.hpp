@@ -1131,7 +1131,7 @@ void interval_map_find_4_bicremental_types()
     typedef typename IntervalMapT::interval_type  IntervalT;
     typedef typename IntervalMapT::const_iterator c_iterator;
 
-    typename IntervalMapT::interval_mapping_type val_pair1 = IDv(6,9,1);
+    //CL typename IntervalMapT::interval_mapping_type val_pair1 = IDv(6,9,1);
     std::pair<const IntervalT, U> val_pair2 = IDv(3,5,3);
     mapping_pair<T,U> map_pair = K_v(4,3);
 
@@ -1252,7 +1252,7 @@ void interval_map_range_4_bicremental_types()
     typedef typename IntervalMapT::interval_type  IntervalT;
     typedef typename IntervalMapT::const_iterator c_iterator;
 
-    typename IntervalMapT::interval_mapping_type val_pair1 = IDv(6,9,1);
+    //CL typename IntervalMapT::interval_mapping_type val_pair1 = IDv(6,9,1);
     std::pair<const IntervalT, U> val_pair2 = IDv(3,5,3);
     mapping_pair<T,U> map_pair = K_v(4,3);
 
@@ -1293,7 +1293,7 @@ void interval_map_set_4_bicremental_types()
     typedef IntervalMap<T,U> IntervalMapT;
     typedef typename IntervalMapT::interval_type   IntervalT;
 
-    typename IntervalMapT::interval_mapping_type val_pair1 = IDv(6,9,1);
+    //CL typename IntervalMapT::interval_mapping_type val_pair1 = IDv(6,9,1);
     std::pair<const IntervalT, U> val_pair2 = IDv(3,5,3);
     mapping_pair<T,U> map_pair = K_v(4,3);
 
@@ -1478,7 +1478,7 @@ void interval_map_intersects_4_bicremental_types()
     typedef IntervalMap<T,U> IntervalMapT;
     typedef typename IntervalMapT::interval_type   IntervalT;
 
-    typename IntervalMapT::interval_mapping_type val_pair1 = IDv(6,9,1);
+    //CL typename IntervalMapT::interval_mapping_type val_pair1 = IDv(6,9,1);
     std::pair<const IntervalT, U> val_pair2 = IDv(3,5,3);
     mapping_pair<T,U> map_pair = K_v(4,3);
 
@@ -1527,7 +1527,7 @@ template
 >
 void interval_map_move_4_discrete_types()
 {
-#   ifndef BOOST_NO_RVALUE_REFERENCES
+#   ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
     typedef IntervalMap<T,U> IntervalMapT;
     typedef typename IntervalMapT::interval_type   IntervalT;
 
@@ -1543,7 +1543,7 @@ void interval_map_move_4_discrete_types()
     BOOST_CHECK( icl::is_element_equal(map_A, map_B) );
     BOOST_CHECK_EQUAL( map_A, join(map_B) );
 
-#   endif // BOOST_NO_RVALUE_REFERENCES
+#   endif // BOOST_NO_CXX11_RVALUE_REFERENCES
 }
 
 

@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Struct template has_fold_case</title>
 <link rel="stylesheet" href="../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
 <link rel="up" href="../../xpressive/reference.html#header.boost.xpressive.regex_traits_hpp" title="Header &lt;boost/xpressive/regex_traits.hpp&gt;">
 <link rel="prev" href="regex_traits_version_2_tag.html" title="Struct regex_traits_version_2_tag">
@@ -32,7 +32,8 @@
 <div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../xpressive/reference.html#header.boost.xpressive.regex_traits_hpp" title="Header &lt;boost/xpressive/regex_traits.hpp&gt;">boost/xpressive/regex_traits.hpp</a>&gt;
 
 </span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Traits<span class="special">&gt;</span> 
-<span class="keyword">struct</span> <a class="link" href="has_fold_case.html" title="Struct template has_fold_case">has_fold_case</a> <span class="special">{</span>
+<span class="keyword">struct</span> <a class="link" href="has_fold_case.html" title="Struct template has_fold_case">has_fold_case</a> <span class="special">:</span> <span class="keyword">public</span> is_convertible&lt; Traits::version_tag *, regex_traits_version_1_case_fold_tag * &gt;
+<span class="special">{</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

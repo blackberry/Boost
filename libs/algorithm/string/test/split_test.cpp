@@ -13,10 +13,12 @@
 #include <boost/algorithm/string/predicate.hpp>
 
 // Include unit test framework
-#include <boost/test/included/test_exec_monitor.hpp>
+#define BOOST_TEST_MAIN
+#include <boost/test/unit_test.hpp>
 
 #include <string>
 #include <vector>
+#include <list>
 #include <iostream>
 
 #include <boost/test/test_tools.hpp>
@@ -44,7 +46,7 @@ void iterator_test()
     const char* pch1="xx-abc--xx-abb";
     vector<string> tokens;
     vector< vector<int> > vtokens;
-
+    
     // find_all tests
     find_all(
         tokens,
@@ -144,30 +146,48 @@ void iterator_test()
 
 
     find_iterator<string::iterator> fiter=make_find_iterator(str1, first_finder("xx"));
+    find_iterator<string::iterator> fiter2;
+    
     BOOST_CHECK(equals(*fiter, "xx"));
     ++fiter;
-    BOOST_CHECK(equals(*fiter, "xx"));
+    
+    fiter2 = fiter;
+    BOOST_CHECK(equals(*fiter,  "xx"));
+    BOOST_CHECK(equals(*fiter2, "xx"));
+
     ++fiter;
     BOOST_CHECK(fiter==find_iterator<string::iterator>());
+    BOOST_CHECK(equals(*fiter2, "xx"));
+
+    ++fiter2;
+    BOOST_CHECK(fiter2==find_iterator<string::iterator>());
 
     split_iterator<string::iterator> siter=make_split_iterator(str1, token_finder(is_any_of("-"), token_compress_on));
+    split_iterator<string::iterator> siter2;
     BOOST_CHECK(equals(*siter, "xx"));
     ++siter;
-    BOOST_CHECK(equals(*siter, "abc"));
+
+    siter2 = siter;
+    BOOST_CHECK(equals(*siter,  "abc"));
+    BOOST_CHECK(equals(*siter2, "abc"));
+    
     ++siter;
-    BOOST_CHECK(equals(*siter, "xx"));
+    BOOST_CHECK(equals(*siter,  "xx"));
+    BOOST_CHECK(equals(*siter2, "abc"));
+    
     ++siter;
     BOOST_CHECK(equals(*siter, "abb"));
     ++siter;
     BOOST_CHECK(siter==split_iterator<string::iterator>(siter));
     BOOST_CHECK(siter==split_iterator<string::iterator>());
 
+//  Make sure we work with forward iterators
+//  See bug #7989
+    list<char> l1;
+    find_iterator<list<char>::iterator> liter=make_find_iterator(l1, first_finder("xx"));
 }
 
-// test main 
-int test_main( int, char*[] )
+BOOST_AUTO_TEST_CASE( test_main )
 {
     iterator_test();
-    
-    return 0;
 }

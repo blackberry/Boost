@@ -16,7 +16,7 @@ namespace boost_no_typeid
 
 int test()
 {
-   typeid(int);
+   (void)typeid(int);
    return 0;
 }
 

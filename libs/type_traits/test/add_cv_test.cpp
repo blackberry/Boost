@@ -21,7 +21,7 @@ BOOST_DECL_TRANSFORM_TEST(add_cv_test_10, ::tt::add_cv, const*, const*const vola
 BOOST_DECL_TRANSFORM_TEST(add_cv_test_11, ::tt::add_cv, volatile*, volatile*const volatile )
 BOOST_DECL_TRANSFORM_TEST(add_cv_test_5, ::tt::add_cv, const &, const&)
 BOOST_DECL_TRANSFORM_TEST(add_cv_test_6, ::tt::add_cv, &, &)
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
 BOOST_DECL_TRANSFORM_TEST(add_cv_test_5a, ::tt::add_cv, const &&, const&&)
 BOOST_DECL_TRANSFORM_TEST(add_cv_test_6a, ::tt::add_cv, &&, &&)
 #endif
@@ -45,7 +45,7 @@ TT_TEST_BEGIN(add_const)
    add_cv_test_9();
    add_cv_test_12();
    add_cv_test_13();
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
    add_cv_test_5a();
    add_cv_test_6a();
 #endif

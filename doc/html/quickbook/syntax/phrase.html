@@ -3,9 +3,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Phrase Level Elements</title>
 <link rel="stylesheet" href="../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../../quickbook.html" title="Chapter&#160;37.&#160;Quickbook 1.5">
+<link rel="up" href="../../quickbook.html" title="Chapter&#160;41.&#160;Quickbook 1.6">
 <link rel="prev" href="structure.html" title="Document Structure">
 <link rel="next" href="block.html" title="Block Level Elements">
 </head>
@@ -25,13 +25,14 @@
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="quickbook.syntax.phrase"></a>Phrase Level Elements</h2></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="phrase.html#quickbook.syntax.phrase.font_styles">Font
       Styles</a></span></dt>
 <dt><span class="section"><a href="phrase.html#quickbook.syntax.phrase.replaceable">Replaceable</a></span></dt>
 <dt><span class="section"><a href="phrase.html#quickbook.syntax.phrase.quotations">Quotations</a></span></dt>
 <dt><span class="section"><a href="phrase.html#quickbook.syntax.phrase.simple_formatting">Simple
       formatting</a></span></dt>
+<dt><span class="section"><a href="phrase.html#quickbook.syntax.phrase.role">Role</a></span></dt>
 <dt><span class="section"><a href="phrase.html#quickbook.syntax.phrase.inline_code">Inline
       code</a></span></dt>
 <dt><span class="section"><a href="phrase.html#quickbook.syntax.phrase.code_blocks">Code
@@ -151,9 +152,9 @@ the true business precept.]
       </p>
 <p>
         Unlike QuickBook's standard formatting scheme, the rules for simpler alternatives
-        are much stricter<sup>[<a name="quickbook.syntax.phrase.simple_formatting.f0" href="#ftn.quickbook.syntax.phrase.simple_formatting.f0" class="footnote">9</a>]</sup>.
+        are much stricter<a href="#ftn.quickbook.syntax.phrase.simple_formatting.f0" class="footnote" name="quickbook.syntax.phrase.simple_formatting.f0"><sup class="footnote">[11]</sup></a>.
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             Simple markups cannot nest. You can combine a simple markup with a nestable
             markup.
@@ -184,7 +185,7 @@ the true business precept.]
           </li>
 </ul></div>
 <div class="table">
-<a name="quickbook.syntax.phrase.simple_formatting.more_formatting_samples"></a><p class="title"><b>Table&#160;37.1.&#160;More Formatting Samples</b></p>
+<a name="quickbook.syntax.phrase.simple_formatting.more_formatting_samples"></a><p class="title"><b>Table&#160;41.1.&#160;More Formatting Samples</b></p>
 <div class="table-contents"><table class="table" summary="More Formatting Samples">
 <colgroup>
 <col>
@@ -406,6 +407,73 @@ And one for the little boy who lives down the lane.
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
+<a name="quickbook.syntax.phrase.role"></a><a name="quickbook.ref.role"></a><a class="link" href="phrase.html#quickbook.syntax.phrase.role" title="Role">Role</a>
+</h3></div></div></div>
+<p>
+        This generates a docbook phrase with a <code class="computeroutput">role</code> attribute, which
+        can be used to classify the phrase. This can be used to mark text for a use
+        that isn't covered elsewhere. The docbook <code class="computeroutput">role</code> will generate
+        a html class, which can be used to style text. And the xsl stylesheets can
+        be customized to treat certain roles specially when generating pdfs.
+      </p>
+<p>
+        The boostbook css stylesheets, and xsl stylesheets contain support for a
+        limited number of colours that can be used with <code class="computeroutput">role</code>. For example
+        if you write:
+      </p>
+<pre class="programlisting">[role red Text content]
+</pre>
+<p>
+        You'll get red text if you're using the boostbook css (for html) or the boostbook
+        xsl for generating pdfs.
+      </p>
+<p>
+        The full list of colours that will be available is:
+      </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+            <span class="red">red</span>
+          </li>
+<li class="listitem">
+            <span class="green">green</span>
+          </li>
+<li class="listitem">
+            <span class="lime">lime</span>
+          </li>
+<li class="listitem">
+            <span class="blue">blue</span>
+          </li>
+<li class="listitem">
+            <span class="navy">navy</span>
+          </li>
+<li class="listitem">
+            <span class="yellow">yellow</span>
+          </li>
+<li class="listitem">
+            <span class="magenta">magenta</span>
+          </li>
+<li class="listitem">
+            <span class="indigo">indigo</span>
+          </li>
+<li class="listitem">
+            <span class="cyan">cyan</span>
+          </li>
+<li class="listitem">
+            <span class="purple">purple</span>
+          </li>
+<li class="listitem">
+            <span class="gold">gold</span>
+          </li>
+<li class="listitem">
+            <span class="silver">silver</span>
+          </li>
+<li class="listitem">
+            <span class="gray">gray</span>
+          </li>
+</ul></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
 <a name="quickbook.syntax.phrase.inline_code"></a><a name="quickbook.ref.inline_code"></a><a class="link" href="phrase.html#quickbook.syntax.phrase.inline_code" title="Inline code">Inline
       code</a>
 </h3></div></div></div>
@@ -519,7 +587,7 @@ C++ comment `// looks like this` whereas a Python comment [python]
         Python comment <code class="computeroutput"><span class="comment">#looks like this</span></code>.
       </p>
 <div class="table">
-<a name="quickbook.syntax.phrase.source_mode.supported_source_modes"></a><p class="title"><b>Table&#160;37.2.&#160;Supported Source Modes</b></p>
+<a name="quickbook.syntax.phrase.source_mode.supported_source_modes"></a><p class="title"><b>Table&#160;41.2.&#160;Supported Source Modes</b></p>
 <div class="table-contents"><table class="table" summary="Supported Source Modes">
 <colgroup>
 <col>
@@ -839,7 +907,7 @@ escape (no processing/formatting)
 <pre class="programlisting">[footnote A sample footnote]
 </pre>
 <p>
-        will generate this<sup>[<a name="quickbook.syntax.phrase.footnotes.f0" href="#ftn.quickbook.syntax.phrase.footnotes.f0" class="footnote">10</a>]</sup>.
+        will generate this<a href="#ftn.quickbook.syntax.phrase.footnotes.f0" class="footnote" name="quickbook.syntax.phrase.footnotes.f0"><sup class="footnote">[12]</sup></a>.
       </p>
 </div>
 <div class="section">
@@ -894,15 +962,15 @@ escape (no processing/formatting)
       </p>
 </div>
 <div class="footnotes">
-<br><hr width="100" align="left">
-<div class="footnote"><p><sup>[<a id="ftn.quickbook.syntax.phrase.simple_formatting.f0" href="#quickbook.syntax.phrase.simple_formatting.f0" class="para">9</a>] </sup>
+<br><hr style="width:100; text-align:left;margin-left: 0">
+<div id="ftn.quickbook.syntax.phrase.simple_formatting.f0" class="footnote"><p><a href="#quickbook.syntax.phrase.simple_formatting.f0" class="para"><sup class="para">[11] </sup></a>
           Thanks to David Barrett, author of <a href="http://quinthar.com/qwikiwiki/index.php?page=Home" target="_top">Qwiki</a>,
           for sharing these samples and teaching me these obscure formatting rules.
           I wasn't sure at all if <a href="http://spirit.sourceforge.net" target="_top">Spirit</a>,
           being more or less a formal EBNF parser, can handle the context sensitivity
           and ambiguity.
         </p></div>
-<div class="footnote"><p><sup>[<a id="ftn.quickbook.syntax.phrase.footnotes.f0" href="#quickbook.syntax.phrase.footnotes.f0" class="para">10</a>] </sup>
+<div id="ftn.quickbook.syntax.phrase.footnotes.f0" class="footnote"><p><a href="#quickbook.syntax.phrase.footnotes.f0" class="para"><sup class="para">[12] </sup></a>
           A sample footnote
         </p></div>
 </div>

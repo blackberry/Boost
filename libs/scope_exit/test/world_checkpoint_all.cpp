@@ -7,9 +7,9 @@
 // Home at http://www.boost.org/libs/scope_exit
 
 #include <boost/config.hpp>
-#if defined(BOOST_NO_LAMBDAS)
+#if defined(BOOST_NO_CXX11_LAMBDAS)
 #   error "lambda functions required"
-#elif defined(BOOST_NO_VARIADIC_MACROS)
+#elif defined(BOOST_NO_CXX11_VARIADIC_MACROS)
 #   error "variadic macros required"
 #else
 

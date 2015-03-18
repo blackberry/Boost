@@ -1,6 +1,6 @@
 /* Boost.MultiIndex test for serialization, part 3.
  *
- * Copyright 2003-2010 Joaquin M Lopez Munoz.
+ * Copyright 2003-2013 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -35,9 +35,7 @@ template<class Archive>
 void save_construct_data(
   Archive& ar,const non_default_ctble* p,const unsigned int version)
 {
-#if !defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
   if(version<3)return;
-#endif
 
   ar<<boost::serialization::make_nvp("n",p->n);
 }
@@ -46,9 +44,7 @@ template<class Archive>
 void load_construct_data(
   Archive& ar,non_default_ctble* p,const unsigned int version)
 {
-#if !defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
   if(version<3)return;
-#endif
 
   int n=0;
   ar>>boost::serialization::make_nvp("n",n);
@@ -131,28 +127,28 @@ void test_serialization3()
   std::istringstream iss(oss.str());
   boost::archive::text_iarchive ia(iss);
   ia>>hs2;
-  BOOST_CHECK(boost::multi_index::get<1>(hs)==boost::multi_index::get<1>(hs2));
+  BOOST_TEST(boost::multi_index::get<1>(hs)==boost::multi_index::get<1>(hs2));
 
   for(int j=0;j<N;++j){
     iterator it;
     ia>>it;
-    BOOST_CHECK(*it==j*SHUFFLE);
+    BOOST_TEST(*it==j*SHUFFLE);
   }
   iterator it;
   ia>>it;
-  BOOST_CHECK(it==hs2.end());
+  BOOST_TEST(it==hs2.end());
 
   for(std::size_t buc=0;buc<hs2.bucket_count();++buc){
     for(std::size_t k=0;k<hs2.bucket_size(buc);++k){
       int n;
-      local_iterator it;
+      local_iterator it_;
       ia>>n;
-      ia>>it;
-      BOOST_CHECK(*it==n);
+      ia>>it_;
+      BOOST_TEST(*it_==n);
     }
     local_iterator it2;
     ia>>it2;
-    BOOST_CHECK(it2==hs2.end(buc));
+    BOOST_TEST(it2==hs2.end(buc));
   }
 
   {

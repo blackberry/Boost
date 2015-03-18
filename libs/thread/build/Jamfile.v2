@@ -1,4 +1,4 @@
-# $Id: Jamfile.v2 80476 2012-09-09 19:39:44Z viboes $
+# $Id$
 # Copyright 2006-2007 Roland Schwarz.
 # Copyright 2007 Anthony Williams
 # Copyright 2011-2012 Vicente J.Botet Escriba.
@@ -36,6 +36,7 @@ import os ;
 import feature ;
 import indirect ;
 import path ;
+import configure ; 
 
 project boost/thread
     : source-location ../src
@@ -47,8 +48,10 @@ project boost/thread
       -<tag>@$(BOOST_JAMROOT_MODULE)%$(BOOST_JAMROOT_MODULE).tag
       <tag>@$(__name__).tag
       <toolset>gcc:<cxxflags>-Wno-long-long
-      <define>BOOST_THREAD_THROW_IF_PRECONDITION_NOT_SATISFIED
-      <define>BOOST_SYSTEM_NO_DEPRECATED
+      #<define>BOOST_THREAD_THROW_IF_PRECONDITION_NOT_SATISFIED
+      #<define>BOOST_SYSTEM_NO_DEPRECATED
+      #<define>BOOST_THREAD_DONT_PROVIDE_INTERRUPTIONS
+
       <library>/boost/system//boost_system
        #-pedantic -ansi -std=gnu++0x -Wextra -fpermissive
         <warnings>all
@@ -57,29 +60,38 @@ project boost/thread
         <toolset>gcc:<cxxflags>-Wno-long-long
         #<toolset>gcc:<cxxflags>-ansi
         #<toolset>gcc:<cxxflags>-fpermissive
+        <toolset>gcc:<cxxflags>-Wno-variadic-macros
+        #<toolset>gcc:<cxxflags>-Wunused-local-typedefs
+        <toolset>gcc:<cxxflags>-Wunused-function
 
         <toolset>darwin:<cxxflags>-Wextra
         <toolset>darwin:<cxxflags>-pedantic
-        <toolset>darwin:<cxxflags>-ansi
+        #<toolset>darwin:<cxxflags>-ansi
         <toolset>darwin:<cxxflags>-fpermissive
         <toolset>darwin:<cxxflags>-Wno-long-long
+        <toolset>darwin:<cxxflags>-Wno-variadic-macros
+        #<toolset>darwin:<cxxflags>-Wunused-local-typedefs
+        <toolset>darwin:<cxxflags>-Wunused-function
 
         #<toolset>pathscale:<cxxflags>-Wextra
         <toolset>pathscale:<cxxflags>-Wno-long-long
         <toolset>pathscale:<cxxflags>-pedantic
 
         <toolset>clang:<cxxflags>-Wextra
-        <toolset>clang:<cxxflags>-pedantic
-        <toolset>clang:<cxxflags>-ansi
+        #<toolset>clang:<cxxflags>-ansi
         #<toolset>clang:<cxxflags>-fpermissive
         <toolset>clang:<cxxflags>-Wno-long-long
+        <toolset>clang:<cxxflags>-Wunused-function
+        <toolset>clang:<cxxflags>-Wno-variadic-macros
+        <toolset>clang:<warnings>on
 
-        <toolset>gcc-mingw-4.4.0:<cxxflags>-fdiagnostics-show-option
-        <toolset>gcc-mingw-4.5.0:<cxxflags>-fdiagnostics-show-option
-        <toolset>gcc-mingw-4.6.0:<cxxflags>-fdiagnostics-show-option
-        <toolset>gcc-mingw-4.6.3:<cxxflags>-fdiagnostics-show-option
-        <toolset>gcc-mingw-4.7.0:<cxxflags>-fdiagnostics-show-option
-        <toolset>gcc-mingw-4.8.0:<cxxflags>-fdiagnostics-show-option
+        #<toolset>gcc-mingw-4.4.0:<cxxflags>-fdiagnostics-show-option
+        #<toolset>gcc-mingw-4.5.0:<cxxflags>-fdiagnostics-show-option
+        #<toolset>gcc-mingw-4.6.0:<cxxflags>-fdiagnostics-show-option
+        #<toolset>gcc-mingw-4.6.3:<cxxflags>-fdiagnostics-show-option
+        #<toolset>gcc-mingw-4.7.0:<cxxflags>-fdiagnostics-show-option
+        #<toolset>gcc-mingw-4.8.0:<cxxflags>-fdiagnostics-show-option
+        #<toolset>gcc:<cxxflags>-Wno-missing-field-initializers
 
         <toolset>darwin-4.6.2:<cxxflags>-Wno-delete-non-virtual-dtor
         <toolset>darwin-4.7.0:<cxxflags>-Wno-delete-non-virtual-dtor
@@ -92,6 +104,20 @@ project boost/thread
         #<toolset>clang-3.0:<cxxflags>-Wno-unused-function
         #<toolset>clang-3.0:<cxxflags>-Wno-unused-variable
 
+# Note: Some of the remarks from the Intel compiler are disabled
+# remark #193: zero used for undefined preprocessing identifier "XXX"
+# remark #304: access control not specified ("public" by default)
+# remark #593: variable "XXX" was set but never used
+# remark #1418: external function definition with no prior declaration
+# remark #2415: variable "XXX" of static storage duration was declared but never referenced
+
+        <toolset>intel:<cxxflags>-wd193,304,383,444
+        <toolset>intel:<cxxflags>-wd593,981
+        <toolset>intel:<cxxflags>-wd1418
+        <toolset>intel:<cxxflags>-wd2415
+
+        <toolset>msvc:<cxxflags>/wd4512
+
 
     # : default-build <threading>multi
     : usage-requirements  # pass these requirement to dependents (i.e. users)
@@ -99,20 +125,23 @@ project boost/thread
       #<link>shared:<define>BOOST_THREAD_DYN_LINK=1
       <link>static:<define>BOOST_THREAD_BUILD_LIB=1
       <link>shared:<define>BOOST_THREAD_BUILD_DLL=1
-      <define>BOOST_THREAD_THROW_IF_PRECONDITION_NOT_SATISFIED
-      <define>BOOST_SYSTEM_NO_DEPRECATED
+      #<define>BOOST_THREAD_THROW_IF_PRECONDITION_NOT_SATISFIED
+      #<define>BOOST_SYSTEM_NO_DEPRECATED
+      #<define>BOOST_THREAD_DONT_PROVIDE_INTERRUPTIONS
       <library>/boost/system//boost_system
     ;
 
 local rule default_threadapi ( )
 {
     local api = pthread ;
-    if <target-os>windows in $(properties) { api = win32 ; }
+    if [ os.name ] = "NT" { api = win32 ; }
     return $(api) ;
 }
 
 feature.feature threadapi : pthread win32 : propagated ;
 feature.set-default threadapi : [ default_threadapi ] ;
+
+exe has_atomic_flag_lockfree : ../build/has_atomic_flag_lockfree_test.cpp ; 
 
 rule tag ( name : type ? : property-set )
 {
@@ -210,10 +239,10 @@ rule usage-requirements ( properties * )
         }
     }
 
-    if ! <toolset>vacpp in $(properties) || <toolset-vacpp:version>11.1 in $(properties)
-    {
+    #if ! <toolset>vacpp in $(properties) || <toolset-vacpp:version>11.1 in $(properties) || <toolset-vacpp:version>12.1.0.1 in $(properties)  || <toolset-vacpp:version>12.1 in $(properties)
+    #{
       result += <library>/boost/chrono//boost_chrono ;
-    }
+    #}
 
     return $(result) ;
 }
@@ -237,8 +266,15 @@ rule requirements ( properties * )
                 result = <build>no ;
             }
         }
+        result += <define>BOOST_THREAD_DONT_USE_CHRONO ;
+        if ! [ configure.builds has_atomic_flag_lockfree 
+            : $(properties) : "lockfree boost::atomic_flag" ]  { 
+           result += <library>/boost/atomic//boost_atomic ; 
+        } 
+    } else {
+        result += <define>BOOST_THREAD_USES_CHRONO ;
+        result += <library>/boost/chrono//boost_chrono ;
     }
-    result += <define>BOOST_THREAD_DONT_USE_CHRONO ;
 
     return $(result) ;
 }
@@ -248,6 +284,7 @@ alias thread_sources
       win32/thread.cpp
       win32/tss_dll.cpp
       win32/tss_pe.cpp
+      future.cpp
     : ## requirements ##
       <threadapi>win32
     ;
@@ -256,6 +293,7 @@ alias thread_sources
     : ## pthread sources ##
       pthread/thread.cpp
       pthread/once.cpp
+      future.cpp
     : ## requirements ##
       <threadapi>pthread
     ;
@@ -263,7 +301,7 @@ alias thread_sources
 explicit thread_sources ;
 
 lib boost_thread
-    : thread_sources future.cpp
+    : thread_sources
     : <conditional>@requirements
     :
     : <link>shared:<define>BOOST_THREAD_USE_DLL=1

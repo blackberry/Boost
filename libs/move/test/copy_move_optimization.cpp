@@ -8,7 +8,8 @@
 //Optimization:
 //Since RVO is better than move-construction,
 //avoid copy constructor overloading.
-#include <boost/move/move.hpp>
+#include <boost/move/detail/config_begin.hpp>
+#include <boost/move/utility_core.hpp>
 #include <iostream>
 
 bool moved = false;
@@ -103,3 +104,4 @@ int main()
 //1 const rv<T> & constructor: copy constructor
 //1 T & constructor: copy constructor
 
+#include <boost/move/detail/config_end.hpp>

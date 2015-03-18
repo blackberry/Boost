@@ -3,7 +3,9 @@
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
-#include <boost/thread.hpp>
+#define BOOST_THREAD_VERSION 2
+
+#include <boost/thread/thread_only.hpp>
 #include <boost/date_time/posix_time/posix_time_io.hpp>
 #include <assert.h>
 #include <iostream>
@@ -28,7 +30,7 @@ int main()
     time_t end_time;
     assert(now_time < wait_time);
 
-    boost::mutex::scoped_lock lk(mtx);
+    boost::unique_lock<boost::mutex> lk(mtx);
     //const bool res =
     (void)cv.timed_wait(lk, from_time_t(wait_time));
     end_time = ::time(0);

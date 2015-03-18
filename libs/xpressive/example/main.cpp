@@ -214,7 +214,7 @@ void example6()
 {
     std::string str( "Now <bold>is the time <i>for all good men</i> to come to the aid of their</bold> country." );
 
-    // find a HTML tag
+    // find an HTML tag
     sregex html = '<' >> optional('/') >> +_w >> '>';
 
     // the -1 below directs the token iterator to display the parts of

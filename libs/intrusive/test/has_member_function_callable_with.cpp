@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2011-2012. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2011-2013. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -8,12 +8,10 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#include <boost/intrusive/detail/config_begin.hpp>
-#include <boost/intrusive/detail/workaround.hpp>
 //Just for BOOST_INTRUSIVE_DETAIL_HAS_MEMBER_FUNCTION_CALLABLE_WITH_0_ARGS_UNSUPPORTED
 #include <boost/intrusive/detail/has_member_function_callable_with.hpp>
 #include <cstddef>
-#include <boost/move/move.hpp>
+#include <boost/move/utility_core.hpp>
 
 namespace boost{
 namespace intrusive{
@@ -23,6 +21,12 @@ namespace has_member_function_callable_with {
 struct dont_care
 {
    dont_care(...);
+};
+
+template<class T>
+struct make_dontcare
+{
+   typedef has_member_function_callable_with::dont_care type;
 };
 
 struct private_type
@@ -53,7 +57,7 @@ class has_member_function_named_func
       void func();
    };
 
-   struct Base : public Type, public BaseMixin {};
+   struct Base : public ::boost::intrusive::detail::remove_cv<Type>::type, public BaseMixin {};
    template <typename T, T t> class Helper{};
 
    template <typename U>
@@ -68,7 +72,7 @@ class has_member_function_named_func
 
 }}}
 
-#if !defined(BOOST_CONTAINER_PERFECT_FORWARDING)
+#if !defined(BOOST_INTRUSIVE_PERFECT_FORWARDING)
 
    namespace boost{
    namespace intrusive{
@@ -147,7 +151,7 @@ class has_member_function_named_func
             <Fun, true , void , void , void>
          {
             template<class U>
-            static decltype(boost::move_detail::declval<Fun>().func(), has_member_function_callable_with::yes_type()) Test(Fun* f);
+            static decltype(boost::move_detail::declval<U>().func(), has_member_function_callable_with::yes_type()) Test(U* f);
 
             template<class U>
             static has_member_function_callable_with::no_type Test(...);
@@ -163,21 +167,17 @@ class has_member_function_named_func
    namespace intrusive{
    namespace intrusive_detail{
 
-
-   template<typename Fun>
-   struct funwrap1_func : Fun
-   {
-      using Fun::func;
-      has_member_function_callable_with::private_type
-         func( has_member_function_callable_with::dont_care) const;
-   };
-
    template<typename Fun , class P0>
    struct has_member_function_callable_with_func_impl
       <Fun, true , P0 , void , void>
    {
 
-      typedef funwrap1_func<Fun> FunWrap;
+      struct FunWrap : Fun
+      {
+         using Fun::func;
+         has_member_function_callable_with::private_type
+            func( has_member_function_callable_with::dont_care) const;
+      };
 
       static bool const value = (sizeof(has_member_function_callable_with::no_type) ==
                                  sizeof(has_member_function_callable_with::is_private_type
@@ -192,20 +192,16 @@ class has_member_function_named_func
    namespace intrusive{
    namespace intrusive_detail{
 
-
-   template<typename Fun>
-   struct funwrap2_func: Fun
-   {
-      using Fun::func;
-      has_member_function_callable_with::private_type
-         func( has_member_function_callable_with::dont_care , has_member_function_callable_with::dont_care)  const;
-   };
-
    template<typename Fun , class P0 , class P1>
    struct has_member_function_callable_with_func_impl
       <Fun, true , P0 , P1 , void>
    {
-      typedef funwrap2_func<Fun> FunWrap;
+      struct FunWrap: Fun
+      {
+         using Fun::func;
+         has_member_function_callable_with::private_type
+            func( has_member_function_callable_with::dont_care , has_member_function_callable_with::dont_care)  const;
+      };
 
       static bool const value = (sizeof(has_member_function_callable_with::no_type) ==
                                  sizeof(has_member_function_callable_with::is_private_type
@@ -222,22 +218,18 @@ class has_member_function_named_func
    namespace intrusive{
    namespace intrusive_detail{
 
-
-   template<typename Fun>
-   struct funwrap3_func: Fun
-   {
-      using Fun::func;
-      has_member_function_callable_with::private_type
-         func( has_member_function_callable_with::dont_care
-            , has_member_function_callable_with::dont_care
-            , has_member_function_callable_with::dont_care)  const;
-   };
-
    template<typename Fun , class P0 , class P1 , class P2>
    struct has_member_function_callable_with_func_impl
       <Fun, true , P0 , P1 , P2 >
    {
-      typedef funwrap3_func<Fun> FunWrap;
+      struct FunWrap: Fun
+      {
+         using Fun::func;
+         has_member_function_callable_with::private_type
+            func( has_member_function_callable_with::dont_care
+               , has_member_function_callable_with::dont_care
+               , has_member_function_callable_with::dont_care)  const;
+      };
 
       static bool const value = (sizeof(has_member_function_callable_with::no_type) ==
                                  sizeof(has_member_function_callable_with::is_private_type
@@ -259,7 +251,7 @@ class has_member_function_named_func
 
    }}}
 
-#else
+#else //#if !defined(BOOST_INTRUSIVE_PERFECT_FORWARDING)
 
    namespace boost{
    namespace intrusive{
@@ -283,6 +275,7 @@ class has_member_function_named_func
    namespace intrusive{
    namespace intrusive_detail{
 
+   #ifdef BOOST_NO_CXX11_DECLTYPE
    template<class F, std::size_t N = sizeof(boost::move_detail::declval<F>().func(), 0)>
    struct zeroarg_checker_func
    {
@@ -299,12 +292,19 @@ class has_member_function_named_func
       zeroarg_checker_func(int);
    };
 
+   #endif   //BOOST_NO_CXX11_DECLTYPE
+
    template<typename Fun>
    struct has_member_function_callable_with_func_impl
       <Fun, true>
    {
-      template<class U>
-      static zeroarg_checker_func<U> Test(zeroarg_checker_func<U>*);
+      #ifndef BOOST_NO_CXX11_DECLTYPE
+      template<class U, class V = decltype(boost::move_detail::declval<U>().func()) >
+         static boost_intrusive_has_member_function_callable_with::yes_type Test(U*);
+      #else
+         template<class U>
+         static zeroarg_checker_func<U> Test(zeroarg_checker_func<U>*);
+      #endif
 
       template <class U>
       static has_member_function_callable_with::no_type Test(...);
@@ -320,26 +320,19 @@ class has_member_function_named_func
    namespace intrusive{
    namespace intrusive_detail{
 
-
-   template<typename Fun, class ...DontCares>
-   struct funwrap_func : Fun
-   {
-      using Fun::func;
-      has_member_function_callable_with::private_type
-         func(DontCares...) const;
-   };
-
    template<typename Fun, class ...Args>
    struct has_member_function_callable_with_func_impl
       <Fun, true , Args...>
    {
-      template<class T>
-      struct make_dontcare
+      template<class ...DontCares>
+      struct FunWrapTmpl : Fun
       {
-         typedef has_member_function_callable_with::dont_care type;
+         using Fun::func;
+         has_member_function_callable_with::private_type
+            func(DontCares...) const;
       };
 
-      typedef funwrap_func<Fun, typename make_dontcare<Args>::type...> FunWrap;
+      typedef FunWrapTmpl<typename has_member_function_callable_with::make_dontcare<Args>::type...> FunWrap;
 
       static bool const value = (sizeof(has_member_function_callable_with::no_type) ==
                                  sizeof(has_member_function_callable_with::is_private_type
@@ -356,7 +349,7 @@ class has_member_function_named_func
 
    }}}
 
-#endif
+#endif   //#if !defined(BOOST_INTRUSIVE_PERFECT_FORWARDING)
 
 struct functor
 {
@@ -465,4 +458,3 @@ int main()
    return 0;
 
 }
-#include <boost/intrusive/detail/config_end.hpp>

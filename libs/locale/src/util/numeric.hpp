@@ -14,6 +14,7 @@
 #include <boost/locale/info.hpp>
 #include <sstream>
 #include <vector>
+#include <ctime>
 #include <stdlib.h>
 
 #include "timezone.hpp"

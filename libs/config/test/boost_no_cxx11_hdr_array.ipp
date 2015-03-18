@@ -16,7 +16,7 @@ namespace boost_no_cxx11_hdr_array {
 
 int test()
 {
-  std::array<int, 3> a = { 1, 2, 3 };
+  std::array<int, 3> a = {{ 1, 2, 3 }};
   return a.size() == 3 ? 0 : 1;
 }
 

@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Additional information</title>
 <link rel="stylesheet" href="../../boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
 <link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Bimap">
 <link rel="up" href="../the_tutorial.html" title="The tutorial">
 <link rel="prev" href="unconstrained_sets.html" title="Unconstrained Sets">
@@ -22,7 +22,7 @@
 <div class="spirit-nav">
 <a accesskey="p" href="unconstrained_sets.html"><img src="../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../the_tutorial.html"><img src="../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="complete_instantiation_scheme.html"><img src="../../../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
-<div class="section">
+<div class="section boost_bimap_the_tutorial_additional_information">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="boost_bimap.the_tutorial.additional_information"></a><a class="link" href="additional_information.html" title="Additional information">Additional
       information</a>
@@ -32,13 +32,12 @@
         we want to represent a books and author bidirectional map.
       </p>
 <p>
-        
 </p>
 <pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">bimap</span><span class="special">&lt;</span>
 
-    <span class="identifier">multiset_of</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="special">&gt;,</span> <span class="comment">// author
-</span>         <span class="identifier">set_of</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="special">&gt;</span>  <span class="comment">// title
-</span>
+    <span class="identifier">multiset_of</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="special">&gt;,</span> <span class="comment">// author</span>
+         <span class="identifier">set_of</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="special">&gt;</span>  <span class="comment">// title</span>
+
 <span class="special">&gt;</span> <span class="identifier">bm_type</span><span class="special">;</span>
 <span class="keyword">typedef</span> <span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">value_type</span> <span class="identifier">book</span><span class="special">;</span>
 
@@ -48,8 +47,8 @@
 <span class="identifier">bm</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span> <span class="identifier">book</span><span class="special">(</span> <span class="string">"Scott Meyers"</span>        <span class="special">,</span> <span class="string">"Effective C++"</span>                <span class="special">)</span> <span class="special">);</span>
 <span class="identifier">bm</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span> <span class="identifier">book</span><span class="special">(</span> <span class="string">"Andrei Alexandrescu"</span> <span class="special">,</span> <span class="string">"Modern C++ Design"</span>            <span class="special">)</span> <span class="special">);</span>
 
-<span class="comment">// Print the author of Modern C++
-</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">right</span><span class="special">.</span><span class="identifier">at</span><span class="special">(</span> <span class="string">"Modern C++ Design"</span> <span class="special">);</span>
+<span class="comment">// Print the author of Modern C++</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">right</span><span class="special">.</span><span class="identifier">at</span><span class="special">(</span> <span class="string">"Modern C++ Design"</span> <span class="special">);</span>
 </pre>
 <p>
       </p>
@@ -101,15 +100,14 @@
         constructor.
       </p>
 <p>
-        
 </p>
 <pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">bimap</span><span class="special">&lt;</span>
 
-    <span class="identifier">multiset_of</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="special">&gt;,</span> <span class="comment">// author
-</span>         <span class="identifier">set_of</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="special">&gt;,</span> <span class="comment">// title
-</span>
-      <span class="identifier">with_info</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="special">&gt;</span>  <span class="comment">// abstract
-</span>
+    <span class="identifier">multiset_of</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="special">&gt;,</span> <span class="comment">// author</span>
+         <span class="identifier">set_of</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="special">&gt;,</span> <span class="comment">// title</span>
+
+      <span class="identifier">with_info</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="special">&gt;</span>  <span class="comment">// abstract</span>
+
 <span class="special">&gt;</span> <span class="identifier">bm_type</span><span class="special">;</span>
 <span class="keyword">typedef</span> <span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">value_type</span> <span class="identifier">book</span><span class="special">;</span>
 
@@ -124,11 +122,11 @@
 <span class="special">);</span>
 
 
-<span class="comment">// Print the author of the bible
-</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">right</span><span class="special">.</span><span class="identifier">at</span><span class="special">(</span><span class="string">"The C++ Programming Language"</span><span class="special">);</span>
+<span class="comment">// Print the author of the bible</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">right</span><span class="special">.</span><span class="identifier">at</span><span class="special">(</span><span class="string">"The C++ Programming Language"</span><span class="special">);</span>
 
-<span class="comment">// Print the abstract of this book
-</span><span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">left_iterator</span> <span class="identifier">i</span> <span class="special">=</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">left</span><span class="special">.</span><span class="identifier">find</span><span class="special">(</span><span class="string">"Bjarne Stroustrup"</span><span class="special">);</span>
+<span class="comment">// Print the abstract of this book</span>
+<span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">left_iterator</span> <span class="identifier">i</span> <span class="special">=</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">left</span><span class="special">.</span><span class="identifier">find</span><span class="special">(</span><span class="string">"Bjarne Stroustrup"</span><span class="special">);</span>
 <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">i</span><span class="special">-&gt;</span><span class="identifier">info</span><span class="special">;</span>
 </pre>
 <p>
@@ -137,7 +135,6 @@
         Contrary to the two key types, the information will be mutable using iterators.
       </p>
 <p>
-        
 </p>
 <pre class="programlisting"><span class="identifier">i</span><span class="special">-&gt;</span><span class="identifier">info</span> <span class="special">+=</span> <span class="string">"More details about this book"</span><span class="special">;</span>
 </pre>
@@ -149,10 +146,9 @@
         but returned the associated information instead of the data.
       </p>
 <p>
-        
 </p>
-<pre class="programlisting"><span class="comment">// Print the new abstract
-</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">right</span><span class="special">.</span><span class="identifier">info_at</span><span class="special">(</span><span class="string">"The C++ Programming Language"</span><span class="special">);</span>
+<pre class="programlisting"><span class="comment">// Print the new abstract</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">right</span><span class="special">.</span><span class="identifier">info_at</span><span class="special">(</span><span class="string">"The C++ Programming Language"</span><span class="special">);</span>
 </pre>
 <p>
       </p>
@@ -161,7 +157,6 @@
         is a rewrite of the above example using user defined names:
       </p>
 <p>
-        
 </p>
 <pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">bimap</span><span class="special">&lt;</span>
 
@@ -183,20 +178,20 @@
           <span class="string">"the one that started it all&#8212;the font of our knowledge."</span> <span class="special">)</span>
 <span class="special">);</span>
 
-<span class="comment">// Print the author of the bible
-</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">by</span><span class="special">&lt;</span><span class="identifier">title</span><span class="special">&gt;().</span><span class="identifier">at</span><span class="special">(</span><span class="string">"The C++ Programming Language"</span><span class="special">);</span>
+<span class="comment">// Print the author of the bible</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">by</span><span class="special">&lt;</span><span class="identifier">title</span><span class="special">&gt;().</span><span class="identifier">at</span><span class="special">(</span><span class="string">"The C++ Programming Language"</span><span class="special">);</span>
 
-<span class="comment">// Print the abstract of this book
-</span><span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">map_by</span><span class="special">&lt;</span><span class="identifier">author</span><span class="special">&gt;::</span><span class="identifier">iterator</span> <span class="identifier">i</span> <span class="special">=</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">by</span><span class="special">&lt;</span><span class="identifier">author</span><span class="special">&gt;().</span><span class="identifier">find</span><span class="special">(</span><span class="string">"Bjarne Stroustrup"</span><span class="special">);</span>
+<span class="comment">// Print the abstract of this book</span>
+<span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">map_by</span><span class="special">&lt;</span><span class="identifier">author</span><span class="special">&gt;::</span><span class="identifier">iterator</span> <span class="identifier">i</span> <span class="special">=</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">by</span><span class="special">&lt;</span><span class="identifier">author</span><span class="special">&gt;().</span><span class="identifier">find</span><span class="special">(</span><span class="string">"Bjarne Stroustrup"</span><span class="special">);</span>
 <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">i</span><span class="special">-&gt;</span><span class="identifier">get</span><span class="special">&lt;</span><span class="identifier">abstract</span><span class="special">&gt;();</span>
 
-<span class="comment">// Contrary to the two key types, the information will be mutable
-</span><span class="comment">// using iterators.
-</span>
+<span class="comment">// Contrary to the two key types, the information will be mutable</span>
+<span class="comment">// using iterators.</span>
+
 <span class="identifier">i</span><span class="special">-&gt;</span><span class="identifier">get</span><span class="special">&lt;</span><span class="identifier">abstract</span><span class="special">&gt;()</span> <span class="special">+=</span> <span class="string">"More details about this book"</span><span class="special">;</span>
 
-<span class="comment">// Print the new abstract
-</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">by</span><span class="special">&lt;</span><span class="identifier">title</span><span class="special">&gt;().</span><span class="identifier">info_at</span><span class="special">(</span><span class="string">"The C++ Programming Language"</span><span class="special">);</span>
+<span class="comment">// Print the new abstract</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">by</span><span class="special">&lt;</span><span class="identifier">title</span><span class="special">&gt;().</span><span class="identifier">info_at</span><span class="special">(</span><span class="string">"The C++ Programming Language"</span><span class="special">);</span>
 </pre>
 <p>
       </p>
@@ -206,7 +201,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2006 -2007 Matias Capeletto<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2006-2012 Matias Capeletto<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

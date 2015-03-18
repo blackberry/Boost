@@ -5,7 +5,7 @@
 
 #include "./config.hpp"
 
-#ifdef TEST_STD_INCLUDES
+#ifdef BOOST_HASH_TEST_STD_INCLUDES
 #  include <functional>
 #else
 #  include <boost/functional/hash.hpp>
@@ -14,7 +14,7 @@
 #include <boost/detail/lightweight_test.hpp>
 #include "./compile_time.hpp"
 
-#if defined(TEST_EXTENSIONS) && !defined(BOOST_NO_CXX11_SMART_PTR)
+#if defined(BOOST_HASH_TEST_EXTENSIONS) && !defined(BOOST_NO_CXX11_SMART_PTR)
 #define TEST_SMART_PTRS
 #include <memory>
 #endif
@@ -26,8 +26,8 @@ void shared_ptr_tests()
     std::shared_ptr<int> x;
     compile_time_tests(&x);
 
-    HASH_NAMESPACE::hash<std::shared_ptr<int> > x1;
-    HASH_NAMESPACE::hash<std::shared_ptr<int> > x2;
+    BOOST_HASH_TEST_NAMESPACE::hash<std::shared_ptr<int> > x1;
+    BOOST_HASH_TEST_NAMESPACE::hash<std::shared_ptr<int> > x2;
 
     std::shared_ptr<int> ptr1(new int(10));
     std::shared_ptr<int> ptr2;
@@ -39,9 +39,9 @@ void shared_ptr_tests()
     BOOST_TEST(x1(ptr1) != x2(ptr2));
     ptr2 = ptr1;
     BOOST_TEST(x1(ptr1) == x2(ptr2));
-#if defined(TEST_EXTENSIONS)
-    BOOST_TEST(x1(x) == HASH_NAMESPACE::hash_value(x));
-    BOOST_TEST(x1(ptr1) == HASH_NAMESPACE::hash_value(ptr2));
+#if defined(BOOST_HASH_TEST_EXTENSIONS)
+    BOOST_TEST(x1(x) == BOOST_HASH_TEST_NAMESPACE::hash_value(x));
+    BOOST_TEST(x1(ptr1) == BOOST_HASH_TEST_NAMESPACE::hash_value(ptr2));
 #endif
 }
 
@@ -50,8 +50,8 @@ void unique_ptr_tests()
     std::unique_ptr<int> x;
     compile_time_tests(&x);
 
-    HASH_NAMESPACE::hash<std::unique_ptr<int> > x1;
-    HASH_NAMESPACE::hash<std::unique_ptr<int> > x2;
+    BOOST_HASH_TEST_NAMESPACE::hash<std::unique_ptr<int> > x1;
+    BOOST_HASH_TEST_NAMESPACE::hash<std::unique_ptr<int> > x2;
 
     std::unique_ptr<int> ptr1(new int(10));
     std::unique_ptr<int> ptr2;
@@ -62,8 +62,8 @@ void unique_ptr_tests()
     BOOST_TEST(x1(ptr1) == x2(ptr1));
     BOOST_TEST(x1(ptr1) != x2(ptr2));
 
-#if defined(TEST_EXTENSIONS)
-    BOOST_TEST(x1(x) == HASH_NAMESPACE::hash_value(x));
+#if defined(BOOST_HASH_TEST_EXTENSIONS)
+    BOOST_TEST(x1(x) == BOOST_HASH_TEST_NAMESPACE::hash_value(x));
 #endif
 }
 

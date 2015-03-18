@@ -13,22 +13,24 @@
 
 namespace boost_no_cxx11_unified_initialization_syntax {
 
-struct BasicStruct 
+struct BasicStruct
 {
    int x;
    double y;
 };
- 
-struct AltStruct 
+
+struct AltStruct
 {
 public:
    AltStruct(int x, double y) : x_{x}, y_{y} {}
+   int X() const { return x_; }
+   double Y() const { return y_; }
 private:
    int x_;
    double y_;
 };
- 
-struct IdString 
+
+struct IdString
 {
    std::string name;
    int identifier;
@@ -37,7 +39,7 @@ struct IdString
       return identifier == other.identifier && name == other.name;
    }
 };
- 
+
 IdString get_string()
 {
    return {"SomeName", 4}; //Note the lack of explicit type.
@@ -47,6 +49,8 @@ int test()
 {
    BasicStruct var1{5, 3.2};
    AltStruct var2{2, 4.3};
+  (void) var1;
+  (void) var2;
 
    IdString id{"SomeName", 4};
    return id == get_string() ? 0 : 1;

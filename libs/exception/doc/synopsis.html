@@ -103,11 +103,11 @@ boost
 <span class="RenoIncludeSPAN">    class <span class="RenoLink"><a href="exception.html">exception</a></span>;</span>
 
 <span class="RenoIncludeSPAN">    <span class="RenoIncludeSPAN">template &lt;class E&gt;
-    std::string <span class="RenoLink"><a href="diagnostic_information.html">diagnostic_information</a></span>( E const &amp; e );
+    std::string <span class="RenoLink"><a href="diagnostic_information.html">diagnostic_information</a></span>( E const &amp; e, bool verbose=true );
     
-    std::string <span class="RenoLink"><a href="diagnostic_information.html">diagnostic_information</a></span>( <span class="RenoLink"><a href="exception_ptr.html">exception_ptr</a></span> const &amp; p );</span>    
+    std::string <span class="RenoLink"><a href="diagnostic_information.html">diagnostic_information</a></span>( <span class="RenoLink"><a href="exception_ptr.html">exception_ptr</a></span> const &amp; p, bool verbose=true );</span>    
     
-    <span class="RenoIncludeSPAN">char const * <span class="RenoLink"><a href="diagnostic_information_what.html">diagnostic_information_what</a></span>( boost::<span class="RenoLink"><a href="exception.html">exception</a></span> const &amp; e ) throw();</span>    
+    <span class="RenoIncludeSPAN">char const * <span class="RenoLink"><a href="diagnostic_information_what.html">diagnostic_information_what</a></span>( boost::<span class="RenoLink"><a href="exception.html">exception</a></span> const &amp; e, bool verbose=true ) throw();</span>    
     
     <span class="RenoIncludeSPAN">std::string <span class="RenoLink"><a href="current_exception_diagnostic_information.html">current_exception_diagnostic_information</a></span>();</span></span>
     }</span></pre>
@@ -158,7 +158,7 @@ boost
     #include &lt;boost/current_function.hpp&gt;
     #define <span class="RenoLink"><a href="BOOST_THROW_EXCEPTION.html">BOOST_THROW_EXCEPTION</a></span>(x)\
         ::boost::<span class="RenoLink"><a href="throw_exception.html">throw_exception</a></span>( ::boost::<span class="RenoLink"><a href="enable_error_info.html">enable_error_info</a></span>(x) &lt;&lt;\
-        ::boost::<span class="RenoLink"><a href="boost_exception_exception_hpp.html">throw_function</a></span>(BOOST_CURRENT_FUNCTION) &lt;&lt;\
+        ::boost::<span class="RenoLink"><a href="boost_exception_exception_hpp.html">throw_function</a></span>(<span class="RenoLink"><a href="configuration_macros.html">BOOST_THROW_EXCEPTION_CURRENT_FUNCTION</a></span>) &lt;&lt;\
         ::boost::<span class="RenoLink"><a href="boost_exception_exception_hpp.html">throw_file</a></span>(__FILE__) &lt;&lt;\
         ::boost::<span class="RenoLink"><a href="boost_exception_exception_hpp.html">throw_line</a></span>((int)__LINE__) )
 #else

@@ -1,6 +1,6 @@
 /* Boost.MultiIndex test for rearrange operations.
  *
- * Copyright 2003-2010 Joaquin M Lopez Munoz.
+ * Copyright 2003-2013 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -13,6 +13,7 @@
 #include <boost/config.hpp> /* keep it first to prevent nasty warns in MSVC */
 #include <algorithm>
 #include <iterator>
+#include <boost/detail/lightweight_test.hpp>
 #include "pre_multi_index.hpp"
 #include <boost/multi_index_container.hpp>
 #include <boost/multi_index/sequenced_index.hpp>
@@ -20,7 +21,6 @@
 #include <boost/next_prior.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
 #include <boost/ref.hpp>
-#include <boost/test/test_tools.hpp>
 #include <vector>
 
 using namespace boost::multi_index;
@@ -30,12 +30,12 @@ using namespace boost::multi_index;
 {\
   int v[]={BOOST_PP_SEQ_ENUM(check_seq)};\
   std::size_t size_v=sizeof(v)/sizeof(int);\
-  BOOST_CHECK(std::size_t(std::distance((p).begin(),(p).end()))==size_v);\
-  BOOST_CHECK(std::equal((p).begin(),(p).end(),&v[0]));\
+  BOOST_TEST(std::size_t(std::distance((p).begin(),(p).end()))==size_v);\
+  BOOST_TEST(std::equal((p).begin(),(p).end(),&v[0]));\
 }
 
 #undef CHECK_VOID_RANGE
-#define CHECK_VOID_RANGE(p) BOOST_CHECK((p).first==(p).second)
+#define CHECK_VOID_RANGE(p) BOOST_TEST((p).first==(p).second)
 
 #if BOOST_WORKAROUND(__MWERKS__,<=0x3003)
 /* The "ISO C++ Template Parser" option makes CW8.3 incorrectly fail at
@@ -47,7 +47,7 @@ using namespace boost::multi_index;
 #endif
 
 template<typename Sequence>
-static void local_test_rearrange(BOOST_EXPLICIT_TEMPLATE_TYPE(Sequence))
+static void local_test_rearrange()
 {
   typedef typename Sequence::iterator   iterator;
   typedef typename Sequence::value_type value_type;
@@ -66,7 +66,7 @@ static void local_test_rearrange(BOOST_EXPLICIT_TEMPLATE_TYPE(Sequence))
   std::advance(it,3);
   sc.relocate(sc.begin(),it);
   CHECK_EQUAL(sc,(3)(0)(1)(2)(4)(5));
-  BOOST_CHECK(it==sc.begin());
+  BOOST_TEST(it==sc.begin());
 
   sc.relocate(it,it);
   CHECK_EQUAL(sc,(3)(0)(1)(2)(4)(5));
@@ -84,7 +84,7 @@ static void local_test_rearrange(BOOST_EXPLICIT_TEMPLATE_TYPE(Sequence))
   ++it2;
   sc.relocate(it2,it,sc.end());
   CHECK_EQUAL(sc,(3)(2)(4)(5)(0)(1));
-  BOOST_CHECK(std::distance(it,it2)==3);
+  BOOST_TEST(std::distance(it,it2)==3);
 
   sc.relocate(boost::prior(sc.end()),it,it2);
   CHECK_EQUAL(sc,(3)(0)(2)(4)(5)(1));
@@ -95,19 +95,19 @@ static void local_test_rearrange(BOOST_EXPLICIT_TEMPLATE_TYPE(Sequence))
   }
 
   sc.rearrange(v.begin());
-  BOOST_CHECK(std::equal(sc.begin(),sc.end(),v.begin()));
+  BOOST_TEST(std::equal(sc.begin(),sc.end(),v.begin()));
 
   std::reverse(v.begin(),v.end());
   sc.rearrange(v.begin());
-  BOOST_CHECK(std::equal(sc.begin(),sc.end(),v.begin()));
+  BOOST_TEST(std::equal(sc.begin(),sc.end(),v.begin()));
 
   std::sort(v.begin(),v.end());
   sc.rearrange(v.begin());
-  BOOST_CHECK(std::equal(sc.begin(),sc.end(),v.begin()));
+  BOOST_TEST(std::equal(sc.begin(),sc.end(),v.begin()));
 
   std::reverse(v.begin(),v.begin()+v.size()/2);
   sc.rearrange(v.begin());
-  BOOST_CHECK(std::equal(sc.begin(),sc.end(),v.begin()));
+  BOOST_TEST(std::equal(sc.begin(),sc.end(),v.begin()));
 }
 
 #if BOOST_WORKAROUND(__MWERKS__,<=0x3003)
@@ -121,10 +121,6 @@ void test_rearrange()
     indexed_by<sequenced<> >
   > int_list;
 
-  /* MSVC++ 6.0 chokes on local_test_rearrange without this
-   * explicit instantiation
-   */
-  int_list il;
   local_test_rearrange<int_list>();
 
   typedef multi_index_container<
@@ -132,6 +128,5 @@ void test_rearrange()
     indexed_by<random_access<> >
   > int_vector;
 
-  int_vector iv;
   local_test_rearrange<int_vector>();
 }

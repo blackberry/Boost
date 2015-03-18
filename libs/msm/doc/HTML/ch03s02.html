@@ -1,6 +1,6 @@
 <html><head>
       <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-   <title>Basic front-end</title><meta name="generator" content="DocBook XSL-NS Stylesheets V1.75.2"><link rel="home" href="index.html" title="Meta State Machine (MSM)"><link rel="up" href="ch03.html" title="Chapter&nbsp;3.&nbsp;Tutorial"><link rel="prev" href="ch03.html" title="Chapter&nbsp;3.&nbsp;Tutorial"><link rel="next" href="ch03s03.html" title="Functor front-end"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Basic front-end</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch03.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;3.&nbsp;Tutorial</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch03s03.html">Next</a></td></tr></table><hr></div><div class="sect1" title="Basic front-end"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e338"></a><span class="command"><strong><a name="basic-front-end"></a></strong></span>Basic front-end</h2></div></div></div><p>This is the historical front-end, inherited from the MPL book. It provides a
+   <title>Basic front-end</title><link rel="stylesheet" href="boostbook.css" type="text/css"><meta name="generator" content="DocBook XSL-NS Stylesheets V1.75.2"><link rel="home" href="index.html" title="Meta State Machine (MSM)"><link rel="up" href="ch03.html" title="Chapter&nbsp;3.&nbsp;Tutorial"><link rel="prev" href="ch03.html" title="Chapter&nbsp;3.&nbsp;Tutorial"><link rel="next" href="ch03s03.html" title="Functor front-end"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Basic front-end</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch03.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;3.&nbsp;Tutorial</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch03s03.html">Next</a></td></tr></table><hr></div><div class="sect1" title="Basic front-end"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e338"></a><span class="command"><strong><a name="basic-front-end"></a></strong></span>Basic front-end</h2></div></div></div><p>This is the historical front-end, inherited from the MPL book. It provides a
                     transition table made of rows of different names and functionality. Actions and
                     guards are defined as methods and referenced through a pointer in the
                     transition. This front-end provides a simple interface making easy state
@@ -258,11 +258,12 @@ struct some_state : public msm::front::state&lt;&gt;
                         &#8220;terminates&#8221; (the state machine and all its states stay alive) and all
                         events are ignored. This is of course not mandatory, one can use orthogonal
                         regions without terminate states. MSM also provides a small extension to
-                        UML, interrupt states. If you declare ErrorMode as interrupt state instead
-                        of terminate state, the state machine will not handle any event other than
-                        the one which ends the interrupt. So it's like a terminate state, with the
-                        difference that you are allowed to resume the state machine when a condition
-                        (like handling of the original error) is met. </p><p><span class="command"><strong><a name="basic-defer"></a></strong></span>Last but not least, this example also shows
+                        UML, interrupt states. If you declare ErrorMode (or a Boost.MPL sequence of
+                        events, like boost::mpl::vector&lt;ErrorMode, AnotherEvent&gt;) as interrupt
+                        state instead of terminate state, the state machine will not handle any
+                        event other than the one which ends the interrupt. So it's like a terminate
+                        state, with the difference that you are allowed to resume the state machine
+                        when a condition (like handling of the original error) is met. </p><p><span class="command"><strong><a name="basic-defer"></a></strong></span>Last but not least, this example also shows
                         here the handling of event deferring. Let's say someone puts a disc and
                         immediately presses play. The event cannot be handled, yet you'd want it to
                         be handled at a later point and not force the user to press play again. The
@@ -623,7 +624,10 @@ struct event2
                         all of the active states are flagged for the state to be active. You can
                         also AND the active states:</p><p>
                         </p><pre class="programlisting">if (p.is_flag_active&lt;CDLoaded,player::Flag_AND&gt;()) ...</pre><p>
-                    </p><p>The following diagram displays the flag situation in the tutorial.</p><p><span class="inlinemediaobject"><img src="../images/FlagsTutorial.jpg" width="60%"></span></p></div><div class="sect2" title="Event Hierarchy"><div class="titlepage"><div><div><h3 class="title"><a name="d0e1118"></a><span class="command"><strong><a name="event-hierarchy"></a></strong></span>Event Hierarchy</h3></div></div></div><p>There are cases where one needs transitions based on categories of events.
+                    </p><p> Note. Due to arcane C++ rules, when called inside an action, the correct
+                        call is:
+                        </p><pre class="programlisting">if (p.<span class="bold"><strong>template</strong></span> is_flag_active&lt;CDLoaded&gt;()) ...</pre><p>
+                    </p><p>The following diagram displays the flag situation in the tutorial.</p><p><span class="inlinemediaobject"><img src="../images/FlagsTutorial.jpg" width="60%"></span></p></div><div class="sect2" title="Event Hierarchy"><div class="titlepage"><div><div><h3 class="title"><a name="d0e1126"></a><span class="command"><strong><a name="event-hierarchy"></a></strong></span>Event Hierarchy</h3></div></div></div><p>There are cases where one needs transitions based on categories of events.
                         An example is text parsing. Let's say you want to parse a string and use a
                         state machine to manage your parsing state. You want to parse 4 digits and
                         decide to use a state for every matched digit. Your state machine could look
@@ -636,7 +640,7 @@ struct char_0 : public digit {}; </pre><p>And to the same for other digits, we c
                         and this will cause a transition with "digit" as trigger to be taken.</p><p>An <a class="link" href="examples/ParsingDigits.cpp" target="_top">example</a> with
                         performance measurement, taken from the documentation of Boost.Xpressive
                         illustrates this example. You might notice that the performance is actually
-                        very good (in this case even better).</p></div><div class="sect2" title="Customizing a state machine / Getting more speed"><div class="titlepage"><div><div><h3 class="title"><a name="d0e1139"></a>Customizing a state machine / Getting more speed</h3></div></div></div><p>MSM is offering many UML features at a high-speed, but sometimes, you just
+                        very good (in this case even better).</p></div><div class="sect2" title="Customizing a state machine / Getting more speed"><div class="titlepage"><div><div><h3 class="title"><a name="d0e1147"></a>Customizing a state machine / Getting more speed</h3></div></div></div><p>MSM is offering many UML features at a high-speed, but sometimes, you just
                         need more speed and are ready to give up some features in exchange. A
                         process_event is handling several tasks: </p><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p>checking for terminate/interrupt states</p></li><li class="listitem"><p>handling the message queue (for entry/exit/transition actions
                                     generating themselves events)</p></li><li class="listitem"><p>handling deferred events</p></li><li class="listitem"><p>catching exceptions (or not)</p></li><li class="listitem"><p>handling the state switching and action calls</p></li></ul></div><p>Of these tasks, only the last one is absolutely necessary to
@@ -662,7 +666,7 @@ struct char_0 : public digit {}; </pre><p>And to the same for other digits, we c
    };</pre><p><span class="underline">Important note</span>: As exit pseudo
                         states are using the message queue to forward events out of a submachine,
                         the <code class="code">no_message_queue</code> option cannot be used with state machines
-                        containing an exit pseudo state.</p></div><div class="sect2" title="Choosing the initial event"><div class="titlepage"><div><div><h3 class="title"><a name="d0e1188"></a>Choosing the initial event</h3></div></div></div><p>A state machine is started using the <code class="code">start</code> method. This
+                        containing an exit pseudo state.</p></div><div class="sect2" title="Choosing the initial event"><div class="titlepage"><div><div><h3 class="title"><a name="d0e1196"></a>Choosing the initial event</h3></div></div></div><p>A state machine is started using the <code class="code">start</code> method. This
                         causes the initial state's entry behavior to be executed. Like every entry
                         behavior, it becomes as parameter the event causing the state to be entered.
                         But when the machine starts, there was no event triggered. In this case, MSM
@@ -674,7 +678,7 @@ struct char_0 : public digit {}; </pre><p>And to the same for other digits, we c
 struct player_ : public msm::front::state_machine_def&lt;player_&gt;{
 ...
 typedef my_initial_event initial_event; 
-};</pre></div><div class="sect2" title="Containing state machine (deprecated)"><div class="titlepage"><div><div><h3 class="title"><a name="d0e1201"></a> Containing state machine (deprecated)</h3></div></div></div><p>This feature is still supported in MSM for backward compatibility but made
+};</pre></div><div class="sect2" title="Containing state machine (deprecated)"><div class="titlepage"><div><div><h3 class="title"><a name="d0e1209"></a> Containing state machine (deprecated)</h3></div></div></div><p>This feature is still supported in MSM for backward compatibility but made
                         obsolete by the fact that every guard/action/entry action/exit action get
                         the state machine passed as argument and might be removed at a later
                         time.</p><p>All of the states defined in the state machine are created upon state

@@ -22,7 +22,9 @@ void interval_map_mixed_ctor_4_ordered_types()
     T v0 = boost::icl::identity_element<T>::value();
     U u1 = unit_element<U>::value();
 
-    SplitIntervalMapT split_map(make_pair(v0,u1));
+    SplitIntervalMapT split_map(mapping_pair<T,U>(v0,u1));
+    //JODO: clang err: ctor ambiguous. Should compile 
+    //JODO CLANG SplitIntervalMapT split_map(make_pair(v0,u1));
     IntervalMapT      join_map(split_map);
 
     BOOST_CHECK_EQUAL( hull(split_map).lower(), hull(join_map).lower() );
@@ -39,8 +41,10 @@ void interval_map_mixed_equal_4_ordered_types()
     T v0 = boost::icl::identity_element<T>::value();
     U u1 = unit_element<U>::value();
 
-    SplitIntervalMapT    split_empty, split_single(make_pair(v0,u1));
-    IntervalMapT         join_empty, join_single(make_pair(v0,u1));
+    SplitIntervalMapT    split_empty, split_single(mapping_pair<T,U>(v0,u1));
+    IntervalMapT         join_empty, join_single(mapping_pair<T,U>(v0,u1));
+    //JODO CLANG SplitIntervalMapT    split_empty, split_single(make_pair(v0,u1));
+    //JODO CLANG IntervalMapT         join_empty, join_single(make_pair(v0,u1));
 
     // mixed ==-equality is a strange thing. Most times is does not
     // make sense. It is better to allow only for same type == equality.

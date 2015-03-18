@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Simple Bimap</title>
 <link rel="stylesheet" href="../../boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
 <link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Bimap">
 <link rel="up" href="../examples.html" title="Examples">
 <link rel="prev" href="../examples.html" title="Examples">
@@ -22,7 +22,7 @@
 <div class="spirit-nav">
 <a accesskey="p" href="../examples.html"><img src="../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../examples.html"><img src="../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="mighty_bimap.html"><img src="../../../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
-<div class="section">
+<div class="section boost_bimap_examples_simple_bimap">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="boost_bimap.examples.simple_bimap"></a><a class="link" href="simple_bimap.html" title="Simple Bimap">Simple Bimap</a>
 </h3></div></div></div>
@@ -33,7 +33,6 @@
         <a href="../../../../example/simple_bimap.cpp" target="_top">Go to source code</a>
       </p>
 <p>
-        
 </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">string</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">iostream</span><span class="special">&gt;</span>
@@ -55,8 +54,8 @@
 
 <span class="keyword">int</span> <span class="identifier">main</span><span class="special">()</span>
 <span class="special">{</span>
-    <span class="comment">// Soccer World cup
-</span>
+    <span class="comment">// Soccer World cup</span>
+
     <span class="keyword">typedef</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">bimap</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">,</span> <span class="keyword">int</span> <span class="special">&gt;</span> <span class="identifier">results_bimap</span><span class="special">;</span>
     <span class="keyword">typedef</span> <span class="identifier">results_bimap</span><span class="special">::</span><span class="identifier">value_type</span> <span class="identifier">position</span><span class="special">;</span>
 
@@ -76,8 +75,8 @@
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"Countries names ordered by their final position:"</span>
               <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
 
-    <span class="comment">// results.right works like a std::map&lt; int, std::string &gt;
-</span>
+    <span class="comment">// results.right works like a std::map&lt; int, std::string &gt;</span>
+
     <span class="identifier">print_map</span><span class="special">(</span> <span class="identifier">results</span><span class="special">.</span><span class="identifier">right</span><span class="special">,</span> <span class="string">") "</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">);</span>
 
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span>
@@ -85,8 +84,8 @@
                     <span class="string">"their final position:"</span>
               <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
 
-    <span class="comment">// results.left works like a std::map&lt; std::string, int &gt;
-</span>
+    <span class="comment">// results.left works like a std::map&lt; std::string, int &gt;</span>
+
     <span class="identifier">print_map</span><span class="special">(</span> <span class="identifier">results</span><span class="special">.</span><span class="identifier">left</span><span class="special">,</span> <span class="string">" ends in position "</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">);</span>
 
     <span class="keyword">return</span> <span class="number">0</span><span class="special">;</span>
@@ -101,7 +100,6 @@
         <a href="../../../../example/tagged_simple_bimap.cpp" target="_top">Go to source code</a>
       </p>
 <p>
-        
 </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">iostream</span><span class="special">&gt;</span>
 
@@ -114,8 +112,8 @@
 <span class="special">{</span>
     <span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">bimaps</span><span class="special">;</span>
 
-    <span class="comment">// Soccer World cup.
-</span>
+    <span class="comment">// Soccer World cup.</span>
+
     <span class="keyword">typedef</span> <span class="identifier">bimap</span>
     <span class="special">&lt;</span>
         <span class="identifier">tagged</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">,</span> <span class="identifier">country</span> <span class="special">&gt;,</span>
@@ -134,12 +132,12 @@
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"Countries names ordered by their final position:"</span>
                 <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
 
-    <a class="co" name="boost_bimap20co" href="simple_bimap.html#boost_bimap20"><img src="../../../../../../doc/src/images/callouts/1.png" alt="1" border="0"></a><span class="keyword">for</span><span class="special">(</span> <span class="identifier">results_bimap</span><span class="special">::</span><span class="identifier">map_by</span><span class="special">&lt;</span><span class="identifier">place</span><span class="special">&gt;::</span><span class="identifier">const_iterator</span>
+    <a class="co" name="boost_bimap.examples.simple_bimap.c0" href="simple_bimap.html#boost_bimap.examples.simple_bimap.c1"><img src="../../../../../../doc/src/images/callouts/1.png" alt="1" border="0"></a><span class="keyword">for</span><span class="special">(</span> <span class="identifier">results_bimap</span><span class="special">::</span><span class="identifier">map_by</span><span class="special">&lt;</span><span class="identifier">place</span><span class="special">&gt;::</span><span class="identifier">const_iterator</span>
             <span class="identifier">i</span>    <span class="special">=</span> <span class="identifier">results</span><span class="special">.</span><span class="identifier">by</span><span class="special">&lt;</span><span class="identifier">place</span><span class="special">&gt;().</span><span class="identifier">begin</span><span class="special">(),</span>
             <span class="identifier">iend</span> <span class="special">=</span> <span class="identifier">results</span><span class="special">.</span><span class="identifier">by</span><span class="special">&lt;</span><span class="identifier">place</span><span class="special">&gt;().</span><span class="identifier">end</span><span class="special">()</span> <span class="special">;</span>
             <span class="identifier">i</span> <span class="special">!=</span> <span class="identifier">iend</span><span class="special">;</span> <span class="special">++</span><span class="identifier">i</span> <span class="special">)</span>
     <span class="special">{</span>
-        <a class="co" name="boost_bimap21co" href="simple_bimap.html#boost_bimap21"><img src="../../../../../../doc/src/images/callouts/2.png" alt="2" border="0"></a><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">i</span><span class="special">-&gt;</span><span class="identifier">get</span><span class="special">&lt;</span><span class="identifier">place</span>  <span class="special">&gt;()</span> <span class="special">&lt;&lt;</span> <span class="string">") "</span>
+        <a class="co" name="boost_bimap.examples.simple_bimap.c2" href="simple_bimap.html#boost_bimap.examples.simple_bimap.c3"><img src="../../../../../../doc/src/images/callouts/2.png" alt="2" border="0"></a><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">i</span><span class="special">-&gt;</span><span class="identifier">get</span><span class="special">&lt;</span><span class="identifier">place</span>  <span class="special">&gt;()</span> <span class="special">&lt;&lt;</span> <span class="string">") "</span>
                   <span class="special">&lt;&lt;</span> <span class="identifier">i</span><span class="special">-&gt;</span><span class="identifier">get</span><span class="special">&lt;</span><span class="identifier">country</span><span class="special">&gt;()</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
     <span class="special">}</span>
 
@@ -148,7 +146,7 @@
                  <span class="string">"their final position:"</span>
               <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
 
-    <a class="co" name="boost_bimap22co" href="simple_bimap.html#boost_bimap22"><img src="../../../../../../doc/src/images/callouts/3.png" alt="3" border="0"></a><span class="keyword">for</span><span class="special">(</span> <span class="identifier">results_bimap</span><span class="special">::</span><span class="identifier">map_by</span><span class="special">&lt;</span><span class="identifier">country</span><span class="special">&gt;::</span><span class="identifier">const_iterator</span>
+    <a class="co" name="boost_bimap.examples.simple_bimap.c4" href="simple_bimap.html#boost_bimap.examples.simple_bimap.c5"><img src="../../../../../../doc/src/images/callouts/3.png" alt="3" border="0"></a><span class="keyword">for</span><span class="special">(</span> <span class="identifier">results_bimap</span><span class="special">::</span><span class="identifier">map_by</span><span class="special">&lt;</span><span class="identifier">country</span><span class="special">&gt;::</span><span class="identifier">const_iterator</span>
             <span class="identifier">i</span>    <span class="special">=</span> <span class="identifier">results</span><span class="special">.</span><span class="identifier">by</span><span class="special">&lt;</span><span class="identifier">country</span><span class="special">&gt;().</span><span class="identifier">begin</span><span class="special">(),</span>
             <span class="identifier">iend</span> <span class="special">=</span> <span class="identifier">results</span><span class="special">.</span><span class="identifier">by</span><span class="special">&lt;</span><span class="identifier">country</span><span class="special">&gt;().</span><span class="identifier">end</span><span class="special">()</span> <span class="special">;</span>
             <span class="identifier">i</span> <span class="special">!=</span> <span class="identifier">iend</span><span class="special">;</span> <span class="special">++</span><span class="identifier">i</span> <span class="special">)</span>
@@ -165,21 +163,21 @@
       </p>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="boost_bimap20"></a><a href="#boost_bimap20co"><img src="../../../../../../doc/src/images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="boost_bimap.examples.simple_bimap.c1"></a><a href="#boost_bimap.examples.simple_bimap.c0"><img src="../../../../../../doc/src/images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
             <code class="computeroutput"><span class="identifier">results</span><span class="special">.</span><span class="identifier">by</span><span class="special">&lt;</span><span class="identifier">place</span><span class="special">&gt;()</span></code>
             is equivalent to <code class="computeroutput"><span class="identifier">results</span><span class="special">.</span><span class="identifier">right</span></code>
           </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="boost_bimap21"></a><a href="#boost_bimap21co"><img src="../../../../../../doc/src/images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="boost_bimap.examples.simple_bimap.c3"></a><a href="#boost_bimap.examples.simple_bimap.c2"><img src="../../../../../../doc/src/images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
             <code class="computeroutput"><span class="identifier">get</span><span class="special">&lt;</span><span class="identifier">Tag</span><span class="special">&gt;</span></code>
             works for each view of the bimap
           </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="boost_bimap22"></a><a href="#boost_bimap22co"><img src="../../../../../../doc/src/images/callouts/3.png" alt="3" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="boost_bimap.examples.simple_bimap.c5"></a><a href="#boost_bimap.examples.simple_bimap.c4"><img src="../../../../../../doc/src/images/callouts/3.png" alt="3" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
             <code class="computeroutput"><span class="identifier">results</span><span class="special">.</span><span class="identifier">by</span><span class="special">&lt;</span><span class="identifier">country</span><span class="special">&gt;()</span></code>
             is equivalent to <code class="computeroutput"><span class="identifier">results</span><span class="special">.</span><span class="identifier">left</span></code>
@@ -189,7 +187,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2006 -2007 Matias Capeletto<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2006-2012 Matias Capeletto<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

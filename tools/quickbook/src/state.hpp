@@ -17,6 +17,9 @@
 #include "collector.hpp"
 #include "template_stack.hpp"
 #include "symbols.hpp"
+#include "dependency_tracker.hpp"
+#include "syntax_highlight.hpp"
+#include "include_paths.hpp"
 
 namespace quickbook
 {
@@ -26,7 +29,7 @@ namespace quickbook
     struct state
     {
         state(fs::path const& filein_, fs::path const& xinclude_base, string_stream& out_,
-                id_manager&);
+                document_state&);
 
     private:
         boost::scoped_ptr<quickbook_grammar> grammar_;
@@ -37,39 +40,46 @@ namespace quickbook
     ///////////////////////////////////////////////////////////////////////////
 
         typedef std::vector<std::string> string_list;
-        typedef std::map<fs::path, bool> dependency_list;
 
         static int const max_template_depth = 100;
 
     // global state
+        unsigned                order_pos;
         fs::path                xinclude_base;
         template_stack          templates;
         int                     error_count;
         string_list             anchors;
         bool                    warned_about_breaks;
         bool                    conditional;
-        id_manager&             ids;
+        document_state&         document;
         value_builder           callouts;           // callouts are global as
         int                     callout_depth;      // they don't nest.
-        dependency_list         dependencies;
+        dependency_tracker      dependencies;
+        bool                    explicit_list;      // set when using a list
 
     // state saved for files and templates.
         bool                    imported;
         string_symbols          macro;
-        std::string             source_mode;
-        value                   source_mode_next;
+        source_mode_info        source_mode;
+        source_mode_type        source_mode_next;
+        value                   source_mode_next_pos;
+        std::vector<source_mode_info>
+                                tagged_source_mode_stack;
         file_ptr                current_file;
-        fs::path                filename_relative;  // for the __FILENAME__ macro.
-                                                    // (relative to the original file
-                                                    //  or include path).
+        quickbook_path          current_path;
 
     // state saved for templates.
         int                     template_depth;
         int                     min_section_level;
 
     // output state - scoped by templates and grammar
+        bool                    in_list;        // generating a list
+        std::stack<bool>        in_list_save;   // save the in_list state
+                                                // TODO: Something better...
         collector               out;            // main output stream
         collector               phrase;         // phrase output stream
+
+    // values state - scoped by everything.
         value_parser            values;         // parsed values
 
         quickbook_grammar& grammar() const;
@@ -78,9 +88,12 @@ namespace quickbook
     // actions
     ///////////////////////////////////////////////////////////////////////////
 
-        // Call this before loading any file so that it will be included in the
-        // list of dependencies. Returns true if file exists.
-        bool add_dependency(fs::path const&);
+        void update_filename_macro();
+
+        unsigned get_new_order_pos();
+
+        void push_output();
+        void pop_output();
 
         void start_list(char mark);
         void end_list(char mark);
@@ -90,6 +103,12 @@ namespace quickbook
         void start_callouts();
         std::string add_callout(value);
         std::string end_callouts();
+
+        source_mode_info current_source_mode() const;
+        source_mode_info tagged_source_mode() const;
+        void change_source_mode(source_mode_type);
+        void push_tagged_source_mode(source_mode_type);
+        void pop_tagged_source_mode();
     };
 
     extern unsigned qbk_version_n; // qbk_major_version * 100 + qbk_minor_version

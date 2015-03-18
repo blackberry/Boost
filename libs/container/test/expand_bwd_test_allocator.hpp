@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2005-2012. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2005-2013. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -11,7 +11,7 @@
 #ifndef BOOST_CONTAINER_EXPAND_BWD_TEST_ALLOCATOR_HPP
 #define BOOST_CONTAINER_EXPAND_BWD_TEST_ALLOCATOR_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
@@ -19,6 +19,7 @@
 #include <boost/container/detail/workaround.hpp>
 
 #include <boost/container/container_fwd.hpp>
+#include <boost/container/throw_exception.hpp>
 #include <boost/container/detail/allocation_type.hpp>
 #include <boost/assert.hpp>
 #include <boost/container/detail/utilities.hpp>
@@ -26,11 +27,7 @@
 #include <memory>
 #include <algorithm>
 #include <cstddef>
-#include <stdexcept>
 #include <cassert>
-
-//!\file
-//!Describes an allocator to test expand capabilities
 
 namespace boost {
 namespace container {
@@ -65,13 +62,16 @@ class expand_bwd_test_allocator
 
    typedef boost::container::container_detail::version_type<expand_bwd_test_allocator, 2>   version;
 
+   //Dummy multiallocation chain
+   struct multiallocation_chain{};
+
    template<class T2>
    struct rebind
    {  typedef expand_bwd_test_allocator<T2>   other;   };
 
    //!Constructor from the segment manager. Never throws
-   expand_bwd_test_allocator(T *buffer, size_type size, difference_type offset)
-      : mp_buffer(buffer), m_size(size)
+   expand_bwd_test_allocator(T *buffer, size_type sz, difference_type offset)
+      : mp_buffer(buffer), m_size(sz)
       , m_offset(offset),  m_allocations(0){ }
 
    //!Constructor from other expand_bwd_test_allocator. Never throws
@@ -108,10 +108,10 @@ class expand_bwd_test_allocator
    {  return m_size;   }
 
    friend void swap(self_t &alloc1, self_t &alloc2)
-   { 
-      container_detail::do_swap(alloc1.mp_buffer, alloc2.mp_buffer);
-      container_detail::do_swap(alloc1.m_size,    alloc2.m_size);
-      container_detail::do_swap(alloc1.m_offset,  alloc2.m_offset);
+   {
+      boost::container::swap_dispatch(alloc1.mp_buffer, alloc2.mp_buffer);
+      boost::container::swap_dispatch(alloc1.m_size,    alloc2.m_size);
+      boost::container::swap_dispatch(alloc1.m_offset,  alloc2.m_offset);
    }
 
    //Experimental version 2 expand_bwd_test_allocator functions
@@ -125,7 +125,7 @@ class expand_bwd_test_allocator
       (void)preferred_size;   (void)reuse;   (void)command;
       //This allocator only expands backwards!
       assert(m_allocations == 0 || (command & boost::container::expand_bwd));
-     
+
       received_size = limit_size;
 
       if(m_allocations == 0){
@@ -143,8 +143,8 @@ class expand_bwd_test_allocator
          return std::pair<pointer, bool>(mp_buffer, true);
       }
       else{
-         assert(0);
-         throw std::bad_alloc();
+         throw_bad_alloc();
+         return std::pair<pointer, bool>(mp_buffer, true);
       }
    }
 

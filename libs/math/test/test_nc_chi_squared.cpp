@@ -23,7 +23,8 @@
 #include <boost/math/concepts/real_concept.hpp> // for real_concept
 #include <boost/math/distributions/non_central_chi_squared.hpp> // for chi_squared_distribution
 #include <boost/math/special_functions/cbrt.hpp> // for chi_squared_distribution
-#include <boost/test/test_exec_monitor.hpp> // for test_main
+#define BOOST_TEST_MAIN
+#include <boost/test/unit_test.hpp> // for test_main
 #include <boost/test/results_collector.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/test/floating_point_comparison.hpp> // for BOOST_CHECK_CLOSE
@@ -35,6 +36,7 @@
 #include "table_type.hpp"
 
 #include <iostream>
+#include <iomanip>
 using std::cout;
 using std::endl;
 #include <limits>
@@ -518,7 +520,7 @@ void test_accuracy(T, const char* type_name)
     quantile_sanity_check<T>(nccs_big, type_name, "Non Central Chi Squared, large parameters");
 }
 
-int test_main(int, char* [])
+BOOST_AUTO_TEST_CASE( test_main )
 {
    BOOST_MATH_CONTROL_FP;
    // Basic sanity-check spot values.
@@ -557,7 +559,7 @@ int test_main(int, char* [])
 #endif
 #endif
 #endif
-   return 0;
-} // int test_main(int, char* [])
+   
+} // BOOST_AUTO_TEST_CASE( test_main )
 
 

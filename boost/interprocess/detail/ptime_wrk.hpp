@@ -11,6 +11,10 @@
 #ifndef BOOST_INTERPROCESS_PTIME_WRK_HPP
 #define BOOST_INTERPROCESS_PTIME_WRK_HPP
 
+#if defined(_MSC_VER)
+#  pragma once
+#endif
+
 //workaround to avoid winsock redefines when using date-time
 
 #ifdef _WIN32

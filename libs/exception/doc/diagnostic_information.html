@@ -26,25 +26,21 @@
 boost
     {
 <span class="RenoIncludeSPAN">    template &lt;class E&gt;
-    std::string <span class="RenoLink">diagnostic_information</span>( E const &amp; e );
+    std::string <span class="RenoLink">diagnostic_information</span>( E const &amp; e, bool verbose=true );
     
-    std::string <span class="RenoLink">diagnostic_information</span>( <span class="RenoLink"><a href="exception_ptr.html">exception_ptr</a></span> const &amp; p );</span>
+    std::string <span class="RenoLink">diagnostic_information</span>( <span class="RenoLink"><a href="exception_ptr.html">exception_ptr</a></span> const &amp; p, bool verbose=true );</span>
     }</pre>
 </div><h4>Returns:</h4>
-<p>A string value that contains varying amount of implementation-specific diagnostic information about the passed object:</p>
-<div><ul><li>If E can be statically converted to boost::<span class="RenoLink"><a href="exception.html">exception</a></span>, the returned value contains the string representations of all <span class="RenoLink"><a href="error_info.html">error_info</a></span> objects stored in the boost::<span class="RenoLink"><a href="exception.html">exception</a></span> through <span class="RenoLink"><a href="exception_operator_shl.html">operator&lt;&lt;</a></span>, along with other diagnostic information relevant to the exception. If e can be dynamically converted to std::exception, the returned value also contains the what() string.</li>
-<li>Otherwise, if E can be statically converted to std::exception:<div><ul><li>if e can be dynamically converted to boost::exception, the returned value is the same as if E could be statically converted to boost::<span class="RenoLink"><a href="exception.html">exception</a></span>;</li>
-<li>otherwise the returned value contains the what() string.</li>
+<p>A string value that contains varying amount of diagnostic information about the passed object:</p>
+<div><ul><li> If E can be statically converted to either boost::<span class="RenoLink"><a href="exception.html">exception</a></span> or to std::exception, dynamic_cast is used to access both the boost::<span class="RenoLink"><a href="exception.html">exception</a></span> and std::exception subobjects of e; otherwise, the boost::<span class="RenoLink">diagnostic_information</span> template is not available.</li>
+<li> The returned value contains the string representations of all <span class="RenoLink"><a href="error_info.html">error_info</a></span> objects stored in the boost::<span class="RenoLink"><a href="exception.html">exception</a></span> subobject through <span class="RenoLink"><a href="exception_operator_shl.html">operator&lt;&lt;</a></span>.</li>
+<li> In addition, if verbose is true, it contains other diagnostic information relevant to the exception, including the string returned by std::exception::what().</li>
 </ul></div>
-</li>
-<li>Otherwise, the boost::<span class="RenoLink">diagnostic_information</span> template is not available.</li>
-</ul></div>
-<p>The string representation of each <span class="RenoLink"><a href="error_info.html">error_info</a></span> object is deduced by a function call that is bound at the time the <span class="RenoLink"><a href="error_info.html">error_info</a></span>&lt;Tag,T&gt; template is instantiated. The following overload resolutions are attempted in order:</p>
-<div><ol><li>Unqualified call to to_string(x), where x is of type <span class="RenoLink"><a href="error_info.html">error_info</a></span>&lt;Tag,T&gt; (the return value is expected to be of type std::string.)</li>
-<li>Unqualified call to to_string(x.<span class="RenoLink"><a href="error_info_value.html">value</a></span>()) (the return value is expected to be of type std::string.)</li>
+<p>The string representation of each <span class="RenoLink"><a href="error_info.html">error_info</a></span> object is deduced by an unqualified call to to_string(x), where x is of type <span class="RenoLink"><a href="error_info.html">error_info</a></span>&lt;Tag,T&gt;, for which Boost Exception defines a generic overload. It converts x.<span class="RenoLink"><a href="error_info_value.html">value</a></span>() to string, attempting to bind (at the time the <span class="RenoLink"><a href="error_info.html">error_info</a></span>&lt;Tag,T&gt; template is instantiated) the following functions in order:</p>
+<div><ol><li>Unqualified call to to_string(x.<span class="RenoLink"><a href="error_info_value.html">value</a></span>()) (the return value is expected to be of type std::string.)</li>
 <li>Unqualified call to s &lt;&lt; x.<span class="RenoLink"><a href="error_info_value.html">value</a></span>(), where s is a std::ostringstream.</li>
 </ol></div>
-<p>The first successfully bound function is used at the time <span class="RenoLink">diagnostic_information</span> is called; if all 3 overload resolutions are unsuccessful, the system is unable to convert the <span class="RenoLink"><a href="error_info.html">error_info</a></span> object to string, and <i>an unspecified stub string value is used without issuing a compile error.</i></p>
+<p>The first successfully bound function is used at the time <span class="RenoLink">diagnostic_information</span> is called; if both overload resolutions are unsuccessful, the system is unable to convert the <span class="RenoLink"><a href="error_info.html">error_info</a></span> object to string, and <i>an unspecified stub string value is used without issuing a compile error.</i></p>
 <p>The <span class="RenoLink"><a href="exception_ptr.html">exception_ptr</a></span> overload of <span class="RenoLink">diagnostic_information</span> is equivalent to:</p>
 <pre>if( p )
     try
@@ -53,14 +49,9 @@ boost
         }
     catch(...)
         {
-        return <span class="RenoLink"><a href="current_exception_diagnostic_information.html">current_exception_diagnostic_information</a></span>();
+        return <span class="RenoLink"><a href="current_exception_diagnostic_information.html">current_exception_diagnostic_information</a></span>(verbose);
         }
 else return &lt;unspecified-string-value&gt;;</pre>
-<h4>Notes:</h4>
-<div><ul><li>The format of the returned string is unspecified.</li>
-<li>The returned string is <i>not</i> user-friendly.</li>
-<li>The returned string may include additional platform-specific diagnostic information.</li>
-</ul></div>
 <div class="RenoIncludeDIV"><h4>Example:</h4>
 <p>this is a possible output from the <span class="RenoLink">diagnostic_information</span> function, as used in <i>libs/exception/example/example_io.cpp:</i></p>
 <pre>example_io.cpp(70): Throw in function class boost::shared_ptr&lt;struct _iobuf&gt; __cdecl my_fopen(const char *,const char *)
@@ -71,7 +62,7 @@ std::exception::what: example_io error
 [struct boost::<span class="RenoLink"><a href="errinfo_file_name.html">errinfo_file_name</a></span>_ *] = tmp1.txt
 [struct boost::<span class="RenoLink"><a href="errinfo_file_open_mode.html">errinfo_file_open_mode</a></span>_ *] = rb</pre>
 </div></div><div class="RenoAutoDIV"><div class="RenoHR"><hr/></div>
-See also: <span class="RenoPageList"><a href="BOOST_THROW_EXCEPTION.html">BOOST_THROW_EXCEPTION</a>&nbsp;| <a href="boost-exception.html">Boost Exception</a>&nbsp;| <a href="boost_exception_diagnostic_information_hpp.html">boost/exception/diagnostic_information.hpp</a>&nbsp;| <a href="configuration_macros.html">Configuration Macros</a>&nbsp;| <a href="current_exception_diagnostic_information.html">current_exception_diagnostic_information</a>&nbsp;| <a href="tutorial_diagnostic_information.html">Diagnostic Information</a>&nbsp;| <a href="diagnostic_information_what.html">diagnostic_information_what</a>&nbsp;| <a href="frequently_asked_questions.html">Frequently Asked Questions</a>&nbsp;| <a href="motivation.html">Motivation</a>&nbsp;| <a href="throw_exception.html">throw_exception</a></span>
+See also: <span class="RenoPageList"><a href="BOOST_THROW_EXCEPTION.html">BOOST_THROW_EXCEPTION</a>&nbsp;| <a href="boost-exception.html">Boost Exception</a>&nbsp;| <a href="boost_exception_diagnostic_information_hpp.html">boost/exception/diagnostic_information.hpp</a>&nbsp;| <a href="configuration_macros.html">Configuration Macros</a>&nbsp;| <a href="current_exception_diagnostic_information.html">current_exception_diagnostic_information</a>&nbsp;| <a href="tutorial_diagnostic_information.html">Diagnostic Information</a>&nbsp;| <a href="diagnostic_information_what.html">diagnostic_information_what</a>&nbsp;| <a href="frequently_asked_questions.html">Frequently Asked Questions</a>&nbsp;| <a href="motivation.html">Motivation</a></span>
 </div>
 <!-- Copyright (c) 2006-2009 Emil Dotchevski and Reverge Studios, Inc. -->
 <!-- Distributed under the Boost Software License, Version 1.0. (See accompanying -->

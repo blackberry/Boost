@@ -9,7 +9,9 @@
 
 #include <boost/config.hpp>
 #include <boost/algorithm/cxx11/one_of.hpp>
-#include <boost/test/included/test_exec_monitor.hpp>
+
+#define BOOST_TEST_MAIN
+#include <boost/test/unit_test.hpp>
 
 #include <functional>
 #include <vector>
@@ -94,8 +96,7 @@ void test_one ()
 }
 
 
-int test_main( int , char* [] )
+BOOST_AUTO_TEST_CASE( test_main )
 {
   test_one ();
-  return 0;
 }

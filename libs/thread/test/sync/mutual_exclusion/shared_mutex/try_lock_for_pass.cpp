@@ -64,7 +64,8 @@ int main()
   {
     m.lock();
     boost::thread t(f2);
-    boost::this_thread::sleep_for(ms(300));
+    // This test is spurious as it depends on the time the thread system switches the threads
+    boost::this_thread::sleep_for(ms(300)+ms(1000));
     m.unlock();
     t.join();
   }

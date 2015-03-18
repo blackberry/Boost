@@ -25,12 +25,16 @@ BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_signed<unsigned char>::value, false);
 
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_signed<UDT>::value, false);
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_signed<int&>::value, false);
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_signed<int&&>::value, false);
 #endif
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_signed<int*>::value, false);
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_signed<int[2]>::value, false);
 
+#ifdef BOOST_HAS_INT128
+BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_signed<boost::int128_type>::value, true);
+BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_signed<boost::uint128_type>::value, false);
+#endif
 TT_TEST_END
 
 

@@ -11,7 +11,6 @@
 #include <map>
 #include <boost/foreach.hpp>
 #include <boost/spirit/include/classic_core.hpp>
-#include <boost/spirit/include/classic_actor.hpp>
 #include <boost/spirit/include/classic_loops.hpp>
 #include <boost/spirit/include/classic_symbols.hpp>
 #include <boost/spirit/include/classic_chset.hpp>
@@ -75,7 +74,7 @@ namespace quickbook
                         doc_authors, doc_author,
                         doc_copyright, doc_copyright_holder,
                         doc_source_mode, doc_biblioid, doc_compatibility_mode,
-                        quickbook_version, char_;
+                        quickbook_version, macro, char_;
         cl::uint_parser<int, 10, 4, 4> doc_copyright_year;
         cl::symbols<> doc_types;
         cl::symbols<value::tag_type> doc_info_attributes;
@@ -118,15 +117,23 @@ namespace quickbook
 
         // Actions
         error_action error(state);
-        plain_char_action plain_char(state.phrase, state);
+        plain_char_action plain_char(state);
+        do_macro_action do_macro(state);
         scoped_parser<to_value_scoped_action> to_value(state);
+        member_action_value<quickbook::state, source_mode_type> change_source_mode(
+            state, &state::change_source_mode);
+        member_action_fixed_value<quickbook::state, source_mode_type> default_source_mode(
+            state, &state::change_source_mode, source_mode_tags::cpp);
         
         doc_info_details =
-                space                       [ph::var(local.source_mode_unset) = true]
-            >>  *(  local.doc_attribute
-                >>  space
+                cl::eps_p                   [ph::var(local.source_mode_unset) = true]
+            >>  *(  space
+                >>  local.doc_attribute
                 )
-            >>  !local.doc_info_block
+            >>  !(  space
+                >>  local.doc_info_block
+                )
+            >>  *eol
             ;
 
         local.doc_info_block =
@@ -145,7 +152,7 @@ namespace quickbook
                 ]
             >>  space
             >>  !(qbk_ver(106u) >> cl::eps_p(ph::var(local.source_mode_unset))
-                                            [cl::assign_a(state.source_mode, "c++")]
+                                            [default_source_mode]
                 )
             >>  (   *(  (  local.doc_info_attribute
                         |  local.doc_info_escaped_attributes
@@ -154,7 +161,7 @@ namespace quickbook
                     )
                 )                           [state.values.sort()]
             >>  (   ']'
-                >>  (+eol | cl::end_p)
+                >>  (eol | cl::end_p)
                 |   cl::eps_p               [error]
                 )
             ;
@@ -218,12 +225,8 @@ namespace quickbook
 
         local.attribute_rules[doc_attributes::compatibility_mode] = &local.doc_compatibility_mode;
 
-        local.doc_source_mode =
-                (
-                   cl::str_p("c++")
-                |  "python"
-                |  "teletype"
-                )                           [cl::assign_a(state.source_mode)]
+        local.doc_source_mode = source_modes
+                                            [change_source_mode]
                                             [ph::var(local.source_mode_unset) = false]
             ;
 
@@ -302,6 +305,21 @@ namespace quickbook
 
         local.attribute_rules[doc_info_attributes::biblioid] = &local.doc_biblioid;
 
-        local.char_ = escape | cl::anychar_p[plain_char];
+        local.char_ =
+                escape
+            |   local.macro
+            |   cl::anychar_p[plain_char];
+            ;
+
+        local.macro =
+            cl::eps_p
+            (   (   state.macro
+                >>  ~cl::eps_p(cl::alpha_p | '_')
+                                                // must not be followed by alpha or underscore
+                )
+                &   macro_identifier            // must be a valid macro for the current version
+            )
+            >>  state.macro                     [do_macro]
+            ;
     }
 }

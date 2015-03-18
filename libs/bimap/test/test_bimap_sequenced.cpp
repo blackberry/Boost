@@ -43,6 +43,55 @@
 struct  left_tag {};
 struct right_tag {};
 
+
+template< class Container, class Data >
+void test_list_operations(Container & b, Container& c, const Data & d)
+{
+    c.clear() ;
+    c.assign(d.begin(),d.end());
+        
+    BOOST_CHECK( std::equal( c.begin(), c.end(), d.begin() ) );
+    c.reverse();
+    BOOST_CHECK( std::equal( c.begin(), c.end(), d.rbegin() ) );
+
+    c.sort();
+    BOOST_CHECK( std::equal( c.begin(), c.end(), d.begin() ) );
+
+    c.push_front( *d.begin() );
+    BOOST_CHECK( c.size() == d.size()+1 );
+    c.unique();
+    BOOST_CHECK( c.size() == d.size() );
+ 
+    c.relocate( c.begin(), ++c.begin() );
+    c.relocate( c.end(), c.begin(), ++c.begin() );
+        
+    b.clear();
+    c.clear();
+    
+    c.assign(d.begin(),d.end());
+    b.splice(b.begin(),c);
+
+    BOOST_CHECK( c.size() == 0 );
+    BOOST_CHECK( b.size() == d.size() );
+
+    c.splice(c.begin(),b,++b.begin());
+
+    BOOST_CHECK( c.size() == 1 );
+
+    c.splice(c.begin(),b,b.begin(),b.end());
+
+    BOOST_CHECK( b.size() == 0 );
+
+    b.assign(d.begin(),d.end());
+    c.assign(d.begin(),d.end());
+    b.sort();
+    c.sort();
+    b.merge(c);
+    BOOST_CHECK( b.size() == 2*d.size() );
+ 
+    b.unique();
+}
+    
 void test_bimap()
 {
     using namespace boost::bimaps;
@@ -66,7 +115,7 @@ void test_bimap()
     {
         typedef bimap<
             list_of< std::string >, vector_of< long >
-
+            
         > bm_type;
 
         std::set< bm_type::value_type > data;
@@ -77,120 +126,55 @@ void test_bimap()
 
         bm_type b;
 
+        test_bimap_init_copy_swap<bm_type>(data) ;
         test_sequence_container(b,data);
         test_sequence_container(b.left , left_data);
-        test_sequence_container(b.right,right_data);
+        test_vector_container(b.right,right_data);
 
         test_mapped_container(b.left );
         test_mapped_container(b.right);
 
         bm_type c;
+        test_list_operations(b,c,data) ;
+        test_list_operations(b.left,c.left,left_data) ;
+        test_list_operations(b.right,c.right,right_data) ;
 
-        // Test assign
-
-        b.clear();
-        BOOST_CHECK( b.empty() );
-
-        b.left.assign(left_data.begin(),left_data.end());
-        BOOST_CHECK( b.size() == left_data.size() );
-
-        b.right.assign(right_data.begin(),right_data.end());
-        BOOST_CHECK( b.size() == right_data.size() );
-
+        c.assign(data.begin(),data.end());
         b.assign(data.begin(),data.end());
-        BOOST_CHECK( b.size() == data.size() );
-
-        // Test splice and merge
-
-        b.clear();
-
-        c.left.insert(c.left.begin(),left_data.begin(),left_data.end());
-        b.left.splice(b.left.begin(),c.left);
-
-        BOOST_CHECK( c.size() == 0 );
-        BOOST_CHECK( b.size() == 4 );
-
-        c.left.splice(c.left.begin(),b.left,++b.left.begin());
-
-        BOOST_CHECK( c.size() == 1 );
-
-        c.splice(c.begin(),b,b.begin(),b.end());
-
-        BOOST_CHECK( b.size() == 0 );
-
-        b.left.merge(c.left);
-        c.left.merge(b.left,std::less<std::string>());
-
-        b.left.sort();
+        c.remove_if(_key<=bm_type::value_type("1",1));
+        c.sort(std::less<bm_type::value_type>());
+        b.sort(std::less<bm_type::value_type>());
+        c.merge(b,std::less<bm_type::value_type>());
+        c.unique(std::equal_to<bm_type::value_type>());
+        
+        c.assign(data.begin(),data.end());
+        b.assign(data.begin(),data.end());
+        c.left.remove_if(_key<="1");
+        c.left.sort(std::less<std::string>());
         b.left.sort(std::less<std::string>());
-
-        b.left.unique();
-        b.left.unique(std::equal_to<std::string>());
-
-        b.assign( data.begin(), data.end() );
-
-        BOOST_CHECK( std::equal( b.begin(), b.end(), data.begin() ) );
-        b.reverse();
-        BOOST_CHECK( std::equal( b.rbegin(), b.rend(), data.begin() ) );
-
-        b.sort();
-
-        BOOST_CHECK( std::equal( b.begin(), b.end(), data.begin() ) );
-
-        b.push_back( bm_type::value_type("4",4) );
-        BOOST_CHECK( b.size() == 5 );
-        b.unique();
-        BOOST_CHECK( b.size() == 4 );
-        b.remove_if( _key < bm_type::value_type("2",2) );
-        BOOST_CHECK( b.size() == 3 );
-
-        b.merge(c);
-
-        b.left.remove_if( _key < "3" );
-
-        // Test splice and merge
-
-        b.clear(); c.clear();
-
-        c.left.insert(c.left.begin(),left_data.begin(),left_data.end());
-        b.right.splice(b.right.begin(),c.right);
-
-        BOOST_CHECK( c.size() == 0 );
-        BOOST_CHECK( b.size() == 4 );
-
-        c.right.splice(c.right.begin(),b.right,++b.right.begin());
-
-        b.right.merge(c.right);
-        c.right.merge(b.right,std::less<long>());
-
-        b.right.sort();
+        c.left.merge(b.left,std::less<std::string>());
+        c.left.unique(std::equal_to<std::string>());
+        
+        c.assign(data.begin(),data.end());
+        b.assign(data.begin(),data.end());
+        c.right.remove_if(_key<=1);
+        c.right.sort(std::less<long>());
         b.right.sort(std::less<long>());
+        c.right.merge(b.right,std::less<long>());
+        c.right.unique(std::equal_to<long>());
 
-        b.right.unique();
-        b.right.unique(std::equal_to<long>());
-
-        b.right.remove_if( _key < 3 );
-
-        b.clear();
-        b.left.insert(b.left.begin(),left_data.begin(),left_data.end());
-
-        b.left.relocate(b.left.begin(), ++b.left.begin() );
-        b.left.relocate(b.left.end(), b.left.begin(), ++b.left.begin() );
-
-        b.right.relocate(b.right.begin(), ++b.right.begin() );
-        b.right.relocate(b.right.end(), b.right.begin(), ++b.right.begin() );
-
-        b.relocate(b.begin(), ++b.begin() );
-        b.relocate(b.end(), b.begin(), ++b.begin() );
+        c.assign(data.begin(),data.end());
+        c.right[0].first = -1;
+        c.right.at(0).second = "[1]";
     }
     //--------------------------------------------------------------------
 
-
+    
     //--------------------------------------------------------------------
     {
         typedef bimap
         <
-            list_of<std::string>, list_of<long>,
+            vector_of<std::string>, list_of<long>,
             vector_of_relation
 
         > bm_type;
@@ -200,92 +184,87 @@ void test_bimap()
         data.insert( bm_type::value_type("2",2) );
         data.insert( bm_type::value_type("3",3) );
         data.insert( bm_type::value_type("4",4) );
-
+        
         bm_type b;
-        b.push_back( bm_type::value_type("1",1) );
-        b.push_back( bm_type::value_type("2",2) );
-        b.push_back( bm_type::value_type("3",3) );
-        b.push_back( bm_type::value_type("4",4) );
-
-        BOOST_CHECK( std::equal( b.begin(), b.end(), data.begin() ) );
-        b.reverse();
-        BOOST_CHECK( std::equal( b.rbegin(), b.rend(), data.begin() ) );
-
-        b.sort();
-
-        BOOST_CHECK( std::equal( b.begin(), b.end(), data.begin() ) );
-
-        b.push_back( bm_type::value_type("4",4) );
-        BOOST_CHECK( b.size() == 5 );
-        b.unique();
-        BOOST_CHECK( b.size() == 4 );
-        b.remove_if( _key < bm_type::value_type("2",2) );
-        BOOST_CHECK( b.size() == 3 );
-
-        b.relocate( b.begin(), ++b.begin() );
-        b.relocate( b.end(), b.begin(), ++b.begin() );
-
-        b.clear();
-        BOOST_CHECK( b.empty() );
-
-        b.left.assign(left_data.begin(),left_data.end());
-        BOOST_CHECK( b.size() == left_data.size() );
-
-        b.right.assign(right_data.begin(),right_data.end());
-        BOOST_CHECK( b.size() == right_data.size() );
-
+        
+        test_bimap_init_copy_swap<bm_type>(data) ;
+        test_vector_container(b,data) ;
+        
+        bm_type c;
+        test_list_operations(b,c,data) ;
+        test_list_operations(b.left,c.left,left_data) ;
+        test_list_operations(b.right,c.right,right_data) ;
+        
+        c.assign(data.begin(),data.end());
         b.assign(data.begin(),data.end());
-        BOOST_CHECK( b.size() == data.size() );
+        c.remove_if(_key<=bm_type::value_type("1",1));
+        c.sort(std::less<bm_type::value_type>());
+        b.sort(std::less<bm_type::value_type>());
+        c.merge(b,std::less<bm_type::value_type>());
+        c.unique(std::equal_to<bm_type::value_type>());
+        
+        c.assign(data.begin(),data.end());
+        b.assign(data.begin(),data.end());
+        c.left.remove_if(_key<="1");
+        c.left.sort(std::less<std::string>());
+        b.left.sort(std::less<std::string>());
+        c.left.merge(b.left,std::less<std::string>());
+        c.left.unique(std::equal_to<std::string>());
+        
+        c.assign(data.begin(),data.end());
+        b.assign(data.begin(),data.end());
+        c.right.remove_if(_key<=1);
+        c.right.sort(std::less<long>());
+        b.right.sort(std::less<long>());
+        c.right.merge(b.right,std::less<long>());
+        c.right.unique(std::equal_to<long>());
+        
+        c.assign(data.begin(),data.end());
+        c[0].left = "(1)";
+        c.at(0).right = -1;
+        c.left[0].first = "[1]";
+        c.left.at(0).second = -1;
     }
     //--------------------------------------------------------------------
 
-
+    
     //--------------------------------------------------------------------
     {
         typedef bimap
         <
-            vector_of< short >, list_of< short >,
-            vector_of_relation
+            vector_of<std::string>, list_of<long>,
+            list_of_relation
 
-        > bimap_type;
+        > bm_type;
 
-        bimap_type b1;
+        std::set< bm_type::value_type > data;
+        data.insert( bm_type::value_type("1",1) );
+        data.insert( bm_type::value_type("2",2) );
+        data.insert( bm_type::value_type("3",3) );
+        data.insert( bm_type::value_type("4",4) );
+        
+        bm_type b;
+        
+        test_bimap_init_copy_swap<bm_type>(data) ;
+        test_sequence_container(b,data) ;
+        
+        bm_type c;
+        test_list_operations(b,c,data) ;
+        test_list_operations(b.left,c.left,left_data) ;
+        test_list_operations(b.right,c.right,right_data) ;
 
-        b1.push_back( bimap_type::value_type(1,2) );
-
-        bimap_type b2( b1 );
-
-        BOOST_CHECK(     b1 == b2   );
-        BOOST_CHECK( ! ( b1 != b2 ) );
-        BOOST_CHECK(     b1 <= b2   );
-        BOOST_CHECK(     b1 >= b2   );
-        BOOST_CHECK( ! ( b1 <  b2 ) );
-        BOOST_CHECK( ! ( b1 >  b2 ) );
-
-        b1.push_back( bimap_type::value_type(2,3) );
-
-        b2 = b1;
-        BOOST_CHECK( b2 == b1 );
-
-        b1.push_back( bimap_type::value_type(3,4) );
-
-        b2.left = b1.left;
-        BOOST_CHECK( b2 == b1 );
-
-        b1.push_back( bimap_type::value_type(4,5) );
-
-        b2.right = b1.right;
-        BOOST_CHECK( b2 == b1 );
-
-        b1.clear();
-        b2.swap(b1);
-        BOOST_CHECK( b2.empty() && !b1.empty() );
-
-        b1.left.swap( b2.left );
-        BOOST_CHECK( b1.empty() && !b2.empty() );
-
-        b1.right.swap( b2.right );
-        BOOST_CHECK( b2.empty() && !b1.empty() );
+        
+        c.assign(data.begin(),data.end());
+        b.assign(data.begin(),data.end());
+        c.remove_if(_key<=bm_type::value_type("1",1));
+        c.sort(std::less<bm_type::value_type>());
+        b.sort(std::less<bm_type::value_type>());
+        c.merge(b,std::less<bm_type::value_type>());
+        c.unique(std::equal_to<bm_type::value_type>());
+        
+        c.assign(data.begin(),data.end());
+        c.left[0].first = "[1]";
+        c.left.at(0).second = -1;
     }
     //--------------------------------------------------------------------
 

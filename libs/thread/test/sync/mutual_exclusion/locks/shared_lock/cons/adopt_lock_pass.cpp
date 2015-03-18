@@ -19,7 +19,7 @@
 // shared_lock(mutex_type& m, adopt_lock_t);
 
 
-#include <boost/thread/locks.hpp>
+#include <boost/thread/lock_types.hpp>
 #include <boost/thread/shared_mutex.hpp>
 #include <boost/detail/lightweight_test.hpp>
 
@@ -27,7 +27,7 @@
 int main()
 {
   boost::shared_mutex m;
-  m.lock();
+  m.lock_shared();
   boost::shared_lock<boost::shared_mutex> lk(m, boost::adopt_lock);
   BOOST_TEST(lk.mutex() == &m);
   BOOST_TEST(lk.owns_lock() == true);

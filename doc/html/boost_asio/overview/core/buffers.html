@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Buffers</title>
 <link rel="stylesheet" href="../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../../boost_asio.html" title="Boost.Asio">
 <link rel="up" href="../core.html" title="Core Concepts and Functionality">
 <link rel="prev" href="strands.html" title="Strands: Use Threads Without Explicit Locking">
@@ -34,7 +34,7 @@
           support for scatter-gather operations. These operations involve one or
           more buffers:
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               A scatter-read receives data into multiple buffers.
             </li>
@@ -67,7 +67,7 @@
           and <code class="computeroutput"><span class="identifier">const_buffer</span></code>. The goal
           of these is to provide an opaque representation of contiguous memory, where:
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               Types behave as std::pair would in conversions. That is, a <code class="computeroutput"><span class="identifier">mutable_buffer</span></code> is convertible to
               a <code class="computeroutput"><span class="identifier">const_buffer</span></code>, but
@@ -100,7 +100,7 @@
         </p>
 <h6>
 <a name="boost_asio.overview.core.buffers.h0"></a>
-          <span><a name="boost_asio.overview.core.buffers.streambuf_for_integration_with_iostreams"></a></span><a class="link" href="buffers.html#boost_asio.overview.core.buffers.streambuf_for_integration_with_iostreams">Streambuf
+          <span class="phrase"><a name="boost_asio.overview.core.buffers.streambuf_for_integration_with_iostreams"></a></span><a class="link" href="buffers.html#boost_asio.overview.core.buffers.streambuf_for_integration_with_iostreams">Streambuf
           for Integration with Iostreams</a>
         </h6>
 <p>
@@ -111,7 +111,7 @@
           array elements is provided to permit them to be used with I/O operations,
           such as the send or receive operations of a socket:
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               The input sequence of the streambuf is accessible via the <a class="link" href="../../reference/basic_streambuf/data.html" title="basic_streambuf::data">data()</a>
               member function. The return type of this function meets the <code class="computeroutput"><span class="identifier">ConstBufferSequence</span></code> requirements.
@@ -140,7 +140,7 @@
         </p>
 <h6>
 <a name="boost_asio.overview.core.buffers.h1"></a>
-          <span><a name="boost_asio.overview.core.buffers.bytewise_traversal_of_buffer_sequences"></a></span><a class="link" href="buffers.html#boost_asio.overview.core.buffers.bytewise_traversal_of_buffer_sequences">Bytewise
+          <span class="phrase"><a name="boost_asio.overview.core.buffers.bytewise_traversal_of_buffer_sequences"></a></span><a class="link" href="buffers.html#boost_asio.overview.core.buffers.bytewise_traversal_of_buffer_sequences">Bytewise
           Traversal of Buffer Sequences</a>
         </h6>
 <p>
@@ -163,7 +163,7 @@
 </pre>
 <h6>
 <a name="boost_asio.overview.core.buffers.h2"></a>
-          <span><a name="boost_asio.overview.core.buffers.buffer_debugging"></a></span><a class="link" href="buffers.html#boost_asio.overview.core.buffers.buffer_debugging">Buffer
+          <span class="phrase"><a name="boost_asio.overview.core.buffers.buffer_debugging"></a></span><a class="link" href="buffers.html#boost_asio.overview.core.buffers.buffer_debugging">Buffer
           Debugging</a>
         </h6>
 <p>
@@ -213,7 +213,7 @@
         </p>
 <h6>
 <a name="boost_asio.overview.core.buffers.h3"></a>
-          <span><a name="boost_asio.overview.core.buffers.see_also"></a></span><a class="link" href="buffers.html#boost_asio.overview.core.buffers.see_also">See
+          <span class="phrase"><a name="boost_asio.overview.core.buffers.see_also"></a></span><a class="link" href="buffers.html#boost_asio.overview.core.buffers.see_also">See
           Also</a>
         </h6>
 <p>
@@ -225,12 +225,14 @@
           <a class="link" href="../../reference/mutable_buffers_1.html" title="mutable_buffers_1">mutable_buffers_1</a>,
           <a class="link" href="../../reference/streambuf.html" title="streambuf">streambuf</a>, <a class="link" href="../../reference/ConstBufferSequence.html" title="Constant buffer sequence requirements">ConstBufferSequence</a>,
           <a class="link" href="../../reference/MutableBufferSequence.html" title="Mutable buffer sequence requirements">MutableBufferSequence</a>,
-          <a class="link" href="../../examples.html#boost_asio.examples.buffers">buffers example</a>.
+          <a class="link" href="../../examples/cpp03_examples.html#boost_asio.examples.cpp03_examples.buffers">buffers example
+          (C++03)</a>, <a class="link" href="../../examples/cpp11_examples.html#boost_asio.examples.cpp11_examples.buffers">buffers
+          example (c++11)</a>.
         </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2012 Christopher M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2014 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

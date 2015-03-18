@@ -5,7 +5,7 @@
 
 #include "./config.hpp"
 
-#if defined(TEST_EXTENSIONS)
+#if defined(BOOST_HASH_TEST_EXTENSIONS)
 
 // Include header without BOOST_HASH_NO_EXTENSIONS defined
 #  if defined(BOOST_HASH_NO_EXTENSIONS)
@@ -23,14 +23,14 @@
 
 int main()
 {
-#if defined(TEST_EXTENSIONS)
+#if defined(BOOST_HASH_TEST_EXTENSIONS)
     std::deque<int> x;
 
     x.push_back(1);
     x.push_back(2);
 
-    HASH_NAMESPACE::hash<std::deque<int> > hasher;
-    BOOST_TEST(hasher(x) == HASH_NAMESPACE::hash_value(x));
+    BOOST_HASH_TEST_NAMESPACE::hash<std::deque<int> > hasher;
+    BOOST_TEST(hasher(x) == BOOST_HASH_TEST_NAMESPACE::hash_value(x));
 #endif
 
     return boost::report_errors();

@@ -16,12 +16,12 @@ TT_TEST_BEGIN(is_same)
 
 BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_same<int, int>::value), true);
 BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_same<int&, int&>::value), true);
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
 BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_same<int&&, int&&>::value), true);
 #endif
 BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_same<int, const int>::value), false);
 BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_same<int, int&>::value), false);
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
 BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_same<int, int&&>::value), false);
 #endif
 BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_same<const int, int&>::value), false);

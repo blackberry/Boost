@@ -35,15 +35,6 @@ namespace boost
                                        reference.begin(), reference.end() );
     }
     
-    template<typename Integer>
-    std::ptrdiff_t test_irange_calculate_num_steps(Integer first, Integer last, int step)
-    {
-        const std::ptrdiff_t sz = static_cast<std::ptrdiff_t>(step >= 0 ? step : -step);
-        const std::ptrdiff_t l = static_cast<std::ptrdiff_t>(step >= 0 ? last : first);
-        const std::ptrdiff_t f = static_cast<std::ptrdiff_t>(step >= 0 ? first : last);
-        return (l + ((l-f) % sz) - f) / sz;
-    }
-
     // Test an integer range with a runtime specified step size.
     template<typename Integer, typename IntegerInput>
     void test_irange_impl(IntegerInput first, IntegerInput last, int step)
@@ -58,9 +49,12 @@ namespace boost
         
         std::vector<Integer> reference;
 
-        const std::ptrdiff_t num_steps = test_irange_calculate_num_steps(first, last, step);        
-        Integer current_value = first;
-        for (std::ptrdiff_t i = 0; i < num_steps; ++i, current_value += step)
+        const std::ptrdiff_t first_p = static_cast<std::ptrdiff_t>(first);
+        const std::ptrdiff_t last_p = static_cast<std::ptrdiff_t>(last);
+        const std::ptrdiff_t step_p = static_cast<std::ptrdiff_t>(step);
+        for (std::ptrdiff_t current_value = first_p; 
+             step_p >= 0 ? current_value < last_p : current_value > last_p;
+             current_value += step_p)
             reference.push_back(current_value);
 
         std::vector<Integer> test;

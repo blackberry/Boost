@@ -104,7 +104,7 @@ TT_TEST_BEGIN(is_class)
 
    //
    // Todo: make these work sometime. The test id not directly
-   //       related to decay<T>::type and can be avioded for now.
+   //       related to decay<T>::type and can be avoided for now.
    // 
    /*
    int array[10];

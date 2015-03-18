@@ -37,12 +37,11 @@ namespace std{
 #include <iostream>
 
 template<typename CharType>
-void test_base64(){
+void test_base64(unsigned int size){
     CharType rawdata[150];
-    std::size_t size = sizeof(rawdata) / sizeof(CharType);
     CharType * rptr;
     for(rptr = rawdata + size; rptr-- > rawdata;)
-        *rptr = static_cast<CharType>(std::rand());
+        *rptr = static_cast<CharType>(std::rand()& 0xff);
 
     // convert to base64
     typedef std::list<CharType> text_base64_type;
@@ -57,7 +56,7 @@ void test_base64(){
                     ,sizeof(CharType) * 8
                 >
             > 
-            ,72
+            ,76
         > 
         translate_out;
 
@@ -72,7 +71,7 @@ void test_base64(){
         boost::archive::iterators::transform_width<
             boost::archive::iterators::binary_from_base64<
                 boost::archive::iterators::remove_whitespace<
-                    BOOST_DEDUCED_TYPENAME text_base64_type::iterator
+                    typename text_base64_type::iterator
                 >
             >,
             sizeof(CharType) * 8,
@@ -92,9 +91,17 @@ void test_base64(){
 int
 test_main( int /*argc*/, char* /*argv*/[] )
 {
-    test_base64<char>();
+    test_base64<char>(1);
+    test_base64<char>(2);
+    test_base64<char>(3);
+    test_base64<char>(4);
+    test_base64<char>(150);
     #ifndef BOOST_NO_CWCHAR
-    test_base64<wchar_t>();
+    test_base64<wchar_t>(1);
+    test_base64<wchar_t>(2);
+    test_base64<wchar_t>(3);
+    test_base64<wchar_t>(4);
+    test_base64<wchar_t>(150);
     #endif
     return EXIT_SUCCESS;
 }

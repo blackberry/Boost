@@ -19,7 +19,7 @@
 namespace boost_no_cxx11_local_class_template_parameters {
 
 template<typename T> struct a { void use() {} };
-template<typename T> void f(T x) {}
+template<typename T> void f(T) {}
 
 int test() {
     class local_class {} local_obj;

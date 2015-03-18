@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>io_service</title>
 <link rel="stylesheet" href="../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../boost_asio.html" title="Boost.Asio">
 <link rel="up" href="../reference.html" title="Reference">
 <link rel="prev" href="invalid_service_owner/invalid_service_owner.html" title="invalid_service_owner::invalid_service_owner">
@@ -34,7 +34,7 @@
 </pre>
 <h5>
 <a name="boost_asio.reference.io_service.h0"></a>
-        <span><a name="boost_asio.reference.io_service.types"></a></span><a class="link" href="io_service.html#boost_asio.reference.io_service.types">Types</a>
+        <span class="phrase"><a name="boost_asio.reference.io_service.types"></a></span><a class="link" href="io_service.html#boost_asio.reference.io_service.types">Types</a>
       </h5>
 <div class="informaltable"><table class="table">
 <colgroup>
@@ -118,7 +118,7 @@
 </table></div>
 <h5>
 <a name="boost_asio.reference.io_service.h1"></a>
-        <span><a name="boost_asio.reference.io_service.member_functions"></a></span><a class="link" href="io_service.html#boost_asio.reference.io_service.member_functions">Member
+        <span class="phrase"><a name="boost_asio.reference.io_service.member_functions"></a></span><a class="link" href="io_service.html#boost_asio.reference.io_service.member_functions">Member
         Functions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -303,7 +303,7 @@
 </table></div>
 <h5>
 <a name="boost_asio.reference.io_service.h2"></a>
-        <span><a name="boost_asio.reference.io_service.friends"></a></span><a class="link" href="io_service.html#boost_asio.reference.io_service.friends">Friends</a>
+        <span class="phrase"><a name="boost_asio.reference.io_service.friends"></a></span><a class="link" href="io_service.html#boost_asio.reference.io_service.friends">Friends</a>
       </h5>
 <div class="informaltable"><table class="table">
 <colgroup>
@@ -366,7 +366,7 @@
         class provides the core I/O functionality for users of the asynchronous I/O
         objects, including:
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">ip</span><span class="special">::</span><span class="identifier">tcp</span><span class="special">::</span><span class="identifier">socket</span></code>
           </li>
@@ -387,16 +387,15 @@
       </p>
 <h5>
 <a name="boost_asio.reference.io_service.h3"></a>
-        <span><a name="boost_asio.reference.io_service.thread_safety"></a></span><a class="link" href="io_service.html#boost_asio.reference.io_service.thread_safety">Thread
+        <span class="phrase"><a name="boost_asio.reference.io_service.thread_safety"></a></span><a class="link" href="io_service.html#boost_asio.reference.io_service.thread_safety">Thread
         Safety</a>
       </h5>
 <p>
-        <span class="bold"><strong>Distinct</strong></span> <span class="bold"><strong>objects:</strong></span>
-        Safe.
+        <span class="emphasis"><em>Distinct</em></span> <span class="emphasis"><em>objects:</em></span> Safe.
       </p>
 <p>
-        <span class="bold"><strong>Shared</strong></span> <span class="bold"><strong>objects:</strong></span>
-        Safe, with the specific exceptions of the <code class="computeroutput"><span class="identifier">reset</span><span class="special">()</span></code> and <code class="computeroutput"><span class="identifier">notify_fork</span><span class="special">()</span></code> functions. Calling <code class="computeroutput"><span class="identifier">reset</span><span class="special">()</span></code> while there are unfinished <code class="computeroutput"><span class="identifier">run</span><span class="special">()</span></code>,
+        <span class="emphasis"><em>Shared</em></span> <span class="emphasis"><em>objects:</em></span> Safe, with the
+        specific exceptions of the <code class="computeroutput"><span class="identifier">reset</span><span class="special">()</span></code> and <code class="computeroutput"><span class="identifier">notify_fork</span><span class="special">()</span></code> functions. Calling <code class="computeroutput"><span class="identifier">reset</span><span class="special">()</span></code> while there are unfinished <code class="computeroutput"><span class="identifier">run</span><span class="special">()</span></code>,
         <code class="computeroutput"><span class="identifier">run_one</span><span class="special">()</span></code>,
         <code class="computeroutput"><span class="identifier">poll</span><span class="special">()</span></code>
         or <code class="computeroutput"><span class="identifier">poll_one</span><span class="special">()</span></code>
@@ -407,7 +406,7 @@
       </p>
 <h5>
 <a name="boost_asio.reference.io_service.h4"></a>
-        <span><a name="boost_asio.reference.io_service.synchronous_and_asynchronous_operations"></a></span><a class="link" href="io_service.html#boost_asio.reference.io_service.synchronous_and_asynchronous_operations">Synchronous
+        <span class="phrase"><a name="boost_asio.reference.io_service.synchronous_and_asynchronous_operations"></a></span><a class="link" href="io_service.html#boost_asio.reference.io_service.synchronous_and_asynchronous_operations">Synchronous
         and asynchronous operations</a>
       </h5>
 <p>
@@ -428,7 +427,7 @@
       </p>
 <h5>
 <a name="boost_asio.reference.io_service.h5"></a>
-        <span><a name="boost_asio.reference.io_service.effect_of_exceptions_thrown_from_handlers"></a></span><a class="link" href="io_service.html#boost_asio.reference.io_service.effect_of_exceptions_thrown_from_handlers">Effect
+        <span class="phrase"><a name="boost_asio.reference.io_service.effect_of_exceptions_thrown_from_handlers"></a></span><a class="link" href="io_service.html#boost_asio.reference.io_service.effect_of_exceptions_thrown_from_handlers">Effect
         of exceptions thrown from handlers</a>
       </h5>
 <p>
@@ -438,7 +437,7 @@
         to catch the exception.
       </p>
 <p>
-        After the exception has been caught, the <code class="computeroutput"><span class="identifier">run</span><span class="special">()</span></code>, <code class="computeroutput"><span class="identifier">run_one</span><span class="special">()</span></code>, <code class="computeroutput"><span class="identifier">poll</span><span class="special">()</span></code> or <code class="computeroutput"><span class="identifier">poll_one</span><span class="special">()</span></code> call may be restarted <span class="bold"><strong>without</strong></span>
+        After the exception has been caught, the <code class="computeroutput"><span class="identifier">run</span><span class="special">()</span></code>, <code class="computeroutput"><span class="identifier">run_one</span><span class="special">()</span></code>, <code class="computeroutput"><span class="identifier">poll</span><span class="special">()</span></code> or <code class="computeroutput"><span class="identifier">poll_one</span><span class="special">()</span></code> call may be restarted <span class="emphasis"><em>without</em></span>
         the need for an intervening call to <code class="computeroutput"><span class="identifier">reset</span><span class="special">()</span></code>. This allows the thread to rejoin the
         <a class="link" href="io_service.html" title="io_service"><code class="computeroutput"><span class="identifier">io_service</span></code></a>
         object's thread pool without impacting any other threads in the pool.
@@ -463,7 +462,7 @@
 </pre>
 <h5>
 <a name="boost_asio.reference.io_service.h6"></a>
-        <span><a name="boost_asio.reference.io_service.stopping_the_io_service_from_running_out_of_work"></a></span><a class="link" href="io_service.html#boost_asio.reference.io_service.stopping_the_io_service_from_running_out_of_work">Stopping
+        <span class="phrase"><a name="boost_asio.reference.io_service.stopping_the_io_service_from_running_out_of_work"></a></span><a class="link" href="io_service.html#boost_asio.reference.io_service.stopping_the_io_service_from_running_out_of_work">Stopping
         the io_service from running out of work</a>
       </h5>
 <p>
@@ -494,7 +493,7 @@
 </pre>
 <h5>
 <a name="boost_asio.reference.io_service.h7"></a>
-        <span><a name="boost_asio.reference.io_service.the_io_service_class_and_i_o_services"></a></span><a class="link" href="io_service.html#boost_asio.reference.io_service.the_io_service_class_and_i_o_services">The
+        <span class="phrase"><a name="boost_asio.reference.io_service.the_io_service_class_and_i_o_services"></a></span><a class="link" href="io_service.html#boost_asio.reference.io_service.the_io_service_class_and_i_o_services">The
         io_service class and I/O services</a>
       </h5>
 <p>
@@ -545,18 +544,18 @@
       </p>
 <h5>
 <a name="boost_asio.reference.io_service.h8"></a>
-        <span><a name="boost_asio.reference.io_service.requirements"></a></span><a class="link" href="io_service.html#boost_asio.reference.io_service.requirements">Requirements</a>
+        <span class="phrase"><a name="boost_asio.reference.io_service.requirements"></a></span><a class="link" href="io_service.html#boost_asio.reference.io_service.requirements">Requirements</a>
       </h5>
 <p>
-        <span class="bold"><strong>Header: </strong></span><code class="literal">boost/asio/io_service.hpp</code>
+        <span class="emphasis"><em>Header: </em></span><code class="literal">boost/asio/io_service.hpp</code>
       </p>
 <p>
-        <span class="bold"><strong>Convenience header: </strong></span><code class="literal">boost/asio.hpp</code>
+        <span class="emphasis"><em>Convenience header: </em></span><code class="literal">boost/asio.hpp</code>
       </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2012 Christopher M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2014 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

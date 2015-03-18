@@ -1,3 +1,11 @@
+/*=============================================================================
+    Copyright (c) 2010 Tim Blechmann
+
+    Use, modification and distribution is subject to the Boost Software
+    License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
+    http://www.boost.org/LICENSE_1_0.txt)
+=============================================================================*/
+
 #define BOOST_TEST_MAIN
 #include <boost/test/unit_test.hpp>
 
@@ -48,4 +56,21 @@ BOOST_AUTO_TEST_CASE( fibonacci_heap_test )
 
     run_fibonacci_heap_test<false, false>();
     run_fibonacci_heap_test<false, true>();
+
+    RUN_EMPLACE_TEST(fibonacci_heap);
+}
+
+BOOST_AUTO_TEST_CASE( fibonacci_heap_compare_lookup_test )
+{
+    typedef boost::heap::fibonacci_heap<int,
+                                       boost::heap::compare<less_with_T>,
+                                       boost::heap::allocator<std::allocator<int> > > pri_queue;
+    run_common_heap_tests<pri_queue>();
+}
+
+
+BOOST_AUTO_TEST_CASE( fibonacci_heap_leak_test )
+{
+    typedef boost::heap::fibonacci_heap<boost::shared_ptr<int> > pri_queue;
+    run_leak_check_test<pri_queue>();
 }

@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>asio_handler_allocate</title>
 <link rel="stylesheet" href="../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../boost_asio.html" title="Boost.Asio">
 <link rel="up" href="../reference.html" title="Reference">
 <link rel="prev" href="add_service.html" title="add_service">
@@ -27,7 +27,7 @@
 <a name="boost_asio.reference.asio_handler_allocate"></a><a class="link" href="asio_handler_allocate.html" title="asio_handler_allocate">asio_handler_allocate</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="id892888"></a> 
+        <a class="indexterm" name="idp115793952"></a> 
 Default allocation function for handlers.
       </p>
 <pre class="programlisting"><span class="keyword">void</span> <span class="special">*</span> <span class="identifier">asio_handler_allocate</span><span class="special">(</span>
@@ -44,13 +44,13 @@ Default allocation function for handlers.
         handlers to provide custom allocation for these temporary objects.
       </p>
 <p>
-        This default implementation is simply:
+        The default implementation of these allocation hooks uses <code class="computeroutput"><span class="keyword">operator</span>
+        <span class="keyword">new</span></code> and <code class="computeroutput"><span class="keyword">operator</span>
+        <span class="keyword">delete</span></code>.
       </p>
-<pre class="programlisting"><span class="keyword">return</span> <span class="special">::</span><span class="keyword">operator</span> <span class="keyword">new</span><span class="special">(</span><span class="identifier">size</span><span class="special">);</span>
-</pre>
 <h5>
 <a name="boost_asio.reference.asio_handler_allocate.h0"></a>
-        <span><a name="boost_asio.reference.asio_handler_allocate.remarks"></a></span><a class="link" href="asio_handler_allocate.html#boost_asio.reference.asio_handler_allocate.remarks">Remarks</a>
+        <span class="phrase"><a name="boost_asio.reference.asio_handler_allocate.remarks"></a></span><a class="link" href="asio_handler_allocate.html#boost_asio.reference.asio_handler_allocate.remarks">Remarks</a>
       </h5>
 <p>
         All temporary objects associated with a handler will be deallocated before
@@ -59,7 +59,7 @@ Default allocation function for handlers.
       </p>
 <h5>
 <a name="boost_asio.reference.asio_handler_allocate.h1"></a>
-        <span><a name="boost_asio.reference.asio_handler_allocate.example"></a></span><a class="link" href="asio_handler_allocate.html#boost_asio.reference.asio_handler_allocate.example">Example</a>
+        <span class="phrase"><a name="boost_asio.reference.asio_handler_allocate.example"></a></span><a class="link" href="asio_handler_allocate.html#boost_asio.reference.asio_handler_allocate.example">Example</a>
       </h5>
 <pre class="programlisting"><span class="keyword">class</span> <span class="identifier">my_handler</span><span class="special">;</span>
 
@@ -76,18 +76,18 @@ Default allocation function for handlers.
 </pre>
 <h5>
 <a name="boost_asio.reference.asio_handler_allocate.h2"></a>
-        <span><a name="boost_asio.reference.asio_handler_allocate.requirements"></a></span><a class="link" href="asio_handler_allocate.html#boost_asio.reference.asio_handler_allocate.requirements">Requirements</a>
+        <span class="phrase"><a name="boost_asio.reference.asio_handler_allocate.requirements"></a></span><a class="link" href="asio_handler_allocate.html#boost_asio.reference.asio_handler_allocate.requirements">Requirements</a>
       </h5>
 <p>
-        <span class="bold"><strong>Header: </strong></span><code class="literal">boost/asio/handler_alloc_hook.hpp</code>
+        <span class="emphasis"><em>Header: </em></span><code class="literal">boost/asio/handler_alloc_hook.hpp</code>
       </p>
 <p>
-        <span class="bold"><strong>Convenience header: </strong></span><code class="literal">boost/asio.hpp</code>
+        <span class="emphasis"><em>Convenience header: </em></span><code class="literal">boost/asio.hpp</code>
       </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2012 Christopher M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2014 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

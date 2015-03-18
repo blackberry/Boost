@@ -213,8 +213,8 @@ For example, this can be useful when the __Boost_ScopeExit__ body only needs to 
 On C++11 compliers, it is also possible to capture all the variables in scope without naming them one-by-one using the special macro [macroref BOOST_SCOPE_EXIT_ALL] instead of [macroref BOOST_SCOPE_EXIT].
 [footnote
 *Rationale.*
-The [macroref BOOST_SCOPE_EXIT_ALL] macro is only defined on C++11 compilers for which the __Boost_Config__ macro `BOOST_NO_LAMBDAS` is not defined.
-Using [macroref BOOST_SCOPE_EXIT_ALL] on C++03 compilers for which `BOOST_NO_LAMBDAS` is defined will generate (possibly cryptic) compiler errors.
+The [macroref BOOST_SCOPE_EXIT_ALL] macro is only defined on C++11 compilers for which the __Boost_Config__ macro `BOOST_NO_CXX11_LAMBDAS` is not defined.
+Using [macroref BOOST_SCOPE_EXIT_ALL] on C++03 compilers for which `BOOST_NO_CXX11_LAMBDAS` is defined will generate (possibly cryptic) compiler errors.
 Note that a new macro [macroref BOOST_SCOPE_EXIT_ALL] needed to be introduced instead of reusing [macroref BOOST_SCOPE_EXIT] because `BOOST_SCOPE_EXIT(&)` and `BOOST_SCOPE_EXIT(=)` cannot be distinguished from `BOOST_SCOPE_EXIT(void)` or `BOOST_SCOPE_EXIT(this_)` using the C++ preprocessor given that the symbols `&` and `=` are neither prefxied nor postfixed by alphanumeric tokens (this is not an issue for [macroref BOOST_SCOPE_EXIT_ALL] which always has the non-alphanumeric `&` or `=` as the first capture so the first capture tokens are simply never compared with neither `void` nor `this_` for this macro).
 ]
 
@@ -430,7 +430,7 @@ This section presents an alternative syntax for compilers without variadic macro
 
 Most modern compilers support variadic macros (notably, these include GCC, MSVC, and all C++11 compilers).
 [footnote
-A C++ compiler does not support variadic macros if the __Boost_Config__ macro `BOOST_NO_VARIADIC_MACROS` is defined for that compiler.
+A C++ compiler does not support variadic macros if the __Boost_Config__ macro `BOOST_NO_CXX11_VARIADIC_MACROS` is defined for that compiler.
 ]
 However, in the rare case that programmers need to use this library on a complier without variaidc macros, this library also allows to specify the capture list using a __Boost_Preprocessor__ sequence where tokens are separated by round parenthesis `()`:
 

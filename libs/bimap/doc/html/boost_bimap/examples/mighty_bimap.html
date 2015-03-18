@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Mighty Bimap</title>
 <link rel="stylesheet" href="../../boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
 <link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Bimap">
 <link rel="up" href="../examples.html" title="Examples">
 <link rel="prev" href="simple_bimap.html" title="Simple Bimap">
@@ -22,7 +22,7 @@
 <div class="spirit-nav">
 <a accesskey="p" href="simple_bimap.html"><img src="../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../examples.html"><img src="../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="multiindex_to_bimap_path___bidirectional_map.html"><img src="../../../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
-<div class="section">
+<div class="section boost_bimap_examples_mighty_bimap">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="boost_bimap.examples.mighty_bimap"></a><a class="link" href="mighty_bimap.html" title="Mighty Bimap">Mighty Bimap</a>
 </h3></div></div></div>
@@ -34,7 +34,6 @@
         <a href="../../../../example/mighty_bimap.cpp" target="_top">Go to source code</a>
       </p>
 <p>
-        
 </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">iostream</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">string</span><span class="special">&gt;</span>
@@ -59,9 +58,9 @@
 
     <span class="identifier">translator</span> <span class="identifier">trans</span><span class="special">;</span>
 
-    <span class="comment">// We have to use `push_back` because the collection of relations is
-</span>    <span class="comment">// a `list_of_relation`
-</span>
+    <span class="comment">// We have to use `push_back` because the collection of relations is</span>
+    <span class="comment">// a `list_of_relation`</span>
+
     <span class="identifier">trans</span><span class="special">.</span><span class="identifier">push_back</span><span class="special">(</span> <span class="identifier">translator</span><span class="special">::</span><span class="identifier">value_type</span><span class="special">(</span><span class="string">"hola"</span>  <span class="special">,</span><span class="string">"hello"</span>   <span class="special">)</span> <span class="special">);</span>
     <span class="identifier">trans</span><span class="special">.</span><span class="identifier">push_back</span><span class="special">(</span> <span class="identifier">translator</span><span class="special">::</span><span class="identifier">value_type</span><span class="special">(</span><span class="string">"adios"</span> <span class="special">,</span><span class="string">"goodbye"</span> <span class="special">)</span> <span class="special">);</span>
     <span class="identifier">trans</span><span class="special">.</span><span class="identifier">push_back</span><span class="special">(</span> <span class="identifier">translator</span><span class="special">::</span><span class="identifier">value_type</span><span class="special">(</span><span class="string">"rosa"</span>  <span class="special">,</span><span class="string">"rose"</span>    <span class="special">)</span> <span class="special">);</span>
@@ -71,8 +70,8 @@
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">word</span><span class="special">;</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">getline</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">cin</span><span class="special">,</span><span class="identifier">word</span><span class="special">);</span>
 
-    <span class="comment">// Search the queried word on the from index (Spanish)
-</span>
+    <span class="comment">// Search the queried word on the from index (Spanish)</span>
+
     <span class="identifier">translator</span><span class="special">::</span><span class="identifier">map_by</span><span class="special">&lt;</span><span class="identifier">spanish</span><span class="special">&gt;::</span><span class="identifier">const_iterator</span> <span class="identifier">is</span>
         <span class="special">=</span> <span class="identifier">trans</span><span class="special">.</span><span class="identifier">by</span><span class="special">&lt;</span><span class="identifier">spanish</span><span class="special">&gt;().</span><span class="identifier">find</span><span class="special">(</span><span class="identifier">word</span><span class="special">);</span>
 
@@ -84,8 +83,8 @@
     <span class="special">}</span>
     <span class="keyword">else</span>
     <span class="special">{</span>
-        <span class="comment">// Word not found in Spanish, try our luck in English
-</span>
+        <span class="comment">// Word not found in Spanish, try our luck in English</span>
+
         <span class="identifier">translator</span><span class="special">::</span><span class="identifier">map_by</span><span class="special">&lt;</span><span class="identifier">english</span><span class="special">&gt;::</span><span class="identifier">const_iterator</span> <span class="identifier">ie</span>
             <span class="special">=</span> <span class="identifier">trans</span><span class="special">.</span><span class="identifier">by</span><span class="special">&lt;</span><span class="identifier">english</span><span class="special">&gt;().</span><span class="identifier">find</span><span class="special">(</span><span class="identifier">word</span><span class="special">);</span>
 
@@ -97,8 +96,8 @@
         <span class="special">}</span>
         <span class="keyword">else</span>
         <span class="special">{</span>
-            <span class="comment">// Word not found, show the possible translations
-</span>
+            <span class="comment">// Word not found, show the possible translations</span>
+
             <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"No such word in the dictionary"</span>      <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
             <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"These are the possible translations"</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
 
@@ -123,7 +122,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2006 -2007 Matias Capeletto<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2006-2012 Matias Capeletto<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

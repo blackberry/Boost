@@ -17,7 +17,7 @@
 
 // id get_id() const;
 
-#include <boost/thread/thread.hpp>
+#include <boost/thread/thread_only.hpp>
 #include <new>
 #include <cstdlib>
 #include <cassert>

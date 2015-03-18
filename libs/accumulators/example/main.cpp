@@ -123,7 +123,7 @@ void example2()
 //  Demonstrate how to calculate weighted statistics. This example demonstrates
 //  both a simple weighted statistical calculation, and a more complicated
 //  calculation where the weight statistics are calculated and stored in an
-//  external weight accumulataor.
+//  external weight accumulator.
 void example3()
 {
     // weight == double

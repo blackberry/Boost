@@ -64,6 +64,7 @@ struct copy_with_allocator_test : public test::exception_base
     }
 };
 
-RUN_EXCEPTION_TESTS(
+EXCEPTION_TESTS(
     (copy_test1)(copy_test2)(copy_test3)(copy_with_allocator_test),
     CONTAINER_SEQ)
+RUN_TESTS()

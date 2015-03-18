@@ -34,12 +34,13 @@
 #include <boost/bimap/support/map_type_by.hpp>
 #include <boost/bimap/support/value_type_by.hpp>
 #include <boost/bimap/support/iterator_type_by.hpp>
+#include <boost/bimap/relation/support/pair_type_by.hpp>
 
 using namespace boost::bimaps;
 using namespace boost::bimaps::support;
+using namespace boost::bimaps::relation::support ;
 
 typedef bimap<int, unconstrained_set_of<double> > bm_type;
-
 
 namespace support_metafunctions_test {
 
@@ -67,6 +68,14 @@ namespace support_metafunctions_test {
     >::type test_metafunction_3;
     BOOST_STATIC_ASSERT(test_metafunction_3::value);
 
+    typedef boost::is_same
+    <
+        pair_type_by< member_at::left, bm_type::relation>::type,
+        value_type_by< member_at::left , bm_type >::type
+
+    >::type test_metafunction_4;
+    BOOST_STATIC_ASSERT(test_metafunction_4::value);
+    
 } // namespace support_metafunctions_test
 
 void test_bimap_extra()

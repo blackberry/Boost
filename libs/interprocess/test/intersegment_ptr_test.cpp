@@ -130,15 +130,15 @@ bool test_arithmetic()
    //ptr++
    penew = p0;
    for(int j = 0; j != NumValues; ++j){
-      pint_t p = penew;
-      if(p != penew++)
+      pint_t pnew_copy = penew;
+      if(pnew_copy != penew++)
          return false;
    }
    //ptr--
    p0 = pe;
    for(int j = 0; j != NumValues; ++j){
-      pint_t p = p0;
-      if(p != p0--)
+      pint_t p0_copy = p0;
+      if(p0_copy != p0--)
          return false;
    }
 

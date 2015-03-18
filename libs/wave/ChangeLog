@@ -1,7 +1,7 @@
 Boost.Wave: A Standard compliant C++ preprocessor library
 http://www.boost.org/
 
-Copyright (c) 2001-2011 Hartmut Kaiser. Distributed under the Boost
+Copyright (c) 2001-2013 Hartmut Kaiser. Distributed under the Boost
 Software License, Version 1.0. (See accompanying file
 LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 -------------------------------------------------------------------------------
@@ -20,22 +20,33 @@ TODO (known issues):
 
 CHANGELOG
 
-- Added util::create_directories() wrapper to account for new behavior of
-  boost::filesystem::create_directories().
-- Fixed an obscure problem when preprocessing directives wouldn't be recognized
-  if the previous line contained nothing but an empty macro invocation
-  (see new test case t_9_023.cpp)
-- Added a new command line option --license=<file> to the Wave driver tool
-  which allows to pre-pend the content of a (license) file to every newly
-  created file. This option simplifies the implementation of partial
-  preprocessing as done on Phoenix, Fusion, etc.
-- Changed the effect of the -N command line option to simply not expand
-  the macro by pretending it was not defined. Earlier the whole invocation
-  sequence was skipped, now we skip only the macro itself, which still expands
-  the arguments for the macro invocation.
+Boost V1.55:
+ - Fixed #8848: Wave driver improperly processes 0xFFFFui64 token
+ - Fixed #9098: Wave driver option --c++0x invalid
+
+Boost V1.54:
+ - Fixed #8478: Make Boost.wave compatible with Clang's -Wimplicit-fallthrough 
+   diagnostic.
+
+Boost V1.53:
+ - Fixed a problem with context<>::add_macro_definition which sometimes 
+   appended a superfluous T_EOF to the macro replacement list.
 
 Boost V1.52.0:
- - Fixed a couple of compilation warnings
+ - Added util::create_directories() wrapper to account for new behavior of
+   boost::filesystem::create_directories().
+ - Fixed an obscure problem when preprocessing directives wouldn't be recognized
+   if the previous line contained nothing but an empty macro invocation
+   (see new test case t_9_023.cpp)
+ - Added a new command line option --license=<file> to the Wave driver tool
+   which allows to pre-pend the content of a (license) file to every newly
+   created file. This option simplifies the implementation of partial
+   preprocessing as done on Phoenix, Fusion, etc.
+ - Changed the effect of the -N command line option to simply not expand
+   the macro by pretending it was not defined. Earlier the whole invocation
+   sequence was skipped, now we skip only the macro itself, which still expands
+   the arguments for the macro invocation.
+  - Fixed a couple of compilation warnings
 
 Boost V1.51.0
  - Fixed #7050: Invalid memory write bug in lexing_exception

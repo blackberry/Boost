@@ -24,13 +24,13 @@ struct base2 { };
 struct middle2 : public virtual base2 { };
 struct derived2 : public middle2 { };
 
-#if !defined(BOOST_NO_RVALUE_REFERENCES)
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
 
 template<typename T>
 struct test_bug_4530
 {
 	template<typename A>
-	test_bug_4530(A&&, typename boost::enable_if<boost::is_convertible<A&&, T> >::type* =0);
+	test_bug_4530(A&&, typename boost::enable_if< ::tt::is_convertible<A&&, T> >::type* =0);
 };
 
 struct A4530
@@ -54,6 +54,20 @@ struct bug_5271b
     bug_5271b(int v) : value(v) {}
 };
 
+#endif
+
+#if (defined(BOOST_TT_CXX11_IS_CONVERTIBLE) || defined(BOOST_IS_CONVERTIBLE)) && !defined(BOOST_NO_CXX11_DELETED_FUNCTIONS)
+struct bug9910
+{
+   bug9910() = default;
+   bug9910(const bug9910&) = delete; // or private: A(const A&) = default;
+};
+struct Ref_bug9910 
+{ 
+   // proxy reference to bug9910
+   operator bug9910& () { return *_ptr; }
+   bug9910* _ptr;
+};
 #endif
 
 TT_TEST_BEGIN(is_convertible)
@@ -100,8 +114,13 @@ BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_convertible<const int *, int*>::value), 
 BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_convertible<const int&, int&>::value), false);
 BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_convertible<const int*, int[3]>::value), false);
 BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_convertible<const int&, int>::value), true);
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
 BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_convertible<const int&&, int>::value), true);
+BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_convertible<int&&, const int&>::value), true);
+#if !defined(__GNUC__) || ((__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ > 6)))
+// Machinary required to support this, not available prior to gcc-4.7.0:
+BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_convertible<int, int&>::value), false);
+#endif
 #endif
 BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_convertible<int(&)[4], const int*>::value), true);
 BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_convertible<int(&)(int), int(*)(int)>::value), true);
@@ -177,7 +196,7 @@ BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_convertible<__int64,char>::value), true)
 BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_convertible<__int64,float>::value), true);
 #endif
 
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
 // Test bug case 4530:
 BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_convertible<test_bug_4530<A4530>,A4530>::value), true);
 #endif
@@ -185,6 +204,15 @@ BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_convertible<test_bug_4530<A4530>,A4530>:
 #if defined(BOOST_MSVC) && (BOOST_MSVC > 1310)
 BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_convertible<int, bug_5271a>::value), false);
 BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_convertible<int, bug_5271b>::value), true);
+#endif
+
+#if (defined(BOOST_TT_CXX11_IS_CONVERTIBLE) || defined(BOOST_IS_CONVERTIBLE)) && !defined(BOOST_NO_CXX11_DELETED_FUNCTIONS)
+#ifndef _MSC_VER
+// MSVC gives the wrong answer here, see https://connect.microsoft.com/VisualStudio/feedback/details/858956/std-is-convertible-returns-incorrect-value
+BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_convertible<Ref_bug9910, bug9910>::value), false);
+#endif
+// From https://svn.boost.org/trac/boost/ticket/9910#comment:2:
+BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_convertible<int, incomplete_type[]>::value), false);
 #endif
 
 TT_TEST_END

@@ -3,10 +3,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>ssl::stream::async_read_some</title>
 <link rel="stylesheet" href="../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../../boost_asio.html" title="Boost.Asio">
 <link rel="up" href="../ssl__stream.html" title="ssl::stream">
-<link rel="prev" href="async_handshake.html" title="ssl::stream::async_handshake">
+<link rel="prev" href="async_handshake/overload2.html" title="ssl::stream::async_handshake (2 of 2 overloads)">
 <link rel="next" href="async_shutdown.html" title="ssl::stream::async_shutdown">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -20,20 +20,20 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="async_handshake.html"><img src="../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../ssl__stream.html"><img src="../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../../boost_asio.html"><img src="../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="async_shutdown.html"><img src="../../../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="async_handshake/overload2.html"><img src="../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../ssl__stream.html"><img src="../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../../boost_asio.html"><img src="../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="async_shutdown.html"><img src="../../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="boost_asio.reference.ssl__stream.async_read_some"></a><a class="link" href="async_read_some.html" title="ssl::stream::async_read_some">ssl::stream::async_read_some</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="id1565856"></a> 
+          <a class="indexterm" name="idp196607344"></a> 
 Start an asynchronous read.
         </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
     <span class="keyword">typename</span> <a class="link" href="../MutableBufferSequence.html" title="Mutable buffer sequence requirements">MutableBufferSequence</a><span class="special">,</span>
     <span class="keyword">typename</span> <a class="link" href="../ReadHandler.html" title="Read handler requirements">ReadHandler</a><span class="special">&gt;</span>
-<span class="keyword">void</span> <span class="identifier">async_read_some</span><span class="special">(</span>
+<a class="link" href="../asynchronous_operations.html#boost_asio.reference.asynchronous_operations.return_type_of_an_initiating_function"><span class="emphasis"><em>void-or-deduced</em></span></a> <span class="identifier">async_read_some</span><span class="special">(</span>
     <span class="keyword">const</span> <span class="identifier">MutableBufferSequence</span> <span class="special">&amp;</span> <span class="identifier">buffers</span><span class="special">,</span>
     <span class="identifier">ReadHandler</span> <span class="identifier">handler</span><span class="special">);</span>
 </pre>
@@ -43,11 +43,11 @@ Start an asynchronous read.
         </p>
 <h6>
 <a name="boost_asio.reference.ssl__stream.async_read_some.h0"></a>
-          <span><a name="boost_asio.reference.ssl__stream.async_read_some.parameters"></a></span><a class="link" href="async_read_some.html#boost_asio.reference.ssl__stream.async_read_some.parameters">Parameters</a>
+          <span class="phrase"><a name="boost_asio.reference.ssl__stream.async_read_some.parameters"></a></span><a class="link" href="async_read_some.html#boost_asio.reference.ssl__stream.async_read_some.parameters">Parameters</a>
         </h6>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">buffers</span></dt>
 <dd><p>
                 The buffers into which the data will be read. Although the buffers
@@ -74,7 +74,7 @@ Start an asynchronous read.
 </div>
 <h6>
 <a name="boost_asio.reference.ssl__stream.async_read_some.h1"></a>
-          <span><a name="boost_asio.reference.ssl__stream.async_read_some.remarks"></a></span><a class="link" href="async_read_some.html#boost_asio.reference.ssl__stream.async_read_some.remarks">Remarks</a>
+          <span class="phrase"><a name="boost_asio.reference.ssl__stream.async_read_some.remarks"></a></span><a class="link" href="async_read_some.html#boost_asio.reference.ssl__stream.async_read_some.remarks">Remarks</a>
         </h6>
 <p>
           The async_read_some operation may not read all of the requested number
@@ -85,7 +85,7 @@ Start an asynchronous read.
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2012 Christopher M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2014 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
@@ -93,7 +93,7 @@ Start an asynchronous read.
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="async_handshake.html"><img src="../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../ssl__stream.html"><img src="../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../../boost_asio.html"><img src="../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="async_shutdown.html"><img src="../../../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="async_handshake/overload2.html"><img src="../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../ssl__stream.html"><img src="../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../../boost_asio.html"><img src="../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="async_shutdown.html"><img src="../../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

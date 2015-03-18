@@ -2,7 +2,7 @@
 #define PORTABLE_BINARY_OARCHIVE_HPP
 
 // MS compatible compilers support #pragma once
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -34,7 +34,7 @@
 // exception to be thrown if integer read from archive doesn't fit
 // variable being loaded
 class portable_binary_oarchive_exception : 
-    public virtual boost::archive::archive_exception
+    public boost::archive::archive_exception
 {
 public:
     typedef enum {

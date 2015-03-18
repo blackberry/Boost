@@ -46,10 +46,10 @@ struct file_destroyer
 class mapped_file_creation_test_wrapper
    : public file_destroyer
    , public boost::interprocess::ipcdetail::managed_open_or_create_impl
-      <boost::interprocess::ipcdetail::file_wrapper>
+      <boost::interprocess::ipcdetail::file_wrapper, 0, true, false>
 {
    typedef boost::interprocess::ipcdetail::managed_open_or_create_impl
-      <boost::interprocess::ipcdetail::file_wrapper> mapped_file;
+      <boost::interprocess::ipcdetail::file_wrapper, 0, true, false> mapped_file;
    public:
    mapped_file_creation_test_wrapper(boost::interprocess::create_only_t)
       :  mapped_file(boost::interprocess::create_only, get_filename().c_str(), FileSize, read_write, 0, permissions())
@@ -67,7 +67,7 @@ class mapped_file_creation_test_wrapper
 int main ()
 {
    typedef boost::interprocess::ipcdetail::managed_open_or_create_impl
-      <boost::interprocess::ipcdetail::file_wrapper> mapped_file;
+      <boost::interprocess::ipcdetail::file_wrapper, 0, true, false> mapped_file;
    file_mapping::remove(get_filename().c_str());
    test::test_named_creation<mapped_file_creation_test_wrapper>();
 

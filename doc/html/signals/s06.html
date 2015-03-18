@@ -3,9 +3,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Design Rationale</title>
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../signals.html" title="Chapter&#160;24.&#160;Boost.Signals">
+<link rel="up" href="../signals.html" title="Chapter&#160;26.&#160;Boost.Signals">
 <link rel="prev" href="s05.html" title="Design Overview">
 <link rel="next" href="tests.html" title="Testsuite">
 </head>
@@ -24,18 +24,18 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="id3297255"></a>Design Rationale</h2></div></div></div>
-<div class="toc"><dl>
-<dt><span class="section"><a href="s06.html#id3297263">Choice of Slot Definitions</a></span></dt>
-<dt><span class="section"><a href="s06.html#id3297348">User-level Connection Management</a></span></dt>
-<dt><span class="section"><a href="s06.html#id3297513">Combiner Interface</a></span></dt>
-<dt><span class="section"><a href="s06.html#id3297594">Connection Interfaces: +=  operator</a></span></dt>
-<dt><span class="section"><a href="s06.html#id3297764"><code class="computeroutput">trackable</code> rationale</a></span></dt>
-<dt><span class="section"><a href="s06.html#id3297947">Comparison with other Signal/Slot implementations</a></span></dt>
+<a name="idp426577568"></a>Design Rationale</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="s06.html#idp426578544">Choice of Slot Definitions</a></span></dt>
+<dt><span class="section"><a href="s06.html#idp426587936">User-level Connection Management</a></span></dt>
+<dt><span class="section"><a href="s06.html#idp426606192">Combiner Interface</a></span></dt>
+<dt><span class="section"><a href="s06.html#idp426621280">Connection Interfaces: +=  operator</a></span></dt>
+<dt><span class="section"><a href="s06.html#idp426640656"><code class="computeroutput">trackable</code> rationale</a></span></dt>
+<dt><span class="section"><a href="s06.html#idp426660768">Comparison with other Signal/Slot implementations</a></span></dt>
 </dl></div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="id3297263"></a>Choice of Slot Definitions</h3></div></div></div>
+<a name="idp426578544"></a>Choice of Slot Definitions</h3></div></div></div>
 <p> The definition of a slot differs amongst signals and slots
     libraries. Within Boost.Signals, a slot is defined in a very loose
     manner: it can be any function object that is callable given
@@ -44,7 +44,7 @@
     signal. However, alternative definitions have associated pros and
     cons that were considered prior to the construction of
     Boost.Signals.</p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
 <p><span class="bold"><strong>Slots derive from a specific base
         class</strong></span>: generally a scheme such as this will require
@@ -85,7 +85,7 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="id3297348"></a>User-level Connection Management</h3></div></div></div>
+<a name="idp426587936"></a>User-level Connection Management</h3></div></div></div>
 <p> Users need to have fine control over the connection of
     signals to slots and their eventual disconnection. The approach
     taken by Boost.Signals is to return a
@@ -93,13 +93,13 @@
     connected/disconnected query, manual disconnection, and an
     automatic disconnection on destruction mode. Some other possible
     interfaces include:</p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem"><p><span class="bold"><strong>Pass slot to
         disconnect</strong></span>: in this interface model, the
         disconnection of a slot connected with
-        <code class="computeroutput">sig.<a class="link" href="../boost/signalN.html#id1160096-bb">connect</a>(slot)</code> is
+        <code class="computeroutput">sig.<a class="link" href="../boost/signalN.html#idp146240304-bb">connect</a>(slot)</code> is
         performed via
-        <code class="computeroutput">sig.<a class="link" href="../boost/signalN.html#id1371550-bb">disconnect</a>(slot)</code>. Internally,
+        <code class="computeroutput">sig.<a class="link" href="../boost/signalN.html#idp211498240-bb">disconnect</a>(slot)</code>. Internally,
         a linear search using slot comparison is performed and the
         slot, if found, is removed from the list. Unfortunately,
         querying connectedness will generally also end up as
@@ -108,7 +108,7 @@
         simple function pointers, member function pointers and a
         limited set of compositions and argument binders: to match the
         slot given in the call to
-        <code class="computeroutput"><a class="link" href="../boost/signalN.html#id1371550-bb">disconnect</a></code> with an
+        <code class="computeroutput"><a class="link" href="../boost/signalN.html#idp211498240-bb">disconnect</a></code> with an
         existing slot we would need to be able to compare arbitrary
         function objects, which is not feasible.</p></li>
 <li class="listitem">
@@ -118,7 +118,7 @@
         slots to be arbitrary function objects. While this approach is
         essentially equivalent to the approach taken by Boost.Signals,
         it is possibly more error-prone for several reasons:</p>
-<div class="itemizedlist"><ul class="itemizedlist" type="circle">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; ">
 <li class="listitem"><p>Connections and disconnections must be paired, so
             the problem becomes similar to the problems incurred when
             pairing <code class="computeroutput">new</code> and <code class="computeroutput">delete</code> for
@@ -147,7 +147,7 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="id3297513"></a>Combiner Interface</h3></div></div></div>
+<a name="idp426606192"></a>Combiner Interface</h3></div></div></div>
 <p> The Combiner interface was chosen to mimic a call to an
     algorithm in the C++ standard library. It is felt that by viewing
     slot call results as merely a sequence of values accessed by input
@@ -275,14 +275,14 @@ private:
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="id3297594"></a>Connection Interfaces: +=  operator</h3></div></div></div>
+<a name="idp426621280"></a>Connection Interfaces: +=  operator</h3></div></div></div>
 <p> Boost.Signals supports a connection syntax with the form
-    <code class="computeroutput">sig.<a class="link" href="../boost/signalN.html#id1160096-bb">connect</a>(slot)</code>, but a
+    <code class="computeroutput">sig.<a class="link" href="../boost/signalN.html#idp146240304-bb">connect</a>(slot)</code>, but a
     more terse syntax <code class="computeroutput">sig += slot</code> has been suggested (and
     has been used by other signals &amp; slots implementations). There
     are several reasons as to why this syntax has been
     rejected:</p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem"><p><span class="bold"><strong>It's unnecessary</strong></span>: the
         connection syntax supplied by Boost.Signals is no less
         powerful that that supplied by the <code class="computeroutput">+=</code>
@@ -315,10 +315,10 @@ private:
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="id3297764"></a><code class="computeroutput">trackable</code> rationale</h3></div></div></div>
-<div class="toc"><dl>
-<dt><span class="section"><a href="s06.html#id3297806"><code class="computeroutput">trackable</code> copying behavior</a></span></dt>
-<dt><span class="section"><a href="s06.html#id3297864">Why derivation from <code class="computeroutput">trackable</code>?</a></span></dt>
+<a name="idp426640656"></a><code class="computeroutput">trackable</code> rationale</h3></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="s06.html#idp426645280"><code class="computeroutput">trackable</code> copying behavior</a></span></dt>
+<dt><span class="section"><a href="s06.html#idp426651440">Why derivation from <code class="computeroutput">trackable</code>?</a></span></dt>
 </dl></div>
 <p> The <code class="computeroutput"><a class="link" href="../boost/signals/trackable.html" title="Class trackable">trackable</a></code>
       class is the primary user interface to automatic connection
@@ -329,7 +329,7 @@ private:
       participate in automatic connection management.</p>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="id3297806"></a><code class="computeroutput">trackable</code> copying behavior</h4></div></div></div>
+<a name="idp426645280"></a><code class="computeroutput">trackable</code> copying behavior</h4></div></div></div>
 <p> The copying behavior of
       <code class="computeroutput"><a class="link" href="../boost/signals/trackable.html" title="Class trackable">trackable</a></code> is essentially
       that <code class="computeroutput"><a class="link" href="../boost/signals/trackable.html" title="Class trackable">trackable</a></code> subobjects
@@ -347,10 +347,10 @@ private:
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="id3297864"></a>Why derivation from <code class="computeroutput">trackable</code>?</h4></div></div></div>
+<a name="idp426651440"></a>Why derivation from <code class="computeroutput">trackable</code>?</h4></div></div></div>
 <p> For <code class="computeroutput"><a class="link" href="../boost/signals/trackable.html" title="Class trackable">trackable</a></code> to work
       properly, there are two constraints:</p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem"><p><code class="computeroutput"><a class="link" href="../boost/signals/trackable.html" title="Class trackable">trackable</a></code> must
           have storage space to keep track of all connections made to
           this object.</p></li>
@@ -365,14 +365,14 @@ private:
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="id3297947"></a>Comparison with other Signal/Slot implementations</h3></div></div></div>
-<div class="toc"><dl>
-<dt><span class="section"><a href="s06.html#id3297953">libsigc++</a></span></dt>
-<dt><span class="section"><a href="s06.html#id3298010">.NET delegates</a></span></dt>
+<a name="idp426660768"></a>Comparison with other Signal/Slot implementations</h3></div></div></div>
+<div class="toc"><dl class="toc">
+<dt><span class="section"><a href="s06.html#idp426661472">libsigc++</a></span></dt>
+<dt><span class="section"><a href="s06.html#idp426668816">.NET delegates</a></span></dt>
 </dl></div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="id3297953"></a>libsigc++</h4></div></div></div>
+<a name="idp426661472"></a>libsigc++</h4></div></div></div>
 <p> <a href="http://libsigc.sourceforge.net" target="_top">libsigc++</a> is a C++
       signals &amp; slots library that originally started as part of
       an initiative to wrap the C interfaces to <a href="http://www.gtk.org" target="_top">GTK</a> libraries in C++, and has
@@ -384,7 +384,7 @@ private:
       connections and automatic connection lifetime management. There
       are some major differences in design that separate these
       libraries:</p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem"><p><span class="bold"><strong>Slot definitions</strong></span>:
           slots in libsigc++ are created using a set of primitives
           defined by the library. These primitives allow binding of
@@ -404,14 +404,14 @@ private:
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="id3298010"></a>.NET delegates</h4></div></div></div>
+<a name="idp426668816"></a>.NET delegates</h4></div></div></div>
 <p> <a href="http://www.microsoft.com" target="_top">Microsoft</a>
       has introduced the .NET Framework and an associated set of
       languages and language extensions, one of which is the
       delegate. Delegates are similar to signals and slots, but they
       are more limited than most C++ signals and slots implementations
       in that they:</p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem"><p>Require exact type matches between a delegate and what
           it is calling.</p></li>
 <li class="listitem"><p>Only return the result of the last target called, with no option for customization.</p></li>
@@ -422,7 +422,7 @@ private:
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: November 25, 2007 at 18:38:02 +0000</small></p></td>
+<td align="left"></td>
 <td align="right"><div class="copyright-footer">Copyright &#169; 2001-2004 Douglas Gregor<p>Use, modification and distribution is subject to the Boost
     Software License, Version 1.0. (See accompanying file
     <code class="filename">LICENSE_1_0.txt</code> or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)</p>

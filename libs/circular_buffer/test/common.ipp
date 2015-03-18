@@ -1,12 +1,19 @@
 // Common tests for the circular buffer and its adaptor.
 
 // Copyright (c) 2003-2008 Jan Gaspar
+// Copyright (c) 2013 Antony Polukhin
+// Copyright (c) 2014 Glen Fernandes   // C++11 allocator model support.
 
 // Use, modification, and distribution is subject to the Boost Software
 // License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-void generic_test(CB_CONTAINER<MyInteger>& cb) {
+#include <boost/type_traits/is_nothrow_move_constructible.hpp>
+#include <boost/type_traits/is_nothrow_move_assignable.hpp>
+#include <boost/type_traits/has_nothrow_constructor.hpp>
+
+template <class Alloc>
+void generic_test(CB_CONTAINER<MyInteger, Alloc>& cb) {
 
     vector<int> v;
     v.push_back(11);
@@ -144,6 +151,97 @@ void size_test() {
     generic_test(cb2);
 }
 
+template<class T>
+class my_allocator {
+    typedef std::allocator<T> base_t;
+    base_t base_;
+public:
+   typedef T                                    value_type;
+
+
+   typedef value_type&         reference;
+   typedef const value_type&   const_reference;
+   typedef typename base_t::size_type               size_type;
+   typedef typename base_t::difference_type         difference_type;
+
+private:
+   template<class U>
+   struct const_pointer_;
+
+   template<class U>
+   struct pointer_ {
+       pointer_(){}
+       pointer_(void* p) : hidden_ptr_((U*)p) {}
+       difference_type operator-(const const_pointer_<U>& rhs) const { return hidden_ptr_ - rhs.hidden_ptr_; }
+       difference_type operator-(pointer_ rhs) const { return hidden_ptr_ - rhs.hidden_ptr_; }
+       pointer_ operator-(size_type rhs) const { return hidden_ptr_ - rhs; }
+       bool operator == (pointer_ rhs) const { return hidden_ptr_ == rhs.hidden_ptr_; }
+       bool operator != (pointer_ rhs) const { return hidden_ptr_ != rhs.hidden_ptr_; }
+       bool operator < (pointer_ rhs) const { return hidden_ptr_ < rhs.hidden_ptr_; }
+       bool operator >= (pointer_ rhs) const { return hidden_ptr_ >= rhs.hidden_ptr_; }
+       pointer_& operator++() { ++hidden_ptr_; return *this; }
+       pointer_& operator--() { --hidden_ptr_; return *this; }
+       pointer_& operator+=(size_type s) { hidden_ptr_ += s; return *this; }
+       pointer_ operator+(size_type s) const { return hidden_ptr_ + s; }
+       pointer_ operator++(int) { pointer_ p = *this; ++hidden_ptr_; return p; }
+       pointer_ operator--(int) { pointer_ p = *this; --hidden_ptr_; return p; }
+       U& operator*() const { return *hidden_ptr_; }
+
+       U* hidden_ptr_;
+   };
+
+   template<class U>
+   struct const_pointer_ {
+       const_pointer_(){}
+       const_pointer_(pointer_<U> p) : hidden_ptr_(p.hidden_ptr_) {}
+       const_pointer_(const void* p) : hidden_ptr_((const U*)p) {}
+       difference_type operator-(pointer_<U> rhs) const { return hidden_ptr_ - rhs.hidden_ptr_; }
+       difference_type operator-(const_pointer_ rhs) const { return hidden_ptr_ - rhs.hidden_ptr_; }
+       const_pointer_ operator-(size_type rhs) const { return hidden_ptr_ - rhs; }
+       bool operator == (const_pointer_ rhs) const { return hidden_ptr_ == rhs.hidden_ptr_; }
+       bool operator != (const_pointer_ rhs) const { return hidden_ptr_ != rhs.hidden_ptr_; }
+       bool operator < (const_pointer_ rhs) const { return hidden_ptr_ < rhs.hidden_ptr_; }
+       bool operator >= (const_pointer_ rhs) const { return hidden_ptr_ >= rhs.hidden_ptr_; }
+       const_pointer_& operator++() { ++hidden_ptr_; return *this; }
+       const_pointer_& operator--() { --hidden_ptr_; return *this; }
+       const_pointer_& operator+=(size_type s) { hidden_ptr_ += s; return hidden_ptr_; }
+       const_pointer_ operator+(size_type s) const { return hidden_ptr_ + s; }
+       const_pointer_ operator++(int) { const_pointer_ p = *this; ++hidden_ptr_; return p; }
+       const_pointer_ operator--(int) { const_pointer_ p = *this; --hidden_ptr_; return p; }
+       const U& operator*() const { return *hidden_ptr_; }
+
+       const U* hidden_ptr_;
+   };
+
+public:
+   typedef pointer_<T> pointer;
+   typedef const_pointer_<T> const_pointer;
+
+   template<class T2>
+   struct rebind
+   {
+      typedef my_allocator<T2>     other;
+   };
+
+   size_type max_size() const
+   {  return base_.max_size();   }
+
+   pointer allocate(size_type count, const void* hint = 0) {
+      return pointer(base_.allocate(count, hint));
+   }
+
+   void deallocate(const pointer &ptr, size_type s)
+   {  base_.deallocate(ptr.hidden_ptr_, s);  }
+
+   template<class P>
+   void construct(const pointer &ptr, BOOST_FWD_REF(P) p)
+   {  ::new(ptr.hidden_ptr_) value_type(::boost::forward<P>(p));  }
+
+   void destroy(const pointer &ptr)
+   {  (*ptr.hidden_ptr_).~value_type();  }
+
+};
+
 void allocator_test() {
 
     CB_CONTAINER<MyInteger> cb1(10, 0);
@@ -154,7 +252,39 @@ void allocator_test() {
     alloc.max_size();
 
     generic_test(cb1);
+
+    
+    CB_CONTAINER<MyInteger, my_allocator<MyInteger> > cb_a(10, 0);
+    generic_test(cb_a);
 }
+
+#if !defined(BOOST_NO_CXX11_ALLOCATOR)
+template<class T>
+class cxx11_allocator {
+public:
+    typedef T value_type;
+
+    cxx11_allocator() {
+    }
+
+    template<class U>
+    cxx11_allocator(const cxx11_allocator<U> &) {
+    }
+
+    T* allocate(std::size_t n) {
+        return static_cast<T*>(::operator new(n * sizeof(T)));
+    }
+
+    void deallocate(T * p, std::size_t n) {
+        ::operator delete( p );
+    }
+};
+
+void cxx11_allocator_test() {
+    CB_CONTAINER<MyInteger, cxx11_allocator<MyInteger> > cb(10, 0);
+    generic_test(cb);
+}
+#endif
 
 void begin_and_end_test() {
 
@@ -1949,6 +2079,355 @@ void rotate_test() {
 int MyInteger::ms_exception_trigger = 0;
 int InstanceCounter::ms_count = 0;
 
+void move_container_on_cpp11() {
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
+    CB_CONTAINER<MyInteger> cb1(10);
+    cb1.push_back(1);
+    cb1.push_back(2);
+    cb1.push_back(3);
+    cb1.push_back(4);
+    cb1.push_back(5);
+    cb1.push_back(6);
+    
+    // Checking move constructor
+    CB_CONTAINER<MyInteger> cb2(static_cast<CB_CONTAINER<MyInteger>&& >(cb1));
+    CB_CONTAINER<MyInteger>::iterator it2 = cb2.begin() + 1;
+
+    BOOST_CHECK(cb1.empty());
+    BOOST_CHECK(!cb2.empty());
+    BOOST_CHECK(it2[0] == 2);
+    BOOST_CHECK(it2[-1] == 1);
+    BOOST_CHECK(it2[2] == 4);
+
+    // Checking move assignment
+    cb1 = static_cast<CB_CONTAINER<MyInteger>&& >(cb2);
+    CB_CONTAINER<MyInteger>::iterator it1 = cb1.begin() + 1;
+
+    BOOST_CHECK(!cb1.empty());
+    BOOST_CHECK(cb2.empty());
+    BOOST_CHECK(it1[0] == 2);
+    BOOST_CHECK(it1[-1] == 1);
+    BOOST_CHECK(it1[2] == 4);
+#endif
+}
+
+
+struct noncopyable_movable_except_t
+{
+private:
+    BOOST_MOVABLE_BUT_NOT_COPYABLE(noncopyable_movable_except_t)
+    bool is_moved_;
+    int value_;
+public:
+    static int next_value;
+
+    explicit noncopyable_movable_except_t()
+        : is_moved_(false)
+        , value_(next_value ++)
+    {}
+
+    noncopyable_movable_except_t(BOOST_RV_REF(noncopyable_movable_except_t) x) {
+        is_moved_ = x.is_moved_;
+        value_ = x.value_;
+        x.is_moved_ = true;
+    }
+
+    noncopyable_movable_except_t& operator=(BOOST_RV_REF(noncopyable_movable_except_t) x) {
+        is_moved_ = x.is_moved_;
+        value_ = x.value_;
+        x.is_moved_ = true;
+        return *this;
+    }
+
+    bool is_moved() const {
+        return is_moved_;
+    }
+
+    int value() const {
+        return value_;
+    }
+
+    void reinit() { is_moved_ = false; value_ = next_value ++; }
+};
+
+struct noncopyable_movable_noexcept_t
+{
+private:
+    BOOST_MOVABLE_BUT_NOT_COPYABLE(noncopyable_movable_noexcept_t)
+    bool is_moved_;
+    int value_;
+public:
+    static int next_value;
+
+    explicit noncopyable_movable_noexcept_t()
+        : is_moved_(false)
+        , value_(next_value ++)
+    {}
+
+    noncopyable_movable_noexcept_t(BOOST_RV_REF(noncopyable_movable_noexcept_t) x) BOOST_NOEXCEPT {
+        is_moved_ = x.is_moved_;
+        value_ = x.value_;
+        x.is_moved_ = true;
+    }
+
+    noncopyable_movable_noexcept_t& operator=(BOOST_RV_REF(noncopyable_movable_noexcept_t) x) BOOST_NOEXCEPT {
+        is_moved_ = x.is_moved_;
+        value_ = x.value_;
+        x.is_moved_ = true;
+        return *this;
+    }
+
+    bool is_moved() const {
+        return is_moved_;
+    }
+
+    int value() const {
+        return value_;
+    }
+
+    void reinit() { is_moved_ = false; value_ = next_value ++; }
+};
+
+#ifdef BOOST_NO_CXX11_NOEXCEPT
+namespace boost {
+    template <>
+    struct is_nothrow_move_constructible<noncopyable_movable_noexcept_t>
+        : boost::true_type 
+    {};
+} 
+#endif
+
+int noncopyable_movable_noexcept_t::next_value = 1;
+int noncopyable_movable_except_t::next_value = 1;
+
+template <class T>
+void move_container_values_impl() {
+    typedef T noncopyable_movable_test_t;
+    noncopyable_movable_test_t::next_value = 1;
+
+    CB_CONTAINER<noncopyable_movable_test_t> cb1(40);
+    noncopyable_movable_test_t var;
+    cb1.push_back(boost::move(var));
+    BOOST_CHECK(!cb1.back().is_moved());
+    BOOST_CHECK(cb1.back().value() == 1);
+    BOOST_CHECK(var.is_moved());
+    BOOST_CHECK(cb1.size() == 1);
+
+    var.reinit();
+    cb1.push_front(boost::move(var));
+    BOOST_CHECK(!cb1.front().is_moved());
+    BOOST_CHECK(cb1.front().value() == 2);
+    BOOST_CHECK(var.is_moved());
+    BOOST_CHECK(cb1.size() == 2);
+
+    cb1.push_back();
+    BOOST_CHECK(!cb1.back().is_moved());
+    BOOST_CHECK(cb1.back().value() == 3);
+    BOOST_CHECK(cb1.size() == 3);
+
+    cb1.push_front();
+    BOOST_CHECK(!cb1.front().is_moved());
+    BOOST_CHECK(cb1.front().value() == 4);
+    BOOST_CHECK(cb1.size() == 4);
+
+    cb1.insert(cb1.begin());
+    BOOST_CHECK(!cb1.front().is_moved());
+    BOOST_CHECK(cb1.front().value() == 5);
+    BOOST_CHECK(cb1.size() == 5);
+
+    var.reinit();
+    cb1.insert(cb1.begin(), boost::move(var));
+    BOOST_CHECK(!cb1.front().is_moved());
+    BOOST_CHECK(cb1.front().value() == 6);
+    BOOST_CHECK(cb1.size() == 6);
+
+    cb1.rinsert(cb1.begin());
+    BOOST_CHECK(!cb1.front().is_moved());
+    BOOST_CHECK(cb1.front().value() == 7);
+    BOOST_CHECK(cb1.size() == 7);
+
+    var.reinit();
+    cb1.rinsert(cb1.begin(), boost::move(var));
+    BOOST_CHECK(!cb1.front().is_moved());
+    BOOST_CHECK(cb1.front().value() == 8);
+    BOOST_CHECK(cb1.size() == 8);
+
+    
+    BOOST_CHECK(cb1[0].value() == 8);
+    BOOST_CHECK(cb1[1].value() == 7);
+    BOOST_CHECK(cb1[2].value() == 6);
+    BOOST_CHECK(cb1[3].value() == 5);
+    BOOST_CHECK(cb1[4].value() == 4);
+    BOOST_CHECK(cb1[5].value() == 2);
+    BOOST_CHECK(cb1[6].value() == 1);
+    BOOST_CHECK(cb1[7].value() == 3);    
+    cb1.rotate(cb1.begin() + 2);
+    BOOST_CHECK(cb1[0].value() == 6);
+    BOOST_CHECK(cb1[1].value() == 5);
+    BOOST_CHECK(cb1[2].value() == 4);
+    BOOST_CHECK(cb1[3].value() == 2);
+    BOOST_CHECK(cb1[4].value() == 1);
+    BOOST_CHECK(cb1[5].value() == 3);
+    BOOST_CHECK(cb1[6].value() == 8);
+    BOOST_CHECK(cb1[7].value() == 7);
+
+    BOOST_CHECK(!cb1[0].is_moved());
+    BOOST_CHECK(!cb1[1].is_moved());
+    BOOST_CHECK(!cb1[2].is_moved());
+    BOOST_CHECK(!cb1[3].is_moved());
+    BOOST_CHECK(!cb1[4].is_moved());
+    BOOST_CHECK(!cb1[5].is_moved());
+    BOOST_CHECK(!cb1[6].is_moved());
+    BOOST_CHECK(!cb1[7].is_moved());
+    
+    cb1.linearize();
+    BOOST_CHECK(!cb1[0].is_moved());
+    BOOST_CHECK(!cb1[1].is_moved());
+    BOOST_CHECK(!cb1[2].is_moved());
+    BOOST_CHECK(!cb1[3].is_moved());
+    BOOST_CHECK(!cb1[4].is_moved());
+    BOOST_CHECK(!cb1[5].is_moved());
+    BOOST_CHECK(!cb1[6].is_moved());
+    BOOST_CHECK(!cb1[7].is_moved());
+    BOOST_CHECK(cb1[0].value() == 6);
+    BOOST_CHECK(cb1[1].value() == 5);
+    BOOST_CHECK(cb1[2].value() == 4);
+    BOOST_CHECK(cb1[3].value() == 2);
+    BOOST_CHECK(cb1[4].value() == 1);
+    BOOST_CHECK(cb1[5].value() == 3);
+    BOOST_CHECK(cb1[6].value() == 8);
+    BOOST_CHECK(cb1[7].value() == 7);
+
+    cb1.erase(cb1.begin());
+    BOOST_CHECK(!cb1[0].is_moved());
+    BOOST_CHECK(!cb1[1].is_moved());
+    BOOST_CHECK(!cb1[2].is_moved());
+    BOOST_CHECK(!cb1[3].is_moved());
+    BOOST_CHECK(!cb1[4].is_moved());
+    BOOST_CHECK(!cb1[5].is_moved());
+    BOOST_CHECK(!cb1[6].is_moved());
+    BOOST_CHECK(cb1[0].value() == 5);
+    BOOST_CHECK(cb1[1].value() == 4);
+    BOOST_CHECK(cb1[2].value() == 2);
+    BOOST_CHECK(cb1[3].value() == 1);
+    BOOST_CHECK(cb1[4].value() == 3);
+    BOOST_CHECK(cb1[5].value() == 8);
+    BOOST_CHECK(cb1[6].value() == 7);
+
+    cb1.rerase(cb1.begin());
+    BOOST_CHECK(!cb1[0].is_moved());
+    BOOST_CHECK(!cb1[1].is_moved());
+    BOOST_CHECK(!cb1[2].is_moved());
+    BOOST_CHECK(!cb1[3].is_moved());
+    BOOST_CHECK(!cb1[4].is_moved());
+    BOOST_CHECK(!cb1[5].is_moved());
+    BOOST_CHECK(cb1[0].value() == 4);
+    BOOST_CHECK(cb1[1].value() == 2);
+    BOOST_CHECK(cb1[2].value() == 1);
+    BOOST_CHECK(cb1[3].value() == 3);
+    BOOST_CHECK(cb1[4].value() == 8);
+    BOOST_CHECK(cb1[5].value() == 7);
+
+    cb1.erase(cb1.begin(), cb1.begin() + 1);
+    BOOST_CHECK(!cb1[0].is_moved());
+    BOOST_CHECK(!cb1[1].is_moved());
+    BOOST_CHECK(!cb1[2].is_moved());
+    BOOST_CHECK(!cb1[3].is_moved());
+    BOOST_CHECK(!cb1[4].is_moved());
+    BOOST_CHECK(cb1[0].value() == 2);
+    BOOST_CHECK(cb1[1].value() == 1);
+    BOOST_CHECK(cb1[2].value() == 3);
+    BOOST_CHECK(cb1[3].value() == 8);
+    BOOST_CHECK(cb1[4].value() == 7);
+
+    cb1.rerase(cb1.begin(), cb1.begin() + 1);
+    BOOST_CHECK(!cb1[0].is_moved());
+    BOOST_CHECK(!cb1[1].is_moved());
+    BOOST_CHECK(!cb1[2].is_moved());
+    BOOST_CHECK(!cb1[3].is_moved());
+    BOOST_CHECK(cb1[0].value() == 1);
+    BOOST_CHECK(cb1[1].value() == 3);
+    BOOST_CHECK(cb1[2].value() == 8);
+    BOOST_CHECK(cb1[3].value() == 7);
+}
+
+void move_container_values_noexcept() {
+    move_container_values_impl<noncopyable_movable_noexcept_t>();
+
+    typedef noncopyable_movable_noexcept_t noncopyable_movable_test_t;
+    noncopyable_movable_test_t::next_value = 1;
+    CB_CONTAINER<noncopyable_movable_test_t> cb1(40);
+    cb1.push_back();
+    cb1.push_back();
+    cb1.push_back();
+    cb1.push_back();
+    cb1.push_back();
+    cb1.push_back();
+    cb1.push_back();
+    cb1.push_back();
+
+    cb1.set_capacity(100);
+    BOOST_CHECK(!cb1[0].is_moved());
+    BOOST_CHECK(!cb1[1].is_moved());
+    BOOST_CHECK(!cb1[2].is_moved());
+    BOOST_CHECK(!cb1[3].is_moved());
+    BOOST_CHECK(!cb1[4].is_moved());
+    BOOST_CHECK(!cb1[5].is_moved());
+    BOOST_CHECK(!cb1[6].is_moved());
+    BOOST_CHECK(!cb1[7].is_moved());
+    BOOST_CHECK(cb1[0].value() == 1);
+    BOOST_CHECK(cb1[1].value() == 2);
+    BOOST_CHECK(cb1[2].value() == 3);
+    BOOST_CHECK(cb1[3].value() == 4);
+    BOOST_CHECK(cb1[4].value() == 5);
+    BOOST_CHECK(cb1[5].value() == 6);
+    BOOST_CHECK(cb1[6].value() == 7);
+    BOOST_CHECK(cb1[7].value() == 8);
+
+    cb1.rset_capacity(101);
+    BOOST_CHECK(!cb1[0].is_moved());
+    BOOST_CHECK(!cb1[1].is_moved());
+    BOOST_CHECK(!cb1[2].is_moved());
+    BOOST_CHECK(!cb1[3].is_moved());
+    BOOST_CHECK(!cb1[4].is_moved());
+    BOOST_CHECK(!cb1[5].is_moved());
+    BOOST_CHECK(!cb1[6].is_moved());
+    BOOST_CHECK(!cb1[7].is_moved());
+    BOOST_CHECK(cb1[0].value() == 1);
+    BOOST_CHECK(cb1[1].value() == 2);
+    BOOST_CHECK(cb1[2].value() == 3);
+    BOOST_CHECK(cb1[3].value() == 4);
+    BOOST_CHECK(cb1[4].value() == 5);
+    BOOST_CHECK(cb1[5].value() == 6);
+    BOOST_CHECK(cb1[6].value() == 7);
+    BOOST_CHECK(cb1[7].value() == 8);
+
+    cb1.set_capacity(2);
+    BOOST_CHECK(!cb1[0].is_moved());
+    BOOST_CHECK(!cb1[1].is_moved());
+    BOOST_CHECK(cb1[0].value() == 1);
+    BOOST_CHECK(cb1[1].value() == 2);
+
+    cb1.rset_capacity(1);
+    BOOST_CHECK(!cb1[0].is_moved());
+    BOOST_CHECK(cb1[0].value() == 2);
+}
+
+void check_containers_exception_specifications() {
+#ifndef BOOST_NO_CXX11_NOEXCEPT
+#ifndef BOOST_CLANG
+    // Clang has an error in __has_nothrow_constructor implementation:
+    // http://llvm.org/bugs/show_bug.cgi?id=16627 
+    BOOST_CHECK(boost::has_nothrow_constructor<CB_CONTAINER<int> >::value);
+#endif
+
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
+    BOOST_CHECK(boost::is_nothrow_move_assignable<CB_CONTAINER<int> >::value);
+    BOOST_CHECK(boost::is_nothrow_move_constructible<CB_CONTAINER<int> >::value);
+#endif
+#endif // BOOST_NO_CXX11_NOEXCEPT
+}
+
 // add common tests into a test suite
 void add_common_tests(test_suite* tests) {
     tests->add(BOOST_TEST_CASE(&basic_test));
@@ -1994,4 +2473,11 @@ void add_common_tests(test_suite* tests) {
     tests->add(BOOST_TEST_CASE(&element_destruction_test));
     tests->add(BOOST_TEST_CASE(&const_methods_test));
     tests->add(BOOST_TEST_CASE(&rotate_test));
+    tests->add(BOOST_TEST_CASE(&move_container_on_cpp11));
+    tests->add(BOOST_TEST_CASE(&move_container_values_noexcept));    
+    tests->add(BOOST_TEST_CASE(&check_containers_exception_specifications));
+#if !defined(BOOST_NO_CXX11_ALLOCATOR)
+    tests->add(BOOST_TEST_CASE(&cxx11_allocator_test));
+#endif
 }
+

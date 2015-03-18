@@ -25,7 +25,7 @@ BOOST_DECL_TRANSFORM_TEST(add_lvalue_reference_test_10, ::tt::add_lvalue_referen
 BOOST_DECL_TRANSFORM_TEST(add_lvalue_reference_test_11, ::tt::add_lvalue_reference, volatile*, volatile*&)
 BOOST_DECL_TRANSFORM_TEST(add_lvalue_reference_test_12, ::tt::add_lvalue_reference, const[2][3], const (&)[2][3])
 BOOST_DECL_TRANSFORM_TEST(add_lvalue_reference_test_13, ::tt::add_lvalue_reference, (&)[2], (&)[2])
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
 BOOST_DECL_TRANSFORM_TEST(add_lvalue_reference_test_5a, ::tt::add_lvalue_reference, const &&, const&)
 BOOST_DECL_TRANSFORM_TEST(add_lvalue_reference_test_6a, ::tt::add_lvalue_reference, &&, &)
 BOOST_DECL_TRANSFORM_TEST(add_lvalue_reference_test_13a, ::tt::add_lvalue_reference, (&&)[2], (&)[2])
@@ -46,7 +46,7 @@ TT_TEST_BEGIN(add_lvalue_reference)
    add_lvalue_reference_test_11();
    add_lvalue_reference_test_12();
    add_lvalue_reference_test_13();
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
    add_lvalue_reference_test_5a();
    add_lvalue_reference_test_6a();
    add_lvalue_reference_test_13a();

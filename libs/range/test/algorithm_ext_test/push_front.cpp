@@ -43,7 +43,7 @@ namespace
         BOOST_CHECK_EQUAL_COLLECTIONS( reference.begin(), reference.end(),
             test.begin(), test.end() );
 
-        // copy the orignal reference sequence
+        // copy the original reference sequence
         Container reference_copy(reference);
         std::transform(reference.begin(), reference.end(), reference.begin(), DoubleValue());
 

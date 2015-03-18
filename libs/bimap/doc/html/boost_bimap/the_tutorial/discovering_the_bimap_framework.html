@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Discovering the bimap framework</title>
 <link rel="stylesheet" href="../../boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
 <link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Bimap">
 <link rel="up" href="../the_tutorial.html" title="The tutorial">
 <link rel="prev" href="../the_tutorial.html" title="The tutorial">
@@ -22,7 +22,7 @@
 <div class="spirit-nav">
 <a accesskey="p" href="../the_tutorial.html"><img src="../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../the_tutorial.html"><img src="../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="controlling_collection_types.html"><img src="../../../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
-<div class="section">
+<div class="section boost_bimap_the_tutorial_discovering_the_bimap_framework">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="boost_bimap.the_tutorial.discovering_the_bimap_framework"></a><a class="link" href="discovering_the_bimap_framework.html" title="Discovering the bimap framework">Discovering
       the bimap framework</a>
@@ -35,7 +35,7 @@
 <dt><span class="section"><a href="discovering_the_bimap_framework.html#boost_bimap.the_tutorial.discovering_the_bimap_framework.bimap_mapping_framework">Bimap
         mapping framework</a></span></dt>
 </dl></div>
-<div class="section">
+<div class="section boost_bimap_the_tutorial_discovering_the_bimap_framework_interpreting_bidirectional_maps">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="boost_bimap.the_tutorial.discovering_the_bimap_framework.interpreting_bidirectional_maps"></a><a class="link" href="discovering_the_bimap_framework.html#boost_bimap.the_tutorial.discovering_the_bimap_framework.interpreting_bidirectional_maps" title="Interpreting bidirectional maps">Interpreting
         bidirectional maps</a>
@@ -51,7 +51,7 @@
           and data from the left collection.
         </p>
 </div>
-<div class="section">
+<div class="section boost_bimap_the_tutorial_discovering_the_bimap_framework_standard_mapping_framework">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="boost_bimap.the_tutorial.discovering_the_bimap_framework.standard_mapping_framework"></a><a class="link" href="discovering_the_bimap_framework.html#boost_bimap.the_tutorial.discovering_the_bimap_framework.standard_mapping_framework" title="Standard mapping framework">Standard
         mapping framework</a>
@@ -73,7 +73,7 @@
           containers.
         </p>
 <div class="table">
-<a name="id774525"></a><p class="title"><b>Table&#160;1.1.&#160;std associative containers</b></p>
+<a name="boost_bimap.the_tutorial.discovering_the_bimap_framework.standard_mapping_framework.t0"></a><p class="title"><b>Table&#160;1.1.&#160;std associative containers</b></p>
 <div class="table-contents"><table class="table" summary="std associative containers">
 <colgroup>
 <col>
@@ -171,7 +171,7 @@
 </div>
 <br class="table-break">
 </div>
-<div class="section">
+<div class="section boost_bimap_the_tutorial_discovering_the_bimap_framework_bimap_mapping_framework">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="boost_bimap.the_tutorial.discovering_the_bimap_framework.bimap_mapping_framework"></a><a class="link" href="discovering_the_bimap_framework.html#boost_bimap.the_tutorial.discovering_the_bimap_framework.bimap_mapping_framework" title="Bimap mapping framework">Bimap
         mapping framework</a>
@@ -224,10 +224,10 @@
 <p>
             You have to used references to views, and not directly views object.
             Views cannot be constructed as separate objects from the container they
-            belong to, so the following: 
+            belong to, so the following:
 </p>
-<pre class="programlisting"><span class="comment">// Wrong: we forgot the &amp; after bm_type::left_type
-</span><span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">left_map</span> <span class="identifier">lm</span> <span class="special">=</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">left</span><span class="special">;</span>
+<pre class="programlisting"><span class="comment">// Wrong: we forgot the &amp; after bm_type::left_type</span>
+<span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">left_map</span> <span class="identifier">lm</span> <span class="special">=</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">left</span><span class="special">;</span>
 </pre>
 <p>
             does not compile, since it is trying to construct the view object <code class="computeroutput"><span class="identifier">lm</span></code>. This is a common source of errors
@@ -239,7 +239,6 @@
           <a href="../../../../example/standard_map_comparison.cpp" target="_top">Go to source code</a>
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span> <span class="keyword">class</span> <span class="identifier">Map</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">CompatibleKey</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">CompatibleData</span> <span class="special">&gt;</span>
 <span class="keyword">void</span> <span class="identifier">use_it</span><span class="special">(</span> <span class="identifier">Map</span> <span class="special">&amp;</span> <span class="identifier">m</span><span class="special">,</span>
@@ -266,32 +265,32 @@
     <span class="keyword">typedef</span> <span class="identifier">bimap</span><span class="special">&lt;</span> <span class="identifier">set_of</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">&gt;,</span> <span class="identifier">set_of</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">bimap_type</span><span class="special">;</span>
     <span class="identifier">bimap_type</span> <span class="identifier">bm</span><span class="special">;</span>
 
-    <span class="comment">// Standard map
-</span>    <span class="special">{</span>
+    <span class="comment">// Standard map</span>
+    <span class="special">{</span>
         <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">map</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">,</span> <span class="keyword">int</span> <span class="special">&gt;</span> <span class="identifier">map_type</span><span class="special">;</span>
         <span class="identifier">map_type</span> <span class="identifier">m</span><span class="special">;</span>
 
         <span class="identifier">use_it</span><span class="special">(</span> <span class="identifier">m</span><span class="special">,</span> <span class="string">"one"</span><span class="special">,</span> <span class="number">1</span> <span class="special">);</span>
     <span class="special">}</span>
 
-    <span class="comment">// Left map view
-</span>    <span class="special">{</span>
+    <span class="comment">// Left map view</span>
+    <span class="special">{</span>
         <span class="keyword">typedef</span> <span class="identifier">bimap_type</span><span class="special">::</span><span class="identifier">left_map</span> <span class="identifier">map_type</span><span class="special">;</span>
         <span class="identifier">map_type</span> <span class="special">&amp;</span> <span class="identifier">m</span> <span class="special">=</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">left</span><span class="special">;</span>
 
         <span class="identifier">use_it</span><span class="special">(</span> <span class="identifier">m</span><span class="special">,</span> <span class="string">"one"</span><span class="special">,</span> <span class="number">1</span> <span class="special">);</span>
     <span class="special">}</span>
 
-    <span class="comment">// Reverse standard map
-</span>    <span class="special">{</span>
+    <span class="comment">// Reverse standard map</span>
+    <span class="special">{</span>
         <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">map</span><span class="special">&lt;</span> <span class="keyword">int</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="special">&gt;</span> <span class="identifier">reverse_map_type</span><span class="special">;</span>
         <span class="identifier">reverse_map_type</span> <span class="identifier">rm</span><span class="special">;</span>
 
         <span class="identifier">use_it</span><span class="special">(</span> <span class="identifier">rm</span><span class="special">,</span> <span class="number">1</span><span class="special">,</span> <span class="string">"one"</span> <span class="special">);</span>
     <span class="special">}</span>
 
-    <span class="comment">// Right map view
-</span>    <span class="special">{</span>
+    <span class="comment">// Right map view</span>
+    <span class="special">{</span>
         <span class="keyword">typedef</span> <span class="identifier">bimap_type</span><span class="special">::</span><span class="identifier">right_map</span> <span class="identifier">reverse_map_type</span><span class="special">;</span>
         <span class="identifier">reverse_map_type</span> <span class="special">&amp;</span> <span class="identifier">rm</span> <span class="special">=</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">right</span><span class="special">;</span>
 
@@ -307,7 +306,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2006 -2007 Matias Capeletto<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2006-2012 Matias Capeletto<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

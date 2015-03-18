@@ -1,6 +1,6 @@
-//  (C) Copyright John Maddock 2001. 
-//  Use, modification and distribution are subject to the 
-//  Boost Software License, Version 1.0. (See accompanying file 
+//  (C) Copyright John Maddock 2001.
+//  Use, modification and distribution are subject to the
+//  Boost Software License, Version 1.0. (See accompanying file
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/config for most recent version.
@@ -40,7 +40,7 @@ namespace user_ns
    { return 0; }
 
    template <class T>
-   int f(T x) 
+   int f(T x)
    {
       // use this as a workaround:
       //using namespace boost;
@@ -60,6 +60,7 @@ int test()
    typedef void* pv;
    i = user_ns::f(pv());
    i = user_ns::f(boost_ns::inner2::X<int>());
+   (void)i;
    return 0;
 }
 

@@ -5,133 +5,140 @@
 ;           http://www.boost.org/LICENSE_1_0.txt)
 
 ;  ----------------------------------------------------------------------------------
-;  |    0    |    1    |    2    |    3    |    4     |    5    |    6    |    7    |
+;  |    0    |    1    |                                                            |
 ;  ----------------------------------------------------------------------------------
-;  |   0x0   |   0x4   |   0x8   |   0xc   |   0x10   |   0x14  |   0x18  |   0x1c  |
+;  |   0x0   |   0x4   |                                                            |
 ;  ----------------------------------------------------------------------------------
-;  |        R12        |         R13       |         R14        |        R15        |
-;  ----------------------------------------------------------------------------------
-;  ----------------------------------------------------------------------------------
-;  |    8    |    9    |   10    |   11    |    12    |    13   |    14   |    15   |
-;  ----------------------------------------------------------------------------------
-;  |   0x20  |   0x24  |   0x28  |  0x2c   |   0x30   |   0x34  |   0x38  |   0x3c  |
-;  ----------------------------------------------------------------------------------
-;  |        RDI        |        RSI        |         RBX        |        RBP        |
+;  |    <indicator>    |                                                            |
 ;  ----------------------------------------------------------------------------------
 ;  ----------------------------------------------------------------------------------
-;  |    16   |    17   |    18   |    19   |                                        |
+;  |    2    |    3    |    4     |    5    |    6    |    7    |    8    |    9    |
 ;  ----------------------------------------------------------------------------------
-;  |   0x40  |   0x44  |   0x48  |   0x4c  |                                        |
+;  |   0x8   |   0xc   |   0x10   |   0x14  |   0x18  |   0x1c  |   0x20  |   0x24  |
 ;  ----------------------------------------------------------------------------------
-;  |        RSP        |        RIP        |                                        |
-;  ----------------------------------------------------------------------------------
-;  ----------------------------------------------------------------------------------
-;  |    20   |    21   |    22   |    23   |    24    |    25   |                   |
-;  ----------------------------------------------------------------------------------
-;  |   0x50  |   0x54  |   0x58  |   0x5c  |   0x60   |   0x64  |                   |
-;  ----------------------------------------------------------------------------------
-;  |        sp         |       size        |        limit       |                   |
+;  |                          SEE registers (XMM6-XMM15)                            |
 ;  ----------------------------------------------------------------------------------
 ;  ----------------------------------------------------------------------------------
-;  |    26   |   27    |                                                            |
+;  |   10    |   11    |    12    |    13   |    14   |    15   |    16   |    17   |
 ;  ----------------------------------------------------------------------------------
-;  |   0x68  |   0x6c  |                                                            |
+;  |   0x28  |  0x2c   |   0x30   |   0x34  |   0x38  |   0x3c  |   0x40  |   0x44  |
 ;  ----------------------------------------------------------------------------------
-;  |      fbr_strg     |                                                            |
-;  ----------------------------------------------------------------------------------
-;  ----------------------------------------------------------------------------------
-;  |    28   |   29    |    30   |    31   |                                        |
-;  ----------------------------------------------------------------------------------
-;  |   0x70  |   0x74  |   0x78  |   0x7c  |                                        |
-;  ----------------------------------------------------------------------------------
-;  | fc_mxcsr|fc_x87_cw|     <padding>     |                                        |
+;  |                          SEE registers (XMM6-XMM15)                            |
 ;  ----------------------------------------------------------------------------------
 ;  ----------------------------------------------------------------------------------
-;  |    32    |   33   |   34    |   35    |   36     |   37    |    38   |    39   |
+;  |    18   |    19   |    20   |    21    |    22   |    23   |    24   |    25   |
 ;  ----------------------------------------------------------------------------------
-;  |   0x80   |  0x84  |  0x88   |  0x8c   |   0x90   |   0x94  |   0x98  |   0x9c  |
+;  |   0x48  |   0x4c  |   0x50  |   0x54   |   0x58  |   0x5c  |  0x60   |   0x64  |
 ;  ----------------------------------------------------------------------------------
-;  |                  XMM6                 |                   XMM7                 |
-;  ----------------------------------------------------------------------------------
-;  ----------------------------------------------------------------------------------
-;  |    40    |   41   |   42    |   43    |    44    |   45    |    46   |    47   | 
-;  ----------------------------------------------------------------------------------
-;  |   0x100  |  0x104  |  0x108  |  0x10c |   0x110  |  0x114  |  0x118  |  0x11c  |
-;  ----------------------------------------------------------------------------------
-;  |                  XMM8                 |                   XMM9                 |
+;  |                          SEE registers (XMM6-XMM15)                            |
 ;  ----------------------------------------------------------------------------------
 ;  ----------------------------------------------------------------------------------
-;  |    48    |   49   |   50    |   51    |    52    |   53    |    54   |    55   |
+;  |    26   |    27   |    28    |   29    |    30   |    31   |    32   |    33   |
 ;  ----------------------------------------------------------------------------------
-;  |   0x120  |  0x124 |  0x128  |  0x12c  |   0x130  |  0x134  |   0x138 |   0x13c |
+;  |   0x68  |   0x6c  |   0x70   |   0x74  |   0x78  |   0x7c  |   0x80  |   0x84  |
 ;  ----------------------------------------------------------------------------------
-;  |                 XMM10                 |                  XMM11                 |
-;  ----------------------------------------------------------------------------------
-;  ----------------------------------------------------------------------------------
-;  |    56    |   57   |   58    |   59    |    60   |    61   |    62    |    63   |
-;  ----------------------------------------------------------------------------------
-;  |  0x140  |  0x144  |  0x148  |  0x14c  |   0x150  |  0x154 |   0x158  |   0x15c |
-;  ----------------------------------------------------------------------------------
-;  |                 XMM12                 |                  XMM13                 |
+;  |                          SEE registers (XMM6-XMM15)                            |
 ;  ----------------------------------------------------------------------------------
 ;  ----------------------------------------------------------------------------------
-;  |    64    |   65   |   66    |   67    |    68    |   69    |    70   |    71   |
+;  |    34    |   35   |    36    |    37   |    38   |    39   |    40   |    41   |
 ;  ----------------------------------------------------------------------------------
-;  |  0x160  |  0x164  |  0x168  |  0x16c  |   0x170  |  0x174  |  0x178  |   0x17c |
+;  |   0x88   |  0x8c  |   0x90   |   0x94  |   0x98  |   0x9c  |   0xa0  |   0xa4  |
 ;  ----------------------------------------------------------------------------------
-;  |                 XMM14                 |                  XMM15                 |
+;  |                          SEE registers (XMM6-XMM15)                            |
+;  ----------------------------------------------------------------------------------
+;  ----------------------------------------------------------------------------------
+;  |    42   |    43   |    44    |    45   |    46   |    47   |    48   |    49   |
+;  ----------------------------------------------------------------------------------
+;  |   0xa8  |   0xac  |   0xb0   |   0xb4  |   0xb8  |   0xbc  |   0xc0  |   0xc4  |
+;  ----------------------------------------------------------------------------------
+;  | fc_mxcsr|fc_x87_cw|     <alignment>    |      fbr_strg     |      fc_dealloc   |
+;  ----------------------------------------------------------------------------------
+;  ----------------------------------------------------------------------------------
+;  |    50   |   51    |    52    |    53   |    54   |    55   |    56   |    57   |
+;  ----------------------------------------------------------------------------------
+;  |   0xc8  |  0xcc   |   0xd0   |   0xd4  |   0xd8  |   0xdc  |   0xe0  |   0xe4  |
+;  ----------------------------------------------------------------------------------
+;  |      limit        |       base         |      R12          |        R13        |
+;  ----------------------------------------------------------------------------------
+;  ----------------------------------------------------------------------------------
+;  |    58   |    59   |    60   |    61    |    62   |    63   |    64   |    65   |
+;  ----------------------------------------------------------------------------------
+;  |   0xe8  |   0xec  |   0xf0  |   0xf4   |   0xf8  |   0xfc  |  0x100  |  0x104  |
+;  ----------------------------------------------------------------------------------
+;  |        R14        |        R15         |       RDI         |       RSI         |
+;  ----------------------------------------------------------------------------------
+;  ----------------------------------------------------------------------------------
+;  |    66   |   67    |    68    |   69    |    70   |  71     |    72   |    73   |
+;  ----------------------------------------------------------------------------------
+;  |  0x108  |  0x10c  |  0x110   |  0x114  |  0x118  |  0x11c  |  0x120  |  0x124  |
+;  ----------------------------------------------------------------------------------
+;  |        RBX        |         RBP        |        RIP        |       EXIT        |
 ;  ----------------------------------------------------------------------------------
 
-EXTERN  _exit:PROC            ; standard C library function
-EXTERN  align_stack:PROC      ; stack alignment
-EXTERN  seh_fcontext:PROC     ; exception handler
+; standard C library function
+EXTERN  _exit:PROC
 .code
 
-make_fcontext PROC EXPORT FRAME  ; generate function table entry in .pdata and unwind information in
-    .endprolog                   ; .xdata for a function's structured exception handling unwind behavior
+; generate function table entry in .pdata and unwind information in
+make_fcontext PROC EXPORT FRAME
+    ; .xdata for a function's structured exception handling unwind behavior
+    .endprolog
 
-    push rbp                     ; save previous frame pointer; get the stack 16 byte aligned
-    mov  rbp,        rsp         ; set RBP to RSP
-    sub  rsp,        040h        ; allocate stack space (contains shadow space for subroutines)
+    ; first arg of make_fcontext() == top of context-stack
+    mov  rax, rcx
 
-    mov  [rbp-08h],  r8          ; save 3. arg of make_fcontext, pointer to context function
-    mov  [rbp-010h], rdx         ; save 2. arg of make_fcontext, context stack size
-    mov  [rbp-018h], rcx         ; save 1. arg of make_fcontext, pointer to context stack (base)
-    lea  rcx,        [rcx-0180h] ; reserve space for fcontext_t at top of context stack
-    call align_stack             ; align context stack, RAX contains address at 16 byte boundary
-                                 ; == pointer to fcontext_t and address of context stack
+    ; reserve 32byte shadow-space for context-function
+    sub  rax, 028h
 
-    mov  r8,         [rbp-08h]   ; restore pointer to context function
-    mov  rdx,        [rbp-010h]  ; restore context stack size
-    mov  rcx,        [rbp-018h]  ; restore pointer to context stack (base)
+    ; shift address in RAX to lower 16 byte boundary
+    ; == pointer to fcontext_t and address of context stack
+    and  rax, -16
 
-    mov  [rax+048h], r8          ; save address of context function in fcontext_t
-    mov  [rax+058h], rdx         ; save context stack size in fcontext_t
-    mov  [rax+050h], rcx         ; save address of context stack pointer (base) in fcontext_t
+    ; reserve space for context-data on context-stack
+    ; size for fc_mxcsr .. RIP + return-address for context-function
+    ; on context-function entry: (RSP -0x8) % 16 == 0
+    sub  rax, 0128h
 
-    neg  rdx                     ; negate stack size for LEA instruction (== substraction)
-    lea  rcx,        [rcx+rdx]   ; compute bottom address of context stack (limit)
-    mov  [rax+060h], rcx         ; save bottom address of context stack (limit) in fcontext_t
+    ; third arg of make_fcontext() == address of context-function
+    mov  [rax+0118h], r8
 
-    stmxcsr [rax+070h]           ; save MMX control and status word
-    fnstcw  [rax+074h]           ; save x87 control word
+    ; first arg of make_fcontext() == top of context-stack
+    ; save top address of context stack as 'base'
+    mov  [rax+0d0h], rcx
+    ; second arg of make_fcontext() == size of context-stack
+    ; negate stack size for LEA instruction (== substraction)
+    neg  rdx
+    ; compute bottom address of context stack (limit)
+    lea  rcx, [rcx+rdx]
+    ; save bottom address of context stack as 'limit'
+    mov  [rax+0c8h], rcx
+    ; save address of context stack limit as 'dealloction stack'
+    mov  [rax+0c0h], rcx
 
-    lea  rdx,        [rax-028h]  ; reserve 32byte shadow space + return address on stack, (RSP - 0x8) % 16 == 0
-    mov  [rax+040h], rdx         ; save address in RDX as stack pointer for context function
+    ; save MMX control- and status-word
+    stmxcsr  [rax+0a8h]
+    ; save x87 control-word
+    fnstcw  [rax+0ach]
 
-    lea  rcx,        finish      ; compute abs address of label finish
-    mov  [rdx],      rcx         ; save address of finish as return address for context function
-                                 ; entered after context function returns
+    ; compute abs address of label finish
+    lea  rcx, finish
+    ; save address of finish as return-address for context-function
+    ; will be entered after context-function returns
+    mov  [rax+0120h], rcx
 
-    add  rsp,        040h        ; deallocate shadow space
-    pop  rbp                     ; restore previous frame pointer
+    ; set indicator
+    mov  rcx, 1
+    mov  [rax], rcx
 
-    ret
+    ret ; return pointer to context-data
 
 finish:
-    ; RSP points to same address as RSP on entry of context function + 0x8 
-    xor   rcx,       rcx         ; exit code is zero
-    call  _exit                  ; exit application
+    ; 32byte shadow-space for _exit() are
+    ; already reserved by make_fcontext()
+    ; exit code is zero
+    xor  rcx, rcx
+    ; exit application
+    call  _exit
     hlt
 make_fcontext ENDP
 END

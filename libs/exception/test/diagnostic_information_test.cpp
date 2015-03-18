@@ -19,10 +19,7 @@ typedef boost::error_info<struct test_tag2,int> tagged_int2;
 std::string
 to_string( tagged_int2 const & x )
     {
-    if( x.value()==42 )
-        return "fourty-two";
-    else
-        return "bad value";
+    return '[' +boost::error_info_name(x) + "] = " + (x.value()==42 ? "fourty-two" : "bad value");
     }
 
 struct

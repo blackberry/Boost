@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>read_until</title>
 <link rel="stylesheet" href="../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../boost_asio.html" title="Boost.Asio">
 <link rel="up" href="../reference.html" title="Reference">
 <link rel="prev" href="read_at/overload8.html" title="read_at (8 of 8 overloads)">
@@ -27,7 +27,7 @@
 <a name="boost_asio.reference.read_until"></a><a class="link" href="read_until.html" title="read_until">read_until</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="id1506749"></a> 
+        <a class="indexterm" name="idp188622064"></a> 
 Read data into a streambuf until it contains a delimiter, matches
         a regular expression, or a function object indicates a match.
       </p>
@@ -96,7 +96,7 @@ Read data into a streambuf until it contains a delimiter, matches
     <span class="identifier">SyncReadStream</span> <span class="special">&amp;</span> <span class="identifier">s</span><span class="special">,</span>
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">basic_streambuf</span><span class="special">&lt;</span> <span class="identifier">Allocator</span> <span class="special">&gt;</span> <span class="special">&amp;</span> <span class="identifier">b</span><span class="special">,</span>
     <span class="identifier">MatchCondition</span> <span class="identifier">match_condition</span><span class="special">,</span>
-    <span class="keyword">typename</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">enable_if</span><span class="special">&lt;</span> <span class="identifier">is_match_condition</span><span class="special">&lt;</span> <span class="identifier">MatchCondition</span> <span class="special">&gt;</span> <span class="special">&gt;::</span><span class="identifier">type</span> <span class="special">*</span>  <span class="special">=</span> <span class="number">0</span><span class="special">);</span>
+    <span class="keyword">typename</span> <span class="identifier">enable_if</span><span class="special">&lt;</span> <span class="identifier">is_match_condition</span><span class="special">&lt;</span> <span class="identifier">MatchCondition</span> <span class="special">&gt;::</span><span class="identifier">value</span> <span class="special">&gt;::</span><span class="identifier">type</span> <span class="special">*</span>  <span class="special">=</span> <span class="number">0</span><span class="special">);</span>
   <span class="emphasis"><em>&#187; <a class="link" href="read_until/overload7.html" title="read_until (7 of 8 overloads)">more...</a></em></span>
 
 <span class="keyword">template</span><span class="special">&lt;</span>
@@ -108,23 +108,23 @@ Read data into a streambuf until it contains a delimiter, matches
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">basic_streambuf</span><span class="special">&lt;</span> <span class="identifier">Allocator</span> <span class="special">&gt;</span> <span class="special">&amp;</span> <span class="identifier">b</span><span class="special">,</span>
     <span class="identifier">MatchCondition</span> <span class="identifier">match_condition</span><span class="special">,</span>
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span> <span class="special">&amp;</span> <span class="identifier">ec</span><span class="special">,</span>
-    <span class="keyword">typename</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">enable_if</span><span class="special">&lt;</span> <span class="identifier">is_match_condition</span><span class="special">&lt;</span> <span class="identifier">MatchCondition</span> <span class="special">&gt;</span> <span class="special">&gt;::</span><span class="identifier">type</span> <span class="special">*</span>  <span class="special">=</span> <span class="number">0</span><span class="special">);</span>
+    <span class="keyword">typename</span> <span class="identifier">enable_if</span><span class="special">&lt;</span> <span class="identifier">is_match_condition</span><span class="special">&lt;</span> <span class="identifier">MatchCondition</span> <span class="special">&gt;::</span><span class="identifier">value</span> <span class="special">&gt;::</span><span class="identifier">type</span> <span class="special">*</span>  <span class="special">=</span> <span class="number">0</span><span class="special">);</span>
   <span class="emphasis"><em>&#187; <a class="link" href="read_until/overload8.html" title="read_until (8 of 8 overloads)">more...</a></em></span>
 </pre>
 <h5>
 <a name="boost_asio.reference.read_until.h0"></a>
-        <span><a name="boost_asio.reference.read_until.requirements"></a></span><a class="link" href="read_until.html#boost_asio.reference.read_until.requirements">Requirements</a>
+        <span class="phrase"><a name="boost_asio.reference.read_until.requirements"></a></span><a class="link" href="read_until.html#boost_asio.reference.read_until.requirements">Requirements</a>
       </h5>
 <p>
-        <span class="bold"><strong>Header: </strong></span><code class="literal">boost/asio/read_until.hpp</code>
+        <span class="emphasis"><em>Header: </em></span><code class="literal">boost/asio/read_until.hpp</code>
       </p>
 <p>
-        <span class="bold"><strong>Convenience header: </strong></span><code class="literal">boost/asio.hpp</code>
+        <span class="emphasis"><em>Convenience header: </em></span><code class="literal">boost/asio.hpp</code>
       </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2012 Christopher M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2014 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

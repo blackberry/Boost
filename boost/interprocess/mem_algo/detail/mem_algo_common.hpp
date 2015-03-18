@@ -11,7 +11,7 @@
 #ifndef BOOST_INTERPROCESS_DETAIL_MEM_ALGO_COMMON_HPP
 #define BOOST_INTERPROCESS_DETAIL_MEM_ALGO_COMMON_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
@@ -24,7 +24,7 @@
 #include <boost/interprocess/detail/type_traits.hpp>
 #include <boost/interprocess/detail/math_functions.hpp>
 #include <boost/interprocess/detail/utilities.hpp>
-#include <boost/move/move.hpp>
+#include <boost/move/utility_core.hpp>
 #include <boost/interprocess/detail/min_max.hpp>
 #include <boost/container/detail/multiallocation_chain.hpp>
 #include <boost/assert.hpp>
@@ -113,15 +113,15 @@ class memory_algorithm_common
    static size_type multiple_of_units(size_type size)
    {  return get_rounded_size(size, Alignment);  }
 
-   static multiallocation_chain allocate_many
-      (MemoryAlgorithm *memory_algo, size_type elem_bytes, size_type n_elements)
+   static void allocate_many
+      (MemoryAlgorithm *memory_algo, size_type elem_bytes, size_type n_elements, multiallocation_chain &chain)
    {
-      return this_type::priv_allocate_many(memory_algo, &elem_bytes, n_elements, 0);
+      return this_type::priv_allocate_many(memory_algo, &elem_bytes, n_elements, 0, chain);
    }
 
-   static void deallocate_many(MemoryAlgorithm *memory_algo, multiallocation_chain chain)
+   static void deallocate_many(MemoryAlgorithm *memory_algo, multiallocation_chain &chain)
    {
-      return this_type::priv_deallocate_many(memory_algo, boost::move(chain));
+      return this_type::priv_deallocate_many(memory_algo, chain);
    }
 
    static bool calculate_lcm_and_needs_backwards_lcmed
@@ -219,13 +219,14 @@ class memory_algorithm_common
       return true;
    }
 
-   static multiallocation_chain allocate_many
+   static void allocate_many
       ( MemoryAlgorithm *memory_algo
       , const size_type *elem_sizes
       , size_type n_elements
-      , size_type sizeof_element)
+      , size_type sizeof_element
+      , multiallocation_chain &chain)
    {
-      return this_type::priv_allocate_many(memory_algo, elem_sizes, n_elements, sizeof_element);
+      this_type::priv_allocate_many(memory_algo, elem_sizes, n_elements, sizeof_element, chain);
    }
 
    static void* allocate_aligned
@@ -287,7 +288,6 @@ class memory_algorithm_common
             second->m_size = old_size - first->m_size;
             BOOST_ASSERT(second->m_size >= MinBlockUnits);
             memory_algo->priv_mark_new_allocated_block(first);
-            //memory_algo->priv_tail_size(first, first->m_size);
             memory_algo->priv_mark_new_allocated_block(second);
             memory_algo->priv_deallocate(memory_algo->priv_get_user_buffer(second));
          }
@@ -448,11 +448,12 @@ class memory_algorithm_common
    }
 
    private:
-   static multiallocation_chain priv_allocate_many
+   static void priv_allocate_many
       ( MemoryAlgorithm *memory_algo
       , const size_type *elem_sizes
       , size_type n_elements
-      , size_type sizeof_element)
+      , size_type sizeof_element
+      , multiallocation_chain &chain)
    {
       //Note: sizeof_element == 0 indicates that we want to
       //allocate n_elements of the same size "*elem_sizes"
@@ -482,7 +483,6 @@ class memory_algorithm_common
          }
       }
 
-      multiallocation_chain chain;
       if(total_request_units && !multiplication_overflows(total_request_units, Alignment)){
          size_type low_idx = 0;
          while(low_idx < n_elements){
@@ -568,13 +568,12 @@ class memory_algorithm_common
          }
 
          if(low_idx != n_elements){
-            priv_deallocate_many(memory_algo, boost::move(chain));
+            priv_deallocate_many(memory_algo, chain);
          }
       }
-      return boost::move(chain);
    }
 
-   static void priv_deallocate_many(MemoryAlgorithm *memory_algo, multiallocation_chain chain)
+   static void priv_deallocate_many(MemoryAlgorithm *memory_algo, multiallocation_chain &chain)
    {
       while(!chain.empty()){
          memory_algo->priv_deallocate(to_raw_pointer(chain.pop_front()));

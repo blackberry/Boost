@@ -37,15 +37,15 @@ public:
         unblocked_count_mutex(unblocked_count_mutex_),
         finish_mutex(finish_mutex_)
     {}
-        
+
     void operator()()
     {
         // acquire lock
         lock_type lock(rw_mutex);
-            
+
         // increment count to show we're unblocked
         {
-            boost::mutex::scoped_lock ublock(unblocked_count_mutex);
+            boost::unique_lock<boost::mutex> ublock(unblocked_count_mutex);
             ++unblocked_count;
             unblocked_condition.notify_one();
             ++simultaneous_running_count;
@@ -54,11 +54,11 @@ public:
                 max_simultaneous_running=simultaneous_running_count;
             }
         }
-            
+
         // wait to finish
-        boost::mutex::scoped_lock finish_lock(finish_mutex);
+        boost::unique_lock<boost::mutex> finish_lock(finish_mutex);
         {
-            boost::mutex::scoped_lock ublock(unblocked_count_mutex);
+            boost::unique_lock<boost::mutex> ublock(unblocked_count_mutex);
             --simultaneous_running_count;
         }
     }
@@ -72,9 +72,9 @@ class simple_writing_thread
     boost::mutex& finish_mutex;
     boost::mutex& unblocked_mutex;
     unsigned& unblocked_count;
-        
+
     void operator=(simple_writing_thread&);
-        
+
 public:
     simple_writing_thread(boost::shared_mutex& rwm_,
                           boost::mutex& finish_mutex_,
@@ -83,17 +83,17 @@ public:
         rwm(rwm_),finish_mutex(finish_mutex_),
         unblocked_mutex(unblocked_mutex_),unblocked_count(unblocked_count_)
     {}
-        
+
     void operator()()
     {
         boost::unique_lock<boost::shared_mutex>  lk(rwm);
-            
+
         {
-            boost::mutex::scoped_lock ulk(unblocked_mutex);
+            boost::unique_lock<boost::mutex> ulk(unblocked_mutex);
             ++unblocked_count;
         }
-            
-        boost::mutex::scoped_lock flk(finish_mutex);
+
+        boost::unique_lock<boost::mutex> flk(finish_mutex);
     }
 };
 
@@ -103,9 +103,9 @@ class simple_reading_thread
     boost::mutex& finish_mutex;
     boost::mutex& unblocked_mutex;
     unsigned& unblocked_count;
-        
+
     void operator=(simple_reading_thread&);
-        
+
 public:
     simple_reading_thread(boost::shared_mutex& rwm_,
                           boost::mutex& finish_mutex_,
@@ -114,17 +114,17 @@ public:
         rwm(rwm_),finish_mutex(finish_mutex_),
         unblocked_mutex(unblocked_mutex_),unblocked_count(unblocked_count_)
     {}
-        
+
     void operator()()
     {
         boost::shared_lock<boost::shared_mutex>  lk(rwm);
-            
+
         {
-            boost::mutex::scoped_lock ulk(unblocked_mutex);
+            boost::unique_lock<boost::mutex> ulk(unblocked_mutex);
             ++unblocked_count;
         }
-            
-        boost::mutex::scoped_lock flk(finish_mutex);
+
+        boost::unique_lock<boost::mutex> flk(finish_mutex);
     }
 };
 

@@ -1,9 +1,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-<title>Chapter&#160;38.&#160;Boost.Jam : 3.1.19</title>
+<title>Chapter&#160;42.&#160;Boost.Jam : 3.1.19</title>
 <link rel="stylesheet" href="../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
 <link rel="up" href="tools.html" title="Part&#160;II.&#160;Boost Tools">
 <link rel="prev" href="quickbook/ref.html" title="Quick Reference">
@@ -25,7 +25,7 @@
 <div class="chapter">
 <div class="titlepage"><div>
 <div><h2 class="title">
-<a name="jam"></a>Chapter&#160;38.&#160;Boost.Jam : 3.1.19</h2></div>
+<a name="jam"></a>Chapter&#160;42.&#160;Boost.Jam : 3.1.19</h2></div>
 <div><div class="authorgroup">
 <div class="author"><h3 class="author">
 <span class="firstname">Rene</span> <span class="surname">Rivera</span>
@@ -47,8 +47,8 @@
 </div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
-<dt><span class="section"><a href="jam.html#jam.building">Building BJam</a></span></dt>
+<dl class="toc">
+<dt><span class="section"><a href="jam.html#jam.building">Building B2</a></span></dt>
 <dt><span class="section"><a href="jam/language.html">Language</a></span></dt>
 <dd><dl>
 <dt><span class="section"><a href="jam/language.html#jam.language.lexical">Lexical Features</a></span></dt>
@@ -69,16 +69,16 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="jam.building"></a><a class="link" href="jam.html#jam.building" title="Building BJam">Building BJam</a>
+<a name="jam.building"></a><a class="link" href="jam.html#jam.building" title="Building B2">Building B2</a>
 </h2></div></div></div>
 <p>
-      Installing <code class="literal">BJam</code> after building it is simply a matter of
-      copying the generated executables someplace in your <code class="literal">PATH</code>.
-      For building the executables there are a set of <code class="literal">build</code> bootstrap
-      scripts to accomodate particular environments. The scripts take one optional
-      argument, the name of the toolset to build with. When the toolset is not given
-      an attempt is made to detect an available toolset and use that. The build scripts
-      accept these arguments:
+      Installing <code class="literal">B2</code> after building it is simply a matter of copying
+      the generated executables someplace in your <code class="literal">PATH</code>. For building
+      the executables there are a set of <code class="literal">build</code> bootstrap scripts
+      to accomodate particular environments. The scripts take one optional argument,
+      the name of the toolset to build with. When the toolset is not given an attempt
+      is made to detect an available toolset and use that. The build scripts accept
+      these arguments:
     </p>
 <pre class="programlisting"><span class="emphasis"><em>build</em></span> [<span class="emphasis"><em>toolset</em></span>]
 </pre>
@@ -97,7 +97,7 @@ sh ./build.sh
 </pre>
 <p>
       For the Boost.Jam source included with the Boost distribution the <span class="emphasis"><em>jam
-      source location</em></span> is <code class="literal">BOOST_ROOT/tools/jam/src</code>.
+      source location</em></span> is <code class="literal">BOOST_ROOT/tools/build/v2/engine</code>.
     </p>
 <p>
       If the scripts fail to detect an appropriate toolset to build with your particular
@@ -119,7 +119,7 @@ sh ./build.sh
       The supported toolsets, and whether they are auto-detected, are:
     </p>
 <div class="table">
-<a name="jam.building.t0"></a><p class="title"><b>Table&#160;38.1.&#160;Supported Toolsets</b></p>
+<a name="jam.building.t0"></a><p class="title"><b>Table&#160;42.1.&#160;Supported Toolsets</b></p>
 <div class="table-contents"><table class="table" summary="Supported Toolsets">
 <colgroup>
 <col>
@@ -175,7 +175,7 @@ sh ./build.sh
 <td>
               <p>
                 </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">Common install location: "<code class="literal">C:\Borland\BCC55</code>"</li>
 <li class="listitem">
 <code class="literal">BCC32.EXE</code>
@@ -262,7 +262,7 @@ sh ./build.sh
 <td>
               <p>
                 </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
 <code class="literal">ICL.EXE</code> in <code class="literal">PATH</code>
 </li></ul></div>
 <p>
@@ -288,7 +288,7 @@ sh ./build.sh
 <td>
               <p>
                 </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
 <code class="literal">CWFolder</code> variable configured</li>
 <li class="listitem">
@@ -320,7 +320,7 @@ sh ./build.sh
 <td>
               <p>
                 </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">Common install location: "<code class="literal">C:\MinGW</code>"</li></ul></div>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">Common install location: "<code class="literal">C:\MinGW</code>"</li></ul></div>
 <p>
               </p>
             </td>
@@ -344,7 +344,7 @@ sh ./build.sh
 <td>
               <p>
                 </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
 <code class="literal">VCVARS32.BAT</code> already configured</li>
 <li class="listitem">
@@ -380,7 +380,7 @@ sh ./build.sh
 <td>
               <p>
                 </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
 <code class="literal">VCVARS32.BAT</code> or <code class="literal">VSVARS32.BAT</code>
                 already configured</li>
@@ -421,7 +421,7 @@ sh ./build.sh
 <td>
               <p>
                 Detection: </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
 <code class="literal">VCVARSALL.BAT</code> already configured</li>
 <li class="listitem">
@@ -442,10 +442,10 @@ sh ./build.sh
               </p>
               <p>
                 Notes: </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">If <code class="literal">VCVARSALL.BAT</code> is called to set up the
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">If <code class="literal">VCVARSALL.BAT</code> is called to set up the
                 toolset, it is passed all the extra arguments, see below for what
                 those arguments are. This can be used to build, for example, a Win64
-                specific version of <code class="literal">bjam</code>. Consult the VisualStudio
+                specific version of <code class="literal">b2</code>. Consult the VisualStudio
                 documentation for what the possible argument values to the <code class="literal">VCVARSALL.BAT</code>
                 are.</li></ul></div>
 <p>
@@ -477,7 +477,7 @@ sh ./build.sh
 <td>
               <p>
                 </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
 <code class="literal">aCC</code> in <code class="literal">PATH</code>
 </li>
@@ -508,7 +508,7 @@ sh ./build.sh
 <td>
               <p>
                 </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">como in <code class="literal">PATH</code>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">como in <code class="literal">PATH</code>
 </li></ul></div>
 <p>
               </p>
@@ -533,7 +533,7 @@ sh ./build.sh
 <td>
               <p>
                 </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">gcc in <code class="literal">PATH</code>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">gcc in <code class="literal">PATH</code>
 </li></ul></div>
 <p>
               </p>
@@ -558,7 +558,7 @@ sh ./build.sh
 <td>
               <p>
                 </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
 <code class="literal">icc</code> in <code class="literal">PATH</code>
 </li>
@@ -589,7 +589,7 @@ sh ./build.sh
 <td>
               <p>
                 </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
 <code class="literal">KCC</code> in <code class="literal">PATH</code>
 </li></ul></div>
 <p>
@@ -615,7 +615,7 @@ sh ./build.sh
 <td>
               <p>
                 </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">bc++ in PATH</li></ul></div>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">bc++ in PATH</li></ul></div>
 <p>
               </p>
             </td>
@@ -639,7 +639,7 @@ sh ./build.sh
 <td>
               <p>
                 </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
 <code class="literal">uname</code> is "<code class="literal">IRIX</code>" or
                 "<code class="literal">IRIX64</code>"</li></ul></div>
 <p>
@@ -664,7 +664,7 @@ sh ./build.sh
 <td>
               <p>
                 </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">Standard install location: "<code class="literal">/opt/SUNWspro</code>"</li></ul></div>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">Standard install location: "<code class="literal">/opt/SUNWspro</code>"</li></ul></div>
 <p>
               </p>
             </td>
@@ -687,7 +687,7 @@ sh ./build.sh
 <td>
               <p>
                 </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
 <code class="literal">uname</code> is "<code class="literal">QNX</code>" and
                 <code class="literal">qcc</code> in <code class="literal">PATH</code>
 </li></ul></div>
@@ -714,7 +714,7 @@ sh ./build.sh
 <td>
               <p>
                 </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
 <code class="literal">uname</code> is "<code class="literal">OSF1</code>"</li></ul></div>
 <p>
               </p>
@@ -739,7 +739,7 @@ sh ./build.sh
 <td>
               <p>
                 </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
 <code class="literal">xlc</code> in <code class="literal">PATH</code>
 </li></ul></div>
 <p>
@@ -768,7 +768,7 @@ sh ./build.sh
 <td>
               <p>
                 </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
 <code class="literal">uname</code> is "<code class="literal">Darwin</code>"</li></ul></div>
 <p>
               </p>
@@ -797,7 +797,7 @@ sh ./build.sh
 <td>
               <p>
                 </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">Common install location: "<code class="literal">/mingw</code>"</li></ul></div>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">Common install location: "<code class="literal">/mingw</code>"</li></ul></div>
 <p>
               </p>
             </td>
@@ -808,7 +808,7 @@ sh ./build.sh
 <br class="table-break"><p>
       The built executables are placed in a subdirectory specific to your platform.
       For example, in Linux running on an Intel x86 compatible chip, the executables
-      are placed in: "<code class="literal">bin.linuxx86</code>". The =bjam[.exe]=
+      are placed in: "<code class="literal">bin.linuxx86</code>". The =b2[.exe]=
       executable can be used to invoke Boost.Build.
     </p>
 <p>
@@ -816,7 +816,7 @@ sh ./build.sh
       of Boost.Jam and for additional setup of the toolset. The extra arguments come
       after the toolset:
     </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
           Arguments not in the form of an option, before option arguments, are used
           for extra setup to toolset configuration scripts.
@@ -835,7 +835,7 @@ sh ./build.sh
 <p>
       The arguments immediately after the toolset are passed directly to the setup
       script of the toolset, if available and if it needs to be invoked. This allows
-      one to configure the toolset ass needed to do non-default builds of <code class="literal">bjam</code>.
+      one to configure the toolset ass needed to do non-default builds of <code class="literal">b2</code>.
       For example to build a Win64 version with <code class="literal">vc8</code>. See the toolset
       descriptiona above for when particular toolsets support this.
     </p>
@@ -847,7 +847,7 @@ sh ./build.sh
     </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term"><div class="literallayout"><p><code class="literal">---</code></p></div></span></dt>
 <dd><p>
             Empty option when one wants to only specify a target.
@@ -875,14 +875,14 @@ sh ./build.sh
 <dt><span class="term"><div class="literallayout"><p><code class="literal">--gc</code></p></div></span></dt>
 <dd><p>
             Enables use of the Boehm Garbage Collector. The build will look for the
-            Boehm-GC source in a "boehm_gc" subdirectory from the <code class="literal">bjam</code>
+            Boehm-GC source in a "boehm_gc" subdirectory from the <code class="literal">b2</code>
             sources.
           </p></dd>
 <dt><span class="term"><div class="literallayout"><p><code class="literal">--duma</code></p></div></span></dt>
 <dd><p>
             Enables use of the DUMA (Detect Uintended Memory Access) debugging memory
             allocator. The build expects to find the DUMA source files in a "duma"
-            subdirectory from the <code class="literal">bjam</code> sources.
+            subdirectory from the <code class="literal">b2</code> sources.
           </p></dd>
 <dt><span class="term"><div class="literallayout"><p><code class="literal">--toolset-root=<span class="emphasis"><em>path</em></span></code></p></div></span></dt>
 <dd><p>

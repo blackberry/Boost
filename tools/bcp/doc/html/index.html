@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>BCP</title>
 <link rel="stylesheet" href="../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
 <link rel="home" href="index.html" title="BCP">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -25,9 +25,9 @@
 <div><div class="authorgroup"><div class="author"><h3 class="author">
 <span class="firstname">John</span> <span class="surname">Maddock</span>
 </h3></div></div></div>
-<div><p class="copyright">Copyright &#169; 2209 John Maddock</p></div>
+<div><p class="copyright">Copyright &#169; 2009 John Maddock</p></div>
 <div><div class="legalnotice">
-<a name="id917214"></a><p>
+<a name="bcp.legal"></a><p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
@@ -50,7 +50,7 @@
 </dl></dd>
 </dl>
 </div>
-<div class="section">
+<div class="section bcp_overview">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="bcp.overview"></a><a class="link" href="index.html#bcp.overview" title="Overview">Overview</a>
 </h2></div></div></div>
@@ -64,7 +64,7 @@
       what licences are used by those dependencies.
     </p>
 </div>
-<div class="section">
+<div class="section bcp_examples">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="bcp.examples"></a><a class="link" href="index.html#bcp.examples" title="Examples">Examples</a>
 </h2></div></div></div>
@@ -111,7 +111,7 @@
       The report contains license information, author details, and file dependencies.
     </p>
 </div>
-<div class="section">
+<div class="section bcp_syntax">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="bcp.syntax"></a><a class="link" href="index.html#bcp.syntax" title="Syntax">Syntax</a>
 </h2></div></div></div>
@@ -122,7 +122,7 @@
 <dt><span class="section"><a href="index.html#bcp.syntax.output">output-path</a></span></dt>
 <dt><span class="section"><a href="index.html#bcp.syntax.dependencies">Dependencies</a></span></dt>
 </dl></div>
-<div class="section">
+<div class="section bcp_syntax_main">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="bcp.syntax.main"></a><a class="link" href="index.html#bcp.syntax.main" title="Behaviour Selection">Behaviour Selection</a>
 </h3></div></div></div>
@@ -141,7 +141,7 @@
 <p>
         Outputs a html report file containing:
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             All the licenses in effect, plus the files using each license, and the
             copyright holders using each license.
@@ -163,7 +163,7 @@
           </li>
 </ul></div>
 </div>
-<div class="section">
+<div class="section bcp_syntax_options">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="bcp.syntax.options"></a><a class="link" href="index.html#bcp.syntax.options" title="Options">Options</a>
 </h3></div></div></div>
@@ -211,7 +211,7 @@
         Make sure that all copied files use Unix style line endings.
       </p>
 </div>
-<div class="section">
+<div class="section bcp_syntax_module">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="bcp.syntax.module"></a><a class="link" href="index.html#bcp.syntax.module" title="module-list">module-list</a>
 </h3></div></div></div>
@@ -243,7 +243,7 @@
         copied/listed.
       </p>
 </div>
-<div class="section">
+<div class="section bcp_syntax_output">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="bcp.syntax.output"></a><a class="link" href="index.html#bcp.syntax.output" title="output-path">output-path</a>
 </h3></div></div></div>
@@ -251,14 +251,14 @@
         The path to which files will be copied (this path must exist).
       </p>
 </div>
-<div class="section">
+<div class="section bcp_syntax_dependencies">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="bcp.syntax.dependencies"></a><a class="link" href="index.html#bcp.syntax.dependencies" title="Dependencies">Dependencies</a>
 </h3></div></div></div>
 <p>
         File dependencies are found as follows:
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             C++ source files are scanned for #includes, all #includes present in
             the boost source tree will then be scanned for their dependencies and
@@ -280,27 +280,36 @@
 </ul></div>
 <p>
         It should be noted that in practice bcp can produce a rather "fat"
-        list of dependencies, reasons for this include: * It searches for library
-        names first, so using "regex" as a name will give you everything
-        in the libs/regex directory and everything that depends on. This can be a
-        long list as all the regex test and example programs will get scanned for
-        their dependencies. If you want a more minimal list, then try using the names
-        of the headers you are actually including, or use the --scan option to scan
-        your source code. * If you include the header of a library with separate
-        source, then you get that libraries source and all it's dependencies. This
-        is deliberate and in general those extra dependencies are needed. * When
-        you include a header, bcp doesn't know what compiler you're using, so it
-        follows all possible preprocessor paths. If you're distributing a subset
-        of Boost with you're application then that is what you want to have happen
-        in general.
+        list of dependencies, reasons for this include:
       </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+            It searches for library names first, so using "regex" as a
+            name will give you everything in the libs/regex directory and everything
+            that depends on. This can be a long list as all the regex test and example
+            programs will get scanned for their dependencies. If you want a more
+            minimal list, then try using the names of the headers you are actually
+            including, or use the --scan option to scan your source code.
+          </li>
+<li class="listitem">
+            If you include the header of a library with separate source, then you
+            get that libraries source and all it's dependencies. This is deliberate
+            and in general those extra dependencies are needed.
+          </li>
+<li class="listitem">
+            When you include a header, bcp doesn't know what compiler you're using,
+            so it follows all possible preprocessor paths. If you're distributing
+            a subset of Boost with you're application then that is what you want
+            to have happen in general.
+          </li>
+</ul></div>
 <p>
         The last point above can result in a substantial increase in the number of
         headers found compared to most peoples expectations. For example bcp finds
         274 header dependencies for boost/shared_ptr.hpp: by running bcp in report
         mode we can see why all these headers have been found as dependencies:
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             All of the Config library headers get included (52 headers, would be
             about 6 for one compiler only).
@@ -338,7 +347,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: August 14, 2011 at 16:17:07 GMT</small></p></td>
+<td align="left"><p><small>Last revised: April 18, 2013 at 12:30:13 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>

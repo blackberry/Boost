@@ -15,7 +15,8 @@
 
 
 // Include unit test framework
-#include <boost/test/included/test_exec_monitor.hpp>
+#define BOOST_TEST_MAIN
+#include <boost/test/unit_test.hpp>
 
 #include <string>
 #include <vector>
@@ -114,7 +115,7 @@ static void replace_test()
     string fmt2("_xXx_");
     vector<int> vec1( str1.begin(), str1.end() );
 
-    // inmutable tests
+    // immutable tests
     
     // basic tests
     BOOST_CHECK( replace_regex_copy( str1, rx1, fmt1 )==string("123_A1C_xxxa23cXXXa456c321") );
@@ -149,11 +150,9 @@ static void replace_test()
     BOOST_CHECK( str1==string("123AxXxCa23ca456c321") );
 }
 
-int test_main( int, char*[] )
+BOOST_AUTO_TEST_CASE( test_main )
 {
     find_test();
     join_test();
     replace_test();
-
-    return 0;
 }

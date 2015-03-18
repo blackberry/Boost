@@ -45,7 +45,7 @@ struct StringEqual
       if(string1.size() != string2.size())
          return false;
       return std::char_traits<typename Str1::value_type>::compare
-		  (string1.c_str(), string2.c_str(), (std::size_t)string1.size()) == 0;
+        (string1.c_str(), string2.c_str(), (std::size_t)string1.size()) == 0;
    }
 };
 

@@ -28,7 +28,7 @@ BOOST_DECL_TRANSFORM_TEST(remove_all_extents_test_13, ::tt::remove_all_extents, 
 BOOST_DECL_TRANSFORM_TEST3(remove_all_extents_test_14, ::tt::remove_all_extents, [])
 BOOST_DECL_TRANSFORM_TEST(remove_all_extents_test_15, ::tt::remove_all_extents, const [], const)
 BOOST_DECL_TRANSFORM_TEST(remove_all_extents_test_16, ::tt::remove_all_extents, const[][3], const)
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
 BOOST_DECL_TRANSFORM_TEST(remove_all_extents_test_5a, ::tt::remove_all_extents, const &&, const&&)
 BOOST_DECL_TRANSFORM_TEST(remove_all_extents_test_13a, ::tt::remove_all_extents, (&&)[2], (&&)[2])
 #endif
@@ -51,7 +51,7 @@ TT_TEST_BEGIN(remove_all_extents)
    remove_all_extents_test_14();
    remove_all_extents_test_15();
    remove_all_extents_test_16();
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
    remove_all_extents_test_5a();
    remove_all_extents_test_13a();
 #endif

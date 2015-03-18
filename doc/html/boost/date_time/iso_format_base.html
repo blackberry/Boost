@@ -3,11 +3,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Class template iso_format_base</title>
 <link rel="stylesheet" href="../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
 <link rel="up" href="../../date_time/doxy.html#header.boost.date_time.iso_format_hpp" title="Header &lt;boost/date_time/iso_format.hpp&gt;">
-<link rel="prev" href="operator_id390989.html" title="Function template operator&lt;&lt;">
-<link rel="next" href="iso_format_base_w_id790006.html" title="Class iso_format_base&lt;wchar_t&gt;">
+<link rel="prev" href="operator_idp45625744.html" title="Function template operator&lt;&lt;">
+<link rel="next" href="iso_format_bas_idp48684768.html" title="Class iso_format_base&lt;wchar_t&gt;">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table cellpadding="2" width="100%"><tr>
@@ -20,7 +20,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="operator_id390989.html"><img src="../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../date_time/doxy.html#header.boost.date_time.iso_format_hpp"><img src="../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="iso_format_base_w_id790006.html"><img src="../../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="operator_idp45625744.html"><img src="../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../date_time/doxy.html#header.boost.date_time.iso_format_hpp"><img src="../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="iso_format_bas_idp48684768.html"><img src="../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 <div class="refentry">
 <a name="boost.date_time.iso_format_base"></a><div class="titlepage"></div>
@@ -35,75 +35,75 @@
 <span class="keyword">class</span> <a class="link" href="iso_format_base.html" title="Class template iso_format_base">iso_format_base</a> <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
 
-  <span class="comment">// <a class="link" href="iso_format_base.html#id341562-bb">public static functions</a></span>
-  <span class="keyword">static</span> <span class="identifier">month_format_spec</span> <a class="link" href="iso_format_base.html#id341565-bb"><span class="identifier">month_format</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="keyword">const</span> <span class="identifier">charT</span> <span class="special">*</span> <a class="link" href="iso_format_base.html#id341577-bb"><span class="identifier">not_a_date</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="keyword">const</span> <span class="identifier">charT</span> <span class="special">*</span> <a class="link" href="iso_format_base.html#id348051-bb"><span class="identifier">pos_infinity</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="keyword">const</span> <span class="identifier">charT</span> <span class="special">*</span> <a class="link" href="iso_format_base.html#id455829-bb"><span class="identifier">neg_infinity</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="identifier">charT</span> <a class="link" href="iso_format_base.html#id582264-bb"><span class="identifier">year_sep_char</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="identifier">charT</span> <a class="link" href="iso_format_base.html#id461026-bb"><span class="identifier">month_sep_char</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="identifier">charT</span> <a class="link" href="iso_format_base.html#id461036-bb"><span class="identifier">day_sep_char</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="identifier">charT</span> <a class="link" href="iso_format_base.html#id583059-bb"><span class="identifier">hour_sep_char</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="identifier">charT</span> <a class="link" href="iso_format_base.html#id437563-bb"><span class="identifier">minute_sep_char</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="identifier">charT</span> <a class="link" href="iso_format_base.html#id437573-bb"><span class="identifier">second_sep_char</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="identifier">charT</span> <a class="link" href="iso_format_base.html#id437584-bb"><span class="identifier">period_start_char</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="identifier">charT</span> <a class="link" href="iso_format_base.html#id437594-bb"><span class="identifier">time_start_char</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="identifier">charT</span> <a class="link" href="iso_format_base.html#id437208-bb"><span class="identifier">week_start_char</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="identifier">charT</span> <a class="link" href="iso_format_base.html#id437219-bb"><span class="identifier">period_sep_char</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="identifier">charT</span> <a class="link" href="iso_format_base.html#id591481-bb"><span class="identifier">time_sep_char</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="identifier">charT</span> <a class="link" href="iso_format_base.html#id607890-bb"><span class="identifier">fractional_time_sep_char</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="keyword">bool</span> <a class="link" href="iso_format_base.html#id607902-bb"><span class="identifier">is_component_sep</span></a><span class="special">(</span><span class="identifier">charT</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="keyword">bool</span> <a class="link" href="iso_format_base.html#id478173-bb"><span class="identifier">is_fractional_time_sep</span></a><span class="special">(</span><span class="identifier">charT</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="keyword">bool</span> <a class="link" href="iso_format_base.html#id341535-bb"><span class="identifier">is_timezone_sep</span></a><span class="special">(</span><span class="identifier">charT</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">static</span> <span class="identifier">charT</span> <a class="link" href="iso_format_base.html#id773974-bb"><span class="identifier">element_sep_char</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="iso_format_base.html#idp46301072-bb">public static functions</a></span>
+  <span class="keyword">static</span> <span class="identifier">month_format_spec</span> <a class="link" href="iso_format_base.html#idp46301632-bb"><span class="identifier">month_format</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="keyword">const</span> <span class="identifier">charT</span> <span class="special">*</span> <a class="link" href="iso_format_base.html#idp97089808-bb"><span class="identifier">not_a_date</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="keyword">const</span> <span class="identifier">charT</span> <span class="special">*</span> <a class="link" href="iso_format_base.html#idp43146320-bb"><span class="identifier">pos_infinity</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="keyword">const</span> <span class="identifier">charT</span> <span class="special">*</span> <a class="link" href="iso_format_base.html#idp43147696-bb"><span class="identifier">neg_infinity</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="identifier">charT</span> <a class="link" href="iso_format_base.html#idp106981680-bb"><span class="identifier">year_sep_char</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="identifier">charT</span> <a class="link" href="iso_format_base.html#idp94354656-bb"><span class="identifier">month_sep_char</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="identifier">charT</span> <a class="link" href="iso_format_base.html#idp94356064-bb"><span class="identifier">day_sep_char</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="identifier">charT</span> <a class="link" href="iso_format_base.html#idp110106912-bb"><span class="identifier">hour_sep_char</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="identifier">charT</span> <a class="link" href="iso_format_base.html#idp76232096-bb"><span class="identifier">minute_sep_char</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="identifier">charT</span> <a class="link" href="iso_format_base.html#idp76233504-bb"><span class="identifier">second_sep_char</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="identifier">charT</span> <a class="link" href="iso_format_base.html#idp38278560-bb"><span class="identifier">period_start_char</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="identifier">charT</span> <a class="link" href="iso_format_base.html#idp50889264-bb"><span class="identifier">time_start_char</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="identifier">charT</span> <a class="link" href="iso_format_base.html#idp46670048-bb"><span class="identifier">week_start_char</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="identifier">charT</span> <a class="link" href="iso_format_base.html#idp46671424-bb"><span class="identifier">period_sep_char</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="identifier">charT</span> <a class="link" href="iso_format_base.html#idp102668272-bb"><span class="identifier">time_sep_char</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="identifier">charT</span> <a class="link" href="iso_format_base.html#idp103992560-bb"><span class="identifier">fractional_time_sep_char</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="keyword">bool</span> <a class="link" href="iso_format_base.html#idp103993952-bb"><span class="identifier">is_component_sep</span></a><span class="special">(</span><span class="identifier">charT</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="keyword">bool</span> <a class="link" href="iso_format_base.html#idp69933008-bb"><span class="identifier">is_fractional_time_sep</span></a><span class="special">(</span><span class="identifier">charT</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="keyword">bool</span> <a class="link" href="iso_format_base.html#idp41038752-bb"><span class="identifier">is_timezone_sep</span></a><span class="special">(</span><span class="identifier">charT</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">static</span> <span class="identifier">charT</span> <a class="link" href="iso_format_base.html#idp105546096-bb"><span class="identifier">element_sep_char</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="id1470542"></a><h2>Description</h2>
+<a name="idp191826432"></a><h2>Description</h2>
 <div class="refsect2">
-<a name="id1470545"></a><h3>
-<a name="id341562-bb"></a><code class="computeroutput">iso_format_base</code> public static functions</h3>
+<a name="idp191826848"></a><h3>
+<a name="idp46301072-bb"></a><code class="computeroutput">iso_format_base</code> public static functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">month_format_spec</span> <a name="id341565-bb"></a><span class="identifier">month_format</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Describe month format -- its an integer in iso format. </li>
+<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">month_format_spec</span> <a name="idp46301632-bb"></a><span class="identifier">month_format</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Describe month format <span style="color: red">&lt;ndash&gt;&lt;/ndash&gt;</span> its an integer in iso format. </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">const</span> <span class="identifier">charT</span> <span class="special">*</span> <a name="id341577-bb"></a><span class="identifier">not_a_date</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>String used printed is date is invalid. </li>
+<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">const</span> <span class="identifier">charT</span> <span class="special">*</span> <a name="idp97089808-bb"></a><span class="identifier">not_a_date</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>String used printed is date is invalid. </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">const</span> <span class="identifier">charT</span> <span class="special">*</span> <a name="id348051-bb"></a><span class="identifier">pos_infinity</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>String used to for positive infinity value. </li>
+<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">const</span> <span class="identifier">charT</span> <span class="special">*</span> <a name="idp43146320-bb"></a><span class="identifier">pos_infinity</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>String used to for positive infinity value. </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">const</span> <span class="identifier">charT</span> <span class="special">*</span> <a name="id455829-bb"></a><span class="identifier">neg_infinity</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>String used to for positive infinity value. </li>
+<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">const</span> <span class="identifier">charT</span> <span class="special">*</span> <a name="idp43147696-bb"></a><span class="identifier">neg_infinity</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>String used to for positive infinity value. </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">charT</span> <a name="id582264-bb"></a><span class="identifier">year_sep_char</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>ISO char for a year -- used in durations. </li>
+<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">charT</span> <a name="idp106981680-bb"></a><span class="identifier">year_sep_char</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>ISO char for a year <span style="color: red">&lt;ndash&gt;&lt;/ndash&gt;</span> used in durations. </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">charT</span> <a name="id461026-bb"></a><span class="identifier">month_sep_char</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>ISO char for a month. </li>
+<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">charT</span> <a name="idp94354656-bb"></a><span class="identifier">month_sep_char</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>ISO char for a month. </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">charT</span> <a name="id461036-bb"></a><span class="identifier">day_sep_char</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>ISO char for a day. </li>
+<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">charT</span> <a name="idp94356064-bb"></a><span class="identifier">day_sep_char</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>ISO char for a day. </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">charT</span> <a name="id583059-bb"></a><span class="identifier">hour_sep_char</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>char for minute </li>
+<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">charT</span> <a name="idp110106912-bb"></a><span class="identifier">hour_sep_char</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>char for minute </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">charT</span> <a name="id437563-bb"></a><span class="identifier">minute_sep_char</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>char for minute </li>
+<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">charT</span> <a name="idp76232096-bb"></a><span class="identifier">minute_sep_char</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>char for minute </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">charT</span> <a name="id437573-bb"></a><span class="identifier">second_sep_char</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>char for second </li>
+<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">charT</span> <a name="idp76233504-bb"></a><span class="identifier">second_sep_char</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>char for second </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">charT</span> <a name="id437584-bb"></a><span class="identifier">period_start_char</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>ISO char for a period. </li>
+<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">charT</span> <a name="idp38278560-bb"></a><span class="identifier">period_start_char</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>ISO char for a period. </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">charT</span> <a name="id437594-bb"></a><span class="identifier">time_start_char</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Used in time in mixed strings to set start of time. </li>
+<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">charT</span> <a name="idp50889264-bb"></a><span class="identifier">time_start_char</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Used in time in mixed strings to set start of time. </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">charT</span> <a name="id437208-bb"></a><span class="identifier">week_start_char</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Used in mixed strings to identify start of a week number. </li>
+<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">charT</span> <a name="idp46670048-bb"></a><span class="identifier">week_start_char</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Used in mixed strings to identify start of a week number. </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">charT</span> <a name="id437219-bb"></a><span class="identifier">period_sep_char</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Separators for periods. </li>
+<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">charT</span> <a name="idp46671424-bb"></a><span class="identifier">period_sep_char</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Separators for periods. </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">charT</span> <a name="id591481-bb"></a><span class="identifier">time_sep_char</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Separator for hh:mm:ss. </li>
+<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">charT</span> <a name="idp102668272-bb"></a><span class="identifier">time_sep_char</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Separator for hh:mm:ss. </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">charT</span> <a name="id607890-bb"></a><span class="identifier">fractional_time_sep_char</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Preferred Separator for hh:mm:ss,decimal_fraction. </li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">static</span> <span class="keyword">bool</span> <a name="id607902-bb"></a><span class="identifier">is_component_sep</span><span class="special">(</span><span class="identifier">charT</span> sep<span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">static</span> <span class="keyword">bool</span> <a name="id478173-bb"></a><span class="identifier">is_fractional_time_sep</span><span class="special">(</span><span class="identifier">charT</span> sep<span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">static</span> <span class="keyword">bool</span> <a name="id341535-bb"></a><span class="identifier">is_timezone_sep</span><span class="special">(</span><span class="identifier">charT</span> sep<span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">static</span> <span class="identifier">charT</span> <a name="id773974-bb"></a><span class="identifier">element_sep_char</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<pre class="literallayout"><span class="keyword">static</span> <span class="identifier">charT</span> <a name="idp103992560-bb"></a><span class="identifier">fractional_time_sep_char</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Preferred Separator for hh:mm:ss,decimal_fraction. </li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">static</span> <span class="keyword">bool</span> <a name="idp103993952-bb"></a><span class="identifier">is_component_sep</span><span class="special">(</span><span class="identifier">charT</span> sep<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">static</span> <span class="keyword">bool</span> <a name="idp69933008-bb"></a><span class="identifier">is_fractional_time_sep</span><span class="special">(</span><span class="identifier">charT</span> sep<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">static</span> <span class="keyword">bool</span> <a name="idp41038752-bb"></a><span class="identifier">is_timezone_sep</span><span class="special">(</span><span class="identifier">charT</span> sep<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">static</span> <span class="identifier">charT</span> <a name="idp105546096-bb"></a><span class="identifier">element_sep_char</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="id1471453"></a><h3>Specializations</h3>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p><a class="link" href="iso_format_base_w_id790006.html" title="Class iso_format_base&lt;wchar_t&gt;">Class iso_format_base&lt;wchar_t&gt;</a></p></li></ul></div>
+<a name="idp191938768"></a><h3>Specializations</h3>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><a class="link" href="iso_format_bas_idp48684768.html" title="Class iso_format_base&lt;wchar_t&gt;">Class iso_format_base&lt;wchar_t&gt;</a></p></li></ul></div>
 </div>
 </div>
 </div>
@@ -115,7 +115,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="operator_id390989.html"><img src="../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../date_time/doxy.html#header.boost.date_time.iso_format_hpp"><img src="../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="iso_format_base_w_id790006.html"><img src="../../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="operator_idp45625744.html"><img src="../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../date_time/doxy.html#header.boost.date_time.iso_format_hpp"><img src="../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="iso_format_bas_idp48684768.html"><img src="../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

@@ -20,22 +20,37 @@
                 fixture, BOOST_STRINGIZE(test_func<type>));                 \
         }                                                                   \
 
+#   define UNORDERED_EXCEPTION_TEST_CASE_REPEAT(name, test_func, n, type)   \
+        UNORDERED_AUTO_TEST(name)                                           \
+        {                                                                   \
+            for (unsigned i = 0; i < n; ++i) {                              \
+                test_func< type > fixture;                                  \
+                ::test::lightweight::exception_safety(                      \
+                    fixture, BOOST_STRINGIZE(test_func<type>));             \
+            }                                                               \
+        }                                                                   \
+
+
 #    define UNORDERED_EPOINT_IMPL ::test::lightweight::epoint
 
 #define UNORDERED_EXCEPTION_TEST_POSTFIX RUN_TESTS()
 
-#define RUN_EXCEPTION_TESTS(test_seq, param_seq)                            \
-    BOOST_PP_SEQ_FOR_EACH_PRODUCT(RUN_EXCEPTION_TESTS_OP,                   \
-        (test_seq)(param_seq))                                              \
-    RUN_TESTS()                                                             \
+#define EXCEPTION_TESTS(test_seq, param_seq)                                \
+    BOOST_PP_SEQ_FOR_EACH_PRODUCT(EXCEPTION_TESTS_OP,                       \
+        (test_seq)((1))(param_seq))
 
-#define RUN_EXCEPTION_TESTS_OP(r, product)                                  \
-    UNORDERED_EXCEPTION_TEST_CASE(                                          \
+#define EXCEPTION_TESTS_REPEAT(n, test_seq, param_seq)                      \
+    BOOST_PP_SEQ_FOR_EACH_PRODUCT(EXCEPTION_TESTS_OP,                       \
+        (test_seq)((n))(param_seq))
+
+#define EXCEPTION_TESTS_OP(r, product)                                      \
+    UNORDERED_EXCEPTION_TEST_CASE_REPEAT(                                   \
         BOOST_PP_CAT(BOOST_PP_SEQ_ELEM(0, product),                         \
-            BOOST_PP_CAT(_, BOOST_PP_SEQ_ELEM(1, product))                  \
+            BOOST_PP_CAT(_, BOOST_PP_SEQ_ELEM(2, product))                  \
         ),                                                                  \
         BOOST_PP_SEQ_ELEM(0, product),                                      \
-        BOOST_PP_SEQ_ELEM(1, product)                                       \
+        BOOST_PP_SEQ_ELEM(1, product),                                      \
+        BOOST_PP_SEQ_ELEM(2, product)                                       \
     )                                                                       \
 
 #define UNORDERED_SCOPE(scope_name)                                         \

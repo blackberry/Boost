@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Introduction</title>
 <link rel="stylesheet" href="../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Range 2.0">
 <link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Range 2.0">
 <link rel="prev" href="../index.html" title="Chapter&#160;1.&#160;Range 2.0">
@@ -57,7 +57,7 @@
 <p>
       The main advantages are
     </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
           simpler implementation and specification of generic range algorithms
         </li>
@@ -69,13 +69,12 @@
           arrays?)
         </li>
 </ul></div>
-<a name="range.introduction.example___iterate_over_the_values_in_a_map"></a><h4>
-<a name="id607240"></a>
-      <a class="link" href="introduction.html#range.introduction.example___iterate_over_the_values_in_a_map">Example
+<h4>
+<a name="range.introduction.h0"></a>
+      <span class="phrase"><a name="range.introduction.example___iterate_over_the_values_in_a_map"></a></span><a class="link" href="introduction.html#range.introduction.example___iterate_over_the_values_in_a_map">Example
       - Iterate over the values in a map</a>
     </h4>
 <p>
-      
 </p>
 <pre class="programlisting"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">;</span>
 <span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">adaptors</span><span class="special">;</span>
@@ -83,13 +82,12 @@
 </pre>
 <p>
     </p>
-<a name="range.introduction.example___iterate_over_the_keys_in_a_map"></a><h4>
-<a name="id607360"></a>
-      <a class="link" href="introduction.html#range.introduction.example___iterate_over_the_keys_in_a_map">Example
+<h4>
+<a name="range.introduction.h1"></a>
+      <span class="phrase"><a name="range.introduction.example___iterate_over_the_keys_in_a_map"></a></span><a class="link" href="introduction.html#range.introduction.example___iterate_over_the_keys_in_a_map">Example
       - Iterate over the keys in a map</a>
     </h4>
 <p>
-      
 </p>
 <pre class="programlisting"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">;</span>
 <span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">adaptors</span><span class="special">;</span>
@@ -97,25 +95,25 @@
 </pre>
 <p>
     </p>
-<a name="range.introduction.example___push_the_even_values_from_a_map_in_reverse_order_into_the_container__code__phrase_role__identifier__target__phrase___code_"></a><h4>
-<a name="id648314"></a>
-      <a class="link" href="introduction.html#range.introduction.example___push_the_even_values_from_a_map_in_reverse_order_into_the_container__code__phrase_role__identifier__target__phrase___code_">Example
+<h4>
+<a name="range.introduction.h2"></a>
+      <span class="phrase"><a name="range.introduction.example___push_the_even_values_from_a_map_in_reverse_order_into_the_container__code__phrase_role__identifier__target__phrase___code_"></a></span><a class="link" href="introduction.html#range.introduction.example___push_the_even_values_from_a_map_in_reverse_order_into_the_container__code__phrase_role__identifier__target__phrase___code_">Example
       - Push the even values from a map in reverse order into the container <code class="computeroutput"><span class="identifier">target</span></code></a>
     </h4>
 <p>
-      
 </p>
 <pre class="programlisting"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">;</span>
 <span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">adaptors</span><span class="special">;</span>
-<span class="comment">// Assume that is_even is a predicate that has been implemented elsewhere...
-</span><span class="identifier">push_back</span><span class="special">(</span><span class="identifier">target</span><span class="special">,</span> <span class="identifier">my_map</span> <span class="special">|</span> <span class="identifier">map_values</span> <span class="special">|</span> <span class="identifier">filtered</span><span class="special">(</span><span class="identifier">is_even</span><span class="special">())</span> <span class="special">|</span> <span class="identifier">reversed</span><span class="special">);</span>
+<span class="comment">// Assume that is_even is a predicate that has been implemented elsewhere...</span>
+<span class="identifier">push_back</span><span class="special">(</span><span class="identifier">target</span><span class="special">,</span> <span class="identifier">my_map</span> <span class="special">|</span> <span class="identifier">map_values</span> <span class="special">|</span> <span class="identifier">filtered</span><span class="special">(</span><span class="identifier">is_even</span><span class="special">())</span> <span class="special">|</span> <span class="identifier">reversed</span><span class="special">);</span>
 </pre>
 <p>
     </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2003 -2010 Thorsten Ottosen, Neil Groves<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2010 Thorsten Ottosen,
+      Neil Groves<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

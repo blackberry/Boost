@@ -23,16 +23,18 @@
 #include <boost/foreach.hpp>
 #include "quickbook.hpp"
 #include "actions.hpp"
+#include "syntax_highlight.hpp"
 #include "utils.hpp"
 #include "files.hpp"
 #include "markups.hpp"
 #include "state.hpp"
 #include "state_save.hpp"
 #include "grammar.hpp"
-#include "input_path.hpp"
+#include "native_text.hpp"
 #include "block_tags.hpp"
 #include "phrase_tags.hpp"
-#include "id_manager.hpp"
+#include "document_state.hpp"
+#include "include_paths.hpp"
 
 namespace quickbook
 {
@@ -41,12 +43,12 @@ namespace quickbook
         {
             // TODO: This works but is a bit of an odd place to put it.
             // Might need to redefine the purpose of this function.
-            if (!state.source_mode_next.empty()) {
-                detail::outwarn(state.source_mode_next.get_file(),
-                    state.source_mode_next.get_position())
+            if (state.source_mode_next) {
+                detail::outwarn(state.source_mode_next_pos.get_file(),
+                    state.source_mode_next_pos.get_position())
                     << "Temporary source mode unsupported here."
                     << std::endl;
-                state.source_mode_next = value();
+                state.source_mode_next = 0;
             }
 
             for(quickbook::state::string_list::iterator
@@ -63,13 +65,61 @@ namespace quickbook
         }
         
         std::string add_anchor(quickbook::state& state,
-                std::string const& id,
+                boost::string_ref id,
                 id_category::categories category =
                     id_category::explicit_anchor_id)
         {
-            std::string placeholder = state.ids.add_anchor(id, category);
+            std::string placeholder = state.document.add_anchor(id, category);
             state.anchors.push_back(placeholder);
             return placeholder;
+        }
+
+        std::string get_attribute_value(quickbook::state& state,
+                quickbook::value const& value)
+        {
+            std::string x = value.is_encoded() ?
+                value.get_encoded() : detail::to_s(value.get_quickbook());
+
+            if (x.empty()) {
+                detail::outerr(value.get_file(), value.get_position())
+                    << "Empty attribute value."
+                    << std::endl;
+                ++state.error_count;
+                x = "xxx";
+            }
+
+            return x;
+        }
+
+        std::string validate_id(quickbook::state& state,
+                quickbook::value const& id_value)
+        {
+            bool valid = true;
+            std::string id = get_attribute_value(state, id_value);
+
+            // Special case since I use dollar ids for id placeholders.
+            if (id[0] == '$') { valid = false; id[0] = '_'; }
+
+            if (qbk_version_n >= 107u) {
+                char const* allowed_punctuation = "_.-";
+
+                BOOST_FOREACH(char c, id) {
+                    if (!std::isalnum(c) &&
+                            !std::strchr(allowed_punctuation, c))
+                        valid = false;
+                }
+            }
+
+            if (!valid) {
+                detail::outerr(id_value.get_file(), id_value.get_position())
+                    << "Invalid id: "
+                    << (id_value.is_encoded() ? id_value.get_encoded() :
+                        detail::to_s(id_value.get_quickbook()))
+                    << std::endl;
+                ++state.error_count;
+            }
+
+            return id;
         }
     }
 
@@ -189,6 +239,7 @@ namespace quickbook
         case code_tags::inline_code_block:
         case code_tags::inline_code:
             return code_action(state, v);
+        case template_tags::attribute_template:
         case template_tags::template_:
             return do_template_action(state, v, first.base());
         default:
@@ -198,7 +249,7 @@ namespace quickbook
 
     void break_action::operator()(parse_iterator first, parse_iterator) const
     {
-        write_anchors(state, phrase);
+        write_anchors(state, state.phrase);
 
         if(*first == '\\')
         {
@@ -216,7 +267,7 @@ namespace quickbook
             state.warned_about_breaks = true;
         }
             
-        phrase << detail::get_markup(phrase_tags::break_mark).pre;
+        state.phrase << detail::get_markup(phrase_tags::break_mark).pre;
     }
 
     void error_message_action::operator()(parse_iterator first, parse_iterator last) const
@@ -273,19 +324,23 @@ namespace quickbook
         values.finish();
     }
 
-    void role_action(quickbook::state& state, value role)
+    void role_action(quickbook::state& state, value role_list)
     {
         write_anchors(state, state.phrase);
 
-        value_consumer values = role;
+        value_consumer values = role_list;
+        value role = values.consume();
+        value phrase = values.consume();
+        values.finish();
+
         state.phrase
             << "<phrase role=\"";
-        detail::print_string(values.consume().get_quickbook(), state.phrase.get());
+        detail::print_string(get_attribute_value(state, role),
+                state.phrase.get());
         state.phrase
             << "\">"
-            << values.consume().get_encoded()
+            << phrase.get_encoded()
             << "</phrase>";
-        values.finish();
     }
 
     void footnote_action(quickbook::state& state, value phrase)
@@ -295,7 +350,7 @@ namespace quickbook
         value_consumer values = phrase;
         state.phrase
             << "<footnote id=\""
-            << state.ids.add_id("f", id_category::numbered)
+            << state.document.add_id("f", id_category::numbered)
             << "\"><para>"
             << values.consume().get_encoded()
             << "</para></footnote>";
@@ -322,27 +377,18 @@ namespace quickbook
         while(pos != end && cl::space_p.test(*pos)) ++pos;
 
         if(pos != end) {
-            detail::markup markup = detail::get_markup(block_tags::paragraph);
+            detail::markup markup = state.in_list ?
+                detail::get_markup(block_tags::paragraph_in_list) :
+                detail::get_markup(block_tags::paragraph);
             state.out << markup.pre << str;
             write_anchors(state, state.out);
             state.out << markup.post;
         }
     }
 
-    void list_item_action::operator()() const
+    void explicit_list_action::operator()() const
     {
-        // Be careful as this is sometimes called in the wrong place
-        // for markup such as:
-        //
-        // * A
-        // [endsect]
-        //
-        // This action is called before [endsect] (to end the list item)
-        // and then also after it due to the way the parser works.
-        std::string str;
-        state.phrase.swap(str);
-        state.out << str;
-        write_anchors(state, state.out);
+        state.explicit_list = true;
     }
 
     void phrase_end_action::operator()() const
@@ -358,7 +404,7 @@ namespace quickbook
             {
                 state.out << "<bridgehead renderas=\"sect" << level << "\"";
                 state.out << " id=\"";
-                state.out << state.ids.add_id("h", id_category::numbered);
+                state.out << state.document.add_id("h", id_category::numbered);
                 state.out << "\">";
                 state.out << "<phrase id=\"" << id << "\"/>";
                 state.out << "<link linkend=\"" << id << "\">";
@@ -390,7 +436,7 @@ namespace quickbook
 
         if (generic)
         {
-            level = state.ids.section_level() + 1;
+            level = state.document.section_level() + 1;
                                             // We need to use a heading which is one greater
                                             // than the current.
             if (level > 6 )                 // The max is h6, clip it if it goes
@@ -405,47 +451,63 @@ namespace quickbook
 
         if (!element_id.empty())
         {
-            std::string anchor = state.ids.add_id(
-                element_id.get_quickbook(),
+            // Use an explicit id.
+
+            std::string anchor = state.document.add_id(
+                validate_id(state, element_id),
                 id_category::explicit_id);
 
             write_bridgehead(state, level,
                 content.get_encoded(), anchor, self_linked_headers);
         }
-        else if (!generic && state.ids.compatibility_version() < 103) // version 1.2 and below
+        else if (state.document.compatibility_version() >= 106u)
         {
-            // This generates the old id style if both the interpreting
-            // version and the generation version are less then 103u.
+            // Generate ids for 1.6+
 
-            std::string anchor = state.ids.old_style_id(
-                detail::make_identifier(
-                    state.ids.replace_placeholders_with_unresolved_ids(
-                        content.get_encoded())),
-                id_category::generated_heading);
-
-            write_bridgehead(state, level,
-                content.get_encoded(), anchor, false);
-
-        }
-        else
-        {
-            std::string anchor = state.ids.add_id(
-                detail::make_identifier(
-                    state.ids.compatibility_version() >= 106 ?
-                        content.get_quickbook() :
-                        state.ids.replace_placeholders_with_unresolved_ids(
-                            content.get_encoded())
-                ),
+            std::string anchor = state.document.add_id(
+                detail::make_identifier(content.get_quickbook()),
                 id_category::generated_heading);
 
             write_bridgehead(state, level,
                 content.get_encoded(), anchor, self_linked_headers);
         }
+        else
+        {
+            // Generate ids that are compatible with older versions of quickbook.
+
+            // Older versions of quickbook used the generated boostbook, but
+            // we only have an intermediate version which can contain id
+            // placeholders. So to generate the ids they must be replaced
+            // by the ids that the older versions would have used - i.e. the
+            // unresolved ids.
+            //
+            // Note that this doesn't affect the actual boostbook generated for
+            // the content, it's just used to generate this id.
+
+            std::string id = detail::make_identifier(
+                    state.document.replace_placeholders_with_unresolved_ids(
+                        content.get_encoded()));
+
+            if (generic || state.document.compatibility_version() >= 103) {
+                std::string anchor =
+                    state.document.add_id(id, id_category::generated_heading);
+
+                write_bridgehead(state, level,
+                    content.get_encoded(), anchor, self_linked_headers);
+            }
+            else {
+                std::string anchor =
+                    state.document.old_style_id(id, id_category::generated_heading);
+
+                write_bridgehead(state, level,
+                    content.get_encoded(), anchor, false);
+            }
+        }
     }
 
     void simple_phrase_action::operator()(char mark) const
     {
-        write_anchors(state, out);
+        write_anchors(state, state.phrase);
 
         int tag =
             mark == '*' ? phrase_tags::bold :
@@ -461,9 +523,9 @@ namespace quickbook
         value content = values.consume();
         values.finish();
 
-        out << markup.pre;
-        out << content.get_encoded();
-        out << markup.post;
+        state.phrase << markup.pre;
+        state.phrase << content.get_encoded();
+        state.phrase << markup.post;
     }
 
     bool cond_phrase_push::start()
@@ -474,14 +536,13 @@ namespace quickbook
 
         if (saved_conditional)
         {
-            string_ref macro1 = values.consume().get_quickbook();
+            boost::string_ref macro1 = values.consume().get_quickbook();
             std::string macro(macro1.begin(), macro1.end());
 
             state.conditional = find(state.macro, macro.c_str());
 
             if (!state.conditional) {
-                state.phrase.push();
-                state.out.push();
+                state.push_output();
                 state.anchors.swap(anchors);
             }
         }
@@ -493,38 +554,23 @@ namespace quickbook
     {
         if (saved_conditional && !state.conditional)
         {
-            state.phrase.pop();
-            state.out.pop();
+            state.pop_output();
             state.anchors.swap(anchors);
         }
 
         state.conditional = saved_conditional;
     }
 
-    namespace {
-        int indent_length(std::string const& indent)
-        {
-            int length = 0;
-            for(std::string::const_iterator
-                first = indent.begin(), end = indent.end(); first != end; ++first)
-            {
-                switch(*first) {
-                    case ' ': ++length; break;
-                    // hardcoded tab to 4 for now
-                    case '\t': length = ((length + 4) / 4) * 4; break;
-                    default: BOOST_ASSERT(false);
-                }
-            }
-            
-            return length;
-        }
-    }
-
     void state::start_list(char mark)
     {
-        write_anchors(*this, out);
+        push_tagged_source_mode(source_mode_next);
+        source_mode_next = 0;
+
+        write_anchors(*this, (in_list ? phrase : out));
         assert(mark == '*' || mark == '#');
+        push_output();
         out << ((mark == '#') ? "<orderedlist>\n" : "<itemizedlist>\n");
+        in_list = true;
     }
 
     void state::end_list(char mark)
@@ -532,23 +578,35 @@ namespace quickbook
         write_anchors(*this, out);
         assert(mark == '*' || mark == '#');
         out << ((mark == '#') ? "\n</orderedlist>" : "\n</itemizedlist>");
+
+        std::string list_output;
+        out.swap(list_output);
+
+        pop_output();
+
+        (in_list ? phrase : out) << list_output;
+
+        pop_tagged_source_mode();
     }
 
     void state::start_list_item()
     {
-        out << "<listitem><simpara>";
-        write_anchors(*this, out);
+        out << "<listitem>";
+        write_anchors(*this, phrase);
     }
 
     void state::end_list_item()
     {
-        write_anchors(*this, out);
-        out << "</simpara></listitem>";
+        write_anchors(*this, phrase);
+        paragraph_action para(*this);
+        para();
+        out << "</listitem>";
     }
 
     namespace
     {
-        bool parse_template(value const&, quickbook::state& state);
+        bool parse_template(value const&, quickbook::state& state,
+                bool is_attribute_template = false);
     }
 
     void state::start_callouts()
@@ -558,8 +616,8 @@ namespace quickbook
 
     std::string state::add_callout(value v)
     {
-        std::string callout_id1 = ids.add_id("c", id_category::numbered);
-        std::string callout_id2 = ids.add_id("c", id_category::numbered);
+        std::string callout_id1 = document.add_id("c", id_category::numbered);
+        std::string callout_id2 = document.add_id("c", id_category::numbered);
 
         callouts.insert(encoded_value(callout_id1));
         callouts.insert(encoded_value(callout_id2));
@@ -593,7 +651,7 @@ namespace quickbook
             std::string callout_value;
 
             {
-                template_state state(*this);
+                state_save save(*this, state_save::scope_all);
                 ++template_depth;
 
                 bool r = parse_template(callout_body, *this);
@@ -647,53 +705,53 @@ namespace quickbook
         value anchor_id = values.consume();
         // Note: anchor_id is never encoded as boostbook. If it
         // is encoded, it's just things like escapes.
-        add_anchor(state, anchor_id.is_encoded() ?
-            anchor_id.get_encoded() : anchor_id.get_quickbook());
+        add_anchor(state, validate_id(state, anchor_id));
         values.finish();
     }
 
     void do_macro_action::operator()(std::string const& str) const
     {
-        write_anchors(state, phrase);
+        write_anchors(state, state.phrase);
 
         if (str == quickbook_get_date)
         {
             char strdate[64];
             strftime(strdate, sizeof(strdate), "%Y-%b-%d", current_time);
-            phrase << strdate;
+            state.phrase << strdate;
         }
         else if (str == quickbook_get_time)
         {
             char strdate[64];
             strftime(strdate, sizeof(strdate), "%I:%M:%S %p", current_time);
-            phrase << strdate;
+            state.phrase << strdate;
         }
         else
         {
-            phrase << str;
+            state.phrase << str;
         }
     }
 
     void raw_char_action::operator()(char ch) const
     {
-        out << ch;
+        state.phrase << ch;
     }
 
     void raw_char_action::operator()(parse_iterator first, parse_iterator last) const
     {
         while (first != last)
-            out << *first++;
+            state.phrase << *first++;
     }
 
     void source_mode_action(quickbook::state& state, value source_mode)
     {
-        state.source_mode = source_mode_tags::name(source_mode.get_tag());
+        state.change_source_mode(source_mode.get_tag());
     }
 
     void next_source_mode_action(quickbook::state& state, value source_mode)
     {
         value_consumer values = source_mode;
-        state.source_mode_next = values.consume();
+        state.source_mode_next_pos = values.consume();
+        state.source_mode_next = values.consume().get_int();
         values.finish();
     }
 
@@ -702,16 +760,16 @@ namespace quickbook
         int code_tag = code_block.get_tag();
 
         value_consumer values = code_block;
-        string_ref code_value = values.consume().get_quickbook();
+        boost::string_ref code_value = values.consume().get_quickbook();
         values.finish();
 
         bool inline_code = code_tag == code_tags::inline_code ||
             (code_tag == code_tags::inline_code_block && qbk_version_n < 106u);
         bool block = code_tag != code_tags::inline_code;
 
-        std::string source_mode = state.source_mode_next.empty() ?
-            state.source_mode : state.source_mode_next.get_quickbook();
-        state.source_mode_next = value();
+        source_mode_type source_mode = state.source_mode_next ?
+            state.source_mode_next : state.current_source_mode().source_mode;
+        state.source_mode_next = 0;
 
         if (inline_code) {
             write_anchors(state, state.phrase);
@@ -726,68 +784,66 @@ namespace quickbook
             // preprocess the code section to remove the initial indentation
             mapped_file_builder mapped;
             mapped.start(state.current_file);
-            mapped.unindent_and_add(code_value.begin(), code_value.end());
+            mapped.unindent_and_add(code_value);
 
             file_ptr f = mapped.release();
 
-            if (f->source.empty())
+            if (f->source().empty())
                 return; // Nothing left to do here. The program is empty.
 
             if (qbk_version_n >= 107u) state.start_callouts();
 
-            parse_iterator first_(f->source.begin());
-            parse_iterator last_(f->source.end());
+            parse_iterator first_(f->source().begin());
+            parse_iterator last_(f->source().end());
 
             file_ptr saved_file = f;
             boost::swap(state.current_file, saved_file);
 
             // print the code with syntax coloring
-            std::string str = syntax_highlight(first_, last_, state,
-                source_mode, block);
+            //
+            // We must not place a \n after the <programlisting> tag
+            // otherwise PDF output starts code blocks with a blank line:
+            state.phrase << "<programlisting>";
+            syntax_highlight(first_, last_, state, source_mode, block);
+            state.phrase << "</programlisting>\n";
 
             boost::swap(state.current_file, saved_file);
 
-            collector& output = inline_code ? state.phrase : state.out;
+            if (qbk_version_n >= 107u) state.phrase << state.end_callouts();
 
-            // We must not place a \n after the <programlisting> tag
-            // otherwise PDF output starts code blocks with a blank line:
-            //
-            output << "<programlisting>";
-            output << str;
-            output << "</programlisting>\n";
-
-            if (qbk_version_n >= 107u) output << state.end_callouts();
+            if (!inline_code) {
+                state.out << state.phrase.str();
+                state.phrase.clear();
+            }
         }
         else {
             parse_iterator first_(code_value.begin());
             parse_iterator last_(code_value.end());
-            std::string str = syntax_highlight(first_, last_, state,
-                source_mode, block);
 
             state.phrase << "<code>";
-            state.phrase << str;
+            syntax_highlight(first_, last_, state, source_mode, block);
             state.phrase << "</code>";
         }
     }
 
     void plain_char_action::operator()(char ch) const
     {
-        write_anchors(state, phrase);
+        write_anchors(state, state.phrase);
 
-        detail::print_char(ch, phrase.get());
+        detail::print_char(ch, state.phrase.get());
     }
 
     void plain_char_action::operator()(parse_iterator first, parse_iterator last) const
     {
-        write_anchors(state, phrase);
+        write_anchors(state, state.phrase);
 
         while (first != last)
-            detail::print_char(*first++, phrase.get());
+            detail::print_char(*first++, state.phrase.get());
     }
 
     void escape_unicode_action::operator()(parse_iterator first, parse_iterator last) const
     {
-        write_anchors(state, phrase);
+        write_anchors(state, state.phrase);
 
         while(first != last && *first == '0') ++first;
 
@@ -799,10 +855,11 @@ namespace quickbook
         
         if(hex_digits.size() == 2 && *first > '0' && *first <= '7') {
             using namespace std;
-            detail::print_char(strtol(hex_digits.c_str(), 0, 16), phrase.get());
+            detail::print_char(strtol(hex_digits.c_str(), 0, 16),
+                    state.phrase.get());
         }
         else {
-            phrase << "&#x" << hex_digits << ";";
+            state.phrase << "&#x" << hex_digits << ";";
         }
     }
 
@@ -813,8 +870,8 @@ namespace quickbook
             detail::print_string(v.get_encoded(), out);
         }
         else {
-            std::string value = v.get_quickbook();
-            for(std::string::const_iterator
+            boost::string_ref value = v.get_quickbook();
+            for(boost::string_ref::const_iterator
                 first = value.begin(), last  = value.end();
                 first != last; ++first)
             {
@@ -841,8 +898,10 @@ namespace quickbook
             value_consumer pair = pair_;
             value name = pair.consume();
             value value = pair.consume();
+            std::string name_str(name.get_quickbook().begin(),
+                name.get_quickbook().end());
             pair.finish();
-            if(!attributes.insert(std::make_pair(name.get_quickbook(), value)).second)
+            if(!attributes.insert(std::make_pair(name_str, value)).second)
             {
                 detail::outwarn(name.get_file(), name.get_position())
                     << "Duplicate image attribute: "
@@ -860,7 +919,7 @@ namespace quickbook
         
         std::string fileref = attributes["fileref"].is_encoded() ?
             attributes["fileref"].get_encoded() :
-            attributes["fileref"].get_quickbook();
+            detail::to_s(attributes["fileref"].get_quickbook());
 
         // Check for windows paths, then convert.
         // A bit crude, but there you go.
@@ -937,7 +996,7 @@ namespace quickbook
            // Now load the SVG file:
            //
            std::string svg_text;
-           if (state.add_dependency(img)) {
+           if (state.dependencies.add_dependency(img)) {
               fs::ifstream fs(img);
               std::stringstream buffer;
               buffer << fs.rdbuf();
@@ -1006,7 +1065,7 @@ namespace quickbook
     void macro_definition_action(quickbook::state& state, quickbook::value macro_definition)
     {
         value_consumer values = macro_definition;
-        std::string macro_id = values.consume().get_quickbook();
+        std::string macro_id = detail::to_s(values.consume().get_quickbook());
         value phrase_value = values.optional_consume();
         std::string phrase;
         if (phrase_value.check()) phrase = phrase_value.get_encoded();
@@ -1035,11 +1094,11 @@ namespace quickbook
     void template_body_action(quickbook::state& state, quickbook::value template_definition)
     {
         value_consumer values = template_definition;
-        std::string identifier = values.consume().get_quickbook();
+        std::string identifier = detail::to_s(values.consume().get_quickbook());
 
         std::vector<std::string> template_values;
         BOOST_FOREACH(value const& p, values.consume()) {
-            template_values.push_back(p.get_quickbook());
+            template_values.push_back(detail::to_s(p.get_quickbook()));
         }
 
         BOOST_ASSERT(values.check(template_tags::block) || values.check(template_tags::phrase));
@@ -1202,20 +1261,23 @@ namespace quickbook
         bool parse_template(
             value const& content
           , quickbook::state& state
+          , bool is_attribute_template
         )
         {
             file_ptr saved_current_file = state.current_file;
 
             state.current_file = content.get_file();
-            string_ref source = content.get_quickbook();
+            boost::string_ref source = content.get_quickbook();
 
             parse_iterator first(source.begin());
             parse_iterator last(source.end());
 
             bool r = cl::parse(first, last,
+                    is_attribute_template ?
+                        state.grammar().attribute_template_body :
                     content.get_tag() == template_tags::phrase ?
                         state.grammar().inline_phrase :
-                        state.grammar().block
+                        state.grammar().block_start
                 ).full;
 
             boost::swap(state.current_file, saved_current_file);
@@ -1227,26 +1289,23 @@ namespace quickbook
     void call_template(quickbook::state& state,
             template_symbol const* symbol,
             std::vector<value> const& args,
-            string_iterator first)
+            string_iterator first,
+            bool is_attribute_template = false)
     {
         bool is_block = symbol->content.get_tag() != template_tags::phrase;
+        assert(!(is_attribute_template && is_block));
+
+        quickbook::paragraph_action paragraph_action(state);
+
+        // Finish off any existing paragraphs.
+        if (is_block) paragraph_action();
 
         // If this template contains already encoded text, then just
         // write it out, without going through any of the rigamarole.
 
         if (symbol->content.is_encoded())
         {
-            if (is_block)
-            {
-                paragraph_action para(state);
-                para();
-                state.out << symbol->content.get_encoded();
-            }
-            else
-            {
-                state.phrase << symbol->content.get_encoded();
-            }
-
+            (is_block ? state.out : state.phrase) << symbol->content.get_encoded();
             return;
         }
 
@@ -1257,11 +1316,11 @@ namespace quickbook
         // arguments are expanded.
         template_scope const& call_scope = state.templates.top_scope();
 
-        std::string block;
-        std::string phrase;
-
         {
-            template_state save(state);
+            state_save save(state, state_save::scope_callables);
+            std::string save_block;
+            std::string save_phrase;
+
             state.templates.start_template(symbol);
 
             qbk_version_n = symbol->content.get_file()->version();
@@ -1277,7 +1336,7 @@ namespace quickbook
 
             // Store the current section level so that we can ensure that
             // [section] and [endsect] tags in the template are balanced.
-            state.min_section_level = state.ids.section_level();
+            state.min_section_level = state.document.section_level();
 
             ///////////////////////////////////
             // Prepare the arguments as local templates
@@ -1294,22 +1353,26 @@ namespace quickbook
             ///////////////////////////////////
             // parse the template body:
 
-            if (!parse_template(symbol->content, state))
+            if (symbol->content.get_file()->version() < 107u) {
+                state.out.swap(save_block);
+                state.phrase.swap(save_phrase);
+            }
+
+            if (!parse_template(symbol->content, state, is_attribute_template))
             {
                 detail::outerr(state.current_file, first)
                     << "Expanding "
                     << (is_block ? "block" : "phrase")
-                    << " template: " << symbol->identifier << std::endl
-                    << std::endl
-                    << "------------------begin------------------" << std::endl
+                    << " template: " << symbol->identifier << "\n\n"
+                    << "------------------begin------------------\n"
                     << symbol->content.get_quickbook()
-                    << "------------------end--------------------" << std::endl
+                    << "------------------end--------------------\n"
                     << std::endl;
                 ++state.error_count;
                 return;
             }
 
-            if (state.ids.section_level() != state.min_section_level)
+            if (state.document.section_level() != state.min_section_level)
             {
                 detail::outerr(state.current_file, first)
                     << "Mismatched sections in template "
@@ -1319,19 +1382,24 @@ namespace quickbook
                 return;
             }
 
-            state.out.swap(block);
-            state.phrase.swap(phrase);
-        }
+            if (symbol->content.get_file()->version() < 107u) {
+                state.out.swap(save_block);
+                state.phrase.swap(save_phrase);
 
-        if(is_block || !block.empty()) {
-            paragraph_action para(state);
-            para(); // For paragraphs before the template call.
-            state.out << block;
-            state.phrase << phrase;
-            para();
-        }
-        else {
-            state.phrase << phrase;
+                if(is_block || !save_block.empty()) {
+                    paragraph_action();
+                    state.out << save_block;
+                    state.phrase << save_phrase;
+                    paragraph_action();
+                }
+                else {
+                    state.phrase << save_phrase;
+                }
+            }
+            else
+            {
+                if (is_block) paragraph_action();
+            }
         }
     }
 
@@ -1357,13 +1425,16 @@ namespace quickbook
     void do_template_action(quickbook::state& state, value template_list,
             string_iterator first)
     {
+        bool const is_attribute_template =
+            template_list.get_tag() == template_tags::attribute_template;
+
         // Get the arguments
         value_consumer values = template_list;
 
         bool template_escape = values.check(template_tags::escape);
         if(template_escape) values.consume();
 
-        std::string identifier = values.consume(template_tags::identifier).get_quickbook();
+        std::string identifier = detail::to_s(values.consume(template_tags::identifier).get_quickbook());
 
         std::vector<value> args;
 
@@ -1419,6 +1490,20 @@ namespace quickbook
         }
 
         ///////////////////////////////////
+        // Check that attribute templates are phrase templates
+
+        if (is_attribute_template &&
+                symbol->content.get_tag() != template_tags::phrase)
+        {
+            detail::outerr(state.current_file, first)
+                << "Only phrase templates can be used in attribute values."
+                << std::endl;
+
+            ++state.error_count;
+            return;
+        }
+
+        ///////////////////////////////////
         // Initialise the arguments
 
         switch(symbol->content.get_tag())
@@ -1443,7 +1528,7 @@ namespace quickbook
                 return;
             }
 
-            call_template(state, symbol, args, first);
+            call_template(state, symbol, args, first, is_attribute_template);
             break;
 
         case template_tags::snippet:
@@ -1477,10 +1562,19 @@ namespace quickbook
         value content = values.consume();
         values.finish();
 
-        // Note: dst is never actually encoded as boostbook, which
-        // is why the result is called with 'print_string' later.
-        std::string dst = dst_value.is_encoded() ?
-            dst_value.get_encoded() : dst_value.get_quickbook();
+        std::string dst;
+
+        if (link.get_tag() == phrase_tags::link) {
+            dst = validate_id(state, dst_value);
+        }
+        else {
+            dst = get_attribute_value(state, dst_value);
+
+            // TODO: Might be better to have an error for some invalid urls.
+            if (link.get_tag() == phrase_tags::url) {
+                dst = detail::partially_escape_uri(dst);
+            }
+        } 
         
         state.phrase << markup.pre;
         detail::print_string(dst, state.phrase.get());
@@ -1499,7 +1593,7 @@ namespace quickbook
         write_anchors(state, state.out);
 
         value_consumer values = variable_list;
-        std::string title = values.consume(table_tags::title).get_quickbook();
+        std::string title = detail::to_s(values.consume(table_tags::title).get_quickbook());
 
         state.out << "<variablelist>\n";
 
@@ -1537,8 +1631,9 @@ namespace quickbook
         value_consumer values = table;
 
         std::string element_id;
-        if(values.check(general_tags::element_id))
-            element_id = values.consume().get_quickbook();
+        if(values.check(general_tags::element_id)) {
+            element_id = validate_id(state, values.consume());
+        }
 
         value title = values.consume(table_tags::title);
         bool has_title = !title.empty();
@@ -1546,14 +1641,14 @@ namespace quickbook
         std::string table_id;
 
         if (!element_id.empty()) {
-            table_id = state.ids.add_id(element_id, id_category::explicit_id);
+            table_id = state.document.add_id(element_id, id_category::explicit_id);
         }
         else if (has_title) {
-            if (state.ids.compatibility_version() >= 105) {
-                table_id = state.ids.add_id(detail::make_identifier(title.get_quickbook()), id_category::generated);
+            if (state.document.compatibility_version() >= 105) {
+                table_id = state.document.add_id(detail::make_identifier(title.get_quickbook()), id_category::generated);
             }
             else {
-                table_id = state.ids.add_id("t", id_category::numbered);
+                table_id = state.document.add_id("t", id_category::numbered);
             }
         }
 
@@ -1636,20 +1731,21 @@ namespace quickbook
         value content = values.consume();
         values.finish();
 
-        std::string full_id = state.ids.begin_section(
-            !element_id.empty() ?
-                element_id.get_quickbook() :
-                detail::make_identifier(content.get_quickbook()),
-            !element_id.empty() ?
-                id_category::explicit_section_id :
-                id_category::generated_section);
+        std::string full_id = state.document.begin_section(
+            element_id.empty() ?
+                detail::make_identifier(content.get_quickbook()) :
+                validate_id(state, element_id),
+            element_id.empty() ?
+                id_category::generated_section :
+                id_category::explicit_section_id,
+            state.current_source_mode());
 
         state.out << "\n<section id=\"" << full_id << "\">\n";
         state.out << "<title>";
 
         write_anchors(state, state.out);
 
-        if (self_linked_headers && state.ids.compatibility_version() >= 103)
+        if (self_linked_headers && state.document.compatibility_version() >= 103)
         {
             state.out << "<link linkend=\"" << full_id << "\">"
                 << content.get_encoded()
@@ -1668,7 +1764,7 @@ namespace quickbook
     {
         write_anchors(state, state.out);
 
-        if (state.ids.section_level() <= state.min_section_level)
+        if (state.document.section_level() <= state.min_section_level)
         {
             file_position const pos = state.current_file->position_of(first);
 
@@ -1680,7 +1776,7 @@ namespace quickbook
         }
 
         state.out << "</section>";
-        state.ids.end_section();
+        state.document.end_section();
     }
     
     void element_id_warning_action::operator()(parse_iterator first, parse_iterator) const
@@ -1763,71 +1859,49 @@ namespace quickbook
         return result;
     }
 
-    struct path_details {
-        // Will possibly add 'url' and 'glob' to this list later:
-        enum path_type { path };
-
-        std::string value;
-        path_type type;
-
-        path_details(std::string const& value, path_type type) :
-            value(value), type(type)
-        {
-        }
-    };
-
-    path_details check_path(value const& path, quickbook::state& state)
-    {
-        // Paths are encoded for quickbook 1.6+ and also xmlbase
-        // values (technically xmlbase is a 1.6 feature, but that
-        // isn't enforced as it's backwards compatible).
-        //
-        // Counter-intuitively: encoded == plain text here.
-
-        std::string path_text = qbk_version_n >= 106u || path.is_encoded() ?
-                path.get_encoded() : path.get_quickbook();
-
-        if(path_text.find('\\') != std::string::npos)
-        {
-            quickbook::detail::ostream* err;
-
-            if (qbk_version_n >= 106u) {
-                err = &detail::outerr(path.get_file(), path.get_position());
-                ++state.error_count;
-            }
-            else {
-                err = &detail::outwarn(path.get_file(), path.get_position());
-            }
-
-            *err << "Path isn't portable: '"
-                << path_text
-                << "'"
-                << std::endl;
-
-            boost::replace(path_text, '\\', '/');
-        }
-
-        return path_details(path_text, path_details::path);
-    }
-
     xinclude_path calculate_xinclude_path(value const& p, quickbook::state& state)
     {
-        path_details details = check_path(p, state);
+        path_parameter parameter = check_path(p, state);
 
-        fs::path path = detail::generic_to_path(details.value);
-        fs::path full_path = path;
+        switch (parameter.type) {
+            case path_parameter::glob:
+                // TODO: Should know if this is an xinclude or an xmlbase.
+                // Would also help with implementation of 'check_path'.
+                detail::outerr(p.get_file(), p.get_position())
+                    << "Glob used in xinclude/xmlbase."
+                    << std::endl;
+                ++state.error_count;
+                break;
 
-        // If the path is relative
-        if (!path.has_root_directory())
-        {
-            // Resolve the path from the current file
-            full_path = state.current_file->path.parent_path() / path;
+            case path_parameter::invalid:
+                // There should have already been an error message in this case.
+                break;
 
-            // Then calculate relative to the current xinclude_base.
-            path = path_difference(state.xinclude_base, full_path);
+            case path_parameter::path:
+            {
+                fs::path path = detail::generic_to_path(parameter.value);
+                fs::path full_path = path;
+
+                // If the path is relative
+                if (!path.has_root_directory())
+                {
+                    // Resolve the path from the current file
+                    full_path = state.current_file->path.parent_path() / path;
+
+                    // Then calculate relative to the current xinclude_base.
+                    path = path_difference(state.xinclude_base, full_path);
+                }
+
+                return xinclude_path(full_path,
+                        detail::escape_uri(detail::path_to_generic(path)));
+            }
+
+            default:
+                assert(false);
         }
 
-        return xinclude_path(full_path, detail::escape_uri(detail::path_to_generic(path)));
+        // If we didn't find a path, just use this:
+        return xinclude_path(state.current_file->path.parent_path(), "");
     }
 
     void xinclude_action(quickbook::state& state, value xinclude)
@@ -1843,77 +1917,8 @@ namespace quickbook
         state.out << "\" />\n";
     }
 
-    namespace
-    {
-        struct include_search_return
-        {
-            include_search_return(fs::path const& x, fs::path const& y)
-                : filename(x), filename_relative(y) {}
-
-            fs::path filename;
-            fs::path filename_relative;
-
-            bool operator < (include_search_return const & other) const
-            {
-                if (filename_relative < other.filename_relative) return true;
-                else if (other.filename_relative < filename_relative) return false;
-                else return filename < other.filename;
-            }
-        };
-
-        std::set<include_search_return> include_search(path_details const& details,
-                quickbook::state& state, string_iterator pos)
-        {
-            std::set<include_search_return> result;
-
-            fs::path path = detail::generic_to_path(details.value);
-
-            // If the path is relative, try and resolve it.
-            if (!path.has_root_directory() && !path.has_root_name())
-            {
-                fs::path local_path =
-                    state.current_file->path.parent_path() / path;
-
-                // See if it can be found locally first.
-                if (state.add_dependency(local_path))
-                {
-                    result.insert(include_search_return(
-                        local_path,
-                        state.filename_relative.parent_path() / path));
-                    return result;
-                }
-
-                BOOST_FOREACH(fs::path full, include_path)
-                {
-                    full /= path;
-
-                    if (state.add_dependency(full))
-                    {
-                        result.insert(include_search_return(full, path));
-                        return result;
-                    }
-                }
-            }
-            else
-            {
-                if (state.add_dependency(path)) {
-                    result.insert(include_search_return(path, path));
-                    return result;
-                }
-            }
-
-            detail::outerr(state.current_file, pos)
-                << "Unable to find file: "
-                << details.value
-                << std::endl;
-            ++state.error_count;
-
-            return result;
-        }
-    }
-    
     void load_quickbook(quickbook::state& state,
-            include_search_return const& paths,
+            quickbook_path const& path,
             value::tag_type load_type,
             value const& include_doc_id = value())
     {
@@ -1931,18 +1936,17 @@ namespace quickbook
             //
             // For old versions of quickbook, templates aren't scoped by the
             // file.
-            file_state save(state,
-                load_type == block_tags::import ? file_state::scope_output :
-                qbk_version_n >= 106u ? file_state::scope_callables :
-                file_state::scope_macros);
+            state_save save(state,
+                load_type == block_tags::import ? state_save::scope_output :
+                qbk_version_n >= 106u ? state_save::scope_callables :
+                state_save::scope_macros);
 
-            state.current_file = load(paths.filename); // Throws load_error
-            state.filename_relative = paths.filename_relative;
+            state.current_file = load(path.file_path); // Throws load_error
+            state.current_path = path;
             state.imported = (load_type == block_tags::import);
 
             // update the __FILENAME__ macro
-            *boost::spirit::classic::find(state.macro, "__FILENAME__")
-                = detail::path_to_generic(state.filename_relative);
+            state.update_filename_macro();
         
             // parse the file
             quickbook::parse_file(state, include_doc_id, true);
@@ -1952,12 +1956,11 @@ namespace quickbook
         }
 
         // restore the __FILENAME__ macro
-        *boost::spirit::classic::find(state.macro, "__FILENAME__")
-            = detail::path_to_generic(state.filename_relative);
+        state.update_filename_macro();
     }
 
     void load_source_file(quickbook::state& state,
-            include_search_return const& paths,
+            quickbook_path const& path,
             value::tag_type load_type,
             string_iterator first,
             value const& include_doc_id = value())
@@ -1965,11 +1968,11 @@ namespace quickbook
         assert(load_type == block_tags::include ||
             load_type == block_tags::import);
 
-        std::string ext = paths.filename.extension().generic_string();
+        std::string ext = path.file_path.extension().generic_string();
         std::vector<template_symbol> storage;
         // Throws load_error
         state.error_count +=
-            load_snippets(paths.filename, storage, ext, load_type);
+            load_snippets(path.file_path, storage, ext, load_type);
 
         if (load_type == block_tags::include)
         {
@@ -2014,41 +2017,42 @@ namespace quickbook
 
         value_consumer values = include;
         value include_doc_id = values.optional_consume(general_tags::include_id);
-        path_details details = check_path(values.consume(), state);
+        path_parameter parameter = check_path(values.consume(), state);
         values.finish();
 
-        std::set<include_search_return> search = include_search(details, state, first);
-        std::set<include_search_return>::iterator i = search.begin();
-        std::set<include_search_return>::iterator e = search.end();
+        std::set<quickbook_path> search =
+            include_search(parameter, state, first);
+        std::set<quickbook_path>::iterator i = search.begin();
+        std::set<quickbook_path>::iterator e = search.end();
         for (; i != e; ++i)
         {
-            include_search_return const & paths = *i;
+            quickbook_path const & path = *i;
             try {
                 if (qbk_version_n >= 106)
                 {
                     if (state.imported && include.get_tag() == block_tags::include)
                         return;
 
-                    std::string ext = paths.filename.extension().generic_string();
+                    std::string ext = path.file_path.extension().generic_string();
 
                     if (ext == ".qbk" || ext == ".quickbook")
                     {
-                        load_quickbook(state, paths, include.get_tag(), include_doc_id);
+                        load_quickbook(state, path, include.get_tag(), include_doc_id);
                     }
                     else
                     {
-                        load_source_file(state, paths, include.get_tag(), first, include_doc_id);
+                        load_source_file(state, path, include.get_tag(), first, include_doc_id);
                     }
                 }
                 else
                 {
                     if (include.get_tag() == block_tags::include)
                     {
-                        load_quickbook(state, paths, include.get_tag(), include_doc_id);
+                        load_quickbook(state, path, include.get_tag(), include_doc_id);
                     }
                     else
                     {
-                        load_source_file(state, paths, include.get_tag(), first, include_doc_id);
+                        load_source_file(state, path, include.get_tag(), first, include_doc_id);
                     }
                 }
             }
@@ -2057,7 +2061,7 @@ namespace quickbook
 
                 detail::outerr(state.current_file, first)
                     << "Loading file "
-                    << paths.filename
+                    << path.file_path
                     << ": "
                     << e.what()
                     << std::endl;
@@ -2067,8 +2071,7 @@ namespace quickbook
 
     bool to_value_scoped_action::start(value::tag_type t)
     {
-        state.out.push();
-        state.phrase.push();
+        state.push_output();
         state.anchors.swap(saved_anchors);
         tag = t;
 
@@ -2099,8 +2102,7 @@ namespace quickbook
     
     void to_value_scoped_action::cleanup()
     {
-        state.phrase.pop();
-        state.out.pop();
+        state.pop_output();
         state.anchors.swap(saved_anchors);
     }
 }

@@ -1,6 +1,6 @@
 /* Boost.MultiIndex test for projection capabilities.
  *
- * Copyright 2003-2008 Joaquin M Lopez Munoz.
+ * Copyright 2003-2013 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -13,7 +13,7 @@
 #include <boost/config.hpp> /* keep it first to prevent nasty warns in MSVC */
 #include "pre_multi_index.hpp"
 #include "employee.hpp"
-#include <boost/test/test_tools.hpp>
+#include <boost/detail/lightweight_test.hpp>
 
 using namespace boost::multi_index;
 
@@ -70,14 +70,14 @@ void test_projection()
   itbis=es.project<0>(it5);
 #endif
 
-  BOOST_CHECK(
+  BOOST_TEST(
     *it==*it1&&*it1==*it2&&*it2==*it3&&*it3==*it4&&*it4==*it5&&itbis==it);
 
-  BOOST_CHECK(project<name>(es,es.end())==get<name>(es).end());
-  BOOST_CHECK(project<age>(es,es.end())==get<age>(es).end());
-  BOOST_CHECK(project<as_inserted>(es,es.end())==get<as_inserted>(es).end());
-  BOOST_CHECK(project<ssn>(es,es.end())==get<ssn>(es).end());
-  BOOST_CHECK(project<randomly>(es,es.end())==get<randomly>(es).end());
+  BOOST_TEST(project<name>(es,es.end())==get<name>(es).end());
+  BOOST_TEST(project<age>(es,es.end())==get<age>(es).end());
+  BOOST_TEST(project<as_inserted>(es,es.end())==get<as_inserted>(es).end());
+  BOOST_TEST(project<ssn>(es,es.end())==get<ssn>(es).end());
+  BOOST_TEST(project<randomly>(es,es.end())==get<randomly>(es).end());
 
   const employee_set& ces=es;
 
@@ -129,7 +129,7 @@ void test_projection()
   cit5=  project<randomly>(ces,cit4);
   citbis=project<0>(ces,cit5);
 
-  BOOST_CHECK(
+  BOOST_TEST(
     *cit==*cit1&&*cit1==*cit2&&*cit2==*cit3&&*cit3==*cit4&&*cit4==*cit5&&
     citbis==cit);
 }

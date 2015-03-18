@@ -18,7 +18,7 @@
 
 // shared_lock& operator=(shared_lock const&) = delete;
 
-#include <boost/thread/locks.hpp>
+#include <boost/thread/lock_types.hpp>
 #include <boost/thread/shared_mutex.hpp>
 #include <boost/detail/lightweight_test.hpp>
 

@@ -11,7 +11,7 @@
 #include <boost/detail/workaround.hpp>
 
 #if BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x564))
-#  pragma warn -8091 // supress warning in Boost.Test
+#  pragma warn -8091 // suppress warning in Boost.Test
 #  pragma warn -8057 // unused argument argc/argv in Boost.Test
 #endif
 
@@ -63,18 +63,24 @@ void check_iterator_pair()
     BOOST_CHECK( boost::begin( pair ) == pair.first );
     BOOST_CHECK( boost::end( pair )   == pair.second );
     BOOST_CHECK( boost::empty( pair ) == (pair.first == pair.second) );
-    BOOST_CHECK( boost::size( pair )  == std::distance( pair.first, pair.second ) );
+    BOOST_CHECK( boost::size( pair )  ==
+                    static_cast<std::size_t>(
+                        std::distance(pair.first, pair.second)) );
 
     BOOST_CHECK( boost::begin( const_pair ) == const_pair.first );
     BOOST_CHECK( boost::end( const_pair )   == const_pair.second );
     BOOST_CHECK( boost::empty( const_pair ) == (const_pair.first == const_pair.second) );
-    BOOST_CHECK( boost::size( const_pair )  == std::distance( const_pair.first, const_pair.second ) );
+    BOOST_CHECK( boost::size( const_pair )  ==
+                    static_cast<std::size_t>(
+                        std::distance(const_pair.first, const_pair.second)) );
 
     BOOST_CHECK( boost::begin( constness_pair ) == constness_pair.first );
     BOOST_CHECK( boost::end( constness_pair )   == constness_pair.second );
     BOOST_CHECK( boost::empty( constness_pair ) == (constness_pair.first == const_pair.second) );
-    BOOST_CHECK( boost::size( constness_pair )  == std::distance( constness_pair.first, constness_pair.second ) );
-
+    BOOST_CHECK( boost::size( constness_pair )  ==
+                    static_cast<std::size_t>(
+                        std::distance(constness_pair.first,
+                                      constness_pair.second)) );
 }
 
 

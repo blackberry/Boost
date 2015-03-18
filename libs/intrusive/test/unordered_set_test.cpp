@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 //
 // (C) Copyright Olaf Krzikalla 2004-2006.
-// (C) Copyright Ion Gaztanaga  2006-2012.
+// (C) Copyright Ion Gaztanaga  2006-2013.
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -10,7 +10,6 @@
 // See http://www.boost.org/libs/intrusive for documentation.
 //
 /////////////////////////////////////////////////////////////////////////////
-#include <boost/intrusive/detail/config_begin.hpp>
 #include <boost/intrusive/unordered_set.hpp>
 #include <boost/intrusive/pointer_traits.hpp>
 #include "itestvalue.hpp"
@@ -66,6 +65,9 @@ struct hooks
       , store_hash<true>
       , optimize_multikey<true>
       >                                                           auto_member_hook_type;
+   typedef nonhook_node_member< unordered_node_traits< VoidPointer, true, true >,
+                                unordered_algorithms
+                              > nonhook_node_member_type;
 };
 
 static const std::size_t BucketSize = 8;
@@ -355,24 +357,6 @@ void test_unordered_set<ValueTraits, CacheBegin, CompareHash, Incremental>::
    {  int init_values [] = { 1, 2, 3, 4, 5 };
    TEST_INTRUSIVE_SEQUENCE( init_values, testset1.begin() );  }
 
-   //This incremental rehash should success because the new size is twice the original
-   //and split_count is the same as the old bucket count
-   BOOST_TEST(testset1.incremental_rehash(bucket_traits(
-      pointer_traits<typename unordered_set_type::bucket_ptr>::
-         pointer_to(buckets1[0]), BucketSize*2)) == true);
-   BOOST_TEST(testset1.split_count() == BucketSize);
-   {  int init_values [] = { 1, 2, 3, 4, 5 };
-   TEST_INTRUSIVE_SEQUENCE( init_values, testset1.begin() );  }
-
-   //This incremental rehash should also success because the new size is half the original
-   //and split_count is the same as the new bucket count
-   BOOST_TEST(testset1.incremental_rehash(bucket_traits(
-      pointer_traits<typename unordered_set_type::bucket_ptr>::
-         pointer_to(buckets1[0]), BucketSize)) == true);
-   BOOST_TEST(testset1.split_count() == BucketSize);
-   {  int init_values [] = { 1, 2, 3, 4, 5 };
-   TEST_INTRUSIVE_SEQUENCE( init_values, testset1.begin() );  }
-
    //
    //Try incremental hashing specifying a new bucket traits pointing to the same array
    //
@@ -647,8 +631,7 @@ class test_main_template
                 , incremental
                 >::test_all(data);
       test_unordered_set < typename detail::get_member_value_traits
-                  < value_type
-                  , member_hook< value_type
+                  < member_hook< value_type
                                , typename hooks<VoidPointer>::member_hook_type
                                , &value_type::node_
                                >
@@ -657,6 +640,15 @@ class test_main_template
                 , false
                 , incremental
                 >::test_all(data);
+      test_unordered_set < nonhook_node_member_value_traits< value_type,
+                                                             typename hooks<VoidPointer>::nonhook_node_member_type,
+                                                             &value_type::nhn_member_,
+                                                             safe_link
+                                                           >,
+                           false,
+                           false,
+                           incremental
+                         >::test_all(data);
 
       return 0;
    }
@@ -684,8 +676,7 @@ class test_main_template<VoidPointer, false, incremental>
                 >::test_all(data);
 
       test_unordered_set < typename detail::get_member_value_traits
-                  < value_type
-                  , member_hook< value_type
+                  < member_hook< value_type
                                , typename hooks<VoidPointer>::member_hook_type
                                , &value_type::node_
                                >
@@ -705,8 +696,7 @@ class test_main_template<VoidPointer, false, incremental>
                 >::test_all(data);
 
       test_unordered_set < typename detail::get_member_value_traits
-                  < value_type
-                  , member_hook< value_type
+                  < member_hook< value_type
                                , typename hooks<VoidPointer>::auto_member_hook_type
                                , &value_type::auto_node_
                                >
@@ -719,7 +709,7 @@ class test_main_template<VoidPointer, false, incremental>
    }
 };
 
-int main( int, char* [] )
+int main()
 {
    test_main_template<void*, false, true>()();
    test_main_template<smart_ptr<void>, false, true>()();
@@ -731,4 +721,3 @@ int main( int, char* [] )
    test_main_template<smart_ptr<void>, true, false>()();
    return boost::report_errors();
 }
-#include <boost/intrusive/detail/config_end.hpp>

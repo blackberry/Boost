@@ -6,7 +6,7 @@
 // Home at http://www.boost.org/libs/local_function
 
 #include <boost/config.hpp>
-#ifndef BOOST_NO_AUTO_DECLARATIONS
+#ifndef BOOST_NO_CXX11_AUTO_DECLARATIONS
 #   error "auto-declarations not allowed (using `auto` as storage classifier)"
 #else
 

@@ -1,6 +1,6 @@
 /* Boost.MultiIndex serialization tests template.
  *
- * Copyright 2003-2008 Joaquin M Lopez Munoz.
+ * Copyright 2003-2013 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -11,10 +11,10 @@
 #include <boost/config.hpp> /* keep it first to prevent nasty warns in MSVC */
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
+#include <boost/detail/lightweight_test.hpp>
 #include <boost/mpl/size.hpp>
 #include "pre_multi_index.hpp"
 #include <boost/multi_index_container.hpp>
-#include <boost/test/test_tools.hpp>
 #include <string>
 #include <sstream>
 #include <vector>
@@ -79,27 +79,27 @@ void test_serialization(const MultiIndexContainer& m)
   std::istringstream iss(oss.str());
   boost::archive::text_iarchive ia(iss);
   ia>>m2;
-  BOOST_CHECK(all_indices_equal(m,m2));
+  BOOST_TEST(all_indices_equal(m,m2));
 
   iterator it_end=m2.end();
   for(iterator it=m2.begin();it!=it_end;++it){
     iterator it2;
     ia>>it2;
-    BOOST_CHECK(it==it2);
+    BOOST_TEST(it==it2);
 
     /* exercise safe mode with this (unchecked) iterator */
-    BOOST_CHECK(*it==*it2);
+    BOOST_TEST(*it==*it2);
     m2.erase(it,it2);
     m2.erase(it2,it2);
     m2.erase(it2,it);
     iterator it3(++it2);
     iterator it4;
     it4=--it2;
-    BOOST_CHECK(it==it4);
-    BOOST_CHECK(it==boost::multi_index::project<0>(m2,it4));
+    BOOST_TEST(it==it4);
+    BOOST_TEST(it==boost::multi_index::project<0>(m2,it4));
   }
   iterator it2;
   ia>>it2;
-  BOOST_CHECK(it_end==it2);
-  BOOST_CHECK(it_end==boost::multi_index::project<0>(m2,it2));
+  BOOST_TEST(it_end==it2);
+  BOOST_TEST(it_end==boost::multi_index::project<0>(m2,it2));
 }

@@ -11,9 +11,11 @@
 #ifndef BOOST_MOVE_TEST_COPYMOVABLE_HPP
 #define BOOST_MOVE_TEST_COPYMOVABLE_HPP
 
-//[movable_definition 
-//header file "copy_movable.hpp"
-#include <boost/move/move.hpp>
+#include <boost/move/detail/config_begin.hpp>
+
+//[copy_movable_definition 
+//header file "copymovable.hpp"
+#include <boost/move/core.hpp>
 
 //A copy_movable class
 class copy_movable
@@ -41,6 +43,22 @@ class copy_movable
    {  return value_ == 0; }
 };
 
+//A copyable-only class
+class copyable
+{};
+
+//A copyable-only class
+class non_copy_movable
+{
+   public:
+   non_copy_movable(){}
+   private:
+   non_copy_movable(const non_copy_movable&);
+   non_copy_movable& operator=(const non_copy_movable&);
+};
+
 //]
+
+#include <boost/move/detail/config_end.hpp>
 
 #endif //BOOST_MOVE_TEST_COPYMOVABLE_HPP

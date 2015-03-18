@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>strategy::transform::scale_transformer</title>
 <link rel="stylesheet" href="../../../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Geometry">
 <link rel="up" href="../strategies.html" title="Strategies">
 <link rel="prev" href="strategy_transform_rotate_transformer.html" title="strategy::transform::rotate_transformer">
@@ -27,23 +27,23 @@
 <a name="geometry.reference.strategies.strategy_transform_scale_transformer"></a><a class="link" href="strategy_transform_scale_transformer.html" title="strategy::transform::scale_transformer">strategy::transform::scale_transformer</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="id971369"></a><a class="indexterm" name="id971374"></a><a class="indexterm" name="id971379"></a>
+          <a class="indexterm" name="idp136159648"></a><a class="indexterm" name="idp136160336"></a><a class="indexterm" name="idp136161024"></a>
 Strategy of scale transformation in Cartesian system.
         </p>
 <h6>
 <a name="geometry.reference.strategies.strategy_transform_scale_transformer.h0"></a>
-          <span><a name="geometry.reference.strategies.strategy_transform_scale_transformer.description"></a></span><a class="link" href="strategy_transform_scale_transformer.html#geometry.reference.strategies.strategy_transform_scale_transformer.description">Description</a>
+          <span class="phrase"><a name="geometry.reference.strategies.strategy_transform_scale_transformer.description"></a></span><a class="link" href="strategy_transform_scale_transformer.html#geometry.reference.strategies.strategy_transform_scale_transformer.description">Description</a>
         </h6>
 <p>
           Scale scales a geometry up or down in all its dimensions.
         </p>
 <h6>
 <a name="geometry.reference.strategies.strategy_transform_scale_transformer.h1"></a>
-          <span><a name="geometry.reference.strategies.strategy_transform_scale_transformer.synopsis"></a></span><a class="link" href="strategy_transform_scale_transformer.html#geometry.reference.strategies.strategy_transform_scale_transformer.synopsis">Synopsis</a>
+          <span class="phrase"><a name="geometry.reference.strategies.strategy_transform_scale_transformer.synopsis"></a></span><a class="link" href="strategy_transform_scale_transformer.html#geometry.reference.strategies.strategy_transform_scale_transformer.synopsis">Synopsis</a>
         </h6>
 <p>
 </p>
-<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">P1</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">P2</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">Dimension1</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">Dimension2</span><span class="special">&gt;</span>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">CalculationType</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">Dimension1</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">Dimension2</span><span class="special">&gt;</span>
 <span class="keyword">class</span> <span class="identifier">strategy</span><span class="special">::</span><span class="identifier">transform</span><span class="special">::</span><span class="identifier">scale_transformer</span>
 <span class="special">{</span>
   <span class="comment">// ...</span>
@@ -53,12 +53,11 @@ Strategy of scale transformation in Cartesian system.
         </p>
 <h6>
 <a name="geometry.reference.strategies.strategy_transform_scale_transformer.h2"></a>
-          <span><a name="geometry.reference.strategies.strategy_transform_scale_transformer.template_parameter_s_"></a></span><a class="link" href="strategy_transform_scale_transformer.html#geometry.reference.strategies.strategy_transform_scale_transformer.template_parameter_s_">Template
+          <span class="phrase"><a name="geometry.reference.strategies.strategy_transform_scale_transformer.template_parameter_s_"></a></span><a class="link" href="strategy_transform_scale_transformer.html#geometry.reference.strategies.strategy_transform_scale_transformer.template_parameter_s_">Template
           parameter(s)</a>
         </h6>
 <div class="informaltable"><table class="table">
 <colgroup>
-<col>
 <col>
 <col>
 </colgroup>
@@ -66,11 +65,6 @@ Strategy of scale transformation in Cartesian system.
 <th>
                   <p>
                     Parameter
-                  </p>
-                </th>
-<th>
-                  <p>
-                    Default
                   </p>
                 </th>
 <th>
@@ -83,32 +77,10 @@ Strategy of scale transformation in Cartesian system.
 <tr>
 <td>
                   <p>
-                    typename P1
+                    typename CalculationType
                   </p>
                 </td>
 <td>
-                </td>
-<td>
-                  <p>
-                    first point type
-                  </p>
-                </td>
-</tr>
-<tr>
-<td>
-                  <p>
-                    typename P2
-                  </p>
-                </td>
-<td>
-                  <p>
-                    P1
-                  </p>
-                </td>
-<td>
-                  <p>
-                    second point type
-                  </p>
                 </td>
 </tr>
 <tr>
@@ -119,12 +91,7 @@ Strategy of scale transformation in Cartesian system.
                 </td>
 <td>
                   <p>
-                    geometry::dimension&lt;P1&gt;::type::value
-                  </p>
-                </td>
-<td>
-                  <p>
-                    number of dimensions to transform to second point
+                    number of dimensions to transform from
                   </p>
                 </td>
 </tr>
@@ -136,17 +103,15 @@ Strategy of scale transformation in Cartesian system.
                 </td>
 <td>
                   <p>
-                    geometry::dimension&lt;P2&gt;::type::value
+                    number of dimensions to transform to
                   </p>
-                </td>
-<td>
                 </td>
 </tr>
 </tbody>
 </table></div>
 <h6>
 <a name="geometry.reference.strategies.strategy_transform_scale_transformer.h3"></a>
-          <span><a name="geometry.reference.strategies.strategy_transform_scale_transformer.header"></a></span><a class="link" href="strategy_transform_scale_transformer.html#geometry.reference.strategies.strategy_transform_scale_transformer.header">Header</a>
+          <span class="phrase"><a name="geometry.reference.strategies.strategy_transform_scale_transformer.header"></a></span><a class="link" href="strategy_transform_scale_transformer.html#geometry.reference.strategies.strategy_transform_scale_transformer.header">Header</a>
         </h6>
 <p>
           <code class="computeroutput"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">/</span><span class="identifier">strategies</span><span class="special">/</span><span class="identifier">transform</span><span class="special">/</span><span class="identifier">matrix_transformers</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>
@@ -154,8 +119,8 @@ Strategy of scale transformation in Cartesian system.
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2009-2012 Barend
-      Gehrels, Bruno Lalande, Mateusz Loskot<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2009-2014 Barend Gehrels, Bruno Lalande, Mateusz Loskot, Adam
+      Wulkiewicz, Oracle and/or its affiliates<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

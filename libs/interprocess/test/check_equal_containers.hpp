@@ -24,7 +24,7 @@ namespace test{
 template< class T1, class T2>
 bool CheckEqual( const T1 &t1, const T2 &t2
                , typename boost::container::container_detail::enable_if_c
-                  <!boost::container::container_detail::is_pair<T1>::value && 
+                  <!boost::container::container_detail::is_pair<T1>::value &&
                    !boost::container::container_detail::is_pair<T2>::value
                   >::type* = 0)
 {  return t1 == t2;  }
@@ -32,7 +32,7 @@ bool CheckEqual( const T1 &t1, const T2 &t2
 template< class Pair1, class Pair2>
 bool CheckEqual( const Pair1 &pair1, const Pair2 &pair2
                , typename boost::container::container_detail::enable_if_c
-                  <boost::container::container_detail::is_pair<Pair1>::value && 
+                  <boost::container::container_detail::is_pair<Pair1>::value &&
                    boost::container::container_detail::is_pair<Pair2>::value
                   >::type* = 0)
 {
@@ -47,8 +47,6 @@ bool CheckEqualContainers(MyShmCont *shmcont, MyStdCont *stdcont)
 {
    if(shmcont->size() != stdcont->size())
       return false;
-
-   typedef typename MyShmCont::value_type value_type;
 
    typename MyShmCont::iterator itshm(shmcont->begin()), itshmend(shmcont->end());
    typename MyStdCont::iterator itstd(stdcont->begin());

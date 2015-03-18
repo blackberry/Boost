@@ -5,7 +5,7 @@
 
 #include "./config.hpp"
 
-#define HASH_NAMESPACE boost
+#define BOOST_HASH_TEST_NAMESPACE boost
 #define BOOST_HASH_NO_EXTENSIONS
 #include <boost/functional/hash.hpp>
 #include <boost/detail/lightweight_test.hpp>
@@ -13,7 +13,7 @@
 extern int f(std::size_t, int*);
 
 int main() {
-    HASH_NAMESPACE::hash<int*> ptr_hasher;
+    BOOST_HASH_TEST_NAMESPACE::hash<int*> ptr_hasher;
     int x = 55;
     BOOST_TEST(!f(ptr_hasher(&x), &x));
     return boost::report_errors();

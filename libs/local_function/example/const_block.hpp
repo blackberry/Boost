@@ -43,7 +43,7 @@
 // PUBLIC //
 
 // Arguments `void | var1, var2, ... | (var1) (var2) ...`.
-#ifdef BOOST_NO_VARIADIC_MACROS
+#ifdef BOOST_NO_CXX11_VARIADIC_MACROS
 #   define CONST_BLOCK(void_or_seq) \
         CONST_BLOCK_(BOOST_LOCAL_FUNCTION_DETAIL_PP_VOID_LIST(void_or_seq))
 #else

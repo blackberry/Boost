@@ -11,7 +11,7 @@
 #ifndef BOOST_INTERPROCESS_PRIVATE_ADAPTIVE_POOL_HPP
 #define BOOST_INTERPROCESS_PRIVATE_ADAPTIVE_POOL_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
@@ -38,7 +38,7 @@
 namespace boost {
 namespace interprocess {
 
-/// @cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
 namespace ipcdetail {
 
@@ -63,7 +63,7 @@ class private_adaptive_pool_base
    typedef SegmentManager                                segment_manager;
    typedef typename SegmentManager::void_pointer         void_pointer;
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    private:
    typedef private_adaptive_pool_base
       < Version, T, SegmentManager, NodesPerBlock
@@ -78,7 +78,7 @@ class private_adaptive_pool_base
 
    BOOST_STATIC_ASSERT((Version <=2));
 
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public:
    typedef typename boost::intrusive::
@@ -107,7 +107,7 @@ class private_adaptive_pool_base
          <Version, T2, SegmentManager, NodesPerBlock, MaxFreeBlocks, OverheadPercent>   other;
    };
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
    template <int dummy>
    struct node_pool
@@ -132,7 +132,7 @@ class private_adaptive_pool_base
 
    //!Not assignable from other private_adaptive_pool_base
    private_adaptive_pool_base& operator=(const private_adaptive_pool_base&);
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public:
    //!Constructor from a segment manager
@@ -170,10 +170,10 @@ class private_adaptive_pool_base
    friend void swap(self_t &alloc1,self_t &alloc2)
    {  alloc1.m_node_pool.swap(alloc2.m_node_pool);  }
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    private:
    node_pool_t m_node_pool;
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 };
 
 //!Equality test for same type of private_adaptive_pool_base
@@ -227,7 +227,7 @@ class private_adaptive_pool_v1
 
 }  //namespace ipcdetail {
 
-/// @endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 //!An STL node allocator that uses a segment manager as memory
 //!source. The internal pointer type will of the same type (raw, smart) as
@@ -249,7 +249,7 @@ template < class T
          , unsigned char OverheadPercent
          >
 class private_adaptive_pool
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    :  public ipcdetail::private_adaptive_pool_base
          < 2
          , T
@@ -258,7 +258,7 @@ class private_adaptive_pool
          , MaxFreeBlocks
          , OverheadPercent
          >
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 {
 
    #ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
@@ -400,12 +400,12 @@ class private_adaptive_pool
    //!preferred_elements. The number of actually allocated elements is
    //!will be assigned to received_size. The elements must be deallocated
    //!with deallocate(...)
-   multiallocation_chain allocate_many(size_type elem_size, size_type num_elements);
+   void allocate_many(size_type elem_size, size_type num_elements, multiallocation_chain &chain);
 
    //!Allocates n_elements elements, each one of size elem_sizes[i]in a
    //!contiguous block
    //!of memory. The elements must be deallocated
-   multiallocation_chain allocate_many(const size_type *elem_sizes, size_type n_elements);
+   void allocate_many(const size_type *elem_sizes, size_type n_elements, multiallocation_chain &chain);
 
    //!Allocates many elements of size elem_size in a contiguous block
    //!of memory. The minimum number to be allocated is min_elements,
@@ -413,7 +413,7 @@ class private_adaptive_pool
    //!preferred_elements. The number of actually allocated elements is
    //!will be assigned to received_size. The elements must be deallocated
    //!with deallocate(...)
-   void deallocate_many(multiallocation_chain chain);
+   void deallocate_many(multiallocation_chain &chain);
 
    //!Allocates just one object. Memory allocated with this function
    //!must be deallocated only with deallocate_one().
@@ -426,7 +426,7 @@ class private_adaptive_pool
    //!preferred_elements. The number of actually allocated elements is
    //!will be assigned to received_size. Memory allocated with this function
    //!must be deallocated only with deallocate_one().
-   multiallocation_chain allocate_individual(size_type num_elements);
+   void allocate_individual(size_type num_elements, multiallocation_chain &chain);
 
    //!Deallocates memory previously allocated with allocate_one().
    //!You should never use deallocate_one to deallocate memory allocated
@@ -439,7 +439,7 @@ class private_adaptive_pool
    //!preferred_elements. The number of actually allocated elements is
    //!will be assigned to received_size. Memory allocated with this function
    //!must be deallocated only with deallocate_one().
-   void deallocate_individual(multiallocation_chain chain);
+   void deallocate_individual(multiallocation_chain &chain);
    #endif
 };
 

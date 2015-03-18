@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2007-2012
+// (C) Copyright Ion Gaztanaga  2007-2013
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -19,16 +19,21 @@
 #include <boost/intrusive/treap_set.hpp>
 #include <boost/intrusive/detail/mpl.hpp>
 #include <boost/intrusive/pointer_traits.hpp>
+#include <boost/static_assert.hpp>
 #include "smart_ptr.hpp"
 #include <vector>
 
 using namespace boost::intrusive;
 
 struct my_tag;
+struct my_tag2;
 
 typedef make_bs_set_base_hook
    < void_pointer<smart_ptr<void> >, link_mode<normal_link>
    , tag<my_tag> >::type TreapHook;
+typedef make_bs_set_base_hook
+   < void_pointer<smart_ptr<void> >, link_mode<normal_link>
+   , tag<my_tag2> >::type SplayHook;
 
 class MyClass
 :  public make_list_base_hook
@@ -41,11 +46,10 @@ class MyClass
    < void_pointer<smart_ptr<void> >, link_mode<normal_link> >::type
 ,  public make_avl_set_base_hook
    < void_pointer<smart_ptr<void> >, link_mode<normal_link> >::type
-,  public make_splay_set_base_hook
-   < void_pointer<smart_ptr<void> >, link_mode<normal_link> >::type
 ,  public make_bs_set_base_hook
    < void_pointer<smart_ptr<void> >, link_mode<normal_link> >::type
 ,  public TreapHook
+,  public SplayHook
 {
    int int_;
 
@@ -74,10 +78,11 @@ typedef make_set<MyClass>::type           Set;
 typedef make_unordered_set<MyClass>::type USet;
 
 typedef make_avl_set<MyClass>::type       AvlSet;
-typedef make_splay_set<MyClass>::type     SplaySet;
 typedef make_sg_set<MyClass>::type        SgSet;
 typedef make_treap_set<MyClass
    , base_hook<TreapHook> >::type         TreapSet;
+typedef make_splay_set<MyClass
+   , base_hook<SplayHook> >::type         SplaySet;
 
 int main()
 {
@@ -143,91 +148,54 @@ int main()
    }
 
    //Check defined types and implicitly defined types are equal
-   if(detail::is_same<make_list_base_hook<void_pointer<void*>, link_mode<safe_link> >::type
+   BOOST_STATIC_ASSERT((detail::is_same<make_list_base_hook<void_pointer<void*>, link_mode<safe_link> >::type
                      ,make_list_base_hook<>::type
-                     >::value == false){
-      return 1;
-   }
+                     >::value));
 
-   if(detail::is_same<make_slist_base_hook<void_pointer<void*>, link_mode<safe_link> >::type
+   BOOST_STATIC_ASSERT((detail::is_same<make_slist_base_hook<void_pointer<void*>, link_mode<safe_link> >::type
                      ,make_slist_base_hook<>::type
-                     >::value == false){
-      return 1;
-   }
+                     >::value));
 
-   if(detail::is_same<make_set_base_hook<void_pointer<void*>, link_mode<safe_link> >::type
+   BOOST_STATIC_ASSERT((detail::is_same<make_set_base_hook<void_pointer<void*>, link_mode<safe_link> >::type
                      ,make_set_base_hook<>::type
-                     >::value == false){
-      return 1;
-   }
+                     >::value));
 
-   if(detail::is_same<make_unordered_set_base_hook<void_pointer<void*>, link_mode<safe_link> >::type
+   BOOST_STATIC_ASSERT((detail::is_same<make_unordered_set_base_hook<void_pointer<void*>, link_mode<safe_link> >::type
                      ,make_unordered_set_base_hook<>::type
-                     >::value == false){
-      return 1;
-   }
+                     >::value));
 
-   if(detail::is_same<make_avl_set_base_hook<void_pointer<void*>, link_mode<safe_link> >::type
+   BOOST_STATIC_ASSERT((detail::is_same<make_avl_set_base_hook<void_pointer<void*>, link_mode<safe_link> >::type
                      ,make_avl_set_base_hook<>::type
-                     >::value == false){
-      return 1;
-   }
+                     >::value));
 
-   if(detail::is_same<make_bs_set_base_hook<void_pointer<void*>, link_mode<safe_link> >::type
+   BOOST_STATIC_ASSERT((detail::is_same<make_bs_set_base_hook<void_pointer<void*>, link_mode<safe_link> >::type
                      ,make_bs_set_base_hook<>::type
-                     >::value == false){
-      return 1;
-   }
-
-   if(detail::is_same<make_splay_set_base_hook<void_pointer<void*>, link_mode<safe_link> >::type
-                     ,make_splay_set_base_hook<>::type
-                     >::value == false){
-      return 1;
-   }
+                     >::value));
 
    //Check defined types and implicitly defined types are unequal
-   if(detail::is_same<make_list_base_hook<void_pointer<void*>, link_mode<normal_link> >::type
+   BOOST_STATIC_ASSERT(!(detail::is_same<make_list_base_hook<void_pointer<void*>, link_mode<normal_link> >::type
                      ,make_list_base_hook<>::type
-                     >::value == true){
-      return 1;
-   }
+                     >::value));
 
-   if(detail::is_same<make_slist_base_hook<void_pointer<void*>, link_mode<normal_link> >::type
+   BOOST_STATIC_ASSERT(!(detail::is_same<make_slist_base_hook<void_pointer<void*>, link_mode<normal_link> >::type
                      ,make_slist_base_hook<>::type
-                     >::value == true){
-      return 1;
-   }
+                     >::value));
 
-   if(detail::is_same<make_set_base_hook<void_pointer<void*>, link_mode<normal_link> >::type
+   BOOST_STATIC_ASSERT(!(detail::is_same<make_set_base_hook<void_pointer<void*>, link_mode<normal_link> >::type
                      ,make_set_base_hook<>::type
-                     >::value == true){
-      return 1;
-   }
+                     >::value));
 
-   if(detail::is_same<make_unordered_set_base_hook<void_pointer<void*>, link_mode<normal_link> >::type
+   BOOST_STATIC_ASSERT(!(detail::is_same<make_unordered_set_base_hook<void_pointer<void*>, link_mode<normal_link> >::type
                      ,make_unordered_set_base_hook<>::type
-                     >::value == true){
-      return 1;
-   }
+                     >::value));
 
-   if(detail::is_same<make_avl_set_base_hook<void_pointer<void*>, link_mode<normal_link> >::type
+   BOOST_STATIC_ASSERT(!(detail::is_same<make_avl_set_base_hook<void_pointer<void*>, link_mode<normal_link> >::type
                      ,make_avl_set_base_hook<>::type
-                     >::value == true){
-      return 1;
-   }
+                     >::value));
 
-   if(detail::is_same<make_splay_set_base_hook<void_pointer<void*>, link_mode<normal_link> >::type
-                     ,make_splay_set_base_hook<>::type
-                     >::value == true){
-      return 1;
-   }
-
-   if(detail::is_same<make_bs_set_base_hook<void_pointer<void*>, link_mode<normal_link> >::type
+   BOOST_STATIC_ASSERT(!(detail::is_same<make_bs_set_base_hook<void_pointer<void*>, link_mode<normal_link> >::type
                      ,make_bs_set_base_hook<>::type
-                     >::value == true){
-      return 1;
-   }
-
+                     >::value));
 
    return 0;
 }

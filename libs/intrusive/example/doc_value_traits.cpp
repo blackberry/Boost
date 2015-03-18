@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2006-2012
+// (C) Copyright Ion Gaztanaga  2006-2013
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -13,6 +13,9 @@
 #include <boost/intrusive/link_mode.hpp>
 #include <boost/intrusive/list.hpp>
 #include <boost/intrusive/slist.hpp>
+//<-
+#include <boost/intrusive/trivial_value_traits.hpp>
+//->
 #include <vector>
 
 //This node is the legacy type we can't modify and we want to insert in
@@ -66,11 +69,21 @@ struct legacy_value_traits
 
 //]
 
+//[doc_value_traits_trivial
+
+typedef bi::trivial_value_traits<legacy_node_traits, bi::normal_link> trivial_legacy_value_traits;
+
+//]
+
 //[doc_value_traits_test
 //Now define an intrusive list and slist that will store legacy_value objects
-typedef bi::value_traits<legacy_value_traits>      ValueTraitsOption;
-typedef bi::list<legacy_value, ValueTraitsOption>  LegacyAbiList;
-typedef bi::slist<legacy_value, ValueTraitsOption> LegacyAbiSlist;
+typedef bi::value_traits<legacy_value_traits>         ValueTraitsOption;
+typedef bi::value_traits<trivial_legacy_value_traits> TrivialValueTraitsOption;
+
+typedef bi::list<legacy_value,  ValueTraitsOption>          LegacyAbiList;
+typedef bi::slist<legacy_value, ValueTraitsOption>          LegacyAbiSlist;
+typedef bi::list<legacy_value,  TrivialValueTraitsOption>   TrivialLegacyAbiList;
+typedef bi::slist<legacy_value, TrivialValueTraitsOption>   TrivialLegacyAbiSlist;
 
 template<class List>
 bool test_list()
@@ -98,6 +111,8 @@ bool test_list()
 
 int main()
 {
-   return test_list<LegacyAbiList>() && test_list<LegacyAbiSlist>() ? 0 : 1;
+   return test_list<LegacyAbiList>()        && test_list<LegacyAbiSlist>() &&
+          test_list<TrivialLegacyAbiList>() && test_list<TrivialLegacyAbiSlist>()
+          ? 0 : 1;
 }
 //]

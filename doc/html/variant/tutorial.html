@@ -3,10 +3,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Tutorial</title>
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../variant.html" title="Chapter&#160;34.&#160;Boost.Variant">
-<link rel="prev" href="../variant.html" title="Chapter&#160;34.&#160;Boost.Variant">
+<link rel="up" href="../variant.html" title="Chapter&#160;38.&#160;Boost.Variant">
+<link rel="prev" href="../variant.html" title="Chapter&#160;38.&#160;Boost.Variant">
 <link rel="next" href="reference.html" title="Reference">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -25,7 +25,7 @@
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="variant.tutorial"></a>Tutorial</h2></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="tutorial.html#variant.tutorial.basic">Basic Usage</a></span></dt>
 <dt><span class="section"><a href="tutorial.html#variant.tutorial.advanced">Advanced Topics</a></span></dt>
 </dl></div>
@@ -77,15 +77,15 @@
   contained value. There are two ways to accomplish this:
   <code class="computeroutput"><a class="link" href="../boost/apply_visitor.html" title="Function apply_visitor">apply_visitor</a></code>, which is safest
   and very powerful, and
-  <code class="computeroutput"><a class="link" href="../boost/get_id1950197.html" title="Function get">get</a>&lt;T&gt;</code>, which is
+  <code class="computeroutput"><a class="link" href="../boost/get_idp94543392.html" title="Function get">get</a>&lt;T&gt;</code>, which is
   sometimes more convenient to use.</p>
 <p>For instance, suppose we wanted to concatenate to the string contained
   in <code class="computeroutput">v</code>. With <span class="bold"><strong>value retrieval</strong></span>
-  by <code class="computeroutput"><a class="link" href="../boost/get_id1950197.html" title="Function get">get</a></code>, this may be accomplished
+  by <code class="computeroutput"><a class="link" href="../boost/get_idp94543392.html" title="Function get">get</a></code>, this may be accomplished
   quite simply, as seen in the following:
 
 </p>
-<pre class="programlisting">std::string&amp; str = <code class="computeroutput"><a class="link" href="../boost/get_id1950197.html" title="Function get">boost::get</a></code>&lt;std::string&gt;(v);
+<pre class="programlisting">std::string&amp; str = <code class="computeroutput"><a class="link" href="../boost/get_idp94543392.html" title="Function get">boost::get</a></code>&lt;std::string&gt;(v);
 str += " world! ";</pre>
 <p>
 
@@ -112,9 +112,9 @@ str += " world! ";</pre>
 </p>
 <pre class="programlisting">void times_two( boost::variant&lt; int, std::string &gt; &amp; operand )
 {
-    if ( int* pi = <code class="computeroutput"><a class="link" href="../boost/get_id1950197.html" title="Function get">boost::get</a></code>&lt;int&gt;( &amp;operand ) )
+    if ( int* pi = <code class="computeroutput"><a class="link" href="../boost/get_idp94543392.html" title="Function get">boost::get</a></code>&lt;int&gt;( &amp;operand ) )
         *pi *= 2;
-    else if ( std::string* pstr = <code class="computeroutput"><a class="link" href="../boost/get_id1950197.html" title="Function get">boost::get</a></code>&lt;std::string&gt;( &amp;operand ) )
+    else if ( std::string* pstr = <code class="computeroutput"><a class="link" href="../boost/get_idp94543392.html" title="Function get">boost::get</a></code>&lt;std::string&gt;( &amp;operand ) )
         *pstr += *pstr;
 }</pre>
 <p>
@@ -241,11 +241,12 @@ std::for_each(
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="variant.tutorial.advanced"></a>Advanced Topics</h3></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="tutorial.html#variant.tutorial.preprocessor">Preprocessor macros</a></span></dt>
 <dt><span class="section"><a href="tutorial.html#variant.tutorial.over-sequence">Using a type sequence to specify bounded types</a></span></dt>
 <dt><span class="section"><a href="tutorial.html#variant.tutorial.recursive">Recursive <code class="computeroutput">variant</code> types</a></span></dt>
 <dt><span class="section"><a href="tutorial.html#variant.tutorial.binary-visitation">Binary visitation</a></span></dt>
+<dt><span class="section"><a href="tutorial.html#variant.tutorial.multi-visitation">Multi visitation</a></span></dt>
 </dl></div>
 <p>This section discusses several features of the library often required
   for advanced uses of <code class="computeroutput">variant</code>. Unlike in the above section, each
@@ -264,7 +265,7 @@ std::for_each(
     might write a function accepting any given <code class="computeroutput">variant</code>.</p>
 <p>Due to the lack of support for true variadic template parameter lists
     in the C++98 standard, the preprocessor is needed. While the
-    <a href="../../../libs/preprocessor/index.html" target="_top">Preprocessor</a> library provides a general and
+    Preprocessor library provides a general and
     powerful solution, the need to repeat
     <code class="computeroutput"><a class="link" href="../BOOST_VARIANT_LIMIT_TYPES.html" title="Macro BOOST_VARIANT_LIMIT_TYPES">BOOST_VARIANT_LIMIT_TYPES</a></code>
     unnecessarily clutters otherwise simple code. Therefore, for common
@@ -305,7 +306,7 @@ class some_class&lt; <code class="computeroutput"><a class="link" href="../boost
     <code class="computeroutput">make_variant_over&lt; <span class="emphasis"><em>Sequence</em></span> &gt;</code>
     exposes a <code class="computeroutput">variant</code> whose bounded types are the elements of
     <code class="computeroutput">Sequence</code> (where <code class="computeroutput">Sequence</code> is any type fulfilling
-    the requirements of <a href="../../../libs/mpl/index.html" target="_top">MPL</a>'s
+    the requirements of MPL's
     <span class="emphasis"><em>Sequence</em></span> concept). For instance,
 
 </p>
@@ -332,7 +333,7 @@ typedef <code class="computeroutput">mpl::push_front</code>&lt; types_initial, i
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="variant.tutorial.recursive"></a>Recursive <code class="computeroutput">variant</code> types</h4></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="tutorial.html#variant.tutorial.recursive.recursive-wrapper">Recursive types with <code class="computeroutput">recursive_wrapper</code></a></span></dt>
 <dt><span class="section"><a href="tutorial.html#variant.tutorial.recursive.recursive-variant">Recursive types with <code class="computeroutput">make_recursive_variant</code></a></span></dt>
 </dl></div>
@@ -467,6 +468,9 @@ public:
 <p>
 
   </p>
+<p><span class="bold"><strong>Performance</strong></span>: <code class="computeroutput"><a class="link" href="../boost/recursive_wrapper.html" title="Class template recursive_wrapper">boost::recursive_wrapper</a></code>
+    has no empty state, which makes its move constructor not very optimal. Consider using <code class="computeroutput">std::unique_ptr</code> 
+    or some other safe pointer for better performance on C++11 compatible compilers.</p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h5 class="title">
@@ -505,7 +509,7 @@ int_tree_t var(result);</pre>
     <code class="computeroutput">var</code> as <code class="computeroutput">( 1 ( 3 5 ) 7 )</code>.</p>
 <p>Finally, note that a type sequence can be used to specify the bounded
     types of a recursive <code class="computeroutput">variant</code> via the use of
-    <code class="computeroutput"><a class="link" href="../boost/make_recursive_v_id1663368.html" title="Class template make_recursive_variant_over">boost::make_recursive_variant_over</a></code>,
+    <code class="computeroutput"><a class="link" href="../boost/make_recursiv_idp351329984.html" title="Class template make_recursive_variant_over">boost::make_recursive_variant_over</a></code>,
     whose semantics are the same as <code class="computeroutput">make_variant_over</code> (which is
     described in <a class="xref" href="tutorial.html#variant.tutorial.over-sequence" title="Using a type sequence to specify bounded types">the section called &#8220;Using a type sequence to specify bounded types&#8221;</a>).</p>
 <p><span class="bold"><strong>Portability</strong></span>: Unfortunately, due to
@@ -592,6 +596,57 @@ assert( std::equal(
     ) );</pre>
 <p>
 
+  </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="variant.tutorial.multi-visitation"></a>Multi visitation</h4></div></div></div>
+<p>Multi visitation extends the power and flexibility of visitation by allowing simultaneous
+    visitation of the content of three and more different <code class="computeroutput">variant</code>
+    objects. Note that header for multi visitors shall be included separately.</p>
+<p>Notably this feature requires that multi visitors are incompatible
+    with the visitor objects discussed in the tutorial above, as they must
+    operate on same amout of arguments that was passed to <code class="computeroutput">apply_visitor</code>. 
+    The following demonstrates the implementation of a multi visitor for three parameters:
+
+</p>
+<pre class="programlisting">
+#include &lt;boost/variant/multivisitors.hpp&gt;
+
+typedef <code class="computeroutput"><a class="link" href="../boost/variant.html" title="Class template variant">boost::variant</a></code>&lt;int, double, bool&gt; bool_like_t;
+typedef <code class="computeroutput"><a class="link" href="../boost/variant.html" title="Class template variant">boost::variant</a></code>&lt;int, double&gt; arithmetics_t;
+
+struct if_visitor: public <code class="computeroutput"><a class="link" href="../boost/static_visitor.html" title="Class template static_visitor">boost::static_visitor</a></code>&lt;arithmetics_t&gt; {
+    template &lt;class T1, class T2&gt;
+    arithmetics_t operator()(bool b, T1 v1, T2 v2) const {
+        if (b) {
+            return v1;
+        } else {
+            return v2;
+        }
+    }
+};
+</pre>
+<p>
+  </p>
+<p>As expected, the visitor is applied to three <code class="computeroutput">variant</code>
+    arguments by means of <code class="computeroutput">apply_visitor</code>:
+
+</p>
+<pre class="programlisting">
+bool_like_t v0(1), v1(true), v2(1.0);
+
+assert(
+    <code class="computeroutput"><a class="link" href="../boost/apply_visitor.html" title="Function apply_visitor">boost::apply_visitor</a></code>(if_visitor(), v0, v1, v2)
+    ==
+    arithmetics_t(true)
+);
+</pre>
+<p>
+  </p>
+<p>Finally, we must note that multi visitation does not support 
+    "delayed" form of
+    <code class="computeroutput"><a class="link" href="../boost/apply_visitor.html" title="Function apply_visitor">apply_visitor</a></code>.
   </p>
 </div>
 </div>

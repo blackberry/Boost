@@ -8,7 +8,7 @@
 //
 //  File        : $RCSfile$
 //
-//  Version     : $Revision: 57992 $
+//  Version     : $Revision$
 //
 //  Description : provides execution monitor implementation for all supported
 //  configurations, including Microsoft structured exception based, unix signals
@@ -53,10 +53,15 @@ namespace std { using ::strerror; using ::strlen; using ::strncat; }
 #endif
 
 // to use vsnprintf
-#if defined(__SUNPRO_CC) || defined(__SunOS) || defined(__QNXNTO__)
+#if defined(__SUNPRO_CC) || defined(__SunOS)
 #  include <stdio.h>
 #  include <stdarg.h>
 using std::va_list;
+#endif
+
+// to use vsnprintf 
+#if defined(__QNXNTO__) 
+#  include <stdio.h> 
 #endif
 
 #if defined(_WIN32) && !defined(BOOST_DISABLE_WIN32) &&                  \
@@ -230,7 +235,7 @@ extract( boost::exception const* ex )
 //____________________________________________________________________________//
 
 static void
-report_error( execution_exception::error_code ec, boost::exception const* be, char const* format, va_list* args )
+report_error( execution_exception::error_code ec, boost::exception const* be, char const* format, std::va_list* args )
 {
     static const int REPORT_ERROR_BUFFER_SIZE = 512;
     static char buf[REPORT_ERROR_BUFFER_SIZE];
@@ -250,7 +255,7 @@ report_error( execution_exception::error_code ec, boost::exception const* be, ch
 static void
 report_error( execution_exception::error_code ec, char const* format, ... )
 {
-    va_list args;
+    std::va_list args;
     va_start( args, format );
 
     report_error( ec, 0, format, &args );
@@ -261,7 +266,7 @@ report_error( execution_exception::error_code ec, char const* format, ... )
 static void
 report_error( execution_exception::error_code ec, boost::exception const* be, char const* format, ... )
 {
-    va_list args;
+    std::va_list args;
     va_start( args, format );
 
     report_error( ec, be, format, &args );

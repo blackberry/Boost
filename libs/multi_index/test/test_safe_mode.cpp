@@ -1,6 +1,6 @@
 /* Boost.MultiIndex test for safe_mode.
  *
- * Copyright 2003-2008 Joaquin M Lopez Munoz.
+ * Copyright 2003-2013 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -15,7 +15,7 @@
 #include "employee.hpp"
 #include "pair_of_ints.hpp"
 #include <stdexcept>
-#include <boost/test/test_tools.hpp>
+#include <boost/detail/lightweight_test.hpp>
 
 using namespace boost::multi_index;
 
@@ -28,6 +28,8 @@ try{
   if(e.error_code!=(err))throw std::runtime_error(\
     "safe mode violation not expected");\
 }
+
+template<typename T> void prevent_unused_var_warning(const T&){}
 
 template<typename Policy>
 static void local_test_safe_mode(
@@ -69,21 +71,21 @@ static void local_test_safe_mode(
     iterator it;
     iterator it2;
     bool b=(it==it2);
-    b=true; /* avoid warning about unused var */
+    prevent_unused_var_warning(b);
   CATCH_SAFE_MODE(safe_mode::invalid_iterator)
 
   TRY_SAFE_MODE
     iterator it=i.begin();
     iterator it2;
     bool b=(it==it2);
-    b=true; /* avoid warning about unused var */
+    prevent_unused_var_warning(b);
   CATCH_SAFE_MODE(safe_mode::invalid_iterator)
 
   TRY_SAFE_MODE
     iterator it=i.begin();
     iterator it2=i2.begin();
     bool b=(it==it2);
-    b=true; /* avoid warning about unused var */
+    prevent_unused_var_warning(b);
   CATCH_SAFE_MODE(safe_mode::not_same_owner)
 
   TRY_SAFE_MODE
@@ -210,7 +212,7 @@ static void local_test_safe_mode(
     iterator it=i3.end();
     i3.clear();
     it=it;
-    BOOST_CHECK(it==i3.end());
+    BOOST_TEST(it==i3.end());
   }
 }
 
@@ -264,15 +266,14 @@ static void local_test_safe_mode(
 }
 
 template<typename Policy>
-static void local_test_safe_mode(BOOST_EXPLICIT_TEMPLATE_TYPE(Policy))
+static void local_test_safe_mode()
 {
   typedef typename Policy::index_type::iterator::iterator_category category;
   ::local_test_safe_mode<Policy>(category());
 }
 
 template<typename Policy>
-static void local_test_safe_mode_with_rearrange(
-  BOOST_EXPLICIT_TEMPLATE_TYPE(Policy))
+static void local_test_safe_mode_with_rearrange()
 {
   ::local_test_safe_mode<Policy>();
 
@@ -327,11 +328,8 @@ static void local_test_safe_mode_with_rearrange(
 template<typename MultiIndexContainer,int N>
 struct index_policy_base
 {
-  typedef MultiIndexContainer                    container;
-  typedef typename 
-    boost::multi_index::detail::prevent_eti<
-      container,
-    typename nth_index<container,N>::type>::type index_type;
+  typedef MultiIndexContainer                   container;
+  typedef typename nth_index<container,N>::type index_type;
 
   static index_type& index_from_container(container& c){return get<N>(c);}
 };
@@ -407,7 +405,7 @@ struct employee_set_randomly_policy:
 {};
 
 template<typename IntegralBimap>
-static void test_integral_bimap(BOOST_EXPLICIT_TEMPLATE_TYPE(IntegralBimap))
+static void test_integral_bimap()
 {
   typedef typename IntegralBimap::value_type value_type;
   typedef typename IntegralBimap::iterator   iterator;
@@ -418,7 +416,7 @@ static void test_integral_bimap(BOOST_EXPLICIT_TEMPLATE_TYPE(IntegralBimap))
     bm.insert(value_type(1,1));
     bm.modify(it,increment_first);
     value_type v=*it;
-    v.first=0; /* avoid warning about unused var */
+    prevent_unused_var_warning(v);
   CATCH_SAFE_MODE(safe_mode::invalid_iterator)
 
   TRY_SAFE_MODE
@@ -427,7 +425,7 @@ static void test_integral_bimap(BOOST_EXPLICIT_TEMPLATE_TYPE(IntegralBimap))
     bm.insert(value_type(1,1));
     bm.modify(it,increment_second);
     pair_of_ints v=*it;
-    v.first=0; /* avoid warning about unused var */
+    prevent_unused_var_warning(v);
   CATCH_SAFE_MODE(safe_mode::invalid_iterator)
 }
 
@@ -445,10 +443,6 @@ void test_safe_mode()
       ordered_unique<BOOST_MULTI_INDEX_MEMBER(pair_of_ints,int,second)> >
   > bimap0_type;
 
-  /* MSVC++ 6.0 chokes on test_integral_bimap without this
-   * explicit instantiation
-   */
-  bimap0_type bm0;
   test_integral_bimap<bimap0_type>();
 
   typedef multi_index_container<
@@ -458,7 +452,6 @@ void test_safe_mode()
       hashed_unique<BOOST_MULTI_INDEX_MEMBER(pair_of_ints,int,second)> >
   > bimap1_type;
 
-  bimap1_type bm1;
   test_integral_bimap<bimap1_type>();
 
   typedef multi_index_container<
@@ -468,7 +461,6 @@ void test_safe_mode()
       ordered_unique<BOOST_MULTI_INDEX_MEMBER(pair_of_ints,int,second)> >
   > bimap2_type;
 
-  bimap2_type bm2;
   test_integral_bimap<bimap2_type>();
 
   typedef multi_index_container<
@@ -478,6 +470,5 @@ void test_safe_mode()
       hashed_unique<BOOST_MULTI_INDEX_MEMBER(pair_of_ints,int,second)> >
   > bimap3_type;
 
-  bimap3_type bm3;
   test_integral_bimap<bimap3_type>();
 }

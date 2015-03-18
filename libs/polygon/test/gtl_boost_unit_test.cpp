@@ -6,7 +6,7 @@
   http://www.boost.org/LICENSE_1_0.txt).
 */
 #include <iostream>
-//#define BOOST_POLYGON_NO_DEPS
+#define BOOST_POLYGON_NO_DEPS
 #include <boost/polygon/polygon.hpp>
 
 namespace gtl = boost::polygon;
@@ -732,64 +732,6 @@ namespace boost { namespace polygon{
 }
 }
 using namespace gtl;
-
-bool testInterval() {
-  interval_data<int> interval(0, 10), interval2(10, 20);
-  if(!abuts(interval, interval2)) return false;
-  if(!boundaries_intersect(interval, interval2)) return false;
-  if(boundaries_intersect(interval, interval2, false)) return false;
-  if(intersect(interval, interval2, false)) return false;
-  if(!intersect(interval, interval2)) return false;
-  if(euclidean_distance(interval, interval2) != 0) return false;
-  encompass(interval, interval2);
-  set(interval, LOW, 0);
-  high(interval, 10);
-  scale(interval, 2.0f);
-  scale(interval, 0.5f);
-  if(low(interval) != 0) return false;
-  if(high(interval) != 10) return false;
-  move(interval, 10);
-  if(!equivalence(interval, interval2)) return false;
-  flip(interval, 10);
-  bloat(interval, -2);
-  shrink(interval, -2);
-  flip(interval, 10);
-  if(!equivalence(interval, interval2)) return false;
-  interval_data<int> half = get_half(interval, LOW);
-  if(high(half) != 15) return false;
-  convolve(interval, interval2);
-  if(high(interval) != 40) return false;
-  deconvolve(interval, interval2);
-  if(!equivalence(interval, interval2)) return false;
-  reflected_convolve(interval, interval2);
-  if(low(interval) != -10) return false;
-  reflected_deconvolve(interval, interval2);
-  if(!equivalence(interval, interval2)) return false;
-  euclidean_distance(interval, 0);
-  move(interval, 20);
-  if(euclidean_distance(interval, interval2) != 10) return false;
-  interval = interval2;
-  move(interval, -5);
-  if(!intersects(interval, interval2)) return false;
-  move(interval, 15);
-  if(!abuts(interval, interval2)) return false;
-  if(abuts(interval, interval2, HIGH)) return false;
-  move(interval, 10);
-  generalized_intersect(interval, interval2);
-  move(interval, -10);
-  if(!equivalence(interval, interval2)) return false;
-  if(get(interval, LOW) != low(interval)) return false;
-  if(get(interval, HIGH) != high(interval)) return false;
-  if(center(interval2) != 15) return false;
-  if(delta(interval2) != 10) return false;
-  assign(interval, interval2);
-  low(interval, 0);
-  if(low(interval) != 0) return false;
-  high(interval, 10);
-  join_with(interval, interval2);
-  if(high(interval) != high(interval2)) return false;
-  return true;
-}
 
 bool testRectangle() {
   rectangle_data<int> rect, rect2;
@@ -2279,6 +2221,239 @@ bool test_extents2() {
   return gtl::equivalence(rect, rect2);
 }
 
+/*************New Polygon Formation Tests********************/
+/*
+ *
+ * Test Input:
+ * +--------------------+
+ * |        +-------+   |
+ * |        |       |   |
+ * |        |       |   |
+ * +-----+  |       |   |
+ *       |  |       |   |
+ *       |  |       |   |
+ * +-----+  |       |   |
+ * |        |       |   |
+ * |        |       |   |
+ * |        +-------+   |
+ * +--------+           |
+ *          |           |
+ *          |           |
+ * +--------+           |
+ * |                    |
+ * |                    |
+ * +--------+           |
+ *          |           |
+ *          |           |
+ * +--------+           |
+ * |                    |
+ * |                    |
+ * +--------------------+
+ *
+ * Test Plan: 
+ * a. call 'get(out, param)' , param >=4 
+ * b. check if each polygon in the container is <= param
+ * c. check the area of all the pieces sum up to original piece
+ */
+typedef int intDC;
+typedef boost::polygon::polygon_90_with_holes_data<intDC> GTLPolygon;
+typedef boost::polygon::polygon_90_set_data<intDC> GTLPolygonSet;
+typedef boost::polygon::polygon_90_concept GTLPolygonConcept;
+typedef boost::polygon::point_data<intDC> GTLPoint;
+inline void PrintPolygon(const GTLPolygon&);
+inline GTLPolygon CreateGTLPolygon(const int*, size_t); 
+int test_new_polygon_formation(int argc, char** argv){
+   //                                               //
+   // Sub-Test-1: do a Boolean and call the new get //
+   //                                               //
+   int coordinates[] = {0,0, 10,0, 10,10, 0,10};
+   int coordinates1[] = {9,1, 20,1, 20,10, 9,10};
+   std::vector<GTLPoint> pts;
+   size_t count = sizeof(coordinates)/(2*sizeof(intDC)); 
+   size_t count1 = sizeof(coordinates1)/(2*sizeof(intDC));
+   GTLPolygon poly, poly1;
+   GTLPolygonSet polySet;
+   
+   poly = CreateGTLPolygon(coordinates, count);
+   poly1 = CreateGTLPolygon(coordinates1, count1);
+
+   polySet.insert(poly);
+   polySet.insert(poly1);
+
+   std::vector<GTLPolygon> result;
+   polySet.get(result, 100);
+
+   if(result.size() > 1){
+      std::cerr << "FAILED: expecting only one polygon because the"
+         " threshold is 100" << std::endl;
+      return 1;
+   }
+
+   if(result[0].size() != 6){
+      std::cerr << "FAILED: expecting only 6 vertices" << std::endl;
+      return 1;
+   }
+
+   if(area(result[0]) != 190){
+      std::cerr <<"FAILED: expecting only 6 vertices" << std::endl;
+      return 1;
+   }
+
+   //expect no more than 1 polygon
+   std::cout << "Found " << result.size() << "polygons after union" 
+      << std::endl;
+   for(size_t i=0; i<result.size(); i++){
+      PrintPolygon(result[i]);
+   }
+
+   intDC shell_coords[] = {0,0, 10,0, 10,21, 0,21, 0,15, 3,15, 3,13,
+      0,13, 0,10, 5,10, 5,8, 0,8, 0,5, 5,5, 5,3, 0,3};
+   intDC hole_coords[] = {4,11, 7,11, 7,19, 4,19};
+   GTLPolygon slice_polygon, slice_hole;
+   count = sizeof(shell_coords)/(2*sizeof(intDC));
+   count1 = sizeof(hole_coords)/(2*sizeof(intDC));
+
+   slice_polygon = CreateGTLPolygon(shell_coords, count);
+   slice_hole = CreateGTLPolygon(hole_coords, count1);
+
+   result.clear();
+   polySet.clear();
+   polySet.insert(slice_polygon);
+   polySet.insert(slice_hole, true);
+
+   polySet.get(result);
+   double gold_area = 0;
+   std::cout << "Found " << result.size() << " slices" << std::endl;
+   for(size_t i=0; i<result.size(); i++){
+      PrintPolygon(result[i]);
+      gold_area += area(result[i]); 
+   }
+
+   result.clear();
+   polySet.get(result, 6);
+   double platinum_area = 0;
+   std::cout << "Found " << result.size() << " slices" << std::endl;
+   for(size_t i=0; i<result.size(); i++){
+      PrintPolygon(result[i]);
+      platinum_area += area(result[i]); 
+      if(result[i].size() > 6){
+         std::cerr << "FAILED: expecting size to be less than 6" << std::endl;
+         return 1;
+      }
+   }
+
+   std::cout << "platinum_area = " << platinum_area << " , gold_area=" 
+      << gold_area << std::endl;
+   if( platinum_area != gold_area){
+      std::cerr << "FAILED: Area mismatch" << std::endl;
+      return 1;
+   }
+   std::cout << "[SUB-TEST-1] PASSED\n";
+
+   result.clear();
+   polySet.get(result, 4);
+   platinum_area = 0;
+   std::cout << "Found " << result.size() << " slices" << std::endl;
+   for(size_t i=0; i<result.size(); i++){
+      PrintPolygon(result[i]);
+      platinum_area += area(result[i]); 
+      if(result[i].size() > 4){ 
+         std::cerr << "FAILED: expecting size to be < 4" << std::endl;
+         return 1;
+      }
+   }
+
+   std::cout << "platinum_area=" << platinum_area << ", gold_area=" 
+      << gold_area << std::endl;
+
+   if( platinum_area != gold_area){
+      std::cerr << "FAILED: Area mismatch" << std::endl;
+      return 1;
+   }
+
+   std::cout << "[SUB-TEST-1] PASSED" << std::endl;
+   return 0;
+}
+
+/* 
+ * INPUT:
+ *   +--------+
+ *   |        |
+ *   |        |
+ *   |        +---+
+ *   |            |
+ *   |        +---+
+ *   |        |
+ *   +--------+
+ *            X 
+ *            
+ * TEST PLAN: as the sweepline moves and reaches
+ * X the number of vertices in the solid jumps by 4
+ * instead of 2. So make sure we don't get a 6 vertex
+ * polygon when the threshold is 4 and 6.
+ */
+int test_new_polygon_formation_marginal_threshold(int argc, char**){
+   std::vector<GTLPoint> pts;
+   GTLPolygon polygon;
+   GTLPolygonSet pset;
+   std::vector<GTLPolygon> result;
+   intDC coords[] = {0,0, 15,0, 15,10, 10,10, 10,15, 5,15, 5,10, 0,10};
+   size_t count = sizeof(coords)/(2*sizeof(intDC));
+
+   polygon = CreateGTLPolygon(coords, count);
+   pset.insert(polygon);
+
+   for(size_t i=0; i<1; i++){
+      pset.get(result, i ? 4 : 6);
+      double gold_area = 175, plat_area = 0;
+      for(size_t i=0; i<result.size(); i++){
+         if(result[i].size() > (i ? 4 : 6) ){
+            size_t expected = i ? 4 : 6;
+            std::cerr << "FAILED: Expecting no more than " <<
+               expected << " vertices" << std::endl;
+            return 1;
+         }
+         PrintPolygon(result[i]);
+         plat_area += area(result[i]); 
+      }
+
+      if(plat_area != gold_area){
+         std::cerr << "FAILED area mismatch gold=" << gold_area <<
+            " plat=" << plat_area << std::endl;
+         return 1;
+      }
+   }
+   std::cout << "Test Passed" << std::endl;
+   return 0;
+}
+
+inline void PrintPolygon(const GTLPolygon& p){
+   //get an iterator of the point_data<int>
+   boost::polygon::point_data<int> pt;
+   boost::polygon::polygon_90_data<int>::iterator_type itr;
+
+   size_t vertex_id = 0;
+   for(itr = p.begin(); itr != p.end(); ++itr){
+      pt = *itr;
+      std::cout << "Vertex-" << ++vertex_id << "(" << pt.x() <<
+         "," << pt.y() << ")" << std::endl;
+   }
+}
+
+// size: is the number of vertices //
+inline GTLPolygon CreateGTLPolygon(const int *coords, size_t size){
+   GTLPolygon r;
+   std::vector<GTLPoint> pts;
+
+   for(size_t i=0; i<size; i++){
+      pts.push_back( GTLPoint(coords[2*i], coords[2*i+1]) );
+   }
+   boost::polygon::set_points(r, pts.begin(), pts.end());
+   return r;
+}
+
+/************************************************************/
+
 int main() {
   test_view_as();
   //this test fails and I'd like to get it to pass
@@ -2544,7 +2719,6 @@ int main() {
   p + pwh;
   p90 + pwh;
   p45 + pwh;
-  std::cout << testInterval() << std::endl;
   std::cout << testRectangle() << std::endl;
   std::cout << testPolygon() << std::endl;
   std::cout << testPropertyMerge() << std::endl;
@@ -3113,37 +3287,6 @@ int main() {
     std::cout << equivalence(pwhs, polys) << std::endl;
   }
   {
-    typedef point_3d_data<int> Point3D;
-    Point3D p3d1(0, 1, 3), p3d2(0, 1, 2);
-    if(equivalence(p3d1, p3d2)) return 1;
-    if(euclidean_distance(p3d1, p3d2) != 1) return 1;
-    if(euclidean_distance(p3d1, p3d2, PROXIMAL) != 1) return 1;
-    if(manhattan_distance(p3d1, p3d2) != 1) return 1;
-    assign(p3d1, p3d2);
-    if(!equivalence(p3d1, p3d2)) return 1;
-    p3d1 = construct<Point3D>(x(p3d1), y(p3d1), z(p3d1));
-    if(!equivalence(p3d1, p3d2)) return 1;
-    convolve(p3d1, p3d2);
-    if(equivalence(p3d1, p3d2)) return 1;
-    deconvolve(p3d1, p3d2);
-    if(!equivalence(p3d1, p3d2)) return 1;
-    if(get(p3d1, PROXIMAL) != 2) return 1;
-    scale(p3d1, anisotropic_scale_factor<double>(2, 2, 2));
-    if(equivalence(p3d1, p3d2)) return 1;
-    scale_down(p3d1, 2);
-    if(!equivalence(p3d1, p3d2)) return 1;
-    scale_up(p3d1, 2);
-    if(equivalence(p3d1, p3d2)) return 1;
-    scale_down(p3d1, 2);
-    set(p3d1, PROXIMAL, 3);
-    if(equivalence(p3d1, p3d2)) return 1;
-    axis_transformation atr = axis_transformation::END;
-    transform(p3d1, atr);
-    if(z(p3d1) != -3) return 1;
-    z(p3d1, 2);
-    if(!equivalence(p3d1, p3d2)) return 1;
-  }
-  {
     polygon_90_set_data<int> ps1(HORIZONTAL), ps2(VERTICAL);
     ps1 += rectangle_data<int>(0, 0, 10, 120);
     assign(ps1, ps2);
@@ -3238,16 +3381,6 @@ int main() {
     snap_to_45(pwh);
   }
   {
-    point_data<int> pt(1,2);
-    point_3d_data<int> pt3d(1,2,3);
-    equivalence(pt, pt3d);
-    deconvolve(pt, pt3d);
-    manhattan_distance(pt, pt3d);
-    move(pt, HORIZONTAL, 1);
-    scale(pt, anisotropic_scale_factor<double>(2, 2, 2));
-    pt = pt3d;
-  }
-  {
     polygon_90_set_data<int> ps90_1, ps90_2;
     ps90_1.insert(rectangle_data<int>(0, 0, 10, 10));
     keep(ps90_1, 0, 1000, 0, 1000, 0, 1000);
@@ -3261,8 +3394,8 @@ int main() {
     bloat(ps90_1, 1);
     scale_up(ps90_1, 2);
     scale_down(ps90_1, 2);
-    scale(ps90_1, anisotropic_scale_factor<double>(2, 2, 2));
-    scale(ps90_1, anisotropic_scale_factor<double>(0.5, 0.5, 0.5));
+    scale(ps90_1, anisotropic_scale_factor<double>(2, 2));
+    scale(ps90_1, anisotropic_scale_factor<double>(0.5, 0.5));
     axis_transformation atr;
     transform(ps90_1, atr);
     std::cout << area(ps90_1) << std::endl;
@@ -3665,7 +3798,7 @@ int main() {
     }    
   }
 
-  if (1) {
+  {
     using namespace boost::polygon;
     typedef point_data<int> Point;
     typedef segment_data<int> Dls;
@@ -3704,16 +3837,28 @@ int main() {
     assert_s(dlss.size() == 11, "intersection2");
   }
   
-  if (1) {
+  {
     using namespace boost::polygon;
     std::vector<std::pair<std::size_t, segment_data<int> > > segs;
     segment_data<int> sarray[2];
     sarray[0] = segment_data<int>(point_data<int>(0,0), point_data<int>(10,10));
     sarray[1] = segment_data<int>(point_data<int>(10,0), point_data<int>(0,10));
-    std::iterator_traits<segment_data<int>*>::value_type s = sarray[0];
     intersect_segments(segs, sarray, sarray+2);
     std::cout << segs.size() << std::endl;
     assert_s(segs.size() == 4, "intersection3");
+  }
+
+
+  /*New polygon_formation tests*/ 
+  if(test_new_polygon_formation(0,NULL)){
+     std::cerr << "[test_new_polygon_formation] failed" << std::endl;
+     return 1;
+  }
+
+  if(test_new_polygon_formation_marginal_threshold(0,NULL)){
+     std::cerr << "[test_new_polygon_formation_marginal_threshold] failed" 
+         << std::endl;
+     return 1;
   }
 
   std::cout << "ALL TESTS COMPLETE\n";

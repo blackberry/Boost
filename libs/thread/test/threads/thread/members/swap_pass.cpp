@@ -17,7 +17,7 @@
 
 // native_handle_type native_handle();
 
-#include <boost/thread/thread.hpp>
+#include <boost/thread/thread_only.hpp>
 #include <cstdlib>
 #include <boost/detail/lightweight_test.hpp>
 

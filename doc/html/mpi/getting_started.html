@@ -3,10 +3,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Getting started</title>
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../mpi.html" title="Chapter&#160;17.&#160;Boost.MPI">
-<link rel="prev" href="../mpi.html" title="Chapter&#160;17.&#160;Boost.MPI">
+<link rel="up" href="../mpi.html" title="Chapter&#160;20.&#160;Boost.MPI">
+<link rel="prev" href="../mpi.html" title="Chapter&#160;20.&#160;Boost.MPI">
 <link rel="next" href="tutorial.html" title="Tutorial">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -25,7 +25,7 @@
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="mpi.getting_started"></a>Getting started</h2></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="getting_started.html#mpi.mpi_impl">MPI Implementation</a></span></dt>
 <dt><span class="section"><a href="getting_started.html#mpi.config">Configure and Build</a></span></dt>
 <dt><span class="section"><a href="getting_started.html#mpi.installation">Installing and Using Boost.MPI</a></span></dt>
@@ -44,15 +44,15 @@
         implementations</a> available. Boost.MPI should work with any of the
         implementations, although it has only been tested extensively with:
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-            <a href="http://www.open-mpi.org" target="_top">Open MPI 1.0.x</a>
+            <a href="http://www.open-mpi.org" target="_top">Open MPI</a>
           </li>
 <li class="listitem">
-            <a href="http://www.lam-mpi.org" target="_top">LAM/MPI 7.x</a>
+            <a href="http://www.lam-mpi.org" target="_top">LAM/MPI </a>
           </li>
 <li class="listitem">
-            <a href="http://www-unix.mcs.anl.gov/mpi/mpich/" target="_top">MPICH 1.2.x</a>
+            <a href="http://www-unix.mcs.anl.gov/mpi/mpich/" target="_top">MPICH2</a>
           </li>
 </ul></div>
 <p>
@@ -63,7 +63,7 @@
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">mpi</span><span class="special">.</span><span class="identifier">h</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">iostream</span><span class="special">&gt;</span>
 
-<span class="keyword">int</span> <span class="identifier">main</span><span class="special">(</span><span class="keyword">int</span> <span class="identifier">argc</span><span class="special">,</span> <span class="keyword">char</span><span class="special">*</span> <span class="identifier">argv</span><span class="special">[])</span>
+<span class="keyword">int</span> <span class="identifier">main</span><span class="special">()</span>
 <span class="special">{</span>
   <span class="identifier">MPI_Init</span><span class="special">(&amp;</span><span class="identifier">argc</span><span class="special">,</span> <span class="special">&amp;</span><span class="identifier">argv</span><span class="special">);</span>
 
@@ -134,12 +134,11 @@ lamhalt
       </p>
 <p>
         For many users using <a href="http://www.lam-mpi.org/" target="_top">LAM/MPI</a>,
-        <a href="http://www-unix.mcs.anl.gov/mpi/mpich/" target="_top">MPICH</a>, or <a href="http://www.open-mpi.org" target="_top">OpenMPI</a>, configuration is almost automatic.
+        <a href="http://www-unix.mcs.anl.gov/mpi/mpich/" target="_top">MPICH2</a>, or <a href="http://www.open-mpi.org" target="_top">OpenMPI</a>, configuration is almost automatic.
         If you don't already have a file <code class="computeroutput"><span class="identifier">user</span><span class="special">-</span><span class="identifier">config</span><span class="special">.</span><span class="identifier">jam</span></code> in
-        your home directory, copy <code class="computeroutput"><span class="identifier">tools</span><span class="special">/</span><span class="identifier">build</span><span class="special">/</span><span class="identifier">v2</span><span class="special">/</span><span class="identifier">user</span><span class="special">-</span><span class="identifier">config</span><span class="special">.</span><span class="identifier">jam</span></code> there.
-        For many users, MPI support can be enabled simply by adding the following
-        line to your user-config.jam file, which is used to configure Boost.Build
-        version 2.
+        your home directory, copy <code class="computeroutput"><span class="identifier">tools</span><span class="special">/</span><span class="identifier">build</span><span class="special">/</span><span class="identifier">user</span><span class="special">-</span><span class="identifier">config</span><span class="special">.</span><span class="identifier">jam</span></code> there. For many users, MPI support
+        can be enabled simply by adding the following line to your user-config.jam
+        file, which is used to configure Boost.Build version 2.
       </p>
 <pre class="programlisting"><span class="keyword">using</span> <span class="identifier">mpi</span> <span class="special">;</span>
 </pre>
@@ -174,7 +173,7 @@ lamhalt
         To see the results of MPI auto-detection, pass <code class="computeroutput"><span class="special">--</span><span class="identifier">debug</span><span class="special">-</span><span class="identifier">configuration</span></code> on the bjam command line.
       </p>
 <p>
-        The (optional) fourth argument configures Boost.MPI for running regression
+        The (optional) third argument configures Boost.MPI for running regression
         tests. These parameters specify the executable used to launch jobs (default:
         "mpirun") followed by any necessary arguments to this to run tests
         and tell the program to expect the number of processors to follow (default:
@@ -227,7 +226,7 @@ lamhalt
         (possibly with some extra options). For <a href="http://www.lam-mpi.org/" target="_top">LAM/MPI</a>,
         you will need to run <code class="computeroutput"><span class="identifier">lamboot</span></code>
         before running <code class="computeroutput"><span class="identifier">bjam</span></code>. For
-        <a href="http://www-unix.mcs.anl.gov/mpi/mpich/" target="_top">MPICH</a>, you may
+        <a href="http://www-unix.mcs.anl.gov/mpi/mpich/" target="_top">MPICH2</a>, you may
         need to create a machine file and pass <code class="computeroutput"><span class="special">-</span><span class="identifier">sMPIRUN_FLAGS</span><span class="special">=</span><span class="string">"-machinefile &lt;filename&gt;"</span></code> to
         Boost.Jam; see the section on <a class="link" href="getting_started.html#mpi.config" title="Configure and Build">configuration</a>
         for more information. If testing succeeds, <code class="computeroutput"><span class="identifier">bjam</span></code>

@@ -25,8 +25,8 @@
 #include <boost/math/distributions/non_central_t.hpp> // for chi_squared_distribution.
 #include <boost/math/distributions/normal.hpp> // for normal distribution (for comparison).
 
-
-#include <boost/test/test_exec_monitor.hpp> // for test_main
+#define BOOST_TEST_MAIN
+#include <boost/test/unit_test.hpp> // for test_main
 #include <boost/test/results_collector.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/test/floating_point_comparison.hpp> // for BOOST_CHECK_CLOSE
@@ -37,6 +37,7 @@
 #include "test_out_of_range.hpp"
 
 #include <iostream>
+#include <iomanip>
 using std::cout;
 using std::endl;
 #include <limits>
@@ -226,6 +227,9 @@ void test_spot(
      RealType Q,     // Complement of CDF
      RealType tol)   // Test tolerance
 {
+   // An extra fudge factor for real_concept which has a less accurate tgamma:
+   RealType tolerance_tgamma_extra = std::numeric_limits<RealType>::is_specialized ? 1 : 5;
+
    boost::math::non_central_t_distribution<RealType> dist(df, ncp);
    BOOST_CHECK_CLOSE(
       cdf(dist, t), P, tol);
@@ -235,11 +239,11 @@ void test_spot(
       BOOST_CHECK_CLOSE(
          variance(dist), naive_variance(df, ncp), tol);
       BOOST_CHECK_CLOSE(
-         skewness(dist), naive_skewness(df, ncp), tol * 10);
+         skewness(dist), naive_skewness(df, ncp), tol * 10 * tolerance_tgamma_extra);
       BOOST_CHECK_CLOSE(
-         kurtosis_excess(dist), naive_kurtosis_excess(df, ncp), tol * 50);
+         kurtosis_excess(dist), naive_kurtosis_excess(df, ncp), tol * 50 * tolerance_tgamma_extra);
       BOOST_CHECK_CLOSE(
-         kurtosis(dist), 3 + naive_kurtosis_excess(df, ncp), tol * 50);
+         kurtosis(dist), 3 + naive_kurtosis_excess(df, ncp), tol * 50 * tolerance_tgamma_extra);
    }
    catch(const std::domain_error&)
    {
@@ -359,6 +363,16 @@ void test_spots(RealType)
       static_cast<RealType>(40),   // T
       static_cast<RealType>(0.179292265426085),       // Probability of result (CDF), P
       static_cast<RealType>(1-0.179292265426085),           // Q = 1 - P
+      tolerance);
+
+   // From https://svn.boost.org/trac/boost/ticket/10480.
+   // Test value from Mathematica N[CDF[NoncentralStudentTDistribution[2, 4], 5], 35]:
+   test_spot(
+      static_cast<RealType>(2),   // degrees of freedom
+      static_cast<RealType>(4),   // non centrality
+      static_cast<RealType>(5),   // T
+      static_cast<RealType>(0.53202069866995310466912357978934321L),       // Probability of result (CDF), P
+      static_cast<RealType>(1 - 0.53202069866995310466912357978934321L),           // Q = 1 - P
       tolerance);
 
    /* This test fails
@@ -737,54 +751,53 @@ void test_ignore_policy(RealType)
   if(std::numeric_limits<RealType>::has_quiet_NaN)
   {
   // Mean
-    BOOST_CHECK(boost::math::isnan(mean(ignore_error_non_central_t(-nan, 0))));
-    BOOST_CHECK(boost::math::isnan(mean(ignore_error_non_central_t(+nan, 0))));
-    BOOST_CHECK(boost::math::isnan(mean(ignore_error_non_central_t(-1, 0))));
-    BOOST_CHECK(boost::math::isnan(mean(ignore_error_non_central_t(0, 0))));
-    BOOST_CHECK(boost::math::isnan(mean(ignore_error_non_central_t(1, 0))));
-    BOOST_CHECK(boost::math::isnan(mean(ignore_error_non_central_t(2, nan))));
-    BOOST_CHECK(boost::math::isnan(mean(ignore_error_non_central_t(nan, nan))));
+    BOOST_CHECK((boost::math::isnan)(mean(ignore_error_non_central_t(-nan, 0))));
+    BOOST_CHECK((boost::math::isnan)(mean(ignore_error_non_central_t(+nan, 0))));
+    BOOST_CHECK((boost::math::isnan)(mean(ignore_error_non_central_t(-1, 0))));
+    BOOST_CHECK((boost::math::isnan)(mean(ignore_error_non_central_t(0, 0))));
+    BOOST_CHECK((boost::math::isnan)(mean(ignore_error_non_central_t(1, 0))));
+    BOOST_CHECK((boost::math::isnan)(mean(ignore_error_non_central_t(2, nan))));
+    BOOST_CHECK((boost::math::isnan)(mean(ignore_error_non_central_t(nan, nan))));
     BOOST_CHECK(boost::math::isfinite(mean(ignore_error_non_central_t(2, 0)))); // OK
 
     // Variance
-    BOOST_CHECK(boost::math::isnan(variance(ignore_error_non_central_t(nan, 0))));
-    BOOST_CHECK(boost::math::isnan(variance(ignore_error_non_central_t(1, nan))));
-    BOOST_CHECK(boost::math::isnan(variance(ignore_error_non_central_t(2, nan))));
-    BOOST_CHECK(boost::math::isnan(variance(ignore_error_non_central_t(-1, 0))));
-    BOOST_CHECK(boost::math::isnan(variance(ignore_error_non_central_t(0, 0))));
-    BOOST_CHECK(boost::math::isnan(variance(ignore_error_non_central_t(1, 0))));
-    BOOST_CHECK(boost::math::isnan(variance(ignore_error_non_central_t(static_cast<RealType>(1.7L), 0))));
-    BOOST_CHECK(boost::math::isnan(variance(ignore_error_non_central_t(2, 0))));
+    BOOST_CHECK((boost::math::isnan)(variance(ignore_error_non_central_t(nan, 0))));
+    BOOST_CHECK((boost::math::isnan)(variance(ignore_error_non_central_t(1, nan))));
+    BOOST_CHECK((boost::math::isnan)(variance(ignore_error_non_central_t(2, nan))));
+    BOOST_CHECK((boost::math::isnan)(variance(ignore_error_non_central_t(-1, 0))));
+    BOOST_CHECK((boost::math::isnan)(variance(ignore_error_non_central_t(0, 0))));
+    BOOST_CHECK((boost::math::isnan)(variance(ignore_error_non_central_t(1, 0))));
+    BOOST_CHECK((boost::math::isnan)(variance(ignore_error_non_central_t(static_cast<RealType>(1.7L), 0))));
+    BOOST_CHECK((boost::math::isnan)(variance(ignore_error_non_central_t(2, 0))));
 
   // Skewness
-    BOOST_CHECK(boost::math::isnan(skewness(ignore_error_non_central_t(std::numeric_limits<RealType>::quiet_NaN(), 0))));
-    BOOST_CHECK(boost::math::isnan(skewness(ignore_error_non_central_t(-1, 0))));
-    BOOST_CHECK(boost::math::isnan(skewness(ignore_error_non_central_t(0, 0))));
-    BOOST_CHECK(boost::math::isnan(skewness(ignore_error_non_central_t(1, 0))));
-    BOOST_CHECK(boost::math::isnan(skewness(ignore_error_non_central_t(2, 0))));
-    BOOST_CHECK(boost::math::isnan(skewness(ignore_error_non_central_t(3, 0))));
+    BOOST_CHECK((boost::math::isnan)(skewness(ignore_error_non_central_t(std::numeric_limits<RealType>::quiet_NaN(), 0))));
+    BOOST_CHECK((boost::math::isnan)(skewness(ignore_error_non_central_t(-1, 0))));
+    BOOST_CHECK((boost::math::isnan)(skewness(ignore_error_non_central_t(0, 0))));
+    BOOST_CHECK((boost::math::isnan)(skewness(ignore_error_non_central_t(1, 0))));
+    BOOST_CHECK((boost::math::isnan)(skewness(ignore_error_non_central_t(2, 0))));
+    BOOST_CHECK((boost::math::isnan)(skewness(ignore_error_non_central_t(3, 0))));
 
   // Kurtosis 
-    BOOST_CHECK(boost::math::isnan(kurtosis(ignore_error_non_central_t(std::numeric_limits<RealType>::quiet_NaN(), 0))));
-    BOOST_CHECK(boost::math::isnan(kurtosis(ignore_error_non_central_t(-1, 0))));
-    BOOST_CHECK(boost::math::isnan(kurtosis(ignore_error_non_central_t(0, 0))));
-    BOOST_CHECK(boost::math::isnan(kurtosis(ignore_error_non_central_t(1, 0))));
-    BOOST_CHECK(boost::math::isnan(kurtosis(ignore_error_non_central_t(2, 0))));
-    BOOST_CHECK(boost::math::isnan(kurtosis(ignore_error_non_central_t(static_cast<RealType>(2.0001L), 0))));
-    BOOST_CHECK(boost::math::isnan(kurtosis(ignore_error_non_central_t(3, 0))));
-    BOOST_CHECK(boost::math::isnan(kurtosis(ignore_error_non_central_t(4, 0))));
+    BOOST_CHECK((boost::math::isnan)(kurtosis(ignore_error_non_central_t(std::numeric_limits<RealType>::quiet_NaN(), 0))));
+    BOOST_CHECK((boost::math::isnan)(kurtosis(ignore_error_non_central_t(-1, 0))));
+    BOOST_CHECK((boost::math::isnan)(kurtosis(ignore_error_non_central_t(0, 0))));
+    BOOST_CHECK((boost::math::isnan)(kurtosis(ignore_error_non_central_t(1, 0))));
+    BOOST_CHECK((boost::math::isnan)(kurtosis(ignore_error_non_central_t(2, 0))));
+    BOOST_CHECK((boost::math::isnan)(kurtosis(ignore_error_non_central_t(static_cast<RealType>(2.0001L), 0))));
+    BOOST_CHECK((boost::math::isnan)(kurtosis(ignore_error_non_central_t(3, 0))));
+    BOOST_CHECK((boost::math::isnan)(kurtosis(ignore_error_non_central_t(4, 0))));
  
     // Kurtosis excess
-    BOOST_CHECK(boost::math::isnan(kurtosis_excess(ignore_error_non_central_t(std::numeric_limits<RealType>::quiet_NaN(), 0))));
-    BOOST_CHECK(boost::math::isnan(kurtosis_excess(ignore_error_non_central_t(-1, 0))));
-    BOOST_CHECK(boost::math::isnan(kurtosis_excess(ignore_error_non_central_t(0, 0))));
-    BOOST_CHECK(boost::math::isnan(kurtosis_excess(ignore_error_non_central_t(1, 0))));
-    BOOST_CHECK(boost::math::isnan(kurtosis_excess(ignore_error_non_central_t(2, 0))));
-    BOOST_CHECK(boost::math::isnan(kurtosis_excess(ignore_error_non_central_t(static_cast<RealType>(2.0001L), 0))));
-    BOOST_CHECK(boost::math::isnan(kurtosis_excess(ignore_error_non_central_t(3, 0))));
-    BOOST_CHECK(boost::math::isnan(kurtosis_excess(ignore_error_non_central_t(4, 0))));
+    BOOST_CHECK((boost::math::isnan)(kurtosis_excess(ignore_error_non_central_t(std::numeric_limits<RealType>::quiet_NaN(), 0))));
+    BOOST_CHECK((boost::math::isnan)(kurtosis_excess(ignore_error_non_central_t(-1, 0))));
+    BOOST_CHECK((boost::math::isnan)(kurtosis_excess(ignore_error_non_central_t(0, 0))));
+    BOOST_CHECK((boost::math::isnan)(kurtosis_excess(ignore_error_non_central_t(1, 0))));
+    BOOST_CHECK((boost::math::isnan)(kurtosis_excess(ignore_error_non_central_t(2, 0))));
+    BOOST_CHECK((boost::math::isnan)(kurtosis_excess(ignore_error_non_central_t(static_cast<RealType>(2.0001L), 0))));
+    BOOST_CHECK((boost::math::isnan)(kurtosis_excess(ignore_error_non_central_t(3, 0))));
+    BOOST_CHECK((boost::math::isnan)(kurtosis_excess(ignore_error_non_central_t(4, 0))));
   } // has_quiet_NaN
-
   BOOST_CHECK(boost::math::isfinite(mean(ignore_error_non_central_t(1 + std::numeric_limits<RealType>::epsilon(), 0))));
   BOOST_CHECK(boost::math::isfinite(variance(ignore_error_non_central_t(2 + 2 * std::numeric_limits<RealType>::epsilon(), 0))));
   BOOST_CHECK(boost::math::isfinite(variance(ignore_error_non_central_t(static_cast<RealType>(2.0001L), 0))));
@@ -799,7 +812,7 @@ void test_ignore_policy(RealType)
 } // template <class RealType> void test_ignore_policy(RealType)
 
 
-int test_main(int, char* [])
+BOOST_AUTO_TEST_CASE( test_main )
 {
   BOOST_MATH_CONTROL_FP;
    // Basic sanity-check spot values.
@@ -844,8 +857,8 @@ int test_main(int, char* [])
    test_big_df(0.F); // float
    test_big_df(0.); // double
 
-   return 0;
-} // int test_main(int, char* [])
+   
+} // BOOST_AUTO_TEST_CASE( test_main )
 
 /*
 

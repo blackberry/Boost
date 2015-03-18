@@ -70,16 +70,22 @@ int test_main( int /* argc */, char* /* argv */[] )
     char s3[] = "abc";
     char s4[] = "abcd";
     const int i = 12345;
+
     A a1;
     char s1_1[10];
     char s1_2[10];
     char s1_3[10];
     char s1_4[10];
     int i1 = 34790;
+
+    std::memset(s1_1, '\0', sizeof(s1_1));
+    std::memset(s1_2, '\0', sizeof(s1_2));
+    std::memset(s1_3, '\0', sizeof(s1_3));
+    std::memset(s1_4, '\0', sizeof(s1_4));
     {
         test_ostream os(testfile, TEST_STREAM_FLAGS);
         test_oarchive oa(os, TEST_ARCHIVE_FLAGS);
-        boost::serialization::make_nvp(
+        oa << boost::serialization::make_nvp(
             "s1", 
             boost::serialization::make_binary_object(
                 s1, 
@@ -115,7 +121,7 @@ int test_main( int /* argc */, char* /* argv */[] )
     {
         test_istream is(testfile, TEST_STREAM_FLAGS);
         test_iarchive ia(is, TEST_ARCHIVE_FLAGS);
-        boost::serialization::make_nvp(
+        ia >> boost::serialization::make_nvp(
             "s1", 
             boost::serialization::make_binary_object(
                 s1_1, 
@@ -148,8 +154,12 @@ int test_main( int /* argc */, char* /* argv */[] )
         // failure of text mode binary.
         ia >> BOOST_SERIALIZATION_NVP(i1);
     }
-    BOOST_CHECK(i == i1);
+    BOOST_CHECK(0 == std::strcmp(s1, s1_1));
+    BOOST_CHECK(0 == std::strcmp(s2, s1_2));
+    BOOST_CHECK(0 == std::strcmp(s3, s1_3));
+    BOOST_CHECK(0 == std::strcmp(s4, s1_4));
     BOOST_CHECK(a == a1);
+    BOOST_CHECK(i == i1);
     std::remove(testfile);
     return EXIT_SUCCESS;
 }

@@ -3,10 +3,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Advanced lookup and insertion functions for associative containers</title>
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../intrusive.html" title="Chapter&#160;13.&#160;Boost.Intrusive">
-<link rel="prev" href="treap_set_multiset.html" title="Intrusive treap based associative containers: treap_set, treap_multiset and treap">
+<link rel="up" href="../intrusive.html" title="Chapter&#160;15.&#160;Boost.Intrusive">
+<link rel="prev" href="bst_hooks.html" title="Binary search tree hooks: bs_set_base_hook and bs_set_member_hook">
 <link rel="next" href="erasing_and_disposing.html" title="Erasing and disposing values from Boost.Intrusive containers">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -20,14 +20,14 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="treap_set_multiset.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../intrusive.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="erasing_and_disposing.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="bst_hooks.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../intrusive.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="erasing_and_disposing.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="intrusive.advanced_lookups_insertions"></a><a class="link" href="advanced_lookups_insertions.html" title="Advanced lookup and insertion functions for associative containers">Advanced lookup
     and insertion functions for associative containers</a>
 </h2></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="advanced_lookups_insertions.html#intrusive.advanced_lookups_insertions.advanced_lookups">Advanced
       lookups</a></span></dt>
 <dt><span class="section"><a href="advanced_lookups_insertions.html#intrusive.advanced_lookups_insertions.advanced_insertions">Advanced
@@ -189,7 +189,7 @@
         This new arbitrary key overload is also available for other functions taking
         values as arguments:
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             equal_range
           </li>
@@ -287,7 +287,7 @@
         <code class="computeroutput"><span class="identifier">insert_check</span></code> is similar to
         a normal <code class="computeroutput"><span class="identifier">insert</span></code> but:
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             <code class="computeroutput"><span class="identifier">insert_check</span></code> can be used
             with arbitrary keys
@@ -296,7 +296,7 @@
             if the insertion is possible (there is no equivalent value) <code class="computeroutput"><span class="identifier">insert_check</span></code> collects all the needed
             information in an <code class="computeroutput"><span class="identifier">insert_commit_data</span></code>
             structure, so that <code class="computeroutput"><span class="identifier">insert_commit</span></code>:
-            <div class="itemizedlist"><ul class="itemizedlist" type="circle">
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; ">
 <li class="listitem">
                   <span class="bold"><strong>does not execute</strong></span> further comparisons
                 </li>
@@ -428,7 +428,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2005 Olaf Krzikalla<br>Copyright &#169; 2006-2012 Ion Gaztanaga<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2005 Olaf Krzikalla<br>Copyright &#169; 2006-2013 Ion Gaztanaga<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
@@ -436,7 +436,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="treap_set_multiset.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../intrusive.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="erasing_and_disposing.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="bst_hooks.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../intrusive.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="erasing_and_disposing.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

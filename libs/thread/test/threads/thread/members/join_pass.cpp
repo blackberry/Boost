@@ -17,7 +17,7 @@
 
 // void join();
 #define BOOST_THREAD_VESRION 3
-#include <boost/thread/thread.hpp>
+#include <boost/thread/thread_only.hpp>
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/locks.hpp>
 #include <new>

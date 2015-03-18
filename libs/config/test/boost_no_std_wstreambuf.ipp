@@ -1,6 +1,6 @@
-//  (C) Copyright John Maddock 2001. 
-//  Use, modification and distribution are subject to the 
-//  Boost Software License, Version 1.0. (See accompanying file 
+//  (C) Copyright John Maddock 2001.
+//  Use, modification and distribution are subject to the
+//  Boost Software License, Version 1.0. (See accompanying file
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/config for most recent version.
@@ -35,7 +35,7 @@ protected:
 private:
    parser_buf& operator=(const parser_buf&)
    { return *this; };
-   parser_buf(const parser_buf&){};
+   parser_buf(const parser_buf&);
 };
 
 template<class charT, class traits>
@@ -56,7 +56,7 @@ parser_buf<charT, traits>::seekoff(off_type off, ::std::ios_base::seekdir way, :
    int size = this->egptr() - this->eback();
    int pos = this->gptr() - this->eback();
    charT* g = this->eback();
-   switch(way)
+   switch((int)way)
    {
    case ::std::ios_base::beg:
       if((off < 0) || (off > size))

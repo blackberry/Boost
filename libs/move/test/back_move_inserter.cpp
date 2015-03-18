@@ -8,7 +8,8 @@
 // See http://www.boost.org/libs/move for documentation.
 //
 //////////////////////////////////////////////////////////////////////////////
-#include <boost/move/move.hpp>
+#include <boost/move/detail/config_begin.hpp>
+#include <boost/move/iterator.hpp>
 #include <boost/container/deque.hpp>
 #include <boost/container/list.hpp>
 #include <boost/container/stable_vector.hpp>
@@ -72,3 +73,5 @@ int main()
    }
    return 0;
 }
+
+#include <boost/move/detail/config_end.hpp>

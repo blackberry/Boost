@@ -19,7 +19,7 @@
 
 #define BOOST_THREAD_PROVIDES_THREAD_DESTRUCTOR_CALLS_TERMINATE_IF_JOINABLE
 
-#include <boost/thread/thread.hpp>
+#include <boost/thread/thread_only.hpp>
 #include <new>
 #include <cstdlib>
 #include <boost/detail/lightweight_test.hpp>
@@ -50,7 +50,7 @@ public:
   void operator()()
   {
     BOOST_TEST(alive_ == 1);
-    BOOST_TEST(n_alive == 1);
+    //BOOST_TEST(n_alive == 1);
     op_run = true;
   }
 };

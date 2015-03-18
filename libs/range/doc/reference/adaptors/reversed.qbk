@@ -13,38 +13,17 @@
 
 * [*Returns:] A range whose iterators behave as if they were the original iterators wrapped in `reverse_iterator`.
 * [*Range Category:] __bidirectional_range__
-* [*Range Return Type:] `boost::reversed_range<typeof(rng)>`
+* [*Range Return Type:] `boost::reversed_range<decltype(rng)>`
 * [*Returned Range Category:] The range category of `rng`.
 
 [section:reversed_example reversed example]
-``
-#include <boost/range/adaptor/reversed.hpp>
-#include <boost/range/algorithm/copy.hpp>
-#include <boost/assign.hpp>
-#include <algorithm>
-#include <iostream>
-#include <vector>
-
-void reversed_example_test()
-{
-    using namespace boost::adaptors;
-    using namespace boost::assign;
-
-    std::vector<int> input;
-    input += 1,2,3,4,5,6,7,8,9;
-
-    boost::copy(
-        input | reversed,
-        std::ostream_iterator<int>(std::cout, ","));
-
-    return 0;
-}
-``
+[import ../../../test/adaptor_test/reversed_example.cpp]
+[reversed_example]
 [endsect]
 
 This would produce the output:
 ``
-9,8,7,6,5,4,3,2,1
+9,8,7,6,5,4,3,2,1,
 ``
 [endsect]
 

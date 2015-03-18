@@ -218,6 +218,14 @@ operator|( const BidirectionalRng& r, detail::reverse_forwarder )
 }
 ``
 
+# Declare the adaptor itself (it is a variable of the tag type).
+``
+namespace
+{
+    const detail::reverse_forwarder reversed = detail::reverse_forwarder();
+}
+``
+
 [endsect]
 
 [section:method_3_2 Method 3.2: Implement a Range Adaptor with arguments]
@@ -273,9 +281,7 @@ public:
 ``
 
 # Implement a holder class to hold the arguments required to construct the RangeAdaptor.
-
 The holder combines multiple parameters into one that can be passed as the right operand of `operator|()`.
-
 ``
 template<typename T>
 class replace_holder : public boost::range_detail::holder2<T>
@@ -290,14 +296,12 @@ private:
 ``
 
 # Define an instance of the holder with the name of the adaptor
-
 ``
 static boost::range_detail::forwarder2<replace_holder>
 replaced = boost::range_detail::forwarder2<replace_holder>();
 ``
 
 # Define `operator|`
-
 ``
 template<typename SinglePassRange>
 inline replace_range<SinglePassRange>

@@ -19,7 +19,7 @@
 #include "../rep.h"
 #include <iostream>
 
-#ifdef BOOST_NO_CONSTEXPR
+#ifdef BOOST_NO_CXX11_CONSTEXPR
 #define BOOST_CONSTEXPR_ASSERT(C) BOOST_TEST(C)
 #else
 #include <boost/static_assert.hpp>

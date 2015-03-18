@@ -6,9 +6,9 @@
 // Home at http://www.boost.org/libs/local_function
 
 #include <boost/config.hpp>
-#if !defined(BOOST_NO_AUTO_DECLARATIONS)
+#if !defined(BOOST_NO_CXX11_AUTO_DECLARATIONS)
 #   error "auto-declarations not allowed (using `auto` as storage classifier)"
-#elif defined(BOOST_NO_VARIADIC_MACROS)
+#elif defined(BOOST_NO_CXX11_VARIADIC_MACROS)
 #   error "variadic macros required"
 #else
 

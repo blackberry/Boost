@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Struct template bitwise_or</title>
 <link rel="stylesheet" href="../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
 <link rel="up" href="../../mpi/reference.html#header.boost.mpi.operations_hpp" title="Header &lt;boost/mpi/operations.hpp&gt;">
 <link rel="prev" href="bitwise_and.html" title="Struct template bitwise_and">
@@ -32,23 +32,26 @@
 <div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../mpi/reference.html#header.boost.mpi.operations_hpp" title="Header &lt;boost/mpi/operations.hpp&gt;">boost/mpi/operations.hpp</a>&gt;
 
 </span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> T<span class="special">&gt;</span> 
-<span class="keyword">struct</span> <a class="link" href="bitwise_or.html" title="Struct template bitwise_or">bitwise_or</a> <span class="special">{</span>
+<span class="keyword">struct</span> <a class="link" href="bitwise_or.html" title="Struct template bitwise_or">bitwise_or</a> <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">binary_function</span><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">T</span> <span class="special">&gt;</span> <span class="special">{</span>
 
-  <span class="comment">// <a class="link" href="bitwise_or.html#id855346-bb">public member functions</a></span>
-  <span class="identifier">T</span> <a class="link" href="bitwise_or.html#id855350-bb"><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">T</span> <span class="special">&amp;</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">T</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="bitwise_or.html#idp152450928-bb">public member functions</a></span>
+  <span class="identifier">T</span> <a class="link" href="bitwise_or.html#idp152451488-bb"><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">T</span> <span class="special">&amp;</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">T</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="id2593628"></a><h2>Description</h2>
+<a name="idp341402288"></a><h2>Description</h2>
 <p>This binary function object computes the bitwise OR of the two values it is given. When used with MPI and a type <code class="computeroutput">T</code> that has an associated, built-in MPI data type, translates to <code class="computeroutput">MPI_BOR</code>. </p>
 <div class="refsect2">
-<a name="id2593648"></a><h3>
-<a name="id855346-bb"></a><code class="computeroutput">bitwise_or</code> public member functions</h3>
+<a name="idp341404512"></a><h3>
+<a name="idp152450928-bb"></a><code class="computeroutput">bitwise_or</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
-<pre class="literallayout"><span class="identifier">T</span> <a name="id855350-bb"></a><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">T</span> <span class="special">&amp;</span> x<span class="special">,</span> <span class="keyword">const</span> <span class="identifier">T</span> <span class="special">&amp;</span> y<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">T</span> <a name="idp152451488-bb"></a><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">T</span> <span class="special">&amp;</span> x<span class="special">,</span> <span class="keyword">const</span> <span class="identifier">T</span> <span class="special">&amp;</span> y<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p>
 </p>
-<div class="variablelist"><table border="0">
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody><tr>
 <td><p><span class="term">Returns:</span></p></td>
 <td><p>the <code class="computeroutput">x</code> | y. </p></td>

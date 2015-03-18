@@ -131,7 +131,7 @@ optimizations in some cases, based on the knowledge of the mutex type;
                 const chrono::duration<Rep, Period>& d,
                 Predicate pred);
 
-        #if defined BOOST_THREAD_PROVIDES_DEPRECATED_FEATURES_SINCE_V3_0_0 || defined BOOST_THREAD_DONT_USE_CHRONO
+        #if defined BOOST_THREAD_USES_DATETIME
             bool timed_wait(boost::unique_lock<boost::mutex>& lock,boost::system_time const& abs_time);
             template<typename duration_type>
             bool timed_wait(boost::unique_lock<boost::mutex>& lock,duration_type const& rel_time);
@@ -346,8 +346,8 @@ the thread is unblocked (for whatever reason), the lock is reacquired by
 invoking `lock.lock()` before the call to `wait` returns. The lock is also
 reacquired by invoking `lock.lock()` if the function exits with an exception.]]
 
-[[Returns:] [`cv_status::no_timeout` if the call is returning because the time specified by
-`abs_time` was reached, `cv_status::timeout` otherwise.]]
+[[Returns:] [`cv_status::timeout` if the call is returning because the time specified by
+`abs_time` was reached, `cv_status::no_timeout` otherwise.]]
 
 [[Postcondition:] [`lock` is locked by the current thread.]]
 
@@ -378,8 +378,8 @@ reason), the lock is reacquired by invoking `lock.lock()` before the call to
 `wait` returns. The lock is also reacquired by invoking `lock.lock()` if the
 function exits with an exception.]]
 
-[[Returns:] [`cv_status::no_timeout ` if the call is returning because the time period specified
-by `rel_time` has elapsed, `cv_status::timeout ` otherwise.]]
+[[Returns:] [`cv_status::timeout ` if the call is returning because the time period specified
+by `rel_time` has elapsed, `cv_status::no_timeout ` otherwise.]]
 
 [[Postcondition:] [`lock` is locked by the current thread.]]
 
@@ -419,14 +419,7 @@ return true;
 [variablelist
 
 [[Effects:] [As-if ``
-while(!pred())
-{
-    if(!wait_for(lock,rel_time))
-    {
-        return pred();
-    }
-}
-return true;
+return wait_until(lock, chrono::steady_clock::now() + d, boost::move(pred));
 ``]]
 
 ]
@@ -482,7 +475,7 @@ return true;
                 const chrono::duration<Rep, Period>& d,
                 Predicate pred);
 
-        #if defined BOOST_THREAD_PROVIDES_DEPRECATED_FEATURES_SINCE_V3_0_0 || defined BOOST_THREAD_DONT_USE_CHRONO
+        #if defined BOOST_THREAD_USES_DATETIME
             template<typename lock_type>
             bool timed_wait(lock_type& lock,boost::system_time const& abs_time);
             template<typename lock_type,typename duration_type>
@@ -731,19 +724,12 @@ return true;
 
 [endsect]
 
-[section:wait_for_predicate `template <class lock_type, class Rep, class Period, class Predicate> bool wait_until(lock_type& lock, const chrono::duration<Rep, Period>& rel_time, Predicate pred)`]
+[section:wait_for_predicate `template <class lock_type, class Rep, class Period, class Predicate> bool wait_for(lock_type& lock, const chrono::duration<Rep, Period>& rel_time, Predicate pred)`]
 
 [variablelist
 
 [[Effects:] [As-if ``
-while(!pred())
-{
-    if(!__cvany_wait_for(lock,rel_time))
-    {
-        return pred();
-    }
-}
-return true;
+return wait_until(lock, chrono::steady_clock::now() + d, boost::move(pred));
 ``]]
 
 ]

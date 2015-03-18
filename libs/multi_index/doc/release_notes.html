@@ -27,10 +27,13 @@ Acknowledgements
 
 <hr>
 
-
 <h2>Contents</h2>
 
 <ul>
+  <li><a href="#boost_1_57">Boost 1.57 release</a></li>
+  <li><a href="#boost_1_56">Boost 1.56 release</a></li>
+  <li><a href="#boost_1_55">Boost 1.55 release</a></li>
+  <li><a href="#boost_1_54">Boost 1.54 release</a></li>
   <li><a href="#boost_1_49">Boost 1.49 release</a></li>
   <li><a href="#boost_1_48">Boost 1.48 release</a></li>
   <li><a href="#boost_1_47">Boost 1.47 release</a></li>
@@ -46,6 +49,107 @@ Acknowledgements
   <li><a href="#boost_1_33_1">Boost 1.33.1 release</a></li>
   <li><a href="#boost_1_33">Boost 1.33 release</a></li>
 </ul>
+
+<h2><a name="boost_1_57">Boost 1.57 release</a></h2>
+
+<p>
+<ul>
+  <li>When <code>std::tuple</code>s are available, these can be used for lookup operations
+     in indices equipped with composite keys. <code>boost::tuple</code>s are also supported
+     for backwards compatibility.
+  </li>
+</ul>
+</p>
+
+<h2><a name="boost_1_56">Boost 1.56 release</a></h2>
+
+<p>
+<ul>
+  <li>The <code>erase(iterator)</code> member function of hashed indices
+    used to have poor performance under low load conditions due to the requirement
+    that an iterator to the next element must be returned (see ticket
+    <a href="https://svn.boost.org/trac/boost/ticket/4264">#4264</a>). In accordance with
+    the resolution of <a href="http://lwg.github.io/issues/lwg-closed.html#579">LWG
+    issue #579</a>, this problem has been fixed while maintaining the interface of
+    <code>erase</code>, at the expense of using one more
+    word of memory per element. In fact, C++ complexity requirements on unordered
+    associative containers have been improved for hashed indices so that
+    <ul>
+      <li>deletion of a given element is unconditionally constant-time,</li>
+      <li>worst-case performance is not <code>O(n)</code> but <code>O(n<sub>dist</sub>)</code>,
+         where <code>n<sub>dist</sub></code> is the number of non-equivalent elements in the index.
+      </li>
+    </ul>
+    Due to the fact that hashed indices rely on a new data structure, the internal representation of
+    their iterators and local iterators have changed, which affects serialization: their corresponding
+    serialization <a href="../../serialization/doc/tutorial.html#versioning">class version</a> has been
+    bumped from 0 to 1. Old archives involving hashed index (local) iterators can be loaded
+    by Boost 1.56 version of Boost.MultiIndex, but not the other way around.
+  </li>
+  <li>Hashed indices now provide <code>reserve</code>.</li>
+  <li>Hashed indices can now be checked for equality and inequality following the
+    (suitably adapted) C++ standard specification in <b>[unord.req]</b>.</li>
+  <li>The public interface of Boost.MultiIndex provide <code>noexcept</code> specifications
+    where appropriate (for compliant compilers).
+  </li>
+  <li>Improved performance of failed insertions into a <code>multi_index_container</code>.</li>
+  <li>Much internal code aimed at supporting MSVC++ 7.0 and prior has been removed.
+    Compilation times without this legacy code might be slightly faster.
+  </li>
+  <li>Fixed a bug with insertion via iterators dereferencing to rvalues
+    (ticket <a href="https://svn.boost.org/trac/boost/ticket/9665">#9665</a>).
+  </li>
+  <li>Made Boost.MultiIndex compatible with <code>BOOST_BIND_NO_PLACEHOLDERS</code>
+    (ticket <a href="https://svn.boost.org/trac/boost/ticket/9798">#9798</a>).
+  </li>
+  <li>Maintenance fixes.</li>
+</ul>
+</p>
+
+<h2><a name="boost_1_55">Boost 1.55 release</a></h2>
+
+<p>
+<ul>
+  <li>Boost.MultiIndex has been brought to a higher level of compliance
+  with C++11.
+  <ul>
+      <li><code>multi_index_container</code> is now efficiently movable.</li>
+      <li>Initializer lists supported.</li>
+      <li>Emplace functions provided.</li>
+      <li>Non-copyable elements (such as <code>std::unique_ptr&lt;T&gt;</code>) supported. This includes
+        insertion of a range [<code>first</code>,<code>last</code>) where the iterators point to a type that is
+        convertible to that of the element: no copy construction happens in the process.
+      </li>
+      <li>Random access indices provide <code>shrink_to_fit()</code>.</li>
+  </ul>
+  Refer to the <a href="compiler_specifics.html">compiler specifics</a> section for limitations
+  on pre-C++11 compilers.
+  </li>
+  <li>The following classes are deprecated:
+  <ul>
+    <li><a href="reference/key_extraction.html#member_offset"><code>member_offset</code></a>,</li>
+    <li><a href="reference/key_extraction.html#const_mem_fun_explicit"><code>const_mem_fun_explicit</code></a>,</li>
+    <li><a href="reference/key_extraction.html#const_mem_fun_explicit"><code>mem_fun_explicit</code></a>,</li>
+    <li><a href="reference/key_extraction.html#composite_key_result_equal_to"><code>composite_key_result_equal_to</code></a>,</li>
+    <li><a href="reference/key_extraction.html#composite_key_result_less"><code>composite_key_result_less</code></a>,</li>
+    <li><a href="reference/key_extraction.html#composite_key_result_greater"><code>composite_key_result_greater</code></a>,</li>
+    <li><a href="reference/key_extraction.html#composite_key_result_hash"><code>composite_key_result_hash</code></a>.</li>
+  </ul>
+  </li>
+  <li>Maintenance fixes.</li>
+</ul>
+</p>
+
+<h2><a name="boost_1_54">Boost 1.54 release</a></h2>
+
+<p>
+<ul>
+  <li>Suppressed some potential warnings described in
+    tickets <a href="https://svn.boost.org/trac/boost/ticket/8034">#8034</a> and <a href="https://svn.boost.org/trac/boost/ticket/8129">#8129</a>.
+  </li>
+  <li>Maintenance fixes.</li>
+</ul>
+</p>
 
 <h2><a name="boost_1_49">Boost 1.49 release</a></h2>
 
@@ -359,9 +463,9 @@ Acknowledgements
 
 <br>
 
-<p>Revised November 24th 2011</p>
+<p>Revised August 20th 2014</p>
 
-<p>&copy; Copyright 2003-2011 Joaqu&iacute;n M L&oacute;pez Mu&ntilde;oz.
+<p>&copy; Copyright 2003-2014 Joaqu&iacute;n M L&oacute;pez Mu&ntilde;oz.
 Distributed under the Boost Software 
 License, Version 1.0. (See accompanying file <a href="../../../LICENSE_1_0.txt">
 LICENSE_1_0.txt</a> or copy at <a href="http://www.boost.org/LICENSE_1_0.txt">

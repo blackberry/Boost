@@ -11,7 +11,7 @@
 #ifndef BOOST_INTERPROCESS_ALLOCATOR_HPP
 #define BOOST_INTERPROCESS_ALLOCATOR_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
@@ -57,7 +57,7 @@ class allocator
    typedef SegmentManager                                segment_manager;
    typedef typename SegmentManager::void_pointer         void_pointer;
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    private:
 
    //Self type
@@ -85,7 +85,7 @@ class allocator
 
    //Pointer to the allocator
    alloc_ptr_t mp_mngr;
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public:
    typedef T                                    value_type;
@@ -104,12 +104,12 @@ class allocator
 
    typedef boost::interprocess::version_type<allocator, 2>   version;
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
    //Experimental. Don't use.
    typedef boost::container::container_detail::transform_multiallocation_chain
       <typename SegmentManager::multiallocation_chain, T>multiallocation_chain;
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    //!Obtains an allocator that allocates
    //!objects of type T2
@@ -190,22 +190,20 @@ class allocator
    //!preferred_elements. The number of actually allocated elements is
    //!will be assigned to received_size. The elements must be deallocated
    //!with deallocate(...)
-   multiallocation_chain allocate_many
-      (size_type elem_size, size_type num_elements)
+   void allocate_many(size_type elem_size, size_type num_elements, multiallocation_chain &chain)
    {
       if(size_overflows<sizeof(T)>(elem_size)){
          throw bad_alloc();
       }
-      return multiallocation_chain(mp_mngr->allocate_many(elem_size*sizeof(T), num_elements));
+      mp_mngr->allocate_many(elem_size*sizeof(T), num_elements, chain);
    }
 
    //!Allocates n_elements elements, each one of size elem_sizes[i]in a
    //!contiguous block
    //!of memory. The elements must be deallocated
-   multiallocation_chain allocate_many
-      (const size_type *elem_sizes, size_type n_elements)
+   void allocate_many(const size_type *elem_sizes, size_type n_elements, multiallocation_chain &chain)
    {
-      multiallocation_chain(mp_mngr->allocate_many(elem_sizes, n_elements, sizeof(T)));
+      mp_mngr->allocate_many(elem_sizes, n_elements, sizeof(T), chain);
    }
 
    //!Allocates many elements of size elem_size in a contiguous block
@@ -214,10 +212,8 @@ class allocator
    //!preferred_elements. The number of actually allocated elements is
    //!will be assigned to received_size. The elements must be deallocated
    //!with deallocate(...)
-   void deallocate_many(multiallocation_chain chain)
-   {
-      return mp_mngr->deallocate_many(chain.extract_multiallocation_chain());
-   }
+   void deallocate_many(multiallocation_chain &chain)
+   {  mp_mngr->deallocate_many(chain); }
 
    //!Allocates just one object. Memory allocated with this function
    //!must be deallocated only with deallocate_one().
@@ -231,9 +227,8 @@ class allocator
    //!preferred_elements. The number of actually allocated elements is
    //!will be assigned to received_size. Memory allocated with this function
    //!must be deallocated only with deallocate_one().
-   multiallocation_chain allocate_individual
-      (size_type num_elements)
-   {  return this->allocate_many(1, num_elements); }
+   void allocate_individual(size_type num_elements, multiallocation_chain &chain)
+   {  this->allocate_many(1, num_elements, chain); }
 
    //!Deallocates memory previously allocated with allocate_one().
    //!You should never use deallocate_one to deallocate memory allocated
@@ -247,8 +242,8 @@ class allocator
    //!preferred_elements. The number of actually allocated elements is
    //!will be assigned to received_size. Memory allocated with this function
    //!must be deallocated only with deallocate_one().
-   void deallocate_individual(multiallocation_chain chain)
-   {  return this->deallocate_many(boost::move(chain)); }
+   void deallocate_individual(multiallocation_chain &chain)
+   {  this->deallocate_many(chain); }
 
    //!Returns address of mutable object.
    //!Never throws
@@ -290,7 +285,7 @@ bool operator!=(const allocator<T, SegmentManager>  &alloc1,
 
 }  //namespace interprocess {
 
-/// @cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
 template<class T>
 struct has_trivial_destructor;
@@ -301,7 +296,7 @@ struct has_trivial_destructor
 {
    static const bool value = true;
 };
-/// @endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 }  //namespace boost {
 

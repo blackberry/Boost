@@ -23,7 +23,7 @@
 
 using namespace boost::interprocess;
 
-const int memsize = 16384;
+const int Memsize = 16384;
 const char *const shMemName = test::get_process_id_name();
 
 int test_simple_seq_fit()
@@ -37,7 +37,7 @@ int test_simple_seq_fit()
 
    //Create shared memory
    shared_memory_object::remove(shMemName);
-   my_managed_shared_memory segment(create_only, shMemName, memsize);
+   my_managed_shared_memory segment(create_only, shMemName, Memsize);
 
    //Now take the segment manager and launch memory test
    if(!test::test_all_allocation(*segment.get_segment_manager())){
@@ -58,7 +58,7 @@ int test_rbtree_best_fit()
 
    //Create shared memory
    shared_memory_object::remove(shMemName);
-   my_managed_shared_memory segment(create_only, shMemName, memsize);
+   my_managed_shared_memory segment(create_only, shMemName, Memsize);
 
    //Now take the segment manager and launch memory test
    if(!test::test_all_allocation(*segment.get_segment_manager())){

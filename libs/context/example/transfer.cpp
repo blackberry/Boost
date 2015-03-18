@@ -7,16 +7,22 @@
 #include <cstdlib>
 #include <cstring>
 #include <iostream>
-#include <utility>
-#include <vector>
 
 #include <boost/assert.hpp>
 #include <boost/context/all.hpp>
 
+#include "simple_stack_allocator.hpp"
+
 namespace ctx = boost::context;
 
-ctx::fcontext_t fcm;
-ctx::fcontext_t * fc1;
+typedef ctx::simple_stack_allocator<
+    8 * 1024 * 1024, // 8MB
+    64 * 1024, // 64kB
+    8 * 1024 // 8kB
+>       stack_allocator;
+
+ctx::fcontext_t fcm = 0;
+ctx::fcontext_t fc1 = 0;
 
 typedef std::pair< int, int >   pair_t;
 
@@ -24,18 +30,17 @@ void f1( intptr_t param)
 {
     pair_t * p = ( pair_t *) param;
 
-    p = ( pair_t *) ctx::jump_fcontext( fc1, & fcm, ( intptr_t) ( p->first + p->second) );
+    p = ( pair_t *) ctx::jump_fcontext( & fc1, fcm, ( intptr_t) ( p->first + p->second) );
 
-    ctx::jump_fcontext( fc1, & fcm, ( intptr_t) ( p->first + p->second) );
+    ctx::jump_fcontext( & fc1, fcm, ( intptr_t) ( p->first + p->second) );
 }
 
 int main( int argc, char * argv[])
 {
-    typedef ctx::simple_stack_allocator< 256 * 1024, 64 * 1024, 8 * 1024 > alloc_t;
-    alloc_t alloc;
+    stack_allocator alloc;
 
-    void * sp = alloc.allocate(alloc_t::default_stacksize());
-    fc1 = ctx::make_fcontext( sp, alloc_t::default_stacksize(), f1);
+    void * sp = alloc.allocate( stack_allocator::default_stacksize() );
+    fc1 = ctx::make_fcontext( sp, stack_allocator::default_stacksize(), f1);
 
     pair_t p( std::make_pair( 2, 7) );
     int res = ( int) ctx::jump_fcontext( & fcm, fc1, ( intptr_t) & p);

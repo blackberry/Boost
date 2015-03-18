@@ -79,7 +79,7 @@ struct rehash_test4 : rehash_test_base<T>
     void run(T& x) const { x.rehash(0); }
 };
 
-RUN_EXCEPTION_TESTS(
+EXCEPTION_TESTS(
     (rehash_test0)(rehash_test1)(rehash_test2)(rehash_test3)(rehash_test4),
     CONTAINER_SEQ)
-
+RUN_TESTS()

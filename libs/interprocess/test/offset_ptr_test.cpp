@@ -208,15 +208,15 @@ bool test_arithmetic()
    //ptr++
    penew = p0;
    for(int j = 0; j != NumValues; ++j){
-      pint_t p = penew;
-      if(p != penew++)
+      pint_t p_new_copy = penew;
+      if(p_new_copy != penew++)
          return false;
    }
    //ptr--
    p0 = pe;
    for(int j = 0; j != NumValues; ++j){
-      pint_t p = p0;
-      if(p != p0--)
+      pint_t p0_copy = p0;
+      if(p0_copy != p0--)
          return false;
    }
 
@@ -290,3 +290,60 @@ int main()
 }
 
 #include <boost/interprocess/detail/config_end.hpp>
+
+/*
+//Offset ptr benchmark
+#include <vector>
+#include <iostream>
+#include <boost/interprocess/managed_shared_memory.hpp>
+#include <boost/interprocess/containers/vector.hpp>
+#include <boost/interprocess/allocators/allocator.hpp>
+#include <boost/timer.hpp>
+#include <cstddef>
+
+template<class InIt,
+   class Ty> inline
+   Ty accumulate2(InIt First, InIt Last, Ty Val)
+   {   // return sum of Val and all in [First, Last)
+   for (; First != Last; ++First) //First = First + 1)
+      Val = Val + *First;
+   return (Val);
+   }
+
+template <typename Vector>
+void time_test(const Vector& vec, std::size_t iterations, const char* label) {
+  // assert(!vec.empty())
+  boost::timer t;
+  typename Vector::const_iterator first = vec.begin();
+  typename Vector::value_type result(0);
+  while (iterations != 0) {
+    result = accumulate2(first, first + vec.size(), result);
+    --iterations;
+  }
+  std::cout << label << t.elapsed() << " " << result << std::endl;
+}
+
+int main()
+{
+   using namespace boost::interprocess;
+   typedef allocator<double, managed_shared_memory::segment_manager> alloc_t;
+
+   std::size_t n = 0x1 << 26;
+   std::size_t file_size = n * sizeof(double) + 1000000;
+
+   {
+      shared_memory_object::remove("MyMappedFile");
+      managed_shared_memory segment(open_or_create, "MyMappedFile", file_size);
+      shared_memory_object::remove("MyMappedFile");
+      alloc_t alloc_inst(segment.get_segment_manager());
+      vector<double, alloc_t>  v0(n, double(42.42), alloc_inst);
+      time_test(v0, 10, "iterator   shared:     ");
+   }
+   {
+      std::vector<double>      v1(n, double(42.42));
+      time_test(v1, 10, "iterator   non-shared: ");
+   }
+  return 0;
+}
+
+*/

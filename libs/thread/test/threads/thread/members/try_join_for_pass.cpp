@@ -19,7 +19,7 @@
 //        bool try_join_for(const chrono::duration<Rep, Period>& rel_time);
 
 #define BOOST_THREAD_VESRION 3
-#include <boost/thread/thread.hpp>
+#include <boost/thread/thread_only.hpp>
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/locks.hpp>
 #include <new>
@@ -88,7 +88,7 @@ int main()
   {
     boost::thread t0( (G()));
     BOOST_TEST(t0.joinable());
-    BOOST_TEST(t0.try_join_for(boost::chrono::milliseconds(50)));
+    BOOST_TEST(t0.try_join_for(boost::chrono::milliseconds(150)));
     BOOST_TEST(!t0.joinable());
   }
   {

@@ -13,19 +13,21 @@
 
 #include "iterator.hpp"
 #include <boost/intrusive_ptr.hpp>
+#include <boost/utility/string_ref.hpp>
 
 namespace quickbook
 {
     struct state;
     struct quickbook_grammar;
     struct collector;
-    struct id_manager;
+    struct document_state;
     struct section_info;
     struct file;
     struct template_symbol;
     typedef boost::intrusive_ptr<file> file_ptr;
+    typedef unsigned source_mode_type;
 
-    typedef std::string::const_iterator string_iterator;
+    typedef boost::string_ref::const_iterator string_iterator;
     typedef lookback_iterator<string_iterator> parse_iterator;
 
     inline void ignore_variable(void const*) {} 

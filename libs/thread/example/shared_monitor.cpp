@@ -6,7 +6,8 @@
 #include <iostream>
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/shared_mutex.hpp>
-#include <boost/thread/thread.hpp>
+#include <boost/thread/lock_algorithms.hpp>
+#include <boost/thread/thread_only.hpp>
 #if defined BOOST_THREAD_DONT_USE_CHRONO
 #include <boost/chrono/chrono_io.hpp>
 #endif

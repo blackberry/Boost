@@ -8,15 +8,16 @@
 //
 // For more information, see http://www.boost.org/libs/range/
 //
+//[type_erased_example
 #include <boost/range/adaptor/type_erased.hpp>
 #include <boost/range/algorithm/copy.hpp>
 #include <boost/assign.hpp>
 #include <boost/foreach.hpp>
-#include <algorithm>
+#include <iterator>
 #include <iostream>
 #include <list>
 #include <vector>
-
+//<-
 #include <boost/test/test_tools.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -26,6 +27,7 @@ namespace
     {
         namespace type_erased_example
         {
+//->            
 
 // The client interface from an OO perspective merely requires a sequence
 // of integers that can be forward traversed
@@ -98,6 +100,13 @@ namespace client
         server::display_integers(input2 | type_erased_forward());
     }
 }
+
+//=int main(int argc, const char* argv[])
+//={
+//=    client::run();
+//=    return 0;
+//=}
+//]
 
         } // namespace type_erased_example
     } // namespace boost_range_test

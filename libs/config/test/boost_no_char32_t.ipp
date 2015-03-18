@@ -23,8 +23,8 @@ void f(const unsigned long*){}
 
 int test()
 {
-  const char32_t* p;
-  f(p);
+  const char32_t p(0);
+  f(&p);
   return 0;
 }
 

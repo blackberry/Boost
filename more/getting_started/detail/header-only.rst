@@ -19,9 +19,12 @@ Boost?”  The good news is that often, there's nothing to build.
 
 The only Boost libraries that *must* be built separately are:
 
+* Boost.Chrono_
+* Boost.Context_
 * Boost.Filesystem_
 * Boost.GraphParallel_
 * Boost.IOStreams_
+* Boost.Locale_
 * Boost.MPI_
 * Boost.ProgramOptions_
 * Boost.Python_ (see the `Boost.Python build documentation`__
@@ -31,6 +34,7 @@ The only Boost libraries that *must* be built separately are:
 * Boost.Signals_
 * Boost.System_
 * Boost.Thread_
+* Boost.Timer_
 * Boost.Wave_
 
 __ ../../libs/python/doc/building.html
@@ -53,5 +57,10 @@ A few libraries have optional separately-compiled binaries:
 * Boost.Test_ can be used in “header-only” or “separately compiled”
   mode, although **separate compilation is recommended for serious
   use**.
+
+* Boost.Exception_ provides non-intrusive implementation of
+  exception_ptr for 32-bit _MSC_VER==1310 and _MSC_VER==1400
+  which requires a separately-compiled binary. This is enabled by
+  #define BOOST_ENABLE_NON_INTRUSIVE_EXCEPTION_PTR.
 
 __ ../../libs/graph/doc/read_graphviz.html

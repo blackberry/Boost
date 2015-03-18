@@ -5,13 +5,13 @@
 
 #include "./config.hpp"
 
-#if !defined(TEST_EXTENSIONS)
+#if !defined(BOOST_HASH_TEST_EXTENSIONS)
 
 int main() {}
 
 #else
 
-#ifdef TEST_STD_INCLUDES
+#ifdef BOOST_HASH_TEST_STD_INCLUDES
 #  include <functional>
 #else
 #  include <boost/functional/hash.hpp>
@@ -35,7 +35,7 @@ int main() {}
 #endif
 #endif
 
-#if defined(__GNUC__)
+#if defined(__GNUC__) && !defined(BOOST_INTEL_CXX_VERSION)
 #pragma GCC diagnostic ignored "-Wfloat-equal"
 #endif
 
@@ -46,11 +46,11 @@ int main() {}
 template <class T>
 void generic_complex_tests(std::complex<T> v)
 {
-    HASH_NAMESPACE::hash<std::complex<T> > complex_hasher;
+    BOOST_HASH_TEST_NAMESPACE::hash<std::complex<T> > complex_hasher;
 
     BOOST_TEST(complex_hasher(v) == complex_hasher(v));
 
-    HASH_NAMESPACE::hash<T> real_hasher;
+    BOOST_HASH_TEST_NAMESPACE::hash<T> real_hasher;
     T real = v.real();
     T imag = v.imag();
 
@@ -107,4 +107,4 @@ int main()
     return boost::report_errors();
 }
 
-#endif // TEST_EXTENSIONS
+#endif // BOOST_HASH_TEST_EXTENSIONS

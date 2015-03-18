@@ -9,7 +9,7 @@
 <!DOCTYPE library PUBLIC "-//Boost//DTD BoostBook XML V1.0//EN"
   "http://www.boost.org/tools/boostbook/dtd/boostbook.dtd">
 
-<library-reference id="function.reference" last-revision="$Date: 2012-09-24 09:36:41 -0700 (Mon, 24 Sep 2012) $">
+<library-reference id="function.reference" last-revision="$Date$">
 
 <section id="function.definitions">
   <title>Definitions</title>
@@ -204,6 +204,15 @@
     </constructor>
 
     <constructor>
+      <parameter name="f">
+        <paramtype><classname>functionN</classname>&amp;&amp;</paramtype>
+      </parameter>
+      <requires><simpara>C++11 compatible compiler.</simpara></requires>
+      <postconditions><simpara>Moves the value from <code>f</code> to <code>*this</code>. If the argument has its function object allocated on the heap, its buffer will be assigned to <code>*this</code> leaving argument empty.</simpara></postconditions>
+      <throws><simpara>Will not throw unless argument has its function object allocated not on the heap and copying the target of <code>f</code> throws.</simpara></throws>
+    </constructor>
+    
+    <constructor>
       <template>
         <template-type-parameter name="F"/>
       </template>
@@ -235,6 +244,15 @@
         <paramtype>const <classname>functionN</classname>&amp;</paramtype>
       </parameter>
       <postconditions><simpara>If copy construction does not throw, <code>*this</code> targets a copy of <code>f</code>'s target, if it has one, or is empty if <code>f.<methodname>empty</methodname>()</code>. If copy construction does throw, <code>this-&gt;<methodname>empty</methodname>()</code>.</simpara></postconditions>
+    </copy-assignment>
+    
+    <copy-assignment>
+      <parameter name="f">
+        <paramtype><classname>functionN</classname>&amp;&amp;</paramtype>
+      </parameter>
+      <requires><simpara>C++11 compatible compiler.</simpara></requires>
+      <postconditions><simpara>Moves the value from <code>f</code> to <code>*this</code>. If the argument has its function object allocated on the heap, its buffer will be assigned to <code>*this</code> leaving argument empty.</simpara></postconditions>
+      <throws><simpara>Will not throw unless argument has its function object allocated not on the heap and copying the target of <code>f</code> throws.</simpara></throws>
     </copy-assignment>
 
     <method-group name="modifiers">
@@ -607,7 +625,16 @@
       <postconditions><simpara>Contains a copy of the <code>f</code>'s target, if it has one, or is empty if <code>f.<methodname>empty</methodname>()</code>.</simpara></postconditions>
       <throws><simpara>Will not throw unless copying the target of <code>f</code> throws.</simpara></throws>
     </constructor>
-
+        
+    <constructor>
+      <parameter name="f">
+        <paramtype><classname>functionN</classname>&amp;&amp;</paramtype>
+      </parameter>
+      <requires><simpara>C++11 compatible compiler.</simpara></requires>
+      <postconditions><simpara>Moves the value from <code>f</code> to <code>*this</code>. If the argument has its function object allocated on the heap, its buffer will be assigned to <code>*this</code> leaving argument empty.</simpara></postconditions>
+      <throws><simpara>Will not throw unless argument has its function object allocated not on the heap and copying the target of <code>f</code> throws.</simpara></throws>
+    </constructor>
+    
     <constructor>
       <parameter name="f">
         <paramtype>const <classname>function</classname>&amp;</paramtype>
@@ -616,6 +643,15 @@
       <throws><simpara>Will not throw unless copying the target of <code>f</code> throws.</simpara></throws>
     </constructor>
 
+    <constructor>
+      <parameter name="f">
+        <paramtype><classname>function</classname>&amp;&amp;</paramtype>
+      </parameter>
+      <requires><simpara>C++11 compatible compiler.</simpara></requires>
+      <postconditions><simpara>Moves the value from <code>f</code> to <code>*this</code>. If the argument has its function object allocated on the heap, its buffer will be assigned to <code>*this</code> leaving argument empty.</simpara></postconditions>
+      <throws><simpara>Will not throw unless argument has its function object allocated not on the heap and copying the target of <code>f</code> throws.</simpara></throws>
+    </constructor>
+    
     <constructor>
       <template>
         <template-type-parameter name="F"/>
@@ -645,9 +681,18 @@
 
     <copy-assignment>
       <parameter name="f">
-        <paramtype>const <classname>function</classname>&amp;</paramtype>
+        <paramtype>const <classname>functionN</classname>&amp;</paramtype>
       </parameter>
       <postconditions><simpara>If copy construction does not throw, <code>*this</code> targets a copy of <code>f</code>'s target, if it has one, or is empty if <code>f.<methodname>empty</methodname>()</code>. If copy construction does throw, <code>this-&gt;<methodname>empty</methodname>()</code>.</simpara></postconditions>
+    </copy-assignment>
+    
+    <copy-assignment>
+      <parameter name="f">
+        <paramtype><classname>functionN</classname>&amp;&amp;</paramtype>
+      </parameter>
+      <requires><simpara>C++11 compatible compiler.</simpara></requires>
+      <postconditions><simpara>Moves the value from <code>f</code> to <code>*this</code>. If the argument has its function object allocated on the heap, its buffer will be assigned to <code>*this</code> leaving argument empty.</simpara></postconditions>
+      <throws><simpara>Will not throw unless argument has its function object allocated not on the heap and copying the target of <code>f</code> throws.</simpara></throws>
     </copy-assignment>
 
     <copy-assignment>
@@ -656,6 +701,15 @@
       </parameter>
       <postconditions><simpara>If copy construction of the target of <code>f</code> does not throw, <code>*this</code> targets a copy of <code>f</code>'s target, if it has one, or is empty if <code>f.<methodname>empty</methodname>()</code>. </simpara></postconditions>
       <throws><simpara>Will not throw when the target of <code>f</code> is a stateless function object or a reference to the function object. If copy construction does throw, <code>this-&gt;<methodname>empty</methodname>()</code>.</simpara></throws>
+    </copy-assignment>
+    
+    <copy-assignment>
+      <parameter name="f">
+        <paramtype><classname>function</classname>&amp;&amp;</paramtype>
+      </parameter>
+      <requires><simpara>C++11 compatible compiler.</simpara></requires>
+      <postconditions><simpara>Moves the value from <code>f</code> to <code>*this</code>. If the argument has its function object allocated on the heap, its buffer will be assigned to <code>*this</code> leaving argument empty.</simpara></postconditions>
+      <throws><simpara>Will not throw unless argument has its function object allocated not on the heap and copying the target of <code>f</code> throws.</simpara></throws>
     </copy-assignment>
 
     <method-group name="modifiers">

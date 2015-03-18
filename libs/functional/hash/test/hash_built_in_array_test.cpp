@@ -5,8 +5,8 @@
 
 #include "./config.hpp"
 
-#ifdef TEST_EXTENSIONS
-#  ifdef TEST_STD_INCLUDES
+#ifdef BOOST_HASH_TEST_EXTENSIONS
+#  ifdef BOOST_HASH_TEST_STD_INCLUDES
 #    include <functional>
 #  else
 #    include <boost/functional/hash.hpp>
@@ -15,7 +15,7 @@
 
 #include <boost/detail/lightweight_test.hpp>
 
-#ifdef TEST_EXTENSIONS
+#ifdef BOOST_HASH_TEST_EXTENSIONS
 
 void array_int_test()
 {
@@ -27,47 +27,47 @@ void array_int_test()
         8, -12, 23, 65, 45,
         -1, 93, -54, 987, 3
     };
-    HASH_NAMESPACE::hash<int[25]> hasher1;
+    BOOST_HASH_TEST_NAMESPACE::hash<int[25]> hasher1;
 
     const int length2 = 1;
     int array2[1] = {3};
-    HASH_NAMESPACE::hash<int[1]> hasher2;
+    BOOST_HASH_TEST_NAMESPACE::hash<int[1]> hasher2;
 
     const int length3 = 2;
     int array3[2] = {2, 3};
-    HASH_NAMESPACE::hash<int[2]> hasher3;
+    BOOST_HASH_TEST_NAMESPACE::hash<int[2]> hasher3;
 
     BOOST_TEST(hasher1(array1)
-            == HASH_NAMESPACE::hash_range(array1, array1 + length1));
+            == BOOST_HASH_TEST_NAMESPACE::hash_range(array1, array1 + length1));
     BOOST_TEST(hasher2(array2)
-            == HASH_NAMESPACE::hash_range(array2, array2 + length2));
+            == BOOST_HASH_TEST_NAMESPACE::hash_range(array2, array2 + length2));
     BOOST_TEST(hasher3(array3)
-            == HASH_NAMESPACE::hash_range(array3, array3 + length3));
+            == BOOST_HASH_TEST_NAMESPACE::hash_range(array3, array3 + length3));
 }
 
 void two_dimensional_array_test()
 {
     int array[3][2] = {{-5, 6}, {7, -3}, {26, 1}};
-    HASH_NAMESPACE::hash<int[3][2]> hasher;
+    BOOST_HASH_TEST_NAMESPACE::hash<int[3][2]> hasher;
 
     std::size_t seed1 = 0;
     for(int i = 0; i < 3; ++i)
     {
         std::size_t seed2 = 0;
         for(int j = 0; j < 2; ++j)
-            HASH_NAMESPACE::hash_combine(seed2, array[i][j]);
-        HASH_NAMESPACE::hash_combine(seed1, seed2);
+            BOOST_HASH_TEST_NAMESPACE::hash_combine(seed2, array[i][j]);
+        BOOST_HASH_TEST_NAMESPACE::hash_combine(seed1, seed2);
     }
 
     BOOST_TEST(hasher(array) == seed1);
-    BOOST_TEST(hasher(array) == HASH_NAMESPACE::hash_range(array, array + 3));
+    BOOST_TEST(hasher(array) == BOOST_HASH_TEST_NAMESPACE::hash_range(array, array + 3));
 }
 
-#endif // TEST_EXTENSIONS
+#endif // BOOST_HASH_TEST_EXTENSIONS
 
 int main()
 {
-#ifdef TEST_EXTENSIONS
+#ifdef BOOST_HASH_TEST_EXTENSIONS
     array_int_test();
     two_dimensional_array_test();
 #endif

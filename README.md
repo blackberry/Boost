@@ -1,7 +1,7 @@
 Boost for BlackBerry 10
 -----------------------
 
-Current Boost Version: 1.52.0.
+Current Boost Version: 1.57.0.
 
 For the most part, Boost requires almost _no_ changes to work in BlackBerry 10 ("BB10").  All required code changes are pushed upstream whenever possible.
 

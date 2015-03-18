@@ -174,10 +174,76 @@ void test_bimap_modify()
 
 }
 
+void test_bimap_replace_with_info() 
+{
+    using namespace boost::bimaps;
+    typedef bimap<int,long,with_info<int> > bm;
+
+    bm b;
+    b.insert( bm::value_type(2,200,-2) );
+
+    BOOST_CHECK( b.left.at(2)      == 200 );
+    BOOST_CHECK( b.left.info_at(2) ==  -2 );
+ 
+    // Use set view
+    {
+        bm::iterator i = b.begin();
+
+        bool result = b.replace( i, bm::value_type(1,100,-1) );
+
+        BOOST_CHECK( result );
+        BOOST_CHECK( b.size() == 1 );
+        BOOST_CHECK( i->left == 1 && i->right == 100 );
+        BOOST_CHECK( i->info == -1 );
+        
+        result = b.replace_left( i, 2 );
+
+        BOOST_CHECK( result );
+        BOOST_CHECK( b.size() == 1 );
+        BOOST_CHECK( i->left == 2 && i->right == 100 );
+        BOOST_CHECK( i->info == -1 );
+        
+        result = b.replace_right( i, 200 );
+
+        BOOST_CHECK( result );
+        BOOST_CHECK( b.size() == 1 );
+        BOOST_CHECK( i->left == 2 && i->right == 200 );
+        BOOST_CHECK( i->info == -1 );
+    }
+
+    // Use map view
+    {
+        bm::left_iterator i = b.left.begin();
+
+        bool result = b.left.replace( i, bm::left_value_type(1,100,-1) );
+
+        BOOST_CHECK( result );
+        BOOST_CHECK( b.left.size() == 1 );
+        BOOST_CHECK( i->first == 1 && i->second == 100 );
+        BOOST_CHECK( i->info == -1 );
+        
+        result = b.left.replace_key( i, 2 );
+
+        BOOST_CHECK( result );
+        BOOST_CHECK( b.left.size() == 1 );
+        BOOST_CHECK( i->first == 2 && i->second == 100 );
+        BOOST_CHECK( i->info == -1 );
+        
+        result = b.left.replace_data( i, 200 );
+
+        BOOST_CHECK( result );
+        BOOST_CHECK( b.left.size() == 1 );
+        BOOST_CHECK( i->first == 2 && i->second == 200 );
+        BOOST_CHECK( i->info == -1 );
+    }
+}
+
 int test_main( int, char* [] )
 {
     test_bimap_modify();
 
+    test_bimap_replace_with_info();
+    
     return 0;
 }
 

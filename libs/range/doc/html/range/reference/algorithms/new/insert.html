@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>insert</title>
 <link rel="stylesheet" href="../../../../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../../../index.html" title="Chapter&#160;1.&#160;Range 2.0">
 <link rel="up" href="../new.html" title="New algorithms">
 <link rel="prev" href="for_each.html" title="for_each">
@@ -26,26 +26,33 @@
 <div class="titlepage"><div><div><h5 class="title">
 <a name="range.reference.algorithms.new.insert"></a><a class="link" href="insert.html" title="insert">insert</a>
 </h5></div></div></div>
-<a name="range.reference.algorithms.new.insert.prototype"></a><h6>
-<a name="id746969"></a>
-            <a class="link" href="insert.html#range.reference.algorithms.new.insert.prototype">Prototype</a>
+<h6>
+<a name="range.reference.algorithms.new.insert.h0"></a>
+            <span class="phrase"><a name="range.reference.algorithms.new.insert.prototype"></a></span><a class="link" href="insert.html#range.reference.algorithms.new.insert.prototype">Prototype</a>
           </h6>
 <p>
-            
 </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
     <span class="keyword">class</span> <span class="identifier">Container</span><span class="special">,</span>
     <span class="keyword">class</span> <span class="identifier">SinglePassRange</span>
-    <span class="special">&gt;</span>
+<span class="special">&gt;</span>
 <span class="identifier">Container</span><span class="special">&amp;</span> <span class="identifier">insert</span><span class="special">(</span><span class="identifier">Container</span><span class="special">&amp;</span> <span class="identifier">target</span><span class="special">,</span>
                   <span class="keyword">typename</span> <span class="identifier">Container</span><span class="special">::</span><span class="identifier">iterator</span> <span class="identifier">before</span><span class="special">,</span>
                   <span class="keyword">const</span> <span class="identifier">SinglePassRange</span><span class="special">&amp;</span> <span class="identifier">from</span><span class="special">);</span>
+
+<span class="comment">// This overload is for target containers that do not require an insertion</span>
+<span class="comment">// position e.g. set/map</span>
+<span class="keyword">template</span><span class="special">&lt;</span>
+    <span class="keyword">class</span> <span class="identifier">Container</span><span class="special">,</span>
+    <span class="keyword">class</span> <span class="identifier">SinglePassRange</span>
+<span class="special">&gt;</span>
+<span class="identifier">Container</span><span class="special">&amp;</span> <span class="identifier">insert</span><span class="special">(</span><span class="identifier">Container</span><span class="special">&amp;</span> <span class="identifier">target</span><span class="special">,</span> <span class="keyword">const</span> <span class="identifier">SinglePassRange</span><span class="special">&amp;</span> <span class="identifier">from</span><span class="special">);</span>
 </pre>
 <p>
           </p>
-<a name="range.reference.algorithms.new.insert.description"></a><h6>
-<a name="id747139"></a>
-            <a class="link" href="insert.html#range.reference.algorithms.new.insert.description">Description</a>
+<h6>
+<a name="range.reference.algorithms.new.insert.h1"></a>
+            <span class="phrase"><a name="range.reference.algorithms.new.insert.description"></a></span><a class="link" href="insert.html#range.reference.algorithms.new.insert.description">Description</a>
           </h6>
 <p>
             <code class="computeroutput"><span class="identifier">insert</span></code> all of the elements
@@ -53,16 +60,16 @@
             the <code class="computeroutput"><span class="identifier">before</span></code> iterator into
             <code class="computeroutput"><span class="identifier">target</span></code>.
           </p>
-<a name="range.reference.algorithms.new.insert.definition"></a><h6>
-<a name="id747205"></a>
-            <a class="link" href="insert.html#range.reference.algorithms.new.insert.definition">Definition</a>
+<h6>
+<a name="range.reference.algorithms.new.insert.h2"></a>
+            <span class="phrase"><a name="range.reference.algorithms.new.insert.definition"></a></span><a class="link" href="insert.html#range.reference.algorithms.new.insert.definition">Definition</a>
           </h6>
 <p>
             Defined in the header file <code class="computeroutput"><span class="identifier">boost</span><span class="special">/</span><span class="identifier">range</span><span class="special">/</span><span class="identifier">algorithm_ext</span><span class="special">/</span><span class="identifier">insert</span><span class="special">.</span><span class="identifier">hpp</span></code>
           </p>
-<a name="range.reference.algorithms.new.insert.requirements"></a><h6>
-<a name="id747275"></a>
-            <a class="link" href="insert.html#range.reference.algorithms.new.insert.requirements">Requirements</a>
+<h6>
+<a name="range.reference.algorithms.new.insert.h3"></a>
+            <span class="phrase"><a name="range.reference.algorithms.new.insert.requirements"></a></span><a class="link" href="insert.html#range.reference.algorithms.new.insert.requirements">Requirements</a>
           </h6>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
@@ -80,9 +87,9 @@
                 value type.
               </li>
 </ol></div>
-<a name="range.reference.algorithms.new.insert.complexity"></a><h6>
-<a name="id747373"></a>
-            <a class="link" href="insert.html#range.reference.algorithms.new.insert.complexity">Complexity</a>
+<h6>
+<a name="range.reference.algorithms.new.insert.h4"></a>
+            <span class="phrase"><a name="range.reference.algorithms.new.insert.complexity"></a></span><a class="link" href="insert.html#range.reference.algorithms.new.insert.complexity">Complexity</a>
           </h6>
 <p>
             Linear. <code class="computeroutput"><span class="identifier">distance</span><span class="special">(</span><span class="identifier">from</span><span class="special">)</span></code>
@@ -91,7 +98,8 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2003 -2010 Thorsten Ottosen, Neil Groves<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2010 Thorsten Ottosen,
+      Neil Groves<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

@@ -33,7 +33,7 @@ static const char *name_initialization_routine()
 
 static const std::size_t ShmSize = 1000;
 typedef ipcdetail::managed_open_or_create_impl
-   <windows_shared_memory, 0, false> windows_shared_memory_t;
+   <windows_shared_memory, 0, false, false> windows_shared_memory_t;
 
 //This wrapper is necessary to have a common constructor
 //in generic named_creation_template functions

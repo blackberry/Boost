@@ -3,8 +3,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Random Access Sequence</title>
 <link rel="stylesheet" href="../../../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
-<link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Fusion 2.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Fusion 2.2">
 <link rel="up" href="../concepts.html" title="Concepts">
 <link rel="prev" href="bidirectional_sequence.html" title="Bidirectional Sequence">
 <link rel="next" href="associative_sequence.html" title="Associative Sequence">
@@ -29,7 +29,7 @@
 </h4></div></div></div>
 <h6>
 <a name="fusion.sequence.concepts.random_access_sequence.h0"></a>
-          <span><a name="fusion.sequence.concepts.random_access_sequence.description"></a></span><a class="link" href="random_access_sequence.html#fusion.sequence.concepts.random_access_sequence.description">Description</a>
+          <span class="phrase"><a name="fusion.sequence.concepts.random_access_sequence.description"></a></span><a class="link" href="random_access_sequence.html#fusion.sequence.concepts.random_access_sequence.description">Description</a>
         </h6>
 <p>
           A Random Access Sequence is a <a class="link" href="bidirectional_sequence.html" title="Bidirectional Sequence">Bidirectional
@@ -39,7 +39,7 @@
         </p>
 <h6>
 <a name="fusion.sequence.concepts.random_access_sequence.h1"></a>
-          <span><a name="fusion.sequence.concepts.random_access_sequence.refinement_of"></a></span><a class="link" href="random_access_sequence.html#fusion.sequence.concepts.random_access_sequence.refinement_of">Refinement
+          <span class="phrase"><a name="fusion.sequence.concepts.random_access_sequence.refinement_of"></a></span><a class="link" href="random_access_sequence.html#fusion.sequence.concepts.random_access_sequence.refinement_of">Refinement
           of</a>
         </h6>
 <p>
@@ -48,7 +48,7 @@
         </p>
 <div class="variablelist">
 <p class="title"><b>Notation</b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term"><code class="computeroutput"><span class="identifier">s</span></code></span></dt>
 <dd><p>
                 A Random Access Sequence
@@ -57,10 +57,14 @@
 <dd><p>
                 A Random Access Sequence type
               </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">M</span></code></span></dt>
+<dd><p>
+                An <a href="http://www.boost.org/libs/mpl/index.html" target="_top">MPL</a>
+                integral constant
+              </p></dd>
 <dt><span class="term"><code class="computeroutput"><span class="identifier">N</span></code></span></dt>
 <dd><p>
-                An <a href="http://www.boost.org/libs/mpl/doc/refmanual/integral-constant.html" target="_top">MPL
-                Integral Constant</a>
+                An integral constant
               </p></dd>
 <dt><span class="term"><code class="computeroutput"><span class="identifier">o</span></code></span></dt>
 <dd><p>
@@ -74,7 +78,7 @@
 </div>
 <h6>
 <a name="fusion.sequence.concepts.random_access_sequence.h2"></a>
-          <span><a name="fusion.sequence.concepts.random_access_sequence.valid_expressions"></a></span><a class="link" href="random_access_sequence.html#fusion.sequence.concepts.random_access_sequence.valid_expressions">Valid
+          <span class="phrase"><a name="fusion.sequence.concepts.random_access_sequence.valid_expressions"></a></span><a class="link" href="random_access_sequence.html#fusion.sequence.concepts.random_access_sequence.valid_expressions">Valid
           Expressions</a>
         </h6>
 <p>
@@ -154,7 +158,7 @@
 <tr>
 <td>
                   <p>
-                    <code class="computeroutput"><a class="link" href="../intrinsic/functions/at.html" title="at"><code class="computeroutput"><span class="identifier">at</span></code></a><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;(</span><span class="identifier">s</span><span class="special">)</span></code>
+                    <code class="computeroutput"><a class="link" href="../intrinsic/functions/at_c.html" title="at_c"><code class="computeroutput"><span class="identifier">at_c</span></code></a><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;(</span><span class="identifier">s</span><span class="special">)</span></code>
                   </p>
                 </td>
 <td>
@@ -173,7 +177,52 @@
 <tr>
 <td>
                   <p>
-                    <code class="computeroutput"><a class="link" href="../intrinsic/functions/at.html" title="at"><code class="computeroutput"><span class="identifier">at</span></code></a><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;(</span><span class="identifier">s</span><span class="special">)</span>
+                    <code class="computeroutput"><a class="link" href="../intrinsic/functions/at_c.html" title="at_c"><code class="computeroutput"><span class="identifier">at_c</span></code></a><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;(</span><span class="identifier">s</span><span class="special">)</span>
+                    <span class="special">=</span> <span class="identifier">o</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Any type
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <code class="computeroutput"><span class="identifier">s</span></code> is mutable
+                    and <code class="computeroutput"><span class="identifier">e</span> <span class="special">=</span>
+                    <span class="identifier">o</span></code>, where <code class="computeroutput"><span class="identifier">e</span></code> is the first element in the
+                    sequence, is a valid expression.
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Constant
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><a class="link" href="../intrinsic/functions/at.html" title="at"><code class="computeroutput"><span class="identifier">at</span></code></a><span class="special">&lt;</span><span class="identifier">M</span><span class="special">&gt;(</span><span class="identifier">s</span><span class="special">)</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Any type
+                  </p>
+                </td>
+<td>
+                </td>
+<td>
+                  <p>
+                    Constant
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><a class="link" href="../intrinsic/functions/at.html" title="at"><code class="computeroutput"><span class="identifier">at</span></code></a><span class="special">&lt;</span><span class="identifier">M</span><span class="special">&gt;(</span><span class="identifier">s</span><span class="special">)</span>
                     <span class="special">=</span> <span class="identifier">o</span></code>
                   </p>
                 </td>
@@ -200,7 +249,7 @@
 </table></div>
 <h6>
 <a name="fusion.sequence.concepts.random_access_sequence.h3"></a>
-          <span><a name="fusion.sequence.concepts.random_access_sequence.result_type_expressions"></a></span><a class="link" href="random_access_sequence.html#fusion.sequence.concepts.random_access_sequence.result_type_expressions">Result
+          <span class="phrase"><a name="fusion.sequence.concepts.random_access_sequence.result_type_expressions"></a></span><a class="link" href="random_access_sequence.html#fusion.sequence.concepts.random_access_sequence.result_type_expressions">Result
           Type Expressions</a>
         </h6>
 <div class="informaltable"><table class="table">
@@ -286,7 +335,7 @@
 </div>
 <h6>
 <a name="fusion.sequence.concepts.random_access_sequence.h4"></a>
-          <span><a name="fusion.sequence.concepts.random_access_sequence.expression_semantics"></a></span><a class="link" href="random_access_sequence.html#fusion.sequence.concepts.random_access_sequence.expression_semantics">Expression
+          <span class="phrase"><a name="fusion.sequence.concepts.random_access_sequence.expression_semantics"></a></span><a class="link" href="random_access_sequence.html#fusion.sequence.concepts.random_access_sequence.expression_semantics">Expression
           Semantics</a>
         </h6>
 <p>
@@ -311,24 +360,38 @@
                   </p>
                 </th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>
                   <p>
-                    <code class="computeroutput"><a class="link" href="../intrinsic/functions/at.html" title="at"><code class="computeroutput"><span class="identifier">at</span></code></a><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;(</span><span class="identifier">s</span><span class="special">)</span></code>
+                    <code class="computeroutput"><a class="link" href="../intrinsic/functions/at.html" title="at"><code class="computeroutput"><span class="identifier">at</span></code></a><span class="special">&lt;</span><span class="identifier">M</span><span class="special">&gt;(</span><span class="identifier">s</span><span class="special">)</span></code>
                   </p>
                 </td>
 <td>
                   <p>
-                    The Nth element from the beginning of the sequence; see <a class="link" href="../intrinsic/functions/at.html" title="at"><code class="computeroutput"><span class="identifier">at</span></code></a>.
+                    The Mth element from the beginning of the sequence; see <a class="link" href="../intrinsic/functions/at.html" title="at"><code class="computeroutput"><span class="identifier">at</span></code></a>.
                   </p>
                 </td>
-</tr></tbody>
+</tr>
+<tr>
+<td>
+                  <p>
+                    <code class="computeroutput"><a class="link" href="../intrinsic/functions/at_c.html" title="at_c"><code class="computeroutput"><span class="identifier">at_c</span></code></a><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;(</span><span class="identifier">s</span><span class="special">)</span></code>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    The Nth element from the beginning of the sequence; see <a class="link" href="../intrinsic/functions/at_c.html" title="at_c"><code class="computeroutput"><span class="identifier">at_c</span></code></a>.
+                  </p>
+                </td>
+</tr>
+</tbody>
 </table></div>
 <h6>
 <a name="fusion.sequence.concepts.random_access_sequence.h5"></a>
-          <span><a name="fusion.sequence.concepts.random_access_sequence.models"></a></span><a class="link" href="random_access_sequence.html#fusion.sequence.concepts.random_access_sequence.models">Models</a>
+          <span class="phrase"><a name="fusion.sequence.concepts.random_access_sequence.models"></a></span><a class="link" href="random_access_sequence.html#fusion.sequence.concepts.random_access_sequence.models">Models</a>
         </h6>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <a class="link" href="../../adapted/std__pair.html" title="std::pair"><code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span></code></a>
             </li>
@@ -337,6 +400,9 @@
             </li>
 <li class="listitem">
               <a class="link" href="../../container/vector.html" title="vector"><code class="computeroutput"><span class="identifier">vector</span></code></a>
+            </li>
+<li class="listitem">
+              <a class="link" href="../../container/map.html" title="map"><code class="computeroutput"><span class="identifier">map</span></code></a>
             </li>
 <li class="listitem">
               <a class="link" href="../../view/reverse_view.html" title="reverse_view"><code class="computeroutput"><span class="identifier">reverse_view</span></code></a>

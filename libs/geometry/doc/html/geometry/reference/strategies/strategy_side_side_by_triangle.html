@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>strategy::side::side_by_triangle</title>
 <link rel="stylesheet" href="../../../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Geometry">
 <link rel="up" href="../strategies.html" title="Strategies">
 <link rel="prev" href="strategy_convex_hull_graham_andrew.html" title="strategy::convex_hull::graham_andrew">
@@ -27,13 +27,13 @@
 <a name="geometry.reference.strategies.strategy_side_side_by_triangle"></a><a class="link" href="strategy_side_side_by_triangle.html" title="strategy::side::side_by_triangle">strategy::side::side_by_triangle</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="id966616"></a><a class="indexterm" name="id966622"></a><a class="indexterm" name="id966627"></a>
+          <a class="indexterm" name="idp135541584"></a><a class="indexterm" name="idp135542272"></a><a class="indexterm" name="idp135542960"></a>
 Check at which side of a segment a point lies: left of segment (&gt; 0),
           right of segment (&lt; 0), on segment (0)
         </p>
 <h6>
 <a name="geometry.reference.strategies.strategy_side_side_by_triangle.h0"></a>
-          <span><a name="geometry.reference.strategies.strategy_side_side_by_triangle.synopsis"></a></span><a class="link" href="strategy_side_side_by_triangle.html#geometry.reference.strategies.strategy_side_side_by_triangle.synopsis">Synopsis</a>
+          <span class="phrase"><a name="geometry.reference.strategies.strategy_side_side_by_triangle.synopsis"></a></span><a class="link" href="strategy_side_side_by_triangle.html#geometry.reference.strategies.strategy_side_side_by_triangle.synopsis">Synopsis</a>
         </h6>
 <p>
 </p>
@@ -47,7 +47,7 @@ Check at which side of a segment a point lies: left of segment (&gt; 0),
         </p>
 <h6>
 <a name="geometry.reference.strategies.strategy_side_side_by_triangle.h1"></a>
-          <span><a name="geometry.reference.strategies.strategy_side_side_by_triangle.template_parameter_s_"></a></span><a class="link" href="strategy_side_side_by_triangle.html#geometry.reference.strategies.strategy_side_side_by_triangle.template_parameter_s_">Template
+          <span class="phrase"><a name="geometry.reference.strategies.strategy_side_side_by_triangle.template_parameter_s_"></a></span><a class="link" href="strategy_side_side_by_triangle.html#geometry.reference.strategies.strategy_side_side_by_triangle.template_parameter_s_">Template
           parameter(s)</a>
         </h6>
 <div class="informaltable"><table class="table">
@@ -95,11 +95,12 @@ Check at which side of a segment a point lies: left of segment (&gt; 0),
 </table></div>
 <h6>
 <a name="geometry.reference.strategies.strategy_side_side_by_triangle.h2"></a>
-          <span><a name="geometry.reference.strategies.strategy_side_side_by_triangle.member_function_s_"></a></span><a class="link" href="strategy_side_side_by_triangle.html#geometry.reference.strategies.strategy_side_side_by_triangle.member_function_s_">Member
+          <span class="phrase"><a name="geometry.reference.strategies.strategy_side_side_by_triangle.member_function_s_"></a></span><a class="link" href="strategy_side_side_by_triangle.html#geometry.reference.strategies.strategy_side_side_by_triangle.member_function_s_">Member
           Function(s)</a>
         </h6>
 <div class="informaltable"><table class="table">
 <colgroup>
+<col>
 <col>
 <col>
 <col>
@@ -126,7 +127,34 @@ Check at which side of a segment a point lies: left of segment (&gt; 0),
                   </p>
                 </th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
+<td>
+                  <p>
+</p>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">coordinate_type</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">promoted_type</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">P1</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">P2</span><span class="special">,</span>
+         <span class="keyword">typename</span> <span class="identifier">P</span><span class="special">&gt;</span>
+<span class="identifier">promoted_type</span> <span class="identifier">side_value</span><span class="special">(</span><span class="identifier">P1</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">p1</span><span class="special">,</span> <span class="identifier">P2</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">p2</span><span class="special">,</span> <span class="identifier">P</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">p</span><span class="special">)</span></pre>
+<p>
+                  </p>
+                </td>
+<td>
+                </td>
+<td>
+                  <p>
+                    <span class="bold"><strong>P1 const &amp;</strong></span>: <span class="emphasis"><em>p1</em></span>:
+                  </p>
+                  <p>
+                    <span class="bold"><strong>P2 const &amp;</strong></span>: <span class="emphasis"><em>p2</em></span>:
+                  </p>
+                  <p>
+                    <span class="bold"><strong>P const &amp;</strong></span>: <span class="emphasis"><em>p</em></span>:
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
 <td>
                   <p>
 </p>
@@ -148,11 +176,14 @@ Check at which side of a segment a point lies: left of segment (&gt; 0),
                     <span class="bold"><strong>P const &amp;</strong></span>: <span class="emphasis"><em>p</em></span>:
                   </p>
                 </td>
-</tr></tbody>
+<td>
+                </td>
+</tr>
+</tbody>
 </table></div>
 <h6>
 <a name="geometry.reference.strategies.strategy_side_side_by_triangle.h3"></a>
-          <span><a name="geometry.reference.strategies.strategy_side_side_by_triangle.header"></a></span><a class="link" href="strategy_side_side_by_triangle.html#geometry.reference.strategies.strategy_side_side_by_triangle.header">Header</a>
+          <span class="phrase"><a name="geometry.reference.strategies.strategy_side_side_by_triangle.header"></a></span><a class="link" href="strategy_side_side_by_triangle.html#geometry.reference.strategies.strategy_side_side_by_triangle.header">Header</a>
         </h6>
 <p>
           <code class="computeroutput"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">/</span><span class="identifier">strategies</span><span class="special">/</span><span class="identifier">cartesian</span><span class="special">/</span><span class="identifier">side_by_triangle</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>
@@ -160,8 +191,8 @@ Check at which side of a segment a point lies: left of segment (&gt; 0),
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2009-2012 Barend
-      Gehrels, Bruno Lalande, Mateusz Loskot<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2009-2014 Barend Gehrels, Bruno Lalande, Mateusz Loskot, Adam
+      Wulkiewicz, Oracle and/or its affiliates<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

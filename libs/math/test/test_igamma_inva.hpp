@@ -8,7 +8,8 @@
 
 #include <boost/math/concepts/real_concept.hpp>
 #include <boost/math/special_functions/math_fwd.hpp>
-#include <boost/test/test_exec_monitor.hpp>
+#define BOOST_TEST_MAIN
+#include <boost/test/unit_test.hpp>
 #include <boost/test/results_collector.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/test/floating_point_comparison.hpp>
@@ -45,7 +46,6 @@ void do_test_gamma_2(const T& data, const char* type_name, const char* test_name
    // test gamma_p_inva(T, T) against data:
    //
    using namespace std;
-   typedef typename T::value_type row_type;
    typedef Real                   value_type;
 
    std::cout << test_name << " with type " << type_name << std::endl;
@@ -74,7 +74,7 @@ void do_test_gamma_2(const T& data, const char* type_name, const char* test_name
       // to be able to get back to the original value.
       //
       if(Real(data[i][5]) == 0)
-         BOOST_CHECK_EQUAL(boost::math::gamma_p_inva(Real(data[i][1]), Real(data[i][5])), boost::math::tools::max_value<value_type>());
+         BOOST_CHECK_EQUAL(boost::math::gamma_p_inva(Real(data[i][1]), Real(data[i][5])), std::numeric_limits<value_type>::has_infinity ? std::numeric_limits<value_type>::infinity() : boost::math::tools::max_value<value_type>());
       else if((1 - Real(data[i][5]) > 0.001) && (fabs(Real(data[i][5])) > 2 * boost::math::tools::min_value<value_type>()))
       {
          value_type inv = boost::math::gamma_p_inva(Real(data[i][1]), Real(data[i][5]));
@@ -100,7 +100,7 @@ void do_test_gamma_2(const T& data, const char* type_name, const char* test_name
          BOOST_CHECK_CLOSE_EX(Real(data[i][0]), inv, precision, i);
       }
       else if(1 == Real(data[i][3]))
-         BOOST_CHECK_EQUAL(boost::math::gamma_q_inva(Real(data[i][1]), Real(data[i][3])), boost::math::tools::max_value<value_type>());
+         BOOST_CHECK_EQUAL(boost::math::gamma_q_inva(Real(data[i][1]), Real(data[i][3])), std::numeric_limits<value_type>::has_infinity ? std::numeric_limits<value_type>::infinity() : boost::math::tools::max_value<value_type>());
       else if(Real(data[i][3]) > 2 * boost::math::tools::min_value<value_type>()) 
       {
          // not enough bits in our input to get back to x, but we should be in
@@ -115,7 +115,6 @@ void do_test_gamma_2(const T& data, const char* type_name, const char* test_name
 template <class Real, class T>
 void do_test_gamma_inva(const T& data, const char* type_name, const char* test_name)
 {
-   typedef typename T::value_type row_type;
    typedef Real                   value_type;
 
    typedef value_type (*pg)(value_type, value_type);

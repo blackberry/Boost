@@ -14,9 +14,9 @@
 
 // <future>
 
-// class promise<R>
+// class future<R>
 
-// promise(promise&& rhs);
+// future(future&& rhs);
 
 #define BOOST_THREAD_VERSION 3
 

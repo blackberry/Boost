@@ -16,14 +16,14 @@ project
     : source-location .
     : requirements
         <hardcode-dll-paths>true
-        <library>../../test/build//boost_test_exec_monitor
+        <library>/boost/test//boost_unit_test_framework
         <link>static
     ;
 
 rule thread-run ( sources )
 {
     return
-    [ run $(sources) : : : <library>../../thread/build//boost_thread/
+    [ run $(sources) : : : <library>/boost/thread//boost_thread/
         <threading>multi ]
     ;
 }

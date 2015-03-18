@@ -1,4 +1,8 @@
-/** -*- c++ -*- \file num_rows.hpp \file Test the \c num_rows operation. */
+//  Copyright (c) 2011 David Bellot
+//
+//  Distributed under the Boost Software License, Version 1.0. (See
+//  accompanying file LICENSE_1_0.txt or copy at
+//  http://www.boost.org/LICENSE_1_0.txt)
 
 #include <boost/numeric/ublas/fwd.hpp>
 #include <boost/numeric/ublas/matrix.hpp>

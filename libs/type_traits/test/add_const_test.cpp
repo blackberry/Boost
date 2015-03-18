@@ -21,7 +21,7 @@ BOOST_DECL_TRANSFORM_TEST(add_const_test_10, ::tt::add_const, const*, const*cons
 BOOST_DECL_TRANSFORM_TEST(add_const_test_11, ::tt::add_const, volatile*, volatile*const)
 BOOST_DECL_TRANSFORM_TEST(add_const_test_5, ::tt::add_const, const &, const&)
 BOOST_DECL_TRANSFORM_TEST(add_const_test_6, ::tt::add_const, &, &)
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
 BOOST_DECL_TRANSFORM_TEST(add_const_test_5a, ::tt::add_const, const &&, const&&)
 BOOST_DECL_TRANSFORM_TEST(add_const_test_6a, ::tt::add_const, &&, &&)
 #endif
@@ -45,7 +45,7 @@ TT_TEST_BEGIN(add_const)
    add_const_test_9();
    add_const_test_12();
    add_const_test_13();
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
    add_const_test_5a();
    add_const_test_6a();
 #endif

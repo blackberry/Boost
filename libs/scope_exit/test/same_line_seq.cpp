@@ -59,7 +59,7 @@ int main(void) {
 
     f(x, delta);
 
-#ifndef BOOST_NO_LAMBDAS
+#ifndef BOOST_NO_CXX11_LAMBDAS
     {
         SCOPE_EXIT_ALL_INC_DEC(x, delta)
     }

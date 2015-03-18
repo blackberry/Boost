@@ -1,6 +1,6 @@
 /* Boost.MultiIndex test for range().
  *
- * Copyright 2003-2010 Joaquin M Lopez Munoz.
+ * Copyright 2003-2013 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -13,12 +13,13 @@
 #include <boost/config.hpp> /* keep it first to prevent nasty warns in MSVC */
 #include <algorithm>
 #include <functional>
+#include <boost/detail/lightweight_test.hpp>
 #include "pre_multi_index.hpp"
 #include <boost/multi_index_container.hpp>
 #include <boost/multi_index/identity.hpp>
 #include <boost/multi_index/ordered_index.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
-#include <boost/test/test_tools.hpp>
+
 
 using namespace boost::multi_index;
 
@@ -30,12 +31,12 @@ typedef int_set::iterator int_set_iterator;
 {\
   int v[]={BOOST_PP_SEQ_ENUM(check_seq)};\
   std::size_t size_v=sizeof(v)/sizeof(int);\
-  BOOST_CHECK(std::size_t(std::distance((p).first,(p).second))==size_v);\
-  BOOST_CHECK(std::equal((p).first,(p).second,&v[0]));\
+  BOOST_TEST(std::size_t(std::distance((p).first,(p).second))==size_v);\
+  BOOST_TEST(std::equal((p).first,(p).second,&v[0]));\
 }
 
 #undef CHECK_VOID_RANGE
-#define CHECK_VOID_RANGE(p) BOOST_CHECK((p).first==(p).second)
+#define CHECK_VOID_RANGE(p) BOOST_TEST((p).first==(p).second)
 
 void test_range()
 {
@@ -102,17 +103,17 @@ void test_range()
     std::bind1st(std::less<int>(),7),        /* 7 <  x */
     std::bind2nd(std::less_equal<int>(),7)); /* x <= 7 */
   CHECK_VOID_RANGE(p);
-  BOOST_CHECK(p.first==is.upper_bound(7));
+  BOOST_TEST(p.first==is.upper_bound(7));
 
   p=is.range(
     std::bind1st(std::less_equal<int>(),8), /* 8 <= x */
     std::bind2nd(std::less<int>(),2));      /* x <  2 */
   CHECK_VOID_RANGE(p);
-  BOOST_CHECK(p.first==is.lower_bound(8));
+  BOOST_TEST(p.first==is.lower_bound(8));
 
   p=is.range(
     std::bind1st(std::less<int>(),4),  /* 4 < x */
     std::bind2nd(std::less<int>(),5)); /* x < 5 */
   CHECK_VOID_RANGE(p);
-  BOOST_CHECK(p.first!=is.end());
+  BOOST_TEST(p.first!=is.end());
 }

@@ -1,6 +1,6 @@
 /* Boost.MultiIndex test for special set operations.
  *
- * Copyright 2003-2008 Joaquin M Lopez Munoz.
+ * Copyright 2003-2013 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -15,7 +15,7 @@
 #include <sstream>
 #include "pre_multi_index.hpp"
 #include "employee.hpp"
-#include <boost/test/test_tools.hpp>
+#include <boost/detail/lightweight_test.hpp>
 
 using namespace boost::multi_index;
 
@@ -75,21 +75,21 @@ void test_special_set_ops()
     get<ssn>(es).equal_range(
       "7889",hash_string_as_int(),eq_string_int());
 
-  BOOST_CHECK(std::distance(p.first,p.second)==1&&(p.first)->id==2);
+  BOOST_TEST(std::distance(p.first,p.second)==1&&(p.first)->id==2);
 
-  BOOST_CHECK(
+  BOOST_TEST(
     get<ssn>(es).count(
       "5601",hash_string_as_int(),eq_string_int())==1);
 
-  BOOST_CHECK(
+  BOOST_TEST(
     get<ssn>(es).find(
       "1123",hash_string_as_int(),eq_string_int())->name=="Joe");
 
-  BOOST_CHECK(
+  BOOST_TEST(
     std::distance(
       get<age>(es).lower_bound("27",comp_int_string()),
       get<age>(es).upper_bound("40",comp_int_string()))==3);
 
-  BOOST_CHECK(es.count(2,employee::comp_id())==1);
-  BOOST_CHECK(es.count(5,employee::comp_id())==0);
+  BOOST_TEST(es.count(2,employee::comp_id())==1);
+  BOOST_TEST(es.count(5,employee::comp_id())==0);
 }

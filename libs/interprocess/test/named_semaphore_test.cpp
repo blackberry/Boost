@@ -20,7 +20,6 @@
 
 using namespace boost::interprocess;
 
-static const std::size_t SemCount      = 1;
 static const std::size_t RecSemCount   = 100;
 static const char *      SemName = test::get_process_id_name();
 
@@ -86,16 +85,16 @@ bool test_named_semaphore_specific()
    }
    {
       named_semaphore sem(open_only, SemName);
-      BOOST_INTERPROCES_CHECK(sem.try_wait() == true);
-      BOOST_INTERPROCES_CHECK(sem.try_wait() == true);
-      BOOST_INTERPROCES_CHECK(sem.try_wait() == true);
-      BOOST_INTERPROCES_CHECK(sem.try_wait() == false);
+      BOOST_INTERPROCESS_CHECK(sem.try_wait() == true);
+      BOOST_INTERPROCESS_CHECK(sem.try_wait() == true);
+      BOOST_INTERPROCESS_CHECK(sem.try_wait() == true);
+      BOOST_INTERPROCESS_CHECK(sem.try_wait() == false);
       sem.post();
    }
    {
       named_semaphore sem(open_only, SemName);
-      BOOST_INTERPROCES_CHECK(sem.try_wait() == true);
-      BOOST_INTERPROCES_CHECK(sem.try_wait() == false);
+      BOOST_INTERPROCESS_CHECK(sem.try_wait() == true);
+      BOOST_INTERPROCESS_CHECK(sem.try_wait() == false);
    }
 
    named_semaphore::remove(SemName);

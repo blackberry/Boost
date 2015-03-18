@@ -8,13 +8,15 @@
 //
 // For more information, see http://www.boost.org/libs/range/
 //
+//[uniqued_example
 #include <boost/range/adaptor/uniqued.hpp>
 #include <boost/range/algorithm/copy.hpp>
 #include <boost/assign.hpp>
-#include <algorithm>
+#include <iterator>
 #include <iostream>
 #include <vector>
 
+//<-
 #include <boost/range/algorithm_ext/push_back.hpp>
 
 #include <boost/test/test_tools.hpp>
@@ -22,27 +24,32 @@
 
 namespace
 {
-    void uniqued_example_test()
-    {
-        using namespace boost::assign;
-        using namespace boost::adaptors;
+void uniqued_example_test()
+//->
+//=int main(int argc, const char* argv[])
+{
+    using namespace boost::assign;
+    using namespace boost::adaptors;
 
-        std::vector<int> input;
-        input += 1,1,2,2,2,3,4,5,6;
+    std::vector<int> input;
+    input += 1,1,2,2,2,3,4,5,6;
 
-        boost::copy(
-            input | uniqued,
-            std::ostream_iterator<int>(std::cout, ","));
+    boost::copy(
+        input | uniqued,
+        std::ostream_iterator<int>(std::cout, ","));
 
-        std::vector<int> reference;
-        reference += 1,2,3,4,5,6;
+//=    return 0;
+//=}
+//]
+    std::vector<int> reference;
+    reference += 1,2,3,4,5,6;
 
-        std::vector<int> test;
-        boost::push_back( test, input | uniqued );
+    std::vector<int> test;
+    boost::push_back( test, input | uniqued );
 
-        BOOST_CHECK_EQUAL_COLLECTIONS( reference.begin(), reference.end(),
-            test.begin(), test.end() );
-    }
+    BOOST_CHECK_EQUAL_COLLECTIONS( reference.begin(), reference.end(),
+        test.begin(), test.end() );
+}
 }
 
 boost::unit_test::test_suite*

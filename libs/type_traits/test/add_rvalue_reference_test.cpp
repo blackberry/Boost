@@ -12,7 +12,7 @@
 #  include <boost/type_traits/add_rvalue_reference.hpp>
 #endif
 
-#ifdef BOOST_NO_RVALUE_REFERENCES
+#ifdef BOOST_NO_CXX11_RVALUE_REFERENCES
 
 BOOST_DECL_TRANSFORM_TEST(add_rvalue_reference_test_1, ::tt::add_rvalue_reference, const, const)
 BOOST_DECL_TRANSFORM_TEST(add_rvalue_reference_test_2, ::tt::add_rvalue_reference, volatile, volatile)
@@ -63,7 +63,7 @@ TT_TEST_BEGIN(add_rvalue_reference)
    add_rvalue_reference_test_11();
    add_rvalue_reference_test_12();
    add_rvalue_reference_test_13();
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
    add_rvalue_reference_test_5a();
    add_rvalue_reference_test_6a();
    add_rvalue_reference_test_13a();

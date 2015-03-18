@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>io_service::post</title>
 <link rel="stylesheet" href="../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../../boost_asio.html" title="Boost.Asio">
 <link rel="up" href="../io_service.html" title="io_service">
 <link rel="prev" href="poll_one/overload2.html" title="io_service::poll_one (2 of 2 overloads)">
@@ -27,13 +27,13 @@
 <a name="boost_asio.reference.io_service.post"></a><a class="link" href="post.html" title="io_service::post">io_service::post</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="id1356551"></a> 
+          <a class="indexterm" name="idp171679424"></a> 
 Request the <a class="link" href="../io_service.html" title="io_service"><code class="computeroutput"><span class="identifier">io_service</span></code></a> to invoke the given
           handler and return immediately.
         </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
     <span class="keyword">typename</span> <a class="link" href="../CompletionHandler.html" title="Completion handler requirements">CompletionHandler</a><span class="special">&gt;</span>
-<span class="keyword">void</span> <span class="identifier">post</span><span class="special">(</span>
+<a class="link" href="../asynchronous_operations.html#boost_asio.reference.asynchronous_operations.return_type_of_an_initiating_function"><span class="emphasis"><em>void-or-deduced</em></span></a> <span class="identifier">post</span><span class="special">(</span>
     <span class="identifier">CompletionHandler</span> <span class="identifier">handler</span><span class="special">);</span>
 </pre>
 <p>
@@ -52,11 +52,11 @@ Request the <a class="link" href="../io_service.html" title="io_service"><code c
         </p>
 <h6>
 <a name="boost_asio.reference.io_service.post.h0"></a>
-          <span><a name="boost_asio.reference.io_service.post.parameters"></a></span><a class="link" href="post.html#boost_asio.reference.io_service.post.parameters">Parameters</a>
+          <span class="phrase"><a name="boost_asio.reference.io_service.post.parameters"></a></span><a class="link" href="post.html#boost_asio.reference.io_service.post.parameters">Parameters</a>
         </h6>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">handler</span></dt>
 <dd>
 <p>
@@ -73,12 +73,12 @@ Request the <a class="link" href="../io_service.html" title="io_service"><code c
 </div>
 <h6>
 <a name="boost_asio.reference.io_service.post.h1"></a>
-          <span><a name="boost_asio.reference.io_service.post.remarks"></a></span><a class="link" href="post.html#boost_asio.reference.io_service.post.remarks">Remarks</a>
+          <span class="phrase"><a name="boost_asio.reference.io_service.post.remarks"></a></span><a class="link" href="post.html#boost_asio.reference.io_service.post.remarks">Remarks</a>
         </h6>
 <p>
           This function throws an exception only if:
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               the handler's <code class="computeroutput"><span class="identifier">asio_handler_allocate</span></code>
               function; or
@@ -93,7 +93,7 @@ Request the <a class="link" href="../io_service.html" title="io_service"><code c
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2012 Christopher M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2014 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

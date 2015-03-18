@@ -11,7 +11,7 @@
 #include <boost/cstdint.hpp>
 #include <boost/algorithm/searching/boyer_moore.hpp>
 
-int main( int argc, char *argv [] )
+int main( int , char* [] )
 {
     std::vector<boost::uint8_t> cv;
     std::vector<boost:: int8_t> iv;
@@ -21,7 +21,5 @@ int main( int argc, char *argv [] )
     (void) boost::algorithm::boyer_moore_search (
         cv.begin (), cv.end (), iv.begin (), iv.end ());
 
-   
-   (void) argv; (void) argc;
    return 0;
 }

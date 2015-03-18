@@ -12,10 +12,11 @@
 
 int value=0;
 #ifdef BOOST_THREAD_PROVIDES_ONCE_CXX11
-boost::once_flag once;
+static boost::once_flag once;
+//static boost::once_flag once2 = BOOST_ONCE_INIT;
 #else
-boost::once_flag once = BOOST_ONCE_INIT;
-boost::once_flag once2 = once;
+static boost::once_flag once = BOOST_ONCE_INIT;
+//static boost::once_flag once2 = once;
 #endif
 
 void init()

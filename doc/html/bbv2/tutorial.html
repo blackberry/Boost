@@ -3,9 +3,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Tutorial</title>
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../bbv2.html" title="Chapter&#160;39.&#160;Boost.Build V2 User Manual">
+<link rel="up" href="../bbv2.html" title="Chapter&#160;43.&#160;Boost.Build V2 User Manual">
 <link rel="prev" href="installation.html" title="Installation">
 <link rel="next" href="overview.html" title="Overview">
 </head>
@@ -25,7 +25,7 @@
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="bbv2.tutorial"></a>Tutorial</h2></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="tutorial.html#bbv2.tutorial.hello">Hello, world</a></span></dt>
 <dt><span class="section"><a href="tutorial.html#bbv2.tutorial.properties">Properties</a></span></dt>
 <dt><span class="section"><a href="tutorial.html#bbv2.tutorial.hierarchy">Project Hierarchies</a></span></dt>
@@ -111,7 +111,7 @@ b2 --clean hello2
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="bbv2.tutorial.properties"></a>Properties</h3></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="tutorial.html#bbv2.tutorial.properties.requirements">Build Requests and Target Requirements</a></span></dt>
 <dt><span class="section"><a href="tutorial.html#bbv2.tutorial.properties.project_attributes">Project Attributes</a></span></dt>
 </dl></div>
@@ -203,7 +203,7 @@ exe hello
         requirements, the target requirements usually override (or, in the case
         of &#8220;free&#8221;&#8221; features like
         <code class="varname">&lt;include&gt;</code>,
-        <sup>[<a name="id4095243" href="#ftn.id4095243" class="footnote">11</a>]</sup>
+        <a href="#ftn.idp547188496" class="footnote" name="idp547188496"><sup class="footnote">[13]</sup></a>
         augments) the build request.
       </p>
 <div class="tip"><table border="0" summary="Tip">
@@ -315,7 +315,7 @@ top/
 
       in its requirements, then all of its subprojects will have it
       in their requirements, too.  Of course, any project can add
-      include paths to those specified by its parents. <sup>[<a name="id4095506" href="#ftn.id4095506" class="footnote">12</a>]</sup>
+      include paths to those specified by its parents. <a href="#ftn.idp547216640" class="footnote" name="idp547216640"><sup class="footnote">[14]</sup></a>
     More details can be found in
       <a class="xref" href="overview.html#bbv2.overview.projects" title="Projects">the section called &#8220;Projects&#8221;</a>.
     </p>
@@ -600,13 +600,13 @@ exe app <span class="special">:</span> app.cpp core <span class="special">;</spa
       </p>
 <pre class="programlisting">
 lib network <span class="special">:</span> network.cpp
-    <span class="special">:</span> <span class="bold"><strong>&lt;link&gt;shared:&lt;define&gt;NEWORK_LIB_SHARED</strong></span>
+    <span class="special">:</span> <span class="bold"><strong>&lt;link&gt;shared:&lt;define&gt;NETWORK_LIB_SHARED</strong></span>
      &lt;variant&gt;release:&lt;define&gt;EXTRA_FAST
     <span class="special">;</span></pre>
 <p>
 
       In the example above, whenever <code class="filename">network</code> is built with
-      <code class="computeroutput">&lt;link&gt;shared</code>, <code class="computeroutput">&lt;define&gt;NEWORK_LIB_SHARED
+      <code class="computeroutput">&lt;link&gt;shared</code>, <code class="computeroutput">&lt;define&gt;NETWORK_LIB_SHARED
       </code> will be in its properties, too. Also, whenever its release variant
       is built, <code class="computeroutput">&lt;define&gt;EXTRA_FAST</code> will appear in its
       properties.
@@ -711,11 +711,11 @@ lib pythonlib <span class="special">:</span> <span class="special">:</span> &lt;
     </p>
 </div>
 <div class="footnotes">
-<br><hr width="100" align="left">
-<div class="footnote"><p><sup>[<a id="ftn.id4095243" href="#id4095243" class="para">11</a>] </sup>
+<br><hr style="width:100; text-align:left;margin-left: 0">
+<div id="ftn.idp547188496" class="footnote"><p><a href="#idp547188496" class="para"><sup class="para">[13] </sup></a>
              See <a class="xref" href="reference.html#bbv2.reference.features.attributes" title="Feature Attributes">the section called &#8220;Feature Attributes&#8221;</a>
           </p></div>
-<div class="footnote"><p><sup>[<a id="ftn.id4095506" href="#id4095506" class="para">12</a>] </sup>Many
+<div id="ftn.idp547216640" class="footnote"><p><a href="#idp547216640" class="para"><sup class="para">[14] </sup></a>Many
       features will be overridden,
       rather than added-to, in subprojects.  See <a class="xref" href="reference.html#bbv2.reference.features.attributes" title="Feature Attributes">the section called &#8220;Feature Attributes&#8221;</a> for more
       information</p></div>
@@ -723,7 +723,7 @@ lib pythonlib <span class="special">:</span> <span class="special">:</span> &lt;
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2006-2009 Vladimir Prus<p>Distributed under the Boost Software License, Version 1.0.
+<td align="right"><div class="copyright-footer">Copyright &#169; 2006-2009, 2014 Vladimir Prus<p>Distributed under the Boost Software License, Version 1.0.
       (See accompanying file <code class="filename">LICENSE_1_0.txt</code> or copy at 
       <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

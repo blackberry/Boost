@@ -6,7 +6,7 @@
 // Home at http://www.boost.org/libs/local_function
 
 #include <boost/config.hpp>
-#ifdef BOOST_NO_LAMBDAS
+#ifdef BOOST_NO_CXX11_LAMBDAS
 #   error "requires lambda functions"
 #else
 

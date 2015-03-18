@@ -112,6 +112,18 @@ BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_integral<__int64 const volatile>::value, 
 
 #endif
 
+#ifdef BOOST_HAS_INT128
+
+BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_integral<boost::uint128_type>::value, true);
+BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_integral<boost::int128_type>::value, true);
+BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_integral<boost::uint128_type const>::value, true);
+BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_integral<boost::int128_type const>::value, true);
+BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_integral<boost::uint128_type volatile>::value, true);
+BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_integral<boost::int128_type volatile>::value, true);
+BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_integral<boost::uint128_type const volatile>::value, true);
+BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_integral<boost::int128_type const volatile>::value, true);
+
+#endif
 //
 // cases that should not be true:
 //
@@ -122,7 +134,7 @@ BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_integral<test_abc1>::value, false);
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_integral<empty_UDT>::value, false);
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_integral<int*>::value, false);
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_integral<int&>::value, false);
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_integral<int&&>::value, false);
 #endif
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_integral<const int&>::value, false);
@@ -135,12 +147,12 @@ BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_integral<foo3_t>::value, false);
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_integral<foo4_t>::value, false);
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_integral<incomplete_type>::value, false);
 
+#ifndef BOOST_NO_CXX11_CHAR16_T
+BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_integral<char16_t>::value, true);
+#endif
+#ifndef BOOST_NO_CXX11_CHAR32_T
+BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_integral<char32_t>::value, true);
+#endif
+
 TT_TEST_END
-
-
-
-
-
-
-
 

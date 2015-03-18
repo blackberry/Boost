@@ -26,12 +26,7 @@
 
 #include <boost/cerrno.hpp>
 #include <boost/detail/lightweight_test.hpp>
-
-#ifndef BOOST_LIGHTWEIGHT_MAIN
-#  include <boost/test/prg_exec_monitor.hpp>
-#else
-#  include <boost/detail/lightweight_main.hpp>
-#endif
+#include <boost/detail/lightweight_main.hpp>
 
 namespace fs = boost::filesystem;
 using boost::system::error_code;
@@ -115,7 +110,7 @@ namespace
 
   unsigned short language_id;  // 0 except for Windows
 
-  const fs::path temp_dir(fs::unique_path("operations-test-%%%%-%%%%-%%%%-%%%%"));
+  const fs::path temp_dir(fs::unique_path("op-test-%%%%-%%%%"));
 
   void create_file(const fs::path & ph, const std::string & contents = std::string())
   {
@@ -599,12 +594,15 @@ namespace
 
   int walk_tree(bool recursive)
   {
+    cout << "    walk_tree" << endl;
+    error_code ec;
     int d1f1_count = 0;
     for (fs::recursive_directory_iterator it (dir,
       recursive ? fs::symlink_option::recurse : fs::symlink_option::no_recurse);
          it != fs::recursive_directory_iterator();
-         ++it)
+         it.increment(ec))
     {
+      cout << "      " << it->path() << endl;
       if (it->path().filename() == "d1f1")
         ++d1f1_count;
     }
@@ -614,11 +612,12 @@ namespace
   void recursive_directory_iterator_tests()
   {
     cout << "recursive_directory_iterator_tests..." << endl;
-    BOOST_TEST(walk_tree(false) == 1);
+    BOOST_TEST_EQ(walk_tree(false), 1);
     if (create_symlink_ok)
       BOOST_TEST(walk_tree(true) > 1);
 
     //  test iterator increment with error_code argument
+    cout << "  with error_code argument" << endl;
     boost::system::error_code ec;
     int d1f1_count = 0;
     for (fs::recursive_directory_iterator it (dir, fs::symlink_option::no_recurse);
@@ -629,7 +628,7 @@ namespace
         ++d1f1_count;
     }
     BOOST_TEST(!ec);
-    BOOST_TEST(d1f1_count == 1);
+    BOOST_TEST_EQ(d1f1_count, 1);
 
     cout << "  recursive_directory_iterator_tests complete" << endl;
   }
@@ -1423,6 +1422,32 @@ namespace
     BOOST_TEST_EQ(fs::canonical(relative_dir / "f0"), dir / "f0");
     BOOST_TEST_EQ(fs::canonical(relative_dir / "./f0"), dir / "f0");
     BOOST_TEST_EQ(fs::canonical(relative_dir / "d1/../f0"), dir / "f0");
+
+    // treat parent of root as itself on both POSIX and Windows
+    fs::path init(fs::initial_path());
+    fs::path root(init.root_path());
+    fs::path::const_iterator it(init.begin());
+    fs::path first;   // relative first non-root directory
+#  ifdef BOOST_WINDOWS_API
+    if (!init.empty())
+      ++it;
+#  endif
+    if (++it != init.end())
+      first = *it;
+    fs::path expected(root/first);
+
+    cout << "  init: " << init << endl;
+    cout << "  root: " << root << endl;
+    cout << "  first: " << first << endl;
+    cout << "  expected: " << expected << endl;
+
+    //  ticket 10187 tests
+    BOOST_TEST_EQ(fs::canonical(root / "../.." / first), expected);
+    BOOST_TEST_EQ(fs::canonical(fs::path("../..") / first, root), expected);
+    BOOST_TEST_EQ(fs::canonical(fs::path("/../..") / first, fs::current_path().root_name()), expected);
+
+    //  ticket 9683 test
+    BOOST_TEST_EQ(fs::canonical(root / first / "../../../../.."), root);
   }
 
   //  canonical_symlink_tests  -----------------------------------------------------------//
@@ -1516,9 +1541,9 @@ namespace
 
 #ifdef BOOST_WINDOWS_API
 
-    //  On Windows, telling if a filesystem entry is a symlink, rather than some other
-    //  kind of reparse point such as a junction, requires some truely baroque code.
-    //  See ticket #4663, filesystem objects falsely identified as symlinks.
+    //  On Windows, telling if a filesystem entry is a symlink (or junction which is
+    //  treated as a symlink), rather than some other kind of reparse point, requires some
+    //  baroque code. See ticket #4663, filesystem objects falsely identified as symlinks.
     //  This test checks two directory entries created by Windows itself to verify
     //  is_symlink() works correctly. Try "dir /A %HOMEPATH%\.." from the command line to
     //  verify this test is valid on your version of Windows. It only works on Vista and
@@ -1530,8 +1555,8 @@ namespace
     BOOST_TEST(fs::exists(users));
     BOOST_TEST(fs::exists(users/"All Users"));
     BOOST_TEST(fs::exists(users/"Default User"));
-    BOOST_TEST(fs::is_symlink(users/"All Users"));       // dir /A reports <SYMLINKD>
-    BOOST_TEST(!fs::is_symlink(users/"Default User"));   // dir /A reports <JUNCTION>                  <JUNCTION>
+    BOOST_TEST(fs::is_symlink(users/"All Users"));      // dir /A reports <SYMLINKD>
+    BOOST_TEST(fs::is_symlink(users/"Default User"));   // dir /A reports <JUNCTION>
 
 #endif
   }
@@ -1654,6 +1679,73 @@ namespace
         ==  "c:/foo");
       BOOST_TEST(fs::system_complete(fs::path("//share")).generic_string()
         ==  "//share");
+
+      // Issue 9016 asked that NTFS directory junctions be recognized as directories.
+      // That is equivalent to recognizing them as symlinks, and then the normal symlink
+      // mechanism takes care of recognizing them as directories.
+      //
+      // Directory junctions are very similar to symlinks, but have some performance
+      // and other advantages over symlinks. They can be created from the command line
+      // with "mklink /j junction-name target-path".
+
+      if (create_symlink_ok)  // only if symlinks supported
+      {
+        cout << "  directory junction tests..." << endl;
+        BOOST_TEST(fs::exists(dir));
+        BOOST_TEST(fs::exists(dir / "d1/d1f1"));
+        fs::path junc(dir / "junc");
+        if (fs::exists(junc))
+          fs::remove(junc);
+        fs::path new_junc(dir / "new-junc");
+        if (fs::exists(new_junc))
+          fs::remove(new_junc);
+
+        //cout << "    dir is " << dir << endl;
+        //cout << "    junc is " << junc << endl;
+        //cout << "    new_junc is " << new_junc << endl;
+        //cout << "    current_path() is " << fs::current_path() << endl;
+
+        fs::path cur_path(fs::current_path());
+        fs::current_path(dir);
+        //cout << "    current_path() is " << fs::current_path() << endl;
+        std::system("mklink /j junc d1");
+        //std::system("dir");
+        fs::current_path(cur_path);
+        //cout << "    current_path() is " << fs::current_path() << endl;
+
+        BOOST_TEST(fs::exists(junc));
+        BOOST_TEST(fs::is_symlink(junc));
+        BOOST_TEST(fs::is_directory(junc));
+        BOOST_TEST(!fs::is_regular_file(junc));
+        BOOST_TEST(fs::exists(junc / "d1f1"));
+        BOOST_TEST(fs::is_regular_file(junc / "d1f1"));
+
+        int count = 0;
+        for (fs::directory_iterator itr(junc);
+          itr != fs::directory_iterator(); ++itr)
+        {
+          //cout << itr->path() << endl;
+          ++count;
+        }
+        cout << "    iteration count is " << count << endl;
+        BOOST_TEST(count > 0);
+
+        fs::rename(junc, new_junc);
+        BOOST_TEST(!fs::exists(junc));
+        BOOST_TEST(fs::exists(new_junc));
+        BOOST_TEST(fs::is_symlink(new_junc));
+        BOOST_TEST(fs::is_directory(new_junc));
+        BOOST_TEST(!fs::is_regular_file(new_junc));
+        BOOST_TEST(fs::exists(new_junc / "d1f1"));
+        BOOST_TEST(fs::is_regular_file(new_junc / "d1f1"));
+
+        fs::remove(new_junc);
+        BOOST_TEST(!fs::exists(new_junc / "d1f1"));
+        BOOST_TEST(!fs::exists(new_junc));
+        BOOST_TEST(fs::exists(dir));
+        BOOST_TEST(fs::exists(dir / "d1/d1f1"));
+      }
+
     } // Windows
 
     else if (platform == "POSIX")
@@ -1925,7 +2017,7 @@ int cpp_main(int argc, char* argv[])
       skip_long_windows_tests = true;
   }
 
-  // The choice of platform to test is make at runtime rather than compile-time
+  // The choice of platform to test is made at runtime rather than compile-time
   // so that compile errors for all platforms will be detected even though
   // only the current platform is runtime tested.
 # if defined(BOOST_POSIX_API)
@@ -1941,6 +2033,16 @@ int cpp_main(int argc, char* argv[])
 #   error neither BOOST_POSIX_API nor BOOST_WINDOWS_API is defined. See boost/system/api_config.hpp
 # endif
   cout << "API is " << platform << endl;
+  cout << "initial_path() is " << fs::initial_path() << endl;
+  fs::path ip = fs::initial_path();
+
+  for (fs::path::const_iterator it = ip.begin(); it != ip.end(); ++it)
+  {
+    if (it != ip.begin())
+      cout << ", ";
+    cout << *it;
+  }
+  cout << endl;
 
   dir = fs::initial_path() / temp_dir;
 
@@ -2026,7 +2128,6 @@ int cpp_main(int argc, char* argv[])
     // a bug (failure to close an internal search handle). 
     cout << "post-test removal complete" << endl;
     BOOST_TEST(!fs::exists(dir));
-    BOOST_TEST(fs::remove_all(dir) == 0);
   }
 
   cout << "returning from main()" << endl;

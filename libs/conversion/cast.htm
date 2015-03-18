@@ -9,22 +9,29 @@
     <meta name="GENERATOR" content="Microsoft FrontPage 4.0">
     <meta name="ProgId" content="FrontPage.Editor.Document">
 
-    <title>Header boost/cast.hpp Documentation</title>
+    <title>Header boost/polymorphic_cast.hpp Documentation</title>
+    <style>
+       .copyright
+        {
+            color: #666666;
+            font-size: small;
+        }
+    </style>
   </head>
 
   <body bgcolor="#FFFFFF" text="#000000">
     <h1><img src="../../boost.png" alt="boost.png (6897 bytes)" align=
     "middle" width="277" height="86">Header <a href=
-    "../../boost/cast.hpp">boost/cast.hpp</a></h1>
+    "../../boost/polymorphic_cast.hpp">boost/polymorphic_cast.hpp</a></h1>
 
     <h2><a name="Cast Functions">Cast Functions</a></h2>
 
-    <p>The header <a href="../../boost/cast.hpp">boost/cast.hpp</a> provides <code>
+    <p>The header <a href="../../boost/polymorphic_cast.hpp">boost/polymorphic_cast.hpp</a> provides <code>
     <a href="#Polymorphic_cast">polymorphic_cast</a> and</code> <a href=
     "#Polymorphic_cast"><code>polymorphic_downcast</code></a> function templates designed to
     complement the C++ built-in casts.</p>
 
-    <p>The program <a href="cast_test.cpp">cast_test.cpp</a> can be used to
+    <p>The program <a href="test/cast_test.cpp">cast_test.cpp</a> can be used to
     verify these function templates work as expected.</p>
 
     <h3><a name="Polymorphic_cast">Polymorphic casts</a></h3>
@@ -103,7 +110,7 @@ inline Derived polymorphic_downcast(Base* x);
     <h3>polymorphic_downcast example</h3>
 
     <blockquote>
-<pre>#include &lt;boost/cast.hpp&gt;
+<pre>#include &lt;boost/polymorphic_cast.hpp&gt;
 ...
 class Fruit { public: virtual ~Fruit(){}; ... };
 class Banana : public Fruit { ... };
@@ -131,10 +138,9 @@ void f( Fruit * fruit ) {
                     -->June 23, 2005<!--webbot bot="Timestamp" endspan i-checksum="30348"
                     --></p>
 
-    <p>&copy; Copyright boost.org 1999. Permission to copy, use, modify, sell
-    and distribute this document is granted provided this copyright notice
-    appears in all copies. This document is provided "as is" without express
-    or implied warranty, and with no claim as to its suitability for any
-    purpose.</p>
+    <p class="copyright">&copy; Copyright boost.org 1999. 
+    Distributed under the Boost Software License, Version 1.0. (See accompanying
+    file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt">http://www.boost.org/LICENSE_1_0.txt</a>)
+    </p>
   </body>
 </html>

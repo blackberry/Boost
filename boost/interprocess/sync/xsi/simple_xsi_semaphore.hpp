@@ -10,6 +10,10 @@
 #ifndef BOOST_INTERPROCESS_SYNC_XSI_SIMPLE_XSI_SEMAPHORE_HPP
 #define BOOST_INTERPROCESS_SYNC_XSI_SIMPLE_XSI_SEMAPHORE_HPP
 
+#if defined(_MSC_VER)
+#  pragma once
+#endif
+
 /*
  * Provide an simpler and easier to understand interface to the System V
  * semaphore system calls.  There are 7 routines available to the user:

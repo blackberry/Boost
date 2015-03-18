@@ -55,7 +55,7 @@ time2_demo contained this comment:
 #include <boost/detail/workaround.hpp>
 #include <boost/integer_traits.hpp>
 
-#if !defined(BOOST_NO_STATIC_ASSERT) || !defined(BOOST_EX_CHRONO_USES_MPL_ASSERT)
+#if !defined(BOOST_NO_CXX11_STATIC_ASSERT) || !defined(BOOST_EX_CHRONO_USES_MPL_ASSERT)
 #define BOOST_EX_CHRONO_A_DURATION_REPRESENTATION_CAN_NOT_BE_A_DURATION        "A duration representation can not be a duration"
 #define BOOST_EX_CHRONO_SECOND_TEMPLATE_PARAMETER_OF_DURATION_MUST_BE_A_STD_RATIO "Second template parameter of duration must be a boost::ratio"
 #define BOOST_EX_CHRONO_DURATION_PERIOD_MUST_BE_POSITIVE "duration period must be positive"

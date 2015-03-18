@@ -17,7 +17,7 @@
 // template <class Mutex>
 //   void swap(unique_lock<Mutex>& x, unique_lock<Mutex>& y);
 
-#include <boost/thread/locks.hpp>
+#include <boost/thread/lock_types.hpp>
 #include <boost/detail/lightweight_test.hpp>
 
 struct mutex

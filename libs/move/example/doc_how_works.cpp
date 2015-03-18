@@ -11,7 +11,7 @@
 
 #include <boost/config.hpp>
 
-#if !defined(BOOST_NO_RVALUE_REFERENCES)
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
 
 int main()
 {
@@ -20,8 +20,10 @@ int main()
 
 #else
 
+#include <boost/move/detail/config_begin.hpp>
+
 //[how_works_example
-#include <boost/move/move.hpp>
+#include <boost/move/core.hpp>
 #include <iostream>
 
 class sink_tester
@@ -56,5 +58,6 @@ int main()
 }
 //]
 
-#endif
+#include <boost/move/detail/config_end.hpp>
 
+#endif

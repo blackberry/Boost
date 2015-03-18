@@ -5,7 +5,11 @@
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
+#define BOOST_THREAD_VERSION 2
+#define BOOST_THREAD_PROVIDES_INTERRUPTIONS
+
 #include <boost/thread/detail/config.hpp>
+#include <boost/predef/platform.h>
 
 #include <boost/thread/tss.hpp>
 #include <boost/thread/mutex.hpp>
@@ -31,14 +35,14 @@ struct tss_value_t
 {
     tss_value_t()
     {
-        boost::mutex::scoped_lock lock(tss_mutex);
+        boost::unique_lock<boost::mutex> lock(tss_mutex);
         ++tss_instances;
         ++tss_total;
         value = 0;
     }
     ~tss_value_t()
     {
-        boost::mutex::scoped_lock lock(tss_mutex);
+        boost::unique_lock<boost::mutex> lock(tss_mutex);
         --tss_instances;
     }
     int value;
@@ -56,14 +60,35 @@ void test_tss_thread()
         // be thread safe. Must evaluate further.
         if (n != i)
         {
-            boost::mutex::scoped_lock lock(check_mutex);
+            boost::unique_lock<boost::mutex> lock(check_mutex);
             BOOST_CHECK_EQUAL(n, i);
         }
         ++n;
     }
 }
 
+
+
 #if defined(BOOST_THREAD_PLATFORM_WIN32)
+#if BOOST_PLAT_WINDOWS_RUNTIME
+    typedef std::shared_ptr<std::thread> native_thread_t;
+
+    void test_tss_thread_native()
+    {
+        test_tss_thread();
+    }
+
+    native_thread_t create_native_thread()
+    {
+        return std::make_shared<std::thread>(test_tss_thread_native);
+    }
+
+    void join_native_thread(native_thread_t thread)
+    {
+        thread->join();
+    }
+
+#else
     typedef HANDLE native_thread_t;
 
     DWORD WINAPI test_tss_thread_native(LPVOID /*lpParameter*/)
@@ -94,6 +119,7 @@ void test_tss_thread()
         res = CloseHandle(thread);
         BOOST_CHECK(SUCCEEDED(res));
     }
+#endif
 #elif defined(BOOST_THREAD_PLATFORM_PTHREAD)
     typedef pthread_t native_thread_t;
 
@@ -186,6 +212,130 @@ void test_tss()
 {
     timed_test(&do_test_tss, 2);
 }
+
+
+bool tss_void_cleanup_called=false;
+
+void tss_void_custom_cleanup(void* d)
+{
+   std::cout << d << std::endl;
+    delete reinterpret_cast<tss_value_t*>(d);
+    tss_void_cleanup_called=true;
+}
+
+boost::thread_specific_ptr<void> tss_void(tss_void_custom_cleanup);
+void test_tss_void_thread()
+{
+    tss_void.reset(new tss_value_t());
+    for (int i=0; i<10; ++i)
+    {
+        int& n = static_cast<tss_value_t*>(tss_value.get())->value;
+        *tss_value;
+        // Don't call BOOST_CHECK_EQUAL directly, as it doesn't appear to
+        // be thread safe. Must evaluate further.
+        if (n != i)
+        {
+            boost::unique_lock<boost::mutex> lock(check_mutex);
+            BOOST_CHECK_EQUAL(n, i);
+        }
+        ++n;
+    }
+}
+void do_test_tss_void()
+{
+    tss_instances = 0;
+    tss_total = 0;
+
+    const int NUMTHREADS=5;
+    boost::thread_group threads;
+    try
+    {
+        for (int i=0; i<NUMTHREADS; ++i)
+            threads.create_thread(&test_tss_void_thread);
+        threads.join_all();
+    }
+    catch(...)
+    {
+        threads.interrupt_all();
+        threads.join_all();
+        throw;
+    }
+
+
+    std::cout
+        << "tss_instances = " << tss_instances
+        << "; tss_total = " << tss_total
+        << "\n";
+    std::cout.flush();
+
+    BOOST_CHECK_EQUAL(tss_instances, 0);
+    BOOST_CHECK_EQUAL(tss_total, 5);
+
+//    tss_instances = 0;
+//    tss_total = 0;
+//
+//    native_thread_t thread1 = create_native_thread();
+//    native_thread_t thread2 = create_native_thread();
+//    native_thread_t thread3 = create_native_thread();
+//    native_thread_t thread4 = create_native_thread();
+//    native_thread_t thread5 = create_native_thread();
+//
+//    join_native_thread(thread5);
+//    join_native_thread(thread4);
+//    join_native_thread(thread3);
+//    join_native_thread(thread2);
+//    join_native_thread(thread1);
+//
+//    std::cout
+//        << "tss_instances = " << tss_instances
+//        << "; tss_total = " << tss_total
+//        << "\n";
+//    std::cout.flush();
+//
+//    // The following is not really an error. TSS cleanup support still is available for boost threads.
+//    // Also this usually will be triggered only when bound to the static version of thread lib.
+//    // 2006-10-02 Roland Schwarz
+//    //BOOST_CHECK_EQUAL(tss_instances, 0);
+//    BOOST_CHECK_MESSAGE(tss_instances == 0, "Support of automatic tss cleanup for native threading API not available");
+//    BOOST_CHECK_EQUAL(tss_total, 5);
+}
+
+void test_tss_void()
+{
+    timed_test(&do_test_tss_void, 2);
+}
+
+
+boost::thread_specific_ptr<void> tss_void_with_cleanup(tss_void_custom_cleanup);
+
+void tss_void_thread_with_custom_cleanup()
+{
+    tss_void_with_cleanup.reset(new tss_value_t);
+}
+
+void do_test_tss_void_with_custom_cleanup()
+{
+    boost::thread t(tss_void_thread_with_custom_cleanup);
+    try
+    {
+        t.join();
+    }
+    catch(...)
+    {
+        t.interrupt();
+        t.join();
+        throw;
+    }
+
+    BOOST_CHECK(tss_void_cleanup_called);
+}
+
+
+void test_tss_void_with_custom_cleanup()
+{
+    timed_test(&do_test_tss_void_with_custom_cleanup, 2);
+}
+
 
 bool tss_cleanup_called=false;
 
@@ -366,20 +516,9 @@ boost::unit_test::test_suite* init_unit_test_suite(int, char*[])
     test->add(BOOST_TEST_CASE(test_tss_does_no_cleanup_with_null_cleanup_function));
     test->add(BOOST_TEST_CASE(test_tss_does_not_call_cleanup_after_ptr_destroyed));
     test->add(BOOST_TEST_CASE(test_tss_cleanup_not_called_for_null_pointer));
+    //test->add(BOOST_TEST_CASE(test_tss_void));
+    test->add(BOOST_TEST_CASE(test_tss_void_with_custom_cleanup));
+
 
     return test;
-}
-
-void remove_unused_warning()
-{
-
-  //../../../boost/test/results_collector.hpp:40:13: warning: unused function 'first_failed_assertion' [-Wunused-function]
-  //(void)boost::unit_test::first_failed_assertion;
-
-  //../../../boost/test/tools/floating_point_comparison.hpp:304:25: warning: unused variable 'check_is_close' [-Wunused-variable]
-  //../../../boost/test/tools/floating_point_comparison.hpp:326:25: warning: unused variable 'check_is_small' [-Wunused-variable]
-  (void)boost::test_tools::check_is_close;
-  (void)boost::test_tools::check_is_small;
-
-
 }

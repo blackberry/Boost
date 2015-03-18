@@ -176,7 +176,7 @@ BOOST_CHECK_INTEGRAL_CONSTANT(::tt::has_trivial_assign<cmf>::value, true);
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::has_trivial_assign<enum_UDT>::value, true);
 
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::has_trivial_assign<int&>::value, false);
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::has_trivial_assign<int&&>::value, false);
 #endif
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::has_trivial_assign<const int&>::value, false);

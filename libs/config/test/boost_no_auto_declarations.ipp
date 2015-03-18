@@ -11,7 +11,7 @@
 
 namespace boost_no_cxx11_auto_declarations {
 
-void check_f(int& x)
+void check_f(int&)
 {
 }
 

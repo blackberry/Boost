@@ -23,7 +23,7 @@
 namespace move_tests
 {
     test::seed_t initialize_seed(98624);
-#if defined(BOOST_UNORDERED_USE_MOVE) || !defined(BOOST_NO_RVALUE_REFERENCES)
+#if defined(BOOST_UNORDERED_USE_MOVE) || !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
 #define BOOST_UNORDERED_TEST_MOVING 1
 #else
 #define BOOST_UNORDERED_TEST_MOVING 0
@@ -154,7 +154,7 @@ namespace move_tests
 
             test::random_values<T> v(25, generator);
             T y(create(v, count, hf, eq, al, 1.0), al);
-#if !defined(BOOST_NO_RVALUE_REFERENCES)
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
             BOOST_TEST(count == test::global_object_count);
 #elif defined(BOOST_HAS_NRVO)
             BOOST_TEST(

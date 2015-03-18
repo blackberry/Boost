@@ -13,9 +13,10 @@
 #include <boost/algorithm/searching/boyer_moore_horspool.hpp>
 #include <boost/algorithm/searching/knuth_morris_pratt.hpp>
 
-#include <boost/test/included/test_exec_monitor.hpp>
+#define BOOST_TEST_MAIN
+#include <boost/test/unit_test.hpp>
 
-int test_main( int argc, char *argv [] )
+BOOST_AUTO_TEST_CASE( test_main )
 {
     const std::string cs;
     std::string estr;
@@ -77,7 +78,4 @@ int test_main( int argc, char *argv [] )
             str.begin (), str.end (), estr.begin (), estr.end ())
         == str.begin ()
         );
-
-   (void) argv; (void) argc;
-   return 0;
 }

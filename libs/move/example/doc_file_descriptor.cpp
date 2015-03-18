@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2008-2009.
+// (C) Copyright Ion Gaztanaga 2008-2012.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -9,9 +9,12 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
+#include <boost/move/detail/config_begin.hpp>
+#include <cassert>
+
 //[file_descriptor_def
 
-#include <boost/move/move.hpp>
+#include <boost/move/utility_core.hpp>
 #include <stdexcept>
 
 class file_descriptor
@@ -22,8 +25,8 @@ class file_descriptor
       return 1;
    }
 
-   void operating_system_close_file(int)
-   {}
+   void operating_system_close_file(int fd)
+   {  (void)fd;   assert(fd != 0); }
    //->
    int os_descr_;
 
@@ -31,12 +34,12 @@ class file_descriptor
    BOOST_MOVABLE_BUT_NOT_COPYABLE(file_descriptor)
 
    public:
-   explicit file_descriptor(const char *filename = 0)          //Constructor
-      : os_descr_(filename ? operating_system_open_file(filename) : 0)
+   explicit file_descriptor(const char *filename)              //Constructor
+      : os_descr_(operating_system_open_file(filename))
    {  if(!os_descr_) throw std::runtime_error("file not found");  }
 
    ~file_descriptor()                                          //Destructor
-   {  if(!os_descr_)  operating_system_close_file(os_descr_);  }
+   {  if(os_descr_)  operating_system_close_file(os_descr_);  }
 
    file_descriptor(BOOST_RV_REF(file_descriptor) x)            // Move ctor
       :  os_descr_(x.os_descr_)
@@ -44,7 +47,7 @@ class file_descriptor
 
    file_descriptor& operator=(BOOST_RV_REF(file_descriptor) x) // Move assign
    {
-      if(!os_descr_) operating_system_close_file(os_descr_);
+      if(os_descr_) operating_system_close_file(os_descr_);
       os_descr_   = x.os_descr_;
       x.os_descr_ = 0;
       return *this;
@@ -85,3 +88,5 @@ int main()
    return 0;
 }
 //]
+
+#include <boost/move/detail/config_end.hpp>

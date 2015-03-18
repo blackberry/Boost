@@ -35,7 +35,7 @@ BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_lvalue_reference<void>::value, false);
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_lvalue_reference<test_abc1>::value, false);
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_lvalue_reference<foo0_t>::value, false);
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_lvalue_reference<incomplete_type>::value, false);
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_lvalue_reference<int&&>::value, false);
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_lvalue_reference<UDT&&>::value, false);
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_lvalue_reference<const UDT&&>::value, false);

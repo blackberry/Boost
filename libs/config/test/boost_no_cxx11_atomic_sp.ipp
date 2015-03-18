@@ -25,7 +25,6 @@ int test()
    atomic_store(&spi, spi2);
    atomic_store_explicit(&spi, spi2, std::memory_order_relaxed);
    atomic_exchange(&spi, spi2);
-   atomic_exchange_explicit(&spi, std::memory_order_relaxed);
    atomic_compare_exchange_weak(&spi, &spi2, spi);
    atomic_compare_exchange_strong(&spi, &spi2, spi);
    atomic_compare_exchange_weak_explicit(&spi, &spi2, spi, std::memory_order_relaxed, std::memory_order_relaxed);

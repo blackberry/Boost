@@ -3,6 +3,9 @@
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
+#define BOOST_THREAD_VERSION 2
+#define BOOST_THREAD_PROVIDES_INTERRUPTIONS
+
 #include <boost/test/unit_test.hpp>
 
 #include <iostream>
@@ -21,18 +24,18 @@
      }
      catch (boost::thread_interrupted& interrupt)
      {
-        boost::mutex::scoped_lock lock(mutex_);
+        boost::unique_lock<boost::mutex> lock(mutex_);
         cerr << "Thread " << boost::this_thread::get_id() << " got interrupted" << endl;
         throw(interrupt);
      }
      catch (std::exception& e)
      {
-        boost::mutex::scoped_lock lock(mutex_);
+        boost::unique_lock<boost::mutex> lock(mutex_);
         cerr << "Thread " << boost::this_thread::get_id() << " caught std::exception" << e.what() << endl;
      }
      catch (...)
      {
-        boost::mutex::scoped_lock lock(mutex_);
+        boost::unique_lock<boost::mutex> lock(mutex_);
         cerr << "Thread " << boost::this_thread::get_id() << " caught something else" << endl;
      }
   }
@@ -68,15 +71,4 @@ boost::unit_test_framework::test_suite* init_unit_test_suite(int, char*[])
     return tests;
 }
 
-void remove_unused_warning()
-{
 
-  //../../../boost/test/results_collector.hpp:40:13: warning: unused function 'first_failed_assertion' [-Wunused-function]
-  //(void)first_failed_assertion;
-
-  //../../../boost/test/tools/floating_point_comparison.hpp:304:25: warning: unused variable 'check_is_close' [-Wunused-variable]
-  //../../../boost/test/tools/floating_point_comparison.hpp:326:25: warning: unused variable 'check_is_small' [-Wunused-variable]
-  (void)boost::test_tools::check_is_close;
-  (void)boost::test_tools::check_is_small;
-
-}

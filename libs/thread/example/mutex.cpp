@@ -1,7 +1,7 @@
 // Copyright (C) 2001-2003
 // William E. Kempf
 //
-//  Distributed under the Boost Software License, Version 1.0. (See accompanying 
+//  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 #include <boost/thread/mutex.hpp>
@@ -16,7 +16,7 @@ public:
     counter() : count(0) { }
 
     int increment() {
-        boost::mutex::scoped_lock scoped_lock(mutex);
+        boost::unique_lock<boost::mutex> scoped_lock(mutex);
         return ++count;
     }
 
@@ -30,7 +30,7 @@ counter c;
 void change_count()
 {
     int i = c.increment();
-    boost::mutex::scoped_lock scoped_lock(io_mutex);
+    boost::unique_lock<boost::mutex> scoped_lock(io_mutex);
     std::cout << "count == " << i << std::endl;
 }
 

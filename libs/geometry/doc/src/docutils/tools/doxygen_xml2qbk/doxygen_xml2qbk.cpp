@@ -1,6 +1,7 @@
 // doxml2qbk (developed in the context of Boost.Geometry documentation)
 //
-// Copyright (c) 2010-2012 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2010-2013 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2012-2013 Adam Wulkiewicz, Lodz, Poland.
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -17,8 +18,6 @@
 //     currently this is the element <qbk.example> which will make a reference
 //     to an example.
 // - currently still in draft
-
-// Aug 14/15: added classes, defines, various enhancements.
 
 #include <iostream>
 #include <fstream>
@@ -43,6 +42,23 @@
 #include <quickbook_output.hpp>
 #include <rapidxml_util.hpp>
 
+static const std::string version = "1.1.1";
+
+inline std::string program_description(bool decorated)
+{
+    std::string result;
+    if (decorated)
+    {
+        result = "=== ";
+    }
+    result += "doxygen_xml2qbk ";
+    result += version;
+    if (decorated)
+    {
+        result += " ===";
+    }
+    return result;
+}
 
 
 int main(int argc, char** argv)
@@ -52,29 +68,35 @@ int main(int argc, char** argv)
     {
         configuration config;
         std::string copyright_filename;
+        std::string output_style;
 
         // Read/get configuration
         {
             namespace po = boost::program_options;
-            po::options_description description("=== doxml2qbk ===\nAllowed options");
-
+            po::options_description description;
 
             std::string convenience_headers;
 
             description.add_options()
                 ("help", "Help message")
-                ("xml", po::value<std::string>(&filename), 
+                ("version", "Version description")
+                ("xml", po::value<std::string>(&filename),
                             "Name of XML file written by Doxygen")
-                ("start_include", po::value<std::string>(&config.start_include), 
+                ("start_include", po::value<std::string>(&config.start_include),
                             "Start include")
-                ("convenience_header_path", po::value<std::string>(&config.convenience_header_path), 
+                ("convenience_header_path", po::value<std::string>(&config.convenience_header_path),
                             "Convenience header path")
-                ("convenience_headers", po::value<std::string>(&convenience_headers), 
+                ("convenience_headers", po::value<std::string>(&convenience_headers),
                             "Convenience header(s) (comma-separated)")
-                ("skip_namespace", po::value<std::string>(&config.skip_namespace), 
-                            "Namespace to skip (e.g. boost::mylib::")
-                ("copyright", po::value<std::string>(&copyright_filename), 
+                ("skip_namespace", po::value<std::string>(&config.skip_namespace),
+                            "Namespace to skip (e.g. boost::mylib::)")
+                ("copyright", po::value<std::string>(&copyright_filename),
                             "Name of QBK file including (commented) copyright and license")
+
+                ("output_style", po::value<std::string>(&output_style),
+                            "Docbook output style. Available values: 'alt'")
+                ("output_member_variables", po::value<bool>(&config.output_member_variables),
+                            "Output member variables inside the class")
             ;
 
             po::variables_map varmap;
@@ -92,9 +114,25 @@ int main(int argc, char** argv)
 
             po::notify(varmap);
 
-            if (varmap.count("help") || filename.empty())
+            if (varmap.count("version"))
             {
-                std::cout << description << std::endl;
+                std::cout << version << std::endl;
+                return 0;
+            }
+            else if (varmap.count("help"))
+            {
+                std::cout
+                    << program_description(true) << std::endl
+                    << "Available options:" << std::endl
+                    << description << std::endl;
+                return 0;
+            }
+            else if (filename.empty())
+            {
+                std::cout
+                    << program_description(true) << std::endl
+                    << "Allowed options:" << std::endl
+                    << description << std::endl;
                 return 1;
             }
 
@@ -105,10 +143,16 @@ int main(int argc, char** argv)
             }
         }
 
+        // Set output style
+        if ("alt" == output_style)
+        {
+            config.output_style = configuration::alt;
+        }
+
         // Read files into strings
         std::string xml_string = file_to_string(filename);
-        std::string license = copyright_filename.empty() 
-            ? "" 
+        std::string license = copyright_filename.empty()
+            ? ""
             : file_to_string(copyright_filename);
 
         // Parse the XML outputted by Doxygen
@@ -146,29 +190,44 @@ int main(int argc, char** argv)
 
         // Write warning comment
         std::cout
-            << "[/ Generated by doxygen_xml2qbk, don't change, will be overwritten automatically]" << std::endl
+            << "[/ Generated by " << program_description(false) << ", don't change, will be overwritten automatically]" << std::endl
             << "[/ Generated from " << filename << "]" << std::endl;
 
-        // Write the rest: functions, defines, classes or structs
-        BOOST_FOREACH(function const& f, doc.functions)
+        if ( configuration::def == config.output_style )
         {
-            quickbook_output(f, config, std::cout);
-        }
-        BOOST_FOREACH(function const& f, doc.defines)
-        {
-            quickbook_output(f, config, std::cout);
-        }
-        BOOST_FOREACH(enumeration const& e, doc.enumerations)
-        {
-            quickbook_output(e, config, std::cout);
-        }
+            // Write the rest: functions, defines, classes or structs
+            BOOST_FOREACH(function const& f, doc.functions)
+            {
+                quickbook_output(f, config, std::cout);
+            }
+            BOOST_FOREACH(function const& f, doc.defines)
+            {
+                quickbook_output(f, config, std::cout);
+            }
+            BOOST_FOREACH(enumeration const& e, doc.enumerations)
+            {
+                quickbook_output(e, config, std::cout);
+            }
 
-        if (! doc.cos.name.empty())
-        {
-            std::sort(doc.cos.functions.begin(), doc.cos.functions.end(), sort_on_line<function>());
-            quickbook_output(doc.cos, config, std::cout);
+            if (! doc.cos.name.empty())
+            {
+                std::sort(doc.cos.functions.begin(), doc.cos.functions.end(), sort_on_line<function>());
+                quickbook_output(doc.cos, config, std::cout);
+            }
         }
+        else if ( configuration::alt == config.output_style )
+        {
+            if (! doc.cos.name.empty())
+            {
+                std::sort(doc.cos.functions.begin(), doc.cos.functions.end(), sort_on_line<function>());
+                quickbook_output_alt(doc.cos, config, std::cout);
+            }
 
+            if (! doc.group_id.empty())
+            {
+                quickbook_output_alt(doc, config, std::cout);
+            }
+        }
     }
     catch(std::exception const& e)
     {
@@ -181,7 +240,7 @@ int main(int argc, char** argv)
     }
     catch(...)
     {
-        std::cerr << "Unknown exception in doxygen_xml2qbk" 
+        std::cerr << "Unknown exception in doxygen_xml2qbk"
             << std::endl;
         return 1;
     }

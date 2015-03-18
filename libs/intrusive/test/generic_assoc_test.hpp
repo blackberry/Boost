@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 //
 // (C) Copyright Olaf Krzikalla 2004-2006.
-// (C) Copyright Ion Gaztanaga  2006-2012.
+// (C) Copyright Ion Gaztanaga  2006-2013.
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -10,7 +10,7 @@
 // See http://www.boost.org/libs/intrusive for documentation.
 //
 /////////////////////////////////////////////////////////////////////////////
-#include <vector> //vector
+#include <boost/container/vector.hpp> //vector
 #include <algorithm> //sort, random_shuffle
 #include <boost/intrusive/detail/config_begin.hpp>
 #include "common_functors.hpp"
@@ -71,39 +71,40 @@ struct search_const_container<T, false>
    typedef T type;
 };
 
-template<class ValueTraits, template <class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none> class ContainerDefiner>
+template<class ValueTraits, template <class = void, class = void, class = void, class = void> class ContainerDefiner>
 struct test_generic_assoc
 {
    typedef typename ValueTraits::value_type value_type;
-   static void test_all(std::vector<value_type>& values);
-   static void test_clone(std::vector<value_type>& values);
+   typedef typename Value_Container< value_type >::type value_cont_type;
+   typedef typename ValueTraits::reference reference;
+   typedef typename ValueTraits::const_reference const_reference;
+   static void test_all(value_cont_type&);
+   static void test_clone(value_cont_type&);
    static void test_insert_erase_burst();
-   static void test_container_from_end(std::vector<value_type>& values);
-   static void test_splay_up(std::vector<value_type>& values);
-   static void test_splay_up(std::vector<value_type>& values, boost::intrusive::detail::true_type);
-   static void test_splay_up(std::vector<value_type>& values, boost::intrusive::detail::false_type);
-   static void test_splay_down(std::vector<value_type>& values);
-   static void test_splay_down(std::vector<value_type>& values, boost::intrusive::detail::true_type);
-   static void test_splay_down(std::vector<value_type>& values, boost::intrusive::detail::false_type);
-   static void test_rebalance(std::vector<value_type>& values);
-   static void test_rebalance(std::vector<value_type>& values, boost::intrusive::detail::true_type);
-   static void test_rebalance(std::vector<value_type>& values, boost::intrusive::detail::false_type);
-   static void test_insert_before(std::vector<value_type>& values);
-   static void test_insert_before(std::vector<value_type>& values, boost::intrusive::detail::true_type);
-   static void test_insert_before(std::vector<value_type>& values, boost::intrusive::detail::false_type);
-   static void test_container_from_iterator(std::vector<value_type>& values);
+   static void test_container_from_end(value_cont_type&, detail::true_type);
+   static void test_container_from_end(value_cont_type&, detail::false_type) {}
+   static void test_splay_up(value_cont_type&, detail::true_type);
+   static void test_splay_up(value_cont_type&, detail::false_type) {}
+   static void test_splay_down(value_cont_type&, detail::true_type);
+   static void test_splay_down(value_cont_type&, detail::false_type) {}
+   static void test_rebalance(value_cont_type&, detail::true_type);
+   static void test_rebalance(value_cont_type&, detail::false_type) {}
+   static void test_insert_before(value_cont_type&, detail::true_type);
+   static void test_insert_before(value_cont_type&, detail::false_type) {}
+   static void test_container_from_iterator(value_cont_type&, detail::true_type);
+   static void test_container_from_iterator(value_cont_type&, detail::false_type) {}
 };
 
-template<class ValueTraits, template <class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none> class ContainerDefiner>
+template<class ValueTraits, template <class = void, class = void, class = void, class = void> class ContainerDefiner>
 void test_generic_assoc<ValueTraits, ContainerDefiner>::
-   test_container_from_iterator(std::vector<value_type>& values)
+   test_container_from_iterator(value_cont_type& values, detail::true_type)
 {
-   typedef typename ContainerDefiner
+   typedef ContainerDefiner
       < value_type
       , value_traits<ValueTraits>
       , constant_time_size<value_type::constant_time_size>
-      >::type assoc_type;
-
+      > definer_function;
+   typedef typename definer_function::type assoc_type;
    assoc_type testset(values.begin(), values.end());
    typedef typename assoc_type::iterator        it_type;
    typedef typename assoc_type::const_iterator  cit_type;
@@ -122,89 +123,92 @@ void test_generic_assoc<ValueTraits, ContainerDefiner>::
    }
 }
 
-template<class ValueTraits, template <class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none> class ContainerDefiner>
+template<class ValueTraits, template <class = void, class = void, class = void, class = void> class ContainerDefiner>
 void test_generic_assoc<ValueTraits, ContainerDefiner>::test_insert_erase_burst()
 {
    typedef typename ValueTraits::value_type value_type;
 
-   std::vector<value_type> values;
+   //value_cont_type values;
    const int MaxValues = 100;
+   value_cont_type values(MaxValues);
    for(int i = 0; i != MaxValues; ++i){
-      values.push_back(value_type(i));
+      (&values[i])->value_ = i;
    }
 
-   typedef typename ContainerDefiner
+   typedef ContainerDefiner
       < value_type
       , value_traits<ValueTraits>
       , constant_time_size<value_type::constant_time_size>
-      >::type assoc_type;
+      > definer_function;
+   typedef typename definer_function::type assoc_type;
    typedef typename assoc_type::iterator iterator;
 
-   //First ordered insertions
-   assoc_type testset (&values[0], &values[0] + values.size());
-   TEST_INTRUSIVE_SEQUENCE_EXPECTED(testset, testset.begin());
+   {  //Ordered insertion + erasure
+      assoc_type testset (values.begin(), values.begin() + values.size());
+      TEST_INTRUSIVE_SEQUENCE_EXPECTED(testset, testset.begin());
 
-   //Ordered erasure
-   iterator it(testset.begin()), itend(testset.end());
-   for(int i = 0; it != itend; ++i){
-      BOOST_TEST(&*it == &values[i]);
-      it = testset.erase(it);
+      iterator it(testset.begin()), itend(testset.end());
+      for(int i = 0; it != itend; ++i){
+         BOOST_TEST(&*it == &values[i]);
+         it = testset.erase(it);
+      }
+      BOOST_TEST(testset.empty());
    }
-
-   BOOST_TEST(testset.empty());
-
-   //Now random insertions
-   std::random_shuffle(values.begin(), values.end());
-   testset.insert(&values[0], &values[0] + values.size());
-   std::vector<value_type> values_ordered(values);
-   std::sort(values_ordered.begin(), values_ordered.end());
-   TEST_INTRUSIVE_SEQUENCE_EXPECTED(testset, testset.begin());
-
-   {
-      typedef typename std::vector<value_type>::const_iterator cvec_iterator;
-      //Random erasure
-      std::vector<cvec_iterator> it_vector;
-
-      for(cvec_iterator it(values.begin()), itend(values.end())
+  
+   {  //Now random insertions + erasure
+      assoc_type testset;
+      typedef typename value_cont_type::iterator vec_iterator;
+      boost::container::vector<vec_iterator> it_vector;
+      //Random insertion
+      for(vec_iterator it(values.begin()), itend(values.end())
          ; it != itend
          ; ++it){
          it_vector.push_back(it);
       }
+      for(int i = 0; i != MaxValues; ++i){
+         testset.insert(*it_vector[i]);
+      }
+      TEST_INTRUSIVE_SEQUENCE_EXPECTED(testset, testset.begin());
+      //Random erasure
       std::random_shuffle(it_vector.begin(), it_vector.end());
       for(int i = 0; i != MaxValues; ++i){
          testset.erase(testset.iterator_to(*it_vector[i]));
       }
-
       BOOST_TEST(testset.empty());
    }
 }
 
-template<class ValueTraits, template <class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none> class ContainerDefiner>
-void test_generic_assoc<ValueTraits, ContainerDefiner>::test_all(std::vector<typename ValueTraits::value_type>& values)
+template<class ValueTraits, template <class = void, class = void, class = void, class = void> class ContainerDefiner>
+void test_generic_assoc<ValueTraits, ContainerDefiner>::test_all(value_cont_type& values)
 {
-   typedef typename ValueTraits::value_type value_type;
-   test_clone(values);
-   test_container_from_end(values);
-   test_splay_up(values);
-   test_splay_down(values);
-   test_rebalance(values);
-   test_insert_before(values);
-   test_insert_erase_burst();
-   test_container_from_iterator(values);
-}
-
-template<class ValueTraits, template <class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none> class ContainerDefiner>
-void test_generic_assoc<ValueTraits, ContainerDefiner>
-   ::test_clone(std::vector<typename ValueTraits::value_type>& values)
-{
-   typedef typename ValueTraits::value_type value_type;
-   typedef typename ContainerDefiner
+   typedef ContainerDefiner
       < value_type
       , value_traits<ValueTraits>
       , constant_time_size<value_type::constant_time_size>
-      >::type assoc_type;
+      > definer_function;
+   typedef typename definer_function::type assoc_type;
 
-   assoc_type testset1 (&values[0], &values[0] + values.size());
+   test_clone(values);
+   test_container_from_end(values, detail::bool_< assoc_type::has_container_from_iterator >());
+   test_splay_up(values, detail::bool_< has_splay< assoc_type >::value >());
+   test_splay_down(values, detail::bool_< has_splay< assoc_type >::value >());
+   test_rebalance(values, detail::bool_< has_rebalance< assoc_type >::value >());
+   test_insert_before(values, detail::bool_< has_insert_before< assoc_type >::value >());
+   test_insert_erase_burst();
+   test_container_from_iterator(values, detail::bool_< assoc_type::has_container_from_iterator >());
+}
+
+template<class ValueTraits, template <class = void, class = void, class = void, class = void> class ContainerDefiner>
+void test_generic_assoc<ValueTraits, ContainerDefiner>
+   ::test_clone(value_cont_type& values)
+{
+   typedef ContainerDefiner
+      < value_type
+      , value_traits<ValueTraits>
+      , constant_time_size<value_type::constant_time_size>
+      > definer_function;
+   typedef typename definer_function::type assoc_type;
+   assoc_type testset1 (values.begin(), values.begin() + values.size());
    assoc_type testset2;
 
    testset2.clone_from(testset1, test::new_cloner<value_type>(), test::delete_disposer<value_type>());
@@ -213,39 +217,42 @@ void test_generic_assoc<ValueTraits, ContainerDefiner>
    BOOST_TEST (testset2.empty());
 }
 
-template<class ValueTraits, template <class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none> class ContainerDefiner>
+template<class ValueTraits, template <class = void, class = void, class = void, class = void> class ContainerDefiner>
 void test_generic_assoc<ValueTraits, ContainerDefiner>
-   ::test_container_from_end(std::vector<typename ValueTraits::value_type>& values)
+   ::test_container_from_end(value_cont_type& values, detail::true_type)
 {
    typedef typename ValueTraits::value_type value_type;
-   typedef typename ContainerDefiner
+   typedef ContainerDefiner
       < value_type
       , value_traits<ValueTraits>
       , constant_time_size<value_type::constant_time_size>
-      >::type assoc_type;
-   assoc_type testset (&values[0], &values[0] + values.size());
+      > definer_function;
+   typedef typename definer_function::type assoc_type;
+   assoc_type testset (values.begin(), values.begin() + values.size());
    BOOST_TEST (testset == assoc_type::container_from_end_iterator(testset.end()));
    BOOST_TEST (testset == assoc_type::container_from_end_iterator(testset.cend()));
 }
 
-template<class ValueTraits, template <class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none> class ContainerDefiner>
+template<class ValueTraits, template <class = void, class = void, class = void, class = void> class ContainerDefiner>
 void test_generic_assoc<ValueTraits, ContainerDefiner>::test_splay_up
-(std::vector<typename ValueTraits::value_type>& values, boost::intrusive::detail::true_type)
+(value_cont_type& values, detail::true_type)
 {
    typedef typename ValueTraits::value_type value_type;
-   typedef typename ContainerDefiner
+   typedef ContainerDefiner
       < value_type
       , value_traits<ValueTraits>
       , constant_time_size<value_type::constant_time_size>
-      >::type assoc_type;
+      > definer_function;
+   typedef typename definer_function::type assoc_type;
+
    typedef typename assoc_type::iterator iterator;
-   typedef std::vector<value_type> orig_set_t;
+   typedef value_cont_type orig_set_t;
    std::size_t num_values;
    orig_set_t original_testset;
    {
       assoc_type testset (values.begin(), values.end());
       num_values = testset.size();
-      original_testset.insert(original_testset.end(), testset.begin(), testset.end());
+      original_testset = value_cont_type(testset.begin(), testset.end());
    }
 
    for(std::size_t i = 0; i != num_values; ++i){
@@ -266,43 +273,26 @@ void test_generic_assoc<ValueTraits, ContainerDefiner>::test_splay_up
    }
 }
 
-template<class ValueTraits, template <class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none> class ContainerDefiner>
-void test_generic_assoc<ValueTraits, ContainerDefiner>::test_splay_up
-(std::vector<typename ValueTraits::value_type>&, boost::intrusive::detail::false_type)
-{}
-
-template<class ValueTraits, template <class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none> class ContainerDefiner>
-void test_generic_assoc<ValueTraits, ContainerDefiner>::test_splay_up
-(std::vector<typename ValueTraits::value_type>& values)
-{
-   typedef typename ContainerDefiner
-      < value_type
-      , value_traits<ValueTraits>
-      , constant_time_size<value_type::constant_time_size>
-      >::type assoc_type;
-   typedef typename detail::remove_const<assoc_type>::type Type;
-   typedef detail::bool_<has_splay<Type>::value> enabler;
-   test_splay_up(values, enabler());
-}
-
-template<class ValueTraits, template <class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none> class ContainerDefiner>
+template<class ValueTraits, template <class = void, class = void, class = void, class = void> class ContainerDefiner>
 void test_generic_assoc<ValueTraits, ContainerDefiner>::test_splay_down
-(std::vector<typename ValueTraits::value_type>& values, boost::intrusive::detail::true_type)
+(value_cont_type& values, detail::true_type)
 {
    typedef typename ValueTraits::value_type value_type;
-   typedef typename ContainerDefiner
+   typedef ContainerDefiner
       < value_type
       , value_traits<ValueTraits>
       , constant_time_size<value_type::constant_time_size>
-      >::type assoc_type;
+      > definer_function;
+   typedef typename definer_function::type assoc_type;
+
    typedef typename assoc_type::iterator iterator;
-   typedef std::vector<value_type> orig_set_t;
+   typedef value_cont_type orig_set_t;
    std::size_t num_values;
    orig_set_t original_testset;
    {
       assoc_type testset (values.begin(), values.end());
       num_values = testset.size();
-      original_testset.insert(original_testset.end(), testset.begin(), testset.end());
+      original_testset = value_cont_type(testset.begin(), testset.end());
    }
 
    for(std::size_t i = 0; i != num_values; ++i){
@@ -324,41 +314,23 @@ void test_generic_assoc<ValueTraits, ContainerDefiner>::test_splay_down
    }
 }
 
-template<class ValueTraits, template <class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none> class ContainerDefiner>
-void test_generic_assoc<ValueTraits, ContainerDefiner>::test_splay_down
-(std::vector<typename ValueTraits::value_type>&, boost::intrusive::detail::false_type)
-{}
-
-template<class ValueTraits, template <class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none> class ContainerDefiner>
-void test_generic_assoc<ValueTraits, ContainerDefiner>::test_splay_down
-(std::vector<typename ValueTraits::value_type>& values)
-{
-   typedef typename ContainerDefiner
-      < value_type
-      , value_traits<ValueTraits>
-      , constant_time_size<value_type::constant_time_size>
-      >::type assoc_type;
-   typedef typename detail::remove_const<assoc_type>::type Type;
-   typedef detail::bool_<has_splay<Type>::value> enabler;
-   test_splay_down(values, enabler());
-}
-
-template<class ValueTraits, template <class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none> class ContainerDefiner>
+template<class ValueTraits, template <class = void, class = void, class = void, class = void> class ContainerDefiner>
 void test_generic_assoc<ValueTraits, ContainerDefiner>::test_rebalance
-(std::vector<typename ValueTraits::value_type>& values, boost::intrusive::detail::true_type)
+(value_cont_type& values, detail::true_type)
 {
    typedef typename ValueTraits::value_type value_type;
-   typedef typename ContainerDefiner
+   typedef ContainerDefiner
       < value_type
       , value_traits<ValueTraits>
       , constant_time_size<value_type::constant_time_size>
-      >::type assoc_type;
-   typedef std::vector<value_type> orig_set_t;
-   typedef typename orig_set_t::iterator iterator_t;
+      > definer_function;
+   typedef typename definer_function::type assoc_type;
+   typedef value_cont_type orig_set_t;
    orig_set_t original_testset;
    {
       assoc_type testset (values.begin(), values.end());
-      original_testset.insert(original_testset.end(), testset.begin(), testset.end());
+      //original_testset.insert(original_testset.end(), testset.begin(), testset.end());
+      original_testset = value_cont_type(testset.begin(), testset.end());
    }
    {
       assoc_type testset(values.begin(), values.end());
@@ -383,38 +355,20 @@ void test_generic_assoc<ValueTraits, ContainerDefiner>::test_rebalance
    }
 }
 
-template<class ValueTraits, template <class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none> class ContainerDefiner>
-void test_generic_assoc<ValueTraits, ContainerDefiner>::test_rebalance
-(std::vector<typename ValueTraits::value_type>&, boost::intrusive::detail::false_type)
-{}
-
-template<class ValueTraits, template <class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none> class ContainerDefiner>
-void test_generic_assoc<ValueTraits, ContainerDefiner>::test_rebalance
-(std::vector<typename ValueTraits::value_type>& values)
-{
-   typedef typename ContainerDefiner
-      < value_type
-      , value_traits<ValueTraits>
-      , constant_time_size<value_type::constant_time_size>
-      >::type assoc_type;
-   typedef typename detail::remove_const<assoc_type>::type Type;
-   typedef detail::bool_<has_rebalance<Type>::value> enabler;
-   test_rebalance(values, enabler());
-}
-
-template<class ValueTraits, template <class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none> class ContainerDefiner>
+template<class ValueTraits, template <class = void, class = void, class = void, class = void> class ContainerDefiner>
 void test_generic_assoc<ValueTraits, ContainerDefiner>::test_insert_before
-(std::vector<typename ValueTraits::value_type>& values, boost::intrusive::detail::true_type)
+(value_cont_type& values, detail::true_type)
 {
    typedef typename ValueTraits::value_type value_type;
-   typedef typename ContainerDefiner
+   typedef ContainerDefiner
       < value_type
       , value_traits<ValueTraits>
       , constant_time_size<value_type::constant_time_size>
-      >::type assoc_type;
+      > definer_function;
+   typedef typename definer_function::type assoc_type;
    {
       assoc_type testset;
-      typedef typename std::vector<value_type>::iterator vec_iterator;
+      typedef typename value_cont_type::iterator vec_iterator;
       for(vec_iterator it(values.begin()), itend(values.end())
          ; it != itend
          ; ++it){
@@ -425,7 +379,7 @@ void test_generic_assoc<ValueTraits, ContainerDefiner>::test_insert_before
    }
    {
       assoc_type testset;
-      typedef typename std::vector<value_type>::iterator vec_iterator;
+      typedef typename value_cont_type::iterator vec_iterator;
 
       for(vec_iterator it(--values.end()); true; --it){
          testset.push_front(*it);
@@ -438,7 +392,7 @@ void test_generic_assoc<ValueTraits, ContainerDefiner>::test_insert_before
    }
    {
       assoc_type testset;
-      typedef typename std::vector<value_type>::iterator vec_iterator;
+      typedef typename value_cont_type::iterator vec_iterator;
       typename assoc_type::iterator it_pos =
          testset.insert_before(testset.end(), *values.rbegin());
       testset.insert_before(testset.begin(), *values.begin());
@@ -450,25 +404,6 @@ void test_generic_assoc<ValueTraits, ContainerDefiner>::test_insert_before
       BOOST_TEST(testset.size() == values.size());
       TEST_INTRUSIVE_SEQUENCE_EXPECTED(values, testset.begin());
    }
-}
-
-template<class ValueTraits, template <class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none> class ContainerDefiner>
-void test_generic_assoc<ValueTraits, ContainerDefiner>::test_insert_before
-(std::vector<typename ValueTraits::value_type>&, boost::intrusive::detail::false_type)
-{}
-
-template<class ValueTraits, template <class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none, class = ::boost::intrusive::none> class ContainerDefiner>
-void test_generic_assoc<ValueTraits, ContainerDefiner>::test_insert_before
-(std::vector<typename ValueTraits::value_type>& values)
-{
-   typedef typename ContainerDefiner
-      < value_type
-      , value_traits<ValueTraits>
-      , constant_time_size<value_type::constant_time_size>
-      >::type assoc_type;
-   typedef typename detail::remove_const<assoc_type>::type Type;
-   typedef detail::bool_<has_insert_before<Type>::value> enabler;
-   test_insert_before(values, enabler());
 }
 
 }}}   //namespace boost::intrusive::test

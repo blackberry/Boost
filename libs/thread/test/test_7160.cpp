@@ -6,32 +6,31 @@
 #define BOOST_DATE_TIME_POSIX_TIME_STD_CONFIG
 
 #include <iostream>
-#include <boost/thread.hpp>
+#include <boost/thread/thread_only.hpp>
 
 class ThreadClass
 {
-   public:
+public:
   ThreadClass()
-	{
-	}
+  {
+  }
 
-	void operator()()
-	{
-	   return;
-	}
+  void operator()()
+  {
+    return;
+  }
 };
-
 
 int main()
 {
-	boost::posix_time::ptime currentTimeUTC;
+  boost::posix_time::ptime currentTimeUTC;
 
-	ThreadClass tc;
-	boost::thread t(tc);
-	t.join(); //causes a runtime access violation here
+  ThreadClass tc;
+  boost::thread t(tc);
+  t.join(); //causes a runtime access violation here
 
-	std::cout << "done" << std::endl;
-	//system("pause");
+  std::cout << "done" << std::endl;
+  //system("pause");
 
-	return 0;
+  return 0;
 }

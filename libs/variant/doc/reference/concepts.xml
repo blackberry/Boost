@@ -1,4 +1,12 @@
-<?xml version="1.0" encoding="utf-8" ?> 
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE header PUBLIC "-//Boost//DTD BoostBook XML V1.0//EN"
+  "http://www.boost.org/tools/boostbook/dtd/boostbook.dtd">
+<!--
+    Copyright 2003, Eric Friedman, Itay Maman.
+
+    Distributed under the Boost Software License, Version 1.0. (See accompanying
+    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+-->
 <section id="variant.concepts">
   <title>Concepts</title>
 
@@ -11,7 +19,7 @@
       are as follows:</para>
 
     <itemizedlist>
-      <listitem><conceptname>CopyConstructible</conceptname> [20.1.3].</listitem>
+      <listitem><conceptname>CopyConstructible</conceptname> or <conceptname>MoveConstructible</conceptname>.</listitem>
       <listitem>Destructor upholds the no-throw exception-safety
         guarantee.</listitem>
       <listitem>Complete at the point of <code>variant</code> template
@@ -34,6 +42,12 @@
         concept. (Note that top-level <code>const</code>-qualified types and
         reference types do <emphasis>not</emphasis> meet these
         requirements.)</listitem>
+      <listitem><conceptname>MoveAssignable</conceptname>:
+        <code>variant</code> is itself <emphasis>MoveAssignable</emphasis> if and
+        only if every one of its bounded types meets the requirements of the
+        concept. (Note that top-level <code>const</code>-qualified types and
+        reference types do <emphasis>not</emphasis> meet these
+        requirements.)</listitem>
       <listitem><conceptname>DefaultConstructible</conceptname> [20.1.4]:
         <code>variant</code> is itself
         <conceptname>DefaultConstructible</conceptname> if and only if its first
@@ -49,6 +63,10 @@
         of the concept.</listitem>
       <listitem><link linkend="variant.concepts.output-streamable"><emphasis>OutputStreamable</emphasis></link>:
         <code>variant</code> is itself <emphasis>OutputStreamable</emphasis>
+        if and only if every one of its bounded types meets the requirements
+        of the concept.</listitem>
+      <listitem><link linkend="variant.concepts.hashable"><emphasis>Hashable</emphasis></link>:
+        <code>variant</code> is itself <emphasis>Hashable</emphasis>
         if and only if every one of its bounded types meets the requirements
         of the concept.</listitem>
     </itemizedlist>
@@ -129,4 +147,16 @@ public:
     </itemizedlist>
   </section>
 
+  <section id="variant.concepts.hashable">
+    <title><emphasis>Hashable</emphasis></title>
+
+    <para>The requirements on an <emphasis role="bold">hashable</emphasis> type <code>T</code> are as follows:</para>
+
+    <itemizedlist>
+      <listitem>For any object <code>t</code> of type <code>T</code>,
+        <code>boost::hash&lt;T&gt;()(t)</code> must be a valid
+        expression.</listitem>
+    </itemizedlist>
+  </section>
+  
 </section>

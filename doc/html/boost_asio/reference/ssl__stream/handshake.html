@@ -3,11 +3,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>ssl::stream::handshake</title>
 <link rel="stylesheet" href="../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../../boost_asio.html" title="Boost.Asio">
 <link rel="up" href="../ssl__stream.html" title="ssl::stream">
 <link rel="prev" href="get_io_service.html" title="ssl::stream::get_io_service">
-<link rel="next" href="handshake/overload1.html" title="ssl::stream::handshake (1 of 2 overloads)">
+<link rel="next" href="handshake/overload1.html" title="ssl::stream::handshake (1 of 4 overloads)">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table cellpadding="2" width="100%"><tr>
@@ -27,22 +27,37 @@
 <a name="boost_asio.reference.ssl__stream.handshake"></a><a class="link" href="handshake.html" title="ssl::stream::handshake">ssl::stream::handshake</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="id1566961"></a> 
+          <a class="indexterm" name="idp196736272"></a> 
 Perform SSL handshaking.
         </p>
-<pre class="programlisting"><span class="keyword">void</span> <a class="link" href="handshake/overload1.html" title="ssl::stream::handshake (1 of 2 overloads)">handshake</a><span class="special">(</span>
+<pre class="programlisting"><span class="keyword">void</span> <a class="link" href="handshake/overload1.html" title="ssl::stream::handshake (1 of 4 overloads)">handshake</a><span class="special">(</span>
     <span class="identifier">handshake_type</span> <span class="identifier">type</span><span class="special">);</span>
-  <span class="emphasis"><em>&#187; <a class="link" href="handshake/overload1.html" title="ssl::stream::handshake (1 of 2 overloads)">more...</a></em></span>
+  <span class="emphasis"><em>&#187; <a class="link" href="handshake/overload1.html" title="ssl::stream::handshake (1 of 4 overloads)">more...</a></em></span>
 
-<span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span> <a class="link" href="handshake/overload2.html" title="ssl::stream::handshake (2 of 2 overloads)">handshake</a><span class="special">(</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span> <a class="link" href="handshake/overload2.html" title="ssl::stream::handshake (2 of 4 overloads)">handshake</a><span class="special">(</span>
     <span class="identifier">handshake_type</span> <span class="identifier">type</span><span class="special">,</span>
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span> <span class="special">&amp;</span> <span class="identifier">ec</span><span class="special">);</span>
-  <span class="emphasis"><em>&#187; <a class="link" href="handshake/overload2.html" title="ssl::stream::handshake (2 of 2 overloads)">more...</a></em></span>
+  <span class="emphasis"><em>&#187; <a class="link" href="handshake/overload2.html" title="ssl::stream::handshake (2 of 4 overloads)">more...</a></em></span>
+
+<span class="keyword">template</span><span class="special">&lt;</span>
+    <span class="keyword">typename</span> <a class="link" href="../ConstBufferSequence.html" title="Constant buffer sequence requirements">ConstBufferSequence</a><span class="special">&gt;</span>
+<span class="keyword">void</span> <a class="link" href="handshake/overload3.html" title="ssl::stream::handshake (3 of 4 overloads)">handshake</a><span class="special">(</span>
+    <span class="identifier">handshake_type</span> <span class="identifier">type</span><span class="special">,</span>
+    <span class="keyword">const</span> <span class="identifier">ConstBufferSequence</span> <span class="special">&amp;</span> <span class="identifier">buffers</span><span class="special">);</span>
+  <span class="emphasis"><em>&#187; <a class="link" href="handshake/overload3.html" title="ssl::stream::handshake (3 of 4 overloads)">more...</a></em></span>
+
+<span class="keyword">template</span><span class="special">&lt;</span>
+    <span class="keyword">typename</span> <a class="link" href="../ConstBufferSequence.html" title="Constant buffer sequence requirements">ConstBufferSequence</a><span class="special">&gt;</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span> <a class="link" href="handshake/overload4.html" title="ssl::stream::handshake (4 of 4 overloads)">handshake</a><span class="special">(</span>
+    <span class="identifier">handshake_type</span> <span class="identifier">type</span><span class="special">,</span>
+    <span class="keyword">const</span> <span class="identifier">ConstBufferSequence</span> <span class="special">&amp;</span> <span class="identifier">buffers</span><span class="special">,</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span> <span class="special">&amp;</span> <span class="identifier">ec</span><span class="special">);</span>
+  <span class="emphasis"><em>&#187; <a class="link" href="handshake/overload4.html" title="ssl::stream::handshake (4 of 4 overloads)">more...</a></em></span>
 </pre>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2012 Christopher M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2014 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

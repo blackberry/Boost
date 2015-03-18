@@ -11,7 +11,7 @@
 #include <boost/detail/workaround.hpp>
 
 #if BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x564))
-#  pragma warn -8091 // supress warning in Boost.Test
+#  pragma warn -8091 // suppress warning in Boost.Test
 #  pragma warn -8057 // unused argument argc/argv in Boost.Test
 #endif
 
@@ -27,7 +27,7 @@
 namespace
 {
     //
-    // example: extrating bounds in a generic algorithm
+    // example: extracting bounds in a generic algorithm
     //
     template< typename Range, typename T >
     inline typename boost::range_iterator<Range>::type

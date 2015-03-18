@@ -18,7 +18,13 @@
 // packaged_task(packaged_task&) = delete;
 
 
-#define BOOST_THREAD_VERSION 3
+#define BOOST_THREAD_VERSION 4
+#if BOOST_THREAD_VERSION == 4
+#define BOOST_THREAD_DETAIL_SIGNATURE double()
+#else
+#define BOOST_THREAD_DETAIL_SIGNATURE double
+#endif
+
 #include <boost/thread/future.hpp>
 #include <boost/detail/lightweight_test.hpp>
 
@@ -37,8 +43,8 @@ public:
 int main()
 {
   {
-    boost::packaged_task<double> p0(A(5));
-    boost::packaged_task<double> p(p0);
+    boost::packaged_task<BOOST_THREAD_DETAIL_SIGNATURE> p0(A(5));
+    boost::packaged_task<BOOST_THREAD_DETAIL_SIGNATURE> p(p0);
 
   }
 

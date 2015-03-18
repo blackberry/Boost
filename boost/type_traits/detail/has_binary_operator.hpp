@@ -31,17 +31,19 @@
 // msvc:
 //    warning C4018: '<' : signed/unsigned mismatch
 //    warning C4244: '+=' : conversion from 'double' to 'char', possible loss of data
-//    warning C4547: '*' : operator before comma has no effect; expected operator with side-effect
+//    warning C4547: '*' : operator before comma has no effect; expected operator with side-effect
 //    warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
 //    warning C4804: '<' : unsafe use of type 'bool' in operation
 //    warning C4805: '==' : unsafe mix of type 'bool' and type 'char' in operation
 // cannot find another implementation -> declared as system header to suppress these warnings.
-#if defined(__GNUC__) && ((__GNUC__==3 && __GNUC_MINOR__>=1) || (__GNUC__>3))
+#if defined(__GNUC__)
 #   pragma GCC system_header
 #elif defined(BOOST_MSVC)
 #   pragma warning ( push )
 #   pragma warning ( disable : 4018 4244 4547 4800 4804 4805 4913 )
 #endif
+
+#ifndef Q_MOC_RUN  // See: https://bugreports.qt-project.org/browse/QTBUG-22829
 
 namespace boost {
 namespace detail {
@@ -152,10 +154,10 @@ no_operator operator,(no_operator, has_operator);
 
 template < typename Lhs, typename Rhs >
 struct operator_exists {
-   static ::boost::type_traits::yes_type check(has_operator); // this version is preferred when operator exists
-   static ::boost::type_traits::no_type check(no_operator); // this version is used otherwise
+   static ::boost::type_traits::yes_type s_check(has_operator); // this version is preferred when operator exists
+   static ::boost::type_traits::no_type s_check(no_operator); // this version is used otherwise
 
-   BOOST_STATIC_CONSTANT(bool, value = (sizeof(check(((make<Lhs>() BOOST_TT_TRAIT_OP make<Rhs>()),make<has_operator>())))==sizeof(::boost::type_traits::yes_type)));
+   BOOST_STATIC_CONSTANT(bool, value = (sizeof(s_check(((make<Lhs>() BOOST_TT_TRAIT_OP make<Rhs>()),make<has_operator>())))==sizeof(::boost::type_traits::yes_type)));
 };
 
 
@@ -221,6 +223,8 @@ struct trait_impl {
 BOOST_TT_AUX_BOOL_TRAIT_DEF3(BOOST_TT_TRAIT_NAME, Lhs, Rhs=Lhs, Ret=::boost::detail::BOOST_JOIN(BOOST_TT_TRAIT_NAME,_impl)::dont_care, (::boost::detail::BOOST_JOIN(BOOST_TT_TRAIT_NAME,_impl)::trait_impl < Lhs, Rhs, Ret >::value))
 
 } // namespace boost
+
+#endif // Q_MOC_RUN -> See: https://bugreports.qt-project.org/browse/QTBUG-22829
 
 #if defined(BOOST_MSVC)
 #   pragma warning ( pop )

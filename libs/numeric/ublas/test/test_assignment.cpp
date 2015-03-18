@@ -62,6 +62,7 @@ bool test_vector() {
     rb(0) = 1; rb(1) = 2; rb(2) = 3; rb(3)=10, rb(4)= 1; rb(5)=2; rb(6)=3;
     pass &= (mean_square(b-rb)<=TOL);
 
+    {
     V c(6), rc(6);
     c <<= 1, move(2), 3 ,4, 5, move(-5), 10, 10;
     rc(0) = 1; rc(1) = 10; rc(2) = 10; rc(3) = 3; rc(4) = 4; rc(5) = 5;
@@ -71,6 +72,7 @@ bool test_vector() {
     d <<= 1, move_to(3), 3 ,4, 5, move_to(1), 10, 10;
     rd(0) = 1; rd(1) = 10; rd(2) = 10; rd(3) = 3; rd(4) = 4; rd(5) = 5;
     pass &= (mean_square(d-rd)<=TOL);
+    }
 
     {
     V c(6), rc(6);
@@ -807,5 +809,5 @@ int main () {
 
     BOOST_UBLAS_TEST_END();
 
-    return EXIT_SUCCESS;;
+    return EXIT_SUCCESS;
 }

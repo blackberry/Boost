@@ -20,15 +20,14 @@
 #include <boost/geometry/multi/multi.hpp>
 #include <boost/geometry/multi/geometries/multi_polygon.hpp>
 #include <boost/geometry/multi/io/wkt/read.hpp>
-#include <boost/geometry/extensions/io/svg/write_svg_multi.hpp>
 
 
 #include <test_common/test_point.hpp>
 
 
-//#define TEST_WITH_SVG
 #if defined(TEST_WITH_SVG)
-#  include <boost/geometry/extensions/io/svg/svg_mapper.hpp>
+#  include <boost/geometry/io/svg/svg_mapper.hpp>
+#  include <boost/geometry/io/svg/write_svg_multi.hpp>
 #endif
 
 // Collection might be a multi-geometry, or std::vector<ring>

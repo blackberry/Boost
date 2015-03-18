@@ -142,7 +142,7 @@ BOOST_CHECK_INTEGRAL_CONSTANT(::tt::has_trivial_constructor<cmf>::value, true);
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::has_trivial_constructor<enum_UDT>::value, true);
 
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::has_trivial_constructor<int&>::value, false);
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::has_trivial_constructor<int&&>::value, false);
 #endif
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::has_trivial_constructor<const int&>::value, false);

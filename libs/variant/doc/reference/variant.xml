@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE header PUBLIC "-//Boost//DTD BoostBook XML V1.0//EN"
   "http://www.boost.org/tools/boostbook/dtd/boostbook.dtd">
+<!--
+    Copyright 2003, Eric Friedman, Itay Maman.
+
+    Distributed under the Boost Software License, Version 1.0. (See accompanying
+    file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+-->
 <header name="boost/variant/variant.hpp">
   <namespace name="boost">
     <class name="variant">
@@ -110,6 +116,26 @@
             copy constructor of <code>other</code>'s contained type.</simpara>
         </throws>
       </constructor>
+      
+      <constructor>
+        <parameter name="other">
+          <paramtype>variant &amp;&amp;</paramtype>
+        </parameter>
+
+        <requires>
+          <simpara>C++11 compatible compiler.</simpara>
+        </requires>
+        
+        <postconditions>
+          <simpara>Content of <code>*this</code> is move constructed from the content of
+            <code>other</code>.</simpara>
+        </postconditions>
+        
+        <throws>
+          <simpara>May fail with any exceptions arising from the
+            move constructor of <code>other</code>'s contained type.</simpara>
+        </throws>
+      </constructor>
 
       <constructor>
         <template>
@@ -150,6 +176,25 @@
         <notes>
           <simpara>Same semantics as previous constructor, but allows
             construction from temporaries.</simpara>
+        </notes>
+      </constructor>
+      
+      <constructor>
+        <template>
+          <template-type-parameter name="T"/>
+        </template>
+
+        <parameter name="operand">
+          <paramtype>T &amp;&amp;</paramtype>
+        </parameter>
+        
+        <requires>
+          <simpara>C++11 compatible compiler.</simpara>
+        </requires>
+        
+        <notes>
+          <simpara>Same semantics as previous constructor, but allows
+            move construction if <code>operand</code> is an rvalue.</simpara>
         </notes>
       </constructor>
 
@@ -208,6 +253,28 @@
             construction from temporaries.</simpara>
         </notes>
       </constructor>
+      
+      <constructor>
+        <template>
+          <template-type-parameter name="U1"/>
+          <template-type-parameter name="U2"/>
+          <template-varargs/>
+          <template-type-parameter name="UN"/>
+        </template>
+        
+        <requires>
+          <simpara>C++11 compatible compiler.</simpara>
+        </requires>
+        
+        <parameter name="operand">
+          <paramtype>variant&lt;U1, U2, ..., UN&gt; &amp;&amp;</paramtype>
+        </parameter>
+
+        <notes>
+          <simpara>Same semantics as previous constructor, but allows
+            move construction.</simpara>
+        </notes>
+      </constructor>
 
       <method-group name="modifiers">
 
@@ -220,7 +287,7 @@
 
           <requires>
             <simpara>Every bounded type must fulfill the requirements of the
-              <conceptname>Assignable</conceptname>
+              <conceptname>MoveAssignable</conceptname>
               concept.</simpara>
           </requires>
 
@@ -234,7 +301,7 @@
               the contained type of <code>*this</code>, then may fail with any
               exceptions arising from the <code>swap</code> of the contents of
               <code>*this</code> and <code>other</code>. Otherwise, may fail
-              with any exceptions arising from either of the copy constructors
+              with any exceptions arising from either of the move or copy constructors
               of the contained types. Also, in the event of insufficient
               memory, may fail with <code>std::bad_alloc</code>
               (<link linkend="variant.design.never-empty.problem">why?</link>).</simpara>
@@ -269,6 +336,43 @@
               exceptions arising from the assignment of the content of
               <code>rhs</code> into the content <code>*this</code>. Otherwise,
               may fail with any exceptions arising from the copy constructor
+              of the contained type of <code>rhs</code>. Also, in the event of
+              insufficient memory, may fail with <code>std::bad_alloc</code>
+              (<link linkend="variant.design.never-empty.problem">why?</link>).</simpara>
+          </throws>
+        </method>
+        
+        <method name="operator=">
+          <type>variant &amp;</type>
+
+          <parameter name="rhs">
+            <paramtype>variant &amp;&amp;</paramtype>
+          </parameter>
+
+          <requires>
+            <itemizedlist>
+              <listitem>C++11 compatible compiler.</listitem>
+              <listitem>Every bounded type must fulfill the requirements of the
+              <conceptname>MoveAssignable</conceptname>
+              concept.</listitem>
+            </itemizedlist>
+          </requires>
+
+          <effects>
+            <simpara>If the contained type of <code>rhs</code> is the same as
+              the contained type of <code>*this</code>, then move assigns the
+              content of <code>rhs</code> into the content of
+              <code>*this</code>. Otherwise, move constructs
+              <code>*this</code> using the content of <code>rhs</code>,
+              destroying the previous content of <code>*this</code>.</simpara>
+          </effects>
+
+          <throws>
+            <simpara>If the contained type of <code>rhs</code> is the same as
+              the contained type of <code>*this</code>, then may fail with any
+              exceptions arising from the move assignment of the content of
+              <code>rhs</code> into the content <code>*this</code>. Otherwise,
+              may fail with any exceptions arising from the move constructor
               of the contained type of <code>rhs</code>. Also, in the event of
               insufficient memory, may fail with <code>std::bad_alloc</code>
               (<link linkend="variant.design.never-empty.problem">why?</link>).</simpara>
@@ -319,6 +423,52 @@
           </throws>
         </method>
 
+        <method name="operator=">
+          <type>variant &amp;</type>
+
+          <template>
+            <template-type-parameter name="T"/>
+          </template>
+
+          <parameter name="rhs">
+            <paramtype>T &amp;&amp;</paramtype>
+          </parameter>
+
+          <requires>
+            <itemizedlist>
+              <listitem>C++11 compatible compiler.</listitem>
+              <listitem><code>rhs</code> is an rvalue. Otherwise previous operator will be used.</listitem>
+              <listitem><code>T</code> must be unambiguously convertible to
+                one of the bounded types (i.e., <code>T1</code>,
+                <code>T2</code>, etc.).</listitem>
+              <listitem>Every bounded type must fulfill the requirements of the
+                <conceptname>MoveAssignable</conceptname>
+                concept.</listitem>
+            </itemizedlist>
+          </requires>
+
+          <effects>
+            <simpara>If the contained type of <code>*this</code> is
+              <code>T</code>, then move assigns <code>rhs</code> into the content
+              of <code>*this</code>. Otherwise, makes the content of
+              <code>*this</code> the best conversion of <code>rhs</code> to
+              one of the bounded types, as determined by standard overload
+              resolution rules, destroying the previous content of
+              <code>*this</code>(conversion is usually done via move construction).</simpara>
+          </effects>
+
+          <throws>
+            <simpara>If the contained type of <code>*this</code> is
+              <code>T</code>, then may fail with any exceptions arising from
+              the move assignment of <code>rhs</code> into the content
+              <code>*this</code>. Otherwise, may fail with any exceptions
+              arising from the conversion of <code>rhs</code> to one of the
+              bounded types. Also, in the event of insufficient memory, may
+              fail with <code>std::bad_alloc</code>
+              (<link linkend="variant.design.never-empty.problem">why?</link>).</simpara>
+          </throws>
+        </method>        
+        
       </method-group>
 
       <method-group name="queries">
@@ -545,6 +695,43 @@
       <notes>
         <simpara>Not available when <code>BOOST_NO_IOSTREAM</code> is
           defined.</simpara>
+      </notes>
+
+    </function>
+    
+    <function name="hash_value">
+      <purpose>Provides hashing for <code>variant</code> types so 
+      that <code>boost::hash</code> may compute hash.</purpose>
+
+      <template>
+        <template-type-parameter name="T1"/>
+        <template-type-parameter name="T2"/>
+        <template-varargs/>
+        <template-type-parameter name="TN"/>
+      </template>
+
+      <type>std::size_t</type>
+
+      <parameter name="rhs">
+        <paramtype>const <classname>variant</classname>&lt;T1, T2, ..., TN&gt; &amp;</paramtype>
+      </parameter>
+
+      <requires>
+        <simpara>Every bounded type of the <code>variant</code> must
+          fulfill the requirements of the
+          <link linkend="variant.concepts.hashable"><emphasis>Hashable</emphasis></link>
+          concept.</simpara>
+      </requires>
+
+      <effects>
+        <simpara>Calls <code>boost::hash&lt;T&gt;()(x)</code>, where <code>x</code> is
+          the content of <code>rhs</code> and <code>T</code> is its type.</simpara>
+      </effects>
+      
+      <notes>
+        <simpara>Actually, this function is defined in 
+          <code>&lt;boost/variant/detail/hash_variant.hpp&gt;</code> 
+          header.</simpara>
       </notes>
 
     </function>

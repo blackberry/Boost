@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>basic_stream_socket::lowest_layer_type</title>
 <link rel="stylesheet" href="../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../../boost_asio.html" title="Boost.Asio">
 <link rel="up" href="../basic_stream_socket.html" title="basic_stream_socket">
 <link rel="prev" href="lowest_layer/overload2.html" title="basic_stream_socket::lowest_layer (2 of 2 overloads)">
@@ -30,7 +30,7 @@
           <span class="emphasis"><em>Inherited from basic_socket.</em></span>
         </p>
 <p>
-          <a class="indexterm" name="id1214003"></a> 
+          <a class="indexterm" name="idp153897520"></a> 
 A <a class="link" href="../basic_socket.html" title="basic_socket"><code class="computeroutput"><span class="identifier">basic_socket</span></code></a> is always the lowest
           layer.
         </p>
@@ -38,7 +38,7 @@ A <a class="link" href="../basic_socket.html" title="basic_socket"><code class="
 </pre>
 <h6>
 <a name="boost_asio.reference.basic_stream_socket.lowest_layer_type.h0"></a>
-          <span><a name="boost_asio.reference.basic_stream_socket.lowest_layer_type.types"></a></span><a class="link" href="lowest_layer_type.html#boost_asio.reference.basic_stream_socket.lowest_layer_type.types">Types</a>
+          <span class="phrase"><a name="boost_asio.reference.basic_stream_socket.lowest_layer_type.types"></a></span><a class="link" href="lowest_layer_type.html#boost_asio.reference.basic_stream_socket.lowest_layer_type.types">Types</a>
         </h6>
 <div class="informaltable"><table class="table">
 <colgroup>
@@ -332,7 +332,7 @@ A <a class="link" href="../basic_socket.html" title="basic_socket"><code class="
 </table></div>
 <h6>
 <a name="boost_asio.reference.basic_stream_socket.lowest_layer_type.h1"></a>
-          <span><a name="boost_asio.reference.basic_stream_socket.lowest_layer_type.member_functions"></a></span><a class="link" href="lowest_layer_type.html#boost_asio.reference.basic_stream_socket.lowest_layer_type.member_functions">Member
+          <span class="phrase"><a name="boost_asio.reference.basic_stream_socket.lowest_layer_type.member_functions"></a></span><a class="link" href="lowest_layer_type.html#boost_asio.reference.basic_stream_socket.lowest_layer_type.member_functions">Member
           Functions</a>
         </h6>
 <div class="informaltable"><table class="table">
@@ -423,6 +423,10 @@ A <a class="link" href="../basic_socket.html" title="basic_socket"><code class="
                   </p>
                   <p>
                     Move-construct a basic_socket from another.
+                  </p>
+                  <p>
+                    Move-construct a basic_socket from a socket of another protocol
+                    type.
                   </p>
                 </td>
 </tr>
@@ -625,6 +629,10 @@ A <a class="link" href="../basic_socket.html" title="basic_socket"><code class="
                   <p>
                     Move-assign a basic_socket from another.
                   </p>
+                  <p>
+                    Move-assign a basic_socket from a socket of another protocol
+                    type.
+                  </p>
                 </td>
 </tr>
 <tr>
@@ -667,7 +675,7 @@ A <a class="link" href="../basic_socket.html" title="basic_socket"><code class="
 </table></div>
 <h6>
 <a name="boost_asio.reference.basic_stream_socket.lowest_layer_type.h2"></a>
-          <span><a name="boost_asio.reference.basic_stream_socket.lowest_layer_type.protected_member_functions"></a></span><a class="link" href="lowest_layer_type.html#boost_asio.reference.basic_stream_socket.lowest_layer_type.protected_member_functions">Protected
+          <span class="phrase"><a name="boost_asio.reference.basic_stream_socket.lowest_layer_type.protected_member_functions"></a></span><a class="link" href="lowest_layer_type.html#boost_asio.reference.basic_stream_socket.lowest_layer_type.protected_member_functions">Protected
           Member Functions</a>
         </h6>
 <div class="informaltable"><table class="table">
@@ -728,7 +736,7 @@ A <a class="link" href="../basic_socket.html" title="basic_socket"><code class="
 </table></div>
 <h6>
 <a name="boost_asio.reference.basic_stream_socket.lowest_layer_type.h3"></a>
-          <span><a name="boost_asio.reference.basic_stream_socket.lowest_layer_type.data_members"></a></span><a class="link" href="lowest_layer_type.html#boost_asio.reference.basic_stream_socket.lowest_layer_type.data_members">Data
+          <span class="phrase"><a name="boost_asio.reference.basic_stream_socket.lowest_layer_type.data_members"></a></span><a class="link" href="lowest_layer_type.html#boost_asio.reference.basic_stream_socket.lowest_layer_type.data_members">Data
           Members</a>
         </h6>
 <div class="informaltable"><table class="table">
@@ -813,7 +821,7 @@ A <a class="link" href="../basic_socket.html" title="basic_socket"><code class="
 </table></div>
 <h6>
 <a name="boost_asio.reference.basic_stream_socket.lowest_layer_type.h4"></a>
-          <span><a name="boost_asio.reference.basic_stream_socket.lowest_layer_type.protected_data_members"></a></span><a class="link" href="lowest_layer_type.html#boost_asio.reference.basic_stream_socket.lowest_layer_type.protected_data_members">Protected
+          <span class="phrase"><a name="boost_asio.reference.basic_stream_socket.lowest_layer_type.protected_data_members"></a></span><a class="link" href="lowest_layer_type.html#boost_asio.reference.basic_stream_socket.lowest_layer_type.protected_data_members">Protected
           Data Members</a>
         </h6>
 <div class="informaltable"><table class="table">
@@ -869,31 +877,29 @@ A <a class="link" href="../basic_socket.html" title="basic_socket"><code class="
         </p>
 <h6>
 <a name="boost_asio.reference.basic_stream_socket.lowest_layer_type.h5"></a>
-          <span><a name="boost_asio.reference.basic_stream_socket.lowest_layer_type.thread_safety"></a></span><a class="link" href="lowest_layer_type.html#boost_asio.reference.basic_stream_socket.lowest_layer_type.thread_safety">Thread
+          <span class="phrase"><a name="boost_asio.reference.basic_stream_socket.lowest_layer_type.thread_safety"></a></span><a class="link" href="lowest_layer_type.html#boost_asio.reference.basic_stream_socket.lowest_layer_type.thread_safety">Thread
           Safety</a>
         </h6>
 <p>
-          <span class="bold"><strong>Distinct</strong></span> <span class="bold"><strong>objects:</strong></span>
-          Safe.
+          <span class="emphasis"><em>Distinct</em></span> <span class="emphasis"><em>objects:</em></span> Safe.
         </p>
 <p>
-          <span class="bold"><strong>Shared</strong></span> <span class="bold"><strong>objects:</strong></span>
-          Unsafe.
+          <span class="emphasis"><em>Shared</em></span> <span class="emphasis"><em>objects:</em></span> Unsafe.
         </p>
 <h6>
 <a name="boost_asio.reference.basic_stream_socket.lowest_layer_type.h6"></a>
-          <span><a name="boost_asio.reference.basic_stream_socket.lowest_layer_type.requirements"></a></span><a class="link" href="lowest_layer_type.html#boost_asio.reference.basic_stream_socket.lowest_layer_type.requirements">Requirements</a>
+          <span class="phrase"><a name="boost_asio.reference.basic_stream_socket.lowest_layer_type.requirements"></a></span><a class="link" href="lowest_layer_type.html#boost_asio.reference.basic_stream_socket.lowest_layer_type.requirements">Requirements</a>
         </h6>
 <p>
-          <span class="bold"><strong>Header: </strong></span><code class="literal">boost/asio/basic_stream_socket.hpp</code>
+          <span class="emphasis"><em>Header: </em></span><code class="literal">boost/asio/basic_stream_socket.hpp</code>
         </p>
 <p>
-          <span class="bold"><strong>Convenience header: </strong></span><code class="literal">boost/asio.hpp</code>
+          <span class="emphasis"><em>Convenience header: </em></span><code class="literal">boost/asio.hpp</code>
         </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2012 Christopher M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2014 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

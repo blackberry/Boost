@@ -1,6 +1,6 @@
-//  (C) Copyright John Maddock and Dave Abrahams 2002. 
-//  Use, modification and distribution are subject to the 
-//  Boost Software License, Version 1.0. (See accompanying file 
+//  (C) Copyright John Maddock and Dave Abrahams 2002.
+//  Use, modification and distribution are subject to the
+//  Boost Software License, Version 1.0. (See accompanying file
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/config for most recent version.
@@ -46,7 +46,7 @@ struct abstract{ virtual void foo() = 0; };
 
 int test()
 {
-   return is_abstract_test<non_abstract>::value == is_abstract_test<abstract>::value;
+   return static_cast<bool>(is_abstract_test<non_abstract>::value) == static_cast<bool>(is_abstract_test<abstract>::value);
 }
 
 }

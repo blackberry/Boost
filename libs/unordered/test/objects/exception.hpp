@@ -348,7 +348,7 @@ namespace exception
             test::detail::tracker.track_construct((void*) p, sizeof(T), tag_);
         }
 
-#if !defined(BOOST_NO_VARIADIC_TEMPLATES)
+#if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
         template<class... Args> void construct(T* p, BOOST_FWD_REF(Args)... args) {
             UNORDERED_SCOPE(allocator::construct(pointer, BOOST_FWD_REF(Args)...)) {
                 UNORDERED_EPOINT("Mock allocator construct function.");
@@ -528,7 +528,7 @@ namespace exception
             test::detail::tracker.track_construct((void*) p, sizeof(T), tag_);
         }
 
-#if !defined(BOOST_NO_VARIADIC_TEMPLATES)
+#if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
         template<class... Args> void construct(T* p, BOOST_FWD_REF(Args)... args) {
             UNORDERED_SCOPE(allocator2::construct(pointer, BOOST_FWD_REF(Args)...)) {
                 UNORDERED_EPOINT("Mock allocator2 construct function.");

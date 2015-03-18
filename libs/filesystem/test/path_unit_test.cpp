@@ -34,13 +34,7 @@
 #include <boost/filesystem/detail/utf8_codecvt_facet.hpp>  // for imbue tests
 #include "test_codecvt.hpp"                                // for codecvt arg tests
 #include <boost/detail/lightweight_test.hpp>
-
-#ifndef BOOST_LIGHTWEIGHT_MAIN
-#  include <boost/test/prg_exec_monitor.hpp>
-#else
-#  include <boost/detail/lightweight_main.hpp>
-#endif
-
+#include <boost/detail/lightweight_main.hpp>
 #include <boost/smart_ptr.hpp>  // used constructor tests
 #include <boost/functional/hash.hpp>
 
@@ -218,6 +212,14 @@ namespace
     path x9(ws.c_str());                               // const wchar_t* null terminated
     PATH_IS(x9, L"wstring");
     BOOST_TEST_EQ(x9.native().size(), 7U);
+
+    path x8nc(const_cast<char*>(s.c_str()));           // char* null terminated
+    PATH_IS(x8nc, L"string");
+    BOOST_TEST_EQ(x8nc.native().size(), 6U);
+
+    path x9nc(const_cast<wchar_t*>(ws.c_str()));       // wchar_t* null terminated
+    PATH_IS(x9nc, L"wstring");
+    BOOST_TEST_EQ(x9nc.native().size(), 7U);
 
     // non-contiguous containers
     path x10(l);                                       // std::list<char>

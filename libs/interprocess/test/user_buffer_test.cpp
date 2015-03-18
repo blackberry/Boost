@@ -105,7 +105,6 @@ int main ()
                            (heap_buffer.get_segment_manager());
 
    //Alias heap list
-   typedef std::list<int>   MyStdList;
    MyStdList *stdlist = new MyStdList;
 
    int i;

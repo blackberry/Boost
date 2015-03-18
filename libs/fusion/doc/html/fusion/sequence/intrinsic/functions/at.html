@@ -3,8 +3,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>at</title>
 <link rel="stylesheet" href="../../../../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
-<link rel="home" href="../../../../index.html" title="Chapter&#160;1.&#160;Fusion 2.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="../../../../index.html" title="Chapter&#160;1.&#160;Fusion 2.2">
 <link rel="up" href="../functions.html" title="Functions">
 <link rel="prev" href="size.html" title="size">
 <link rel="next" href="at_c.html" title="at_c">
@@ -28,26 +28,26 @@
 </h5></div></div></div>
 <h6>
 <a name="fusion.sequence.intrinsic.functions.at.h0"></a>
-            <span><a name="fusion.sequence.intrinsic.functions.at.description"></a></span><a class="link" href="at.html#fusion.sequence.intrinsic.functions.at.description">Description</a>
+            <span class="phrase"><a name="fusion.sequence.intrinsic.functions.at.description"></a></span><a class="link" href="at.html#fusion.sequence.intrinsic.functions.at.description">Description</a>
           </h6>
 <p>
-            Returns the N-th element from the beginning of the sequence.
+            Returns the M-th element from the beginning of the sequence.
           </p>
 <h6>
 <a name="fusion.sequence.intrinsic.functions.at.h1"></a>
-            <span><a name="fusion.sequence.intrinsic.functions.at.synopsis"></a></span><a class="link" href="at.html#fusion.sequence.intrinsic.functions.at.synopsis">Synopsis</a>
+            <span class="phrase"><a name="fusion.sequence.intrinsic.functions.at.synopsis"></a></span><a class="link" href="at.html#fusion.sequence.intrinsic.functions.at.synopsis">Synopsis</a>
           </h6>
-<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">N</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Sequence</span><span class="special">&gt;</span>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">M</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Sequence</span><span class="special">&gt;</span>
 <span class="keyword">typename</span> <a class="link" href="../metafunctions/at.html" title="at"><code class="computeroutput"><span class="identifier">result_of</span><span class="special">::</span><span class="identifier">at</span></code></a><span class="special">&lt;</span><span class="identifier">Sequence</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;::</span><span class="identifier">type</span>
 <span class="identifier">at</span><span class="special">(</span><span class="identifier">Sequence</span><span class="special">&amp;</span> <span class="identifier">seq</span><span class="special">);</span>
 
-<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">N</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Sequence</span><span class="special">&gt;</span>
+<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">M</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Sequence</span><span class="special">&gt;</span>
 <span class="keyword">typename</span> <a class="link" href="../metafunctions/at.html" title="at"><code class="computeroutput"><span class="identifier">result_of</span><span class="special">::</span><span class="identifier">at</span></code></a><span class="special">&lt;</span><span class="identifier">Sequence</span> <span class="keyword">const</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;::</span><span class="identifier">type</span>
 <span class="identifier">at</span><span class="special">(</span><span class="identifier">Sequence</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">seq</span><span class="special">);</span>
 </pre>
 <h6>
 <a name="fusion.sequence.intrinsic.functions.at.h2"></a>
-            <span><a name="fusion.sequence.intrinsic.functions.at.parameters"></a></span><a class="link" href="at.html#fusion.sequence.intrinsic.functions.at.parameters">Parameters</a>
+            <span class="phrase"><a name="fusion.sequence.intrinsic.functions.at.parameters"></a></span><a class="link" href="at.html#fusion.sequence.intrinsic.functions.at.parameters">Parameters</a>
           </h6>
 <div class="informaltable"><table class="table">
 <colgroup>
@@ -94,7 +94,7 @@
 <tr>
 <td>
                     <p>
-                      <code class="computeroutput"><span class="identifier">N</span></code>
+                      <code class="computeroutput"><span class="identifier">M</span></code>
                     </p>
                   </td>
 <td>
@@ -113,40 +113,40 @@
 </table></div>
 <h6>
 <a name="fusion.sequence.intrinsic.functions.at.h3"></a>
-            <span><a name="fusion.sequence.intrinsic.functions.at.expression_semantics"></a></span><a class="link" href="at.html#fusion.sequence.intrinsic.functions.at.expression_semantics">Expression
+            <span class="phrase"><a name="fusion.sequence.intrinsic.functions.at.expression_semantics"></a></span><a class="link" href="at.html#fusion.sequence.intrinsic.functions.at.expression_semantics">Expression
             Semantics</a>
           </h6>
-<pre class="programlisting"><span class="identifier">at</span><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;(</span><span class="identifier">seq</span><span class="special">);</span>
+<pre class="programlisting"><span class="identifier">at</span><span class="special">&lt;</span><span class="identifier">M</span><span class="special">&gt;(</span><span class="identifier">seq</span><span class="special">);</span>
 </pre>
 <p>
             <span class="bold"><strong>Return type</strong></span>: Returns a reference to
-            the N-th element from the beginning of the sequence <code class="computeroutput"><span class="identifier">seq</span></code>
+            the M-th element from the beginning of the sequence <code class="computeroutput"><span class="identifier">seq</span></code>
             if <code class="computeroutput"><span class="identifier">seq</span></code> is mutable and
             <code class="computeroutput"><span class="identifier">e</span> <span class="special">=</span>
             <span class="identifier">o</span></code>, where <code class="computeroutput"><span class="identifier">e</span></code>
-            is the N-th element from the beginning of the sequence, is a valid expression.
-            Else, returns a type convertable to the N-th element from the beginning
+            is the M-th element from the beginning of the sequence, is a valid expression.
+            Else, returns a type convertable to the M-th element from the beginning
             of the sequence.
           </p>
 <p>
             <span class="bold"><strong>Precondition</strong></span>: <code class="computeroutput"><span class="number">0</span>
-            <span class="special">&lt;=</span> <span class="identifier">N</span><span class="special">::</span><span class="identifier">value</span> <span class="special">&lt;</span> <a class="link" href="size.html" title="size"><code class="computeroutput"><span class="identifier">size</span></code></a><span class="special">(</span><span class="identifier">s</span><span class="special">)</span></code>
+            <span class="special">&lt;=</span> <span class="identifier">M</span><span class="special">::</span><span class="identifier">value</span> <span class="special">&lt;</span> <a class="link" href="size.html" title="size"><code class="computeroutput"><span class="identifier">size</span></code></a><span class="special">(</span><span class="identifier">s</span><span class="special">)</span></code>
           </p>
 <p>
             <span class="bold"><strong>Semantics</strong></span>: Equivalent to
           </p>
-<pre class="programlisting"><a class="link" href="../../../iterator/functions/deref.html" title="deref"><code class="computeroutput"><span class="identifier">deref</span></code></a><span class="special">(</span><a class="link" href="../../../iterator/functions/advance.html" title="advance"><code class="computeroutput"><span class="identifier">advance</span></code></a><span class="special">&lt;</span><span class="identifier">N</span><span class="special">&gt;(</span><a class="link" href="begin.html" title="begin"><code class="computeroutput"><span class="identifier">begin</span></code></a><span class="special">(</span><span class="identifier">s</span><span class="special">)))</span>
+<pre class="programlisting"><a class="link" href="../../../iterator/functions/deref.html" title="deref"><code class="computeroutput"><span class="identifier">deref</span></code></a><span class="special">(</span><a class="link" href="../../../iterator/functions/advance.html" title="advance"><code class="computeroutput"><span class="identifier">advance</span></code></a><span class="special">&lt;</span><span class="identifier">M</span><span class="special">&gt;(</span><a class="link" href="begin.html" title="begin"><code class="computeroutput"><span class="identifier">begin</span></code></a><span class="special">(</span><span class="identifier">s</span><span class="special">)))</span>
 </pre>
 <h6>
 <a name="fusion.sequence.intrinsic.functions.at.h4"></a>
-            <span><a name="fusion.sequence.intrinsic.functions.at.header"></a></span><a class="link" href="at.html#fusion.sequence.intrinsic.functions.at.header">Header</a>
+            <span class="phrase"><a name="fusion.sequence.intrinsic.functions.at.header"></a></span><a class="link" href="at.html#fusion.sequence.intrinsic.functions.at.header">Header</a>
           </h6>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">fusion</span><span class="special">/</span><span class="identifier">sequence</span><span class="special">/</span><span class="identifier">intrinsic</span><span class="special">/</span><span class="identifier">at</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">fusion</span><span class="special">/</span><span class="identifier">include</span><span class="special">/</span><span class="identifier">at</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 </pre>
 <h6>
 <a name="fusion.sequence.intrinsic.functions.at.h5"></a>
-            <span><a name="fusion.sequence.intrinsic.functions.at.example"></a></span><a class="link" href="at.html#fusion.sequence.intrinsic.functions.at.example">Example</a>
+            <span class="phrase"><a name="fusion.sequence.intrinsic.functions.at.example"></a></span><a class="link" href="at.html#fusion.sequence.intrinsic.functions.at.example">Example</a>
           </h6>
 <pre class="programlisting"><a class="link" href="../../../container/vector.html" title="vector"><code class="computeroutput"><span class="identifier">vector</span></code></a><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="keyword">int</span><span class="special">,</span> <span class="keyword">int</span><span class="special">&gt;</span> <span class="identifier">v</span><span class="special">(</span><span class="number">1</span><span class="special">,</span> <span class="number">2</span><span class="special">,</span> <span class="number">3</span><span class="special">);</span>
 <span class="identifier">assert</span><span class="special">(</span><span class="identifier">at</span><span class="special">&lt;</span><span class="identifier">mpl</span><span class="special">::</span><span class="identifier">int_</span><span class="special">&lt;</span><span class="number">1</span><span class="special">&gt;</span> <span class="special">&gt;(</span><span class="identifier">v</span><span class="special">)</span> <span class="special">==</span> <span class="number">2</span><span class="special">);</span>

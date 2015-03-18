@@ -3,11 +3,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Class file_mapping</title>
 <link rel="stylesheet" href="../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../../boost_interprocess_reference.html#header.boost.interprocess.file_mapping_hpp" title="Header &lt;boost/interprocess/file_mapping.hpp&gt;">
+<link rel="up" href="../../interprocess/indexes_reference.html#header.boost.interprocess.file_mapping_hpp" title="Header &lt;boost/interprocess/file_mapping.hpp&gt;">
 <link rel="prev" href="bad_alloc.html" title="Class bad_alloc">
-<link rel="next" href="remove_file_on_destroy.html" title="Class remove_file_on_destroy">
+<link rel="next" href="flat_map_index.html" title="Class template flat_map_index">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table cellpadding="2" width="100%"><tr>
@@ -20,7 +20,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="bad_alloc.html"><img src="../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../boost_interprocess_reference.html#header.boost.interprocess.file_mapping_hpp"><img src="../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="remove_file_on_destroy.html"><img src="../../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="bad_alloc.html"><img src="../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../interprocess/indexes_reference.html#header.boost.interprocess.file_mapping_hpp"><img src="../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="flat_map_index.html"><img src="../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 <div class="refentry">
 <a name="boost.interprocess.file_mapping"></a><div class="titlepage"></div>
@@ -29,85 +29,85 @@
 <p>boost::interprocess::file_mapping</p>
 </div>
 <h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
-<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../boost_interprocess_reference.html#header.boost.interprocess.file_mapping_hpp" title="Header &lt;boost/interprocess/file_mapping.hpp&gt;">boost/interprocess/file_mapping.hpp</a>&gt;
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../interprocess/indexes_reference.html#header.boost.interprocess.file_mapping_hpp" title="Header &lt;boost/interprocess/file_mapping.hpp&gt;">boost/interprocess/file_mapping.hpp</a>&gt;
 
 </span>
 <span class="keyword">class</span> <a class="link" href="file_mapping.html" title="Class file_mapping">file_mapping</a> <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
   <span class="comment">// <a class="link" href="file_mapping.html#boost.interprocess.file_mappingconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="file_mapping.html#id1062936-bb"><span class="identifier">file_mapping</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="file_mapping.html#id1062941-bb"><span class="identifier">file_mapping</span></a><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span> <span class="special">*</span><span class="special">,</span> <span class="identifier">mode_t</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="file_mapping.html#id1062967-bb"><span class="identifier">file_mapping</span></a><span class="special">(</span><a class="link" href="file_mapping.html" title="Class file_mapping">file_mapping</a> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span>
-  file_mapping&amp; <a class="link" href="file_mapping.html#id1062982-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><a class="link" href="file_mapping.html" title="Class file_mapping">file_mapping</a> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="file_mapping.html#id1062996-bb"><span class="special">~</span><span class="identifier">file_mapping</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="file_mapping.html#idp65008192-bb"><span class="identifier">file_mapping</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="file_mapping.html#idp65008928-bb"><span class="identifier">file_mapping</span></a><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span> <span class="special">*</span><span class="special">,</span> <span class="identifier">mode_t</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="file_mapping.html#idp65011952-bb"><span class="identifier">file_mapping</span></a><span class="special">(</span><a class="link" href="file_mapping.html" title="Class file_mapping">file_mapping</a> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="file_mapping.html" title="Class file_mapping">file_mapping</a> <span class="special">&amp;</span> <a class="link" href="file_mapping.html#idp65013760-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><a class="link" href="file_mapping.html" title="Class file_mapping">file_mapping</a> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="file_mapping.html#idp65016128-bb"><span class="special">~</span><span class="identifier">file_mapping</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="file_mapping.html#id1062870-bb">public member functions</a></span>
-  <span class="keyword">void</span> <a class="link" href="file_mapping.html#id1062874-bb"><span class="identifier">swap</span></a><span class="special">(</span><a class="link" href="file_mapping.html" title="Class file_mapping">file_mapping</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">mode_t</span> <a class="link" href="file_mapping.html#id1062893-bb"><span class="identifier">get_mode</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="identifier">mapping_handle_t</span> <a class="link" href="file_mapping.html#id1062905-bb"><span class="identifier">get_mapping_handle</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="keyword">const</span> <span class="keyword">char</span> <span class="special">*</span> <a class="link" href="file_mapping.html#id1062924-bb"><span class="identifier">get_name</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="file_mapping.html#idp64999760-bb">public member functions</a></span>
+  <span class="keyword">void</span> <a class="link" href="file_mapping.html#idp65000320-bb"><span class="identifier">swap</span></a><span class="special">(</span><a class="link" href="file_mapping.html" title="Class file_mapping">file_mapping</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">mode_t</span> <a class="link" href="file_mapping.html#idp65002592-bb"><span class="identifier">get_mode</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">mapping_handle_t</span> <a class="link" href="file_mapping.html#idp65004160-bb"><span class="identifier">get_mapping_handle</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="keyword">const</span> <span class="keyword">char</span> <span class="special">*</span> <a class="link" href="file_mapping.html#idp65006464-bb"><span class="identifier">get_name</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="file_mapping.html#id1063002-bb">public static functions</a></span>
-  <span class="keyword">static</span> <span class="keyword">bool</span> <a class="link" href="file_mapping.html#id1063006-bb"><span class="identifier">remove</span></a><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="file_mapping.html#idp65016912-bb">public static functions</a></span>
+  <span class="keyword">static</span> <span class="keyword">bool</span> <a class="link" href="file_mapping.html#idp65017472-bb"><span class="identifier">remove</span></a><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span> <span class="special">*</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="id1859814"></a><h2>Description</h2>
+<a name="idp239025344"></a><h2>Description</h2>
 <p>A class that wraps a file-mapping that can be used to create mapped regions from the mapped files </p>
 <div class="refsect2">
-<a name="id1859821"></a><h3>
+<a name="idp239026128"></a><h3>
 <a name="boost.interprocess.file_mappingconstruct-copy-destruct"></a><code class="computeroutput">file_mapping</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
-<pre class="literallayout"><a name="id1062936-bb"></a><span class="identifier">file_mapping</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><a name="idp65008192-bb"></a><span class="identifier">file_mapping</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
 <p>Constructs an empty file mapping. Does not throw </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a name="id1062941-bb"></a><span class="identifier">file_mapping</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span> <span class="special">*</span> filename<span class="special">,</span> <span class="identifier">mode_t</span> mode<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><a name="idp65008928-bb"></a><span class="identifier">file_mapping</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span> <span class="special">*</span> filename<span class="special">,</span> <span class="identifier">mode_t</span> mode<span class="special">)</span><span class="special">;</span></pre>
 <p>Opens a file mapping of file "filename", starting in offset "file_offset", and the mapping's size will be "size". The mapping can be opened for read-only "read_only" or read-write "read_write" modes. Throws <code class="computeroutput"><a class="link" href="interprocess_exception.html" title="Class interprocess_exception">interprocess_exception</a></code> on error. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a name="id1062967-bb"></a><span class="identifier">file_mapping</span><span class="special">(</span><a class="link" href="file_mapping.html" title="Class file_mapping">file_mapping</a> <span class="special">&amp;&amp;</span> moved<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><a name="idp65011952-bb"></a><span class="identifier">file_mapping</span><span class="special">(</span><a class="link" href="file_mapping.html" title="Class file_mapping">file_mapping</a> <span class="special">&amp;&amp;</span> moved<span class="special">)</span><span class="special">;</span></pre>
 <p>Moves the ownership of "moved"'s file mapping object to *this. After the call, "moved" does not represent any file mapping object. Does not throw </p>
 </li>
 <li class="listitem">
-<pre class="literallayout">file_mapping&amp; <a name="id1062982-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="file_mapping.html" title="Class file_mapping">file_mapping</a> <span class="special">&amp;&amp;</span> moved<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><a class="link" href="file_mapping.html" title="Class file_mapping">file_mapping</a> <span class="special">&amp;</span> <a name="idp65013760-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="file_mapping.html" title="Class file_mapping">file_mapping</a> <span class="special">&amp;&amp;</span> moved<span class="special">)</span><span class="special">;</span></pre>
 <p>Moves the ownership of "moved"'s file mapping to *this. After the call, "moved" does not represent any file mapping. Does not throw </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a name="id1062996-bb"></a><span class="special">~</span><span class="identifier">file_mapping</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><a name="idp65016128-bb"></a><span class="special">~</span><span class="identifier">file_mapping</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
 <p>Destroys the file mapping. All mapped regions created from this are still valid. Does not throw </p>
 </li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="id1860055"></a><h3>
-<a name="id1062870-bb"></a><code class="computeroutput">file_mapping</code> public member functions</h3>
+<a name="idp239058848"></a><h3>
+<a name="idp64999760-bb"></a><code class="computeroutput">file_mapping</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="id1062874-bb"></a><span class="identifier">swap</span><span class="special">(</span><a class="link" href="file_mapping.html" title="Class file_mapping">file_mapping</a> <span class="special">&amp;</span> other<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">void</span> <a name="idp65000320-bb"></a><span class="identifier">swap</span><span class="special">(</span><a class="link" href="file_mapping.html" title="Class file_mapping">file_mapping</a> <span class="special">&amp;</span> other<span class="special">)</span><span class="special">;</span></pre>
 <p>Swaps to file_mappings. Does not throw. </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">mode_t</span> <a name="id1062893-bb"></a><span class="identifier">get_mode</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">mode_t</span> <a name="idp65002592-bb"></a><span class="identifier">get_mode</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p>Returns access mode used in the constructor </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">mapping_handle_t</span> <a name="id1062905-bb"></a><span class="identifier">get_mapping_handle</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">mapping_handle_t</span> <a name="idp65004160-bb"></a><span class="identifier">get_mapping_handle</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p>Obtains the mapping handle to be used with <code class="computeroutput"><a class="link" href="mapped_region.html" title="Class mapped_region">mapped_region</a></code> </p>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">const</span> <span class="keyword">char</span> <span class="special">*</span> <a name="id1062924-bb"></a><span class="identifier">get_name</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">const</span> <span class="keyword">char</span> <span class="special">*</span> <a name="idp65006464-bb"></a><span class="identifier">get_name</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p>Returns the name of the file used in the constructor. </p>
 </li>
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="id1860260"></a><h3>
-<a name="id1063002-bb"></a><code class="computeroutput">file_mapping</code> public static functions</h3>
+<a name="idp239085696"></a><h3>
+<a name="idp65016912-bb"></a><code class="computeroutput">file_mapping</code> public static functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
-<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">bool</span> <a name="id1063006-bb"></a><span class="identifier">remove</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span> <span class="special">*</span> filename<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">static</span> <span class="keyword">bool</span> <a name="idp65017472-bb"></a><span class="identifier">remove</span><span class="special">(</span><span class="keyword">const</span> <span class="keyword">char</span> <span class="special">*</span> filename<span class="special">)</span><span class="special">;</span></pre>
 <p>Removes the file named "filename" even if it's been memory mapped. Returns true on success. The function might fail in some operating systems if the file is being used other processes and no deletion permission was shared. </p>
 </li></ol></div>
 </div>
@@ -115,7 +115,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2005-2011 Ion Gaztanaga<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2005-2012 Ion Gaztanaga<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
@@ -123,7 +123,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="bad_alloc.html"><img src="../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../boost_interprocess_reference.html#header.boost.interprocess.file_mapping_hpp"><img src="../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="remove_file_on_destroy.html"><img src="../../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="bad_alloc.html"><img src="../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../interprocess/indexes_reference.html#header.boost.interprocess.file_mapping_hpp"><img src="../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="flat_map_index.html"><img src="../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

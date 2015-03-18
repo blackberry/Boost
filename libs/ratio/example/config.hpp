@@ -91,7 +91,7 @@
 //  define constexpr related macros  ------------------------------//
 
 //~ #include <boost/config.hpp>
-#if defined(BOOST_NO_CONSTEXPR)
+#if defined(BOOST_NO_CXX11_CONSTEXPR)
 #define BOOST_EX_CHRONO_CONSTEXPR
 #define BOOST_EX_CHRONO_CONST_REF const&
 #else

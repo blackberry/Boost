@@ -15,6 +15,7 @@
 #include <boost/foreach.hpp>
 #include <fstream>
 #include <iterator>
+#include <vector>
 
 namespace quickbook
 {
@@ -135,12 +136,17 @@ namespace quickbook
         return pos->second;
     }
 
+    std::ostream& operator<<(std::ostream& out, file_position const& x)
+    {
+        return out << "line: " << x.line << ", column: " << x.column;
+    }
+
     file_position relative_position(
-        std::string::const_iterator begin,
-        std::string::const_iterator iterator)
+        boost::string_ref::const_iterator begin,
+        boost::string_ref::const_iterator iterator)
     {
         file_position pos;
-        std::string::const_iterator line_begin = begin;
+        boost::string_ref::const_iterator line_begin = begin;
 
         while (begin != iterator)
         {
@@ -172,9 +178,9 @@ namespace quickbook
         return pos;
     }
 
-    file_position file::position_of(std::string::const_iterator iterator) const
+    file_position file::position_of(boost::string_ref::const_iterator iterator) const
     {
-        return relative_position(source.begin(), iterator);
+        return relative_position(source().begin(), iterator);
     }
 
     // Mapped files.
@@ -195,50 +201,8 @@ namespace quickbook
                 std::string::size_type original_pos,
                 std::string::size_type our_pos,
                 section_types section_type = normal) :
-            original_pos(original_pos), our_pos(our_pos), section_type(section_type) {}
-
-        std::string::size_type to_original_pos(std::string::size_type pos)
-        {
-            switch (section_type) {
-            case normal:
-                return pos - our_pos + original_pos;
-            case empty:
-                return original_pos;
-            case indented:
-                // Indented doesn't really work, but that's okay because we
-                // currently don't break up indented code.
-                assert(pos == our_pos);
-                return pos - our_pos + original_pos;
-            default:
-                assert(false);
-                return original_pos;
-            }
-        }
-        
-        // If 'to_original_pos' worked for indented blocks, this wouldn't
-        // be necessary.
-        file_position calculate_position(
-                file_position const& original,
-                file_position const& relative) const
-        {
-            switch (section_type) {
-            case normal:
-                return file_position(
-                    original.line + relative.line - 1,
-                    relative.line == 1 ?
-                        original.column + relative.column - 1 :
-                        relative.column);
-            case empty:
-                return original;
-            case indented:
-                return file_position(
-                    original.line + relative.line - 1,
-                    original.column + relative.column - 1);
-            default:
-                assert(false);
-                return file_position();
-            }
-        }
+            original_pos(original_pos), our_pos(our_pos),
+            section_type(section_type) {}
     };
 
     struct mapped_section_original_cmp
@@ -293,9 +257,9 @@ namespace quickbook
         file_ptr original;
         std::vector<mapped_file_section> mapped_sections;
         
-        void add_empty_mapped_file_section(std::string::const_iterator pos) {
+        void add_empty_mapped_file_section(boost::string_ref::const_iterator pos) {
             std::string::size_type original_pos =
-                pos - original->source.begin();
+                pos - original->source().begin();
         
             if (mapped_sections.empty() ||
                     mapped_sections.back().section_type !=
@@ -303,23 +267,109 @@ namespace quickbook
                     mapped_sections.back().original_pos != original_pos)
             {
                 mapped_sections.push_back(mapped_file_section(
-                        original_pos, source.size(),
+                        original_pos, source().size(),
                         mapped_file_section::empty));
             }
         }
 
-        void add_mapped_file_section(std::string::const_iterator pos) {
+        void add_mapped_file_section(boost::string_ref::const_iterator pos) {
             mapped_sections.push_back(mapped_file_section(
-                pos - original->source.begin(), source.size()));
+                pos - original->source().begin(), source().size()));
         }
 
-        void add_indented_mapped_file_section(std::string::const_iterator pos) {
+        void add_indented_mapped_file_section(boost::string_ref::const_iterator pos)
+        {
             mapped_sections.push_back(mapped_file_section(
-                pos - original->source.begin(), source.size(),
+                pos - original->source().begin(), source().size(),
                 mapped_file_section::indented));
         }
 
-        virtual file_position position_of(std::string::const_iterator) const;
+        std::string::size_type to_original_pos(
+            std::vector<mapped_file_section>::const_iterator section,
+            std::string::size_type pos) const
+        {
+            switch (section->section_type) {
+                case mapped_file_section::normal:
+                    return pos - section->our_pos + section->original_pos;
+
+                case mapped_file_section::empty:
+                    return section->original_pos;
+
+                case mapped_file_section::indented: {
+                    // Will contain the start of the current line.
+                    boost::string_ref::size_type our_line = section->our_pos;
+
+                    // Will contain the number of lines in the block before
+                    // the current line.
+                    unsigned newline_count = 0;
+
+                    for(boost::string_ref::size_type i = section->our_pos;
+                        i != pos; ++i)
+                    {
+                        if (source()[i] == '\n') {
+                            our_line = i + 1;
+                            ++newline_count;
+                        }
+                    }
+
+                    // The start of the line in the original source.
+                    boost::string_ref::size_type original_line =
+                        section->original_pos;
+                    
+                    while(newline_count > 0) {
+                        if (original->source()[original_line] == '\n')
+                            --newline_count;
+                        ++original_line;
+                    }
+
+                    // The start of line content (i.e. after indentation).
+                    our_line = skip_indentation(source(), our_line);
+
+                    // The position is in the middle of indentation, so
+                    // just return the start of the whitespace, which should
+                    // be good enough.
+                    if (our_line > pos) return original_line;
+
+                    original_line =
+                        skip_indentation(original->source(), original_line);
+
+                    // Confirm that we are actually in the same position.
+                    assert(original->source()[original_line] ==
+                        source()[our_line]);
+
+                    // Calculate the position
+                    return original_line + (pos - our_line);
+                }
+                default:
+                    assert(false);
+                    return section->original_pos;
+            }
+        }
+        
+        std::vector<mapped_file_section>::const_iterator find_section(
+            boost::string_ref::const_iterator pos) const
+        {
+            std::vector<mapped_file_section>::const_iterator section =
+                boost::upper_bound(mapped_sections,
+                    std::string::size_type(pos - source().begin()),
+                    mapped_section_pos_cmp());
+            assert(section != mapped_sections.begin());
+            --section;
+
+            return section;
+        }
+
+        virtual file_position position_of(boost::string_ref::const_iterator) const;
+
+    private:
+
+        static std::string::size_type skip_indentation(
+                boost::string_ref src, std::string::size_type i)
+        {
+            while (i != src.size() && (src[i] == ' ' || src[i] == '\t')) ++i;
+            return i;
+        }
+
     };
 
     namespace {
@@ -361,57 +411,49 @@ namespace quickbook
     
     bool mapped_file_builder::empty() const
     {
-        return data->new_file->source.empty();
+        return data->new_file->source().empty();
     }
 
     mapped_file_builder::pos mapped_file_builder::get_pos() const
     {
-        return data->new_file->source.size();
+        return data->new_file->source().size();
     }
     
-    void mapped_file_builder::add(char const* x, iterator pos)
+    void mapped_file_builder::add_at_pos(boost::string_ref x, iterator pos)
     {
         data->new_file->add_empty_mapped_file_section(pos);
-        data->new_file->source.append(x);
+        data->new_file->source_.append(x.begin(), x.end());
     }
 
-    void mapped_file_builder::add(std::string const& x, iterator pos)
+    void mapped_file_builder::add(boost::string_ref x)
     {
-        data->new_file->add_empty_mapped_file_section(pos);
-        data->new_file->source.append(x);
-    }
-
-    void mapped_file_builder::add(iterator begin, iterator end)
-    {
-        data->new_file->add_mapped_file_section(begin);
-        data->new_file->source.append(begin, end);
+        data->new_file->add_mapped_file_section(x.begin());
+        data->new_file->source_.append(x.begin(), x.end());
     }
 
     void mapped_file_builder::add(mapped_file_builder const& x)
     {
-        add(x, 0, x.data->new_file->source.size());
+        add(x, 0, x.data->new_file->source_.size());
     }
 
     void mapped_file_builder::add(mapped_file_builder const& x,
             pos begin, pos end)
     {
         assert(data->new_file->original == x.data->new_file->original);
-        assert(begin <= x.data->new_file->source.size());
-        assert(end <= x.data->new_file->source.size());
+        assert(begin <= x.data->new_file->source_.size());
+        assert(end <= x.data->new_file->source_.size());
 
         if (begin != end)
         {
-            std::vector<mapped_file_section>::iterator start =
-                boost::upper_bound(x.data->new_file->mapped_sections,
-                    begin, mapped_section_pos_cmp());
-            assert(start != x.data->new_file->mapped_sections.begin());
-            --start;
+            std::vector<mapped_file_section>::const_iterator start =
+                x.data->new_file->find_section(
+                    x.data->new_file->source().begin() + begin);
     
-            std::string::size_type size = data->new_file->source.size();
+            std::string::size_type size = data->new_file->source_.size();
     
             data->new_file->mapped_sections.push_back(mapped_file_section(
-                    start->to_original_pos(begin), size,
-                    start->section_type));
+                    x.data->new_file->to_original_pos(start, begin),
+                    size, start->section_type));
     
             for (++start; start != x.data->new_file->mapped_sections.end() &&
                     start->our_pos < end; ++start)
@@ -421,89 +463,141 @@ namespace quickbook
                     start->section_type));
             }
     
-            data->new_file->source.append(
-                x.data->new_file->source.begin() + begin,
-            x.data->new_file->source.begin() + end);
+            data->new_file->source_.append(
+                x.data->new_file->source_.begin() + begin,
+            x.data->new_file->source_.begin() + end);
         }
     }
 
-    void mapped_file_builder::unindent_and_add(iterator begin, iterator end)
+    boost::string_ref::size_type indentation_count(boost::string_ref x)
     {
-        std::string program(begin, end);
+        unsigned count = 0;
+
+        for(boost::string_ref::const_iterator begin = x.begin(), end = x.end();
+            begin != end; ++begin)
+        {
+            switch(*begin)
+            {
+            case ' ':
+                ++count;
+                break;
+            case '\t':
+                // hardcoded tab to 4 for now
+                count = count - (count % 4) + 4;
+                break;
+            default:
+                assert(false);
+            }
+        }
+
+        return count;
+    }
+
+    void mapped_file_builder::unindent_and_add(boost::string_ref x)
+    {
+        // I wanted to do everything using a string_ref, but unfortunately
+        // they don't have all the overloads used in here. So...
+        std::string const program(x.begin(), x.end());
 
         // Erase leading blank lines and newlines:
-        std::string::size_type start = program.find_first_not_of(" \t");
-        if (start != std::string::npos &&
-            (program[start] == '\r' || program[start] == '\n'))
-        {
-            program.erase(0, start);
-        }
-        start = program.find_first_not_of("\r\n");
-        program.erase(0, start);
+        std::string::size_type start = program.find_first_not_of(" \t\r\n");
+        if (start == std::string::npos) return;
 
-        if (program.size() == 0)
-            return; // nothing left to do
+        start = program.find_last_of("\r\n", start);
+        start = start == std::string::npos ? 0 : start + 1;
 
-        // Get the first line indent
-        std::string::size_type indent = program.find_first_not_of(" \t");
-        std::string::size_type pos = 0;
-        if (std::string::npos == indent)
-        {
-            // Nothing left to do here. The code is empty (just spaces).
-            // We clear the program to signal the caller that it is empty
-            // and return early.
-            program.clear();
-            return;
-        }
+        assert(start < program.size());
+
+        // Get the first line indentation
+        std::string::size_type indent = program.find_first_not_of(" \t", start) - start;
+        boost::string_ref::size_type full_indent = indentation_count(
+            boost::string_ref(&program[start], indent));
+
+        std::string::size_type pos = start;
 
         // Calculate the minimum indent from the rest of the lines
-        do
-        {
-            pos = program.find_first_not_of("\r\n", pos);
-            if (std::string::npos == pos)
-                break;
-
-            std::string::size_type n = program.find_first_not_of(" \t", pos);
-            if (n != std::string::npos)
-            {
-                char ch = program[n];
-                if (ch != '\r' && ch != '\n') // ignore empty lines
-                    indent = (std::min)(indent, n-pos);
-            }
-        }
-        while (std::string::npos != (pos = program.find_first_of("\r\n", pos)));
-
-        // Trim white spaces from column 0..indent
-        pos = 0;
-        program.erase(0, indent);
+        // Detecting a mix of spaces and tabs.
         while (std::string::npos != (pos = program.find_first_of("\r\n", pos)))
         {
-            if (std::string::npos == (pos = program.find_first_not_of("\r\n", pos)))
-            {
-                break;
-            }
+            pos = program.find_first_not_of("\r\n", pos);
+            if (std::string::npos == pos) break;
 
-            std::string::size_type next = program.find_first_of("\r\n", pos);
-            program.erase(pos, (std::min)(indent, next-pos));
+            std::string::size_type n = program.find_first_not_of(" \t", pos);
+            if (n == std::string::npos) break;
+
+            char ch = program[n];
+            if (ch == '\r' || ch == '\n') continue; // ignore empty lines
+
+            indent = (std::min)(indent, n-pos);
+            full_indent = (std::min)(full_indent, indentation_count(
+                boost::string_ref(&program[pos], n-pos)));
         }
 
-        data->new_file->add_indented_mapped_file_section(begin + indent);
-        data->new_file->source.append(program);
+        // Detect if indentation is mixed.
+        bool mixed_indentation = false;
+        boost::string_ref first_indent(&program[start], indent);
+        pos = start;
+
+        while (std::string::npos != (pos = program.find_first_of("\r\n", pos)))
+        {
+            pos = program.find_first_not_of("\r\n", pos);
+            if (std::string::npos == pos) break;
+
+            std::string::size_type n = program.find_first_not_of(" \t", pos);
+            if (n == std::string::npos || n-pos < indent) continue;
+
+            if (boost::string_ref(&program[pos], indent) != first_indent) {
+                mixed_indentation = true;
+                break;
+            }
+        }
+
+        // Trim white spaces from column 0..indent
+        std::string unindented_program;
+        std::string::size_type copy_start = start;
+        pos = start;
+
+        do {
+            if (std::string::npos == (pos = program.find_first_not_of("\r\n", pos)))
+                break;
+
+            unindented_program.append(program.begin() + copy_start, program.begin() + pos);
+            copy_start = pos;
+
+            // Find the end of the indentation.
+            std::string::size_type next = program.find_first_not_of(" \t", pos);
+            if (next == std::string::npos) next = program.size();
+
+            if (mixed_indentation)
+            {
+                unsigned length = indentation_count(boost::string_ref(
+                    &program[pos], next - pos));
+
+                if (length > full_indent) {
+                    std::string new_indentation(length - full_indent, ' ');
+                    unindented_program.append(new_indentation);
+                }
+
+                copy_start = next;
+            }
+            else
+            {
+                copy_start = (std::min)(pos + indent, next);
+            }
+
+            pos = next;
+        } while (std::string::npos !=
+            (pos = program.find_first_of("\r\n", pos)));
+
+        unindented_program.append(program.begin() + copy_start, program.end());
+
+        data->new_file->add_indented_mapped_file_section(x.begin());
+        data->new_file->source_.append(unindented_program);
     }
 
-    file_position mapped_file::position_of(std::string::const_iterator pos) const
+    file_position mapped_file::position_of(boost::string_ref::const_iterator pos) const
     {
-        std::vector<mapped_file_section>::const_iterator section =
-            boost::upper_bound(mapped_sections,
-                std::string::size_type(pos - source.begin()),
-                mapped_section_pos_cmp());
-        assert(section != mapped_sections.begin());
-        --section;
-
-        return section->calculate_position(
-            original->position_of(
-                original->source.begin() + section->original_pos),
-            relative_position(source.begin() + section->our_pos, pos)
-        );
+        return original->position_of(original->source().begin() +
+            to_original_pos(find_section(pos), pos - source().begin()));
     }
 }

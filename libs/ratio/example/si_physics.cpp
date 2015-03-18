@@ -186,12 +186,12 @@ int main()
 {
     //~ typedef boost::ratio<8, BOOST_INTMAX_C(0x7FFFFFFFD)> R1;
     //~ typedef boost::ratio<3, BOOST_INTMAX_C(0x7FFFFFFFD)> R2;
-    typedef User1::quantity<boost::ratio_subtract<boost::ratio<0>, boost::ratio<1> >::type, 
+    typedef User1::quantity<boost::ratio_subtract<boost::ratio<0>, boost::ratio<1> >::type,
                              boost::ratio_subtract<boost::ratio<1>, boost::ratio<0> >::type > RR;
     //~ typedef boost::ratio_subtract<R1, R2>::type RS;
     //~ std::cout << RS::num << '/' << RS::den << '\n';
-    
-    
+
+
     std::cout << "*************\n";
     std::cout << "* testUser1 *\n";
     std::cout << "*************\n";
@@ -201,14 +201,14 @@ int main()
     //~ boost_ex::chrono::seconds sss=boost_ex::chrono::duration_cast<boost_ex::chrono::seconds>(h);
     //~ User1::seconds sss((120));
     //~ User1::Time t(( sss ));
-    
-    //typedef User1::quantity<boost::ratio_subtract<User1::Distance::time_dim, User1::Time::time_dim >::type, 
+
+    //typedef User1::quantity<boost::ratio_subtract<User1::Distance::time_dim, User1::Time::time_dim >::type,
     //                        boost::ratio_subtract<User1::Distance::distance_dim, User1::Time::distance_dim >::type > R;
     RR r=d / t;
     //r.set(d.get() / t.get());
-    
+
     User1::Speed rc= r;
-    
+    (void)rc;
     User1::Speed s = d / t;
     std::cout << "Speed = " << s.get() << " meters/sec\n";
     User1::Acceleration a = User1::Distance( User1::foot(32.2) ) / User1::Time() / User1::Time();

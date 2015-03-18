@@ -21,7 +21,12 @@
 //      : true_type { };
 
 
-#define BOOST_THREAD_VERSION 3
+#define BOOST_THREAD_VERSION 4
+#if BOOST_THREAD_VERSION == 4
+#define BOOST_THREAD_DETAIL_SIGNATURE double()
+#else
+#define BOOST_THREAD_DETAIL_SIGNATURE double
+#endif
 
 #include <boost/thread/future.hpp>
 #include <boost/detail/lightweight_test.hpp>
@@ -33,7 +38,7 @@
 int main()
 {
 
-  BOOST_STATIC_ASSERT_MSG((boost::uses_allocator<boost::packaged_task<double>, test_allocator<double> >::value), "");
+  BOOST_STATIC_ASSERT_MSG((boost::csbl::uses_allocator<boost::packaged_task<BOOST_THREAD_DETAIL_SIGNATURE>, test_allocator<double> >::value), "");
 
   return boost::report_errors();
 }

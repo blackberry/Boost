@@ -6,7 +6,7 @@
 // Home at http://www.boost.org/libs/local_function
 
 #include <boost/config.hpp>
-#ifdef BOOST_NO_VARIADIC_MACROS
+#ifdef BOOST_NO_CXX11_VARIADIC_MACROS
 #   error "variadic macros required"
 #else
 

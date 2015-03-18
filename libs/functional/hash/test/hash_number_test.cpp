@@ -5,7 +5,7 @@
 
 #include "./config.hpp"
 
-#ifdef TEST_STD_INCLUDES
+#ifdef BOOST_HASH_TEST_STD_INCLUDES
 #  include <functional>
 #else
 #  include <boost/functional/hash.hpp>
@@ -16,6 +16,7 @@
 
 #include <boost/preprocessor/cat.hpp>
 #include <boost/functional/hash/detail/limits.hpp>
+#include <boost/utility/enable_if.hpp>
 
 #include "./compile_time.hpp"
 
@@ -26,9 +27,33 @@
 #pragma warning(disable:4310) // cast truncates constant value
 #endif
 
-#if defined(__GNUC__)
+#if defined(__GNUC__) && !defined(BOOST_INTEL_CXX_VERSION)
 #pragma GCC diagnostic ignored "-Wfloat-equal"
 #endif
+
+template <class T>
+void numeric_extra_tests(typename
+    boost::enable_if_c<boost::hash_detail::limits<T>::is_integer,
+        void*>::type = 0)
+{
+    typedef boost::hash_detail::limits<T> limits;
+
+    if(limits::is_signed ||
+        limits::digits <= boost::hash_detail::limits<std::size_t>::digits)
+    {
+        BOOST_TEST(BOOST_HASH_TEST_NAMESPACE::hash_value(T(-5)) == (std::size_t)T(-5));
+    }
+    BOOST_TEST(BOOST_HASH_TEST_NAMESPACE::hash_value(T(0)) == (std::size_t)T(0u));
+    BOOST_TEST(BOOST_HASH_TEST_NAMESPACE::hash_value(T(10)) == (std::size_t)T(10u));
+    BOOST_TEST(BOOST_HASH_TEST_NAMESPACE::hash_value(T(25)) == (std::size_t)T(25u));
+}
+
+template <class T>
+void numeric_extra_tests(typename
+    boost::disable_if_c<boost::hash_detail::limits<T>::is_integer,
+        void*>::type = 0)
+{
+}
 
 template <class T>
 void numeric_test(T*)
@@ -37,8 +62,8 @@ void numeric_test(T*)
 
     compile_time_tests((T*) 0);
 
-    HASH_NAMESPACE::hash<T> x1;
-    HASH_NAMESPACE::hash<T> x2;
+    BOOST_HASH_TEST_NAMESPACE::hash<T> x1;
+    BOOST_HASH_TEST_NAMESPACE::hash<T> x2;
 
     T v1 = (T) -5;
     BOOST_TEST(x1(v1) == x2(v1));
@@ -49,23 +74,13 @@ void numeric_test(T*)
     BOOST_TEST(x1(T(5) - T(5)) == x2(T(0)));
     BOOST_TEST(x1(T(6) + T(4)) == x2(T(10)));
 
-#if defined(TEST_EXTENSIONS)
-    BOOST_TEST(x1(T(-5)) == HASH_NAMESPACE::hash_value(T(-5)));
-    BOOST_TEST(x1(T(0)) == HASH_NAMESPACE::hash_value(T(0)));
-    BOOST_TEST(x1(T(10)) == HASH_NAMESPACE::hash_value(T(10)));
-    BOOST_TEST(x1(T(25)) == HASH_NAMESPACE::hash_value(T(25)));
+#if defined(BOOST_HASH_TEST_EXTENSIONS)
+    BOOST_TEST(x1(T(-5)) == BOOST_HASH_TEST_NAMESPACE::hash_value(T(-5)));
+    BOOST_TEST(x1(T(0)) == BOOST_HASH_TEST_NAMESPACE::hash_value(T(0)));
+    BOOST_TEST(x1(T(10)) == BOOST_HASH_TEST_NAMESPACE::hash_value(T(10)));
+    BOOST_TEST(x1(T(25)) == BOOST_HASH_TEST_NAMESPACE::hash_value(T(25)));
 
-    if (limits::is_integer)
-    {
-        if(limits::is_signed ||
-            limits::digits <= boost::hash_detail::limits<std::size_t>::digits)
-        {
-            BOOST_TEST(HASH_NAMESPACE::hash_value(T(-5)) == (std::size_t)T(-5));
-        }
-        BOOST_TEST(HASH_NAMESPACE::hash_value(T(0)) == (std::size_t)T(0u));
-        BOOST_TEST(HASH_NAMESPACE::hash_value(T(10)) == (std::size_t)T(10u));
-        BOOST_TEST(HASH_NAMESPACE::hash_value(T(25)) == (std::size_t)T(25u));
-    }
+    numeric_extra_tests<T>();
 #endif
 }
 
@@ -76,8 +91,8 @@ void limits_test(T*)
 
     if(limits::is_specialized)
     {
-        HASH_NAMESPACE::hash<T> x1;
-        HASH_NAMESPACE::hash<T> x2;
+        BOOST_HASH_TEST_NAMESPACE::hash<T> x1;
+        BOOST_HASH_TEST_NAMESPACE::hash<T> x2;
 
         T min_value = (limits::min)();
         T max_value = (limits::max)();
@@ -85,15 +100,15 @@ void limits_test(T*)
         BOOST_TEST(x1(min_value) == x2((limits::min)()));
         BOOST_TEST(x1(max_value) == x2((limits::max)()));
 
-#if defined(TEST_EXTENSIONS)
-        BOOST_TEST(x1(min_value) == HASH_NAMESPACE::hash_value(min_value));
-        BOOST_TEST(x1(max_value) == HASH_NAMESPACE::hash_value(max_value));
+#if defined(BOOST_HASH_TEST_EXTENSIONS)
+        BOOST_TEST(x1(min_value) == BOOST_HASH_TEST_NAMESPACE::hash_value(min_value));
+        BOOST_TEST(x1(max_value) == BOOST_HASH_TEST_NAMESPACE::hash_value(max_value));
 
         if (limits::is_integer)
         {
-            BOOST_TEST(HASH_NAMESPACE::hash_value(min_value)
+            BOOST_TEST(BOOST_HASH_TEST_NAMESPACE::hash_value(min_value)
                     == std::size_t(min_value));
-            BOOST_TEST(HASH_NAMESPACE::hash_value(max_value)
+            BOOST_TEST(BOOST_HASH_TEST_NAMESPACE::hash_value(max_value)
                     == std::size_t(max_value));
         }
 #endif
@@ -105,8 +120,8 @@ void poor_quality_tests(T*)
 {
     typedef boost::hash_detail::limits<T> limits;
 
-    HASH_NAMESPACE::hash<T> x1;
-    HASH_NAMESPACE::hash<T> x2;
+    BOOST_HASH_TEST_NAMESPACE::hash<T> x1;
+    BOOST_HASH_TEST_NAMESPACE::hash<T> x2;
 
     // A hash function can legally fail these tests, but it'll not be a good
     // sign.
@@ -121,8 +136,8 @@ void poor_quality_tests(T*)
 
 void bool_test()
 {
-    HASH_NAMESPACE::hash<bool> x1;
-    HASH_NAMESPACE::hash<bool> x2;
+    BOOST_HASH_TEST_NAMESPACE::hash<bool> x1;
+    BOOST_HASH_TEST_NAMESPACE::hash<bool> x2;
     
     BOOST_TEST(x1(true) == x2(true));
     BOOST_TEST(x1(false) == x2(false));
@@ -158,6 +173,11 @@ int main()
 #if !defined(BOOST_NO_LONG_LONG)
     NUMERIC_TEST_NO_LIMITS(boost::long_long_type, long_long)
     NUMERIC_TEST_NO_LIMITS(boost::ulong_long_type, ulong_long)
+#endif
+
+#if defined(BOOST_HAS_INT128)
+    NUMERIC_TEST_NO_LIMITS(boost::int128_type, int128)
+    NUMERIC_TEST_NO_LIMITS(boost::uint128_type, uint128)
 #endif
 
     NUMERIC_TEST(float, float)

@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>basic_socket::get_option (1 of 2 overloads)</title>
 <link rel="stylesheet" href="../../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../../../boost_asio.html" title="Boost.Asio">
 <link rel="up" href="../get_option.html" title="basic_socket::get_option">
 <link rel="prev" href="../get_option.html" title="basic_socket::get_option">
@@ -40,11 +40,11 @@
           </p>
 <h6>
 <a name="boost_asio.reference.basic_socket.get_option.overload1.h0"></a>
-            <span><a name="boost_asio.reference.basic_socket.get_option.overload1.parameters"></a></span><a class="link" href="overload1.html#boost_asio.reference.basic_socket.get_option.overload1.parameters">Parameters</a>
+            <span class="phrase"><a name="boost_asio.reference.basic_socket.get_option.overload1.parameters"></a></span><a class="link" href="overload1.html#boost_asio.reference.basic_socket.get_option.overload1.parameters">Parameters</a>
           </h6>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">option</span></dt>
 <dd><p>
                   The option value to be obtained from the socket.
@@ -53,11 +53,11 @@
 </div>
 <h6>
 <a name="boost_asio.reference.basic_socket.get_option.overload1.h1"></a>
-            <span><a name="boost_asio.reference.basic_socket.get_option.overload1.exceptions"></a></span><a class="link" href="overload1.html#boost_asio.reference.basic_socket.get_option.overload1.exceptions">Exceptions</a>
+            <span class="phrase"><a name="boost_asio.reference.basic_socket.get_option.overload1.exceptions"></a></span><a class="link" href="overload1.html#boost_asio.reference.basic_socket.get_option.overload1.exceptions">Exceptions</a>
           </h6>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">boost::system::system_error</span></dt>
 <dd><p>
                   Thrown on failure.
@@ -66,7 +66,7 @@
 </div>
 <h6>
 <a name="boost_asio.reference.basic_socket.get_option.overload1.h2"></a>
-            <span><a name="boost_asio.reference.basic_socket.get_option.overload1.example"></a></span><a class="link" href="overload1.html#boost_asio.reference.basic_socket.get_option.overload1.example">Example</a>
+            <span class="phrase"><a name="boost_asio.reference.basic_socket.get_option.overload1.example"></a></span><a class="link" href="overload1.html#boost_asio.reference.basic_socket.get_option.overload1.example">Example</a>
           </h6>
 <p>
             Getting the value of the SOL_SOCKET/SO_KEEPALIVE option:
@@ -75,12 +75,12 @@
 <span class="special">...</span>
 <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">ip</span><span class="special">::</span><span class="identifier">tcp</span><span class="special">::</span><span class="identifier">socket</span><span class="special">::</span><span class="identifier">keep_alive</span> <span class="identifier">option</span><span class="special">;</span>
 <span class="identifier">socket</span><span class="special">.</span><span class="identifier">get_option</span><span class="special">(</span><span class="identifier">option</span><span class="special">);</span>
-<span class="keyword">bool</span> <span class="identifier">is_set</span> <span class="special">=</span> <span class="identifier">option</span><span class="special">.</span><span class="identifier">get</span><span class="special">();</span>
+<span class="keyword">bool</span> <span class="identifier">is_set</span> <span class="special">=</span> <span class="identifier">option</span><span class="special">.</span><span class="identifier">value</span><span class="special">();</span>
 </pre>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2012 Christopher M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2014 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

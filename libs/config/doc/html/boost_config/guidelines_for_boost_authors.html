@@ -3,10 +3,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Guidelines for Boost Authors</title>
 <link rel="stylesheet" href="../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../index.html" title="Boost.Config">
 <link rel="up" href="../index.html" title="Boost.Config">
-<link rel="prev" href="boost_macro_reference.html" title="Boost Macro Reference">
+<link rel="prev" href="cstdint.html" title="Standard Integer Types">
 <link rel="next" href="rationale.html" title="Rationale">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -20,14 +20,14 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="boost_macro_reference.html"><img src="../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="rationale.html"><img src="../../../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="cstdint.html"><img src="../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="rationale.html"><img src="../../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
-<div class="section boost_config_guidelines_for_boost_authors">
+<div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="boost_config.guidelines_for_boost_authors"></a><a class="link" href="guidelines_for_boost_authors.html" title="Guidelines for Boost Authors">Guidelines for
     Boost Authors</a>
 </h2></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="guidelines_for_boost_authors.html#boost_config.guidelines_for_boost_authors.warnings">Disabling
       Compiler Warnings</a></span></dt>
 <dt><span class="section"><a href="guidelines_for_boost_authors.html#boost_config.guidelines_for_boost_authors.adding_new_defect_macros">Adding
@@ -61,7 +61,7 @@
 <p>
       Note that:
     </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
           Boost library implementers are not required to "<code class="computeroutput"><span class="preprocessor">#include</span>
           <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">config</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>", and are not required in any
@@ -103,7 +103,7 @@
           the majority of compilers, such as namespaces, exceptions, RTTI, or templates.
         </li>
 </ul></div>
-<div class="section boost_config_guidelines_for_boost_authors_warnings">
+<div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="boost_config.guidelines_for_boost_authors.warnings"></a><a class="link" href="guidelines_for_boost_authors.html#boost_config.guidelines_for_boost_authors.warnings" title="Disabling Compiler Warnings">Disabling
       Compiler Warnings</a>
@@ -116,7 +116,7 @@
 <p>
         Note that:
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             This header <span class="bold"><strong><span class="emphasis"><em>should never be included
             by another Boost header</em></span></strong></span>, it should only ever be
@@ -182,7 +182,7 @@
 </tbody>
 </table></div>
 </div>
-<div class="section boost_config_guidelines_for_boost_authors_adding_new_defect_macros">
+<div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="boost_config.guidelines_for_boost_authors.adding_new_defect_macros"></a><a class="link" href="guidelines_for_boost_authors.html#boost_config.guidelines_for_boost_authors.adding_new_defect_macros" title="Adding New Defect Macros">Adding
       New Defect Macros</a>
@@ -233,7 +233,7 @@
         Once the test code is in place in libs/config/test, updating the configuration
         test system proceeds as:
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             cd into <code class="computeroutput"><span class="identifier">libs</span><span class="special">/</span><span class="identifier">config</span><span class="special">/</span><span class="identifier">tools</span></code> and run <code class="computeroutput"><span class="identifier">bjam</span></code>.
             This generates the <code class="computeroutput"><span class="special">.</span><span class="identifier">cpp</span></code>
@@ -266,7 +266,7 @@
 <p>
         Then you should:
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             Define the defect macro in those config headers that require it.
           </li>
@@ -285,7 +285,7 @@
           </li>
 </ul></div>
 </div>
-<div class="section boost_config_guidelines_for_boost_authors_adding_new_feature_test_macros">
+<div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="boost_config.guidelines_for_boost_authors.adding_new_feature_test_macros"></a><a class="link" href="guidelines_for_boost_authors.html#boost_config.guidelines_for_boost_authors.adding_new_feature_test_macros" title="Adding New Feature Test Macros">Adding
       New Feature Test Macros</a>
@@ -309,7 +309,7 @@
         <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">unistd</span><span class="special">.</span><span class="identifier">h</span><span class="special">&gt;</span></code>).
       </p>
 </div>
-<div class="section boost_config_guidelines_for_boost_authors_modifying_the_boost_configuration_headers">
+<div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="boost_config.guidelines_for_boost_authors.modifying_the_boost_configuration_headers"></a><a class="link" href="guidelines_for_boost_authors.html#boost_config.guidelines_for_boost_authors.modifying_the_boost_configuration_headers" title="Modifying the Boost Configuration Headers">Modifying
       the Boost Configuration Headers</a>
@@ -371,7 +371,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="boost_macro_reference.html"><img src="../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="rationale.html"><img src="../../../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="cstdint.html"><img src="../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="rationale.html"><img src="../../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

@@ -3,11 +3,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>ssl::context</title>
 <link rel="stylesheet" href="../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../boost_asio.html" title="Boost.Asio">
 <link rel="up" href="../reference.html" title="Reference">
-<link rel="prev" href="socket_base/_socket_base.html" title="socket_base::~socket_base">
-<link rel="next" href="ssl__context/add_verify_path.html" title="ssl::context::add_verify_path">
+<link rel="prev" href="spawn/overload4.html" title="spawn (4 of 4 overloads)">
+<link rel="next" href="ssl__context/add_certificate_authority.html" title="ssl::context::add_certificate_authority">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table cellpadding="2" width="100%"><tr>
@@ -20,7 +20,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="socket_base/_socket_base.html"><img src="../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference.html"><img src="../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../boost_asio.html"><img src="../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="ssl__context/add_verify_path.html"><img src="../../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="spawn/overload4.html"><img src="../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference.html"><img src="../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../boost_asio.html"><img src="../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="ssl__context/add_certificate_authority.html"><img src="../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
@@ -32,7 +32,7 @@
 </pre>
 <h5>
 <a name="boost_asio.reference.ssl__context.h0"></a>
-        <span><a name="boost_asio.reference.ssl__context.types"></a></span><a class="link" href="ssl__context.html#boost_asio.reference.ssl__context.types">Types</a>
+        <span class="phrase"><a name="boost_asio.reference.ssl__context.types"></a></span><a class="link" href="ssl__context.html#boost_asio.reference.ssl__context.types">Types</a>
       </h5>
 <div class="informaltable"><table class="table">
 <colgroup>
@@ -129,7 +129,7 @@
 </table></div>
 <h5>
 <a name="boost_asio.reference.ssl__context.h1"></a>
-        <span><a name="boost_asio.reference.ssl__context.member_functions"></a></span><a class="link" href="ssl__context.html#boost_asio.reference.ssl__context.member_functions">Member
+        <span class="phrase"><a name="boost_asio.reference.ssl__context.member_functions"></a></span><a class="link" href="ssl__context.html#boost_asio.reference.ssl__context.member_functions">Member
         Functions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -153,6 +153,18 @@
 <tr>
 <td>
                 <p>
+                  <a class="link" href="ssl__context/add_certificate_authority.html" title="ssl::context::add_certificate_authority"><span class="bold"><strong>add_certificate_authority</strong></span></a>
+                </p>
+              </td>
+<td>
+                <p>
+                  Add certification authority for performing verification.
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
                   <a class="link" href="ssl__context/add_verify_path.html" title="ssl::context::add_verify_path"><span class="bold"><strong>add_verify_path</strong></span></a>
                 </p>
               </td>
@@ -160,6 +172,18 @@
                 <p>
                   Add a directory containing certificate authority files to be used
                   for performing verification.
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  <a class="link" href="ssl__context/clear_options.html" title="ssl::context::clear_options"><span class="bold"><strong>clear_options</strong></span></a>
+                </p>
+              </td>
+<td>
+                <p>
+                  Clear options on the context.
                 </p>
               </td>
 </tr>
@@ -282,12 +306,48 @@
 <tr>
 <td>
                 <p>
+                  <a class="link" href="ssl__context/set_verify_depth.html" title="ssl::context::set_verify_depth"><span class="bold"><strong>set_verify_depth</strong></span></a>
+                </p>
+              </td>
+<td>
+                <p>
+                  Set the peer verification depth.
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
                   <a class="link" href="ssl__context/set_verify_mode.html" title="ssl::context::set_verify_mode"><span class="bold"><strong>set_verify_mode</strong></span></a>
                 </p>
               </td>
 <td>
                 <p>
                   Set the peer verification mode.
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  <a class="link" href="ssl__context/use_certificate.html" title="ssl::context::use_certificate"><span class="bold"><strong>use_certificate</strong></span></a>
+                </p>
+              </td>
+<td>
+                <p>
+                  Use a certificate from a memory buffer.
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  <a class="link" href="ssl__context/use_certificate_chain.html" title="ssl::context::use_certificate_chain"><span class="bold"><strong>use_certificate_chain</strong></span></a>
+                </p>
+              </td>
+<td>
+                <p>
+                  Use a certificate chain from a memory buffer.
                 </p>
               </td>
 </tr>
@@ -318,6 +378,18 @@
 <tr>
 <td>
                 <p>
+                  <a class="link" href="ssl__context/use_private_key.html" title="ssl::context::use_private_key"><span class="bold"><strong>use_private_key</strong></span></a>
+                </p>
+              </td>
+<td>
+                <p>
+                  Use a private key from a memory buffer.
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
                   <a class="link" href="ssl__context/use_private_key_file.html" title="ssl::context::use_private_key_file"><span class="bold"><strong>use_private_key_file</strong></span></a>
                 </p>
               </td>
@@ -330,12 +402,37 @@
 <tr>
 <td>
                 <p>
+                  <a class="link" href="ssl__context/use_rsa_private_key.html" title="ssl::context::use_rsa_private_key"><span class="bold"><strong>use_rsa_private_key</strong></span></a>
+                </p>
+              </td>
+<td>
+                <p>
+                  Use an RSA private key from a memory buffer.
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
                   <a class="link" href="ssl__context/use_rsa_private_key_file.html" title="ssl::context::use_rsa_private_key_file"><span class="bold"><strong>use_rsa_private_key_file</strong></span></a>
                 </p>
               </td>
 <td>
                 <p>
                   Use an RSA private key from a file.
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  <a class="link" href="ssl__context/use_tmp_dh.html" title="ssl::context::use_tmp_dh"><span class="bold"><strong>use_tmp_dh</strong></span></a>
+                </p>
+              </td>
+<td>
+                <p>
+                  Use the specified memory buffer to obtain the temporary Diffie-Hellman
+                  parameters.
                 </p>
               </td>
 </tr>
@@ -367,7 +464,7 @@
 </table></div>
 <h5>
 <a name="boost_asio.reference.ssl__context.h2"></a>
-        <span><a name="boost_asio.reference.ssl__context.data_members"></a></span><a class="link" href="ssl__context.html#boost_asio.reference.ssl__context.data_members">Data
+        <span class="phrase"><a name="boost_asio.reference.ssl__context.data_members"></a></span><a class="link" href="ssl__context.html#boost_asio.reference.ssl__context.data_members">Data
         Members</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -397,6 +494,18 @@
 <td>
                 <p>
                   Implement various bug workarounds.
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  <a class="link" href="ssl__context/no_compression.html" title="ssl::context::no_compression"><span class="bold"><strong>no_compression</strong></span></a>
+                </p>
+              </td>
+<td>
+                <p>
+                  Disable compression. Compression is disabled by default.
                 </p>
               </td>
 </tr>
@@ -452,18 +561,18 @@
 </table></div>
 <h5>
 <a name="boost_asio.reference.ssl__context.h3"></a>
-        <span><a name="boost_asio.reference.ssl__context.requirements"></a></span><a class="link" href="ssl__context.html#boost_asio.reference.ssl__context.requirements">Requirements</a>
+        <span class="phrase"><a name="boost_asio.reference.ssl__context.requirements"></a></span><a class="link" href="ssl__context.html#boost_asio.reference.ssl__context.requirements">Requirements</a>
       </h5>
 <p>
-        <span class="bold"><strong>Header: </strong></span><code class="literal">boost/asio/ssl/context.hpp</code>
+        <span class="emphasis"><em>Header: </em></span><code class="literal">boost/asio/ssl/context.hpp</code>
       </p>
 <p>
-        <span class="bold"><strong>Convenience header: </strong></span><code class="literal">boost/asio/ssl.hpp</code>
+        <span class="emphasis"><em>Convenience header: </em></span><code class="literal">boost/asio/ssl.hpp</code>
       </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2012 Christopher M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2014 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
@@ -471,7 +580,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="socket_base/_socket_base.html"><img src="../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference.html"><img src="../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../boost_asio.html"><img src="../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="ssl__context/add_verify_path.html"><img src="../../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="spawn/overload4.html"><img src="../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference.html"><img src="../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../boost_asio.html"><img src="../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="ssl__context/add_certificate_authority.html"><img src="../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

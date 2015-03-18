@@ -14,7 +14,7 @@
 #include <boost/chrono/duration.hpp>
 
 #include <boost/detail/lightweight_test.hpp>
-#ifdef BOOST_NO_CONSTEXPR
+#ifdef BOOST_NO_CXX11_CONSTEXPR
 #define BOOST_CONSTEXPR_ASSERT(C) BOOST_TEST(C)
 #else
 #include <boost/static_assert.hpp>
@@ -268,12 +268,14 @@ int main()
   {
     boost::chrono::duration<int, boost::ratio<2, 3> > s1(30);
     boost::chrono::duration<double, boost::ratio<3, 5> > s2(5);
-    BOOST_TEST(s1 / s2 == 20. / 3);
+    //BOOST_TEST(s1 / s2 == 20. / 3);
+    BOOST_TEST(3 * s1 == 20 * s2);
   }
   {
     BOOST_CONSTEXPR boost::chrono::duration<int, boost::ratio<2, 3> > s1(30);
     BOOST_CONSTEXPR boost::chrono::duration<double, boost::ratio<3, 5> > s2(5);
-    BOOST_CONSTEXPR_ASSERT(s1 / s2 == 20. / 3);
+    //BOOST_CONSTEXPR_ASSERT(s1 / s2 == 20. / 3);
+    BOOST_TEST(3 * s1 == 20 * s2);
   }
   // DIVIDE rep
   {

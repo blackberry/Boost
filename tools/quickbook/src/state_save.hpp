@@ -18,7 +18,7 @@ namespace quickbook
     //
     // Defined in state.cpp
 
-    struct file_state
+    struct state_save
     {
         enum scope_flags {
             scope_none = 0,
@@ -29,8 +29,8 @@ namespace quickbook
             scope_all = scope_callables + scope_output
         };
 
-        explicit file_state(quickbook::state&, scope_flags);
-        ~file_state();
+        explicit state_save(quickbook::state&, scope_flags);
+        ~state_save();
 
         quickbook::state& state;
         scope_flags scope;
@@ -38,22 +38,15 @@ namespace quickbook
         bool imported;
         std::string doc_type;
         file_ptr current_file;
-        fs::path filename_relative;
+        quickbook_path current_path;
         fs::path xinclude_base;
-        std::string source_mode;
+        source_mode_info source_mode;
         string_symbols macro;
-    private:
-        file_state(file_state const&);
-        file_state& operator=(file_state const&);
-    };
-
-    struct template_state : file_state
-    {
-        explicit template_state(quickbook::state&);
-        ~template_state();
-
         int template_depth;
         int min_section_level;
+    private:
+        state_save(state_save const&);
+        state_save& operator=(state_save const&);
     };
 }
 

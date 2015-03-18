@@ -12,7 +12,7 @@
 int XXX = 20;
 int YYY = 10;
 
-#include <boost/thread.hpp>
+#include <boost/thread/thread_only.hpp>
 #include <boost/thread/shared_mutex.hpp>
 
 //#include <unistd.h>

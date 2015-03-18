@@ -63,7 +63,7 @@ BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_base_of<Base&,Derived>::value), false);
 BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_base_of<Base&,Derived&>::value), false);
 BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_base_of<Base,Derived&>::value), false);
 BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_base_of<Base,void>::value), false);
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
 BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_base_of<Base&&,Derived>::value), false);
 BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_base_of<Base&&,Derived&&>::value), false);
 BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_base_of<Base,Derived&&>::value), false);

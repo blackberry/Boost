@@ -11,7 +11,7 @@
 #  define BOOST_HASH_NO_EXTENSIONS
 #endif
 
-#ifdef TEST_STD_INCLUDES
+#ifdef BOOST_HASH_TEST_STD_INCLUDES
 #  include <functional>
 #else
 #  include <boost/functional/hash.hpp>
@@ -21,7 +21,7 @@ template <class T> void ignore(T const&) {}
 
 int main()
 {
-    HASH_NAMESPACE::hash< int[10] > hasher;
+    BOOST_HASH_TEST_NAMESPACE::hash< int[10] > hasher;
     ignore(hasher);
 
     return 0;

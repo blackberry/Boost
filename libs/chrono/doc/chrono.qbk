@@ -9,13 +9,13 @@
 
 [library Boost.Chrono
     [quickbook 1.5]
-    [version 2.0.0]
+    [version 2.0.4]
     [authors [Hinnant, Howard]]
     [authors [Dawes, Beman]]
     [authors [Botet Escriba, Vicente J.]]
     [copyright 2008 Howard Hinnant]
     [copyright 2006, 2008 Beman Dawes]
-    [copyright 2009-2012 Vicente J. Botet Escriba]
+    [copyright 2009-2013 Vicente J. Botet Escriba]
     [category utilities system]
     [id chrono]
     [dirname chrono]
@@ -57,7 +57,7 @@
 [def __params [*Parameters:]]
 [template param [p] [*[p]:]]
 
-[template mu[]'''&#x3BC;'''] [/ µ Greek small letter mu]
+[template mu[]'''&#x3BC;'''] [/  Greek small letter mu]
 [template plusminus[]'''&#x00B1;'''] [/  ? plus or minus sign]
 
 [def __mus [mu]s]
@@ -556,9 +556,7 @@ The simple way is to decompress (or checkout from SVN) the files in your BOOST_R
 __Boost_Chrono__ can be configured as a header-only library defining __BOOST_CHRONO_HEADER_ONLY. 
 However Boost.Chrono depends on the non header-only library Boost.System, so that you will need to link with boost_system.
 
-Boost.System has un undocumented feature (use of macro BOOST_ERROR_CODE_HEADER_ONLY) to make it header only, but it is buggy 
-(see [@http://svn.boost.org/trac/boost/ticket/7347 #7347] duplicate symbol while BOOST_ERROR_CODE_HEADER_ONLY is defined)
-
+Boost.System has un undocumented feature (use of macro BOOST_ERROR_CODE_HEADER_ONLY) to make it header only.
  
 If __BOOST_CHRONO_HEADER_ONLY is not defined you need to compile it and build the library before use, for example using:
 
@@ -644,6 +642,8 @@ MinGW with
 * GCC 4.5.2 -std=c++0x
 * GCC 4.6.0
 * GCC 4.6.0 -std=c++0x
+* GCC 4.8.0
+* GCC 4.8.0 -std=c++0x
 
 Ubuntu with
 * GCC 4.4.6
@@ -664,16 +664,15 @@ OsX with
 * GCC 4.7.0 -std=c++0x
 * GCC 4.7.1
 * GCC 4.7.1 -std=c++0x
-* clang 1.6
-* clang 2.9
-* clang 2.9 -std=c++0x
-* clang 3.0
-* clang 3.0 -std=c++0x
+* GCC 4.7.2
+* GCC 4.7.2 -std=c++0x
+* GCC 4.8.0
+* GCC 4.8.0 -std=c++0x
+* GCC 4.8.1
+* GCC 4.8.1 -std=c++0x
 * clang 3.1
-* clang 3.1 -std=c++0x
 * clang 3.1 -std=c++0x -stdlib=libc++
 * clang 3.2
-* clang 3.2 -std=c++11
 * clang 3.2 -std=c++11 -stdlib=libc++
 
 
@@ -1419,7 +1418,7 @@ This simple I/O will make duration so much more accessible to programmers.
 
 [section:system_clock_time_point_io `system_clock::time_point`]
 
-[warning 
+[/warning 
 
 This feature has been disable defining `BOOST_CHRONO_DONT_PROVIDE_DATE_IO_FOR_SYSTEM_CLOCK_TIME_POINT` until a fix for the following ticket is found:
 
@@ -2600,7 +2599,7 @@ These deprecated features will be only available until boost 1.58, that is you h
 
 [section:system_clock_time_point time_point<system_clock,D> specialization limitation]
 
-[warning
+[/warning
 
 The time_point<system_clock,D> formatter/parser specializations don't work yet. It has been disable defining `BOOST_CHRONO_DONT_PROVIDE_DATE_IO_FOR_SYSTEM_CLOCK_TIME_POINT` until a fix for the following ticket is found:
 
@@ -2864,7 +2863,7 @@ A __duration measures time between two points in time (__time_point). A __durati
             duration& __duration__op_plus_eq(const duration& d);
             duration& __duration__op_minus_eq(const duration& d);
 
-            duration& __duration__op_mult_eq=(const rep& rhs);
+            duration& __duration__op_mult_eq(const rep& rhs);
             duration& __duration__op_div_eq(const rep& rhs);
             duration& __duration__op_mod_eq(const rep& rhs);
             duration& __duration__op_mod_eq2(const duration& rhs);
@@ -3330,7 +3329,7 @@ A type `TC` meets the `TrivialClock` requirements if:
 [note This means, in particular, that operations on these types will not throw exceptions.]
 
 * lvalues of the types `TC::rep`, `TC::duration`, and `TC::time_point` are swappable,
-* the function `TC::now()` does not throw exceptions, and
+* the function `TC::now()` does not throw exceptions and it is thread-safe, and
 * the type `TC::time_point::clock` meets the `TrivialClock` requirements, recursively.
 
 Models of __TrivialClock:
@@ -3350,7 +3349,8 @@ Models of __TrivialClock:
 A type `EcC` meets the `EcClock` requirements if
 
 * `TC` satisfies the `TrivialClock ` requirements, and
-* it add `now()` interfaces allowing to recover internal error codes as described in the following table.
+* it adds `now()` interfaces allowing to recover internal error codes as described in the following table.
+* the added now() function is thread-safe.
 
 In this table `C1` denotes a `EcClock` type and `ec` is an instance of a `boost::system::error_code`.
 
@@ -3803,7 +3803,7 @@ This file contains the standard clock classes. The types defined in this section
 
 [section:system_clock Class `system_clock`]
 
-The __system_clock class provides a means of obtaining the current wall-clock time from the system-wide real-time clock. The current time can be obtained by calling `system_clock::now()`. Instances of `system_clock::time_point`  can be converted to and from time_t  with the `system_clock::to_time_t()`  and `system_clock::to_time_point()`  functions. If system clock is not steady, a subsequent call to `system_clock::now()`  may return an earlier time than a previous call (e.g. if the operating system clock is manually adjusted, or synchronized with an external clock).
+The __system_clock class provides a means of obtaining the current wall-clock time from the system-wide real-time clock. The current time can be obtained by calling `system_clock::now()`. Instances of `system_clock::time_point`  can be converted to and from time_t  with the `system_clock::to_time_t()`  and `system_clock::from_time_t()`  functions. If system clock is not steady, a subsequent call to `system_clock::now()`  may return an earlier time than a previous call (e.g. if the operating system clock is manually adjusted, or synchronized with an external clock).
 
 The current implementation of __system_clock is related an epoch (midnight UTC of January 1, 1970), but this is not in the contract. You need to use the static function static
 
@@ -4257,7 +4257,7 @@ __effects Set the stream's __timezone attribute associated to `ios` with the `tz
 [section:get_time_fmt Non Member Function `get_time_fmt(std::ios_base &)`]
 
         template<typename CharT>
-        std::basic_string<CharT> __get_time_fmt(std::ios_base & ios);
+        std::basic_string<CharT> get_time_fmt(std::ios_base & ios);
                        
 __returns The stream's time format attribute associated to `ios`.
         
@@ -4266,9 +4266,50 @@ __returns The stream's time format attribute associated to `ios`.
 [section:set_time_fmt Non Member Function `set_time_fmt(std::ios_base&, std::basic_string<CharT> const&)`]
 
         template<typename CharT>
-        void __set_time_fmt(std::ios_base& ios, std::basic_string<CharT> const& fmt);
+        void set_time_fmt(std::ios_base& ios, std::basic_string<CharT> const& fmt);
         
 __effects Set the stream's time format attribute associated to `ios` with the `fmt` parameter.
+
+The format is composed of zero or more directives. 
+Each directive is composed of one of the following: 
+
+ * one or more white-space characters (as specified by isspace()); 
+ * an ordinary character (neither '%' nor a white-space character); 
+ * or a conversion specification. 
+
+Each conversion specification is composed of a '%' character followed by a conversion character which specifies the replacement required. 
+The application shall ensure that there is white-space or other non-alphanumeric characters between any two conversion specifications. 
+The following conversion specifications are supported:
+
+[table Format tags
+    [[Format Specifier]        [Description ]  [Example]]
+    [[`%%`]        [Replaced by `%`.]  [.]]
+    [[`%a %A`]        [The day of the week, using the locale's weekday names; either the abbreviated or full name may be specified.]  ["Monday".]]
+    [[`%b %B %h`]        [The month, using the locale's month names; either the abbreviated or full name may be specified.]  ["February".]]
+    [[`%c`]        [Not supported.]  [.]]
+    [[`%d %e`]        [The day of the month `[01,31]`; leading zeros are permitted but not required..]  [.]]
+    [[`%D`]        [The date as `%m/%d/%y`.]  [.]]
+    [[`%F`]        [The date as `%Y/%m/%d`.]  [.]]
+    [[`%H`]        [The hour (24-hour clock) `[00,23]`; leading zeros are permitted but not required.]  [.]]
+    [[`%I`]        [The hour (12-hour clock) `[01,12]`; leading zeros are permitted but not required.]  [.]]
+    [[`%j`]        [The day number of the year `[001,366]`; leading zeros are permitted but not required.]  ["060" => Feb-29.]]
+    [[`%m`]        [The month number `[01,12]`; leading zeros are permitted but not required..]  ["01" => January.]]
+    [[`%M`]        [The minute `[00,59]`; leading zeros are permitted but not required.]  [.]]
+    [[`%n %t`]        [Any white space..]  [.]]
+    [[`%p`]        [Not supported.]  [.]]
+    [[`%r`]        [Not supported.]  [.]]
+    [[`%R`]        [The time as `%H:%M`.]  [.]]
+    [[`%S`]        [The seconds `[00,60]`; leading zeros are permitted but not required.]  [.]]
+    [[`%T`]        [The time as `%H:%M:%S`.]  [.]]
+    [[`%U`]        [Not supported.]  [.]]
+    [[`%w`]        [The weekday as a decimal number `[0,6]`, with 0 representing Sunday; leading zeros are permitted but not required..]  ["0" => Sunday.]]
+    [[`%W`]        [Not supported.]  [.]]
+    [[`%x`]        [The date, using the locale's date format..]  [.]]
+    [[`%X`]        [Not supported.]  [.]]
+    [[`%y`]        [Not supported.]  ["2005".]]
+    [[`%Y`]        [The year, including the century (for example, 1988).]  [.]]
+]
+
         
 [endsect]
 
@@ -6337,9 +6378,7 @@ __returns The epoch string associated to the __thread_clock.
         };
 
         // system_clock I/O
-
-    #if defined BOOST_CHRONO_PROVIDES_DATE_IO_FOR_SYSTEM_CLOCK_TIME_POINT
-    
+  
         template <class CharT, class Traits, class __Duration>
           basic_ostream<CharT, Traits>&
           operator<<(basic_ostream<CharT, Traits>& os,
@@ -6349,7 +6388,6 @@ __returns The epoch string associated to the __thread_clock.
           basic_istream<CharT, Traits>&
           operator>>(basic_istream<CharT, Traits>& is,
                      time_point<system_clock, __Duration>& tp);
-    #endif
     
         // Other Clocks I/O
 
@@ -6400,7 +6438,7 @@ __returns: An unspecified object that when streamed to a `basic_ostream<CharT, T
 
 [section:system_clock `system_clock`]
 
-[warning
+[/warning
 
 The time_point<system_clock,D> formatter/parser specializations don't work yet. It has been disable defining `BOOST_CHRONO_DONT_PROVIDE_DATE_IO_FOR_SYSTEM_CLOCK_TIME_POINT` until a fix for the following ticket is found:
 
@@ -7325,6 +7363,76 @@ All the units are given using the suffix "s" following the System International 
 [section:history Appendix: History]
 [/==================================]
 
+[//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////]
+[section [*Version 2.0.4, July 12, 2014 - 1.56] ]
+
+[*Fixes:]
+
+* [@http://svn.boost.org/trac/boost/ticket/6918 #6918] Boost Chrono compilation failure on HP uX due to undefined pthread_getcpuclockid
+* [@http://svn.boost.org/trac/boost/ticket/8006 #8006] Boost::Chrono Assertion at startup - steady_clock::now() - Windows
+
+* [@http://svn.boost.org/trac/boost/ticket/9337 #9337] chrono::process_cpu_clock time points wrong by factor 1000 on Linux
+* [@http://svn.boost.org/trac/boost/ticket/9342 #9342] Regression on process_cpu_clock::timepoint io on V2
+* [@http://svn.boost.org/trac/boost/ticket/9419 #9419] boost::chrono::floor()/round() and negative durations is wrong
+* [@http://svn.boost.org/trac/boost/ticket/9698 #9698] boost::chrono::thread_clock not declared in OSX
+* [@http://svn.boost.org/trac/boost/ticket/9720 #9720] boost::this_thread::sleep_for() sometimes returns immediately on win32
+* [@http://svn.boost.org/trac/boost/ticket/9859 #9859] Remove references to gcc-mingw
+* [@http://svn.boost.org/trac/boost/ticket/9918 #9918] chrono compilation error on Solaris, funciton timegm
+* [@http://svn.boost.org/trac/boost/ticket/9811 #9811] boost/boost/chrono/duration.hpp:355:56: error: call to non-constexpr function 'static std::numeric_limits<float>::_Ty std::numeric_limits<float>::max()' /home/zosun/input_service/inputservices-core-service/other/boost/boost/chrono/duration.hpp: In static member function 'static constexpr double boost::chrono::detail::chrono_numeric_limits<double, true>::lowest()':
+* [@http://svn.boost.org/trac/boost/ticket/10069 #10069] Overflow in chrono clocks on 32bit
+* [@http://svn.boost.org/trac/boost/ticket/10151 #10151] timegm function not available on QNX
+
+[endsect] [/section [*Version 2.0.4] ]
+
+[//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////]
+[section [*Version 2.0.3, September 29, 2013 - 1.55] ]
+
+[*Fixes:]
+
+* [@http://svn.boost.org/trac/boost/ticket/7868 #7868] chrono_io parses time incorrectly (1.53 and 1.52)   
+* [@http://svn.boost.org/trac/boost/ticket/9028 #9028] Typo in boost/chrono/stopwatches/formatters/base_formatter.hpp  
+* [@http://svn.boost.org/trac/boost/ticket/9147 #9147] uninitialized std::tm
+* [@http://svn.boost.org/trac/boost/ticket/9274 #9274] lost of precission on system_clock input.
+* [@http://svn.boost.org/trac/boost/ticket/9276 #9276] output from a system_clock::time_point get a time_point that is one day later than expected.
+
+[endsect] [/section [*Version 2.0.3] ]
+
+[//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////]
+[section [*Version 2.0.2, June 15, 2013 - 1.54] ]
+
+
+[*Fixes:]
+
+* [@http://svn.boost.org/trac/boost/ticket/8079 #8079] Chrono memory leak
+* [@http://svn.boost.org/trac/boost/ticket/8318 #8318] BOOST_FORCEINLINE constructors of time_point and duration
+* [@http://svn.boost.org/trac/boost/ticket/8367 #8367] chrono does not compile with clang from XCode 4.5.2 with -std=c++11 -stdlib=libc++ and -arch armv7
+* [@http://svn.boost.org/trac/boost/ticket/8370 #8370] typo in chrono reference
+* [@http://svn.boost.org/trac/boost/ticket/8435 #8435] Can't compile Chrono on HP-UX due to no CLOCK_REALTIME macro.
+* [@http://svn.boost.org/trac/boost/ticket/8690 #8690] duration_units_default - lost return types constness in overridden methods.
+* [@http://svn.boost.org/trac/boost/ticket/8691 #8691] iostate is not checked after scan_keyword call.
+* [@http://svn.boost.org/trac/boost/ticket/8696 #8696] chrono compilation error on Solaris/gcc.
+
+[endsect] [/section [*Version 2.0.2] ]
+
+[//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////]
+[section [*Version 2.0.1, January 18, 2013 - 1.53] ]
+
+[*Deprecated:]
+
+* The chrono i/o version included in Boost.Chrono 1.2.x has been completly refactored in version 2.0.0 
+* chrono I/O: The manipulators __duration_short, __duration_long are depreceated. You should use the parameterized form __duration_fmt or the renamed manipulators __duration_symbol and __duration_prefix  instead.
+* chrono I/O: The __duration_punct<> facet is depreceated. You should use the __get_duration_style free function to get the informations and use the __duration_units facet for localization purposes.
+
+When BOOST_CHRONO_VERSION==2 the preceding deprecated functions are not available.
+
+[*Fixes:]
+
+* [@http://svn.boost.org/trac/boost/ticket/7546 #7546] time_point<system_clock> output version 2 fails to compile  assigned  viboes  Bugs  Boost 1.53.0  --
+* [@http://svn.boost.org/trac/boost/ticket/7547 #7547] time_point<system_clock> input version 2 fails to compile   assigned  viboes  Bugs  Boost 1.53.0  --
+* [@http://svn.boost.org/trac/boost/ticket/7868 #7868] chrono_io parses time incorrectly (1.53 and 1.52)
+
+
+[endsect] [/section [*Version 2.0.1] ]
 
 [//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////]
 [section [*Version 2.0.0, October 23, 2012 - 1.52] ]
@@ -7361,7 +7469,7 @@ When BOOST_CHRONO_VERSION==2 the preceding deprecated functions are not availabl
 
 * [@http://svn.boost.org/trac/boost/ticket/7525 #7525] Wrong clock_string<system_clock>::since() on Windows 
 
-[warning
+[/warning
 
 The time_point<system_clock,D> formatter/parser specializations don't work yet. It has been disable defining `BOOST_CHRONO_DONT_PROVIDE_DATE_IO_FOR_SYSTEM_CLOCK_TIME_POINT` until a fix for the following ticket is found:
 

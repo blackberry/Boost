@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>strand</title>
 <link rel="stylesheet" href="../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../boost_asio.html" title="Boost.Asio">
 <link rel="up" href="../reference.html" title="Reference">
 <link rel="prev" href="steady_timer.html" title="steady_timer">
@@ -27,14 +27,14 @@
 <a name="boost_asio.reference.strand"></a><a class="link" href="strand.html" title="strand">strand</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="id1577432"></a> 
-Typedef for backwards compatibility.
+        <a class="indexterm" name="idp198071056"></a> 
+(Deprecated: Use <a class="link" href="io_service__strand.html" title="io_service::strand"><code class="computeroutput"><span class="identifier">io_service</span><span class="special">::</span><span class="identifier">strand</span></code></a>.) Typedef for backwards compatibility.
       </p>
 <pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">io_service</span><span class="special">::</span><span class="identifier">strand</span> <span class="identifier">strand</span><span class="special">;</span>
 </pre>
 <h5>
 <a name="boost_asio.reference.strand.h0"></a>
-        <span><a name="boost_asio.reference.strand.member_functions"></a></span><a class="link" href="strand.html#boost_asio.reference.strand.member_functions">Member
+        <span class="phrase"><a name="boost_asio.reference.strand.member_functions"></a></span><a class="link" href="strand.html#boost_asio.reference.strand.member_functions">Member
         Functions</a>
       </h5>
 <div class="informaltable"><table class="table">
@@ -94,6 +94,18 @@ Typedef for backwards compatibility.
 <tr>
 <td>
                 <p>
+                  <a class="link" href="io_service__strand/running_in_this_thread.html" title="io_service::strand::running_in_this_thread"><span class="bold"><strong>running_in_this_thread</strong></span></a>
+                </p>
+              </td>
+<td>
+                <p>
+                  Determine whether the strand is running in the current thread.
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
                   <a class="link" href="io_service__strand/strand.html" title="io_service::strand::strand"><span class="bold"><strong>strand</strong></span></a>
                 </p>
               </td>
@@ -137,13 +149,13 @@ Typedef for backwards compatibility.
       </p>
 <h5>
 <a name="boost_asio.reference.strand.h1"></a>
-        <span><a name="boost_asio.reference.strand.order_of_handler_invocation"></a></span><a class="link" href="strand.html#boost_asio.reference.strand.order_of_handler_invocation">Order of
+        <span class="phrase"><a name="boost_asio.reference.strand.order_of_handler_invocation"></a></span><a class="link" href="strand.html#boost_asio.reference.strand.order_of_handler_invocation">Order of
         handler invocation</a>
       </h5>
 <p>
         Given:
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             a strand object <code class="computeroutput"><span class="identifier">s</span></code>
           </li>
@@ -169,7 +181,7 @@ Typedef for backwards compatibility.
 <p>
         if any of the following conditions are true:
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             <code class="computeroutput"><span class="identifier">s</span><span class="special">.</span><span class="identifier">post</span><span class="special">(</span><span class="identifier">a</span><span class="special">)</span></code>
             happens-before <code class="computeroutput"><span class="identifier">s</span><span class="special">.</span><span class="identifier">post</span><span class="special">(</span><span class="identifier">b</span><span class="special">)</span></code>
@@ -210,31 +222,38 @@ Typedef for backwards compatibility.
       </p>
 <h5>
 <a name="boost_asio.reference.strand.h2"></a>
-        <span><a name="boost_asio.reference.strand.thread_safety"></a></span><a class="link" href="strand.html#boost_asio.reference.strand.thread_safety">Thread
-        Safety</a>
+        <span class="phrase"><a name="boost_asio.reference.strand.remarks"></a></span><a class="link" href="strand.html#boost_asio.reference.strand.remarks">Remarks</a>
       </h5>
 <p>
-        <span class="bold"><strong>Distinct</strong></span> <span class="bold"><strong>objects:</strong></span>
-        Safe.
-      </p>
-<p>
-        <span class="bold"><strong>Shared</strong></span> <span class="bold"><strong>objects:</strong></span>
-        Safe.
+        The implementation makes no guarantee that handlers posted or dispatched
+        through different <code class="computeroutput"><span class="identifier">strand</span></code>
+        objects will be invoked concurrently.
       </p>
 <h5>
 <a name="boost_asio.reference.strand.h3"></a>
-        <span><a name="boost_asio.reference.strand.requirements"></a></span><a class="link" href="strand.html#boost_asio.reference.strand.requirements">Requirements</a>
+        <span class="phrase"><a name="boost_asio.reference.strand.thread_safety"></a></span><a class="link" href="strand.html#boost_asio.reference.strand.thread_safety">Thread
+        Safety</a>
       </h5>
 <p>
-        <span class="bold"><strong>Header: </strong></span><code class="literal">boost/asio/strand.hpp</code>
+        <span class="emphasis"><em>Distinct</em></span> <span class="emphasis"><em>objects:</em></span> Safe.
       </p>
 <p>
-        <span class="bold"><strong>Convenience header: </strong></span><code class="literal">boost/asio.hpp</code>
+        <span class="emphasis"><em>Shared</em></span> <span class="emphasis"><em>objects:</em></span> Safe.
+      </p>
+<h5>
+<a name="boost_asio.reference.strand.h4"></a>
+        <span class="phrase"><a name="boost_asio.reference.strand.requirements"></a></span><a class="link" href="strand.html#boost_asio.reference.strand.requirements">Requirements</a>
+      </h5>
+<p>
+        <span class="emphasis"><em>Header: </em></span><code class="literal">boost/asio/strand.hpp</code>
+      </p>
+<p>
+        <span class="emphasis"><em>Convenience header: </em></span><code class="literal">boost/asio.hpp</code>
       </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2012 Christopher M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2014 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

@@ -175,6 +175,7 @@ their dependencies and so on.
 * HTML files are scanned for immediate dependencies (images and style sheets, but not links).
 
 It should be noted that in practice bcp can produce a rather "fat" list of dependencies, reasons for this include:
+
 * It searches for library names first, so using "regex" as a name will give you everything in the 
 libs/regex directory and everything that depends on.  This can be a long list as all the regex test and example 
 programs will get scanned for their dependencies.  If you want a more minimal list, then try using the 

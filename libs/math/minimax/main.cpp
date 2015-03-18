@@ -14,13 +14,13 @@ using boost::math::ntl::pow;
 #include <boost/math/tools/remez.hpp>
 #include <boost/math/tools/test.hpp>
 #include <boost/math/special_functions/binomial.hpp>
-#include <boost/spirit/core.hpp>
-#include <boost/spirit/actor.hpp>
+#include <boost/spirit/include/classic_core.hpp>
+#include <boost/spirit/include/classic_actor.hpp>
 #include <boost/lexical_cast.hpp>
 #include <iostream>
 #include <iomanip>
 #include <string>
-#include <boost/test/included/test_exec_monitor.hpp> // for test_main
+#include <boost/test/included/unit_test.hpp> // for test_main
 
 extern boost::math::ntl::RR f(const boost::math::ntl::RR& x, int variant);
 extern void show_extra(
@@ -30,7 +30,7 @@ extern void show_extra(
    const boost::math::ntl::RR& y_offset, 
    int variant);
 
-using namespace boost::spirit;
+using namespace boost::spirit::classic;
 
 boost::math::ntl::RR a(0), b(1);   // range to optimise over
 bool rel_error(true);
@@ -497,7 +497,7 @@ void graph_poly(const char*, const char*)
    }
 }
 
-int test_main(int, char* [])
+BOOST_AUTO_TEST_CASE( test_main )
 {
    std::string line;
    real_parser<long double/*boost::math::ntl::RR*/ > const rr_p;
@@ -604,5 +604,4 @@ int test_main(int, char* [])
          std::cout << std::endl;
      }
    }
-   return 0;
 }

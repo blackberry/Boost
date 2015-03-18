@@ -14,7 +14,7 @@ http://www.boost.org/LICENSE_1_0.txt)
 
 [heading Overview]
 
-The header file 'boyer_moore.hpp' contains an an implementation of the Boyer-Moore algorithm for searching sequences of values. 
+The header file 'boyer_moore.hpp' contains an implementation of the Boyer-Moore algorithm for searching sequences of values. 
 
 The Boyer–Moore string search algorithm is a particularly efficient string searching algorithm, and it has been the standard benchmark for the practical string search literature. The Boyer-Moore algorithm was invented by Bob Boyer and J. Strother Moore, and published in the October 1977 issue of the Communications of the ACM , and a copy of that article is available at [@http://www.cs.utexas.edu/~moore/publications/fstrpos.pdf].
 
@@ -26,7 +26,7 @@ Nomenclature: I refer to the sequence being searched for as the "pattern", and t
 
 [heading Interface]
 
-For flexibility, the Boyer-Moore algorithm has has two interfaces; an object-based interface and a procedural one. The object-based interface builds the tables in the constructor, and uses operator () to perform the search. The procedural interface builds the table and does the search all in one step. If you are going to be searching for the same pattern in multiple corpora, then you should use the object interface, and only build the tables once.
+For flexibility, the Boyer-Moore algorithm has two interfaces; an object-based interface and a procedural one. The object-based interface builds the tables in the constructor, and uses operator () to perform the search. The procedural interface builds the table and does the search all in one step. If you are going to be searching for the same pattern in multiple corpora, then you should use the object interface, and only build the tables once.
 
 Here is the object interface:
 ``

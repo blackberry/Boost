@@ -21,12 +21,14 @@ rule test_all
 
    for local fileb in [ glob comp*.cpp ]
    {
-      all_rules += [ link $(fileb) /boost/thread//boost_thread
+      all_rules += [ link $(fileb)
       :  # additional args
         <toolset>acc:<linkflags>-lrt
         <toolset>acc-pa_risc:<linkflags>-lrt
-        <toolset>gcc-mingw:<linkflags>"-lole32 -loleaut32 -lpsapi -ladvapi32"
+        <toolset>gcc,<target-os>windows:<linkflags>"-lole32 -loleaut32 -lpsapi -ladvapi32"
         <host-os>hpux,<toolset>gcc:<linkflags>"-Wl,+as,mpas"
+        <host-os>windows,<toolset>clang:<linkflags>"-lole32 -loleaut32 -lpsapi -ladvapi32"
+        <host-os>linux:<linkflags>"-lrt"
       :  # test-files
       :  # requirements
       ] ;
@@ -34,7 +36,7 @@ rule test_all
 
    for local fileb in [ glob doc_*.cpp ]
    {
-      all_rules += [ run $(fileb) /boost/thread//boost_thread
+      all_rules += [ run $(fileb)
       :  # additional args
       :  # test-files
       :  # requirements
@@ -42,6 +44,8 @@ rule test_all
         <toolset>acc-pa_risc:<linkflags>-lrt
         <toolset>gcc-mingw:<linkflags>"-lole32 -loleaut32 -lpsapi -ladvapi32"
         <host-os>hpux,<toolset>gcc:<linkflags>"-Wl,+as,mpas"
+        <host-os>windows,<toolset>clang:<linkflags>"-lole32 -loleaut32 -lpsapi -ladvapi32"
+        <host-os>linux:<linkflags>"-lrt"
       ] ;
    }
 

@@ -23,7 +23,7 @@
 // };
 
 
-#include <boost/thread/thread.hpp>
+#include <boost/thread/thread_only.hpp>
 #include <boost/detail/lightweight_test.hpp>
 
 int main()

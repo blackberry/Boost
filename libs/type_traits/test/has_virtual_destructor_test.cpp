@@ -41,7 +41,7 @@ BOOST_CHECK_INTEGRAL_CONSTANT(::tt::has_virtual_destructor<empty_UDT>::value, fa
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::has_virtual_destructor<UDT*>::value, false);
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::has_virtual_destructor<UDT[2]>::value, false);
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::has_virtual_destructor<UDT&>::value, false);
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::has_virtual_destructor<UDT&&>::value, false);
 #endif
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::has_virtual_destructor<void>::value, false);

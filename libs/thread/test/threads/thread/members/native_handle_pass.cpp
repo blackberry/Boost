@@ -17,7 +17,7 @@
 
 // native_handle_type native_handle();
 
-#include <boost/thread/thread.hpp>
+#include <boost/thread/thread_only.hpp>
 #include <new>
 #include <cstdlib>
 #include <cassert>
@@ -61,7 +61,7 @@ int main()
 {
   {
     boost::thread t0( (G()));
-    // boost::thread::native_handle_type hdl = 
+    // boost::thread::native_handle_type hdl =
     (void)t0.native_handle();
     t0.join();
   }
