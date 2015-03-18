@@ -97,6 +97,13 @@ BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_member_function_pointer<vproc2>::value, t
 typedef void (test_abc1::*vproc3)(int, char, long, long, ...)const;
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_member_function_pointer<vproc3>::value, true);
 
+BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_convertible<int(), int()>::value), false);
+BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_convertible<int(), int(*)()>::value), true);
+BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_convertible<int(), int(* const)()>::value), true);
+BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_convertible<int(), int(* volatile)()>::value), true);
+BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_convertible<int(), int(* const volatile)()>::value), true);
+BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_convertible<int(), int(&)()>::value), true);
+
 TT_TEST_END
 
 

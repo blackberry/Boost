@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>MultiIndex to Bimap Path - Hashed indices</title>
 <link rel="stylesheet" href="../../boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
 <link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Bimap">
 <link rel="up" href="../examples.html" title="Examples">
 <link rel="prev" href="multiindex_to_bimap_path___bidirectional_map.html" title="MultiIndex to Bimap Path - Bidirectional Map">
@@ -22,7 +22,7 @@
 <div class="spirit-nav">
 <a accesskey="p" href="multiindex_to_bimap_path___bidirectional_map.html"><img src="../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../examples.html"><img src="../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="../test_suite.html"><img src="../../../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
-<div class="section">
+<div class="section boost_bimap_examples_multiindex_to_bimap_path___hashed_indices">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="boost_bimap.examples.multiindex_to_bimap_path___hashed_indices"></a><a class="link" href="multiindex_to_bimap_path___hashed_indices.html" title="MultiIndex to Bimap Path - Hashed indices">MultiIndex
       to Bimap Path - Hashed indices</a>
@@ -39,16 +39,15 @@
         hashed index.
       </p>
 </div>
-<a name="boost_bimap.examples.multiindex_to_bimap_path___hashed_indices.boost_multiindex"></a><h5>
-<a name="id877266"></a>
-        <a class="link" href="multiindex_to_bimap_path___hashed_indices.html#boost_bimap.examples.multiindex_to_bimap_path___hashed_indices.boost_multiindex">Boost.MultiIndex</a>
+<h5>
+<a name="boost_bimap.examples.multiindex_to_bimap_path___hashed_indices.h0"></a>
+        <span class="phrase"><a name="boost_bimap.examples.multiindex_to_bimap_path___hashed_indices.boost_multiindex"></a></span><a class="link" href="multiindex_to_bimap_path___hashed_indices.html#boost_bimap.examples.multiindex_to_bimap_path___hashed_indices.boost_multiindex">Boost.MultiIndex</a>
       </h5>
 <p>
         <a href="../../../../example/mi_to_b_path/mi_hashed_indices.cpp" target="_top">Go to source
         code</a>
       </p>
 <p>
-        
 </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">iostream</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">iomanip</span><span class="special">&gt;</span>
@@ -64,9 +63,9 @@
 <span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">multi_index</span><span class="special">;</span>
 <span class="keyword">namespace</span> <span class="identifier">bl</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">;</span>
 
-<span class="comment">// word_counter keeps the ocurrences of words inserted. A hashed
-</span><span class="comment">// index allows for fast checking of preexisting entries.
-</span>
+<span class="comment">// word_counter keeps the ocurrences of words inserted. A hashed</span>
+<span class="comment">// index allows for fast checking of preexisting entries.</span>
+
 <span class="keyword">struct</span> <span class="identifier">word_counter_entry</span>
 <span class="special">{</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span>  <span class="identifier">word</span><span class="special">;</span>
@@ -103,8 +102,8 @@
         <span class="string">"...snip..."</span>
         <span class="string">"...no se salga un punto de la verdad."</span><span class="special">;</span>
 
-    <span class="comment">// feed the text into the container
-</span>
+    <span class="comment">// feed the text into the container</span>
+
     <span class="identifier">word_counter</span>   <span class="identifier">wc</span><span class="special">;</span>
     <span class="identifier">text_tokenizer</span> <span class="identifier">tok</span><span class="special">(</span><span class="identifier">text</span><span class="special">,</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">char_separator</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">&gt;(</span><span class="string">" \t\n.,;:!?'\"-"</span><span class="special">));</span>
     <span class="keyword">unsigned</span> <span class="keyword">int</span>   <span class="identifier">total_occurrences</span> <span class="special">=</span> <span class="number">0</span><span class="special">;</span>
@@ -117,8 +116,8 @@
         <span class="identifier">wc</span><span class="special">.</span><span class="identifier">modify_key</span><span class="special">(</span> <span class="identifier">wit</span><span class="special">,</span> <span class="special">++</span> <span class="identifier">bl</span><span class="special">::</span><span class="identifier">_1</span> <span class="special">);</span>
     <span class="special">}</span>
 
-    <span class="comment">// list words by frequency of appearance
-</span>
+    <span class="comment">// list words by frequency of appearance</span>
+
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">fixed</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">setprecision</span><span class="special">(</span><span class="number">2</span><span class="special">);</span>
 
     <span class="keyword">for</span><span class="special">(</span> <span class="identifier">word_counter</span><span class="special">::</span><span class="identifier">iterator</span> <span class="identifier">wit</span> <span class="special">=</span> <span class="identifier">wc</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span> <span class="identifier">wit_end</span><span class="special">=</span><span class="identifier">wc</span><span class="special">.</span><span class="identifier">end</span><span class="special">();</span>
@@ -135,15 +134,14 @@
 </pre>
 <p>
       </p>
-<a name="boost_bimap.examples.multiindex_to_bimap_path___hashed_indices.boost_bimap"></a><h5>
-<a name="id878963"></a>
-        <a class="link" href="multiindex_to_bimap_path___hashed_indices.html#boost_bimap.examples.multiindex_to_bimap_path___hashed_indices.boost_bimap">Boost.Bimap</a>
+<h5>
+<a name="boost_bimap.examples.multiindex_to_bimap_path___hashed_indices.h1"></a>
+        <span class="phrase"><a name="boost_bimap.examples.multiindex_to_bimap_path___hashed_indices.boost_bimap"></a></span><a class="link" href="multiindex_to_bimap_path___hashed_indices.html#boost_bimap.examples.multiindex_to_bimap_path___hashed_indices.boost_bimap">Boost.Bimap</a>
       </h5>
 <p>
         <a href="../../../../example/mi_to_b_path/hashed_indices.cpp" target="_top">Go to source code</a>
       </p>
 <p>
-        
 </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">iostream</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">iomanip</span><span class="special">&gt;</span>
@@ -162,8 +160,8 @@
 
 <span class="keyword">typedef</span> <span class="identifier">bimap</span>
 <span class="special">&lt;</span>
-    
-     <span class="identifier">multiset_of</span><span class="special">&lt;</span> <span class="identifier">tagged</span><span class="special">&lt;</span><span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">,</span><span class="identifier">occurrences</span><span class="special">&gt;,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">greater</span><span class="special">&lt;</span><span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">&gt;</span> <span class="special">&gt;,</span> 
+
+     <span class="identifier">multiset_of</span><span class="special">&lt;</span> <span class="identifier">tagged</span><span class="special">&lt;</span><span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">,</span><span class="identifier">occurrences</span><span class="special">&gt;,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">greater</span><span class="special">&lt;</span><span class="keyword">unsigned</span> <span class="keyword">int</span><span class="special">&gt;</span> <span class="special">&gt;,</span>
 <span class="identifier">unordered_set_of</span><span class="special">&lt;</span> <span class="identifier">tagged</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">,</span>       <span class="identifier">word</span><span class="special">&gt;</span>                             <span class="special">&gt;</span>
 
 <span class="special">&gt;</span> <span class="identifier">word_counter</span><span class="special">;</span>
@@ -181,8 +179,8 @@
         <span class="string">"holds. This is useful in a lot of situations, but there are some "</span>
         <span class="string">"relationships that are bidirectional by nature."</span><span class="special">;</span>
 
-    <span class="comment">// feed the text into the container
-</span>
+    <span class="comment">// feed the text into the container</span>
+
     <span class="identifier">word_counter</span>   <span class="identifier">wc</span><span class="special">;</span>
     <span class="identifier">text_tokenizer</span> <span class="identifier">tok</span><span class="special">(</span><span class="identifier">text</span><span class="special">,</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">char_separator</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">&gt;(</span><span class="string">" \t\n.,;:!?'\"-"</span><span class="special">));</span>
     <span class="keyword">unsigned</span> <span class="keyword">int</span>   <span class="identifier">total_occurrences</span> <span class="special">=</span> <span class="number">0</span><span class="special">;</span>
@@ -200,8 +198,8 @@
         <span class="identifier">wc</span><span class="special">.</span><span class="identifier">by</span><span class="special">&lt;</span><span class="identifier">occurrences</span><span class="special">&gt;().</span><span class="identifier">modify_key</span><span class="special">(</span> <span class="identifier">wit</span><span class="special">,</span> <span class="special">++</span><span class="identifier">_key</span><span class="special">);</span>
     <span class="special">}</span>
 
-    <span class="comment">// list words by frequency of appearance
-</span>
+    <span class="comment">// list words by frequency of appearance</span>
+
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">fixed</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">setprecision</span><span class="special">(</span><span class="number">2</span><span class="special">);</span>
 
     <span class="keyword">for</span><span class="special">(</span> <span class="identifier">word_counter</span><span class="special">::</span><span class="identifier">map_by</span><span class="special">&lt;</span><span class="identifier">occurrences</span><span class="special">&gt;::</span><span class="identifier">const_iterator</span>
@@ -224,7 +222,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2006 -2007 Matias Capeletto<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2006-2012 Matias Capeletto<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

@@ -11,6 +11,10 @@
 #ifndef BOOST_INTERPROCESS_WINDOWS_SHARED_MEMORY_HPP
 #define BOOST_INTERPROCESS_WINDOWS_SHARED_MEMORY_HPP
 
+#if defined(_MSC_VER)
+#  pragma once
+#endif
+
 #include <boost/interprocess/detail/config_begin.hpp>
 #include <boost/interprocess/detail/workaround.hpp>
 #include <boost/detail/workaround.hpp>
@@ -50,23 +54,23 @@ namespace interprocess {
 //!can't communicate between them.
 class windows_shared_memory
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    //Non-copyable and non-assignable
    BOOST_MOVABLE_BUT_NOT_COPYABLE(windows_shared_memory)
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public:
    //!Default constructor.
    //!Represents an empty windows_shared_memory.
    windows_shared_memory();
 
-   //!Creates a new native shared memory with name "name" and mode "mode",
+   //!Creates a new native shared memory with name "name" and at least size "size",
    //!with the access mode "mode".
    //!If the file previously exists, throws an error.
    windows_shared_memory(create_only_t, const char *name, mode_t mode, std::size_t size, const permissions& perm = permissions())
    {  this->priv_open_or_create(ipcdetail::DoCreate, name, mode, size, perm);  }
 
-   //!Tries to create a shared memory object with name "name" and mode "mode", with the
+   //!Tries to create a shared memory object with name "name" and at least size "size", with the
    //!access mode "mode". If the file previously exists, it tries to open it with mode "mode".
    //!Otherwise throws an error.
    windows_shared_memory(open_or_create_t, const char *name, mode_t mode, std::size_t size, const permissions& perm = permissions())
@@ -112,7 +116,11 @@ class windows_shared_memory
    //!Returns the mapping handle. Never throws
    mapping_handle_t get_mapping_handle() const;
 
-   /// @cond
+   //!Returns the size of the windows shared memory. It will be a 4K rounded
+   //!size of the "size" passed in the constructor.
+   offset_t get_size() const;
+
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    private:
 
    //!Closes a previously opened file mapping. Never throws.
@@ -124,10 +132,10 @@ class windows_shared_memory
    void *         m_handle;
    mode_t         m_mode;
    std::string    m_name;
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 };
 
-/// @cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
 inline windows_shared_memory::windows_shared_memory()
    :  m_handle(0)
@@ -151,6 +159,12 @@ inline mapping_handle_t windows_shared_memory::get_mapping_handle() const
 
 inline mode_t windows_shared_memory::get_mode() const
 {  return m_mode; }
+
+inline offset_t windows_shared_memory::get_size() const
+{
+   offset_t size; //This shall never fail
+   return (m_handle && winapi::get_file_mapping_size(m_handle, size)) ? size : 0;
+}
 
 inline bool windows_shared_memory::priv_open_or_create
    (ipcdetail::create_enum_t type, const char *filename, mode_t mode, std::size_t size, const permissions& perm)
@@ -223,7 +237,7 @@ inline void windows_shared_memory::priv_close()
    }
 }
 
-///@endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 }  //namespace interprocess {
 }  //namespace boost {

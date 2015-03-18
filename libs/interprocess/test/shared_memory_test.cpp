@@ -31,7 +31,7 @@ struct eraser
    }
 };
 
-typedef ipcdetail::managed_open_or_create_impl<shared_memory_object> shared_memory;
+typedef ipcdetail::managed_open_or_create_impl<shared_memory_object, 0, true, false> shared_memory;
 
 //This wrapper is necessary to have a common constructor
 //in generic named_creation_template functions

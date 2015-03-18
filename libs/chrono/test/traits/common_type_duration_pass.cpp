@@ -14,7 +14,7 @@
 #include <boost/chrono/chrono.hpp>
 #include <boost/type_traits/is_same.hpp>
 
-#if !defined(BOOST_NO_STATIC_ASSERT) 
+#if !defined(BOOST_NO_CXX11_STATIC_ASSERT) 
 #define NOTHING ""
 #endif
 

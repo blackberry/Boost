@@ -74,6 +74,7 @@ WARN_LOGFILE           =
 #---------------------------------------------------------------------------
 INPUT                  = ./../../../boost/asio.hpp \
                          ./../../../boost/asio \
+                         ./../../../boost/asio/generic \
                          ./../../../boost/asio/impl \
                          ./../../../boost/asio/ip \
                          ./../../../boost/asio/local \
@@ -193,7 +194,11 @@ PREDEFINED             = GENERATING_DOCUMENTATION \
                          BOOST_ASIO_SOCKET_ERROR(e)=implementation_defined \
                          BOOST_ASIO_NETDB_ERROR(e)=implementation_defined \
                          BOOST_ASIO_EOF_ERROR(e)=implementation_defined \
-                         BOOST_ASIO_OS_ERROR(e1,e2)=implementation_defined
+                         BOOST_ASIO_OS_ERROR(e1,e2)=implementation_defined \
+                         BOOST_ASIO_MOVE_ARG(a)=a \
+                         BOOST_ASIO_DECL= \
+                         BOOST_ASIO_CONSTEXPR=constexpr \
+                         BOOST_ASIO_INITFN_RESULT_TYPE(t,a)=void_or_deduced
 EXPAND_AS_DEFINED      = 
 SKIP_FUNCTION_MACROS   = YES
 #---------------------------------------------------------------------------

@@ -42,7 +42,7 @@ namespace type_traits_detail {
     template <typename T>
     struct add_rvalue_reference_helper<T, true>
     {
-#if !defined(BOOST_NO_RVALUE_REFERENCES)
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
         typedef T&&   type;
 #else
         typedef T   type;

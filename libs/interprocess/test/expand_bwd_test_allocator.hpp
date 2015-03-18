@@ -11,7 +11,7 @@
 #ifndef BOOST_INTERPROCESS_EXPAND_BWD_TEST_ALLOCATOR_HPP
 #define BOOST_INTERPROCESS_EXPAND_BWD_TEST_ALLOCATOR_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined (_MSC_VER)
 #  pragma once
 #endif
 
@@ -66,13 +66,16 @@ class expand_bwd_test_allocator
 
    typedef boost::interprocess::version_type<expand_bwd_test_allocator, 2>   version;
 
+   //Dummy multiallocation chain
+   struct multiallocation_chain{};
+
    template<class T2>
    struct rebind
    {  typedef expand_bwd_test_allocator<T2>   other;   };
 
    //!Constructor from the segment manager. Never throws
-   expand_bwd_test_allocator(T *buffer, size_type size, difference_type offset)
-      : mp_buffer(buffer), m_size(size)
+   expand_bwd_test_allocator(T *buf, size_type sz, difference_type offset)
+      : mp_buffer(buf), m_size(sz)
       , m_offset(offset),  m_allocations(0){ }
 
    //!Constructor from other expand_bwd_test_allocator. Never throws

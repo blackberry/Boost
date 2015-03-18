@@ -8,13 +8,15 @@
 //
 // For more information, see http://www.boost.org/libs/range/
 //
+//[filtered_example
 #include <boost/range/adaptor/filtered.hpp>
 #include <boost/range/algorithm/copy.hpp>
 #include <boost/assign.hpp>
-#include <algorithm>
+#include <iterator>
 #include <iostream>
 #include <vector>
 
+//<-
 #include <boost/test/test_tools.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -22,32 +24,39 @@
 
 namespace 
 {
-    struct is_even
-    {
-        bool operator()( int x ) const { return x % 2 == 0; }
-    };
+//->    
+struct is_even
+{
+    bool operator()( int x ) const { return x % 2 == 0; }
+};
 
-    void filtered_example_test()
-    {
-        using namespace boost::assign;
-        using namespace boost::adaptors;
+//<-
+void filtered_example_test()
+//->
+//=int main(int argc, const char* argv[])
+{
+    using namespace boost::assign;
+    using namespace boost::adaptors;
 
-        std::vector<int> input;
-        input += 1,2,3,4,5,6,7,8,9;
+    std::vector<int> input;
+    input += 1,2,3,4,5,6,7,8,9;
 
-        boost::copy(
-            input | filtered(is_even()),
-            std::ostream_iterator<int>(std::cout, ","));
+    boost::copy(
+        input | filtered(is_even()),
+        std::ostream_iterator<int>(std::cout, ","));
 
-        std::vector<int> reference;
-        reference += 2,4,6,8;
+//=    return 0;
+//=}
+//]
+    std::vector<int> reference;
+    reference += 2,4,6,8;
 
-        std::vector<int> test;
-        boost::push_back(test, input | filtered(is_even()));
+    std::vector<int> test;
+    boost::push_back(test, input | filtered(is_even()));
 
-        BOOST_CHECK_EQUAL_COLLECTIONS( reference.begin(), reference.end(),
-            test.begin(), test.end() );
-    }
+    BOOST_CHECK_EQUAL_COLLECTIONS( reference.begin(), reference.end(),
+        test.begin(), test.end() );
+}
 }
 
 boost::unit_test::test_suite*

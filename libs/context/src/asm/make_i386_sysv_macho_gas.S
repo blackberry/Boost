@@ -5,73 +5,62 @@
           http://www.boost.org/LICENSE_1_0.txt)
 */
 
-/********************************************************************
- *                                                                  *
- *  --------------------------------------------------------------  *
- *  |    0    |    1    |    2    |    3    |    4     |    5    |  *
- *  --------------------------------------------------------------  *
- *  |   0x0   |   0x4   |   0x8   |   0xc   |   0x10   |   0x14  |  *
- *  --------------------------------------------------------------  *
- *  |   EDI   |   ESI   |   EBX   |   EBP   |   ESP    |   EIP   |  *
- *  --------------------------------------------------------------  *
- *  --------------------------------------------------------------  *
- *  |    6    |    7    |                                        |  *
- *  --------------------------------------------------------------  *
- *  |   0x18  |   0x1c  |                                        |  *
- *  --------------------------------------------------------------  *
- *  |    sp   |   size  |                                        |  *
- *  --------------------------------------------------------------  *
- *  --------------------------------------------------------------  *
- *  |    8    |    9    |                                        |  *
- *  --------------------------------------------------------------  *
- *  |   0x20  |   0x24  |                                        |  *
- *  --------------------------------------------------------------  *
- *  | fc_mxcsr|fc_x87_cw|                                        |  *
- *  --------------------------------------------------------------  *
- *                                                                  *
- * *****************************************************************/
+/****************************************************************************************
+ *                                                                                      *
+ *  ----------------------------------------------------------------------------------  *
+ *  |    0    |    1    |    2    |    3    |    4     |    5    |    6    |    7    |  *
+ *  ----------------------------------------------------------------------------------  *
+ *  |   0x0   |   0x4   |   0x8   |   0xc   |   0x10   |   0x14  |   0x18  |   0x1c  |  *
+ *  ----------------------------------------------------------------------------------  *
+ *  | fc_mxcsr|fc_x87_cw|   EDI   |   ESI   |   EBX    |   EBP   |   EIP   |   EXIT  |  *
+ *  ----------------------------------------------------------------------------------  *
+ *                                                                                      *
+ ****************************************************************************************/
 
 .text
 .globl _make_fcontext
 .align 2
 _make_fcontext:
-    pushl  %ebp                         /* save previous frame pointer; get the stack 16 byte aligned */
-    movl   %esp,           %ebp         /* set EBP to ESP */
-    subl   $0x10,          %esp         /* allocate stack space */
+    /* first arg of make_fcontext() == top of context-stack */
+    movl  0x4(%esp), %eax
 
-    movl   0x8(%ebp),      %eax         /* load 1. arg of make_fcontext, pointer to context stack (base) */
-    leal   -0x28(%eax),    %eax         /* reserve space for fcontext_t at top of context stack */
-    movl   %eax,           (%esp)       /* address in EAX becomes 1. arg of align_stack */
-    call   _align_stack                 /* call align_stack, EAX contains address at 16 byte boundary after return */
-                                        /* ==pointer to fcontext_t and address of context stack */
+    /* reserve space for first argument of context-function
+       rax might already point to a 16byte border */
+    leal  -0x8(%eax), %eax
 
-    movl   0x8(%ebp),      %edx         /* load 1. arg of make_fcontext, pointer to context stack (base) */
-    movl   %edx,           0x18(%eax)   /* save address of stack pointer (base) in fcontext_t */
-    movl   0xc(%ebp),      %edx         /* load 2. arg of make_fcontext, context stack size */
-    movl   %edx,           0x1c(%eax)   /* save stack size in fcontext_t */
-    movl   0x10(%ebp),     %edx         /* load 3. arg of make_fcontext, pointer to context function */
-    movl   %edx,           0x14(%eax)   /* save address of context fcuntion in fcontext_t */
+    /* shift address in EAX to lower 16 byte boundary */
+    andl  $-16, %eax
 
-    stmxcsr  0x20(%eax)                 /* save MMX control and status word */
-    fnstcw   0x24(%eax)                 /* save x87 control word */
+    /* reserve space for context-data on context-stack */
+    /* size for fc_mxcsr .. EIP + return-address for context-function */
+    /* on context-function entry: (ESP -0x4) % 8 == 0 */
+    leal  -0x20(%eax), %eax
 
-    leal   -0xc(%eax),     %edx         /* reserve space for the last frame on context stack, (ESP - 0x4) % 16 == 0 */
-    movl   %edx,           0x10(%eax)   /* save address in EDX as stack pointer for context function */
+    /* thrid arg of make_fcontext() == address of context-function */
+    movl  0xc(%esp), %edx
+    movl  %edx, 0x18(%eax)
 
-    call   1f
-1:  popl   %ecx                         /* address of label 1 */
-    addl   $finish-1b,     %ecx         /* compute abs address of label finish */
-    movl    %ecx, (%edx)                /* save address of finish as return address for context function */
-                                        /* entered after context function returns */
+    /* save MMX control- and status-word */
+    stmxcsr  (%eax)
+    /* save x87 control-word */
+    fnstcw  0x4(%eax)
 
-    addl   $0x10,          %esp         /* deallocate stack space */
-    pop    %ebp
+    /* compute abs address of label finish */
+    call  1f
+    /* address of label 1 */
+1:  popl  %ecx
+    /* compute abs address of label finish */
+    addl  $finish-1b, %ecx
+    /* save address of finish as return-address for context-function */
+    /* will be entered after context-function returns */
+    movl  %ecx, 0x1c(%eax)
 
-    ret
+    ret /* return pointer to context-data */
 
 finish:
-    /* ESP points to same address as ESP on entry of context function + 0x4 */
-    xorl    %eax,  %eax
-    movl    %eax,  (%esp)               /* exit code is zero */
-    call   _exit                        /* exit application */
+    /* exit code is zero */
+    xorl  %eax, %eax
+    movl  %eax, (%esp)
+    /* exit application */
+    call  __exit
     hlt

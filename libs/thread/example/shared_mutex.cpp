@@ -10,7 +10,8 @@
 #include <iostream>
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/shared_mutex.hpp>
-#include <boost/thread/thread.hpp>
+#include <boost/thread/lock_algorithms.hpp>
+#include <boost/thread/thread_only.hpp>
 #include <vector>
 
 #if defined BOOST_THREAD_USES_CHRONO

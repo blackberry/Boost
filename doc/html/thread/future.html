@@ -3,9 +3,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Future</title>
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../thread.html" title="Chapter&#160;28.&#160;Thread 3.1.0">
+<link rel="up" href="../thread.html" title="Chapter&#160;30.&#160;Thread 4.4.0">
 <link rel="prev" href="changes.html" title="History">
 <link rel="next" href="thread_management.html" title="Thread Management">
 </head>
@@ -29,28 +29,54 @@
 <p>
       The following features will be included in next releases.
     </p>
-<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
           Complete the C++11 missing features, in particular
-          <div class="itemizedlist"><ul class="itemizedlist" type="disc">
-<li class="listitem">
-                async with deferred and variadic rvalue reference args.
-              </li>
-<li class="listitem">
+          <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                 <a href="http://svn.boost.org/trac/boost/ticket/6227" target="_top">#6227</a>
-                Use of variadic templates on Generic Locking Algorithms on compilers
-                providing them.
+                C++11 compliance: Use of variadic templates on Generic Locking Algorithms
+                on compilers providing them.
+              </li></ul></div>
+        </li>
+<li class="listitem">
+          Add some minor features, in particular
+          <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                <a href="http://svn.boost.org/trac/boost/ticket/7589" target="_top">#7589</a>
+                Synchro: Add polymorphic lockables.
+              </li></ul></div>
+        </li>
+<li class="listitem">
+          Add some features based on C++ proposals, in particular
+          <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+                <a href="http://svn.boost.org/trac/boost/ticket/8273" target="_top">#8273</a>
+                Synchro: Add externally locked streams.
               </li>
 <li class="listitem">
-                <a href="http://svn.boost.org/trac/boost/ticket/6270" target="_top">#6270</a>
-                Add thread constructor from movable callable and movable arguments
-                following C++11.
+                <a href="http://svn.boost.org/trac/boost/ticket/8514" target="_top">#8514</a>
+                Async: Add a thread_pool executor with work stealing.
               </li>
 </ul></div>
-        </li></ol></div>
+        </li>
+<li class="listitem">
+          Add extensions related to fork-join as:
+          <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                <a href="http://svn.boost.org/trac/boost/ticket/9600" target="_top">#9600</a>
+                Async: Add task_region/task_run.
+              </li></ul></div>
+        </li>
+<li class="listitem">
+          And some additional extensions related to futures as:
+          <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                <a href="http://svn.boost.org/trac/boost/ticket/8517" target="_top">#8517</a>
+                Async: Add a variadic shared_future::then.
+              </li></ul></div>
+        </li>
+</ol></div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2007 -11 Anthony Williams<br>Copyright &#169; 2011 -12 Vicente J. Botet Escriba<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2007 -11 Anthony Williams<br>Copyright &#169; 2011 -14 Vicente J. Botet Escriba<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>interior_type</title>
 <link rel="stylesheet" href="../../../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Geometry">
 <link rel="up" href="../core.html" title="Core Metafunctions">
 <link rel="prev" href="dimension.html" title="dimension">
@@ -27,13 +27,13 @@
 <a name="geometry.reference.core.interior_type"></a><a class="link" href="interior_type.html" title="interior_type">interior_type</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="id935825"></a>
+          <a class="indexterm" name="idp124343008"></a>
 Metafunction defining <span class="bold"><strong>type</strong></span> as the interior_type
           (container type of inner rings) of the specified geometry type.
         </p>
 <h6>
 <a name="geometry.reference.core.interior_type.h0"></a>
-          <span><a name="geometry.reference.core.interior_type.description"></a></span><a class="link" href="interior_type.html#geometry.reference.core.interior_type.description">Description</a>
+          <span class="phrase"><a name="geometry.reference.core.interior_type.description"></a></span><a class="link" href="interior_type.html#geometry.reference.core.interior_type.description">Description</a>
         </h6>
 <p>
           Interior rings should be organized as a container (std::vector, std::deque,
@@ -42,7 +42,7 @@ Metafunction defining <span class="bold"><strong>type</strong></span> as the int
         </p>
 <h6>
 <a name="geometry.reference.core.interior_type.h1"></a>
-          <span><a name="geometry.reference.core.interior_type.synopsis"></a></span><a class="link" href="interior_type.html#geometry.reference.core.interior_type.synopsis">Synopsis</a>
+          <span class="phrase"><a name="geometry.reference.core.interior_type.synopsis"></a></span><a class="link" href="interior_type.html#geometry.reference.core.interior_type.synopsis">Synopsis</a>
         </h6>
 <p>
 </p>
@@ -56,7 +56,7 @@ Metafunction defining <span class="bold"><strong>type</strong></span> as the int
         </p>
 <h6>
 <a name="geometry.reference.core.interior_type.h2"></a>
-          <span><a name="geometry.reference.core.interior_type.template_parameter_s_"></a></span><a class="link" href="interior_type.html#geometry.reference.core.interior_type.template_parameter_s_">Template
+          <span class="phrase"><a name="geometry.reference.core.interior_type.template_parameter_s_"></a></span><a class="link" href="interior_type.html#geometry.reference.core.interior_type.template_parameter_s_">Template
           parameter(s)</a>
         </h6>
 <div class="informaltable"><table class="table">
@@ -91,21 +91,30 @@ Metafunction defining <span class="bold"><strong>type</strong></span> as the int
 </table></div>
 <h6>
 <a name="geometry.reference.core.interior_type.h3"></a>
-          <span><a name="geometry.reference.core.interior_type.header"></a></span><a class="link" href="interior_type.html#geometry.reference.core.interior_type.header">Header</a>
+          <span class="phrase"><a name="geometry.reference.core.interior_type.header"></a></span><a class="link" href="interior_type.html#geometry.reference.core.interior_type.header">Header</a>
         </h6>
+<p>
+          Either
+        </p>
+<p>
+          <code class="computeroutput"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>
+        </p>
+<p>
+          Or
+        </p>
 <p>
           <code class="computeroutput"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">/</span><span class="identifier">core</span><span class="special">/</span><span class="identifier">interior_type</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>
         </p>
 <h6>
 <a name="geometry.reference.core.interior_type.h4"></a>
-          <span><a name="geometry.reference.core.interior_type.complexity"></a></span><a class="link" href="interior_type.html#geometry.reference.core.interior_type.complexity">Complexity</a>
+          <span class="phrase"><a name="geometry.reference.core.interior_type.complexity"></a></span><a class="link" href="interior_type.html#geometry.reference.core.interior_type.complexity">Complexity</a>
         </h6>
 <p>
           Compile time
         </p>
 <h6>
 <a name="geometry.reference.core.interior_type.h5"></a>
-          <span><a name="geometry.reference.core.interior_type.example"></a></span><a class="link" href="interior_type.html#geometry.reference.core.interior_type.example">Example</a>
+          <span class="phrase"><a name="geometry.reference.core.interior_type.example"></a></span><a class="link" href="interior_type.html#geometry.reference.core.interior_type.example">Example</a>
         </h6>
 <p>
           Shows how to use the interior_type metafunction
@@ -125,7 +134,7 @@ Metafunction defining <span class="bold"><strong>type</strong></span> as the int
 <span class="keyword">int</span> <span class="identifier">main</span><span class="special">()</span>
 <span class="special">{</span>
     <span class="comment">// Define a polygon storing points in a deque and storing interior rings</span>
-    <span class="comment">// in a list (note that std::list is not supported by most algorithms </span>
+    <span class="comment">// in a list (note that std::list is not supported by most algorithms</span>
     <span class="comment">// because not supporting a random access iterator)</span>
     <span class="keyword">typedef</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">geometry</span><span class="special">::</span><span class="identifier">model</span><span class="special">::</span><span class="identifier">polygon</span>
         <span class="special">&lt;</span>
@@ -149,8 +158,8 @@ Metafunction defining <span class="bold"><strong>type</strong></span> as the int
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2009-2012 Barend
-      Gehrels, Bruno Lalande, Mateusz Loskot<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2009-2014 Barend Gehrels, Bruno Lalande, Mateusz Loskot, Adam
+      Wulkiewicz, Oracle and/or its affiliates<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

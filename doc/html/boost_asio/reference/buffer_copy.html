@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>buffer_copy</title>
 <link rel="stylesheet" href="../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../boost_asio.html" title="Boost.Asio">
 <link rel="up" href="../reference.html" title="Reference">
 <link rel="prev" href="buffer_cast/overload2.html" title="buffer_cast (2 of 2 overloads)">
@@ -27,7 +27,7 @@
 <a name="boost_asio.reference.buffer_copy"></a><a class="link" href="buffer_copy.html" title="buffer_copy">buffer_copy</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="id1263958"></a> 
+        <a class="indexterm" name="idp159905968"></a> 
 The <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">buffer_copy</span></code> function is used to copy bytes
         from a source buffer (or buffer sequence) to a target buffer (or buffer sequence).
       </p>
@@ -230,7 +230,7 @@ The <code class="computeroutput"><span class="identifier">boost</span><span clas
         The <code class="computeroutput"><span class="identifier">buffer_copy</span></code> function
         is available in two forms:
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             A 2-argument form: <code class="computeroutput"><span class="identifier">buffer_copy</span><span class="special">(</span><span class="identifier">target</span><span class="special">,</span> <span class="identifier">source</span><span class="special">)</span></code>
           </li>
@@ -242,7 +242,7 @@ The <code class="computeroutput"><span class="identifier">boost</span><span clas
         Both forms return the number of bytes actually copied. The number of bytes
         copied is the lesser of:
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             <code class="computeroutput"><span class="identifier">buffer_size</span><span class="special">(</span><span class="identifier">target</span><span class="special">)</span></code>
           </li>
@@ -257,20 +257,25 @@ The <code class="computeroutput"><span class="identifier">boost</span><span clas
         This prevents buffer overflow, regardless of the buffer sizes used in the
         copy operation.
       </p>
+<p>
+        Note that <a class="link" href="buffer_copy.html" title="buffer_copy"><code class="computeroutput"><span class="identifier">buffer_copy</span></code></a> is implemented in terms
+        of <code class="computeroutput"><span class="identifier">memcpy</span></code>, and consequently
+        it cannot be used to copy between overlapping memory regions.
+      </p>
 <h5>
 <a name="boost_asio.reference.buffer_copy.h0"></a>
-        <span><a name="boost_asio.reference.buffer_copy.requirements"></a></span><a class="link" href="buffer_copy.html#boost_asio.reference.buffer_copy.requirements">Requirements</a>
+        <span class="phrase"><a name="boost_asio.reference.buffer_copy.requirements"></a></span><a class="link" href="buffer_copy.html#boost_asio.reference.buffer_copy.requirements">Requirements</a>
       </h5>
 <p>
-        <span class="bold"><strong>Header: </strong></span><code class="literal">boost/asio/buffer.hpp</code>
+        <span class="emphasis"><em>Header: </em></span><code class="literal">boost/asio/buffer.hpp</code>
       </p>
 <p>
-        <span class="bold"><strong>Convenience header: </strong></span><code class="literal">boost/asio.hpp</code>
+        <span class="emphasis"><em>Convenience header: </em></span><code class="literal">boost/asio.hpp</code>
       </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2012 Christopher M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2014 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Bimaps with user defined names</title>
 <link rel="stylesheet" href="../../boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
 <link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Bimap">
 <link rel="up" href="../the_tutorial.html" title="The tutorial">
 <link rel="prev" href="useful_functions.html" title="Useful functions">
@@ -22,7 +22,7 @@
 <div class="spirit-nav">
 <a accesskey="p" href="useful_functions.html"><img src="../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../the_tutorial.html"><img src="../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="unconstrained_sets.html"><img src="../../../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
-<div class="section">
+<div class="section boost_bimap_the_tutorial_bimaps_with_user_defined_names">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="boost_bimap.the_tutorial.bimaps_with_user_defined_names"></a><a class="link" href="bimaps_with_user_defined_names.html" title="Bimaps with user defined names">Bimaps
       with user defined names</a>
@@ -35,7 +35,6 @@
         <a href="../../../../example/user_defined_names.cpp" target="_top">Go to source code</a>
       </p>
 <p>
-        
 </p>
 <pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">bimap</span>
 <span class="special">&lt;</span>
@@ -46,19 +45,19 @@
 
 <span class="identifier">People</span> <span class="identifier">people</span><span class="special">;</span>
 
-<span class="comment">// ...
-</span>
+<span class="comment">// ...</span>
+
 <span class="keyword">int</span> <span class="identifier">user_id</span><span class="special">;</span>
 <span class="identifier">std</span><span class="special">::</span><span class="identifier">cin</span> <span class="special">&gt;&gt;</span> <span class="identifier">user_id</span><span class="special">;</span>
 
-<span class="comment">// people.right : map&lt;id,name&gt;
-</span>
+<span class="comment">// people.right : map&lt;id,name&gt;</span>
+
 <span class="identifier">People</span><span class="special">::</span><span class="identifier">right_const_iterator</span> <span class="identifier">id_iter</span> <span class="special">=</span> <span class="identifier">people</span><span class="special">.</span><span class="identifier">right</span><span class="special">.</span><span class="identifier">find</span><span class="special">(</span><span class="identifier">user_id</span><span class="special">);</span>
 <span class="keyword">if</span><span class="special">(</span> <span class="identifier">id_iter</span> <span class="special">!=</span> <span class="identifier">people</span><span class="special">.</span><span class="identifier">right</span><span class="special">.</span><span class="identifier">end</span><span class="special">()</span> <span class="special">)</span>
 <span class="special">{</span>
-    <span class="comment">// first  : id
-</span>    <span class="comment">// second : name
-</span>
+    <span class="comment">// first  : id</span>
+    <span class="comment">// second : name</span>
+
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"name: "</span> <span class="special">&lt;&lt;</span> <span class="identifier">id_iter</span><span class="special">-&gt;</span><span class="identifier">second</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span>
               <span class="special">&lt;&lt;</span> <span class="string">"id:   "</span> <span class="special">&lt;&lt;</span> <span class="identifier">id_iter</span><span class="special">-&gt;</span><span class="identifier">first</span>  <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
 <span class="special">}</span>
@@ -66,17 +65,17 @@
 <span class="special">{</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"Unknown id, users are:"</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
 
-    <span class="comment">// people.left : map&lt;name,id&gt;
-</span>
+    <span class="comment">// people.left : map&lt;name,id&gt;</span>
+
     <span class="keyword">for</span><span class="special">(</span> <span class="identifier">People</span><span class="special">::</span><span class="identifier">left_const_iterator</span>
             <span class="identifier">name_iter</span> <span class="special">=</span> <span class="identifier">people</span><span class="special">.</span><span class="identifier">left</span><span class="special">.</span><span class="identifier">begin</span><span class="special">(),</span>
             <span class="identifier">iend</span>      <span class="special">=</span> <span class="identifier">people</span><span class="special">.</span><span class="identifier">left</span><span class="special">.</span><span class="identifier">end</span><span class="special">();</span>
 
          <span class="identifier">name_iter</span> <span class="special">!=</span> <span class="identifier">iend</span><span class="special">;</span> <span class="special">++</span><span class="identifier">name_iter</span> <span class="special">)</span>
     <span class="special">{</span>
-        <span class="comment">// first  : name
-</span>        <span class="comment">// second : id
-</span>
+        <span class="comment">// first  : name</span>
+        <span class="comment">// second : id</span>
+
         <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"name: "</span> <span class="special">&lt;&lt;</span> <span class="identifier">name_iter</span><span class="special">-&gt;</span><span class="identifier">first</span>  <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span>
                   <span class="special">&lt;&lt;</span> <span class="string">"id:   "</span> <span class="special">&lt;&lt;</span> <span class="identifier">name_iter</span><span class="special">-&gt;</span><span class="identifier">second</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
     <span class="special">}</span>
@@ -110,11 +109,10 @@
         <a href="../../../../example/user_defined_names.cpp" target="_top">Go to source code</a>
       </p>
 <p>
-        
 </p>
-<pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">id</span>   <span class="special">{};</span> <span class="comment">// Tag for the identification number
-</span><span class="keyword">struct</span> <span class="identifier">name</span> <span class="special">{};</span> <span class="comment">// Tag for the name of the person
-</span>
+<pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">id</span>   <span class="special">{};</span> <span class="comment">// Tag for the identification number</span>
+<span class="keyword">struct</span> <span class="identifier">name</span> <span class="special">{};</span> <span class="comment">// Tag for the name of the person</span>
+
 <span class="keyword">typedef</span> <span class="identifier">bimap</span>
 <span class="special">&lt;</span>
                  <span class="identifier">tagged</span><span class="special">&lt;</span> <span class="keyword">int</span>        <span class="special">,</span> <span class="identifier">id</span>   <span class="special">&gt;</span>  <span class="special">,</span>
@@ -124,8 +122,8 @@
 
 <span class="identifier">People</span> <span class="identifier">people</span><span class="special">;</span>
 
-<span class="comment">// ...
-</span>
+<span class="comment">// ...</span>
+
 <span class="keyword">int</span> <span class="identifier">user_id</span><span class="special">;</span>
 <span class="identifier">std</span><span class="special">::</span><span class="identifier">cin</span> <span class="special">&gt;&gt;</span> <span class="identifier">user_id</span><span class="special">;</span>
 
@@ -159,21 +157,21 @@
       </p>
 <pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">Left</span>  <span class="special">{};</span>
 <span class="keyword">struct</span> <span class="identifier">Right</span> <span class="special">{};</span>
-<span class="keyword">typedef</span> <span class="identifier">bimap</span><span class="special">&lt;</span> 
+<span class="keyword">typedef</span> <span class="identifier">bimap</span><span class="special">&lt;</span>
          <span class="identifier">multiset_of</span><span class="special">&lt;</span> <span class="identifier">tagged</span><span class="special">&lt;</span> <span class="keyword">int</span><span class="special">,</span> <span class="identifier">Left</span>  <span class="special">&gt;</span> <span class="special">&gt;,</span>
     <span class="identifier">unordered_set_of</span><span class="special">&lt;</span> <span class="identifier">tagged</span><span class="special">&lt;</span> <span class="keyword">int</span><span class="special">,</span> <span class="identifier">Right</span> <span class="special">&gt;</span> <span class="special">&gt;</span>
 <span class="special">&gt;</span> <span class="identifier">bm_type</span><span class="special">;</span>
 
 <span class="identifier">bm_type</span> <span class="identifier">bm</span><span class="special">;</span>
 
-<span class="comment">//...
-</span>
+<span class="comment">//...</span>
+
 <span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">iterator</span>       <span class="identifier">iter</span>       <span class="special">=</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">begin</span><span class="special">();</span>
 <span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">left_iterator</span>  <span class="identifier">left_iter</span>  <span class="special">=</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">left</span><span class="special">.</span><span class="identifier">begin</span><span class="special">();</span>
 <span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">right_iterator</span> <span class="identifier">right_iter</span> <span class="special">=</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">right</span><span class="special">.</span><span class="identifier">begin</span><span class="special">();</span>
 </pre>
 <div class="table">
-<a name="id792238"></a><p class="title"><b>Table&#160;1.3.&#160;Equivalence of expresions using user defined names</b></p>
+<a name="boost_bimap.the_tutorial.bimaps_with_user_defined_names.t0"></a><p class="title"><b>Table&#160;1.3.&#160;Equivalence of expresions using user defined names</b></p>
 <div class="table-contents"><table class="table" summary="Equivalence of expresions using user defined names">
 <colgroup>
 <col>
@@ -367,7 +365,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2006 -2007 Matias Capeletto<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2006-2012 Matias Capeletto<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

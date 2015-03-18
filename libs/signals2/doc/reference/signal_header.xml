@@ -140,9 +140,29 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
           <postconditions><para><computeroutput>this-&gt;<methodname>empty</methodname>()</computeroutput></para></postconditions>
         </constructor>
 
-        <destructor>
-          <effects><para>Disconnects all slots connected to <computeroutput>*this</computeroutput>.</para></effects>
-        </destructor>
+        <constructor>
+          <parameter name="other">
+            <paramtype>signal &amp;&amp;</paramtype>
+          </parameter>
+          <description><para>Move constructor.</para></description>
+          <postconditions><para>The signal <computeroutput>other</computeroutput>
+            is in a "moved-from" state where it may only be destroyed, swapped, or move assigned.
+            Any other operation on a "moved-from" signal is invalid.</para></postconditions>
+
+          <throws><para>Will not throw.</para></throws>
+        </constructor>
+
+        <copy-assignment>
+          <parameter name="rhs">
+            <paramtype>signal &amp;&amp;</paramtype>
+          </parameter>
+          <description><para>Move assignment.</para></description>
+          <postconditions><para>The signal <computeroutput>rhs</computeroutput>
+            is in a "moved-from" state where it may only be destroyed, swapped, or move assigned.
+            Any other operation on a "moved-from" signal is invalid.</para></postconditions>
+
+          <throws><para>Will not throw.</para></throws>
+        </copy-assignment>
 
         <method-group name="connection management">
           <overloaded-method name="connect">
@@ -397,6 +417,44 @@ file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
             <throws><para>Will not throw.</para></throws>
           </method>
         </method-group>
+
+        <method-group name="modifiers">
+          <method name="swap">
+            <type>void</type>
+            <parameter name="other">
+              <paramtype><classname alt="signals2::signal">signal</classname>&amp;</paramtype>
+            </parameter>
+            <effects><para>Swaps the signal referenced in
+            <computeroutput>this</computeroutput> and
+            <computeroutput>other</computeroutput>.</para></effects>
+
+            <throws><para>Will not throw.</para></throws>
+          </method>
+        </method-group>
+
+        <free-function-group name="specialized algorithms">
+          <function name="swap">
+            <template>
+              <template-type-parameter name="Signature"/>
+              <template-type-parameter name="Combiner"/>
+              <template-type-parameter name="Group"/>
+              <template-type-parameter name="GroupCompare"/>
+              <template-type-parameter name="SlotFunction"/>
+              <template-type-parameter name="ExtendedSlotFunction"/>
+              <template-type-parameter name="Mutex"/>
+            </template>
+            <type>void</type>
+            <parameter name="x">
+              <paramtype><classname alt="signals2::signal">signal</classname>&lt;Signature, Combiner, Group, GroupCompare, SlotFunction, ExtendedSlotFunction, Mutex&gt;&amp;</paramtype>
+            </parameter>
+            <parameter name="y">
+              <paramtype><classname alt="signals2::signal">signal</classname>&lt;Signature, Combiner, Group, GroupCompare, SlotFunction, ExtendedSlotFunction, Mutex&gt;&amp;</paramtype>
+            </parameter>
+
+            <effects><para><computeroutput>x.swap(y)</computeroutput></para></effects>
+            <throws><para>Will not throw.</para></throws>
+          </function>
+        </free-function-group>
       </class>
     </namespace>
   </namespace>

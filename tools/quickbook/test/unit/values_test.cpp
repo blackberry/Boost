@@ -32,10 +32,10 @@ void qbk_tests()
             "(fake file)", source, 105u);
         q = quickbook::qbk_value(
             fake_file,
-            fake_file->source.begin(),
-            fake_file->source.end());
+            fake_file->source().begin(),
+            fake_file->source().end());
     }
-    BOOST_TEST_EQ(q.get_quickbook(), source);
+    BOOST_TEST_EQ(q.get_quickbook(), boost::string_ref(source));
 }
 
 void sort_test()

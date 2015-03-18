@@ -21,9 +21,18 @@
 
 #include <boost/interprocess/containers/string.hpp>
 
+//<-
+//Shield against external warnings
+#include <boost/interprocess/detail/config_external_begin.hpp>
+//->
+
 #include <boost/multi_index_container.hpp>
 #include <boost/multi_index/member.hpp>
 #include <boost/multi_index/ordered_index.hpp>
+
+//<-
+#include <boost/interprocess/detail/config_external_end.hpp>
+//->
 
 using namespace boost::interprocess;
 namespace bmi = boost::multi_index;

@@ -12,6 +12,7 @@ Usage: python build_docs.py [--generate-gold]
 import difflib, getopt, os, re, sys
 import lxml.ElementInclude
 from lxml import etree
+from collections import defaultdict
 
 # Globals
 
@@ -73,7 +74,7 @@ def main(argv):
                         gold_text = file.read()
                     finally:
                         file.close()
-                    compare_xml(filename, doc_text, gold_text)
+                    compare_xml(src_path, doc_text, gold_text)
 
 def run_boostbook(parser, boostbook_xsl, file):
     doc = boostbook_xsl(etree.parse(file, parser))
@@ -82,7 +83,7 @@ def run_boostbook(parser, boostbook_xsl, file):
 
 def normalize_boostbook_ids(doc):
     ids = {}
-    id_bases = {}
+    id_bases = defaultdict(int)
 
     for node in doc.xpath("//*[starts-with(@id, 'id') or contains(@id, '_id')]"):
         id = node.get('id')
@@ -90,13 +91,14 @@ def normalize_boostbook_ids(doc):
         if(id in ids):
             print 'Duplicate id: ' + id
         
-        match = re.match("(id|.+_id)(\d+)((?:-bb)?)", id)
+        match = re.match("(.+_id|id)([mp]?\d+)((?:-bb)?)", id)
         if(match):
-            count = 1
-            if(match.group(1) in id_bases):
-                count = id_bases[match.group(1)] + 1
-            id_bases[match.group(1)] = count
-            ids[id] = match.group(1) + str(count) + match.group(3)
+            # Truncate id name, as it sometimes has different lengths...
+            match2 = re.match("(.*?)([^.]*?)(_?id)", match.group(1))
+            base = match2.group(1) + match2.group(2)[:14] + match2.group(3)
+            count = id_bases[base] + 1
+            id_bases[base] = count
+            ids[id] = base + str(count) + match.group(3)
 
     for node in doc.xpath("//*[@linkend or @id]"):
         x = node.get('linkend')
@@ -117,6 +119,8 @@ def compare_xml(file, doc_text, gold_text):
                 doc_text.splitlines(True)
             )
         )
+        print
+        print
 
 if __name__ == "__main__":
     main(sys.argv[1:])

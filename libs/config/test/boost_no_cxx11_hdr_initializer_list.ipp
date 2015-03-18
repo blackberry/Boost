@@ -14,7 +14,7 @@
 
 namespace boost_no_cxx11_hdr_initializer_list {
 
-void foo(const std::initializer_list<const char*>& l)
+void foo(const std::initializer_list<const char*>&)
 {
 }
 

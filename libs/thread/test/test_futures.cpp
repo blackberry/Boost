@@ -4,7 +4,9 @@
 //  accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt)
 
-#include <boost/thread/thread.hpp>
+#define BOOST_THREAD_VERSION 2
+
+#include <boost/thread/thread_only.hpp>
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/condition.hpp>
 #include <boost/thread/future.hpp>
@@ -18,7 +20,7 @@
 #define LOG \
   if (false) {} else std::cout << std::endl << __FILE__ << "[" << __LINE__ << "]"
 
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
     template<typename T>
     typename boost::remove_reference<T>::type&& cast_to_rval(T&& t)
     {
@@ -54,9 +56,18 @@ public:
     {
       BOOST_THREAD_RV(other).i=0;
     }
+    X& operator=(BOOST_THREAD_RV_REF(X) other)
+    {
+      i=BOOST_THREAD_RV(other).i;
+      BOOST_THREAD_RV(other).i=0;
+      return *this;
+    }
     ~X()
     {}
 };
+namespace boost {
+  BOOST_THREAD_DCL_MOVABLE(X)
+}
 
 int make_int()
 {
@@ -1285,15 +1296,4 @@ boost::unit_test::test_suite* init_unit_test_suite(int, char*[])
     return test;
 }
 
-void remove_unused_warning()
-{
 
-  //../../../boost/test/results_collector.hpp:40:13: warning: unused function 'first_failed_assertion' [-Wunused-function]
-  //(void)first_failed_assertion;
-
-  //../../../boost/test/tools/floating_point_comparison.hpp:304:25: warning: unused variable 'check_is_close' [-Wunused-variable]
-  //../../../boost/test/tools/floating_point_comparison.hpp:326:25: warning: unused variable 'check_is_small' [-Wunused-variable]
-  (void)boost::test_tools::check_is_close;
-  (void)boost::test_tools::check_is_small;
-
-}

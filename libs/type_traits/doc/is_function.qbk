@@ -16,8 +16,8 @@ to functions/, or /references to functions/, these are detected by __is_pointer 
 __is_reference respectively:
 
    typedef int f1();      // f1 is of function type.
-   typedef int (f2*)();   // f2 is a pointer to a function.
-   typedef int (f3&)();   // f3 is a reference to a function.
+   typedef int (*f2)();   // f2 is a pointer to a function.
+   typedef int (&f3)();   // f3 is a reference to a function.
 
 __std_ref 3.9.2p1 and 8.3.5.
 
@@ -71,4 +71,5 @@ __is_member_function_pointer directly.
 ]
 
 [endsect]
+
 

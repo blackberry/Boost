@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Threads and Boost.Asio</title>
 <link rel="stylesheet" href="../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../../boost_asio.html" title="Boost.Asio">
 <link rel="up" href="../core.html" title="Core Concepts and Functionality">
 <link rel="prev" href="async.html" title="The Proactor Design Pattern: Concurrency Without Threads">
@@ -28,7 +28,7 @@
 </h4></div></div></div>
 <h6>
 <a name="boost_asio.overview.core.threads.h0"></a>
-          <span><a name="boost_asio.overview.core.threads.thread_safety"></a></span><a class="link" href="threads.html#boost_asio.overview.core.threads.thread_safety">Thread
+          <span class="phrase"><a name="boost_asio.overview.core.threads.thread_safety"></a></span><a class="link" href="threads.html#boost_asio.overview.core.threads.thread_safety">Thread
           Safety</a>
         </h6>
 <p>
@@ -39,7 +39,7 @@
         </p>
 <h6>
 <a name="boost_asio.overview.core.threads.h1"></a>
-          <span><a name="boost_asio.overview.core.threads.thread_pools"></a></span><a class="link" href="threads.html#boost_asio.overview.core.threads.thread_pools">Thread
+          <span class="phrase"><a name="boost_asio.overview.core.threads.thread_pools"></a></span><a class="link" href="threads.html#boost_asio.overview.core.threads.thread_pools">Thread
           Pools</a>
         </h6>
 <p>
@@ -55,7 +55,7 @@
         </p>
 <h6>
 <a name="boost_asio.overview.core.threads.h2"></a>
-          <span><a name="boost_asio.overview.core.threads.internal_threads"></a></span><a class="link" href="threads.html#boost_asio.overview.core.threads.internal_threads">Internal
+          <span class="phrase"><a name="boost_asio.overview.core.threads.internal_threads"></a></span><a class="link" href="threads.html#boost_asio.overview.core.threads.internal_threads">Internal
           Threads</a>
         </h6>
 <p>
@@ -64,7 +64,7 @@
           these threads must be invisible to the library user. In particular, the
           threads:
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               must not call the user's code directly; and
             </li>
@@ -75,7 +75,7 @@
 <p>
           This approach is complemented by the following guarantee:
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
               Asynchronous completion handlers will only be called from threads that
               are currently calling <code class="computeroutput"><span class="identifier">io_service</span><span class="special">::</span><span class="identifier">run</span><span class="special">()</span></code>.
             </li></ul></div>
@@ -86,7 +86,7 @@
 <p>
           The reasons for this approach include:
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               By only calling <code class="computeroutput"><span class="identifier">io_service</span><span class="special">::</span><span class="identifier">run</span><span class="special">()</span></code> from a single thread, the user's
               code can avoid the development complexity associated with synchronisation.
@@ -107,7 +107,7 @@
 </ul></div>
 <h6>
 <a name="boost_asio.overview.core.threads.h3"></a>
-          <span><a name="boost_asio.overview.core.threads.see_also"></a></span><a class="link" href="threads.html#boost_asio.overview.core.threads.see_also">See
+          <span class="phrase"><a name="boost_asio.overview.core.threads.see_also"></a></span><a class="link" href="threads.html#boost_asio.overview.core.threads.see_also">See
           Also</a>
         </h6>
 <p>
@@ -116,7 +116,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2012 Christopher M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2014 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

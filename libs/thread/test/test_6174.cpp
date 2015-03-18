@@ -4,13 +4,15 @@
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 
+#define BOOST_THREAD_VERSION 3
 
-#include <boost/thread.hpp>
+#include <boost/thread/thread_only.hpp>
+#include <boost/thread/future.hpp>
 #include <boost/config.hpp>
 
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
 struct MovableButNonCopyable {
-#if ! defined BOOST_NO_DELETED_FUNCTIONS
+#if ! defined BOOST_NO_CXX11_DELETED_FUNCTIONS
       MovableButNonCopyable(MovableButNonCopyable const&) = delete;
       MovableButNonCopyable& operator=(MovableButNonCopyable const&) = delete;
 #else

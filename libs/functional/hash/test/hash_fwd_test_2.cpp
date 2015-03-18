@@ -8,7 +8,7 @@
 
 #include "./config.hpp"
 
-#if !defined(TEST_EXTENSIONS) || defined(TEST_STD_INCLUDES)
+#if !defined(BOOST_HASH_TEST_EXTENSIONS) || defined(BOOST_HASH_TEST_STD_INCLUDES)
 
 int main() {}
 
@@ -44,4 +44,4 @@ int main()
     return boost::report_errors();
 }
 
-#endif // defined(TEST_EXTENSIONS) && !defined(TEST_STD_INCLUDES)
+#endif // defined(BOOST_HASH_TEST_EXTENSIONS) && !defined(BOOST_HASH_TEST_STD_INCLUDES)

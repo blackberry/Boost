@@ -7,15 +7,16 @@
 #include <iostream>
 #include <vector>
 #include <boost/utility.hpp>
-#include <boost/thread/condition.hpp>
-#include <boost/thread/thread.hpp>
+#include <boost/thread/condition_variable.hpp>
+#include <boost/thread/thread_only.hpp>
+#include "../test/remove_error_code_unused_warning.hpp"
 
 class bounded_buffer : private boost::noncopyable
 {
 public:
-    typedef boost::mutex::scoped_lock lock;
+    typedef boost::unique_lock<boost::mutex> lock;
 
-    bounded_buffer(int n) : begin(0), end(0), buffered(0), circular_buf(n) { }
+    bounded_buffer(int n) : boost::noncopyable(), begin(0), end(0), buffered(0), circular_buf(n) { }
 
     void send (int m) {
         lock lk(monitor);
@@ -38,9 +39,10 @@ public:
     }
 
 private:
-    int begin, end, buffered;
+    int begin, end;
+    std::vector<int>::size_type buffered;
     std::vector<int> circular_buf;
-    boost::condition buffer_not_full, buffer_not_empty;
+    boost::condition_variable_any buffer_not_full, buffer_not_empty;
     boost::mutex monitor;
 };
 
@@ -54,7 +56,7 @@ void sender() {
         buf.send(n);
         if(!(n%10000))
         {
-            boost::mutex::scoped_lock io_lock(io_mutex);
+            boost::unique_lock<boost::mutex> io_lock(io_mutex);
             std::cout << "sent: " << n << std::endl;
         }
         ++n;
@@ -68,7 +70,7 @@ void receiver() {
         n = buf.receive();
         if(!(n%10000))
         {
-            boost::mutex::scoped_lock io_lock(io_mutex);
+            boost::unique_lock<boost::mutex> io_lock(io_mutex);
             std::cout << "received: " << n << std::endl;
         }
     } while (n != -1); // -1 indicates end of buffer

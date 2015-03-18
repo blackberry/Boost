@@ -155,7 +155,7 @@ namespace minimal
         ~movable1() {}
     };
 
-#if !defined(BOOST_NO_RVALUE_REFERENCES)
+#if !defined(BOOST_NO_CXX11_RVALUE_REFERENCES)
     class movable2
     {
     public:
@@ -371,7 +371,7 @@ namespace minimal
 
         void construct(T* p, T const& t) { new((void*)p) T(t); }
 
-#if !defined(BOOST_NO_VARIADIC_TEMPLATES)
+#if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
         template<class... Args> void construct(T* p, BOOST_FWD_REF(Args)... args) {
             new((void*)p) T(boost::forward<Args>(args)...);
         }
@@ -443,7 +443,7 @@ namespace minimal
 
         void construct(T* p, T const& t) { new((void*)p) T(t); }
 
-#if !defined(BOOST_NO_VARIADIC_TEMPLATES)
+#if !defined(BOOST_NO_CXX11_VARIADIC_TEMPLATES)
         template<class... Args> void construct(T* p, BOOST_FWD_REF(Args)... args) {
             new((void*)p) T(boost::forward<Args>(args)...);
         }

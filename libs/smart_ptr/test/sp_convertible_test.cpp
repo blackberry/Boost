@@ -2,70 +2,92 @@
 
 //  sp_convertible_test.cpp
 //
-//  Copyright (c) 2008 Peter Dimov
+//  Copyright (c) 2012 Peter Dimov
 //
 //  Distributed under the Boost Software License, Version 1.0.
 //  See accompanying file LICENSE_1_0.txt or copy at
 //  http://www.boost.org/LICENSE_1_0.txt
 
 #include <boost/detail/lightweight_test.hpp>
-#include <boost/shared_ptr.hpp>
+#include <boost/smart_ptr/detail/sp_convertible.hpp>
 
 //
 
-class incomplete;
+class X;
 
-struct X
+class B
 {
 };
 
-struct Y
+class D: public B
 {
 };
 
-struct Z: public X
-{
-};
+#define TEST_CV_TRUE( T, U ) \
+    BOOST_TEST(( sp_convertible< T, U >::value == true )); \
+    BOOST_TEST(( sp_convertible< T, const U >::value == true )); \
+    BOOST_TEST(( sp_convertible< T, volatile U >::value == true )); \
+    BOOST_TEST(( sp_convertible< T, const volatile U >::value == true )); \
+    BOOST_TEST(( sp_convertible< const T, U >::value == false )); \
+    BOOST_TEST(( sp_convertible< const T, const U >::value == true )); \
+    BOOST_TEST(( sp_convertible< const T, volatile U >::value == false )); \
+    BOOST_TEST(( sp_convertible< const T, const volatile U >::value == true )); \
+    BOOST_TEST(( sp_convertible< volatile T, U >::value == false )); \
+    BOOST_TEST(( sp_convertible< volatile T, const U >::value == false )); \
+    BOOST_TEST(( sp_convertible< volatile T, volatile U >::value == true )); \
+    BOOST_TEST(( sp_convertible< volatile T, const volatile U >::value == true )); \
+    BOOST_TEST(( sp_convertible< const volatile T, U >::value == false )); \
+    BOOST_TEST(( sp_convertible< const volatile T, const U >::value == false )); \
+    BOOST_TEST(( sp_convertible< const volatile T, volatile U >::value == false )); \
+    BOOST_TEST(( sp_convertible< const volatile T, const volatile U >::value == true ));
 
-int f( boost::shared_ptr<void const> )
-{
-    return 1;
-}
-
-int f( boost::shared_ptr<int> )
-{
-    return 2;
-}
-
-int f( boost::shared_ptr<incomplete> )
-{
-    return 3;
-}
-
-int g( boost::shared_ptr<X> )
-{
-    return 4;
-}
-
-int g( boost::shared_ptr<Y> )
-{
-    return 5;
-}
-
-int g( boost::shared_ptr<incomplete> )
-{
-    return 6;
-}
+#define TEST_CV_FALSE( T, U ) \
+    BOOST_TEST(( sp_convertible< T, U >::value == false )); \
+    BOOST_TEST(( sp_convertible< T, const U >::value == false )); \
+    BOOST_TEST(( sp_convertible< T, volatile U >::value == false )); \
+    BOOST_TEST(( sp_convertible< T, const volatile U >::value == false )); \
+    BOOST_TEST(( sp_convertible< const T, U >::value == false )); \
+    BOOST_TEST(( sp_convertible< const T, const U >::value == false )); \
+    BOOST_TEST(( sp_convertible< const T, volatile U >::value == false )); \
+    BOOST_TEST(( sp_convertible< const T, const volatile U >::value == false )); \
+    BOOST_TEST(( sp_convertible< volatile T, U >::value == false )); \
+    BOOST_TEST(( sp_convertible< volatile T, const U >::value == false )); \
+    BOOST_TEST(( sp_convertible< volatile T, volatile U >::value == false )); \
+    BOOST_TEST(( sp_convertible< volatile T, const volatile U >::value == false )); \
+    BOOST_TEST(( sp_convertible< const volatile T, U >::value == false )); \
+    BOOST_TEST(( sp_convertible< const volatile T, const U >::value == false )); \
+    BOOST_TEST(( sp_convertible< const volatile T, volatile U >::value == false )); \
+    BOOST_TEST(( sp_convertible< const volatile T, const volatile U >::value == false ));
 
 int main()
 {
-    boost::shared_ptr<double> p1;
-    BOOST_TEST( 1 == f( p1 ) );
-    BOOST_TEST( 1 == f( boost::shared_ptr<double>() ) );
+#if !defined( BOOST_SP_NO_SP_CONVERTIBLE )
 
-    boost::shared_ptr<Z> p2;
-    BOOST_TEST( 4 == g( p2 ) );
-    BOOST_TEST( 4 == g( boost::shared_ptr<Z>() ) );
+    using boost::detail::sp_convertible;
+
+    TEST_CV_TRUE( X, X )
+    TEST_CV_TRUE( X, void )
+    TEST_CV_FALSE( void, X )
+    TEST_CV_TRUE( D, B )
+    TEST_CV_FALSE( B, D )
+
+    TEST_CV_TRUE( X[], X[] )
+    TEST_CV_FALSE( D[], B[] )
+
+    TEST_CV_TRUE( X[3], X[3] )
+    TEST_CV_FALSE( X[3], X[4] )
+    TEST_CV_FALSE( D[3], B[3] )
+
+    TEST_CV_TRUE( X[3], X[] )
+    TEST_CV_FALSE( X[], X[3] )
+
+    TEST_CV_TRUE( X[], void )
+    TEST_CV_FALSE( void, X[] )
+
+    TEST_CV_TRUE( X[3], void )
+    TEST_CV_FALSE( void, X[3] )
+
+#endif
 
     return boost::report_errors();
 }

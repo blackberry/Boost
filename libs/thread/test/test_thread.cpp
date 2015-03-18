@@ -5,9 +5,12 @@
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
+#define BOOST_THREAD_VERSION 2
+#define BOOST_THREAD_PROVIDES_INTERRUPTIONS
+
 #include <boost/thread/detail/config.hpp>
 
-#include <boost/thread/thread.hpp>
+#include <boost/thread/thread_only.hpp>
 #include <boost/thread/xtime.hpp>
 #include <boost/bind.hpp>
 #include <boost/ref.hpp>
@@ -74,7 +77,7 @@ void test_id_comparison()
 
 void interruption_point_thread(boost::mutex* m,bool* failed)
 {
-    boost::mutex::scoped_lock lk(*m);
+    boost::unique_lock<boost::mutex> lk(*m);
     boost::this_thread::interruption_point();
     *failed=true;
 }
@@ -83,7 +86,7 @@ void do_test_thread_interrupts_at_interruption_point()
 {
     boost::mutex m;
     bool failed=false;
-    boost::mutex::scoped_lock lk(m);
+    boost::unique_lock<boost::mutex> lk(m);
     boost::thread thrd(boost::bind(&interruption_point_thread,&m,&failed));
     thrd.interrupt();
     lk.unlock();
@@ -98,7 +101,7 @@ void test_thread_interrupts_at_interruption_point()
 
 void disabled_interruption_point_thread(boost::mutex* m,bool* failed)
 {
-    boost::mutex::scoped_lock lk(*m);
+    boost::unique_lock<boost::mutex> lk(*m);
     boost::this_thread::disable_interruption dc;
     boost::this_thread::interruption_point();
     *failed=false;
@@ -108,7 +111,7 @@ void do_test_thread_no_interrupt_if_interrupts_disabled_at_interruption_point()
 {
     boost::mutex m;
     bool failed=true;
-    boost::mutex::scoped_lock lk(m);
+    boost::unique_lock<boost::mutex> lk(m);
     boost::thread thrd(boost::bind(&disabled_interruption_point_thread,&m,&failed));
     thrd.interrupt();
     lk.unlock();
@@ -126,7 +129,7 @@ struct non_copyable_functor:
 {
     unsigned value;
 
-    non_copyable_functor():
+    non_copyable_functor(): boost::noncopyable(),
         value(0)
     {}
 
@@ -162,7 +165,7 @@ struct long_running_thread
 
     void operator()()
     {
-        boost::mutex::scoped_lock lk(mut);
+        boost::unique_lock<boost::mutex> lk(mut);
         while(!done)
         {
             cond.wait(lk);
@@ -181,7 +184,7 @@ void do_test_timed_join()
     BOOST_CHECK(!joined);
     BOOST_CHECK(thrd.joinable());
     {
-        boost::mutex::scoped_lock lk(f.mut);
+        boost::unique_lock<boost::mutex> lk(f.mut);
         f.done=true;
         f.cond.notify_one();
     }
@@ -233,16 +236,3 @@ boost::unit_test::test_suite* init_unit_test_suite(int, char*[])
     return test;
 }
 
-void remove_unused_warning()
-{
-
-  //../../../boost/test/results_collector.hpp:40:13: warning: unused function 'first_failed_assertion' [-Wunused-function]
-  //(void)boost::unit_test::first_failed_assertion;
-
-  //../../../boost/test/tools/floating_point_comparison.hpp:304:25: warning: unused variable 'check_is_close' [-Wunused-variable]
-  //../../../boost/test/tools/floating_point_comparison.hpp:326:25: warning: unused variable 'check_is_small' [-Wunused-variable]
-  (void)boost::test_tools::check_is_close;
-  (void)boost::test_tools::check_is_small;
-
-
-}

@@ -8,7 +8,9 @@
 
 #include <boost/config.hpp>
 #include <boost/algorithm/minmax.hpp>
-#include <boost/test/included/test_exec_monitor.hpp>
+
+#define BOOST_TEST_MAIN
+#include <boost/test/unit_test.hpp>
 
 class custom {
   int m_x;
@@ -76,10 +78,8 @@ void test(BOOST_EXPLICIT_TEMPLATE_TYPE(Value))
   BOOST_CHECK_EQUAL( counter, 1);
 }
 
-int test_main( int , char* [] )
+BOOST_AUTO_TEST_CASE( test_main )
 {
   test<int>(); // ("builtin");
   test<custom>(); // ("custom ");
-
-  return 0;
 }

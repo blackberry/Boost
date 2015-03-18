@@ -5,7 +5,7 @@
 
 #include "./config.hpp"
 
-#ifdef TEST_STD_INCLUDES
+#ifdef BOOST_HASH_TEST_STD_INCLUDES
 #  include <functional>
 #else
 #  include <boost/functional/hash.hpp>
@@ -19,22 +19,22 @@ void string_tests()
 {
     compile_time_tests((std::string*) 0);
 
-    HASH_NAMESPACE::hash<std::string> x1;
-    HASH_NAMESPACE::hash<std::string> x2;
+    BOOST_HASH_TEST_NAMESPACE::hash<std::string> x1;
+    BOOST_HASH_TEST_NAMESPACE::hash<std::string> x2;
 
     BOOST_TEST(x1("Hello") == x2(std::string("Hel") + "lo"));
     BOOST_TEST(x1("") == x2(std::string()));
 
-#if defined(TEST_EXTENSIONS)
+#if defined(BOOST_HASH_TEST_EXTENSIONS)
     std::string value1;
     std::string value2("Hello");
 
-    BOOST_TEST(x1(value1) == HASH_NAMESPACE::hash_value(value1));
-    BOOST_TEST(x1(value2) == HASH_NAMESPACE::hash_value(value2));
-    BOOST_TEST(HASH_NAMESPACE::hash_value(value1) ==
-            HASH_NAMESPACE::hash_range(value1.begin(), value1.end()));
-    BOOST_TEST(HASH_NAMESPACE::hash_value(value2) ==
-            HASH_NAMESPACE::hash_range(value2.begin(), value2.end()));
+    BOOST_TEST(x1(value1) == BOOST_HASH_TEST_NAMESPACE::hash_value(value1));
+    BOOST_TEST(x1(value2) == BOOST_HASH_TEST_NAMESPACE::hash_value(value2));
+    BOOST_TEST(BOOST_HASH_TEST_NAMESPACE::hash_value(value1) ==
+            BOOST_HASH_TEST_NAMESPACE::hash_range(value1.begin(), value1.end()));
+    BOOST_TEST(BOOST_HASH_TEST_NAMESPACE::hash_value(value2) ==
+            BOOST_HASH_TEST_NAMESPACE::hash_range(value2.begin(), value2.end()));
 #endif
 }
 
@@ -43,22 +43,22 @@ void wstring_tests()
 {
     compile_time_tests((std::wstring*) 0);
 
-    HASH_NAMESPACE::hash<std::wstring> x1;
-    HASH_NAMESPACE::hash<std::wstring> x2;
+    BOOST_HASH_TEST_NAMESPACE::hash<std::wstring> x1;
+    BOOST_HASH_TEST_NAMESPACE::hash<std::wstring> x2;
 
     BOOST_TEST(x1(L"Hello") == x2(std::wstring(L"Hel") + L"lo"));
     BOOST_TEST(x1(L"") == x2(std::wstring()));
 
-#if defined(TEST_EXTENSIONS)
+#if defined(BOOST_HASH_TEST_EXTENSIONS)
     std::wstring value1;
     std::wstring value2(L"Hello");
 
-    BOOST_TEST(x1(value1) == HASH_NAMESPACE::hash_value(value1));
-    BOOST_TEST(x1(value2) == HASH_NAMESPACE::hash_value(value2));
-    BOOST_TEST(HASH_NAMESPACE::hash_value(value1) ==
-            HASH_NAMESPACE::hash_range(value1.begin(), value1.end()));
-    BOOST_TEST(HASH_NAMESPACE::hash_value(value2) ==
-            HASH_NAMESPACE::hash_range(value2.begin(), value2.end()));
+    BOOST_TEST(x1(value1) == BOOST_HASH_TEST_NAMESPACE::hash_value(value1));
+    BOOST_TEST(x1(value2) == BOOST_HASH_TEST_NAMESPACE::hash_value(value2));
+    BOOST_TEST(BOOST_HASH_TEST_NAMESPACE::hash_value(value1) ==
+            BOOST_HASH_TEST_NAMESPACE::hash_range(value1.begin(), value1.end()));
+    BOOST_TEST(BOOST_HASH_TEST_NAMESPACE::hash_value(value2) ==
+            BOOST_HASH_TEST_NAMESPACE::hash_range(value2.begin(), value2.end()));
 #endif
 }
 #endif

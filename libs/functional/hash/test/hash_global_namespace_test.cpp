@@ -42,8 +42,8 @@ namespace boost
 
 #include "./config.hpp"
 
-#ifdef TEST_EXTENSIONS
-#  ifdef TEST_STD_INCLUDES
+#ifdef BOOST_HASH_TEST_EXTENSIONS
+#  ifdef BOOST_HASH_TEST_STD_INCLUDES
 #    include <functional>
 #  else
 #    include <boost/functional/hash.hpp>
@@ -52,7 +52,7 @@ namespace boost
 
 #include <boost/detail/lightweight_test.hpp>
 
-#ifdef TEST_EXTENSIONS
+#ifdef BOOST_HASH_TEST_EXTENSIONS
 
 #include <vector>
 #include <string>
@@ -60,13 +60,13 @@ namespace boost
 
 void custom_tests()
 {
-    HASH_NAMESPACE::hash<custom> custom_hasher;
+    BOOST_HASH_TEST_NAMESPACE::hash<custom> custom_hasher;
     BOOST_TEST(custom_hasher(10) == 100u);
     custom x(55);
     BOOST_TEST(custom_hasher(x) == 550u);
 
     {
-        using namespace HASH_NAMESPACE;
+        using namespace BOOST_HASH_TEST_NAMESPACE;
         BOOST_TEST(custom_hasher(x) == hash_value(x));
     }
 
@@ -76,26 +76,26 @@ void custom_tests()
     custom_vector.push_back(35);
 
     std::size_t seed = 0;
-    HASH_NAMESPACE::hash_combine(seed, custom(5));
-    HASH_NAMESPACE::hash_combine(seed, custom(25));
-    HASH_NAMESPACE::hash_combine(seed, custom(35));
+    BOOST_HASH_TEST_NAMESPACE::hash_combine(seed, custom(5));
+    BOOST_HASH_TEST_NAMESPACE::hash_combine(seed, custom(25));
+    BOOST_HASH_TEST_NAMESPACE::hash_combine(seed, custom(35));
 
     std::size_t seed2 = 0;
-    HASH_NAMESPACE::hash_combine(seed2, 50u);
-    HASH_NAMESPACE::hash_combine(seed2, 250u);
-    HASH_NAMESPACE::hash_combine(seed2, 350u);
+    BOOST_HASH_TEST_NAMESPACE::hash_combine(seed2, 50u);
+    BOOST_HASH_TEST_NAMESPACE::hash_combine(seed2, 250u);
+    BOOST_HASH_TEST_NAMESPACE::hash_combine(seed2, 350u);
 
-    BOOST_TEST(seed == HASH_NAMESPACE::hash_range(
+    BOOST_TEST(seed == BOOST_HASH_TEST_NAMESPACE::hash_range(
         custom_vector.begin(), custom_vector.end()));
     BOOST_TEST(seed == seed2);
 }
 
-#endif // TEST_EXTENSIONS
+#endif // BOOST_HASH_TEST_EXTENSIONS
 
 
 int main()
 {
-#ifdef TEST_EXTENSIONS
+#ifdef BOOST_HASH_TEST_EXTENSIONS
     custom_tests();
 #endif
     return boost::report_errors();

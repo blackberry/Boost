@@ -26,7 +26,7 @@
 #include <boost/interprocess/allocators/allocator.hpp>
 #include "allocator_v1.hpp"
 #include <boost/interprocess/exceptions.hpp>
-#include <boost/interprocess/detail/move.hpp>
+#include <boost/move/utility_core.hpp>
 #include <boost/interprocess/detail/mpl.hpp>
 #include <boost/interprocess/detail/type_traits.hpp>
 #include <string>
@@ -144,8 +144,7 @@ bool do_test()
 
       /*try*/{
          //Compare several shared memory deque operations with std::deque
-         int i;
-         for(i = 0; i < max*50; ++i){
+         for(int i = 0; i < max*50; ++i){
             IntType move_me(i);
             shmdeque->insert(shmdeque->end(), boost::move(move_me));
             stddeque->insert(stddeque->end(), i);
@@ -157,7 +156,7 @@ bool do_test()
          shmdeque->clear();
          stddeque->clear();
 
-         for(i = 0; i < max*50; ++i){
+         for(int i = 0; i < max*50; ++i){
             IntType move_me(i);
             shmdeque->push_back(boost::move(move_me));
             stddeque->push_back(i);
@@ -169,7 +168,7 @@ bool do_test()
          shmdeque->clear();
          stddeque->clear();
 
-         for(i = 0; i < max*50; ++i){
+         for(int i = 0; i < max*50; ++i){
             IntType move_me(i);
             shmdeque->push_front(boost::move(move_me));
             stddeque->push_front(i);
@@ -241,7 +240,7 @@ bool do_test()
 
          if(!test::CheckEqualContainers(shmdeque, stddeque)) return false;
 
-         for(i = 0; i < max; ++i){
+         for(int i = 0; i < max; ++i){
             IntType move_me(i);
             shmdeque->insert(shmdeque->begin(), boost::move(move_me));
             stddeque->insert(stddeque->begin(), i);

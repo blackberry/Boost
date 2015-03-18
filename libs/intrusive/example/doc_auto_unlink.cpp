@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2006-2012
+// (C) Copyright Ion Gaztanaga  2006-2013
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -24,7 +24,8 @@ class MyClass : public auto_unlink_hook
 
    public:
    MyClass(int i = 0)   :  int_(i)  {}
-   void unlink()     {  auto_unlink_hook::unlink();  }
+   int  get_int()    { return int_; }
+   void unlink()     {  auto_unlink_hook::unlink(); }
    bool is_linked()  {  return auto_unlink_hook::is_linked();  }
 };
 

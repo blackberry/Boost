@@ -150,7 +150,7 @@ void test_types(void) {
 }
 
 void test_capture_all(void) {
-#ifndef BOOST_NO_LAMBDAS
+#ifndef BOOST_NO_CXX11_LAMBDAS
     int i = 0, j = 1;
 
     {

@@ -10,7 +10,7 @@
 #include <boost/interprocess/detail/config_begin.hpp>
 //[doc_managed_multiple_allocation
 #include <boost/interprocess/managed_shared_memory.hpp>
-#include <boost/interprocess/detail/move.hpp> //boost::move
+#include <boost/move/utility_core.hpp> //boost::move
 #include <cassert>//assert
 #include <cstring>//std::memset
 #include <new>    //std::nothrow
@@ -54,7 +54,8 @@ int main()
    //->
 
    //Allocate 16 elements of 100 bytes in a single call. Non-throwing version.
-   multiallocation_chain chain(managed_shm.allocate_many(100, 16, std::nothrow));
+   multiallocation_chain chain;
+   managed_shm.allocate_many(std::nothrow, 100, 16, chain);
 
    //Check if the memory allocation was successful
    if(chain.empty()) return 1;
@@ -82,8 +83,8 @@ int main()
    for(std::size_t i = 0; i < 10; ++i)
       sizes[i] = i*3;
 
-   chain = managed_shm.allocate_many(sizes, 10);
-   managed_shm.deallocate_many(boost::move(chain));
+   managed_shm.allocate_many(sizes, 10, 1, chain);
+   managed_shm.deallocate_many(chain);
    return 0;
 }
 //]

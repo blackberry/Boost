@@ -64,7 +64,7 @@
     BOOST_LOCAL_FUNCTION_DETAIL_PP_KEYWORD_RETURN_REMOVE_FRONT( \
             BOOST_PP_LIST_FIRST(results))
 
-#ifdef BOOST_NO_LAMBDAS
+#ifdef BOOST_NO_CXX11_LAMBDAS
 //[gcc_lambda_macro
 #   define GCC_LAMBDA_(binds, params, results) \
         ({ /* open statement expression (GCC extension only) */ \
@@ -108,7 +108,7 @@
 
 // Same arguments as for local functions but respect to C++11 lambdas:
 // const bind v is =v, bind& v is &v, void if no return specified, no = or &.
-#ifdef BOOST_NO_VARIADIC_MACROS
+#ifdef BOOST_NO_CXX11_VARIADIC_MACROS
 #   define GCC_LAMBDA(void_or_seq) \
         GCC_LAMBDA_TUPLE_(GCC_LAMBDA_SPLIT_( \
                 BOOST_LOCAL_FUNCTION_DETAIL_PP_VOID_LIST(void_or_seq)))
@@ -118,7 +118,7 @@
                 BOOST_LOCAL_FUNCTION_DETAIL_PP_VOID_LIST(__VA_ARGS__)))
 #endif
 
-#ifdef BOOST_NO_LAMBDAS
+#ifdef BOOST_NO_CXX11_LAMBDAS
 #   define GCC_LAMBDA_END \
         GCC_LAMBDA_END_(BOOST_LOCAL_FUNCTION_DETAIL_PP_LINE_COUNTER)
 #else

@@ -3,9 +3,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Any Hooks: A single hook for any Intrusive container</title>
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../intrusive.html" title="Chapter&#160;13.&#160;Boost.Intrusive">
+<link rel="up" href="../intrusive.html" title="Chapter&#160;15.&#160;Boost.Intrusive">
 <link rel="prev" href="obtaining_iterators_from_values.html" title="Obtaining iterators from values">
 <link rel="next" href="concepts.html" title="Concepts explained">
 </head>
@@ -45,7 +45,7 @@
 <p>
       These hooks support these options:
     </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
           <span class="bold"><strong><code class="computeroutput"><span class="identifier">tag</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">Tag</span><span class="special">&gt;</span></code></strong></span>
           (for base hooks only): This argument serves as a tag, so you can derive
@@ -116,8 +116,8 @@
       <span class="identifier">base_slist</span><span class="special">.</span><span class="identifier">push_front</span><span class="special">(*</span><span class="identifier">it</span><span class="special">),</span> <span class="identifier">member_list</span><span class="special">.</span><span class="identifier">push_back</span><span class="special">(*</span><span class="identifier">it</span><span class="special">);</span>
 
    <span class="comment">//Now test lists</span>
-   <span class="identifier">BaseSList</span><span class="special">::</span><span class="identifier">iterator</span> <span class="identifier">bit</span><span class="special">(</span><span class="identifier">base_slist</span><span class="special">.</span><span class="identifier">begin</span><span class="special">()),</span> <span class="identifier">bitend</span><span class="special">(</span><span class="identifier">base_slist</span><span class="special">.</span><span class="identifier">end</span><span class="special">());</span>
-   <span class="identifier">MemberList</span><span class="special">::</span><span class="identifier">reverse_iterator</span> <span class="identifier">mrit</span><span class="special">(</span><span class="identifier">member_list</span><span class="special">.</span><span class="identifier">rbegin</span><span class="special">()),</span> <span class="identifier">mritend</span><span class="special">(</span><span class="identifier">member_list</span><span class="special">.</span><span class="identifier">rend</span><span class="special">());</span>
+   <span class="identifier">BaseSList</span><span class="special">::</span><span class="identifier">iterator</span> <span class="identifier">bit</span><span class="special">(</span><span class="identifier">base_slist</span><span class="special">.</span><span class="identifier">begin</span><span class="special">());</span>
+   <span class="identifier">MemberList</span><span class="special">::</span><span class="identifier">reverse_iterator</span> <span class="identifier">mrit</span><span class="special">(</span><span class="identifier">member_list</span><span class="special">.</span><span class="identifier">rbegin</span><span class="special">());</span>
    <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="identifier">MyClass</span><span class="special">&gt;::</span><span class="identifier">reverse_iterator</span> <span class="identifier">rit</span><span class="special">(</span><span class="identifier">values</span><span class="special">.</span><span class="identifier">rbegin</span><span class="special">()),</span> <span class="identifier">ritend</span><span class="special">(</span><span class="identifier">values</span><span class="special">.</span><span class="identifier">rend</span><span class="special">());</span>
 
    <span class="comment">//Test the objects inserted in the base hook list</span>
@@ -131,7 +131,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2005 Olaf Krzikalla<br>Copyright &#169; 2006-2012 Ion Gaztanaga<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2005 Olaf Krzikalla<br>Copyright &#169; 2006-2013 Ion Gaztanaga<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

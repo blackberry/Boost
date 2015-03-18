@@ -21,12 +21,18 @@
     {
       thread::id get_id() noexcept;
       template<typename TimeDuration>
-      void yield() noexcept;
+      void yield() noexcept; // DEPRECATED
       template <class Clock, class Duration>
       void sleep_until(const chrono::time_point<Clock, Duration>& abs_time); 
       template <class Rep, class Period>
       void sleep_for(const chrono::duration<Rep, Period>& rel_time);
-
+      namespace no_interruption_point  // EXTENSION
+      {
+      	template <class Clock, class Duration>
+      	void sleep_until(const chrono::time_point<Clock, Duration>& abs_time); 
+      	template <class Rep, class Period>
+      	void sleep_for(const chrono::duration<Rep, Period>& rel_time);
+      }
       template<typename Callable>
       void at_thread_exit(Callable func); // EXTENSION
 
@@ -36,9 +42,10 @@
       class disable_interruption; // EXTENSION
       class restore_interruption; // EXTENSION
 
-    #if defined BOOST_THREAD_PROVIDES_DEPRECATED_FEATURES_SINCE_V3_0_0
-      void sleep(TimeDuration const& rel_time);
-      void sleep(system_time const& abs_time);
+    #if defined BOOST_THREAD_USES_DATETIME
+      template <TimeDuration>
+      void sleep(TimeDuration const& rel_time);  // DEPRECATED
+      void sleep(system_time const& abs_time); // DEPRECATED
     #endif
     }
     class thread_group; // EXTENSION
@@ -200,18 +207,81 @@ __thread_interrupted__, `std::terminate()` is called.
 
 [endsect]
 
-[section:join Joining and detaching]
+[section:detach Detaching thread]
+
+A thread can  be detached by explicitly invoking the __detach__ member function on the __thread__
+object. In this case, the __thread__ object ceases to represent the now-detached thread, and instead represents __not_a_thread__.
+
+  int main()
+  {
+    boost::thread t(my_func);
+    t.detach();
+  } 
+
+[endsect]
+
+[section:join Joining a thread]
+
+In order to wait for a thread of execution to finish, the __join__, __join_for or __join_until (__timed_join__ deprecated) member functions of the __thread__ object must be
+used. __join__ will block the calling thread until the thread represented by the __thread__ object has completed. 
+
+  int main()
+  {
+    boost::thread t(my_func);
+    t.join();
+  }
+
+
+If the thread of
+execution represented by the __thread__ object has already completed, or the __thread__ object represents __not_a_thread__, then __join__
+returns immediately. 
+
+  int main()
+  {
+    boost::thread t;
+    t.join(); // do nothing
+  }
+
+Timed based join are similar, except that a call to __join_for or __join_until will also return if the thread being waited for
+does not complete when the specified time has elapsed or reached respectively.
+
+  int main()
+  {
+    boost::thread t;
+    if ( t.join_for(boost::chrono::milliseconds(500)) ) 
+      // do something else
+    t.join(); // join anyway
+  }
+
+[endsect]
+
+[section:destructor1 Destructor V1]
 
 When the __thread__ object that represents a thread of execution is destroyed the thread becomes ['detached]. Once a thread is
 detached, it will continue executing until the invocation of the function or callable object supplied on construction has completed,
 or the program is terminated. A thread can also be detached by explicitly invoking the __detach__ member function on the __thread__
 object. In this case, the __thread__ object ceases to represent the now-detached thread, and instead represents __not_a_thread__.
 
-In order to wait for a thread of execution to finish, the __join__ or __timed_join__ member functions of the __thread__ object must be
-used. __join__ will block the calling thread until the thread represented by the __thread__ object has completed. If the thread of
-execution represented by the __thread__ object has already completed, or the __thread__ object represents __not_a_thread__, then __join__
-returns immediately. __timed_join__ is similar, except that a call to __timed_join__ will also return if the thread being waited for
-does not complete when the specified time has elapsed.
+[endsect]
+
+[section:destructor2 Destructor V2]
+
+When the __thread__ object that represents a thread of execution is destroyed the program terminates if the thread is __joinable__. 
+
+  int main()
+  {
+    boost::thread t(my_func);
+  } // calls std::terminate()
+
+You can use a thread_joiner to ensure that the thread has been joined at the thread destructor.
+
+
+  int main()
+  {
+    boost::thread t(my_func);
+    boost::thread_joiner g(t);
+    // do someting else
+  } // here the thread_joiner destructor will join the thread before it is destroyed.
 
 [endsect]
 
@@ -359,6 +429,8 @@ This behavior is incompatible with the current Boost.Thread design, so the use o
     class thread
     {
     public:
+        class attributes; // EXTENSION
+
         thread() noexcept;
         thread(const thread&) = delete;
         thread& operator=(const thread&) = delete;
@@ -374,15 +446,15 @@ This behavior is incompatible with the current Boost.Thread design, so the use o
 
         template <class F,class A1,class A2,...>
         thread(F f,A1 a1,A2 a2,...);
-        // template <class F, class ...Args> 
-        // explicit thread(F&& f, Args&&... args); // NOT YET IMPLEMENTED
+        template <class F, class ...Args> 
+        explicit thread(F&& f, Args&&... args);
 
         template <class F>
         explicit thread(attributes& attrs, F f); // EXTENSION
         template <class F>
         thread(attributes& attrs, F &&f); // EXTENSION
-        // template <class F, class ...Args> 
-        // explicit thread(attributes& attrs, F&& f, Args&&... args); // NOT YET IMPLEMENTED
+        template <class F, class ...Args> 
+        explicit thread(attributes& attrs, F&& f, Args&&... args);
 
         // move support
         thread(thread && x) noexcept;
@@ -391,7 +463,6 @@ This behavior is incompatible with the current Boost.Thread design, so the use o
         void swap(thread& x) noexcept;
 
         class id;
-        class attributes; // EXTENSION
 
         id get_id() const noexcept;
 
@@ -405,6 +476,7 @@ This behavior is incompatible with the current Boost.Thread design, so the use o
         void detach();
 
         static unsigned hardware_concurrency() noexcept;
+        static unsigned physical_concurrency() noexcept;
 
         typedef platform-specific-type native_handle_type;
         native_handle_type native_handle();
@@ -413,19 +485,19 @@ This behavior is incompatible with the current Boost.Thread design, so the use o
         bool interruption_requested() const noexcept; // EXTENSION
 
 
-    #if defined BOOST_THREAD_PROVIDES_DEPRECATED_FEATURES_SINCE_V3_0_0 || defined BOOST_THREAD_DONT_USE_CHRONO
-        bool timed_join(const system_time& wait_until);
+    #if defined BOOST_THREAD_USES_DATETIME
+        bool timed_join(const system_time& wait_until); // DEPRECATED
         template<typename TimeDuration>
-        bool timed_join(TimeDuration const& rel_time); 
+        bool timed_join(TimeDuration const& rel_time); // DEPRECATED
+        static void sleep(const system_time& xt);// DEPRECATED
     #endif
 
-    #if defined BOOST_THREAD_PROVIDES_DEPRECATED_FEATURES_SINCE_V3_0_0
-        bool operator==(const thread& other) const;
-        bool operator!=(const thread& other) const;
+    #if defined BOOST_THREAD_PROVIDES_THREAD_EQ
+        bool operator==(const thread& other) const; // DEPRECATED
+        bool operator!=(const thread& other) const; // DEPRECATED
 
-        static void yield();
-        static void sleep(const system_time& xt);
     #endif
+        static void yield() noexcept; // DEPRECATED
 
     };
 
@@ -470,14 +542,19 @@ This behavior is incompatible with the current Boost.Thread design, so the use o
 [variablelist
 
 [[Effects:] [Transfers ownership of the thread managed by `other` (if
-any) to `*this`. Version 2: If there was a thread previously associated with
-`*this` then that thread is detached, Version 3: If the thread is joinable calls to std::terminate.]]
+any) to `*this`. 
+
+- if defined BOOST_THREAD_DONT_PROVIDE_THREAD_MOVE_ASSIGN_CALLS_TERMINATE_IF_JOINABLE: If the thread is joinable call __detach__, DEPRECATED
+
+- if defined BOOST_THREAD_PROVIDES_THREAD_MOVE_ASSIGN_CALLS_TERMINATE_IF_JOINABLE: If the thread is joinable calls to `std::terminate()`.
+]]
 
 [[Postconditions:] [`other->get_id()==thread::id()` and `get_id()` returns the value of `other.get_id()` prior to the assignment.]]
 
 [[Throws:] [Nothing]]
 
 ]
+
 
 [endsect]
 
@@ -488,7 +565,7 @@ any) to `*this`. Version 2: If there was a thread previously associated with
 
 [variablelist
 
-[[Requires:] [`Callable` must by Copyable and `func()` must be a valid expression.]]
+[[Requires:] [`Callable` must be Copyable and `func()` must be a valid expression.]]
 
 [[Effects:] [`func` is copied into storage managed internally by the thread library, and that copy is invoked on a newly-created
 thread of execution. If this invocation results in an exception being propagated into the internals of the thread library that is
@@ -515,7 +592,7 @@ not of type __thread_interrupted__, then `std::terminate()` will be called. Any 
 
 [variablelist
 
-[[Preconditions:] [`Callable` must by copyable.]]
+[[Preconditions:] [`Callable` must be copyable.]]
 
 [[Effects:] [`func` is copied into storage managed internally by the thread library, and that copy is invoked on a newly-created
 thread of execution with the specified attributes. If this invocation results in an exception being propagated into the internals of the thread library that is
@@ -543,7 +620,7 @@ If the attributes declare the native thread as detached, the boost::thread will 
 
 [variablelist
 
-[[Preconditions:] [`Callable` must by Movable.]]
+[[Preconditions:] [`Callable` must be Movable.]]
 
 [[Effects:] [`func` is moved into storage managed internally by the thread library, and that copy is invoked on a newly-created
 thread of execution. If this invocation results in an exception being propagated into the internals of the thread library that is
@@ -570,7 +647,7 @@ not of type __thread_interrupted__, then `std::terminate()` will be called. Any 
 
 [variablelist
 
-[[Preconditions:] [`Callable` must by copyable.]]
+[[Preconditions:] [`Callable` must be copyable.]]
 
 [[Effects:] [`func` is copied into storage managed internally by the thread library, and that copy is invoked on a newly-created
 thread of execution with the specified attributes. If this invocation results in an exception being propagated into the internals of the thread library that is
@@ -599,7 +676,7 @@ If the attributes declare the native thread as detached, the boost::thread will 
 
 [variablelist
 
-[[Preconditions:] [`F` and each `A`n must by copyable or movable.]]
+[[Preconditions:] [`F` and each `A`n must be copyable or movable.]]
 
 [[Effects:] [As if [link
 thread.thread_management.thread.callable_constructor
@@ -626,34 +703,22 @@ are copied into internal storage for access by the new thread.]]]
 
     ~thread();
 
+
 [variablelist
 
-[[Effects:] [Version 2: If `*this` has an associated thread of execution, calls __detach__, Version 3: If the thread is joinable calls to std::terminate. Destroys `*this`.]]
+[[Effects:] [
+- if defined BOOST_THREAD_DONT_PROVIDE_THREAD_DESTRUCTOR_CALLS_TERMINATE_IF_JOINABLE: If the thread is joinable calls __detach__, DEPRECATED
+
+- if defined BOOST_THREAD_PROVIDES_THREAD_DESTRUCTOR_CALLS_TERMINATE_IF_JOINABLE: If the thread is joinable calls to `std::terminate`. Destroys `*this`.]]
 
 [[Throws:] [Nothing.]]
+
+[[Note:] [The reason to moving to std::terminate is that either implicitly detaching or joining a `joinable()` thread in its destructor could result in difficult to debug correctness (for `detach`) or performance (for `join`) bugs encountered only when an exception is raised. Thus the programmer must ensure that the destructor is never executed while the thread is still joinable. Join the thread before destroying or use an scoped thread.]]
 
 ]
 
 [endsect]
 
-[/
-[section:v2_destructor V3 Thread Destructor]
-
-    ~thread();
-
-[variablelist
-
-[[Effects:] [If `*this` has an associated thread of execution, calls terminate. Destroys `*this`.]]
-
-[[Note:] [Either implicitly detaching or joining a `joinable()` thread in its destructor could result in difficult to debug correctness (for `detach`) or performance (for `join`) bugs encountered only when an exception is raised. Thus the programmer must ensure that the destructor is never executed while the thread is still joinable.]]
-
-
-[[Throws:] [Nothing.]]
-
-]
-
-[endsect]
-]
 
 [section:joinable Member function `joinable()`]
 
@@ -680,15 +745,20 @@ are copied into internal storage for access by the new thread.]]]
 
 [[Effects:] [If `*this` refers to a thread of execution, waits for that thread of execution to complete.]]
 
+[[Synchronization:] [The completion of the thread represented by `*this` synchronizes with the
+corresponding successful `join()` return. ]]
+[[Note:] [Operations on *this are not synchronized.
+ ]]
+
 [[Postconditions:] [If `*this` refers to a thread of execution on entry, that thread of execution has completed. `*this` no longer refers to any thread of execution.]]
 
 [[Throws:] [__thread_interrupted__ if the current thread of execution is interrupted or `system_error`]]
 
 [[Error Conditions:] [
 
-[*resource_deadlock_would_occur]: if deadlock is detected or this->get_id() == boost::this_thread::get_id().
+[*resource_deadlock_would_occur]: if deadlock is detected or `this->get_id() == boost::this_thread::get_id()`.
 
-[*invalid_argument]: if the thread is not joinable and BOOST_THREAD_TRROW_IF_PRECONDITION_NOT_SATISFIED is defined.
+[*invalid_argument]: if the thread is not joinable and `BOOST_THREAD_THROW_IF_PRECONDITION_NOT_SATISFIED` is defined.
 
 
 [/
@@ -704,12 +774,18 @@ are copied into internal storage for access by the new thread.]]]
 
 [endsect]
 
-[section:timed_join Member function `timed_join()`]
+[section:timed_join Member function `timed_join()` DEPRECATED]
 
     bool timed_join(const system_time& wait_until);
 
     template<typename TimeDuration>
     bool timed_join(TimeDuration const& rel_time);
+
+[warning
+DEPRECATED since 3.00.
+ 
+Use instead __try_join_for, __try_join_until.  
+]
 
 [variablelist
 
@@ -731,7 +807,7 @@ unchanged.]]
 
 [*resource_deadlock_would_occur]: if deadlock is detected or this->get_id() == boost::this_thread::get_id().
 
-[*invalid_argument]: if the thread is not joinable and BOOST_THREAD_TRROW_IF_PRECONDITION_NOT_SATISFIED is defined.
+[*invalid_argument]: if the thread is not joinable and BOOST_THREAD_THROW_IF_PRECONDITION_NOT_SATISFIED is defined.
 
 
 [/
@@ -771,7 +847,7 @@ unchanged.]]
 
 [*resource_deadlock_would_occur]: if deadlock is detected or this->get_id() == boost::this_thread::get_id().
 
-[*invalid_argument]: if the thread is not joinable and BOOST_THREAD_TRROW_IF_PRECONDITION_NOT_SATISFIED is defined.
+[*invalid_argument]: if the thread is not joinable and BOOST_THREAD_THROW_IF_PRECONDITION_NOT_SATISFIED is defined.
 
 
 [/
@@ -811,7 +887,7 @@ unchanged.]]
 
 [*resource_deadlock_would_occur]: if deadlock is detected or this->get_id() == boost::this_thread::get_id().
 
-[*invalid_argument]: if the thread is not joinable and BOOST_THREAD_TRROW_IF_PRECONDITION_NOT_SATISFIED is defined.
+[*invalid_argument]: if the thread is not joinable and BOOST_THREAD_THROW_IF_PRECONDITION_NOT_SATISFIED is defined.
 
 
 [/
@@ -847,7 +923,7 @@ unchanged.]]
 
 [*no_such_process]: if the thread is not valid.
 
-[*invalid_argument]: if the thread is not joinable and BOOST_THREAD_TRROW_IF_PRECONDITION_NOT_SATISFIED is defined.
+[*invalid_argument]: if the thread is not joinable and BOOST_THREAD_THROW_IF_PRECONDITION_NOT_SATISFIED is defined.
 
 ]]
 
@@ -871,7 +947,7 @@ a default-constructed __thread_id__.]]
 
 [endsect]
 
-[section:interrupt Member function `interrupt()`]
+[section:interrupt Member function `interrupt()` EXTENSION]
 
     void interrupt();
 
@@ -903,6 +979,21 @@ or 0 if this information is not available.]]
 
 [endsect]
 
+[section:physical_concurrency Static member function `physical_concurrency()`]
+
+    unsigned physical_concurrency() noexecpt;
+
+[variablelist
+
+[[Returns:] [The number of physical cores available on the current system. In contrast to `hardware_concurrency()` it does not return
+ the number of virtual cores, but it counts only physical cores.]]
+
+[[Throws:] [Nothing]]
+
+]
+
+[endsect]
+
 [section:nativehandle Member function `native_handle()`]
 
     typedef platform-specific-type native_handle_type;
@@ -919,37 +1010,54 @@ implementation. If no such instance exists, `native_handle()` and `native_handle
 
 [endsect]
 
-[section:equals `operator==` DEPRECATED V3]
+[section:equals `operator==` DEPRECATED]
 
     bool operator==(const thread& other) const;
+
+[warning
+DEPRECATED since 4.0.0.  
+ 
+Use `a.__get_id()==b.__get_id()` instead`.
+]
+
 
 [variablelist
 
 [[Returns:] [`get_id()==other.get_id()`]]
 
-[[See:] [Use `a.__get_id()==b.__get_id()` instead]]
 
 ]
 
 [endsect]
 
-[section:not_equals `operator!=` DEPRECATED V3]
+[section:not_equals `operator!=` DEPRECATED]
 
     bool operator!=(const thread& other) const;
+
+[warning
+DEPRECATED since 4.0.0.  
+ 
+Use `a.__get_id()!=b.__get_id()` instead`.
+]
 
 [variablelist
 
 [[Returns:] [`get_id()!=other.get_id()`]]
 
-[[See:] [Use `a.__get_id()!=b.__get_id()` instead`]]
-
 ]
 
 [endsect]
 
-[section:sleep Static member function `sleep()`]
+[section:sleep Static member function `sleep()` DEPRECATED]
 
     void sleep(system_time const& abs_time);
+
+[warning
+DEPRECATED since 3.0.0.  
+ 
+Use `this_thread::__sleep_for()` or `this_thread::__sleep_until()`.
+]
+
 
 [variablelist
 
@@ -959,21 +1067,23 @@ implementation. If no such instance exists, `native_handle()` and `native_handle
 
 [[Notes:] [`sleep()` is one of the predefined __interruption_points__.]]
 
-[[See:] [Use `this_thread::__sleep_for()` or `this_thread::__sleep_until()`]]
-
 ]
 
 [endsect]
 
-[section:yield Static member function `yield()`]
+[section:yield Static member function `yield()` DEPRECATED]
 
     void yield();
+
+[warning
+DEPRECATED since 3.0.0.  
+ 
+Use `this_thread::__yield()`.
+]
 
 [variablelist
 
 [[Effects:] [See [link thread.thread_management.this_thread.yield `boost::this_thread::yield()`].]]
-
-[[See:] [Use `this_thread::__yield()`]]
 
 ]
 
@@ -1262,9 +1372,9 @@ thread attributes implementation. If no such instance exists, `native_handle()` 
       class disable_interruption; // EXTENSION
       class restore_interruption; // EXTENSION
 
-    #if defined BOOST_THREAD_PROVIDES_DEPRECATED_FEATURES_SINCE_V3_0_0 || defined BOOST_THREAD_DONT_USE_CHRONO
-      void sleep(TimeDuration const& rel_time);
-      void sleep(system_time const& abs_time) 
+    #if defined BOOST_THREAD_USES_DATETIME
+      void sleep(TimeDuration const& rel_time); // DEPRECATED
+      void sleep(system_time const& abs_time);  // DEPRECATED
     #endif
     }
   }
@@ -1345,7 +1455,7 @@ thread attributes implementation. If no such instance exists, `native_handle()` 
 
 [endsect]
 
-[section:sleep Non-member function `sleep()`]
+[section:sleep Non-member function `sleep()` DEPRECATED]
 
     #include <boost/thread/thread.hpp>
 
@@ -1356,6 +1466,13 @@ thread attributes implementation. If no such instance exists, `native_handle()` 
         void sleep(system_time const& abs_time)
     }
 
+[warning
+DEPRECATED since 3.0.0.  
+ 
+Use `__sleep_for()` and `__sleep_until()` instead.
+]
+
+
 [variablelist
 
 [[Effects:] [Suspends the current thread until the time period
@@ -1365,8 +1482,6 @@ specified by `rel_time` has elapsed or the time point specified by
 [[Throws:] [__thread_interrupted__ if the current thread of execution is interrupted.]]
 
 [[Notes:] [`sleep()` is one of the predefined __interruption_points__.]]
-
-[[See:] [Use `__sleep_for()` and `__sleep_until()` instead.]]
 
 ]
 
@@ -1380,18 +1495,23 @@ specified by `rel_time` has elapsed or the time point specified by
     {
       template <class Clock, class Duration>
       void sleep_until(const chrono::time_point<Clock, Duration>& abs_time); 
+      namespace no_interruption_point
+      {
+        template <class Clock, class Duration>
+        void sleep_until(const chrono::time_point<Clock, Duration>& abs_time); 
+      }
     }
 
 [variablelist
 
-[[Effects:] [Suspends the current thread until the time period
-specified by `rel_time` has elapsed or the time point specified by
+[[Effects:] [Suspends the current thread until the time point specified by
 `abs_time` has been reached.]]
 
 [[Throws:] [Nothing if Clock satisfies the TrivialClock requirements and operations of Duration
 do not throw exceptions. __thread_interrupted__ if the current thread of execution is interrupted. ]]
 
 [[Notes:] [`sleep_until()` is one of the predefined __interruption_points__.]]
+[[Notes:] [`no_interruption_point::sleep_until()` is NOT one of the __interruption_points__.]]
 
 ]
 
@@ -1405,16 +1525,22 @@ do not throw exceptions. __thread_interrupted__ if the current thread of executi
     {
       template <class Rep, class Period>
       void sleep_for(const chrono::duration<Rep, Period>& rel_time);
+      namespace no_interruption_point
+      {
+        template <class Rep, class Period>
+        void sleep_for(const chrono::duration<Rep, Period>& rel_time);
+      }
     }
 
 [variablelist
 
-[[Effects:] [Suspends the current thread until the time point specified by
-`abs_time` has been reached.]]
+[[Effects:] [Suspends the current thread until the duration specified by
+by `rel_time` has elapsed.]]
 
 [[Throws:] [Nothing if operations of chrono::duration<Rep, Period> do not throw exceptions. __thread_interrupted__ if the current thread of execution is interrupted.]]
 
 [[Notes:] [`sleep_for()` is one of the predefined __interruption_points__.]]
+[[Notes:] [`no_interruption_point:: sleep_for()` is NOT one of the __interruption_points__.]]
 
 ]
 
@@ -1584,14 +1710,16 @@ registered with `at_thread_exit()`]]
 
 [endsect]
 
-[section:threadgroup Class `thread_group`]
+[section:threadgroup Class `thread_group` EXTENSION]
 
     #include <boost/thread/thread.hpp>
 
-    class thread_group:
-        private noncopyable
+    class thread_group
     {
     public:
+        thread_group(const thread_group&) = delete;
+        thread_group& operator=(const thread_group&) = delete;
+
         thread_group();
         ~thread_group();
 
@@ -1599,6 +1727,8 @@ registered with `at_thread_exit()`]]
         thread* create_thread(F threadfunc);
         void add_thread(thread* thrd);
         void remove_thread(thread* thrd);
+        bool is_this_thread_in();
+        bool is_thread_in(thread* thrd);
         void join_all();
         void interrupt_all();
         int size() const;
@@ -1654,7 +1784,7 @@ registered with `at_thread_exit()`]]
 
 [variablelist
 
-[[Precondition:] [The expression `delete thrd` is well-formed and will not result in undefined behaviour.]]
+[[Precondition:] [The expression `delete thrd` is well-formed and will not result in undefined behaviour and `is_thread_in(thrd) == false`.]]
 
 [[Effects:] [Take ownership of the __thread__ object pointed to by `thrd` and add it to the group.]]
 
@@ -1684,11 +1814,39 @@ registered with `at_thread_exit()`]]
 
 [variablelist
 
+[[Requires:] [`is_this_thread_in() == false`.]]
+
 [[Effects:] [Call `join()` on each __thread__ object in the group.]]
 
 [[Postcondition:] [Every thread in the group has terminated.]]
 
 [[Note:] [Since __join__ is one of the predefined __interruption_points__, `join_all()` is also an interruption point.]]
+
+]
+
+[endsect]
+
+[section:is_this_thread_in Member function `is_this_thread_in()`]
+
+    bool is_this_thread_in();
+
+[variablelist
+
+[[Returns:] [true if there is a thread `th` in the group such that `th.get_id() == this_thread::get_id()`.]]
+
+
+]
+
+[endsect]
+
+[section:is_thread_in Member function `is_thread_in()`]
+
+    bool is_thread_in(thread* thrd);
+
+[variablelist
+
+[[Returns:] [true if there is a thread `th` in the group such that `th.get_id() == thrd->get_id()`.]]
+
 
 ]
 

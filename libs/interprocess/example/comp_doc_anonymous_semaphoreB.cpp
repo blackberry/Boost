@@ -49,6 +49,9 @@ int main ()
    const int NumMsg = 100;
 
    int extracted_data [NumMsg];
+   //<-
+   (void)extracted_data;
+   //->
 
    //Extract the data
    for(int i = 0; i < NumMsg; ++i){

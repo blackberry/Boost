@@ -11,7 +11,7 @@
 #ifndef BOOST_INTERPROCESS_POSIX_NAMED_CONDITION_HPP
 #define BOOST_INTERPROCESS_POSIX_NAMED_CONDITION_HPP
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
@@ -23,9 +23,9 @@
 namespace boost {
 namespace interprocess {
 
-/// @cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 namespace ipcdetail{ class interprocess_tester; }
-/// @endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 namespace ipcdetail {
 

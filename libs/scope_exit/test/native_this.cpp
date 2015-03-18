@@ -23,7 +23,7 @@ struct this_tester {
             BOOST_TEST(this_->value_ == 0);
         } BOOST_SCOPE_EXIT_END
 
-#ifndef BOOST_NO_LAMBDAS
+#ifndef BOOST_NO_CXX11_LAMBDAS
         BOOST_SCOPE_EXIT_ALL(&, this) {
             BOOST_TEST(this->value_ == 0);
         };

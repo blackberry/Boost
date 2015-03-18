@@ -3,6 +3,9 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
+#define BOOST_THREAD_VERSION 2
+#define BOOST_THREAD_PROVIDES_INTERRUPTIONS
+
 #include <boost/test/unit_test.hpp>
 #include <boost/thread/thread.hpp>
 #include <boost/thread/mutex.hpp>
@@ -18,7 +21,7 @@ boost::mutex m;
 void initialize_variable()
 {
     // ensure that if multiple threads get in here, they are serialized, so we can see the effect
-    boost::mutex::scoped_lock lock(m);
+    boost::unique_lock<boost::mutex> lock(m);
     ++var_to_init;
 }
 
@@ -36,7 +39,7 @@ void call_once_thread()
             break;
         }
     }
-    boost::mutex::scoped_lock lock(m);
+    boost::unique_lock<boost::mutex> lock(m);
     BOOST_CHECK_EQUAL(my_once_value, 1);
 }
 
@@ -76,7 +79,7 @@ struct increment_value
 
     void operator()() const
     {
-        boost::mutex::scoped_lock lock(m);
+        boost::unique_lock<boost::mutex> lock(m);
         ++(*value);
     }
 };
@@ -95,7 +98,7 @@ void call_once_with_functor()
             break;
         }
     }
-    boost::mutex::scoped_lock lock(m);
+    boost::unique_lock<boost::mutex> lock(m);
     BOOST_CHECK_EQUAL(my_once_value, 1);
 }
 
@@ -134,7 +137,7 @@ struct throw_before_third_pass
 
     void operator()() const
     {
-        boost::mutex::scoped_lock lock(m);
+        boost::unique_lock<boost::mutex> lock(m);
         ++pass_counter;
         if(pass_counter<3)
         {
@@ -155,7 +158,7 @@ void call_once_with_exception()
     }
     catch(throw_before_third_pass::my_exception)
     {
-        boost::mutex::scoped_lock lock(m);
+        boost::unique_lock<boost::mutex> lock(m);
         ++exception_counter;
     }
 }
@@ -198,15 +201,4 @@ boost::unit_test::test_suite* init_unit_test_suite(int, char*[])
     return test;
 }
 
-void remove_unused_warning()
-{
 
-  //../../../boost/test/results_collector.hpp:40:13: warning: unused function 'first_failed_assertion' [-Wunused-function]
-  //(void)first_failed_assertion;
-
-  //../../../boost/test/tools/floating_point_comparison.hpp:304:25: warning: unused variable 'check_is_close' [-Wunused-variable]
-  //../../../boost/test/tools/floating_point_comparison.hpp:326:25: warning: unused variable 'check_is_small' [-Wunused-variable]
-  (void)boost::test_tools::check_is_close;
-  (void)boost::test_tools::check_is_small;
-
-}

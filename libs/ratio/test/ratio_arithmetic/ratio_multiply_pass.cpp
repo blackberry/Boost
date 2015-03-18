@@ -14,7 +14,7 @@
 // test ratio_multiply
 
 #include <boost/ratio/ratio.hpp>
-#if !defined(BOOST_NO_STATIC_ASSERT)
+#if !defined(BOOST_NO_CXX11_STATIC_ASSERT)
 #define NOTHING ""
 #endif
 

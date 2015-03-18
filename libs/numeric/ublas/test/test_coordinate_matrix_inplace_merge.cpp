@@ -79,7 +79,7 @@ BOOST_UBLAS_TEST_DEF( test_coordinate_matrix_inplace_merge_random )
       matrix_coord.sort();
 
       std::vector<std::pair<size_t, size_t> > entries;
-      for (int entry = 0; entry < nr_entries; ++ entry) {
+      for (size_t entry = 0; entry < nr_entries; ++ entry) {
         int x = rand() % size_x;
         int y = rand() % size_y;
         entries.push_back(std::make_pair(x, y));
@@ -98,7 +98,7 @@ BOOST_UBLAS_TEST_DEF( test_coordinate_matrix_inplace_merge_random )
         BOOST_UBLAS_TEST_CHECK( mean_square(matrix_coord - matrix_dense) < TOL);
       }
 
-      for (int entry = 0; entry < nr_entries; ++ entry) {
+      for (size_t entry = 0; entry < nr_entries; ++ entry) {
         int x = rand() % size_x;
         int y = rand() % size_y;
         entries.push_back(std::make_pair(x, y));

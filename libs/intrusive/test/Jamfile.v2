@@ -20,18 +20,15 @@ rule test_all
 
    for local fileb in [ glob *.cpp ]
    {
-      all_rules += [ run $(fileb) /boost/thread//boost_thread
+      all_rules += [ run $(fileb)
       :  # additional args
       :  # test-files
       :  # requirements
-        <toolset>acc:<linkflags>-lrt
-        <toolset>acc-pa_risc:<linkflags>-lrt
-        <toolset>gcc-mingw:<linkflags>"-lole32 -loleaut32"
-        <host-os>hpux,<toolset>gcc:<linkflags>"-Wl,+as,mpas"
+        <host-os>windows,<toolset>clang:<linkflags>"-lole32 -loleaut32 -lpsapi -ladvapi32"
       ] ;
    }
 
    return $(all_rules) ;
 }
 
-test-suite intrusive_test : [ test_all r ] : <threading>multi ;
+test-suite intrusive_test : [ test_all r ] : ;

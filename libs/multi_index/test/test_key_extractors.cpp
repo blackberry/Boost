@@ -1,6 +1,6 @@
 /* Boost.MultiIndex test for key extractors.
  *
- * Copyright 2003-2009 Joaquin M Lopez Munoz.
+ * Copyright 2003-2013 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -11,11 +11,11 @@
 #include "test_key_extractors.hpp"
 
 #include <boost/config.hpp> /* keep it first to prevent nasty warns in MSVC */
+#include <boost/detail/lightweight_test.hpp>
 #include "pre_multi_index.hpp"
 #include <boost/multi_index/key_extractors.hpp>
 #include <boost/ref.hpp>
 #include <boost/scoped_ptr.hpp>
-#include <boost/test/test_tools.hpp>
 #include <list>
 #include <memory>
 
@@ -61,9 +61,6 @@ struct test_derived_class:test_class
   test_derived_class(int i=0):test_class(i){}
   test_derived_class(int i,int j):test_class(i,j){}
 };
-
-BOOST_BROKEN_COMPILER_TYPE_TRAITS_SPECIALIZATION(test_class)
-BOOST_BROKEN_COMPILER_TYPE_TRAITS_SPECIALIZATION(test_derived_class)
 
 typedef identity<test_class>                                       idn;
 typedef identity<const test_class>                                 cidn;
@@ -134,9 +131,6 @@ struct test_nc_derived_class:test_nc_class
   test_nc_derived_class(int i,int j):test_nc_class(i,j){}
 };
 
-BOOST_BROKEN_COMPILER_TYPE_TRAITS_SPECIALIZATION(test_nc_class)
-BOOST_BROKEN_COMPILER_TYPE_TRAITS_SPECIALIZATION(test_nc_derived_class)
-
 typedef identity<test_nc_class>                                nc_idn;
 typedef identity<const test_nc_class>                          nc_cidn;
 typedef BOOST_MULTI_INDEX_MEMBER(test_nc_class,int,int_member) nc_key_m;
@@ -201,228 +195,228 @@ void test_key_extractors()
   boost::reference_wrapper<const test_class> ctw(tr);
 
   id(tr).int_member=0;
-  BOOST_CHECK(id(tr).int_member==0);
-  BOOST_CHECK(cid(tr).int_member==0);
-  BOOST_CHECK(k_m(tr)==0);
-  BOOST_CHECK(ck_m(tr)==0);
-  BOOST_CHECK(cmpk(tr)==make_tuple(test_class(0,0),0,0,true));
-  BOOST_CHECK(ccmpk(tr)==make_tuple(test_class(0,0),0));
-  BOOST_CHECK(id(ctr).int_member==0);
-  BOOST_CHECK(cid(ctr).int_member==0);
-  BOOST_CHECK(k_m(ctr)==0);
-  BOOST_CHECK(ck_m(ctr)==0);
-  BOOST_CHECK(cmpk(ctr)==make_tuple(test_class(0,0),0,0,true));
-  BOOST_CHECK(ccmpk(ctr)==make_tuple(test_class(0,0),0));
+  BOOST_TEST(id(tr).int_member==0);
+  BOOST_TEST(cid(tr).int_member==0);
+  BOOST_TEST(k_m(tr)==0);
+  BOOST_TEST(ck_m(tr)==0);
+  BOOST_TEST(cmpk(tr)==make_tuple(test_class(0,0),0,0,true));
+  BOOST_TEST(ccmpk(tr)==make_tuple(test_class(0,0),0));
+  BOOST_TEST(id(ctr).int_member==0);
+  BOOST_TEST(cid(ctr).int_member==0);
+  BOOST_TEST(k_m(ctr)==0);
+  BOOST_TEST(ck_m(ctr)==0);
+  BOOST_TEST(cmpk(ctr)==make_tuple(test_class(0,0),0,0,true));
+  BOOST_TEST(ccmpk(ctr)==make_tuple(test_class(0,0),0));
 
 #if !defined(BOOST_NO_SFINAE)
-  BOOST_CHECK(id(td).int_member==0);
-  BOOST_CHECK(cid(td).int_member==0);
-  BOOST_CHECK(k_m(td)==0);
-  BOOST_CHECK(ck_m(td)==0);
-  BOOST_CHECK(cmpk(td)==make_tuple(test_class(0,0),0,0,true));
-  BOOST_CHECK(ccmpk(td)==make_tuple(test_class(0,0),0));
-  BOOST_CHECK(id(ctdr).int_member==0);
-  BOOST_CHECK(cid(ctdr).int_member==0);
-  BOOST_CHECK(k_m(ctdr)==0);
-  BOOST_CHECK(ck_m(ctdr)==0);
-  BOOST_CHECK(cmpk(ctdr)==make_tuple(test_class(0,0),0,0,true));
-  BOOST_CHECK(ccmpk(ctdr)==make_tuple(test_class(0,0),0));
+  BOOST_TEST(id(td).int_member==0);
+  BOOST_TEST(cid(td).int_member==0);
+  BOOST_TEST(k_m(td)==0);
+  BOOST_TEST(ck_m(td)==0);
+  BOOST_TEST(cmpk(td)==make_tuple(test_class(0,0),0,0,true));
+  BOOST_TEST(ccmpk(td)==make_tuple(test_class(0,0),0));
+  BOOST_TEST(id(ctdr).int_member==0);
+  BOOST_TEST(cid(ctdr).int_member==0);
+  BOOST_TEST(k_m(ctdr)==0);
+  BOOST_TEST(ck_m(ctdr)==0);
+  BOOST_TEST(cmpk(ctdr)==make_tuple(test_class(0,0),0,0,true));
+  BOOST_TEST(ccmpk(ctdr)==make_tuple(test_class(0,0),0));
 #endif
 
   k_m(tr)=1;
-  BOOST_CHECK(id(tp).int_member==1);
-  BOOST_CHECK(cid(tp).int_member==1);
-  BOOST_CHECK(k_m(tp)==1);
-  BOOST_CHECK(ck_m(tp)==1);
-  BOOST_CHECK(cmpk(tp)==make_tuple(test_class(1,0),1,0,true));
-  BOOST_CHECK(ccmpk(tp)==make_tuple(test_class(1,0),1));
-  BOOST_CHECK(cid(ctp).int_member==1);
-  BOOST_CHECK(ck_m(ctp)==1);
-  BOOST_CHECK(cmpk(ctp)==make_tuple(test_class(1,0),1,0,true));
-  BOOST_CHECK(ccmpk(ctp)==make_tuple(test_class(1,0),1));
+  BOOST_TEST(id(tp).int_member==1);
+  BOOST_TEST(cid(tp).int_member==1);
+  BOOST_TEST(k_m(tp)==1);
+  BOOST_TEST(ck_m(tp)==1);
+  BOOST_TEST(cmpk(tp)==make_tuple(test_class(1,0),1,0,true));
+  BOOST_TEST(ccmpk(tp)==make_tuple(test_class(1,0),1));
+  BOOST_TEST(cid(ctp).int_member==1);
+  BOOST_TEST(ck_m(ctp)==1);
+  BOOST_TEST(cmpk(ctp)==make_tuple(test_class(1,0),1,0,true));
+  BOOST_TEST(ccmpk(ctp)==make_tuple(test_class(1,0),1));
 
 #if !defined(BOOST_NO_SFINAE)
-  BOOST_CHECK(id(tdp).int_member==1);
-  BOOST_CHECK(cid(tdp).int_member==1);
-  BOOST_CHECK(k_m(tdp)==1);
-  BOOST_CHECK(ck_m(tdp)==1);
-  BOOST_CHECK(cmpk(tdp)==make_tuple(test_class(1,0),1,0,true));
-  BOOST_CHECK(ccmpk(tdp)==make_tuple(test_class(1,0),1));
-  BOOST_CHECK(cid(ctdp).int_member==1);
-  BOOST_CHECK(ck_m(ctdp)==1);
-  BOOST_CHECK(cmpk(ctdp)==make_tuple(test_class(1,0),1,0,true));
-  BOOST_CHECK(ccmpk(ctdp)==make_tuple(test_class(1,0),1));
+  BOOST_TEST(id(tdp).int_member==1);
+  BOOST_TEST(cid(tdp).int_member==1);
+  BOOST_TEST(k_m(tdp)==1);
+  BOOST_TEST(ck_m(tdp)==1);
+  BOOST_TEST(cmpk(tdp)==make_tuple(test_class(1,0),1,0,true));
+  BOOST_TEST(ccmpk(tdp)==make_tuple(test_class(1,0),1));
+  BOOST_TEST(cid(ctdp).int_member==1);
+  BOOST_TEST(ck_m(ctdp)==1);
+  BOOST_TEST(cmpk(ctdp)==make_tuple(test_class(1,0),1,0,true));
+  BOOST_TEST(ccmpk(ctdp)==make_tuple(test_class(1,0),1));
 #endif
 
   k_m(tp)=2;
-  BOOST_CHECK(id(tpp).int_member==2);
-  BOOST_CHECK(cid(tpp).int_member==2);
-  BOOST_CHECK(k_m(tpp)==2);
-  BOOST_CHECK(ck_m(tpp)==2);
-  BOOST_CHECK(cmpk(tpp)==make_tuple(test_class(2,0),2,0,true));
-  BOOST_CHECK(ccmpk(tpp)==make_tuple(test_class(2,0),2));
-  BOOST_CHECK(cid(ctpp).int_member==2);
-  BOOST_CHECK(ck_m(ctpp)==2);
-  BOOST_CHECK(cmpk(ctpp)==make_tuple(test_class(2,0),2,0,true));
-  BOOST_CHECK(ccmpk(ctpp)==make_tuple(test_class(2,0),2));
+  BOOST_TEST(id(tpp).int_member==2);
+  BOOST_TEST(cid(tpp).int_member==2);
+  BOOST_TEST(k_m(tpp)==2);
+  BOOST_TEST(ck_m(tpp)==2);
+  BOOST_TEST(cmpk(tpp)==make_tuple(test_class(2,0),2,0,true));
+  BOOST_TEST(ccmpk(tpp)==make_tuple(test_class(2,0),2));
+  BOOST_TEST(cid(ctpp).int_member==2);
+  BOOST_TEST(ck_m(ctpp)==2);
+  BOOST_TEST(cmpk(ctpp)==make_tuple(test_class(2,0),2,0,true));
+  BOOST_TEST(ccmpk(ctpp)==make_tuple(test_class(2,0),2));
 
   k_m(tpp)=3;
-  BOOST_CHECK(id(tap).int_member==3);
-  BOOST_CHECK(cid(tap).int_member==3);
-  BOOST_CHECK(k_m(tap)==3);
-  BOOST_CHECK(ck_m(tap)==3);
-  BOOST_CHECK(cmpk(tap)==make_tuple(test_class(3,0),3,0,true));
-  BOOST_CHECK(ccmpk(tap)==make_tuple(test_class(3,0),3));
-  BOOST_CHECK(cid(ctap).int_member==3);
-  BOOST_CHECK(ck_m(ctap)==3);
-  BOOST_CHECK(cmpk(ctap)==make_tuple(test_class(3,0),3,0,true));
-  BOOST_CHECK(ccmpk(ctap)==make_tuple(test_class(3,0),3));
+  BOOST_TEST(id(tap).int_member==3);
+  BOOST_TEST(cid(tap).int_member==3);
+  BOOST_TEST(k_m(tap)==3);
+  BOOST_TEST(ck_m(tap)==3);
+  BOOST_TEST(cmpk(tap)==make_tuple(test_class(3,0),3,0,true));
+  BOOST_TEST(ccmpk(tap)==make_tuple(test_class(3,0),3));
+  BOOST_TEST(cid(ctap).int_member==3);
+  BOOST_TEST(ck_m(ctap)==3);
+  BOOST_TEST(cmpk(ctap)==make_tuple(test_class(3,0),3,0,true));
+  BOOST_TEST(ccmpk(ctap)==make_tuple(test_class(3,0),3));
 
   k_m(tap)=4;
-  BOOST_CHECK(id(tw).int_member==4);
-  BOOST_CHECK(cid(tw).int_member==4);
-  BOOST_CHECK(k_m(tw)==4);
-  BOOST_CHECK(ck_m(tw)==4);
-  BOOST_CHECK(cmpk(tw)==make_tuple(test_class(4,0),4,0,true));
-  BOOST_CHECK(ccmpk(tw)==make_tuple(test_class(4,0),4));
+  BOOST_TEST(id(tw).int_member==4);
+  BOOST_TEST(cid(tw).int_member==4);
+  BOOST_TEST(k_m(tw)==4);
+  BOOST_TEST(ck_m(tw)==4);
+  BOOST_TEST(cmpk(tw)==make_tuple(test_class(4,0),4,0,true));
+  BOOST_TEST(ccmpk(tw)==make_tuple(test_class(4,0),4));
 
   k_m(tw)=5;
-  BOOST_CHECK(id(ctw).int_member==5);
-  BOOST_CHECK(cid(ctw).int_member==5);
-  BOOST_CHECK(k_m(ctw)==5);
-  BOOST_CHECK(ck_m(ctw)==5);
-  BOOST_CHECK(cmpk(ctw)==make_tuple(test_class(5,0),5,0,true));
-  BOOST_CHECK(ccmpk(ctw)==make_tuple(test_class(5,0),5));
+  BOOST_TEST(id(ctw).int_member==5);
+  BOOST_TEST(cid(ctw).int_member==5);
+  BOOST_TEST(k_m(ctw)==5);
+  BOOST_TEST(ck_m(ctw)==5);
+  BOOST_TEST(cmpk(ctw)==make_tuple(test_class(5,0),5,0,true));
+  BOOST_TEST(ccmpk(ctw)==make_tuple(test_class(5,0),5));
 
-  BOOST_CHECK(k_cm(tr)==0);
-  BOOST_CHECK(k_cm(ctr)==0);
+  BOOST_TEST(k_cm(tr)==0);
+  BOOST_TEST(k_cm(ctr)==0);
 
 #if !defined(BOOST_NO_SFINAE)
-  BOOST_CHECK(k_cm(td)==0);
-  BOOST_CHECK(k_cm(ctdr)==0);
+  BOOST_TEST(k_cm(td)==0);
+  BOOST_TEST(k_cm(ctdr)==0);
 #endif
 
-  BOOST_CHECK(k_cm(tp)==0);
-  BOOST_CHECK(k_cm(ctp)==0);
+  BOOST_TEST(k_cm(tp)==0);
+  BOOST_TEST(k_cm(ctp)==0);
 
 #if !defined(BOOST_NO_SFINAE)
-  BOOST_CHECK(k_cm(tdp)==0);
-  BOOST_CHECK(k_cm(ctdp)==0);
+  BOOST_TEST(k_cm(tdp)==0);
+  BOOST_TEST(k_cm(ctdp)==0);
 #endif
   
-  BOOST_CHECK(k_cm(tpp)==0);
-  BOOST_CHECK(k_cm(ctpp)==0);
-  BOOST_CHECK(k_cm(tap)==0);
-  BOOST_CHECK(k_cm(ctap)==0);
+  BOOST_TEST(k_cm(tpp)==0);
+  BOOST_TEST(k_cm(ctpp)==0);
+  BOOST_TEST(k_cm(tap)==0);
+  BOOST_TEST(k_cm(ctap)==0);
 
-  BOOST_CHECK(k_cm(tw)==0);
-  BOOST_CHECK(k_cm(ctw)==0);
+  BOOST_TEST(k_cm(tw)==0);
+  BOOST_TEST(k_cm(ctw)==0);
 
-  BOOST_CHECK(k_cmf(tr));
-  BOOST_CHECK(k_cmf(ctr));
-
-#if !defined(BOOST_NO_SFINAE)
-  BOOST_CHECK(k_cmf(td));
-  BOOST_CHECK(k_cmf(ctdr));
-#endif
-
-  BOOST_CHECK(k_cmf(tp));
-  BOOST_CHECK(k_cmf(ctp));
+  BOOST_TEST(k_cmf(tr));
+  BOOST_TEST(k_cmf(ctr));
 
 #if !defined(BOOST_NO_SFINAE)
-  BOOST_CHECK(k_cmf(tdp));
-  BOOST_CHECK(k_cmf(ctdp));
+  BOOST_TEST(k_cmf(td));
+  BOOST_TEST(k_cmf(ctdr));
 #endif
 
-  BOOST_CHECK(k_cmf(tpp));
-  BOOST_CHECK(k_cmf(ctpp));
-  BOOST_CHECK(k_cmf(tap));
-  BOOST_CHECK(k_cmf(ctap));
-
-  BOOST_CHECK(k_cmf(tw));
-  BOOST_CHECK(k_cmf(ctw));
-
-  BOOST_CHECK(!k_mf(tr));
+  BOOST_TEST(k_cmf(tp));
+  BOOST_TEST(k_cmf(ctp));
 
 #if !defined(BOOST_NO_SFINAE)
-  BOOST_CHECK(!k_mf(td));
+  BOOST_TEST(k_cmf(tdp));
+  BOOST_TEST(k_cmf(ctdp));
 #endif
 
-  BOOST_CHECK(!k_mf(tp));
+  BOOST_TEST(k_cmf(tpp));
+  BOOST_TEST(k_cmf(ctpp));
+  BOOST_TEST(k_cmf(tap));
+  BOOST_TEST(k_cmf(ctap));
+
+  BOOST_TEST(k_cmf(tw));
+  BOOST_TEST(k_cmf(ctw));
+
+  BOOST_TEST(!k_mf(tr));
 
 #if !defined(BOOST_NO_SFINAE)
-  BOOST_CHECK(!k_mf(tdp));
+  BOOST_TEST(!k_mf(td));
 #endif
 
-  BOOST_CHECK(!k_mf(tpp));
-  BOOST_CHECK(!k_mf(tap));
-  BOOST_CHECK(!k_mf(tw));
-
-  BOOST_CHECK(k_gf(tr));
-  BOOST_CHECK(k_gf(ctr));
+  BOOST_TEST(!k_mf(tp));
 
 #if !defined(BOOST_NO_SFINAE)
-  BOOST_CHECK(k_gf(td));
-  BOOST_CHECK(k_gf(ctdr));
+  BOOST_TEST(!k_mf(tdp));
 #endif
 
-  BOOST_CHECK(k_gf(tp));
-  BOOST_CHECK(k_gf(ctp));
+  BOOST_TEST(!k_mf(tpp));
+  BOOST_TEST(!k_mf(tap));
+  BOOST_TEST(!k_mf(tw));
+
+  BOOST_TEST(k_gf(tr));
+  BOOST_TEST(k_gf(ctr));
 
 #if !defined(BOOST_NO_SFINAE)
-  BOOST_CHECK(k_gf(tdp));
-  BOOST_CHECK(k_gf(ctdp));
+  BOOST_TEST(k_gf(td));
+  BOOST_TEST(k_gf(ctdr));
 #endif
 
-  BOOST_CHECK(k_gf(tpp));
-  BOOST_CHECK(k_gf(ctpp));
-  BOOST_CHECK(k_gf(tap));
-  BOOST_CHECK(k_gf(ctap));
+  BOOST_TEST(k_gf(tp));
+  BOOST_TEST(k_gf(ctp));
 
-  BOOST_CHECK(k_gf(tw));
-  BOOST_CHECK(k_gf(ctw));
+#if !defined(BOOST_NO_SFINAE)
+  BOOST_TEST(k_gf(tdp));
+  BOOST_TEST(k_gf(ctdp));
+#endif
+
+  BOOST_TEST(k_gf(tpp));
+  BOOST_TEST(k_gf(ctpp));
+  BOOST_TEST(k_gf(tap));
+  BOOST_TEST(k_gf(ctap));
+
+  BOOST_TEST(k_gf(tw));
+  BOOST_TEST(k_gf(ctw));
   
-  BOOST_CHECK(!k_gcrf(tr));
-  BOOST_CHECK(!k_gcrf(ctr));
+  BOOST_TEST(!k_gcrf(tr));
+  BOOST_TEST(!k_gcrf(ctr));
 
 #if !defined(BOOST_NO_SFINAE)
-  BOOST_CHECK(!k_gcrf(td));
-  BOOST_CHECK(!k_gcrf(ctdr));
+  BOOST_TEST(!k_gcrf(td));
+  BOOST_TEST(!k_gcrf(ctdr));
 #endif
 
-  BOOST_CHECK(!k_gcrf(tp));
-  BOOST_CHECK(!k_gcrf(ctp));
+  BOOST_TEST(!k_gcrf(tp));
+  BOOST_TEST(!k_gcrf(ctp));
 
 #if !defined(BOOST_NO_SFINAE)
-  BOOST_CHECK(!k_gcrf(tdp));
-  BOOST_CHECK(!k_gcrf(ctdp));
+  BOOST_TEST(!k_gcrf(tdp));
+  BOOST_TEST(!k_gcrf(ctdp));
 #endif
 
-  BOOST_CHECK(!k_gcrf(tpp));
-  BOOST_CHECK(!k_gcrf(ctpp));
-  BOOST_CHECK(!k_gcrf(tap));
-  BOOST_CHECK(!k_gcrf(ctap));
+  BOOST_TEST(!k_gcrf(tpp));
+  BOOST_TEST(!k_gcrf(ctpp));
+  BOOST_TEST(!k_gcrf(tap));
+  BOOST_TEST(!k_gcrf(ctap));
 
-  BOOST_CHECK(!k_gcrf(tw));
-  BOOST_CHECK(!k_gcrf(ctw));
+  BOOST_TEST(!k_gcrf(tw));
+  BOOST_TEST(!k_gcrf(ctw));
 
-  BOOST_CHECK(k_grf(tr));
+  BOOST_TEST(k_grf(tr));
 
 #if !defined(BOOST_NO_SFINAE)
-  BOOST_CHECK(k_grf(td));
+  BOOST_TEST(k_grf(td));
 #endif
 
-  BOOST_CHECK(k_grf(tp));
+  BOOST_TEST(k_grf(tp));
 
 #if !defined(BOOST_NO_SFINAE)
-  BOOST_CHECK(k_grf(tdp));
+  BOOST_TEST(k_grf(tdp));
 #endif
 
-  BOOST_CHECK(k_grf(tpp));
-  BOOST_CHECK(k_grf(tap));
-  BOOST_CHECK(k_grf(tw));
+  BOOST_TEST(k_grf(tpp));
+  BOOST_TEST(k_grf(tap));
+  BOOST_TEST(k_grf(tw));
 
-  BOOST_CHECK(ccmpk_w(tw)==make_tuple(false));
+  BOOST_TEST(ccmpk_w(tw)==make_tuple(false));
 
 #if !defined(BOOST_NO_SFINAE)
 /* testcases for problems with non-copyable classes reported at
@@ -442,21 +436,21 @@ void test_key_extractors()
   test_nc_derived_class nc_td(-1,0);
 
   nc_id(nc_td).int_member=0;
-  BOOST_CHECK(nc_id(nc_td).int_member==0);
-  BOOST_CHECK(nc_cid(nc_td).int_member==0);
+  BOOST_TEST(nc_id(nc_td).int_member==0);
+  BOOST_TEST(nc_cid(nc_td).int_member==0);
 
   nc_k_m(&nc_td)=1;
-  BOOST_CHECK(nc_k_m(&nc_td)==1);
-  BOOST_CHECK(nc_ck_m(&nc_td)==1);
+  BOOST_TEST(nc_k_m(&nc_td)==1);
+  BOOST_TEST(nc_ck_m(&nc_td)==1);
 
-  BOOST_CHECK(nc_k_cmf(nc_td));
-  BOOST_CHECK(!nc_k_mf(nc_td));
+  BOOST_TEST(nc_k_cmf(nc_td));
+  BOOST_TEST(!nc_k_mf(nc_td));
 
-  BOOST_CHECK(!nc_k_gcrf(nc_td));
-  BOOST_CHECK(nc_k_grf(nc_td));
+  BOOST_TEST(!nc_k_gcrf(nc_td));
+  BOOST_TEST(nc_k_grf(nc_td));
 
   test_nc_class nc_t(1,0);
-  BOOST_CHECK(nc_cmpk(nc_td)==make_tuple(boost::cref(nc_t),1,1,true));
+  BOOST_TEST(nc_cmpk(nc_td)==make_tuple(boost::cref(nc_t),1,1,true));
 #endif
   
   std::list<test_class> tl;
@@ -464,15 +458,15 @@ void test_key_extractors()
 
   int j=0;
   for(std::list<test_class>::iterator it=tl.begin();it!=tl.end();++it){
-    BOOST_CHECK(k_m(it)==j);
-    BOOST_CHECK(k_cm(it)==j);
-    BOOST_CHECK(k_cmf(it));
-    BOOST_CHECK(!k_mf(it));
-    BOOST_CHECK(k_gf(it));
-    BOOST_CHECK(!k_gcrf(it));
-    BOOST_CHECK(k_grf(it));
-    BOOST_CHECK(cmpk(it)==make_tuple(test_class(j),j,j,true));
-    BOOST_CHECK(ccmpk(it)==make_tuple(test_class(j),j));
+    BOOST_TEST(k_m(it)==j);
+    BOOST_TEST(k_cm(it)==j);
+    BOOST_TEST(k_cmf(it));
+    BOOST_TEST(!k_mf(it));
+    BOOST_TEST(k_gf(it));
+    BOOST_TEST(!k_gcrf(it));
+    BOOST_TEST(k_grf(it));
+    BOOST_TEST(cmpk(it)==make_tuple(test_class(j),j,j,true));
+    BOOST_TEST(ccmpk(it)==make_tuple(test_class(j),j));
     ++j;
   }
 }

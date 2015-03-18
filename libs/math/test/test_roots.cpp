@@ -5,7 +5,8 @@
 
 #include <pch.hpp>
 
-#include <boost/test/test_exec_monitor.hpp>
+#define BOOST_TEST_MAIN
+#include <boost/test/unit_test.hpp>
 #include <boost/test/floating_point_comparison.hpp>
 #include <boost/test/results_collector.hpp>
 #include <boost/math/special_functions/beta.hpp>
@@ -14,6 +15,8 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/array.hpp>
 #include "table_type.hpp"
+#include <iostream>
+#include <iomanip>
 
 #define BOOST_CHECK_CLOSE_EX(a, b, prec, i) \
    {\
@@ -314,10 +317,10 @@ void test_beta(T, const char* /* name */)
    test_inverses<T>(ibeta_large_data);
 }
 
-int test_main(int, char* [])
+BOOST_AUTO_TEST_CASE( test_main )
 {
    test_beta(0.1, "double");
-   return 0;
+   
 }
 
 

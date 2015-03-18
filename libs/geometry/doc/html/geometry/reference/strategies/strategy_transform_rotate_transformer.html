@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>strategy::transform::rotate_transformer</title>
 <link rel="stylesheet" href="../../../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Geometry">
 <link rel="up" href="../strategies.html" title="Strategies">
 <link rel="prev" href="strategy_transform_map_transformer.html" title="strategy::transform::map_transformer">
@@ -27,12 +27,12 @@
 <a name="geometry.reference.strategies.strategy_transform_rotate_transformer"></a><a class="link" href="strategy_transform_rotate_transformer.html" title="strategy::transform::rotate_transformer">strategy::transform::rotate_transformer</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="id970849"></a><a class="indexterm" name="id970854"></a><a class="indexterm" name="id970859"></a>
-Strategy of rotate transformation in Cartesian system.
+          <a class="indexterm" name="idp136081312"></a><a class="indexterm" name="idp136082000"></a><a class="indexterm" name="idp136082688"></a>
+Strategy for rotate transformation in Cartesian coordinate system.
         </p>
 <h6>
 <a name="geometry.reference.strategies.strategy_transform_rotate_transformer.h0"></a>
-          <span><a name="geometry.reference.strategies.strategy_transform_rotate_transformer.description"></a></span><a class="link" href="strategy_transform_rotate_transformer.html#geometry.reference.strategies.strategy_transform_rotate_transformer.description">Description</a>
+          <span class="phrase"><a name="geometry.reference.strategies.strategy_transform_rotate_transformer.description"></a></span><a class="link" href="strategy_transform_rotate_transformer.html#geometry.reference.strategies.strategy_transform_rotate_transformer.description">Description</a>
         </h6>
 <p>
           Rotate rotates a geometry of specified angle about a fixed point (e.g.
@@ -40,12 +40,13 @@ Strategy of rotate transformation in Cartesian system.
         </p>
 <h6>
 <a name="geometry.reference.strategies.strategy_transform_rotate_transformer.h1"></a>
-          <span><a name="geometry.reference.strategies.strategy_transform_rotate_transformer.synopsis"></a></span><a class="link" href="strategy_transform_rotate_transformer.html#geometry.reference.strategies.strategy_transform_rotate_transformer.synopsis">Synopsis</a>
+          <span class="phrase"><a name="geometry.reference.strategies.strategy_transform_rotate_transformer.synopsis"></a></span><a class="link" href="strategy_transform_rotate_transformer.html#geometry.reference.strategies.strategy_transform_rotate_transformer.synopsis">Synopsis</a>
         </h6>
 <p>
 </p>
-<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">P1</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">P2</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">DegreeOrRadian</span><span class="special">&gt;</span>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">DegreeOrRadian</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">CalculationType</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">Dimension1</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">Dimension2</span><span class="special">&gt;</span>
 <span class="keyword">class</span> <span class="identifier">strategy</span><span class="special">::</span><span class="identifier">transform</span><span class="special">::</span><span class="identifier">rotate_transformer</span>
+      <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">detail</span><span class="special">::</span><span class="identifier">rad_rotate_transformer</span><span class="special">&lt;</span> <span class="identifier">CalculationType</span><span class="special">,</span> <span class="identifier">Dimension1</span><span class="special">,</span> <span class="identifier">Dimension2</span> <span class="special">&gt;</span>
 <span class="special">{</span>
   <span class="comment">// ...</span>
 <span class="special">};</span>
@@ -54,7 +55,7 @@ Strategy of rotate transformation in Cartesian system.
         </p>
 <h6>
 <a name="geometry.reference.strategies.strategy_transform_rotate_transformer.h2"></a>
-          <span><a name="geometry.reference.strategies.strategy_transform_rotate_transformer.template_parameter_s_"></a></span><a class="link" href="strategy_transform_rotate_transformer.html#geometry.reference.strategies.strategy_transform_rotate_transformer.template_parameter_s_">Template
+          <span class="phrase"><a name="geometry.reference.strategies.strategy_transform_rotate_transformer.template_parameter_s_"></a></span><a class="link" href="strategy_transform_rotate_transformer.html#geometry.reference.strategies.strategy_transform_rotate_transformer.template_parameter_s_">Template
           parameter(s)</a>
         </h6>
 <div class="informaltable"><table class="table">
@@ -78,30 +79,6 @@ Strategy of rotate transformation in Cartesian system.
 <tr>
 <td>
                   <p>
-                    typename P1
-                  </p>
-                </td>
-<td>
-                  <p>
-                    first point type
-                  </p>
-                </td>
-</tr>
-<tr>
-<td>
-                  <p>
-                    typename P2
-                  </p>
-                </td>
-<td>
-                  <p>
-                    second point type
-                  </p>
-                </td>
-</tr>
-<tr>
-<td>
-                  <p>
                     typename DegreeOrRadian
                   </p>
                 </td>
@@ -111,11 +88,38 @@ Strategy of rotate transformation in Cartesian system.
                   </p>
                 </td>
 </tr>
+<tr>
+<td>
+                  <p>
+                    typename CalculationType
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    std::size_t Dimension1
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    std::size_t Dimension2
+                  </p>
+                </td>
+<td>
+                </td>
+</tr>
 </tbody>
 </table></div>
 <h6>
 <a name="geometry.reference.strategies.strategy_transform_rotate_transformer.h3"></a>
-          <span><a name="geometry.reference.strategies.strategy_transform_rotate_transformer.constructor_s_"></a></span><a class="link" href="strategy_transform_rotate_transformer.html#geometry.reference.strategies.strategy_transform_rotate_transformer.constructor_s_">Constructor(s)</a>
+          <span class="phrase"><a name="geometry.reference.strategies.strategy_transform_rotate_transformer.constructor_s_"></a></span><a class="link" href="strategy_transform_rotate_transformer.html#geometry.reference.strategies.strategy_transform_rotate_transformer.constructor_s_">Constructor(s)</a>
         </h6>
 <div class="informaltable"><table class="table">
 <colgroup>
@@ -144,7 +148,7 @@ Strategy of rotate transformation in Cartesian system.
 <td>
                   <p>
 </p>
-<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">rotate_transformer</span><span class="special">(</span><span class="identifier">angle_type</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">angle</span><span class="special">)</span></pre>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">rotate_transformer</span><span class="special">(</span><span class="identifier">CalculationType</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">angle</span><span class="special">)</span></pre>
 <p>
                   </p>
                 </td>
@@ -152,14 +156,15 @@ Strategy of rotate transformation in Cartesian system.
                 </td>
 <td>
                   <p>
-                    <span class="bold"><strong>angle_type const &amp;</strong></span>: <span class="emphasis"><em>angle</em></span>:
+                    <span class="bold"><strong>CalculationType const &amp;</strong></span>:
+                    <span class="emphasis"><em>angle</em></span>:
                   </p>
                 </td>
 </tr></tbody>
 </table></div>
 <h6>
 <a name="geometry.reference.strategies.strategy_transform_rotate_transformer.h4"></a>
-          <span><a name="geometry.reference.strategies.strategy_transform_rotate_transformer.header"></a></span><a class="link" href="strategy_transform_rotate_transformer.html#geometry.reference.strategies.strategy_transform_rotate_transformer.header">Header</a>
+          <span class="phrase"><a name="geometry.reference.strategies.strategy_transform_rotate_transformer.header"></a></span><a class="link" href="strategy_transform_rotate_transformer.html#geometry.reference.strategies.strategy_transform_rotate_transformer.header">Header</a>
         </h6>
 <p>
           <code class="computeroutput"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">/</span><span class="identifier">strategies</span><span class="special">/</span><span class="identifier">transform</span><span class="special">/</span><span class="identifier">matrix_transformers</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>
@@ -167,8 +172,8 @@ Strategy of rotate transformation in Cartesian system.
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2009-2012 Barend
-      Gehrels, Bruno Lalande, Mateusz Loskot<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2009-2014 Barend Gehrels, Bruno Lalande, Mateusz Loskot, Adam
+      Wulkiewicz, Oracle and/or its affiliates<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

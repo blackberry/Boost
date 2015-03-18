@@ -28,7 +28,7 @@ void direct_adapter_test()
             indirect_array_source;
     typedef boost::iostreams::detail::direct_adapter<array_sink> 
             indirect_array_sink;
-    typedef boost::iostreams::detail::direct_adapter<array> 
+    typedef boost::iostreams::detail::direct_adapter<boost::iostreams::array> 
             indirect_array;
     typedef stream<indirect_array_source>
             indirect_array_istream;

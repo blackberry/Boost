@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 //
 // (C) Copyright Olaf Krzikalla 2004-2006.
-// (C) Copyright Ion Gaztanaga  2006-2012.
+// (C) Copyright Ion Gaztanaga  2006-2013.
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -10,7 +10,6 @@
 // See http://www.boost.org/libs/intrusive for documentation.
 //
 /////////////////////////////////////////////////////////////////////////////
-#include <boost/intrusive/detail/config_begin.hpp>
 #include <boost/intrusive/unordered_set.hpp>
 #include <boost/intrusive/pointer_traits.hpp>
 #include "itestvalue.hpp"
@@ -67,6 +66,9 @@ struct hooks
       , store_hash<true>
       , optimize_multikey<true>
       >                                                           auto_member_hook_type;
+   typedef nonhook_node_member< unordered_node_traits< VoidPointer, true, true >,
+                                unordered_algorithms
+                              > nonhook_node_member_type;
 };
 
 static const std::size_t BucketSize = 8;
@@ -212,118 +214,120 @@ void test_unordered_multiset<ValueTraits, CacheBegin, CompareHash, Incremental>
       > unordered_multiset_type;
    typedef typename unordered_multiset_type::bucket_traits bucket_traits;
    typedef typename unordered_multiset_type::iterator iterator;
-   typename unordered_multiset_type::bucket_type buckets [BucketSize];
-   unordered_multiset_type testset(bucket_traits(
-      pointer_traits<typename unordered_multiset_type::bucket_ptr>::
-            pointer_to(buckets[0]), BucketSize));
-
-   testset.insert(&values[0] + 2, &values[0] + 5);
-
-   const unordered_multiset_type& const_testset = testset;
-
-   if(Incremental){
-      {
-         {  int init_values [] = { 4, 5, 1 };
-            TEST_INTRUSIVE_SEQUENCE( init_values, const_testset.begin() );  }
-
-         typename unordered_multiset_type::iterator i = testset.begin();
-         BOOST_TEST (i->value_ == 4);
-
-         i = testset.insert (values[0]);
-         BOOST_TEST (&*i == &values[0]);
-
-         i = testset.iterator_to (values[2]);
-         BOOST_TEST (&*i == &values[2]);
-         testset.erase(i);
-
-         {  int init_values [] = { 5, 1, 3 };
-            TEST_INTRUSIVE_SEQUENCE( init_values, const_testset.begin() );  }
-         testset.clear();
-         testset.insert(&values[0], &values[0] + values.size());
-
-         {  int init_values [] = { 4, 5, 1, 2, 2, 3 };
-            TEST_INTRUSIVE_SEQUENCE( init_values, const_testset.begin() );  }
-
-         BOOST_TEST (testset.erase(1) == 1);
-         BOOST_TEST (testset.erase(2) == 2);
-         BOOST_TEST (testset.erase(3) == 1);
-         BOOST_TEST (testset.erase(4) == 1);
-         BOOST_TEST (testset.erase(5) == 1);
-         BOOST_TEST (testset.empty() == true);
-
-         //Now with a single bucket
-         typename unordered_multiset_type::bucket_type single_bucket[1];
-         unordered_multiset_type testset2(bucket_traits(
-            pointer_traits<typename unordered_multiset_type::bucket_ptr>::
-               pointer_to(single_bucket[0]), 1));
-         testset2.insert(&values[0], &values[0] + values.size());
-         BOOST_TEST (testset2.erase(5) == 1);
-         BOOST_TEST (testset2.erase(2) == 2);
-         BOOST_TEST (testset2.erase(1) == 1);
-         BOOST_TEST (testset2.erase(4) == 1);
-         BOOST_TEST (testset2.erase(3) == 1);
-         BOOST_TEST (testset2.empty() == true);
-      }
-   }
-   else{
-      {
-         {  int init_values [] = { 1, 4, 5 };
-            TEST_INTRUSIVE_SEQUENCE( init_values, const_testset.begin() );  }
-
-         typename unordered_multiset_type::iterator i = testset.begin();
-         BOOST_TEST (i->value_ == 1);
-
-         i = testset.insert (values[0]);
-         BOOST_TEST (&*i == &values[0]);
-
-         i = testset.iterator_to (values[2]);
-         BOOST_TEST (&*i == &values[2]);
-         testset.erase(i);
-
-         {  int init_values [] = { 1, 3, 5 };
-            TEST_INTRUSIVE_SEQUENCE( init_values, const_testset.begin() );  }
-         testset.clear();
-         testset.insert(&values[0], &values[0] + values.size());
-
-         {  int init_values [] = { 1, 2, 2, 3, 4, 5 };
-            TEST_INTRUSIVE_SEQUENCE( init_values, const_testset.begin() );  }
-
-         BOOST_TEST (testset.erase(1) == 1);
-         BOOST_TEST (testset.erase(2) == 2);
-         BOOST_TEST (testset.erase(3) == 1);
-         BOOST_TEST (testset.erase(4) == 1);
-         BOOST_TEST (testset.erase(5) == 1);
-         BOOST_TEST (testset.empty() == true);
-
-         //Now with a single bucket
-         typename unordered_multiset_type::bucket_type single_bucket[1];
-         unordered_multiset_type testset2(bucket_traits(
-            pointer_traits<typename unordered_multiset_type::bucket_ptr>::
-               pointer_to(single_bucket[0]), 1));
-         testset2.insert(&values[0], &values[0] + values.size());
-         BOOST_TEST (testset2.erase(5) == 1);
-         BOOST_TEST (testset2.erase(2) == 2);
-         BOOST_TEST (testset2.erase(1) == 1);
-         BOOST_TEST (testset2.erase(4) == 1);
-         BOOST_TEST (testset2.erase(3) == 1);
-         BOOST_TEST (testset2.empty() == true);
-      }
-   }
    {
-      //Now erase just one per loop
-      const int random_init[] = { 3, 2, 4, 1, 5, 2, 2 };
-      const unsigned int random_size = sizeof(random_init)/sizeof(random_init[0]);
-      typename unordered_multiset_type::bucket_type single_bucket[1];
-      for(unsigned int i = 0, max = random_size; i != max; ++i){
-         std::vector<typename ValueTraits::value_type> data (random_size);
-         for (unsigned int j = 0; j < random_size; ++j)
-            data[j].value_ = random_init[j];
-         unordered_multiset_type testset_new(bucket_traits(
-            pointer_traits<typename unordered_multiset_type::bucket_ptr>::
-               pointer_to(single_bucket[0]), 1));
-         testset_new.insert(&data[0], &data[0]+max);
-         testset_new.erase(testset_new.iterator_to(data[i]));
-         BOOST_TEST (testset_new.size() == (max -1));
+      typename unordered_multiset_type::bucket_type buckets [BucketSize];
+      unordered_multiset_type testset(bucket_traits(
+         pointer_traits<typename unordered_multiset_type::bucket_ptr>::
+               pointer_to(buckets[0]), BucketSize));
+
+      testset.insert(&values[0] + 2, &values[0] + 5);
+
+      const unordered_multiset_type& const_testset = testset;
+
+      if(Incremental){
+         {
+            {  int init_values [] = { 4, 5, 1 };
+               TEST_INTRUSIVE_SEQUENCE( init_values, const_testset.begin() );  }
+
+            typename unordered_multiset_type::iterator i = testset.begin();
+            BOOST_TEST (i->value_ == 4);
+
+            i = testset.insert (values[0]);
+            BOOST_TEST (&*i == &values[0]);
+
+            i = testset.iterator_to (values[2]);
+            BOOST_TEST (&*i == &values[2]);
+            testset.erase(i);
+
+            {  int init_values [] = { 5, 1, 3 };
+               TEST_INTRUSIVE_SEQUENCE( init_values, const_testset.begin() );  }
+            testset.clear();
+            testset.insert(&values[0], &values[0] + values.size());
+
+            {  int init_values [] = { 4, 5, 1, 2, 2, 3 };
+               TEST_INTRUSIVE_SEQUENCE( init_values, const_testset.begin() );  }
+
+            BOOST_TEST (testset.erase(1) == 1);
+            BOOST_TEST (testset.erase(2) == 2);
+            BOOST_TEST (testset.erase(3) == 1);
+            BOOST_TEST (testset.erase(4) == 1);
+            BOOST_TEST (testset.erase(5) == 1);
+            BOOST_TEST (testset.empty() == true);
+
+            //Now with a single bucket
+            typename unordered_multiset_type::bucket_type single_bucket[1];
+            unordered_multiset_type testset2(bucket_traits(
+               pointer_traits<typename unordered_multiset_type::bucket_ptr>::
+                  pointer_to(single_bucket[0]), 1));
+            testset2.insert(&values[0], &values[0] + values.size());
+            BOOST_TEST (testset2.erase(5) == 1);
+            BOOST_TEST (testset2.erase(2) == 2);
+            BOOST_TEST (testset2.erase(1) == 1);
+            BOOST_TEST (testset2.erase(4) == 1);
+            BOOST_TEST (testset2.erase(3) == 1);
+            BOOST_TEST (testset2.empty() == true);
+         }
+      }
+      else{
+         {
+            {  int init_values [] = { 1, 4, 5 };
+               TEST_INTRUSIVE_SEQUENCE( init_values, const_testset.begin() );  }
+
+            typename unordered_multiset_type::iterator i = testset.begin();
+            BOOST_TEST (i->value_ == 1);
+
+            i = testset.insert (values[0]);
+            BOOST_TEST (&*i == &values[0]);
+
+            i = testset.iterator_to (values[2]);
+            BOOST_TEST (&*i == &values[2]);
+            testset.erase(i);
+
+            {  int init_values [] = { 1, 3, 5 };
+               TEST_INTRUSIVE_SEQUENCE( init_values, const_testset.begin() );  }
+            testset.clear();
+            testset.insert(&values[0], &values[0] + values.size());
+
+            {  int init_values [] = { 1, 2, 2, 3, 4, 5 };
+               TEST_INTRUSIVE_SEQUENCE( init_values, const_testset.begin() );  }
+
+            BOOST_TEST (testset.erase(1) == 1);
+            BOOST_TEST (testset.erase(2) == 2);
+            BOOST_TEST (testset.erase(3) == 1);
+            BOOST_TEST (testset.erase(4) == 1);
+            BOOST_TEST (testset.erase(5) == 1);
+            BOOST_TEST (testset.empty() == true);
+
+            //Now with a single bucket
+            typename unordered_multiset_type::bucket_type single_bucket[1];
+            unordered_multiset_type testset2(bucket_traits(
+               pointer_traits<typename unordered_multiset_type::bucket_ptr>::
+                  pointer_to(single_bucket[0]), 1));
+            testset2.insert(&values[0], &values[0] + values.size());
+            BOOST_TEST (testset2.erase(5) == 1);
+            BOOST_TEST (testset2.erase(2) == 2);
+            BOOST_TEST (testset2.erase(1) == 1);
+            BOOST_TEST (testset2.erase(4) == 1);
+            BOOST_TEST (testset2.erase(3) == 1);
+            BOOST_TEST (testset2.empty() == true);
+         }
+      }
+      {
+         //Now erase just one per loop
+         const int random_init[] = { 3, 2, 4, 1, 5, 2, 2 };
+         const unsigned int random_size = sizeof(random_init)/sizeof(random_init[0]);
+         typename unordered_multiset_type::bucket_type single_bucket[1];
+         for(unsigned int i = 0, max = random_size; i != max; ++i){
+            std::vector<typename ValueTraits::value_type> data (random_size);
+            for (unsigned int j = 0; j < random_size; ++j)
+               data[j].value_ = random_init[j];
+            unordered_multiset_type testset_new(bucket_traits(
+               pointer_traits<typename unordered_multiset_type::bucket_ptr>::
+                  pointer_to(single_bucket[0]), 1));
+            testset_new.insert(&data[0], &data[0]+max);
+            testset_new.erase(testset_new.iterator_to(data[i]));
+            BOOST_TEST (testset_new.size() == (max -1));
+         }
       }
    }
    {
@@ -497,24 +501,6 @@ void test_unordered_multiset<ValueTraits, CacheBegin, CompareHash, Incremental>
    BOOST_TEST(testset1.incremental_rehash(bucket_traits(
       pointer_traits<typename unordered_multiset_type::bucket_ptr>::
                               pointer_to(buckets1[0]), BucketSize)) == false);
-   BOOST_TEST(testset1.split_count() == BucketSize);
-   {  int init_values [] = { 1, 2, 2, 3, 4, 5 };
-   TEST_INTRUSIVE_SEQUENCE( init_values, testset1.begin() );  }
-
-   //This incremental rehash should success because the new size is twice the original
-   //and split_count is the same as the old bucket count
-   BOOST_TEST(testset1.incremental_rehash(bucket_traits(
-      pointer_traits<typename unordered_multiset_type::bucket_ptr>::
-         pointer_to(buckets1[0]), BucketSize*2)) == true);
-   BOOST_TEST(testset1.split_count() == BucketSize);
-   {  int init_values [] = { 1, 2, 2, 3, 4, 5 };
-   TEST_INTRUSIVE_SEQUENCE( init_values, testset1.begin() );  }
-
-   //This incremental rehash should also success because the new size is half the original
-   //and split_count is the same as the new bucket count
-   BOOST_TEST(testset1.incremental_rehash(bucket_traits(
-      pointer_traits<typename unordered_multiset_type::bucket_ptr>::
-         pointer_to(buckets1[0]), BucketSize)) == true);
    BOOST_TEST(testset1.split_count() == BucketSize);
    {  int init_values [] = { 1, 2, 2, 3, 4, 5 };
    TEST_INTRUSIVE_SEQUENCE( init_values, testset1.begin() );  }
@@ -793,8 +779,7 @@ class test_main_template
                 >::test_all(data);
 
       test_unordered_multiset < typename detail::get_member_value_traits
-                  < value_type
-                  , member_hook< value_type
+                  < member_hook< value_type
                                , typename hooks<VoidPointer>::member_hook_type
                                , &value_type::node_
                                >
@@ -803,6 +788,15 @@ class test_main_template
                 , false
                 , Incremental
                 >::test_all(data);
+      test_unordered_multiset < nonhook_node_member_value_traits< value_type,
+                                                                  typename hooks<VoidPointer>::nonhook_node_member_type,
+                                                                  &value_type::nhn_member_,
+                                                                  safe_link
+                                                                >,
+                                false,
+                                false,
+                                Incremental
+                              >::test_all(data);
       return 0;
    }
 };
@@ -829,8 +823,7 @@ class test_main_template<VoidPointer, false, Incremental>
                 >::test_all(data);
 
       test_unordered_multiset < typename detail::get_member_value_traits
-                  < value_type
-                  , member_hook< value_type
+                  < member_hook< value_type
                                , typename hooks<VoidPointer>::member_hook_type
                                , &value_type::node_
                                >
@@ -850,8 +843,7 @@ class test_main_template<VoidPointer, false, Incremental>
                 >::test_all(data);
 
       test_unordered_multiset < typename detail::get_member_value_traits
-                  < value_type
-                  , member_hook< value_type
+                  < member_hook< value_type
                                , typename hooks<VoidPointer>::auto_member_hook_type
                                , &value_type::auto_node_
                                >
@@ -864,7 +856,7 @@ class test_main_template<VoidPointer, false, Incremental>
    }
 };
 
-int main( int, char* [] )
+int main()
 {
    test_main_template<void*, false, true>()();
    test_main_template<smart_ptr<void>, false, true>()();
@@ -876,5 +868,3 @@ int main( int, char* [] )
    test_main_template<smart_ptr<void>, true, false>()();
    return boost::report_errors();
 }
-
-#include <boost/intrusive/detail/config_end.hpp>

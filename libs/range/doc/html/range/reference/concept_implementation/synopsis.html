@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Synopsis</title>
 <link rel="stylesheet" href="../../../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Range 2.0">
 <link rel="up" href="../concept_implementation.html" title="Range concept implementation">
 <link rel="prev" href="../concept_implementation.html" title="Range concept implementation">
@@ -27,15 +27,14 @@
 <a name="range.reference.concept_implementation.synopsis"></a><a class="link" href="synopsis.html" title="Synopsis">Synopsis</a>
 </h4></div></div></div>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span>
 <span class="special">{</span>
-    <span class="comment">//
-</span>    <span class="comment">// Single Pass Range metafunctions
-</span>    <span class="comment">//
-</span>
-    <span class="keyword">template</span><span class="special">&lt;</span> <span class="keyword">class</span> <span class="identifier">T</span> <span class="special">&gt;</span>
+    <span class="comment">//</span>
+    <span class="comment">// Single Pass Range metafunctions</span>
+    <span class="comment">//</span>
+
+    <span class="keyword">template</span><span class="special">&lt;</span> <span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">Enabler</span><span class="special">=</span><span class="keyword">void</span> <span class="special">&gt;</span>
     <span class="keyword">struct</span> <span class="identifier">range_iterator</span><span class="special">;</span>
 
     <span class="keyword">template</span><span class="special">&lt;</span> <span class="keyword">class</span> <span class="identifier">T</span> <span class="special">&gt;</span>
@@ -43,31 +42,31 @@
 
     <span class="keyword">template</span><span class="special">&lt;</span> <span class="keyword">class</span> <span class="identifier">T</span> <span class="special">&gt;</span>
     <span class="keyword">struct</span> <span class="identifier">range_reference</span><span class="special">;</span>
-    
+
     <span class="keyword">template</span><span class="special">&lt;</span> <span class="keyword">class</span> <span class="identifier">T</span> <span class="special">&gt;</span>
     <span class="keyword">struct</span> <span class="identifier">range_pointer</span><span class="special">;</span>
-    
+
     <span class="keyword">template</span><span class="special">&lt;</span> <span class="keyword">class</span> <span class="identifier">T</span> <span class="special">&gt;</span>
     <span class="keyword">struct</span> <span class="identifier">range_category</span><span class="special">;</span>
 
-    <span class="comment">//
-</span>    <span class="comment">// Forward Range metafunctions
-</span>    <span class="comment">//
-</span>
+    <span class="comment">//</span>
+    <span class="comment">// Forward Range metafunctions</span>
+    <span class="comment">//</span>
+
     <span class="keyword">template</span><span class="special">&lt;</span> <span class="keyword">class</span> <span class="identifier">T</span> <span class="special">&gt;</span>
     <span class="keyword">struct</span> <span class="identifier">range_difference</span><span class="special">;</span>
 
-    <span class="comment">//
-</span>    <span class="comment">// Bidirectional Range metafunctions
-</span>    <span class="comment">//
-</span>
+    <span class="comment">//</span>
+    <span class="comment">// Bidirectional Range metafunctions</span>
+    <span class="comment">//</span>
+
     <span class="keyword">template</span><span class="special">&lt;</span> <span class="keyword">class</span> <span class="identifier">T</span> <span class="special">&gt;</span>
     <span class="keyword">struct</span> <span class="identifier">range_reverse_iterator</span><span class="special">;</span>
 
-    <span class="comment">//
-</span>    <span class="comment">// Single Pass Range functions
-</span>    <span class="comment">//
-</span>
+    <span class="comment">//</span>
+    <span class="comment">// Single Pass Range functions</span>
+    <span class="comment">//</span>
+
     <span class="keyword">template</span><span class="special">&lt;</span> <span class="keyword">class</span> <span class="identifier">T</span> <span class="special">&gt;</span>
     <span class="keyword">typename</span> <span class="identifier">range_iterator</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">type</span>
     <span class="identifier">begin</span><span class="special">(</span> <span class="identifier">T</span><span class="special">&amp;</span> <span class="identifier">r</span> <span class="special">);</span>
@@ -88,18 +87,22 @@
     <span class="keyword">bool</span>
     <span class="identifier">empty</span><span class="special">(</span> <span class="keyword">const</span> <span class="identifier">T</span><span class="special">&amp;</span> <span class="identifier">r</span> <span class="special">);</span>
 
-    <span class="comment">//
-</span>    <span class="comment">// Forward Range functions
-</span>    <span class="comment">//
-</span>
+    <span class="comment">//</span>
+    <span class="comment">// Forward Range functions</span>
+    <span class="comment">//</span>
+
     <span class="keyword">template</span><span class="special">&lt;</span> <span class="keyword">class</span> <span class="identifier">T</span> <span class="special">&gt;</span>
     <span class="keyword">typename</span> <span class="identifier">range_difference</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">type</span>
     <span class="identifier">distance</span><span class="special">(</span> <span class="keyword">const</span> <span class="identifier">T</span><span class="special">&amp;</span> <span class="identifier">r</span> <span class="special">);</span>
 
-    <span class="comment">//
-</span>    <span class="comment">// Bidirectional Range functions
-</span>    <span class="comment">//
-</span>
+    <span class="keyword">template</span><span class="special">&lt;</span> <span class="keyword">class</span> <span class="identifier">T</span> <span class="special">&gt;</span>
+    <span class="keyword">typename</span> <span class="identifier">range_size</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">type</span>
+    <span class="identifier">size</span><span class="special">(</span> <span class="keyword">const</span> <span class="identifier">T</span><span class="special">&amp;</span> <span class="identifier">r</span> <span class="special">);</span>
+
+    <span class="comment">//</span>
+    <span class="comment">// Bidirectional Range functions</span>
+    <span class="comment">//</span>
+
     <span class="keyword">template</span><span class="special">&lt;</span> <span class="keyword">class</span> <span class="identifier">T</span> <span class="special">&gt;</span>
     <span class="keyword">typename</span> <span class="identifier">range_reverse_iterator</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">type</span>
     <span class="identifier">rbegin</span><span class="special">(</span> <span class="identifier">T</span><span class="special">&amp;</span> <span class="identifier">r</span> <span class="special">);</span>
@@ -115,63 +118,56 @@
     <span class="keyword">template</span><span class="special">&lt;</span> <span class="keyword">class</span> <span class="identifier">T</span> <span class="special">&gt;</span>
     <span class="keyword">typename</span> <span class="identifier">range_reverse_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">type</span>
     <span class="identifier">rend</span><span class="special">(</span> <span class="keyword">const</span> <span class="identifier">T</span><span class="special">&amp;</span> <span class="identifier">r</span> <span class="special">);</span>
-    
-    <span class="comment">//
-</span>    <span class="comment">// Random Access Range functions
-</span>    <span class="comment">//
-</span>    
-    <span class="keyword">template</span><span class="special">&lt;</span> <span class="keyword">class</span> <span class="identifier">T</span> <span class="special">&gt;</span>
-    <span class="keyword">typename</span> <span class="identifier">range_difference</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">type</span>
-    <span class="identifier">size</span><span class="special">(</span> <span class="keyword">const</span> <span class="identifier">T</span><span class="special">&amp;</span> <span class="identifier">r</span> <span class="special">);</span>
 
-    <span class="comment">//
-</span>    <span class="comment">// Special const Range functions
-</span>    <span class="comment">//
-</span>
+    <span class="comment">//</span>
+    <span class="comment">// Special const Range functions</span>
+    <span class="comment">//</span>
+
     <span class="keyword">template</span><span class="special">&lt;</span> <span class="keyword">class</span> <span class="identifier">T</span> <span class="special">&gt;</span>
-    <span class="keyword">typename</span> <span class="identifier">range_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">type</span> 
+    <span class="keyword">typename</span> <span class="identifier">range_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">type</span>
     <span class="identifier">const_begin</span><span class="special">(</span> <span class="keyword">const</span> <span class="identifier">T</span><span class="special">&amp;</span> <span class="identifier">r</span> <span class="special">);</span>
 
     <span class="keyword">template</span><span class="special">&lt;</span> <span class="keyword">class</span> <span class="identifier">T</span> <span class="special">&gt;</span>
-    <span class="keyword">typename</span> <span class="identifier">range_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">type</span> 
+    <span class="keyword">typename</span> <span class="identifier">range_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">type</span>
     <span class="identifier">const_end</span><span class="special">(</span> <span class="keyword">const</span> <span class="identifier">T</span><span class="special">&amp;</span> <span class="identifier">r</span> <span class="special">);</span>
 
     <span class="keyword">template</span><span class="special">&lt;</span> <span class="keyword">class</span> <span class="identifier">T</span> <span class="special">&gt;</span>
-    <span class="keyword">typename</span> <span class="identifier">range_reverse_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">type</span> 
+    <span class="keyword">typename</span> <span class="identifier">range_reverse_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">type</span>
     <span class="identifier">const_rbegin</span><span class="special">(</span> <span class="keyword">const</span> <span class="identifier">T</span><span class="special">&amp;</span> <span class="identifier">r</span> <span class="special">);</span>
 
     <span class="keyword">template</span><span class="special">&lt;</span> <span class="keyword">class</span> <span class="identifier">T</span> <span class="special">&gt;</span>
-    <span class="keyword">typename</span> <span class="identifier">range_reverse_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">type</span> 
+    <span class="keyword">typename</span> <span class="identifier">range_reverse_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">type</span>
     <span class="identifier">const_rend</span><span class="special">(</span> <span class="keyword">const</span> <span class="identifier">T</span><span class="special">&amp;</span> <span class="identifier">r</span> <span class="special">);</span>
-    
-    <span class="comment">//
-</span>    <span class="comment">// String utilities
-</span>    <span class="comment">//
-</span>    
+
+    <span class="comment">//</span>
+    <span class="comment">// String utilities</span>
+    <span class="comment">//</span>
+
     <span class="keyword">template</span><span class="special">&lt;</span> <span class="keyword">class</span> <span class="identifier">T</span> <span class="special">&gt;</span>
     <span class="identifier">iterator_range</span><span class="special">&lt;</span> <span class="special">...</span> <span class="identifier">see</span> <span class="identifier">below</span> <span class="special">...</span> <span class="special">&gt;</span>
     <span class="identifier">as_literal</span><span class="special">(</span> <span class="identifier">T</span><span class="special">&amp;</span> <span class="identifier">r</span> <span class="special">);</span>
-    
+
     <span class="keyword">template</span><span class="special">&lt;</span> <span class="keyword">class</span> <span class="identifier">T</span> <span class="special">&gt;</span>
     <span class="identifier">iterator_range</span><span class="special">&lt;</span> <span class="special">...</span> <span class="identifier">see</span> <span class="identifier">below</span> <span class="special">...</span> <span class="special">&gt;</span>
     <span class="identifier">as_literal</span><span class="special">(</span> <span class="keyword">const</span> <span class="identifier">T</span><span class="special">&amp;</span> <span class="identifier">r</span> <span class="special">);</span>
-    
+
     <span class="keyword">template</span><span class="special">&lt;</span> <span class="keyword">class</span> <span class="identifier">T</span> <span class="special">&gt;</span>
     <span class="identifier">iterator_range</span><span class="special">&lt;</span> <span class="keyword">typename</span> <span class="identifier">range_iterator</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">type</span> <span class="special">&gt;</span>
     <span class="identifier">as_array</span><span class="special">(</span> <span class="identifier">T</span><span class="special">&amp;</span> <span class="identifier">r</span> <span class="special">);</span>
-    
+
     <span class="keyword">template</span><span class="special">&lt;</span> <span class="keyword">class</span> <span class="identifier">T</span> <span class="special">&gt;</span>
     <span class="identifier">iterator_range</span><span class="special">&lt;</span> <span class="keyword">typename</span> <span class="identifier">range_iterator</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">T</span><span class="special">&gt;::</span><span class="identifier">type</span> <span class="special">&gt;</span>
     <span class="identifier">as_array</span><span class="special">(</span> <span class="keyword">const</span> <span class="identifier">T</span><span class="special">&amp;</span> <span class="identifier">r</span> <span class="special">);</span>
 
-<span class="special">}</span> <span class="comment">// namespace 'boost' 
-</span></pre>
+<span class="special">}</span> <span class="comment">// namespace 'boost'</span>
+</pre>
 <p>
         </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2003 -2010 Thorsten Ottosen, Neil Groves<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2010 Thorsten Ottosen,
+      Neil Groves<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

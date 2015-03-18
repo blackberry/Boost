@@ -6,10 +6,10 @@
 
 #include <vector>
 #include <iostream>
-#include <boost/thread/condition.hpp>
+#include <boost/thread/condition_variable.hpp>
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/recursive_mutex.hpp>
-#include <boost/thread/thread.hpp>
+#include <boost/thread/thread_only.hpp>
 
 namespace {
 const int ITERS = 100;
@@ -20,7 +20,7 @@ template <typename M>
 class buffer_t
 {
 public:
-    typedef typename M::scoped_lock scoped_lock;
+    typedef boost::unique_lock<M> scoped_lock;
 
     buffer_t(int n)
         : p(0), c(0), full(0), buf(n)
@@ -60,7 +60,7 @@ public:
         for (int n = 0; n < ITERS; ++n)
         {
             {
-                boost::mutex::scoped_lock lock(io_mutex);
+                boost::unique_lock<boost::mutex> lock(io_mutex);
                 std::cout << "sending: " << n << std::endl;
             }
             get_buffer().send(n);
@@ -73,7 +73,7 @@ public:
         {
             int n = get_buffer().receive();
             {
-                boost::mutex::scoped_lock lock(io_mutex);
+                boost::unique_lock<boost::mutex> lock(io_mutex);
                 std::cout << "received: " << n << std::endl;
             }
         }
@@ -81,7 +81,7 @@ public:
 
 private:
     M mutex;
-    boost::condition cond;
+    boost::condition_variable_any cond;
     unsigned int p, c, full;
     std::vector<int> buf;
 };

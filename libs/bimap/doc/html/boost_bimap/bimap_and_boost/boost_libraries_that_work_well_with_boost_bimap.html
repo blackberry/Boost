@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Boost Libraries that work well with Boost.Bimap</title>
 <link rel="stylesheet" href="../../boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.77.1">
 <link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Bimap">
 <link rel="up" href="../bimap_and_boost.html" title="Bimap and Boost">
 <link rel="prev" href="../bimap_and_boost.html" title="Bimap and Boost">
@@ -22,7 +22,7 @@
 <div class="spirit-nav">
 <a accesskey="p" href="../bimap_and_boost.html"><img src="../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../bimap_and_boost.html"><img src="../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="dependencies.html"><img src="../../../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
-<div class="section">
+<div class="section boost_bimap_bimap_and_boost_boost_libraries_that_work_well_with_boost_bimap">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap"></a><a class="link" href="boost_libraries_that_work_well_with_boost_bimap.html" title="Boost Libraries that work well with Boost.Bimap">Boost
       Libraries that work well with Boost.Bimap</a>
@@ -39,7 +39,7 @@
 <dt><span class="section"><a href="boost_libraries_that_work_well_with_boost_bimap.html#boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_xpressive">Boost.Xpressive</a></span></dt>
 <dt><span class="section"><a href="boost_libraries_that_work_well_with_boost_bimap.html#boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_property_map">Boost.Property_map</a></span></dt>
 </dl></div>
-<div class="section">
+<div class="section boost_bimap_bimap_and_boost_boost_libraries_that_work_well_with_boost_bimap_introduction">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.introduction"></a><a class="link" href="boost_libraries_that_work_well_with_boost_bimap.html#boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.introduction" title="Introduction">Introduction</a>
 </h4></div></div></div>
@@ -280,7 +280,7 @@
 </tbody>
 </table></div>
 </div>
-<div class="section">
+<div class="section boost_bimap_bimap_and_boost_boost_libraries_that_work_well_with_boost_bimap_boost_serialization">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_serialization"></a><a class="link" href="boost_libraries_that_work_well_with_boost_bimap.html#boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_serialization" title="Boost.Serialization">Boost.Serialization</a>
 </h4></div></div></div>
@@ -294,12 +294,11 @@
           code</a>
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">bimap</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">,</span> <span class="keyword">int</span> <span class="special">&gt;</span> <span class="identifier">bm_type</span><span class="special">;</span>
 
-<span class="comment">// Create a bimap and serialize it to a file
-</span><span class="special">{</span>
+<span class="comment">// Create a bimap and serialize it to a file</span>
+<span class="special">{</span>
     <span class="identifier">bm_type</span> <span class="identifier">bm</span><span class="special">;</span>
     <span class="identifier">bm</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span> <span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">value_type</span><span class="special">(</span><span class="string">"one"</span><span class="special">,</span><span class="number">1</span><span class="special">)</span> <span class="special">);</span>
     <span class="identifier">bm</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span> <span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">value_type</span><span class="special">(</span><span class="string">"two"</span><span class="special">,</span><span class="number">2</span><span class="special">)</span> <span class="special">);</span>
@@ -307,17 +306,17 @@
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">ofstream</span> <span class="identifier">ofs</span><span class="special">(</span><span class="string">"data"</span><span class="special">);</span>
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">archive</span><span class="special">::</span><span class="identifier">text_oarchive</span> <span class="identifier">oa</span><span class="special">(</span><span class="identifier">ofs</span><span class="special">);</span>
 
-    <span class="identifier">oa</span> <span class="special">&lt;&lt;</span> <span class="keyword">const_cast</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">bm_type</span><span class="special">&amp;&gt;(</span><span class="identifier">bm</span><span class="special">);</span> <a class="co" name="boost_bimap16co" href="boost_libraries_that_work_well_with_boost_bimap.html#boost_bimap16"><img src="../../../../../../doc/src/images/callouts/1.png" alt="1" border="0"></a>
+    <span class="identifier">oa</span> <span class="special">&lt;&lt;</span> <span class="keyword">const_cast</span><span class="special">&lt;</span><span class="keyword">const</span> <span class="identifier">bm_type</span><span class="special">&amp;&gt;(</span><span class="identifier">bm</span><span class="special">);</span> <a class="co" name="boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_serialization.c0" href="boost_libraries_that_work_well_with_boost_bimap.html#boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_serialization.c1"><img src="../../../../../../doc/src/images/callouts/1.png" alt="1" border="0"></a>
 
-    <a class="co" name="boost_bimap17co" href="boost_libraries_that_work_well_with_boost_bimap.html#boost_bimap17"><img src="../../../../../../doc/src/images/callouts/2.png" alt="2" border="0"></a><span class="keyword">const</span> <span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">left_iterator</span> <span class="identifier">left_iter</span> <span class="special">=</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">left</span><span class="special">.</span><span class="identifier">find</span><span class="special">(</span><span class="string">"two"</span><span class="special">);</span>
+    <a class="co" name="boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_serialization.c2" href="boost_libraries_that_work_well_with_boost_bimap.html#boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_serialization.c3"><img src="../../../../../../doc/src/images/callouts/2.png" alt="2" border="0"></a><span class="keyword">const</span> <span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">left_iterator</span> <span class="identifier">left_iter</span> <span class="special">=</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">left</span><span class="special">.</span><span class="identifier">find</span><span class="special">(</span><span class="string">"two"</span><span class="special">);</span>
     <span class="identifier">oa</span> <span class="special">&lt;&lt;</span> <span class="identifier">left_iter</span><span class="special">;</span>
 
     <span class="keyword">const</span> <span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">right_iterator</span> <span class="identifier">right_iter</span> <span class="special">=</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">right</span><span class="special">.</span><span class="identifier">find</span><span class="special">(</span><span class="number">1</span><span class="special">);</span>
     <span class="identifier">oa</span> <span class="special">&lt;&lt;</span> <span class="identifier">right_iter</span><span class="special">;</span>
 <span class="special">}</span>
 
-<span class="comment">// Load the bimap back
-</span><span class="special">{</span>
+<span class="comment">// Load the bimap back</span>
+<span class="special">{</span>
     <span class="identifier">bm_type</span> <span class="identifier">bm</span><span class="special">;</span>
 
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">ifstream</span> <span class="identifier">ifs</span><span class="special">(</span><span class="string">"data"</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ios</span><span class="special">::</span><span class="identifier">binary</span><span class="special">);</span>
@@ -342,7 +341,7 @@
         </p>
 <div class="calloutlist"><table border="0" summary="Callout list">
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="boost_bimap16"></a><a href="#boost_bimap16co"><img src="../../../../../../doc/src/images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_serialization.c1"></a><a href="#boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_serialization.c0"><img src="../../../../../../doc/src/images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               We must do a const cast because Boost.Serialization archives only save
               const objects. Read Boost.Serializartion docs for the rationale behind
@@ -350,7 +349,7 @@
             </p></td>
 </tr>
 <tr>
-<td width="5%" valign="top" align="left"><p><a name="boost_bimap17"></a><a href="#boost_bimap17co"><img src="../../../../../../doc/src/images/callouts/2.png" alt="2" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_serialization.c3"></a><a href="#boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_serialization.c2"><img src="../../../../../../doc/src/images/callouts/2.png" alt="2" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               We can only serialize iterators if the bimap was serialized first.
               Note that the const cast is not requiered here because we create our
@@ -396,7 +395,7 @@
           must be done only after serializing its corresponding container.
         </p>
 </div>
-<div class="section">
+<div class="section boost_bimap_bimap_and_boost_boost_libraries_that_work_well_with_boost_bimap_boost_assign">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_assign"></a><a class="link" href="boost_libraries_that_work_well_with_boost_bimap.html#boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_assign" title="Boost.Assign">Boost.Assign</a>
 </h4></div></div></div>
@@ -422,27 +421,26 @@
           <a href="../../../../example/bimap_and_boost/assign.cpp" target="_top">Go to source code</a>
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"> <span class="keyword">typedef</span> <span class="identifier">bimap</span><span class="special">&lt;</span> <span class="identifier">multiset_of</span><span class="special">&lt;</span> <span class="keyword">int</span> <span class="special">&gt;,</span> <span class="identifier">list_of</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">bm_type</span><span class="special">;</span>
 
- <span class="comment">// We can use assign::list_of to initialize the container.
-</span>
- <span class="identifier">bm_type</span> <span class="identifier">bm</span> <span class="special">=</span> <span class="identifier">assign</span><span class="special">::</span><span class="identifier">list_of</span><span class="special">&lt;</span> <span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">relation</span> <span class="special">&gt;</span> <a class="co" name="boost_bimap18co" href="boost_libraries_that_work_well_with_boost_bimap.html#boost_bimap18"><img src="../../../../../../doc/src/images/callouts/1.png" alt="1" border="0"></a>
+ <span class="comment">// We can use assign::list_of to initialize the container.</span>
+
+ <span class="identifier">bm_type</span> <span class="identifier">bm</span> <span class="special">=</span> <span class="identifier">assign</span><span class="special">::</span><span class="identifier">list_of</span><span class="special">&lt;</span> <span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">relation</span> <span class="special">&gt;</span> <a class="co" name="boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_assign.c0" href="boost_libraries_that_work_well_with_boost_bimap.html#boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_assign.c1"><img src="../../../../../../doc/src/images/callouts/1.png" alt="1" border="0"></a>
      <span class="special">(</span> <span class="number">1</span><span class="special">,</span> <span class="string">"one"</span>   <span class="special">)</span>
      <span class="special">(</span> <span class="number">2</span><span class="special">,</span> <span class="string">"two"</span>   <span class="special">)</span>
      <span class="special">(</span> <span class="number">3</span><span class="special">,</span> <span class="string">"three"</span> <span class="special">);</span>
 
- <span class="comment">// The left map view is a multiset, again we use insert
-</span>
+ <span class="comment">// The left map view is a multiset, again we use insert</span>
+
  <span class="identifier">assign</span><span class="special">::</span><span class="identifier">insert</span><span class="special">(</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">left</span> <span class="special">)</span>
      <span class="special">(</span> <span class="number">4</span><span class="special">,</span> <span class="string">"four"</span> <span class="special">)</span>
      <span class="special">(</span> <span class="number">5</span><span class="special">,</span> <span class="string">"five"</span> <span class="special">)</span>
      <span class="special">(</span> <span class="number">6</span><span class="special">,</span> <span class="string">"six"</span>  <span class="special">);</span>
 
- <span class="comment">// The right map view is a list so we use push_back here
-</span> <span class="comment">// Note the order of the elements in the list!
-</span>
+ <span class="comment">// The right map view is a list so we use push_back here</span>
+ <span class="comment">// Note the order of the elements in the list!</span>
+
  <span class="identifier">assign</span><span class="special">::</span><span class="identifier">push_back</span><span class="special">(</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">right</span> <span class="special">)</span>
      <span class="special">(</span> <span class="string">"seven"</span> <span class="special">,</span> <span class="number">7</span> <span class="special">)</span>
      <span class="special">(</span> <span class="string">"eight"</span> <span class="special">,</span> <span class="number">8</span> <span class="special">);</span>
@@ -452,16 +450,16 @@
      <span class="special">(</span> <span class="string">"ten"</span>   <span class="special">,</span> <span class="number">10</span> <span class="special">)</span>
      <span class="special">(</span> <span class="string">"eleven"</span><span class="special">,</span> <span class="number">11</span> <span class="special">);</span>
 
-<span class="comment">// Since it is left_based the main view is a multiset, so we use insert
-</span>
+<span class="comment">// Since it is left_based the main view is a multiset, so we use insert</span>
+
  <span class="identifier">assign</span><span class="special">::</span><span class="identifier">insert</span><span class="special">(</span> <span class="identifier">bm</span> <span class="special">)</span>
      <span class="special">(</span> <span class="number">12</span><span class="special">,</span> <span class="string">"twelve"</span>   <span class="special">)</span>
      <span class="special">(</span> <span class="number">13</span><span class="special">,</span> <span class="string">"thirteen"</span> <span class="special">);</span>
- </pre>
+</pre>
 <p>
         </p>
 <div class="calloutlist"><table border="0" summary="Callout list"><tr>
-<td width="5%" valign="top" align="left"><p><a name="boost_bimap18"></a><a href="#boost_bimap18co"><img src="../../../../../../doc/src/images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_assign.c1"></a><a href="#boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_assign.c0"><img src="../../../../../../doc/src/images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               Note that <code class="computeroutput"><span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">relation</span></code> has to be used instead of
               <code class="computeroutput"><span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">value_type</span></code>. Contrary to <code class="computeroutput"><span class="identifier">value_type</span></code>, <code class="computeroutput"><span class="identifier">relation</span></code>
@@ -469,7 +467,7 @@
             </p></td>
 </tr></table></div>
 </div>
-<div class="section">
+<div class="section boost_bimap_bimap_and_boost_boost_libraries_that_work_well_with_boost_bimap_boost_hash">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_hash"></a><a class="link" href="boost_libraries_that_work_well_with_boost_bimap.html#boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_hash" title="Boost.Hash">Boost.Hash</a>
 </h4></div></div></div>
@@ -495,7 +493,7 @@
           the unordered set types with any user types.
         </p>
 </div>
-<div class="section">
+<div class="section boost_bimap_bimap_and_boost_boost_libraries_that_work_well_with_boost_bimap_boost_lambda">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_lambda"></a><a class="link" href="boost_libraries_that_work_well_with_boost_bimap.html#boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_lambda" title="Boost.Lambda">Boost.Lambda</a>
 </h4></div></div></div>
@@ -517,7 +515,6 @@
           <a href="../../../../example/bimap_and_boost/lambda.cpp" target="_top">Go to source code</a>
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">bimap</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">,</span> <span class="keyword">int</span> <span class="special">&gt;</span> <span class="identifier">bm_type</span><span class="special">;</span>
 
@@ -534,7 +531,7 @@
 <p>
         </p>
 </div>
-<div class="section">
+<div class="section boost_bimap_bimap_and_boost_boost_libraries_that_work_well_with_boost_bimap_boost_range">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_range"></a><a class="link" href="boost_libraries_that_work_well_with_boost_bimap.html#boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_range" title="Boost.Range">Boost.Range</a>
 </h4></div></div></div>
@@ -558,12 +555,11 @@
           If we have some generic functions that accepts ranges:
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span> <span class="keyword">class</span> <span class="identifier">ForwardReadableRange</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">UnaryFunctor</span> <span class="special">&gt;</span>
 <span class="identifier">UnaryFunctor</span> <span class="identifier">for_each</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">ForwardReadableRange</span> <span class="special">&amp;</span> <span class="identifier">r</span><span class="special">,</span> <span class="identifier">UnaryFunctor</span> <span class="identifier">func</span><span class="special">)</span>
 <span class="special">{</span>
-    <span class="keyword">typedef</span> <span class="keyword">typename</span> 
+    <span class="keyword">typedef</span> <span class="keyword">typename</span>
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_const_iterator</span><span class="special">&lt;</span><span class="identifier">ForwardReadableRange</span><span class="special">&gt;::</span><span class="identifier">type</span> <span class="identifier">const_iterator</span><span class="special">;</span>
 
     <span class="keyword">for</span><span class="special">(</span><span class="identifier">const_iterator</span> <span class="identifier">i</span><span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">),</span> <span class="identifier">iend</span><span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">end</span><span class="special">(</span><span class="identifier">r</span><span class="special">);</span> <span class="identifier">i</span><span class="special">!=</span><span class="identifier">iend</span><span class="special">;</span> <span class="special">++</span><span class="identifier">i</span> <span class="special">)</span>
@@ -598,7 +594,6 @@
           function.
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">pair_printer</span>
 <span class="special">{</span>
@@ -628,21 +623,21 @@
     <span class="identifier">bm_type</span> <span class="identifier">bm</span><span class="special">;</span>
     <span class="identifier">bm</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span> <span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">value_type</span><span class="special">(</span><span class="number">2.5</span> <span class="special">,</span> <span class="number">1</span><span class="special">)</span> <span class="special">);</span>
     <span class="identifier">bm</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span> <span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">value_type</span><span class="special">(</span><span class="number">3.1</span> <span class="special">,</span> <span class="number">2</span><span class="special">)</span> <span class="special">);</span>
-    <span class="comment">//...
-</span>    <span class="identifier">bm</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span> <span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">value_type</span><span class="special">(</span><span class="number">6.4</span> <span class="special">,</span> <span class="number">4</span><span class="special">)</span> <span class="special">);</span>
+    <span class="comment">//...</span>
+    <span class="identifier">bm</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span> <span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">value_type</span><span class="special">(</span><span class="number">6.4</span> <span class="special">,</span> <span class="number">4</span><span class="special">)</span> <span class="special">);</span>
     <span class="identifier">bm</span><span class="special">.</span><span class="identifier">insert</span><span class="special">(</span> <span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">value_type</span><span class="special">(</span><span class="number">1.7</span> <span class="special">,</span> <span class="number">2</span><span class="special">)</span> <span class="special">);</span>
 
-    <span class="comment">// Print all the elements of the left map view
-</span>
+    <span class="comment">// Print all the elements of the left map view</span>
+
     <span class="identifier">for_each</span><span class="special">(</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">left</span><span class="special">,</span> <span class="identifier">pair_printer</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span><span class="special">)</span> <span class="special">);</span>
 
-    <span class="comment">// Print a range of elements of the right map view
-</span>
+    <span class="comment">// Print a range of elements of the right map view</span>
+
     <span class="identifier">for_each</span><span class="special">(</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">right</span><span class="special">.</span><span class="identifier">range</span><span class="special">(</span> <span class="number">2</span> <span class="special">&lt;=</span> <span class="identifier">_key</span><span class="special">,</span> <span class="identifier">_key</span> <span class="special">&lt;</span> <span class="number">6</span> <span class="special">),</span> <span class="identifier">pair_printer</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span><span class="special">)</span> <span class="special">);</span>
 
-    <span class="comment">// Count the number of elements where the data is equal to 2 from a
-</span>    <span class="comment">// range of elements of the left map view
-</span>
+    <span class="comment">// Count the number of elements where the data is equal to 2 from a</span>
+    <span class="comment">// range of elements of the left map view</span>
+
     <span class="identifier">count_if</span><span class="special">(</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">left</span><span class="special">.</span><span class="identifier">range</span><span class="special">(</span> <span class="number">2.3</span> <span class="special">&lt;</span> <span class="identifier">_key</span><span class="special">,</span> <span class="identifier">_key</span> <span class="special">&lt;</span> <span class="number">5.4</span> <span class="special">),</span>
               <span class="identifier">bind</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;(</span> <span class="identifier">second_extractor</span><span class="special">(),</span> <span class="identifier">_1</span> <span class="special">)</span> <span class="special">==</span> <span class="number">2</span> <span class="special">);</span>
 
@@ -655,7 +650,7 @@
           <a href="../../../../example/bimap_and_boost/range.cpp" target="_top">Go to source code</a>
         </p>
 </div>
-<div class="section">
+<div class="section boost_bimap_bimap_and_boost_boost_libraries_that_work_well_with_boost_bimap_boost_foreach">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_foreach"></a><a class="link" href="boost_libraries_that_work_well_with_boost_bimap.html#boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_foreach" title="Boost.Foreach">Boost.Foreach</a>
 </h4></div></div></div>
@@ -675,7 +670,6 @@
           will be as efficient as a std::for_each iteration. Here are some examples:
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">bimap</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">,</span> <span class="identifier">list_of</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">bm_type</span><span class="special">;</span>
 
@@ -687,19 +681,18 @@
 
 <span class="identifier">BOOST_FOREACH</span><span class="special">(</span> <span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">left_reference</span> <span class="identifier">p</span><span class="special">,</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">left</span> <span class="special">)</span>
 <span class="special">{</span>
-    <span class="special">++</span><span class="identifier">p</span><span class="special">.</span><span class="identifier">second</span><span class="special">;</span> <a class="co" name="boost_bimap19co" href="boost_libraries_that_work_well_with_boost_bimap.html#boost_bimap19"><img src="../../../../../../doc/src/images/callouts/1.png" alt="1" border="0"></a>
+    <span class="special">++</span><span class="identifier">p</span><span class="special">.</span><span class="identifier">second</span><span class="special">;</span> <a class="co" name="boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_foreach.c0" href="boost_libraries_that_work_well_with_boost_bimap.html#boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_foreach.c1"><img src="../../../../../../doc/src/images/callouts/1.png" alt="1" border="0"></a>
 <span class="special">}</span>
 
 <span class="identifier">BOOST_FOREACH</span><span class="special">(</span> <span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">right_const_reference</span> <span class="identifier">p</span><span class="special">,</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">right</span> <span class="special">)</span>
 <span class="special">{</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">p</span><span class="special">.</span><span class="identifier">first</span> <span class="special">&lt;&lt;</span> <span class="string">"--&gt;"</span> <span class="special">&lt;&lt;</span> <span class="identifier">p</span><span class="special">.</span><span class="identifier">second</span> <span class="special">&lt;&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
 <span class="special">}</span>
-
 </pre>
 <p>
         </p>
 <div class="calloutlist"><table border="0" summary="Callout list"><tr>
-<td width="5%" valign="top" align="left"><p><a name="boost_bimap19"></a><a href="#boost_bimap19co"><img src="../../../../../../doc/src/images/callouts/1.png" alt="1" border="0"></a> </p></td>
+<td width="5%" valign="top" align="left"><p><a name="boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_foreach.c1"></a><a href="#boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_foreach.c0"><img src="../../../../../../doc/src/images/callouts/1.png" alt="1" border="0"></a> </p></td>
 <td valign="top" align="left"><p>
               We can modify the right element because we have use a mutable collection
               type in the right side.
@@ -709,7 +702,6 @@
           You can use it directly with ranges too:
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="identifier">BOOST_FOREACH</span><span class="special">(</span> <span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">left_reference</span> <span class="identifier">p</span><span class="special">,</span>
              <span class="special">(</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">left</span><span class="special">.</span><span class="identifier">range</span><span class="special">(</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="string">"1"</span><span class="special">)</span> <span class="special">&lt;=</span> <span class="identifier">_key</span><span class="special">,</span> <span class="identifier">_key</span> <span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="string">"3"</span><span class="special">)</span> <span class="special">)</span> <span class="special">))</span>
@@ -729,7 +721,7 @@
           <a href="../../../../example/bimap_and_boost/foreach.cpp" target="_top">Go to source code</a>
         </p>
 </div>
-<div class="section">
+<div class="section boost_bimap_bimap_and_boost_boost_libraries_that_work_well_with_boost_bimap_boost_typeof">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_typeof"></a><a class="link" href="boost_libraries_that_work_well_with_boost_bimap.html#boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_typeof" title="Boost.Typeof">Boost.Typeof</a>
 </h4></div></div></div>
@@ -751,7 +743,6 @@
           If we have
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">bimap</span><span class="special">&lt;</span> <span class="identifier">tagged</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">,</span><span class="identifier">name</span><span class="special">&gt;,</span> <span class="identifier">tagged</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span><span class="identifier">number</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">bm_type</span><span class="special">;</span>
 <span class="identifier">bm_type</span> <span class="identifier">bm</span><span class="special">;</span>
@@ -764,7 +755,6 @@
           The following code snippet
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="keyword">for</span><span class="special">(</span> <span class="identifier">bm_type</span><span class="special">::</span><span class="identifier">map_by</span><span class="special">&lt;</span><span class="identifier">name</span><span class="special">&gt;::</span><span class="identifier">iterator</span> <span class="identifier">iter</span> <span class="special">=</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">by</span><span class="special">&lt;</span><span class="identifier">name</span><span class="special">&gt;().</span><span class="identifier">begin</span><span class="special">();</span>
      <span class="identifier">iter</span><span class="special">!=</span><span class="identifier">bm</span><span class="special">.</span><span class="identifier">by</span><span class="special">&lt;</span><span class="identifier">name</span><span class="special">&gt;().</span><span class="identifier">end</span><span class="special">();</span> <span class="special">++</span><span class="identifier">iter</span><span class="special">)</span>
@@ -781,7 +771,6 @@
           can be rewrited as
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="keyword">for</span><span class="special">(</span> <span class="identifier">BOOST_AUTO</span><span class="special">(</span><span class="identifier">iter</span><span class="special">,</span> <span class="identifier">bm</span><span class="special">.</span><span class="identifier">by</span><span class="special">&lt;</span><span class="identifier">name</span><span class="special">&gt;().</span><span class="identifier">begin</span><span class="special">());</span> <span class="identifier">iter</span><span class="special">!=</span><span class="identifier">bm</span><span class="special">.</span><span class="identifier">by</span><span class="special">&lt;</span><span class="identifier">name</span><span class="special">&gt;().</span><span class="identifier">end</span><span class="special">();</span> <span class="special">++</span><span class="identifier">iter</span><span class="special">)</span>
 <span class="special">{</span>
@@ -797,7 +786,7 @@
           <a href="../../../../example/bimap_and_boost/typeof.cpp" target="_top">Go to source code</a>
         </p>
 </div>
-<div class="section">
+<div class="section boost_bimap_bimap_and_boost_boost_libraries_that_work_well_with_boost_bimap_boost_xpressive">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_xpressive"></a><a class="link" href="boost_libraries_that_work_well_with_boost_bimap.html#boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_xpressive" title="Boost.Xpressive">Boost.Xpressive</a>
 </h4></div></div></div>
@@ -807,7 +796,6 @@
           Here is an example (it is just beatifull)
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">bimap</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">,</span> <span class="keyword">int</span> <span class="special">&gt;</span> <span class="identifier">bm_type</span><span class="special">;</span>
 <span class="identifier">bm_type</span> <span class="identifier">bm</span><span class="special">;</span>
@@ -831,7 +819,7 @@
           <a href="../../../../example/bimap_and_boost/xpressive.cpp" target="_top">Go to source code</a>
         </p>
 </div>
-<div class="section">
+<div class="section boost_bimap_bimap_and_boost_boost_libraries_that_work_well_with_boost_bimap_boost_property_map">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_property_map"></a><a class="link" href="boost_libraries_that_work_well_with_boost_bimap.html#boost_bimap.bimap_and_boost.boost_libraries_that_work_well_with_boost_bimap.boost_property_map" title="Boost.Property_map">Boost.Property_map</a>
 </h4></div></div></div>
@@ -870,7 +858,6 @@
           code</a>
         </p>
 <p>
-          
 </p>
 <pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">AddressMap</span><span class="special">&gt;</span>
 <span class="keyword">void</span> <span class="identifier">foo</span><span class="special">(</span><span class="identifier">AddressMap</span> <span class="special">&amp;</span> <span class="identifier">address_map</span><span class="special">)</span>
@@ -903,7 +890,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2006 -2007 Matias Capeletto<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2006-2012 Matias Capeletto<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

@@ -7,7 +7,7 @@
 // Home at http://www.boost.org/libs/scope_exit
 
 #include <boost/config.hpp>
-#ifdef BOOST_NO_VARIADIC_MACROS
+#ifdef BOOST_NO_CXX11_VARIADIC_MACROS
 #   error "variadic macros required"
 #else
 
@@ -64,7 +64,7 @@ int main(void) {
 
     f(x, delta);
 
-#ifndef BOOST_NO_LAMBDAS
+#ifndef BOOST_NO_CXX11_LAMBDAS
     {
         SCOPE_EXIT_ALL_INC_DEC(x, delta) // Multiple scope exits on same line.
     }

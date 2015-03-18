@@ -3,9 +3,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Performance</title>
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../intrusive.html" title="Chapter&#160;13.&#160;Boost.Intrusive">
+<link rel="up" href="../intrusive.html" title="Chapter&#160;15.&#160;Boost.Intrusive">
 <link rel="prev" href="design_notes.html" title="Design Notes">
 <link rel="next" href="release_notes.html" title="Release Notes">
 </head>
@@ -26,7 +26,7 @@
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="intrusive.performance"></a><a class="link" href="performance.html" title="Performance">Performance</a>
 </h2></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="performance.html#intrusive.performance.performance_results_push_back">Back
       insertion and destruction</a></span></dt>
 <dt><span class="section"><a href="performance.html#intrusive.performance.performance_results_reversing">Reversing</a></span></dt>
@@ -39,7 +39,7 @@
       <span class="bold"><strong>Boost.Intrusive</strong></span> containers offer speed improvements
       compared to non-intrusive containers primarily because:
     </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
           They minimize memory allocation/deallocation calls.
         </li>
@@ -51,7 +51,7 @@
       This section will show performance tests comparing some operations on <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">intrusive</span><span class="special">::</span><span class="identifier">list</span></code> and
       <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">list</span></code>:
     </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
           Insertions using <code class="computeroutput"><span class="identifier">push_back</span></code>
           and container destruction will show the overhead associated with memory
@@ -77,7 +77,7 @@
       between several containers. Because of this versatility, the performance tests
       will be executed for 6 different list types:
     </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
           3 intrusive lists holding a class named <code class="computeroutput"><span class="identifier">itest_class</span></code>,
           each one with a different linking policy (<code class="computeroutput"><span class="identifier">normal_link</span></code>,
@@ -165,7 +165,7 @@
       objects to function objects taking pointers to them.
     </p>
 <p>
-      You can find the full test code code in the <a href="../../../libs/intrusive/perf/perf_list.cpp" target="_top">perf_list.cpp</a>
+      You can find the full test code in the <a href="../../../libs/intrusive/perf/perf_list.cpp" target="_top">perf_list.cpp</a>
       source file.
     </p>
 <div class="section">
@@ -246,7 +246,7 @@
         These are the times in microseconds for each case, and the normalized time:
       </p>
 <div class="table">
-<a name="intrusive.performance.performance_results_push_back.t0"></a><p class="title"><b>Table&#160;13.2.&#160;Back insertion + destruction times for Visual C++ 7.1 / Windows XP</b></p>
+<a name="intrusive.performance.performance_results_push_back.back_insertion___destruction_times_for_visual_c___7_1___windows_xp"></a><p class="title"><b>Table&#160;15.2.&#160;Back insertion + destruction times for Visual C++ 7.1 / Windows XP</b></p>
 <div class="table-contents"><table class="table" summary="Back insertion + destruction times for Visual C++ 7.1 / Windows XP">
 <colgroup>
 <col>
@@ -380,7 +380,7 @@
 </table></div>
 </div>
 <br class="table-break"><div class="table">
-<a name="intrusive.performance.performance_results_push_back.t1"></a><p class="title"><b>Table&#160;13.3.&#160;Back insertion + destruction times for GCC 4.1.1 / MinGW over Windows
+<a name="intrusive.performance.performance_results_push_back.back_insertion___destruction_times_for_gcc_4_1_1___mingw_over_windows_xp"></a><p class="title"><b>Table&#160;15.3.&#160;Back insertion + destruction times for GCC 4.1.1 / MinGW over Windows
         XP</b></p>
 <div class="table-contents"><table class="table" summary="Back insertion + destruction times for GCC 4.1.1 / MinGW over Windows
         XP">
@@ -516,7 +516,7 @@
 </table></div>
 </div>
 <br class="table-break"><div class="table">
-<a name="intrusive.performance.performance_results_push_back.t2"></a><p class="title"><b>Table&#160;13.4.&#160;Back insertion + destruction times for GCC 4.1.2 / Linux Kernel 2.6.18
+<a name="intrusive.performance.performance_results_push_back.back_insertion___destruction_times_for_gcc_4_1_2___linux_kernel_2_6_18__opensuse_10_2_"></a><p class="title"><b>Table&#160;15.4.&#160;Back insertion + destruction times for GCC 4.1.2 / Linux Kernel 2.6.18
         (OpenSuse 10.2)</b></p>
 <div class="table-contents"><table class="table" summary="Back insertion + destruction times for GCC 4.1.2 / Linux Kernel 2.6.18
         (OpenSuse 10.2)">
@@ -693,7 +693,7 @@
         These are the results:
       </p>
 <div class="table">
-<a name="intrusive.performance.performance_results_reversing.t0"></a><p class="title"><b>Table&#160;13.5.&#160;Reverse times for Visual C++ 7.1 / Windows XP</b></p>
+<a name="intrusive.performance.performance_results_reversing.reverse_times_for_visual_c___7_1___windows_xp"></a><p class="title"><b>Table&#160;15.5.&#160;Reverse times for Visual C++ 7.1 / Windows XP</b></p>
 <div class="table-contents"><table class="table" summary="Reverse times for Visual C++ 7.1 / Windows XP">
 <colgroup>
 <col>
@@ -827,7 +827,7 @@
 </table></div>
 </div>
 <br class="table-break"><div class="table">
-<a name="intrusive.performance.performance_results_reversing.t1"></a><p class="title"><b>Table&#160;13.6.&#160;Reverse times for GCC 4.1.1 / MinGW over Windows XP</b></p>
+<a name="intrusive.performance.performance_results_reversing.reverse_times_for_gcc_4_1_1___mingw_over_windows_xp"></a><p class="title"><b>Table&#160;15.6.&#160;Reverse times for GCC 4.1.1 / MinGW over Windows XP</b></p>
 <div class="table-contents"><table class="table" summary="Reverse times for GCC 4.1.1 / MinGW over Windows XP">
 <colgroup>
 <col>
@@ -961,7 +961,7 @@
 </table></div>
 </div>
 <br class="table-break"><div class="table">
-<a name="intrusive.performance.performance_results_reversing.t2"></a><p class="title"><b>Table&#160;13.7.&#160;Reverse times for GCC 4.1.2 / Linux Kernel 2.6.18 (OpenSuse 10.2)</b></p>
+<a name="intrusive.performance.performance_results_reversing.reverse_times_for_gcc_4_1_2___linux_kernel_2_6_18__opensuse_10_2_"></a><p class="title"><b>Table&#160;15.7.&#160;Reverse times for GCC 4.1.2 / Linux Kernel 2.6.18 (OpenSuse 10.2)</b></p>
 <div class="table-contents"><table class="table" summary="Reverse times for GCC 4.1.2 / Linux Kernel 2.6.18 (OpenSuse 10.2)">
 <colgroup>
 <col>
@@ -1165,7 +1165,7 @@
         These are the results:
       </p>
 <div class="table">
-<a name="intrusive.performance.performance_results_sorting.t0"></a><p class="title"><b>Table&#160;13.8.&#160;Sort times for Visual C++ 7.1 / Windows XP</b></p>
+<a name="intrusive.performance.performance_results_sorting.sort_times_for_visual_c___7_1___windows_xp"></a><p class="title"><b>Table&#160;15.8.&#160;Sort times for Visual C++ 7.1 / Windows XP</b></p>
 <div class="table-contents"><table class="table" summary="Sort times for Visual C++ 7.1 / Windows XP">
 <colgroup>
 <col>
@@ -1299,7 +1299,7 @@
 </table></div>
 </div>
 <br class="table-break"><div class="table">
-<a name="intrusive.performance.performance_results_sorting.t1"></a><p class="title"><b>Table&#160;13.9.&#160;Sort times for GCC 4.1.1 / MinGW over Windows XP</b></p>
+<a name="intrusive.performance.performance_results_sorting.sort_times_for_gcc_4_1_1___mingw_over_windows_xp"></a><p class="title"><b>Table&#160;15.9.&#160;Sort times for GCC 4.1.1 / MinGW over Windows XP</b></p>
 <div class="table-contents"><table class="table" summary="Sort times for GCC 4.1.1 / MinGW over Windows XP">
 <colgroup>
 <col>
@@ -1433,7 +1433,7 @@
 </table></div>
 </div>
 <br class="table-break"><div class="table">
-<a name="intrusive.performance.performance_results_sorting.t2"></a><p class="title"><b>Table&#160;13.10.&#160;Sort times for GCC 4.1.2 / Linux Kernel 2.6.18 (OpenSuse 10.2)</b></p>
+<a name="intrusive.performance.performance_results_sorting.sort_times_for_gcc_4_1_2___linux_kernel_2_6_18__opensuse_10_2_"></a><p class="title"><b>Table&#160;15.10.&#160;Sort times for GCC 4.1.2 / Linux Kernel 2.6.18 (OpenSuse 10.2)</b></p>
 <div class="table-contents"><table class="table" summary="Sort times for GCC 4.1.2 / Linux Kernel 2.6.18 (OpenSuse 10.2)">
 <colgroup>
 <col>
@@ -1604,7 +1604,7 @@
         These are the results:
       </p>
 <div class="table">
-<a name="intrusive.performance.performance_results_write_access.t0"></a><p class="title"><b>Table&#160;13.11.&#160;Write access times for Visual C++ 7.1 / Windows XP</b></p>
+<a name="intrusive.performance.performance_results_write_access.write_access_times_for_visual_c___7_1___windows_xp"></a><p class="title"><b>Table&#160;15.11.&#160;Write access times for Visual C++ 7.1 / Windows XP</b></p>
 <div class="table-contents"><table class="table" summary="Write access times for Visual C++ 7.1 / Windows XP">
 <colgroup>
 <col>
@@ -1738,7 +1738,7 @@
 </table></div>
 </div>
 <br class="table-break"><div class="table">
-<a name="intrusive.performance.performance_results_write_access.t1"></a><p class="title"><b>Table&#160;13.12.&#160;Write access times for GCC 4.1.1 / MinGW over Windows XP</b></p>
+<a name="intrusive.performance.performance_results_write_access.write_access_times_for_gcc_4_1_1___mingw_over_windows_xp"></a><p class="title"><b>Table&#160;15.12.&#160;Write access times for GCC 4.1.1 / MinGW over Windows XP</b></p>
 <div class="table-contents"><table class="table" summary="Write access times for GCC 4.1.1 / MinGW over Windows XP">
 <colgroup>
 <col>
@@ -1872,7 +1872,7 @@
 </table></div>
 </div>
 <br class="table-break"><div class="table">
-<a name="intrusive.performance.performance_results_write_access.t2"></a><p class="title"><b>Table&#160;13.13.&#160;Write access times for GCC 4.1.2 / Linux Kernel 2.6.18 (OpenSuse 10.2)</b></p>
+<a name="intrusive.performance.performance_results_write_access.write_access_times_for_gcc_4_1_2___linux_kernel_2_6_18__opensuse_10_2_"></a><p class="title"><b>Table&#160;15.13.&#160;Write access times for GCC 4.1.2 / Linux Kernel 2.6.18 (OpenSuse 10.2)</b></p>
 <div class="table-contents"><table class="table" summary="Write access times for GCC 4.1.2 / Linux Kernel 2.6.18 (OpenSuse 10.2)">
 <colgroup>
 <col>
@@ -2020,14 +2020,14 @@
         with equivalent non-intrusive containers. Memory locality improvements are
         noticeable when the objects to be inserted are small. Minimizing memory allocation/deallocation
         calls is also an important factor and intrusive containers make this simple
-        if the user allocates all the objects to be inserted in intrusive containers
-        in containers like <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span></code> or <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">deque</span></code>.
+        if all objects to be inserted in intrusive containers are allocated using
+        <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span></code> or <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">deque</span></code>.
       </p>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2005 Olaf Krzikalla<br>Copyright &#169; 2006-2012 Ion Gaztanaga<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2005 Olaf Krzikalla<br>Copyright &#169; 2006-2013 Ion Gaztanaga<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

@@ -14,6 +14,10 @@
 #ifndef BOOST_INTERPROCESS_ENABLE_SHARED_FROM_THIS_HPP_INCLUDED
 #define BOOST_INTERPROCESS_ENABLE_SHARED_FROM_THIS_HPP_INCLUDED
 
+#if defined(_MSC_VER)
+#  pragma once
+#endif
+
 #include <boost/interprocess/detail/config_begin.hpp>
 #include <boost/interprocess/detail/workaround.hpp>
 
@@ -34,7 +38,7 @@ namespace interprocess{
 template<class T, class A, class D>
 class enable_shared_from_this
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    protected:
    enable_shared_from_this()
    {}
@@ -47,7 +51,7 @@ class enable_shared_from_this
 
    ~enable_shared_from_this()
    {}
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public:
    shared_ptr<T, A, D> shared_from_this()
@@ -64,10 +68,10 @@ class enable_shared_from_this
       return p;
    }
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    typedef T element_type;
    mutable weak_ptr<element_type, A, D> _internal_weak_this;
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 };
 
 } // namespace interprocess

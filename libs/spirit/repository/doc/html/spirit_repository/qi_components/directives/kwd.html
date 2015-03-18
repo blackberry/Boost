@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Qi Keyword Parser Directive</title>
 <link rel="stylesheet" href="../../../../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../../index.html" title="Spirit Repository 0.2">
 <link rel="up" href="../directives.html" title="Qi Parser Directives">
 <link rel="prev" href="distinct.html" title="Qi Distinct Parser Directive">
@@ -29,11 +29,13 @@
 </h4></div></div></div>
 <h6>
 <a name="spirit_repository.qi_components.directives.kwd.h0"></a>
-          <span><a name="spirit_repository.qi_components.directives.kwd.description"></a></span><a class="link" href="kwd.html#spirit_repository.qi_components.directives.kwd.description">Description</a>
+          <span class="phrase"><a name="spirit_repository.qi_components.directives.kwd.description"></a></span><a class="link" href="kwd.html#spirit_repository.qi_components.directives.kwd.description">Description</a>
         </h6>
 <p>
-          The <code class="computeroutput"><span class="identifier">kwd</span><span class="special">[]</span></code>
-          and <code class="computeroutput"><span class="identifier">ikwd</span><span class="special">[]</span></code>
+          The <code class="computeroutput"><span class="identifier">kwd</span><span class="special">[]</span></code>,
+          <code class="computeroutput"><span class="identifier">dkwd</span><span class="special">[]</span></code>
+          and <code class="computeroutput"><span class="identifier">ikwd</span><span class="special">[]</span></code>,
+          <code class="computeroutput"><span class="identifier">idkwd</span><span class="special">[]</span></code>
           provide a powerful and flexible mechanism for parsing keyword based input.
           It works in conjuction with the / operator to create an effective keyword
           parsing loop. The keyword parsing loop doesn't require the keywords to
@@ -47,20 +49,37 @@
           It should be prefered not to mix the kwd and ikwd directives.
         </p>
 <p>
+          The dkwd and idkwd provide a mechanism to pase distinct keywords. These
+          directives require that the skipper successeds parsing input right after
+          the keyword part.
+        </p>
+<p>
+          dkwd("keyword1")<span class="emphasis"><em>='&gt;&gt;int_</em></span>
+        </p>
+<p>
+          is equivalent to:
+        </p>
+<p>
+          lit("keyword1") &gt;&gt; skipper+ &gt;&gt; '=' &gt;&gt; int_
+        </p>
+<p>
+          All the keyword directives can be mixed inside a keyword list.
+        </p>
+<p>
           The kwd directive is very similar to the repeat directive in that it enables
           to enforce keyword occurence constraints but also provides very interesting
           speed improvement over the pure EBNF syntax or the Nabialek-Trick.
         </p>
 <h6>
 <a name="spirit_repository.qi_components.directives.kwd.h1"></a>
-          <span><a name="spirit_repository.qi_components.directives.kwd.header"></a></span><a class="link" href="kwd.html#spirit_repository.qi_components.directives.kwd.header">Header</a>
+          <span class="phrase"><a name="spirit_repository.qi_components.directives.kwd.header"></a></span><a class="link" href="kwd.html#spirit_repository.qi_components.directives.kwd.header">Header</a>
         </h6>
 <pre class="programlisting"><span class="comment">// forwards to &lt;boost/spirit/repository/home/qi/directive/kwd.hpp&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">spirit</span><span class="special">/</span><span class="identifier">repository</span><span class="special">/</span><span class="identifier">include</span><span class="special">/</span><span class="identifier">qi_kwd</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 </pre>
 <h6>
 <a name="spirit_repository.qi_components.directives.kwd.h2"></a>
-          <span><a name="spirit_repository.qi_components.directives.kwd.synopsis"></a></span><a class="link" href="kwd.html#spirit_repository.qi_components.directives.kwd.synopsis">Synopsis</a>
+          <span class="phrase"><a name="spirit_repository.qi_components.directives.kwd.synopsis"></a></span><a class="link" href="kwd.html#spirit_repository.qi_components.directives.kwd.synopsis">Synopsis</a>
         </h6>
 <div class="informaltable"><table class="table">
 <colgroup>
@@ -144,11 +163,12 @@
 </tbody>
 </table></div>
 <p>
-          For non case sensitive keywords use the ikwd directive.
+          For non case sensitive keywords use the ikwd directive. If distinct keyword
+          parsing is required, use the dkwd and idkwd directive instead.
         </p>
 <h6>
 <a name="spirit_repository.qi_components.directives.kwd.h3"></a>
-          <span><a name="spirit_repository.qi_components.directives.kwd.parameters"></a></span><a class="link" href="kwd.html#spirit_repository.qi_components.directives.kwd.parameters">Parameters</a>
+          <span class="phrase"><a name="spirit_repository.qi_components.directives.kwd.parameters"></a></span><a class="link" href="kwd.html#spirit_repository.qi_components.directives.kwd.parameters">Parameters</a>
         </h6>
 <div class="informaltable"><table class="table">
 <colgroup>
@@ -234,11 +254,12 @@
 </tbody>
 </table></div>
 <p>
-          All three parameters can be arbitrarily complex parsers themselves.
+          The keyword as well as the subject parameters can be any valid spirit parser.
+          The parameter n, min and max are integer constants.
         </p>
 <h6>
 <a name="spirit_repository.qi_components.directives.kwd.h4"></a>
-          <span><a name="spirit_repository.qi_components.directives.kwd.attributes"></a></span><a class="link" href="kwd.html#spirit_repository.qi_components.directives.kwd.attributes">Attributes</a>
+          <span class="phrase"><a name="spirit_repository.qi_components.directives.kwd.attributes"></a></span><a class="link" href="kwd.html#spirit_repository.qi_components.directives.kwd.attributes">Attributes</a>
         </h6>
 <div class="informaltable"><table class="table">
 <colgroup>
@@ -324,7 +345,7 @@
 </table></div>
 <h6>
 <a name="spirit_repository.qi_components.directives.kwd.h5"></a>
-          <span><a name="spirit_repository.qi_components.directives.kwd.complexity"></a></span><a class="link" href="kwd.html#spirit_repository.qi_components.directives.kwd.complexity">Complexity</a>
+          <span class="phrase"><a name="spirit_repository.qi_components.directives.kwd.complexity"></a></span><a class="link" href="kwd.html#spirit_repository.qi_components.directives.kwd.complexity">Complexity</a>
         </h6>
 <div class="blockquote"><blockquote class="blockquote">
 <p>
@@ -333,8 +354,9 @@
             itself is O(N), where N is the number of repetitions executed.
           </p>
 <p>
-            The complexity of the keyword list itself determined by the complexity
-            of the internal TST contents :
+            In the case where all the keywords are strings, the complexity of the
+            keyword list itself determined by the complexity of the internal TST
+            contents :
           </p>
 <p>
             O(log n+k)
@@ -342,10 +364,14 @@
 <p>
             Where k is the length of the string to be searched in a TST with n strings.
           </p>
+<p>
+            When the keywords used are complex parsers, then the complexity is the
+            sum of the sub parser complexities.
+          </p>
 </blockquote></div>
 <h6>
 <a name="spirit_repository.qi_components.directives.kwd.h6"></a>
-          <span><a name="spirit_repository.qi_components.directives.kwd.example"></a></span><a class="link" href="kwd.html#spirit_repository.qi_components.directives.kwd.example">Example</a>
+          <span class="phrase"><a name="spirit_repository.qi_components.directives.kwd.example"></a></span><a class="link" href="kwd.html#spirit_repository.qi_components.directives.kwd.example">Example</a>
         </h6>
 <p>
           Please refer to keyword_list.

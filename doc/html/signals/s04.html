@@ -3,10 +3,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Frequently Asked Questions</title>
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../signals.html" title="Chapter&#160;24.&#160;Boost.Signals">
-<link rel="prev" href="../boost/last_value_void_id874154.html" title="Class last_value&lt;void&gt;">
+<link rel="up" href="../signals.html" title="Chapter&#160;26.&#160;Boost.Signals">
+<link rel="prev" href="../boost/last_value_voi_idp95171696.html" title="Class last_value&lt;void&gt;">
 <link rel="next" href="s05.html" title="Design Overview">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -20,28 +20,45 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="../boost/last_value_void_id874154.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../signals.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="s05.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="../boost/last_value_voi_idp95171696.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../signals.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="s05.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="id3296508"></a>Frequently Asked Questions</h2></div></div></div>
+<a name="idp426491472"></a>Frequently Asked Questions</h2></div></div></div>
 <div class="qandaset">
-<a name="id3296516"></a><dl>
-<dt>1. <a href="s04.html#id3296518">Don't noncopyable signal semantics mean that a class
+<a name="idp426492496"></a><dl>
+<dt>1. <a href="s04.html#idp426492752">Is Boost.Signals being actively maintained?</a>
+</dt>
+<dt>2. <a href="s04.html#idp426496272">Don't noncopyable signal semantics mean that a class
         with a signal member will be noncopyable as well?</a>
 </dt>
-<dt>2. <a href="s04.html#id3296541">Is Boost.Signals thread-safe?</a>
+<dt>3. <a href="s04.html#idp426498624">Is Boost.Signals thread-safe?</a>
 </dt>
-<dt>3. <a href="s04.html#id3296561">How do I get Boost.Signals to work with Qt?</a>
+<dt>4. <a href="s04.html#idp426500832">How do I get Boost.Signals to work with Qt?</a>
 </dt>
 </dl>
-<table border="0" width="100%" summary="Q and A Set">
+<table border="0" style="width: 100%;">
+<colgroup>
 <col align="left" width="1%">
 <col>
+</colgroup>
 <tbody>
 <tr class="question">
 <td align="left" valign="top">
-<a name="id3296518"></a><a name="id3296520"></a><p><b>1.</b></p>
+<a name="idp426492752"></a><a name="idp426493008"></a><p><b>1.</b></p>
+</td>
+<td align="left" valign="top"><p>Is Boost.Signals being actively maintained?</p></td>
+</tr>
+<tr class="answer">
+<td align="left" valign="top"></td>
+<td align="left" valign="top"><p>No. Please migrate to <a href="http://www.boost.org/doc/html/signals2.html" target="_top">Boost.Signals2</a>.
+        There is a 
+        <a href="http://www.boost.org/doc/html/signals2/api_changes.html#signals2.porting" target="_top">porting guide</a>
+        in the Signals2 documentation.</p></td>
+</tr>
+<tr class="question">
+<td align="left" valign="top">
+<a name="idp426496272"></a><a name="idp426496528"></a><p><b>2.</b></p>
 </td>
 <td align="left" valign="top"><p>Don't noncopyable signal semantics mean that a class
         with a signal member will be noncopyable as well?</p></td>
@@ -56,7 +73,7 @@
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="id3296541"></a><a name="id3296543"></a><p><b>2.</b></p>
+<a name="idp426498624"></a><a name="idp426498880"></a><p><b>3.</b></p>
 </td>
 <td align="left" valign="top"><p>Is Boost.Signals thread-safe?</p></td>
 </tr>
@@ -69,7 +86,7 @@
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="id3296561"></a><a name="id3296563"></a><p><b>3.</b></p>
+<a name="idp426500832"></a><a name="idp426501088"></a><p><b>4.</b></p>
 </td>
 <td align="left" valign="top"><p>How do I get Boost.Signals to work with Qt?</p></td>
 </tr>
@@ -160,7 +177,7 @@ namespace boost
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: May 21, 2008 at 21:57:05 +0100</small></p></td>
+<td align="left"></td>
 <td align="right"><div class="copyright-footer">Copyright &#169; 2001-2004 Douglas Gregor<p>Use, modification and distribution is subject to the Boost
     Software License, Version 1.0. (See accompanying file
     <code class="filename">LICENSE_1_0.txt</code> or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)</p>
@@ -168,7 +185,7 @@ namespace boost
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="../boost/last_value_void_id874154.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../signals.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="s05.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="../boost/last_value_voi_idp95171696.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../signals.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="s05.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

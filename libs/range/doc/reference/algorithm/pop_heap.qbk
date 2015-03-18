@@ -23,7 +23,7 @@ const RandomAccessRange& pop_heap(const RandomAccessRange& rng, Compare pred);
 
 [heading Description]
 
-`pop_heap` removes the largest element from the heap. It is assumed that `begin(rng), prior(end(rng))` is already a heap and that the element to be added is `*prior(end(rng))`.
+`pop_heap` removes the largest element from the heap. It is assumed that `begin(rng), prior(end(rng))` is already a heap (and therefore the largest element is `*begin(rng)`).
 
 The ordering relationship is determined by using `operator<` in the non-predicate versions, and by evaluating `pred` in the predicate versions.
 

@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Struct template regex_traits</title>
 <link rel="stylesheet" href="../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
 <link rel="up" href="../../xpressive/reference.html#header.boost.xpressive.regex_traits_hpp" title="Header &lt;boost/xpressive/regex_traits.hpp&gt;">
 <link rel="prev" href="has_fold_case.html" title="Struct template has_fold_case">
@@ -32,25 +32,25 @@
 <div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../xpressive/reference.html#header.boost.xpressive.regex_traits_hpp" title="Header &lt;boost/xpressive/regex_traits.hpp&gt;">boost/xpressive/regex_traits.hpp</a>&gt;
 
 </span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Char<span class="special">,</span> <span class="keyword">typename</span> Impl<span class="special">&gt;</span> 
-<span class="keyword">struct</span> <a class="link" href="regex_traits.html" title="Struct template regex_traits">regex_traits</a> <span class="special">{</span>
+<span class="keyword">struct</span> <a class="link" href="regex_traits.html" title="Struct template regex_traits">regex_traits</a> <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">Impl</span> <span class="special">{</span>
   <span class="comment">// types</span>
   <span class="keyword">typedef</span> <span class="identifier">Impl</span><span class="special">::</span><span class="identifier">locale_type</span> <a name="boost.xpressive.regex_traits.locale_type"></a><span class="identifier">locale_type</span><span class="special">;</span>
 
   <span class="comment">// <a class="link" href="regex_traits.html#boost.xpressive.regex_traitsconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="regex_traits.html#id1992325-bb"><span class="identifier">regex_traits</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">explicit</span> <a class="link" href="regex_traits.html#id1992326-bb"><span class="identifier">regex_traits</span></a><span class="special">(</span><span class="identifier">locale_type</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="regex_traits.html#idp356276896-bb"><span class="identifier">regex_traits</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">explicit</span> <a class="link" href="regex_traits.html#idp356277184-bb"><span class="identifier">regex_traits</span></a><span class="special">(</span><span class="identifier">locale_type</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="id4024636"></a><h2>Description</h2>
+<a name="idp537847344"></a><h2>Description</h2>
 <p>Thin wrapper around the default <a class="link" href="regex_traits.html" title="Struct template regex_traits">regex_traits</a> implementation, either <a class="link" href="cpp_regex_traits.html" title="Struct template cpp_regex_traits">cpp_regex_traits</a> or <a class="link" href="c_regex_traits.html" title="Struct template c_regex_traits">c_regex_traits</a> </p>
 <div class="refsect2">
-<a name="id4024669"></a><h3>
+<a name="idp537851040"></a><h3>
 <a name="boost.xpressive.regex_traitsconstruct-copy-destruct"></a><code class="computeroutput">regex_traits</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><a name="id1992325-bb"></a><span class="identifier">regex_traits</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="keyword">explicit</span> <a name="id1992326-bb"></a><span class="identifier">regex_traits</span><span class="special">(</span><span class="identifier">locale_type</span> <span class="keyword">const</span> <span class="special">&amp;</span> loc<span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><a name="idp356276896-bb"></a><span class="identifier">regex_traits</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">explicit</span> <a name="idp356277184-bb"></a><span class="identifier">regex_traits</span><span class="special">(</span><span class="identifier">locale_type</span> <span class="keyword">const</span> <span class="special">&amp;</span> loc<span class="special">)</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 </div>

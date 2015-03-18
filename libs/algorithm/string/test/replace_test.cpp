@@ -16,7 +16,8 @@
 #include <boost/algorithm/string/classification.hpp>
 
 // Include unit test framework
-#include <boost/test/included/test_exec_monitor.hpp>
+#define BOOST_TEST_MAIN
+#include <boost/test/unit_test.hpp>
 
 #include <string>
 #include <vector>
@@ -56,14 +57,14 @@ void sequence_traits_test()
 #define C_ ,
 #define TEST_ALGO( Algo, Input, Params, Output ) \
 {\
-    BOOST_CHECKPOINT( #Algo " - Copy" );\
+    BOOST_TEST_CHECKPOINT( #Algo " - Copy" );\
 \
     string str1(Input);\
 \
     /* Copy test */ \
     BOOST_CHECK( Algo##_copy( str1, Params )==Output );\
 \
-    BOOST_CHECKPOINT( #Algo " - Iterator" );\
+    BOOST_TEST_CHECKPOINT( #Algo " - Iterator" );\
     /* Iterator test */\
     string strout;\
     Algo##_copy( back_inserter(strout), str1, Params );\
@@ -73,15 +74,15 @@ void sequence_traits_test()
     vector<char> vec1( str1.begin(), str1.end() );\
     list<char> list1( str1.begin(), str1.end() );\
 \
-    BOOST_CHECKPOINT( #Algo " - Inplace(string)" );\
+    BOOST_TEST_CHECKPOINT( #Algo " - Inplace(string)" );\
     Algo( str1, Params ); \
     BOOST_CHECK( equals( str1, Output ) ); \
 \
-    BOOST_CHECKPOINT( #Algo " - Inplace(vector)" );\
+    BOOST_TEST_CHECKPOINT( #Algo " - Inplace(vector)" );\
     Algo( vec1, Params ); \
     BOOST_CHECK( equals( vec1, Output ) );\
 \
-    BOOST_CHECKPOINT( #Algo " - Inplace(list)" );\
+    BOOST_TEST_CHECKPOINT( #Algo " - Inplace(list)" );\
     Algo( list1, Params ); \
     BOOST_CHECK( equals( list1, Output ) );\
 }
@@ -206,7 +207,7 @@ void replace_range_test()
 {
     // replace_range
     {
-        BOOST_CHECKPOINT( "replace_range" );
+        BOOST_TEST_CHECKPOINT( "replace_range" );
 
         string str1("1abc3abc2");
         BOOST_CHECK( 
@@ -231,7 +232,7 @@ void replace_range_test()
     }
     // erase_range
     {
-        BOOST_CHECKPOINT( "erase_range" );
+        BOOST_TEST_CHECKPOINT( "erase_range" );
 
         string str1("1abc3abc2");
         BOOST_CHECK( 
@@ -305,8 +306,7 @@ void dissect_format_test()
 
 }
 
-// test main 
-int test_main( int, char*[] )
+BOOST_AUTO_TEST_CASE( test_main )
 {
     sequence_traits_test(); 
     replace_first_test();
@@ -318,6 +318,4 @@ int test_main( int, char*[] )
     replace_range_test();
     collection_comp_test();
     dissect_format_test();
-
-    return 0;
 }

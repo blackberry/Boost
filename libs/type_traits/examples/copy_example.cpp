@@ -32,7 +32,7 @@ namespace opt{
 //
 // opt::copy
 // same semantics as std::copy
-// calls memcpy where appropiate.
+// calls memcpy where appropriate.
 //
 
 namespace detail{

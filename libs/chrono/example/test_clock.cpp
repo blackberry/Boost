@@ -33,7 +33,7 @@ time2_demo contained this comment:
 
 #include "clock_name.hpp"
 
-#if defined(BOOST_NO_CONSTEXPR)
+#if defined(BOOST_NO_CXX11_CONSTEXPR)
 
 using namespace boost::chrono;
 

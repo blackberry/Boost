@@ -18,7 +18,12 @@
 
 // void swap(packaged_task& other);
 
-#define BOOST_THREAD_VERSION 3
+#define BOOST_THREAD_VERSION 4
+#if BOOST_THREAD_VERSION == 4
+#define BOOST_THREAD_DETAIL_SIGNATURE double()
+#else
+#define BOOST_THREAD_DETAIL_SIGNATURE double
+#endif
 
 #include <boost/thread/future.hpp>
 #include <boost/detail/lightweight_test.hpp>
@@ -46,8 +51,8 @@ public:
 int main()
 {
   {
-    boost::packaged_task<double> p0(A(5));
-    boost::packaged_task<double> p;
+    boost::packaged_task<BOOST_THREAD_DETAIL_SIGNATURE> p0(A(5));
+    boost::packaged_task<BOOST_THREAD_DETAIL_SIGNATURE> p;
     p.swap(p0);
     BOOST_TEST(!p0.valid());
     BOOST_TEST(p.valid());
@@ -57,8 +62,8 @@ int main()
     BOOST_TEST(f.get() == 5.0);
   }
   {
-    boost::packaged_task<double> p0;
-    boost::packaged_task<double> p;
+    boost::packaged_task<BOOST_THREAD_DETAIL_SIGNATURE> p0;
+    boost::packaged_task<BOOST_THREAD_DETAIL_SIGNATURE> p;
     p.swap(p0);
     BOOST_TEST(!p0.valid());
     BOOST_TEST(!p.valid());

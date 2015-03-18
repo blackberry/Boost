@@ -14,9 +14,9 @@
 
 // <boost/thread/future.hpp>
 
-// class promise<R>
+// class future<R>
 
-// ~promise();
+// ~future();
 
 #define BOOST_THREAD_VERSION 3
 #include <boost/exception/exception.hpp>

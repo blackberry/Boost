@@ -1,9 +1,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-<title>Chapter&#160;12.&#160;Boost.Interprocess</title>
+<title>Chapter&#160;14.&#160;Boost.Interprocess</title>
 <link rel="stylesheet" href="../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
 <link rel="up" href="libraries.html" title="Part&#160;I.&#160;The Boost C++ Libraries (BoostBook Subset)">
 <link rel="prev" href="heap/acknowledgements.html" title="Acknowledgements">
@@ -25,11 +25,11 @@
 <div class="chapter">
 <div class="titlepage"><div>
 <div><h2 class="title">
-<a name="interprocess"></a>Chapter&#160;12.&#160;Boost.Interprocess</h2></div>
+<a name="interprocess"></a>Chapter&#160;14.&#160;Boost.Interprocess</h2></div>
 <div><div class="author"><h3 class="author">
 <span class="firstname">Ion</span> <span class="surname">Gaztanaga</span>
 </h3></div></div>
-<div><p class="copyright">Copyright &#169; 2005-2011 Ion Gaztanaga</p></div>
+<div><p class="copyright">Copyright &#169; 2005-2012 Ion Gaztanaga</p></div>
 <div><div class="legalnotice">
 <a name="interprocess.legal"></a><p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -39,7 +39,7 @@
 </div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="section"><a href="interprocess.html#interprocess.intro">Introduction</a></span></dt>
 <dd><dl>
 <dt><span class="section"><a href="interprocess.html#interprocess.intro.introduction_building_interprocess">Building
@@ -181,7 +181,10 @@
 <dt><span class="section"><a href="interprocess/acknowledgements_notes.html">Acknowledgements,
     notes and links</a></span></dt>
 <dd><dl>
-<dt><span class="section"><a href="interprocess/acknowledgements_notes.html#interprocess.acknowledgements_notes.notes">Notes</a></span></dt>
+<dt><span class="section"><a href="interprocess/acknowledgements_notes.html#interprocess.acknowledgements_notes.notes_windows">Notes
+      for Windows users</a></span></dt>
+<dt><span class="section"><a href="interprocess/acknowledgements_notes.html#interprocess.acknowledgements_notes.notes_linux">Notes
+      for Linux users</a></span></dt>
 <dt><span class="section"><a href="interprocess/acknowledgements_notes.html#interprocess.acknowledgements_notes.thanks_to">Thanks
       to...</a></span></dt>
 <dt><span class="section"><a href="interprocess/acknowledgements_notes.html#interprocess.acknowledgements_notes.release_notes">Release
@@ -191,88 +194,10 @@
 <dt><span class="section"><a href="interprocess/acknowledgements_notes.html#interprocess.acknowledgements_notes.future_improvements">Future
       improvements...</a></span></dt>
 </dl></dd>
-<dt><span class="section"><a href="interprocess/index.html">Indexes</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html">Boost.Interprocess Reference</a></span></dt>
+<dt><span class="section"><a href="interprocess/indexes_reference.html">Indexes and Reference</a></span></dt>
 <dd><dl>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.allocators.adaptive_pool_hpp">Header &lt;boost/interprocess/allocators/adaptive_pool.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.allocators.allocator_hpp">Header &lt;boost/interprocess/allocators/allocator.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.allocators.cached_adaptive_pool_hpp">Header &lt;boost/interprocess/allocators/cached_adaptive_pool.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.allocators.cached_node_allocator_hpp">Header &lt;boost/interprocess/allocators/cached_node_allocator.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.allocators.node_allocator_hpp">Header &lt;boost/interprocess/allocators/node_allocator.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.allocators.private_adaptive_pool_hpp">Header &lt;boost/interprocess/allocators/private_adaptive_pool.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.allocators.private_node_allocator_hpp">Header &lt;boost/interprocess/allocators/private_node_allocator.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.anonymous_shared_memory_hpp">Header &lt;boost/interprocess/anonymous_shared_memory.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.containers.allocation_type_hpp">Header &lt;boost/interprocess/containers/allocation_type.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.containers.deque_hpp">Header &lt;boost/interprocess/containers/deque.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.containers.flat_map_hpp">Header &lt;boost/interprocess/containers/flat_map.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.containers.flat_set_hpp">Header &lt;boost/interprocess/containers/flat_set.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.containers.list_hpp">Header &lt;boost/interprocess/containers/list.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.containers.map_hpp">Header &lt;boost/interprocess/containers/map.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.containers.pair_hpp">Header &lt;boost/interprocess/containers/pair.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.containers.set_hpp">Header &lt;boost/interprocess/containers/set.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.containers.slist_hpp">Header &lt;boost/interprocess/containers/slist.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.containers.stable_vector_hpp">Header &lt;boost/interprocess/containers/stable_vector.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.containers.string_hpp">Header &lt;boost/interprocess/containers/string.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.containers.vector_hpp">Header &lt;boost/interprocess/containers/vector.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.containers.version_type_hpp">Header &lt;boost/interprocess/containers/version_type.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.creation_tags_hpp">Header &lt;boost/interprocess/creation_tags.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.errors_hpp">Header &lt;boost/interprocess/errors.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.exceptions_hpp">Header &lt;boost/interprocess/exceptions.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.file_mapping_hpp">Header &lt;boost/interprocess/file_mapping.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.indexes.flat_map_index_hpp">Header &lt;boost/interprocess/indexes/flat_map_index.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.indexes.iset_index_hpp">Header &lt;boost/interprocess/indexes/iset_index.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.indexes.iunordered_set_index_hpp">Header &lt;boost/interprocess/indexes/iunordered_set_index.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.indexes.map_index_hpp">Header &lt;boost/interprocess/indexes/map_index.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.indexes.null_index_hpp">Header &lt;boost/interprocess/indexes/null_index.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.indexes.unordered_map_index_hpp">Header &lt;boost/interprocess/indexes/unordered_map_index.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.interprocess_fwd_hpp">Header &lt;boost/interprocess/interprocess_fwd.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.ipc.message_queue_hpp">Header &lt;boost/interprocess/ipc/message_queue.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.managed_external_buffer_hpp">Header &lt;boost/interprocess/managed_external_buffer.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.managed_heap_memory_hpp">Header &lt;boost/interprocess/managed_heap_memory.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.managed_mapped_file_hpp">Header &lt;boost/interprocess/managed_mapped_file.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.managed_shared_memory_hpp">Header &lt;boost/interprocess/managed_shared_memory.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.managed_windows_shared_memory_hpp">Header &lt;boost/interprocess/managed_windows_shared_memory.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.managed_xsi_shared_memory_hpp">Header &lt;boost/interprocess/managed_xsi_shared_memory.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.mapped_region_hpp">Header &lt;boost/interprocess/mapped_region.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.mem_algo.rbtree_best_fit_hpp">Header &lt;boost/interprocess/mem_algo/rbtree_best_fit.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.mem_algo.simple_seq_fit_hpp">Header &lt;boost/interprocess/mem_algo/simple_seq_fit.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.offset_ptr_hpp">Header &lt;boost/interprocess/offset_ptr.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.permissions_hpp">Header &lt;boost/interprocess/permissions.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.segment_manager_hpp">Header &lt;boost/interprocess/segment_manager.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.shared_memory_object_hpp">Header &lt;boost/interprocess/shared_memory_object.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.smart_ptr.deleter_hpp">Header &lt;boost/interprocess/smart_ptr/deleter.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.smart_ptr.enable_shared_from_this_hpp">Header &lt;boost/interprocess/smart_ptr/enable_shared_from_this.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.smart_ptr.intrusive_ptr_hpp">Header &lt;boost/interprocess/smart_ptr/intrusive_ptr.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.smart_ptr.scoped_ptr_hpp">Header &lt;boost/interprocess/smart_ptr/scoped_ptr.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.smart_ptr.shared_ptr_hpp">Header &lt;boost/interprocess/smart_ptr/shared_ptr.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.smart_ptr.unique_ptr_hpp">Header &lt;boost/interprocess/smart_ptr/unique_ptr.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.smart_ptr.weak_ptr_hpp">Header &lt;boost/interprocess/smart_ptr/weak_ptr.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.streams.bufferstream_hpp">Header &lt;boost/interprocess/streams/bufferstream.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.streams.vectorstream_hpp">Header &lt;boost/interprocess/streams/vectorstream.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.file_lock_hpp">Header &lt;boost/interprocess/sync/file_lock.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.interprocess_condition_hpp">Header &lt;boost/interprocess/sync/interprocess_condition.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.interprocess_condition_any_hpp">Header &lt;boost/interprocess/sync/interprocess_condition_any.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.interprocess_mutex_hpp">Header &lt;boost/interprocess/sync/interprocess_mutex.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.interprocess_recursive_mutex_hpp">Header &lt;boost/interprocess/sync/interprocess_recursive_mutex.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.interprocess_semaphore_hpp">Header &lt;boost/interprocess/sync/interprocess_semaphore.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.interprocess_sharable_mutex_hpp">Header &lt;boost/interprocess/sync/interprocess_sharable_mutex.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.interprocess_upgradable_mutex_hpp">Header &lt;boost/interprocess/sync/interprocess_upgradable_mutex.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.lock_options_hpp">Header &lt;boost/interprocess/sync/lock_options.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.mutex_family_hpp">Header &lt;boost/interprocess/sync/mutex_family.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.named_condition_hpp">Header &lt;boost/interprocess/sync/named_condition.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.named_condition_any_hpp">Header &lt;boost/interprocess/sync/named_condition_any.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.named_mutex_hpp">Header &lt;boost/interprocess/sync/named_mutex.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.named_recursive_mutex_hpp">Header &lt;boost/interprocess/sync/named_recursive_mutex.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.named_semaphore_hpp">Header &lt;boost/interprocess/sync/named_semaphore.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.named_sharable_mutex_hpp">Header &lt;boost/interprocess/sync/named_sharable_mutex.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.named_upgradable_mutex_hpp">Header &lt;boost/interprocess/sync/named_upgradable_mutex.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.null_mutex_hpp">Header &lt;boost/interprocess/sync/null_mutex.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.scoped_lock_hpp">Header &lt;boost/interprocess/sync/scoped_lock.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.sharable_lock_hpp">Header &lt;boost/interprocess/sync/sharable_lock.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.sync.upgradable_lock_hpp">Header &lt;boost/interprocess/sync/upgradable_lock.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.windows_shared_memory_hpp">Header &lt;boost/interprocess/windows_shared_memory.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.xsi_key_hpp">Header &lt;boost/interprocess/xsi_key.hpp&gt;</a></span></dt>
-<dt><span class="section"><a href="boost_interprocess_reference.html#header.boost.interprocess.xsi_shared_memory_hpp">Header &lt;boost/interprocess/xsi_shared_memory.hpp&gt;</a></span></dt>
+<dt><span class="section"><a href="interprocess/indexes_reference.html#interprocess.indexes_reference.index">Indexes</a></span></dt>
+<dt><span class="section"><a href="interprocess/indexes_reference.html#boost_interprocess_header_reference">Boost.Interprocess Header Reference</a></span></dt>
 </dl></dd>
 </dl>
 </div>
@@ -280,7 +205,7 @@
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="interprocess.intro"></a><a class="link" href="interprocess.html#interprocess.intro" title="Introduction">Introduction</a>
 </h2></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="interprocess.html#interprocess.intro.introduction_building_interprocess">Building
       Boost.Interprocess</a></span></dt>
 <dt><span class="section"><a href="interprocess.html#interprocess.intro.tested_compilers">Tested compilers</a></span></dt>
@@ -290,7 +215,7 @@
       interprocess communication and synchronization mechanisms and offers a wide
       range of them:
     </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
           Shared memory.
         </li>
@@ -323,7 +248,7 @@
       offers useful tools to construct C++ objects, including STL-like containers,
       in shared memory and memory mapped files:
     </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
           Dynamic creation of anonymous and named objects in a shared memory or memory
           mapped file.
@@ -371,7 +296,7 @@
         <span class="bold"><strong>Boost.Interprocess</strong></span> has been tested in the
         following compilers/platforms:
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             Visual &gt;= 7.1
           </li>
@@ -386,7 +311,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: October 29, 2012 at 22:44:44 GMT</small></p></td>
+<td align="left"><p><small>Last revised: October 30, 2014 at 10:19:01 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>

@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga  2009-2012.
+// (C) Copyright Ion Gaztanaga  2009-2013.
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -21,6 +21,10 @@
 
 #ifndef BOOST_CONTAINER_DETAIL_FUNCTION_DETECTOR_HPP
 #define BOOST_CONTAINER_DETAIL_FUNCTION_DETECTOR_HPP
+
+#if defined(_MSC_VER)
+#  pragma once
+#endif
 
 #include <boost/container/detail/config_begin.hpp>
 

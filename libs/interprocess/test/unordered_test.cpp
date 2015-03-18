@@ -12,8 +12,18 @@
 #include <boost/interprocess/managed_shared_memory.hpp>
 #include <boost/interprocess/allocators/allocator.hpp>
 #include "get_process_id_name.hpp"
+
+//<-
+//Shield against external warnings
+#include <boost/interprocess/detail/config_external_begin.hpp>
+//->
+
 #include <boost/unordered_map.hpp>
 #include <boost/unordered_set.hpp>
+
+//<-
+#include <boost/interprocess/detail/config_external_end.hpp>
+//->
 
 #include <functional> //std::equal_to
 #include <boost/functional/hash.hpp> //boost::hash

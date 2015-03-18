@@ -5,8 +5,8 @@
 
 #include "./config.hpp"
 
-#ifdef TEST_EXTENSIONS
-#  ifdef TEST_STD_INCLUDES
+#ifdef BOOST_HASH_TEST_EXTENSIONS
+#  ifdef BOOST_HASH_TEST_STD_INCLUDES
 #    include <functional>
 #  else
 #    include <boost/functional/hash.hpp>
@@ -15,7 +15,7 @@
 
 #include <boost/detail/lightweight_test.hpp>
 
-#ifdef TEST_EXTENSIONS
+#ifdef BOOST_HASH_TEST_EXTENSIONS
 
 #include <set>
 
@@ -31,7 +31,7 @@ using std::multiset;
 
 int main()
 {
-#ifdef TEST_EXTENSIONS
+#ifdef BOOST_HASH_TEST_EXTENSIONS
     set_tests::set_hash_integer_tests();
     multiset_tests::multiset_hash_integer_tests();
 #endif

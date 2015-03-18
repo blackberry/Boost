@@ -14,7 +14,7 @@ http://www.boost.org/LICENSE_1_0.txt)
 
 [heading Overview]
 
-The header file 'boyer_moore_horspool.hpp' contains an an implementation of the Boyer-Moore-Horspool algorithm for searching sequences of values. 
+The header file 'boyer_moore_horspool.hpp' contains an implementation of the Boyer-Moore-Horspool algorithm for searching sequences of values. 
 
 The Boyer-Moore-Horspool search algorithm was published by Nigel Horspool in 1980. It is a refinement of the Boyer-Moore algorithm that trades space for time. It uses less space for internal tables than Boyer-Moore, and has poorer worst-case performance.
 
@@ -24,7 +24,7 @@ The Boyer-Moore-Horspool algorithm cannot be used with comparison predicates lik
 
 Nomenclature: I refer to the sequence being searched for as the "pattern", and the sequence being searched in as the "corpus".
 
-For flexibility, the Boyer-Moore-Horspool algorithm has has two interfaces; an object-based interface and a procedural one. The object-based interface builds the tables in the constructor, and uses operator () to perform the search. The procedural interface builds the table and does the search all in one step. If you are going to be searching for the same pattern in multiple corpora, then you should use the object interface, and only build the tables once.
+For flexibility, the Boyer-Moore-Horspool algorithm has two interfaces; an object-based interface and a procedural one. The object-based interface builds the tables in the constructor, and uses operator () to perform the search. The procedural interface builds the table and does the search all in one step. If you are going to be searching for the same pattern in multiple corpora, then you should use the object interface, and only build the tables once.
 
 Here is the object interface:
 ``

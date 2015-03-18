@@ -3,10 +3,13 @@
 //  Boost Software License, Version 1.0. (See accompanying file
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
-#include <boost/test/test_exec_monitor.hpp>
+#define BOOST_TEST_MAIN
+#include <boost/test/unit_test.hpp>
 #include <boost/test/floating_point_comparison.hpp>
 #include <boost/math/tools/precision.hpp>
 #include <math.h>  // ldexpf
+#include <iostream>
+#include <iomanip>
 
 #ifdef TEST_STD
 #include <cmath>
@@ -1609,7 +1612,7 @@ void test_values(long double, const char* name)
 #endif
 }
 
-int test_main(int, char* [])
+BOOST_AUTO_TEST_CASE( test_main )
 {
 #ifndef TEST_LD
    test_values(1.0f, "float");
@@ -1619,6 +1622,6 @@ int test_main(int, char* [])
    test_values(1.0L, "long double");
 #endif
 #endif
-   return 0;
+   
 }
 

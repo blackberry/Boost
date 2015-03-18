@@ -6,7 +6,8 @@
 
 #include <boost/math/concepts/real_concept.hpp>
 #include <boost/math/special_functions/math_fwd.hpp>
-#include <boost/test/test_exec_monitor.hpp>
+#define BOOST_TEST_MAIN
+#include <boost/test/unit_test.hpp>
 #include <boost/test/floating_point_comparison.hpp>
 #include <boost/math/tools/stats.hpp>
 #include <boost/math/tools/test.hpp>
@@ -45,7 +46,6 @@ void do_test_expint(const T& data, const char* type_name, const char* test_name)
    // test En(T) against data:
    //
    using namespace std;
-   typedef typename T::value_type row_type;
    typedef Real                   value_type;
 
    std::cout << test_name << " with type " << type_name << std::endl;
@@ -90,7 +90,6 @@ void do_test_expint_Ei(const T& data, const char* type_name, const char* test_na
    // test Ei(T) against data:
    //
    using namespace std;
-   typedef typename T::value_type row_type;
    typedef Real                   value_type;
 
    std::cout << test_name << " with type " << type_name << std::endl;

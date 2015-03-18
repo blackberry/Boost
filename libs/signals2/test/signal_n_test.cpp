@@ -10,12 +10,12 @@
 #include <boost/config.hpp>
 #include <boost/test/minimal.hpp>
 
-#ifndef BOOST_NO_VARIADIC_TEMPLATES
+#ifndef BOOST_NO_CXX11_VARIADIC_TEMPLATES
 int test_main(int, char* [])
 {
   return 0;
 }
-#else // BOOST_NO_VARIADIC_TEMPLATES
+#else // BOOST_NO_CXX11_VARIADIC_TEMPLATES
 
 #include <boost/optional.hpp>
 #include <boost/ref.hpp>
@@ -34,7 +34,7 @@ struct max_or_default {
     {
       try
       {
-        if(max == false) max = *first;
+        if(!max) max = *first;
         else max = (*first > max.get())? *first : max;
       }
       catch(const boost::bad_weak_ptr &)
@@ -286,6 +286,52 @@ template<typename ResultType>
     BOOST_CHECK(sig.num_slots() == 0);
   }
 }
+class dummy_combiner
+{
+public:
+  typedef int result_type;
+
+  dummy_combiner(result_type return_value): _return_value(return_value)
+  {}
+  template<typename SlotIterator>
+  result_type operator()(SlotIterator, SlotIterator)
+  {
+    return _return_value;
+  }
+private:
+  result_type _return_value;
+};
+
+static void
+test_set_combiner()
+{
+  typedef boost::signals2::signal0<int, dummy_combiner> signal_type;
+  signal_type sig(dummy_combiner(0));
+  BOOST_CHECK(sig() == 0);
+  BOOST_CHECK(sig.combiner()(0,0) == 0);
+  sig.set_combiner(dummy_combiner(1));
+  BOOST_CHECK(sig() == 1);
+  BOOST_CHECK(sig.combiner()(0,0) == 1);
+}
+
+static void
+test_swap()
+{
+  typedef boost::signals2::signal0<int, dummy_combiner> signal_type;
+  signal_type sig1(dummy_combiner(1));
+  BOOST_CHECK(sig1() == 1);
+  signal_type sig2(dummy_combiner(2));
+  BOOST_CHECK(sig2() == 2);
+
+  sig1.swap(sig2);
+  BOOST_CHECK(sig1() == 2);
+  BOOST_CHECK(sig2() == 1);
+
+  using std::swap;
+  swap(sig1, sig2);
+  BOOST_CHECK(sig1() == 1);
+  BOOST_CHECK(sig2() == 2);
+}
 
 int
 test_main(int, char* [])
@@ -297,7 +343,9 @@ test_main(int, char* [])
   test_default_combiner();
   test_extended_slot<void>();
   test_extended_slot<int>();
+  test_set_combiner();
+  test_swap();
   return 0;
 }
 
-#endif // BOOST_NO_VARIADIC_TEMPLATES
+#endif // BOOST_NO_CXX11_VARIADIC_TEMPLATES

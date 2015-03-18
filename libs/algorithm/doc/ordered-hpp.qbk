@@ -19,11 +19,11 @@ The function `is_sorted(sequence)` determines whether or not a sequence is compl
 
 ``
 namespace boost { namespace algorithm {
-	template <typename Iterator, typename Pred>
-	bool is_sorted ( Iterator first, Iterator last, Pred p );
+	template <typename ForwardIterator, typename Pred>
+	bool is_sorted ( ForwardIterator first, ForwardIterator last, Pred p );
 	
-	template <typename Iterator>
-	bool is_sorted ( Iterator first, Iterator last );
+	template <typename ForwardIterator>
+	bool is_sorted ( ForwardIterator first, ForwardIterator last );
 	
 	
 	template <typename Range, typename Pred>
@@ -34,7 +34,7 @@ namespace boost { namespace algorithm {
 }}
 ``
 
-Iterator requirements: The `is_sorted` functions will work on all kinds of iterators (except output iterators). 
+Iterator requirements: The `is_sorted` functions will work forward iterators or better.
 
 [heading is_sorted_until]
 
@@ -73,7 +73,7 @@ Given the sequence `{ 1, 2, 3, 4, 5, 9 }`,   `is_sorted_until ( beg, end, std::l
 
 There are also a set of "wrapper functions" for is_ordered which make it easy to see if an entire sequence is ordered. These functions return a boolean indicating success or failure rather than an iterator to where the out of order items were found.
 
-To test if a sequence is increasing (each element at least as large as the preceeding one):
+To test if a sequence is increasing (each element at least as large as the preceding one):
 ``
 namespace boost { namespace algorithm {
 	template <typename Iterator>
@@ -84,34 +84,34 @@ namespace boost { namespace algorithm {
 }}
 ``
 
-To test if a sequence is decreasing (each element no larger than the preceeding one):
+To test if a sequence is decreasing (each element no larger than the preceding one):
 
 ``
 namespace boost { namespace algorithm {
-	template <typename Iterator>
-	bool is_decreasing ( Iterator first, Iterator last );
+	template <typename ForwardIterator>
+	bool is_decreasing ( ForwardIterator first, ForwardIterator last );
 	
 	template <typename R>
 	bool is_decreasing ( const R &range );
 }}
 ``
 
-To test if a sequence is strictly increasing (each element larger than the preceeding one):
+To test if a sequence is strictly increasing (each element larger than the preceding one):
 ``
 namespace boost { namespace algorithm {
-	template <typename Iterator>
-	bool is_strictly_increasing ( Iterator first, Iterator last );
+	template <typename ForwardIterator>
+	bool is_strictly_increasing ( ForwardIterator first, ForwardIterator last );
 	
 	template <typename R>
 	bool is_strictly_increasing ( const R &range );
 }}
 ``
 
-To test if a sequence is strictly decreasing (each element smaller than the preceeding one):
+To test if a sequence is strictly decreasing (each element smaller than the preceding one):
 ``
 namespace boost { namespace algorithm {
-	template <typename Iterator>
-	bool is_strictly_decreasing ( Iterator first, Iterator last );
+	template <typename ForwardIterator>
+	bool is_strictly_decreasing ( ForwardIterator first, ForwardIterator last );
 	
 	template <typename R>
 	bool is_strictly_decreasing ( const R &range );

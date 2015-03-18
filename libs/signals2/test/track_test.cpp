@@ -33,7 +33,7 @@ struct max_or_default {
     for(; first != last; ++first)
     {
       T value = *first;
-      if(max == false)
+      if(!max)
       {
         max = value;
       }else if(value > *max)
@@ -110,9 +110,7 @@ int test_main(int, char*[])
   }
   BOOST_CHECK(s1(2) == 0);
 
-// there isn't a boost config macro that detects the existance of std::shared_ptr or std::weak_ptr,
-// so we rely on BOOST_NO_VARIADIC_TEMPLATES as a hack
-#ifndef BOOST_NO_VARIADIC_TEMPLATES
+#ifndef BOOST_NO_CXX11_SMART_PTR
   // Test tracking through std::shared_ptr/weak_ptr
   BOOST_CHECK(s1(5) == 0);
   {

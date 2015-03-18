@@ -32,8 +32,10 @@
 <p>Note that on some non-conformant compilers, for example MSVC 7.0 and older, as well as BCC, BOOST_EXCEPTION_DISABLE is implicitly defined in <span class="RenoLink"><a href="boost_throw_exception_hpp.html">boost/throw_exception.hpp</a></span>.</p>
 <p><b>BOOST_NO_EXCEPTIONS</b></p>
 <p>This macro disables exception handling in Boost, forwarding all exceptions to a user-defined non-template version of boost::<span class="RenoLink"><a href="throw_exception.html">throw_exception</a></span>. However, unless BOOST_EXCEPTION_DISABLE is also defined, users can still examine the exception object for any data added at the point of the throw, or use boost::<span class="RenoLink"><a href="diagnostic_information.html">diagnostic_information</a></span> (of course under BOOST_NO_EXCEPTIONS, the user-defined boost::throw_exception is not allowed to return to the caller.)</p>
+<p><b>BOOST_THROW_EXCEPTION_CURRENT_FUNCTION</b></p>
+<p>The <span class="RenoLink"><a href="BOOST_THROW_EXCEPTION.html">BOOST_THROW_EXCEPTION</a></span> macro uses BOOST_THROW_EXCEPTION_CURRENT_FUNCTION to record the name of the current function in the exception object. Unless overridden by the user, BOOST_THROW_EXCEPTION_CURRENT_FUNCTION expands to BOOST_CURRENT_FUNCTION.</p>
 </div><div class="RenoAutoDIV"><div class="RenoHR"><hr/></div>
-See also: <span class="RenoPageList"><a href="boost-exception.html">Boost Exception</a>&nbsp;| <a href="boost_exception_all_hpp.html">boost/exception/all.hpp</a>&nbsp;| <a href="get_error_info.html">get_error_info</a></span>
+See also: <span class="RenoPageList"><a href="BOOST_THROW_EXCEPTION.html">BOOST_THROW_EXCEPTION</a>&nbsp;| <a href="boost-exception.html">Boost Exception</a>&nbsp;| <a href="boost_exception_all_hpp.html">boost/exception/all.hpp</a>&nbsp;| <a href="frequently_asked_questions.html">Frequently Asked Questions</a>&nbsp;| <a href="get_error_info.html">get_error_info</a></span>
 </div>
 <!-- Copyright (c) 2006-2009 Emil Dotchevski and Reverge Studios, Inc. -->
 <!-- Distributed under the Boost Software License, Version 1.0. (See accompanying -->

@@ -3,10 +3,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Language</title>
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../jam.html" title="Chapter&#160;38.&#160;Boost.Jam : 3.1.19">
-<link rel="prev" href="../jam.html" title="Chapter&#160;38.&#160;Boost.Jam : 3.1.19">
+<link rel="up" href="../jam.html" title="Chapter&#160;42.&#160;Boost.Jam : 3.1.19">
+<link rel="prev" href="../jam.html" title="Chapter&#160;42.&#160;Boost.Jam : 3.1.19">
 <link rel="next" href="miscellaneous.html" title="Miscellaneous">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -26,7 +26,7 @@
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="jam.language"></a><a class="link" href="language.html" title="Language">Language</a>
 </h2></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="language.html#jam.language.lexical">Lexical Features</a></span></dt>
 <dt><span class="section"><a href="language.html#jam.language.target">Targets</a></span></dt>
 <dt><span class="section"><a href="language.html#jam.language.rules">Rules</a></span></dt>
@@ -35,27 +35,27 @@
 <dt><span class="section"><a href="language.html#jam.language.modules">Modules</a></span></dt>
 </dl></div>
 <p>
-      <code class="literal">BJam</code> has an interpreted, procedural language. Statements
-      in <code class="literal">bjam</code> are rule (procedure) definitions, rule invocations,
-      flow-of-control structures, variable assignments, and sundry language support.
+      <code class="literal">B2</code> has an interpreted, procedural language. Statements in
+      <code class="literal">b2</code> are rule (procedure) definitions, rule invocations, flow-of-control
+      structures, variable assignments, and sundry language support.
     </p>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="jam.language.lexical"></a><a class="link" href="language.html#jam.language.lexical" title="Lexical Features">Lexical Features</a>
 </h3></div></div></div>
 <p>
-        <code class="literal">BJam</code> treats its input files as whitespace-separated tokens,
+        <code class="literal">B2</code> treats its input files as whitespace-separated tokens,
         with two exceptions: double quotes (") can enclose whitespace to embed
         it into a token, and everything between the matching curly braces ({}) in
         the definition of a rule action is treated as a single string. A backslash
         (\) can escape a double quote, or any single whitespace character.
       </p>
 <p>
-        <code class="literal">BJam</code> requires whitespace (blanks, tabs, or newlines) to
+        <code class="literal">B2</code> requires whitespace (blanks, tabs, or newlines) to
         surround all tokens, including the colon (:) and semicolon (;) tokens.
       </p>
 <p>
-        <code class="literal">BJam</code> keywords (an mentioned in this document) are reserved
+        <code class="literal">B2</code> keywords (an mentioned in this document) are reserved
         and generally must be quoted with double quotes (") to be used as arbitrary
         tokens, such as variable or target names.
       </p>
@@ -68,18 +68,18 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="jam.language.target"></a><a class="link" href="language.html#jam.language.target" title="Targets">Targets</a>
 </h3></div></div></div>
-<div class="toc"><dl><dt><span class="section"><a href="language.html#jam.language.target.binding_detection">Binding Detection</a></span></dt></dl></div>
+<div class="toc"><dl class="toc"><dt><span class="section"><a href="language.html#jam.language.target.binding_detection">Binding Detection</a></span></dt></dl></div>
 <p>
-        The essential <code class="literal">bjam</code> data entity is a target. Build targets
+        The essential <code class="literal">b2</code> data entity is a target. Build targets
         are files to be updated. Source targets are the files used in updating built
         targets. Built targets and source targets are collectively referred to as
         file targets, and frequently built targets are source targets for other built
-        targets. Pseudotargets are symbols which represent dependencies on other
-        targets, but which are not themselves associated with any real file.
+        targets. Pseudotargets are symbols representing dependencies on other targets,
+        but which are not themselves associated with any real file.
       </p>
 <p>
         A file target's identifier is generally the file's name, which can be absolutely
-        rooted, relative to the directory of <code class="literal">bjam</code>'s invocation,
+        rooted, relative to the directory of <code class="literal">b2</code>'s invocation,
         or simply local (no directory). Most often it is the last case, and the actual
         file path is bound using the <code class="literal">$(SEARCH)</code> and <code class="literal">$(LOCATE)</code>
         special variables. See <a class="link" href="language.html#jam.language.variables.builtins.search" title="SEARCH and LOCATE">SEARCH
@@ -114,13 +114,13 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="jam.language.rules"></a><a class="link" href="language.html#jam.language.rules" title="Rules">Rules</a>
 </h3></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="language.html#jam.language.rules.action_modifiers">Action Modifiers</a></span></dt>
 <dt><span class="section"><a href="language.html#jam.language.rules.argument_lists">Argument lists</a></span></dt>
 <dt><span class="section"><a href="language.html#jam.language.rules.builtins">Built-in Rules</a></span></dt>
 </dl></div>
 <p>
-        The basic <code class="literal">bjam</code> language entity is called a rule. A rule
+        The basic <code class="literal">b2</code> language entity is called a rule. A rule
         is defined in two parts: the procedure and the actions. The procedure is
         a body of jam statements to be run when the rule is invoked; the actions
         are the OS shell commands to execute when updating the built targets of the
@@ -137,7 +137,7 @@
         rule body.
       </p>
 <p>
-        The <code class="literal">bjam</code> statements for defining and invoking rules are
+        The <code class="literal">b2</code> statements for defining and invoking rules are
         as follows:
       </p>
 <p>
@@ -215,7 +215,7 @@ on <span class="emphasis"><em>target</em></span> $(<span class="emphasis"><em>va
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term"><code class="literal">actions bind <span class="emphasis"><em>vars</em></span></code></span></dt>
 <dd><p>
                 <code class="literal">$(<span class="emphasis"><em>vars</em></span>)</code> will be replaced
@@ -336,7 +336,7 @@ report I 2 : sorry : Joe Dave Pete ;
 </table></div>
 <p>
           The actual and formal arguments are checked for inconsistencies, which
-          cause Jam to exit with an error code:
+          cause <code class="literal">b2</code> to exit with an error code:
         </p>
 <pre class="programlisting">### argument error
 # rule report ( pronoun index ?  : state  : names + )
@@ -358,7 +358,7 @@ report I 2 : sorry : Joe Dave Pete ;
 <div class="titlepage"><div><div><h4 class="title">
 <a name="jam.language.rules.builtins"></a><a class="link" href="language.html#jam.language.rules.builtins" title="Built-in Rules">Built-in Rules</a>
 </h4></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="language.html#jam.language.rules.builtins.dependency_building">Dependency
           Building</a></span></dt>
 <dt><span class="section"><a href="language.html#jam.language.rules.builtins.modifying_binding">Modifying
@@ -366,7 +366,7 @@ report I 2 : sorry : Joe Dave Pete ;
 <dt><span class="section"><a href="language.html#jam.language.rules.builtins.utility">Utility</a></span></dt>
 </dl></div>
 <p>
-          <code class="literal">BJam</code> has a growing set of built-in rules, all of which
+          <code class="literal">B2</code> has a growing set of built-in rules, all of which
           are pure procedure rules without updating actions. They are in three groups:
           the first builds the dependency graph; the second modifies it; and the
           third are just utility rules.
@@ -423,8 +423,8 @@ INCLUDES foo.c : foo.h ;
             The six rules <code class="literal">ALWAYS</code>, <code class="literal">LEAVES</code>,
             <code class="literal">NOCARE</code>, <code class="literal">NOTFILE</code>, <code class="literal">NOUPDATE</code>,
             and <code class="literal">TEMPORARY</code> modify the dependency graph so that
-            <code class="literal">bjam</code> treats the targets differently during its target
-            binding phase. See Binding above. Normally, <code class="literal">bjam</code> updates
+            <code class="literal">b2</code> treats the targets differently during its target
+            binding phase. See Binding above. Normally, <code class="literal">b2</code> updates
             a target if it is missing, if its filesystem modification time is older
             than any of its dependencies (recursively), or if any of its dependencies
             are being updated. This basic behavior can be changed by invoking the
@@ -469,14 +469,14 @@ INCLUDES foo.c : foo.h ;
 <pre class="programlisting">rule NOCARE ( <span class="emphasis"><em>targets</em></span> * )
 </pre>
 <p>
-              Causes <code class="literal">bjam</code> to ignore <span class="emphasis"><em>targets</em></span>
+              Causes <code class="literal">b2</code> to ignore <span class="emphasis"><em>targets</em></span>
               that neither can be found nor have updating actions to build them.
-              Normally for such targets <code class="literal">bjam</code> issues a warning
-              and then skips other targets that depend on these missing targets.
-              The <code class="literal">HdrRule</code> in <code class="literal">Jambase</code> uses
-              <code class="literal">NOCARE</code> on the header file names found during header
-              file scanning, to let <code class="literal">bjam</code> know that the included
-              files may not exist. For example, if an <code class="computeroutput"><span class="preprocessor">#include</span></code>
+              Normally for such targets <code class="literal">b2</code> issues a warning and
+              then skips other targets that depend on these missing targets. The
+              <code class="literal">HdrRule</code> in <code class="literal">Jambase</code> uses <code class="literal">NOCARE</code>
+              on the header file names found during header file scanning, to let
+              <code class="literal">b2</code> know that the included files may not exist. For
+              example, if an <code class="computeroutput"><span class="preprocessor">#include</span></code>
               is within an <code class="computeroutput"><span class="preprocessor">#ifdef</span></code>,
               the included file may not actually be around.
             </p>
@@ -502,7 +502,7 @@ INCLUDES foo.c : foo.h ;
               Marks <span class="emphasis"><em>targets</em></span> as pseudotargets and not real files.
               No timestamp is checked, and so the actions on such a target are only
               executed if the target's dependencies are updated, or if the target
-              is also marked with <code class="literal">ALWAYS</code>. The default <code class="literal">bjam</code>
+              is also marked with <code class="literal">ALWAYS</code>. The default <code class="literal">b2</code>
               target "<code class="literal">all</code>" is a pseudotarget. In <code class="literal">Jambase</code>,
               <code class="literal">NOTFILE</code> is used to define several addition convenient
               pseudotargets.
@@ -535,7 +535,7 @@ INCLUDES foo.c : foo.h ;
 <p>
               Marks <span class="emphasis"><em>targets</em></span> as temporary, allowing them to be
               removed after other targets that depend upon them have been updated.
-              If a <code class="literal">TEMPORARY</code> target is missing, <code class="literal">bjam</code>
+              If a <code class="literal">TEMPORARY</code> target is missing, <code class="literal">b2</code>
               uses the timestamp of the target's parent. <code class="literal">Jambase</code>
               uses <code class="literal">TEMPORARY</code> to mark object files that are archived
               in a library after they are built, so that they can be deleted after
@@ -567,9 +567,9 @@ INCLUDES foo.c : foo.h ;
 <pre class="programlisting">rule RMOLD ( <span class="emphasis"><em>targets</em></span> * )
 </pre>
 <p>
-              <code class="literal">BJam</code> removes any target files that may exist on
-              disk when the rule used to build those targets fails. However, targets
-              whose dependencies fail to build are not removed by default. The <code class="literal">RMOLD</code>
+              <code class="literal">B2</code> removes any target files that may exist on disk
+              when the rule used to build those targets fails. However, targets whose
+              dependencies fail to build are not removed by default. The <code class="literal">RMOLD</code>
               rule causes its arguments to be removed if any of their dependencies
               fail to build.
             </p>
@@ -583,8 +583,8 @@ INCLUDES foo.c : foo.h ;
 </pre>
 <p>
               <code class="literal">ISFILE</code> marks targets as required to be files. This
-              changes the way <code class="literal">bjam</code> searches for the target such
-              that it ignores mathes for file system items that are not file, like
+              changes the way <code class="literal">b2</code> searches for the target such
+              that it ignores matches for file system items that are not files, like
               directories. This makes it possible to avoid <code class="computeroutput"><span class="preprocessor">#include</span>
               <span class="string">"exception"</span></code> matching
               if one happens to have a directory named exception in the header search
@@ -607,7 +607,7 @@ INCLUDES foo.c : foo.h ;
 </h5></div></div></div>
 <p>
             The two rules <code class="literal">ECHO</code> and <code class="literal">EXIT</code> are
-            utility rules, used only in <code class="literal">bjam</code>'s parsing phase.
+            utility rules, used only in <code class="literal">b2</code>'s parsing phase.
           </p>
 <div class="section">
 <div class="titlepage"><div><div><h6 class="title">
@@ -680,10 +680,9 @@ INCLUDES foo.c : foo.h ;
 <p>
               Matches the <code class="literal">egrep</code>(1) style regular expressions
               <span class="emphasis"><em>regexps</em></span> against the strings in <span class="emphasis"><em>list</em></span>.
-              The result is the concatenation of matching <code class="literal">()</code> subexpressions
+              The result is a list of matching <code class="literal">()</code> subexpressions
               for each string in <span class="emphasis"><em>list</em></span>, and for each regular
-              expression in <span class="emphasis"><em>regexps</em></span>. Only useful within the
-              "=[ ]=" construct, to change the result into a list.
+              expression in <span class="emphasis"><em>regexps</em></span>.
             </p>
 </div>
 <div class="section">
@@ -749,7 +748,7 @@ UPDATE $(previous-updates) a-new-target ;
               value must conform to MS key path format and must be prefixed with
               one of the predefined root keys. As usual,
             </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
                   '<code class="literal">HKLM</code>' is equivalent to '<code class="literal">HKEY_LOCAL_MACHINE</code>'.
                 </li>
@@ -798,7 +797,7 @@ UPDATE $(previous-updates) a-new-target ;
             </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term"><code class="literal">subkeys</code></span></dt>
 <dd><p>
                     Names of all direct subkeys of '<span class="emphasis"><em>path</em></span>'.
@@ -847,7 +846,7 @@ for local subkey in $(subkeys)
             </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term"><code class="literal">exit-status</code></span></dt>
 <dd><p>
                     In addition to the output the result status of the executed command
@@ -957,7 +956,7 @@ for local subkey in $(subkeys)
 <a name="jam.language.flow_of_control"></a><a class="link" href="language.html#jam.language.flow_of_control" title="Flow-of-Control">Flow-of-Control</a>
 </h3></div></div></div>
 <p>
-        <code class="literal">BJam</code> has several simple flow-of-control statements:
+        <code class="literal">B2</code> has several simple flow-of-control statements:
       </p>
 <pre class="programlisting">for <span class="emphasis"><em>var</em></span> in <span class="emphasis"><em>list</em></span> { <span class="emphasis"><em>statements</em></span> }
 </pre>
@@ -974,7 +973,7 @@ for local subkey in $(subkeys)
       </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term"><code class="literal"><span class="emphasis"><em>a</em></span></code></span></dt>
 <dd><p>
               true if any <span class="emphasis"><em>a</em></span> element is a non-zero-length string
@@ -1034,7 +1033,7 @@ for local subkey in $(subkeys)
 <pre class="programlisting">include <span class="emphasis"><em>file</em></span> ;
 </pre>
 <p>
-        Causes <code class="literal">bjam</code> to read the named <span class="emphasis"><em>file</em></span>.
+        Causes <code class="literal">b2</code> to read the named <span class="emphasis"><em>file</em></span>.
         The <span class="emphasis"><em>file</em></span> is bound like a regular target (see Binding
         above) but unlike a regular target the include <span class="emphasis"><em>file</em></span>
         cannot be built.
@@ -1042,8 +1041,8 @@ for local subkey in $(subkeys)
 <p>
         The include <span class="emphasis"><em>file</em></span> is inserted into the input stream during
         the parsing phase. The primary input file and all the included file(s) are
-        treated as a single file; that is, jam infers no scope boundaries from included
-        files.
+        treated as a single file; that is, <code class="literal">b2</code> infers no scope
+        boundaries from included files.
       </p>
 <pre class="programlisting">local <span class="emphasis"><em>vars</em></span> [ = <span class="emphasis"><em>values</em></span> ] ;
 </pre>
@@ -1081,7 +1080,7 @@ for local subkey in $(subkeys)
       </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term"><code class="literal">?</code></span></dt>
 <dd><p>
               match any single character
@@ -1116,7 +1115,7 @@ for local subkey in $(subkeys)
 <div class="titlepage"><div><div><h3 class="title">
 <a name="jam.language.variables"></a><a class="link" href="language.html#jam.language.variables" title="Variables">Variables</a>
 </h3></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="language.html#jam.language.variables.expansion">Variable Expansion</a></span></dt>
 <dt><span class="section"><a href="language.html#jam.language.variables.local_for_loop_variables">Local
         For Loop Variables</a></span></dt>
@@ -1124,7 +1123,7 @@ for local subkey in $(subkeys)
 <dt><span class="section"><a href="language.html#jam.language.variables.builtins">Built-in Variables</a></span></dt>
 </dl></div>
 <p>
-        <code class="literal">BJam</code> variables are lists of zero or more elements, with
+        <code class="literal">B2</code> variables are lists of zero or more elements, with
         each element being a string value. An undefined variable is indistinguishable
         from a variable with an empty list, however, a defined variable may have
         one more elements which are null strings. All variables are referenced as
@@ -1162,19 +1161,19 @@ for local subkey in $(subkeys)
         bound values. See Action Modifiers above.
       </p>
 <p>
-        <code class="literal">BJam</code> variables are not re-exported to the environment
-        of the shell that executes the updating actions, but the updating actions
-        can reference <code class="literal">bjam</code> variables with <code class="literal">$(<span class="emphasis"><em>variable</em></span>)</code>.
+        <code class="literal">B2</code> variables are not re-exported to the environment of
+        the shell that executes the updating actions, but the updating actions can
+        reference <code class="literal">b2</code> variables with <code class="literal">$(<span class="emphasis"><em>variable</em></span>)</code>.
       </p>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="jam.language.variables.expansion"></a><a class="link" href="language.html#jam.language.variables.expansion" title="Variable Expansion">Variable Expansion</a>
 </h4></div></div></div>
 <p>
-          During parsing, <code class="literal">bjam</code> performs variable expansion on
-          each token that is not a keyword or rule name. Such tokens with embedded
-          variable references are replaced with zero or more tokens. Variable references
-          are of the form <code class="literal">$(<span class="emphasis"><em>v</em></span>)</code> or <code class="literal">$(<span class="emphasis"><em>vm</em></span>)</code>,
+          During parsing, <code class="literal">b2</code> performs variable expansion on each
+          token that is not a keyword or rule name. Such tokens with embedded variable
+          references are replaced with zero or more tokens. Variable references are
+          of the form <code class="literal">$(<span class="emphasis"><em>v</em></span>)</code> or <code class="literal">$(<span class="emphasis"><em>vm</em></span>)</code>,
           where <span class="emphasis"><em>v</em></span> is the variable name, and <span class="emphasis"><em>m</em></span>
           are optional modifiers.
         </p>
@@ -1220,7 +1219,7 @@ $(Z) -&gt;
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term"><code class="literal">[<span class="emphasis"><em>n</em></span>]</code></span></dt>
 <dd><p>
                 Select element number <span class="emphasis"><em>n</em></span> (starting at 1). If
@@ -1367,11 +1366,11 @@ ECHO $(y) ;     # prints "4 5 6"
 <a name="jam.language.variables.atfile"></a><a class="link" href="language.html#jam.language.variables.atfile" title="Generated File Expansion">Generated File Expansion</a>
 </h4></div></div></div>
 <p>
-          During expansion of expressions <code class="literal">bjam</code> also looks for
-          subexpressions of the form <code class="literal">@(filename:E=filecontents)</code>
-          and replaces the expression with <code class="literal">filename</code> after creating
-          the given file with the contents set to <code class="literal">filecontents</code>.
-          This is useful for creating compiler response files, and other "internal"
+          During expansion of expressions <code class="literal">b2</code> also looks for subexpressions
+          of the form <code class="literal">@(filename:E=filecontents)</code> and replaces
+          the expression with <code class="literal">filename</code> after creating the given
+          file with the contents set to <code class="literal">filecontents</code>. This is
+          useful for creating compiler response files, and other "internal"
           files. The expansion works both during parsing and action execution. Hence
           it is possible to create files during any of the three build phases.
         </p>
@@ -1380,7 +1379,7 @@ ECHO $(y) ;     # prints "4 5 6"
 <div class="titlepage"><div><div><h4 class="title">
 <a name="jam.language.variables.builtins"></a><a class="link" href="language.html#jam.language.variables.builtins" title="Built-in Variables">Built-in Variables</a>
 </h4></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="language.html#jam.language.variables.builtins.search">SEARCH and
           LOCATE</a></span></dt>
 <dt><span class="section"><a href="language.html#jam.language.variables.builtins.hdrscan">HDRSCAN
@@ -1395,7 +1394,7 @@ ECHO $(y) ;     # prints "4 5 6"
           and <code class="literal">__ACTION_RULE__</code></a></span></dt>
 </dl></div>
 <p>
-          This section discusses variables that have special meaning to <code class="literal">bjam</code>.
+          This section discusses variables that have special meaning to <code class="literal">b2</code>.
           All of these must be defined or used in the global module -- using those
           variables inside a named module will not have the desired effect. See
           <a class="link" href="language.html#jam.language.modules" title="Modules">Modules</a>.
@@ -1417,7 +1416,7 @@ ECHO $(y) ;     # prints "4 5 6"
             directory, but the settings of <code class="literal">$(LOCATE)</code> and <code class="literal">$(SEARCH)</code>
             alter this:
           </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
                 If <code class="literal">$(LOCATE)</code> is set then the target is bound relative
                 to the first directory in <code class="literal">$(LOCATE)</code>. Only the
@@ -1436,7 +1435,7 @@ ECHO $(y) ;     # prints "4 5 6"
 <p>
             Both <code class="literal">$(SEARCH)</code> and <code class="literal">$(LOCATE)</code> should
             be set target-specific and not globally. If they were set globally,
-            <code class="literal">bjam</code> would use the same paths for all file binding,
+            <code class="literal">b2</code> would use the same paths for all file binding,
             which is not likely to produce sane results. When writing your own rules,
             especially ones not built upon those in Jambase, you may need to set
             <code class="literal">$(SEARCH)</code> or <code class="literal">$(LOCATE)</code> directly.
@@ -1457,8 +1456,8 @@ ECHO $(y) ;     # prints "4 5 6"
             uses <code class="literal">$(HDRPATTERN)</code> as the pattern for <code class="literal">$(HDRSCAN)</code>.
             <code class="literal">$(HDRRULE)</code> is the name of a rule to invoke with the
             results of the scan: the scanned file is the target, the found files
-            are the sources. This is the only place where <code class="literal">bjam</code>
-            invokes a rule through a variable setting.
+            are the sources. This is the only place where <code class="literal">b2</code> invokes
+            a rule through a variable setting.
           </p>
 <p>
             Both <code class="literal">$(HDRSCAN)</code> and <code class="literal">$(HDRRULE)</code>
@@ -1478,7 +1477,7 @@ ECHO $(y) ;     # prints "4 5 6"
             or other conditional logic. In <code class="literal">Jambase</code>, <code class="literal">HdrRule</code>
             applies the <code class="literal">NOCARE</code> rule to each header file found
             during scanning so that if the file isn't present yet doesn't cause the
-            compilation to fail, <code class="literal">bjam</code> won't care.
+            compilation to fail, <code class="literal">b2</code> won't care.
           </p>
 <p>
             Also, scanning for regular expressions only works where the included
@@ -1495,7 +1494,7 @@ ECHO $(y) ;     # prints "4 5 6"
             It is sometimes desirable to disallow parallel execution of some actions.
             For example:
           </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
                 Old versions of yacc use files with fixed names. So, running two
                 yacc actions is dangerous.
@@ -1531,7 +1530,7 @@ ECHO $(y) ;     # prints "4 5 6"
           </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term"><code class="literal">OS</code></span></dt>
 <dd><p>
                   OS identifier string
@@ -1570,10 +1569,10 @@ ECHO $(y) ;     # prints "4 5 6"
 </h5></div></div></div>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term"><code class="literal">JAMDATE</code></span></dt>
 <dd><p>
-                  Time and date at <code class="literal">bjam</code> start-up as an ISO-8601
+                  Time and date at <code class="literal">b2</code> start-up as an ISO-8601
                   UTC value.
                 </p></dd>
 <dt><span class="term"><code class="literal">JAMUNAME</code></span></dt>
@@ -1582,7 +1581,7 @@ ECHO $(y) ;     # prints "4 5 6"
                 </p></dd>
 <dt><span class="term"><code class="literal">JAMVERSION</code></span></dt>
 <dd><p>
-                  <code class="literal">bjam</code> version, currently "3.1.19"
+                  <code class="literal">b2</code> version, currently "3.1.19"
                 </p></dd>
 <dt><span class="term"><code class="literal">JAM_VERSION</code></span></dt>
 <dd><p>
@@ -1599,8 +1598,8 @@ ECHO $(y) ;     # prints "4 5 6"
 <a name="jam.language.variables.builtins.jamshell"></a><a class="link" href="language.html#jam.language.variables.builtins.jamshell" title="JAMSHELL">JAMSHELL</a>
 </h5></div></div></div>
 <p>
-            When <code class="literal">bjam</code> executes a rule's action block, it forks
-            and execs a shell, passing the action block as an argument to the shell.
+            When <code class="literal">b2</code> executes a rule's action block, it forks and
+            execs a shell, passing the action block as an argument to the shell.
             The invocation of the shell can be controlled by <code class="literal">$(JAMSHELL)</code>.
             The default on Unix is, for example:
           </p>
@@ -1610,17 +1609,17 @@ ECHO $(y) ;     # prints "4 5 6"
             The <code class="literal">%</code> is replaced with the text of the action block.
           </p>
 <p>
-            <code class="literal">BJam</code> does not directly support building in parallel
+            <code class="literal">B2</code> does not directly support building in parallel
             across multiple hosts, since that is heavily dependent on the local environment.
             To build in parallel across multiple hosts, you need to write your own
             shell that provides access to the multiple hosts. You then reset <code class="literal">$(JAMSHELL)</code>
             to reference it.
           </p>
 <p>
-            Just as <code class="literal">bjam</code> expands a <code class="literal">%</code> to be
-            the text of the rule's action block, it expands a <code class="literal">!</code>
-            to be the multi-process slot number. The slot number varies between 1
-            and the number of concurrent jobs permitted by the <code class="literal">-j</code>
+            Just as <code class="literal">b2</code> expands a <code class="literal">%</code> to be the
+            text of the rule's action block, it expands a <code class="literal">!</code> to
+            be the multi-process slot number. The slot number varies between 1 and
+            the number of concurrent jobs permitted by the <code class="literal">-j</code>
             flag given on the command line. Armed with this, it is possible to write
             a multiple host shell. For example:
           </p>
@@ -1651,10 +1650,9 @@ esac
 </h5></div></div></div>
 <p>
             The <code class="literal">__TIMING_RULE__</code> and <code class="literal">__ACTION_RULE__</code>
-            can be set to the name of a rule for <code class="literal">bjam</code> to call
-            <span class="bold"><strong>after</strong></span> an action completes for a target.
-            They both give diagnostic information about the action that completed.
-            For <code class="literal">__TIMING_RULE__</code> the rule is called as:
+            can be set to the name of a rule for <code class="literal">b2</code> to call <span class="bold"><strong>after</strong></span> an action completes for a target. They both
+            give diagnostic information about the action that completed. For <code class="literal">__TIMING_RULE__</code>
+            the rule is called as:
           </p>
 <pre class="programlisting"><span class="identifier">rule</span> <span class="identifier">timing</span><span class="special">-</span><span class="identifier">rule</span> <span class="special">(</span> <span class="identifier">args</span> <span class="special">*</span> <span class="special">:</span> <span class="identifier">target</span> <span class="special">:</span> <span class="identifier">start</span> <span class="identifier">end</span> <span class="identifier">user</span> <span class="identifier">system</span> <span class="special">)</span>
 </pre>
@@ -1668,7 +1666,7 @@ esac
           </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term"><code class="literal">args</code></span></dt>
 <dd><p>
                   Any values following the rule name in the <code class="literal">__TIMING_RULE__</code>
@@ -1676,7 +1674,7 @@ esac
                 </p></dd>
 <dt><span class="term"><code class="literal">target</code></span></dt>
 <dd><p>
-                  The <code class="literal">bjam</code> target that was built.
+                  The <code class="literal">b2</code> target that was built.
                 </p></dd>
 <dt><span class="term"><code class="literal">command</code></span></dt>
 <dd><p>
@@ -1730,7 +1728,7 @@ esac
 <div class="titlepage"><div><div><h3 class="title">
 <a name="jam.language.modules"></a><a class="link" href="language.html#jam.language.modules" title="Modules">Modules</a>
 </h3></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="language.html#jam.language.modules.declaration">Declaration</a></span></dt>
 <dt><span class="section"><a href="language.html#jam.language.modules.variable_scope">Variable Scope</a></span></dt>
 <dt><span class="section"><a href="language.html#jam.language.modules.local_rules">Local Rules</a></span></dt>

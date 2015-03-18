@@ -72,7 +72,7 @@ void test_stat()
     histogram_type histogram_upper = weighted_p_square_cumulative_distribution(acc_upper);
     histogram_type histogram_lower = weighted_p_square_cumulative_distribution(acc_lower);
 
-    // Note that applaying importance sampling results in a region of the distribution
+    // Note that applying importance sampling results in a region of the distribution
     // to be estimated more accurately and another region to be estimated less accurately
     // than without importance sampling, i.e., with unweighted samples
 

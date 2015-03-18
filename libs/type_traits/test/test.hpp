@@ -13,15 +13,12 @@
 #pragma warning(disable:4201)
 #endif
 
-#ifdef USE_UNIT_TEST
-#  include <boost/test/unit_test.hpp>
-#endif
-#include <boost/utility.hpp>
+#include <boost/noncopyable.hpp>
 #include <iostream>
 #include <typeinfo>
 
 #ifdef __BORLANDC__
-// we have to turn off these warnings overwise we get swamped by the things:
+// we have to turn off these warnings otherwise we get swamped by the things:
 #pragma option -w-8008 -w-8066
 #endif
 
@@ -62,35 +59,6 @@
 
 #endif
 
-#ifdef USE_UNIT_TEST
-//
-// global unit, this is not safe, but until the unit test framework uses
-// shared_ptr throughout this is about as good as it gets :-(
-//
-boost::unit_test::test_suite* get_master_unit(const char* name = 0);
-
-//
-// initialisation class:
-//
-class unit_initialiser
-{
-public:
-   unit_initialiser(void (*f)(), const char* /*name*/)
-   {
-      get_master_unit("Type Traits")->add( BOOST_TEST_CASE(f) );
-   }
-};
-
-#define TT_TEST_BEGIN(trait_name)\
-   namespace{\
-   void trait_name();\
-   unit_initialiser init(trait_name, BOOST_STRINGIZE(trait_name));\
-   void trait_name(){
-
-#define TT_TEST_END }}
-
-#else
-
 //
 // replacements for Unit test macros:
 //
@@ -128,7 +96,6 @@ int error_count = 0;
    int main(){
 #define TT_TEST_END return error_count; }
 
-#endif
 
 #define TRANSFORM_CHECK(name, from_suffix, to_suffix)\
    BOOST_CHECK_TYPE(bool to_suffix, name<bool from_suffix>::type);\
@@ -260,7 +227,7 @@ struct nothrow_copy_UDT
 {
    nothrow_copy_UDT();
    nothrow_copy_UDT(const nothrow_copy_UDT&)throw();
-   ~nothrow_copy_UDT(){};
+   ~nothrow_copy_UDT(){}
    nothrow_copy_UDT& operator=(const nothrow_copy_UDT&);
    bool operator==(const nothrow_copy_UDT&)const
    { return true; }
@@ -276,6 +243,18 @@ struct nothrow_assign_UDT
    { return true; }
 };
 
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
+struct nothrow_move_UDT
+{
+   nothrow_move_UDT();
+   nothrow_move_UDT(nothrow_move_UDT&&) throw();
+   nothrow_move_UDT& operator=(nothrow_move_UDT&&) throw();
+   bool operator==(const nothrow_move_UDT&)const
+   { return true; }
+};
+#endif
+
+
 struct nothrow_construct_UDT
 {
    nothrow_construct_UDT()throw();
@@ -285,6 +264,11 @@ struct nothrow_construct_UDT
    bool operator==(const nothrow_construct_UDT&)const
    { return true; }
 };
+
+#ifndef BOOST_NO_CXX11_FINAL
+struct final_UDT final
+{};
+#endif
 
 class Base { };
 

@@ -5,7 +5,7 @@
 
 #include "./config.hpp"
 
-#if defined(TEST_EXTENSIONS)
+#if defined(BOOST_HASH_TEST_EXTENSIONS)
 
 // Include header with BOOST_HASH_NO_EXTENSIONS defined
 #  if !defined(BOOST_HASH_NO_EXTENSIONS)
@@ -23,14 +23,14 @@
 
 int main()
 {
-#if defined(TEST_EXTENSIONS)
+#if defined(BOOST_HASH_TEST_EXTENSIONS)
     std::map<int, int> x;
 
     x.insert(std::map<int, int>::value_type(53, -42));
     x.insert(std::map<int, int>::value_type(14, -75));
 
-    HASH_NAMESPACE::hash<std::map<int, int> > hasher;
-    BOOST_TEST(hasher(x) == HASH_NAMESPACE::hash_value(x));
+    BOOST_HASH_TEST_NAMESPACE::hash<std::map<int, int> > hasher;
+    BOOST_TEST(hasher(x) == BOOST_HASH_TEST_NAMESPACE::hash_value(x));
 #endif
     
     return boost::report_errors();

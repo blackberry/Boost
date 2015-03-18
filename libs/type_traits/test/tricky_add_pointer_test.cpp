@@ -18,7 +18,7 @@ BOOST_DECL_TRANSFORM_TEST(add_pointer_test_8, ::tt::add_pointer, const [2], cons
 BOOST_DECL_TRANSFORM_TEST(add_pointer_test_9, ::tt::add_pointer, const &, const*)
 BOOST_DECL_TRANSFORM_TEST(add_pointer_test_12, ::tt::add_pointer, const[2][3], const (*)[2][3])
 BOOST_DECL_TRANSFORM_TEST(add_pointer_test_13, ::tt::add_pointer, (&)[2], (*)[2])
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
 BOOST_DECL_TRANSFORM_TEST(add_pointer_test_5a, ::tt::add_pointer, const &&, const*)
 BOOST_DECL_TRANSFORM_TEST(add_pointer_test_6a, ::tt::add_pointer, &&, *)
 BOOST_DECL_TRANSFORM_TEST(add_pointer_test_9a, ::tt::add_pointer, const &&, const*)
@@ -33,7 +33,7 @@ TT_TEST_BEGIN(tricky_add_pointer_test)
    add_pointer_test_9();
    add_pointer_test_12();
    add_pointer_test_13();
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
    add_pointer_test_5a();
    add_pointer_test_6a();
    add_pointer_test_9a();

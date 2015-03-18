@@ -5,8 +5,8 @@
 
 #include "./config.hpp"
 
-#ifdef TEST_EXTENSIONS
-#  ifdef TEST_STD_INCLUDES
+#ifdef BOOST_HASH_TEST_EXTENSIONS
+#  ifdef BOOST_HASH_TEST_STD_INCLUDES
 #    include <functional>
 #  else
 #    include <boost/functional/hash.hpp>
@@ -15,7 +15,7 @@
 
 #include <boost/detail/lightweight_test.hpp>
 
-#ifdef TEST_EXTENSIONS
+#ifdef BOOST_HASH_TEST_EXTENSIONS
 
 #include <list>
 
@@ -23,11 +23,11 @@ using std::list;
 #define CONTAINER_TYPE list
 #include "./hash_sequence_test.hpp"
 
-#endif // TEST_EXTENSIONS
+#endif // BOOST_HASH_TEST_EXTENSIONS
 
 int main()
 {
-#ifdef TEST_EXTENSIONS
+#ifdef BOOST_HASH_TEST_EXTENSIONS
     list_tests::list_hash_integer_tests();
 #endif
 

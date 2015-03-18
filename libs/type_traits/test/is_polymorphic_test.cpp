@@ -20,6 +20,10 @@
 #include <windows.h> // more things to test
 #endif
 
+#if defined(BOOST_MSVC) && (_MSC_VER >= 1700)
+#pragma warning(disable:4250)
+#endif
+
 // this test was added to check for bug reported on 21 May 2003:
 struct poly_bug { virtual int foo() = 0; };
 
@@ -32,7 +36,7 @@ BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_polymorphic<int*>::value, false);
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_polymorphic<int* const>::value, false);
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_polymorphic<int[2]>::value, false);
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_polymorphic<int&>::value, false);
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_polymorphic<int&&>::value, false);
 #endif
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_polymorphic<mf4>::value, false);

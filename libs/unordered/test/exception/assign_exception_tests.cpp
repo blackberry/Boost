@@ -105,7 +105,8 @@ struct assign_test5 : assign_base<T>
     assign_test5() : assign_base<T>(5, 60, 0, 0, 1.0, 0.1) {}
 };
 
-RUN_EXCEPTION_TESTS(
+EXCEPTION_TESTS(
     (self_assign_test1)(self_assign_test2)
     (assign_test1)(assign_test2)(assign_test3)(assign_test4)(assign_test5),
     CONTAINER_SEQ)
+RUN_TESTS()

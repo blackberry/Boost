@@ -26,13 +26,14 @@ int main ()
 {
    try{
       const char *names[2] = { test::get_process_id_name(), 0 };
-      for(unsigned int i = 0; i < sizeof(names)/sizeof(names[0]); ++i)
+      for(unsigned int i_name = 0; i_name < sizeof(names)/sizeof(names[0]); ++i_name)
       {
          const std::size_t FileSize = 99999*2;
          //Create a file mapping
          windows_shared_memory mapping
-            (create_only, names[i], read_write, FileSize);
-
+            (create_only, names[i_name], read_write, FileSize);
+         if(mapping.get_size() < FileSize)
+            return 1;
          {
 
             //Create two mapped regions, one half of the file each

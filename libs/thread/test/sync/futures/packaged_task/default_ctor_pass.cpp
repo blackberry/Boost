@@ -18,15 +18,21 @@
 // packaged_task();
 
 
-#define BOOST_THREAD_VERSION 3
+#define BOOST_THREAD_VERSION 4
+#if BOOST_THREAD_VERSION == 4
+#define BOOST_THREAD_DETAIL_SIGNATURE int()
+#else
+#define BOOST_THREAD_DETAIL_SIGNATURE int
+#endif
+
 #include <boost/thread/future.hpp>
 #include <boost/detail/lightweight_test.hpp>
-
+#include <string>
 
 int main()
 {
   {
-    boost::packaged_task<int> p;
+    boost::packaged_task<BOOST_THREAD_DETAIL_SIGNATURE> p;
     BOOST_TEST(!p.valid());
 
   }

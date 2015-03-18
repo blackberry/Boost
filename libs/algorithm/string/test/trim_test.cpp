@@ -11,7 +11,8 @@
 #include <boost/algorithm/string/trim_all.hpp>
 
 // Include unit test framework
-#include <boost/test/included/test_exec_monitor.hpp>
+#define BOOST_TEST_MAIN
+#include <boost/test/unit_test.hpp>
 
 #include <string>
 #include <iostream>
@@ -193,12 +194,9 @@ void trim_fill_test()
     BOOST_CHECK( trim_fill_copy_if( string("<>abc<>def<>"), "-", is_any_of( "<<>>" ) )=="abc-def" );
 }
 
-// test main 
-int test_main( int, char*[] )
+BOOST_AUTO_TEST_CASE( test_main )
 {
     trim_test();
     trim_all_test();
     trim_fill_test();
-
-    return 0;
 }

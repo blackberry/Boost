@@ -13,8 +13,8 @@
 // WARNING: This file must be included first in each compilation unit.
 
 // Force no variadic macros but avoiding macro redefinition warning/error.
-#ifndef BOOST_NO_VARIADIC_MACROS
-#   define BOOST_NO_VARIADIC_MACROS
+#ifndef BOOST_NO_CXX11_VARIADIC_MACROS
+#   define BOOST_NO_CXX11_VARIADIC_MACROS
 #endif
 
 #endif // #include guard

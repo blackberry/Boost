@@ -40,7 +40,7 @@ void f()
   time_point t0 = Clock::now();
   time_point t1;
   {
-    m.lock();
+    m.lock_shared();
     boost::shared_lock_guard<boost::shared_mutex> lg(m, boost::adopt_lock);
     t1 = Clock::now();
   }
@@ -50,7 +50,7 @@ void f()
   //time_point t0 = Clock::now();
   //time_point t1;
   {
-    m.lock();
+    m.lock_shared();
     boost::shared_lock_guard<boost::shared_mutex> lg(m, boost::adopt_lock);
     //t1 = Clock::now();
   }

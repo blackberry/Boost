@@ -94,6 +94,8 @@ const std::string* get_current_block_id(node_id const* id)
 {
    while((id->id == 0) && (id->prev))
       id = id->prev;
+   if(!id->id)
+      BOOST_THROW_EXCEPTION(std::runtime_error("Current XML block has no enclosing ID: XML is not valid Boostbook?"));
    return id->id;
 }
 //
@@ -588,6 +590,8 @@ void process_node(boost::tiny_xml::element_ptr node, node_id* prev, title_info* 
                         preferred_term = true;
                      }
                      parent = parent->parent.lock();
+                     if(!parent)
+                        break;
                   }
                }
                catch(const std::exception&){}
@@ -762,6 +766,7 @@ int main(int argc, char* argv[])
    catch(boost::exception& e)
    {
       std::cerr << diagnostic_information(e);
+      return 1;
    }
    catch(const std::exception& e)
    {

@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>basic_raw_socket::async_receive (1 of 2 overloads)</title>
 <link rel="stylesheet" href="../../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../../../boost_asio.html" title="Boost.Asio">
 <link rel="up" href="../async_receive.html" title="basic_raw_socket::async_receive">
 <link rel="prev" href="../async_receive.html" title="basic_raw_socket::async_receive">
@@ -33,7 +33,7 @@
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
     <span class="keyword">typename</span> <a class="link" href="../../MutableBufferSequence.html" title="Mutable buffer sequence requirements">MutableBufferSequence</a><span class="special">,</span>
     <span class="keyword">typename</span> <a class="link" href="../../ReadHandler.html" title="Read handler requirements">ReadHandler</a><span class="special">&gt;</span>
-<span class="keyword">void</span> <span class="identifier">async_receive</span><span class="special">(</span>
+<a class="link" href="../../asynchronous_operations.html#boost_asio.reference.asynchronous_operations.return_type_of_an_initiating_function"><span class="emphasis"><em>void-or-deduced</em></span></a> <span class="identifier">async_receive</span><span class="special">(</span>
     <span class="keyword">const</span> <span class="identifier">MutableBufferSequence</span> <span class="special">&amp;</span> <span class="identifier">buffers</span><span class="special">,</span>
     <span class="identifier">ReadHandler</span> <span class="identifier">handler</span><span class="special">);</span>
 </pre>
@@ -43,11 +43,11 @@
           </p>
 <h6>
 <a name="boost_asio.reference.basic_raw_socket.async_receive.overload1.h0"></a>
-            <span><a name="boost_asio.reference.basic_raw_socket.async_receive.overload1.parameters"></a></span><a class="link" href="overload1.html#boost_asio.reference.basic_raw_socket.async_receive.overload1.parameters">Parameters</a>
+            <span class="phrase"><a name="boost_asio.reference.basic_raw_socket.async_receive.overload1.parameters"></a></span><a class="link" href="overload1.html#boost_asio.reference.basic_raw_socket.async_receive.overload1.parameters">Parameters</a>
           </h6>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">buffers</span></dt>
 <dd><p>
                   One or more buffers into which the data will be received. Although
@@ -78,7 +78,7 @@
 </div>
 <h6>
 <a name="boost_asio.reference.basic_raw_socket.async_receive.overload1.h1"></a>
-            <span><a name="boost_asio.reference.basic_raw_socket.async_receive.overload1.remarks"></a></span><a class="link" href="overload1.html#boost_asio.reference.basic_raw_socket.async_receive.overload1.remarks">Remarks</a>
+            <span class="phrase"><a name="boost_asio.reference.basic_raw_socket.async_receive.overload1.remarks"></a></span><a class="link" href="overload1.html#boost_asio.reference.basic_raw_socket.async_receive.overload1.remarks">Remarks</a>
           </h6>
 <p>
             The async_receive operation can only be used with a connected socket.
@@ -87,7 +87,7 @@
           </p>
 <h6>
 <a name="boost_asio.reference.basic_raw_socket.async_receive.overload1.h2"></a>
-            <span><a name="boost_asio.reference.basic_raw_socket.async_receive.overload1.example"></a></span><a class="link" href="overload1.html#boost_asio.reference.basic_raw_socket.async_receive.overload1.example">Example</a>
+            <span class="phrase"><a name="boost_asio.reference.basic_raw_socket.async_receive.overload1.example"></a></span><a class="link" href="overload1.html#boost_asio.reference.basic_raw_socket.async_receive.overload1.example">Example</a>
           </h6>
 <p>
             To receive into a single data buffer use the <a class="link" href="../../buffer.html" title="buffer"><code class="computeroutput"><span class="identifier">buffer</span></code></a> function as follows:
@@ -102,7 +102,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2012 Christopher M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2014 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

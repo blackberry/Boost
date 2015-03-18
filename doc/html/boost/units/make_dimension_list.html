@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Struct template make_dimension_list</title>
 <link rel="stylesheet" href="../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
 <link rel="up" href="../../boost_units/Reference.html#header.boost.units.dimension_hpp" title="Header &lt;boost/units/dimension.hpp&gt;">
 <link rel="prev" href="dim.html" title="Struct template dim">
@@ -37,11 +37,11 @@
   <span class="keyword">typedef</span> <span class="emphasis"><em><span class="identifier">unspecified</span></em></span> <a name="boost.units.make_dimension_list.type"></a><span class="identifier">type</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="id3649218"></a><h2>Description</h2>
+<a name="idp493103504"></a><h2>Description</h2>
 <p>Reduce dimension list to cardinal form. This algorithm collapses duplicate base dimension tags and sorts the resulting list by the tag ordinal value. Dimension lists that resolve to the same dimension are guaranteed to be represented by an identical type.</p>
 <p>The argument should be an MPL forward sequence containing instances of the <code class="computeroutput">dim</code> template.</p>
 <p>The result is also an MPL forward sequence. It also supports the following metafunctions to allow use as a dimension.</p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem"><p><code class="computeroutput">mpl::plus</code> is defined only on two equal dimensions and returns the argument unchanged.</p></li>
 <li class="listitem"><p><code class="computeroutput">mpl::minus</code> is defined only for two equal dimensions and returns the argument unchanged.</p></li>
 <li class="listitem"><p><code class="computeroutput">mpl::negate</code> will return its argument unchanged.</p></li>

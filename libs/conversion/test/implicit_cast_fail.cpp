@@ -4,10 +4,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 #include <boost/implicit_cast.hpp>
-#include <boost/type.hpp>
-
-#define BOOST_INCLUDE_MAIN
-#include <boost/test/test_tools.hpp>
 
 using boost::implicit_cast;
 
@@ -16,9 +12,9 @@ struct foo
     explicit foo(char const*) {}
 };
 
-int test_main(int, char*[])
+int main()
 {
     foo x = implicit_cast<foo>("foobar");
-    (void)x;  // warning suppression.
+    (void)x;            // warning suppression.
     return 0;
 }

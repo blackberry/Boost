@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>inner_product</title>
 <link rel="stylesheet" href="../../../../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../../../index.html" title="Chapter&#160;1.&#160;Range 2.0">
 <link rel="up" href="../numeric.html" title="Numeric algorithms">
 <link rel="prev" href="adjacent_difference.html" title="adjacent_difference">
@@ -26,12 +26,11 @@
 <div class="titlepage"><div><div><h5 class="title">
 <a name="range.reference.algorithms.numeric.inner_product"></a><a class="link" href="inner_product.html" title="inner_product">inner_product</a>
 </h5></div></div></div>
-<a name="range.reference.algorithms.numeric.inner_product.prototype"></a><h6>
-<a name="id752584"></a>
-            <a class="link" href="inner_product.html#range.reference.algorithms.numeric.inner_product.prototype">Prototype</a>
+<h6>
+<a name="range.reference.algorithms.numeric.inner_product.h0"></a>
+            <span class="phrase"><a name="range.reference.algorithms.numeric.inner_product.prototype"></a></span><a class="link" href="inner_product.html#range.reference.algorithms.numeric.inner_product.prototype">Prototype</a>
           </h6>
 <p>
-            
 </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">SinglePassRange1</span><span class="special">,</span>
          <span class="keyword">class</span> <span class="identifier">SinglePassRange2</span><span class="special">,</span>
@@ -48,13 +47,14 @@
     <span class="identifier">Value</span> <span class="identifier">inner_product</span><span class="special">(</span> <span class="keyword">const</span> <span class="identifier">SinglePassRange1</span><span class="special">&amp;</span> <span class="identifier">rng1</span><span class="special">,</span>
                          <span class="keyword">const</span> <span class="identifier">SinglePassRange2</span><span class="special">&amp;</span> <span class="identifier">rng2</span><span class="special">,</span>
                          <span class="identifier">Value</span>                   <span class="identifier">init</span><span class="special">,</span>
-                         <span class="identifier">BinaryOperation1</span>        <span class="identifier">op1</span> <span class="special">);</span>
+                         <span class="identifier">BinaryOperation1</span>        <span class="identifier">op1</span><span class="special">,</span>
+                         <span class="identifier">BinaryOperation2</span>        <span class="identifier">op2</span> <span class="special">);</span>
 </pre>
 <p>
           </p>
-<a name="range.reference.algorithms.numeric.inner_product.description"></a><h6>
-<a name="id752946"></a>
-            <a class="link" href="inner_product.html#range.reference.algorithms.numeric.inner_product.description">Description</a>
+<h6>
+<a name="range.reference.algorithms.numeric.inner_product.h1"></a>
+            <span class="phrase"><a name="range.reference.algorithms.numeric.inner_product.description"></a></span><a class="link" href="inner_product.html#range.reference.algorithms.numeric.inner_product.description">Description</a>
           </h6>
 <p>
             <code class="computeroutput"><span class="identifier">inner_product</span></code> calculates
@@ -65,20 +65,20 @@
             For further information on the <code class="computeroutput"><span class="identifier">inner_product</span></code>
             algorithm please see <a href="http://www.sgi.com/tech/stl/inner_product.html" target="_top">inner_product</a>.
           </p>
-<a name="range.reference.algorithms.numeric.inner_product.definition"></a><h6>
-<a name="id753022"></a>
-            <a class="link" href="inner_product.html#range.reference.algorithms.numeric.inner_product.definition">Definition</a>
+<h6>
+<a name="range.reference.algorithms.numeric.inner_product.h2"></a>
+            <span class="phrase"><a name="range.reference.algorithms.numeric.inner_product.definition"></a></span><a class="link" href="inner_product.html#range.reference.algorithms.numeric.inner_product.definition">Definition</a>
           </h6>
 <p>
             Defined in the header file <code class="computeroutput"><span class="identifier">boost</span><span class="special">/</span><span class="identifier">range</span><span class="special">/</span><span class="identifier">numeric</span><span class="special">.</span><span class="identifier">hpp</span></code>
           </p>
-<a name="range.reference.algorithms.numeric.inner_product.requirements"></a><h6>
-<a name="id753084"></a>
-            <a class="link" href="inner_product.html#range.reference.algorithms.numeric.inner_product.requirements">Requirements</a>
+<h6>
+<a name="range.reference.algorithms.numeric.inner_product.h3"></a>
+            <span class="phrase"><a name="range.reference.algorithms.numeric.inner_product.requirements"></a></span><a class="link" href="inner_product.html#range.reference.algorithms.numeric.inner_product.requirements">Requirements</a>
           </h6>
-<a name="range.reference.algorithms.numeric.inner_product.for_the_first_version"></a><h6>
-<a name="id753104"></a>
-            <a class="link" href="inner_product.html#range.reference.algorithms.numeric.inner_product.for_the_first_version">For
+<h6>
+<a name="range.reference.algorithms.numeric.inner_product.h4"></a>
+            <span class="phrase"><a name="range.reference.algorithms.numeric.inner_product.for_the_first_version"></a></span><a class="link" href="inner_product.html#range.reference.algorithms.numeric.inner_product.for_the_first_version">For
             the first version</a>
           </h6>
 <div class="orderedlist"><ol class="orderedlist" type="1">
@@ -111,9 +111,9 @@
                 is convertible to <code class="computeroutput"><span class="identifier">Value</span></code>.
               </li>
 </ol></div>
-<a name="range.reference.algorithms.numeric.inner_product.for_the_second_version"></a><h6>
-<a name="id753362"></a>
-            <a class="link" href="inner_product.html#range.reference.algorithms.numeric.inner_product.for_the_second_version">For
+<h6>
+<a name="range.reference.algorithms.numeric.inner_product.h5"></a>
+            <span class="phrase"><a name="range.reference.algorithms.numeric.inner_product.for_the_second_version"></a></span><a class="link" href="inner_product.html#range.reference.algorithms.numeric.inner_product.for_the_second_version">For
             the second version</a>
           </h6>
 <div class="orderedlist"><ol class="orderedlist" type="1">
@@ -160,16 +160,16 @@
                 is convertible to <code class="computeroutput"><span class="identifier">Value</span></code>.
               </li>
 </ol></div>
-<a name="range.reference.algorithms.numeric.inner_product.precondition_"></a><h6>
-<a name="id753663"></a>
-            <a class="link" href="inner_product.html#range.reference.algorithms.numeric.inner_product.precondition_">Precondition:</a>
+<h6>
+<a name="range.reference.algorithms.numeric.inner_product.h6"></a>
+            <span class="phrase"><a name="range.reference.algorithms.numeric.inner_product.precondition_"></a></span><a class="link" href="inner_product.html#range.reference.algorithms.numeric.inner_product.precondition_">Precondition:</a>
           </h6>
 <p>
             <code class="computeroutput"><span class="identifier">distance</span><span class="special">(</span><span class="identifier">rng2</span><span class="special">)</span> <span class="special">&gt;=</span> <span class="identifier">distance</span><span class="special">(</span><span class="identifier">rng1</span><span class="special">)</span></code> is a valid range.
           </p>
-<a name="range.reference.algorithms.numeric.inner_product.complexity"></a><h6>
-<a name="id753736"></a>
-            <a class="link" href="inner_product.html#range.reference.algorithms.numeric.inner_product.complexity">Complexity</a>
+<h6>
+<a name="range.reference.algorithms.numeric.inner_product.h7"></a>
+            <span class="phrase"><a name="range.reference.algorithms.numeric.inner_product.complexity"></a></span><a class="link" href="inner_product.html#range.reference.algorithms.numeric.inner_product.complexity">Complexity</a>
           </h6>
 <p>
             Linear. Exactly <code class="computeroutput"><span class="identifier">distance</span><span class="special">(</span><span class="identifier">rng</span><span class="special">)</span></code>.
@@ -177,7 +177,8 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2003 -2010 Thorsten Ottosen, Neil Groves<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2010 Thorsten Ottosen,
+      Neil Groves<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

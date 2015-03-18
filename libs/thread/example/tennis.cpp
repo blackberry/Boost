@@ -4,9 +4,12 @@
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
+#undef BOOST_THREAD_VERSION
+#define BOOST_THREAD_VERSION 2
+
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/condition.hpp>
-#include <boost/thread/thread.hpp>
+#include <boost/thread/thread_only.hpp>
 #include <boost/thread/xtime.hpp>
 #include <iostream>
 
@@ -29,7 +32,7 @@ int state;
 boost::mutex mutex;
 boost::condition cond;
 
-char* player_name(int state)
+const char* player_name(int state)
 {
     if (state == PLAYER_A)
         return "PLAYER-A";
@@ -39,11 +42,10 @@ char* player_name(int state)
     return 0;
 }
 
-void player(void* param)
+void player(int active)
 {
-    boost::mutex::scoped_lock lock(mutex);
+    boost::unique_lock<boost::mutex> lock(mutex);
 
-    int active = (int)param;
     int other = active == PLAYER_A ? PLAYER_B : PLAYER_A;
 
     while (state < GAME_OVER)
@@ -96,27 +98,27 @@ private:
     void* _param;
 };
 
-int main(int argc, char* argv[])
+int main()
 {
     state = START;
 
-    boost::thread thrda(thread_adapter(&player, (void*)PLAYER_A));
-    boost::thread thrdb(thread_adapter(&player, (void*)PLAYER_B));
+    boost::thread thrda(&player, PLAYER_A);
+    boost::thread thrdb(&player, PLAYER_B);
 
     boost::xtime xt;
     boost::xtime_get(&xt, boost::TIME_UTC_);
     xt.sec += 1;
     boost::thread::sleep(xt);
     {
-        boost::mutex::scoped_lock lock(mutex);
+        boost::unique_lock<boost::mutex> lock(mutex);
         std::cout << "---Noise ON..." << std::endl;
     }
 
-    for (int i = 0; i < 1000000000; ++i)
+    for (int i = 0; i < 10; ++i)
         cond.notify_all();
 
     {
-        boost::mutex::scoped_lock lock(mutex);
+        boost::unique_lock<boost::mutex> lock(mutex);
         std::cout << "---Noise OFF..." << std::endl;
         state = GAME_OVER;
         cond.notify_all();

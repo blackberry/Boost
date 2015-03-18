@@ -3,9 +3,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Synopsis</title>
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../boost_lexical_cast.html" title="Chapter&#160;15.&#160;Boost.Lexical_Cast 1.0">
+<link rel="up" href="../boost_lexical_cast.html" title="Chapter&#160;17.&#160;Boost.Lexical_Cast 1.0">
 <link rel="prev" href="examples.html" title="Examples">
 <link rel="next" href="frequently_asked_questions.html" title="Frequently Asked Questions">
 </head>
@@ -26,9 +26,10 @@
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="boost_lexical_cast.synopsis"></a><a class="link" href="synopsis.html" title="Synopsis">Synopsis</a>
 </h2></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="synopsis.html#boost_lexical_cast.synopsis.lexical_cast">lexical_cast</a></span></dt>
 <dt><span class="section"><a href="synopsis.html#boost_lexical_cast.synopsis.bad_lexical_cast">bad_lexical_cast</a></span></dt>
+<dt><span class="section"><a href="synopsis.html#boost_lexical_cast.synopsis.try_lexical_convert">try_lexical_convert</a></span></dt>
 </dl></div>
 <p>
       Library features defined in <a href="../../../boost/lexical_cast.hpp" target="_top">boost/lexical_cast.hpp</a>:
@@ -36,9 +37,23 @@
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span>
 <span class="special">{</span>
     <span class="keyword">class</span> <span class="identifier">bad_lexical_cast</span><span class="special">;</span>
+
     <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Target</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Source</span><span class="special">&gt;</span>
       <span class="identifier">Target</span> <span class="identifier">lexical_cast</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Source</span><span class="special">&amp;</span> <span class="identifier">arg</span><span class="special">);</span>
-<span class="special">}</span>
+
+    <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Target</span><span class="special">&gt;</span>
+      <span class="identifier">Target</span> <span class="identifier">lexical_cast</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">AnyCharacterType</span><span class="special">*</span> <span class="identifier">chars</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">count</span><span class="special">);</span>
+
+    <span class="keyword">namespace</span> <span class="identifier">conversion</span>
+    <span class="special">{</span>
+        <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Target</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Source</span><span class="special">&gt;</span>
+            <span class="keyword">bool</span> <span class="identifier">try_lexical_convert</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Source</span><span class="special">&amp;</span> <span class="identifier">arg</span><span class="special">,</span> <span class="identifier">Target</span><span class="special">&amp;</span> <span class="identifier">result</span><span class="special">);</span>
+
+        <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">AnyCharacterType</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Target</span><span class="special">&gt;</span>
+            <span class="keyword">bool</span> <span class="identifier">try_lexical_convert</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">AnyCharacterType</span><span class="special">*</span> <span class="identifier">chars</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">count</span><span class="special">,</span> <span class="identifier">Target</span><span class="special">&amp;</span> <span class="identifier">result</span><span class="special">);</span>
+
+    <span class="special">}</span> <span class="comment">// namespace conversion</span>
+<span class="special">}</span> <span class="comment">// namespace boost</span>
 </pre>
 <p>
     </p>
@@ -75,7 +90,7 @@
 <p>
         The requirements on the argument and result types for both functions are:
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             Source is OutputStreamable, meaning that an <code class="computeroutput"><span class="keyword">operator</span><span class="special">&lt;&lt;</span></code> is defined that takes a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span></code> or <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">wostream</span></code>
             object on the left hand side and an instance of the argument type on
@@ -97,24 +112,23 @@
 <p>
         The character type of the underlying stream is assumed to be <code class="computeroutput"><span class="keyword">char</span></code> unless either the <code class="computeroutput"><span class="identifier">Source</span></code>
         or the <code class="computeroutput"><span class="identifier">Target</span></code> requires wide-character
-        streaming, in which case the underlying stream uses <code class="computeroutput"><span class="keyword">wchar_t</span></code>,
-        <code class="computeroutput"><span class="identifier">char16_t</span></code> or <code class="computeroutput"><span class="identifier">char32_t</span></code>. Wide-character streaming is currently
-        detected for:
+        streaming, in which case the underlying stream uses <code class="computeroutput"><span class="keyword">wchar_t</span></code>.
+        Following types also can use <code class="computeroutput"><span class="keyword">char16_t</span></code>
+        or <code class="computeroutput"><span class="keyword">char32_t</span></code> for wide-character
+        streaming:
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-            Single character: <code class="computeroutput"><span class="keyword">wchar_t</span></code>,
-            <code class="computeroutput"><span class="identifier">char16_t</span></code>, <code class="computeroutput"><span class="identifier">char32_t</span></code>
+            Single character: <code class="computeroutput"><span class="keyword">char16_t</span></code>,
+            <code class="computeroutput"><span class="keyword">char32_t</span></code>
           </li>
 <li class="listitem">
-            Arrays of characters: <code class="computeroutput"><span class="keyword">wchar_t</span>
-            <span class="special">*</span></code>, <code class="computeroutput"><span class="identifier">char16_t</span>
-            <span class="special">*</span></code>, <code class="computeroutput"><span class="identifier">char32_t</span>
+            Arrays of characters: <code class="computeroutput"><span class="keyword">char16_t</span>
+            <span class="special">*</span></code>, <code class="computeroutput"><span class="keyword">char32_t</span>
             <span class="special">*</span></code>, <code class="computeroutput"><span class="keyword">const</span>
-            <span class="keyword">wchar_t</span> <span class="special">*</span></code>,
-            <code class="computeroutput"><span class="keyword">const</span> <span class="identifier">char16_t</span>
-            <span class="special">*</span></code>, <code class="computeroutput"><span class="keyword">const</span>
-            <span class="identifier">char32_t</span> <span class="special">*</span></code>
+            <span class="keyword">char16_t</span> <span class="special">*</span></code>,
+            <code class="computeroutput"><span class="keyword">const</span> <span class="keyword">char32_t</span>
+            <span class="special">*</span></code>
           </li>
 <li class="listitem">
             Strings: <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_string</span></code>, <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">containers</span><span class="special">::</span><span class="identifier">basic_string</span></code>
@@ -173,10 +187,64 @@
         Exception used to indicate runtime lexical_cast failure.
       </p>
 </div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_lexical_cast.synopsis.try_lexical_convert"></a><a class="link" href="synopsis.html#boost_lexical_cast.synopsis.try_lexical_convert" title="try_lexical_convert">try_lexical_convert</a>
+</h3></div></div></div>
+<p>
+        <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lexical_cast</span></code> remains the main interface
+        for lexical conversions. It must be used by default in most cases. However
+        some developers wish to make their own conversion functions, reusing all
+        the optimizations of the <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lexical_cast</span></code>.
+        That's where the <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">conversion</span><span class="special">::</span><span class="identifier">try_lexical_convert</span></code> function steps in.
+      </p>
+<p>
+        <code class="computeroutput"><span class="identifier">try_lexical_convert</span></code> returns
+        <code class="computeroutput"><span class="keyword">true</span></code> if conversion succeeded,
+        otherwise returns <code class="computeroutput"><span class="keyword">false</span></code>. If
+        conversion failed and <code class="computeroutput"><span class="keyword">false</span></code>
+        was returned, state of <code class="computeroutput"><span class="identifier">result</span></code>
+        output variable is undefined.
+      </p>
+<p>
+        Actually, <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lexical_cast</span></code> is implemented using <code class="computeroutput"><span class="identifier">try_lexical_convert</span></code>:
+</p>
+<pre class="programlisting"><span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Target</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Source</span><span class="special">&gt;</span>
+<span class="keyword">inline</span> <span class="identifier">Target</span> <span class="identifier">lexical_cast</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">Source</span> <span class="special">&amp;</span><span class="identifier">arg</span><span class="special">)</span>
+<span class="special">{</span>
+    <span class="identifier">Target</span> <span class="identifier">result</span><span class="special">;</span>
+
+    <span class="keyword">if</span> <span class="special">(!</span><span class="identifier">conversion</span><span class="special">::</span><span class="identifier">try_lexical_convert</span><span class="special">(</span><span class="identifier">arg</span><span class="special">,</span> <span class="identifier">result</span><span class="special">))</span>
+        <span class="keyword">throw</span> <span class="identifier">bad_lexical_cast</span><span class="special">();</span>
+
+    <span class="keyword">return</span> <span class="identifier">result</span><span class="special">;</span>
+<span class="special">}</span>
+</pre>
+<p>
+      </p>
+<p>
+        <code class="computeroutput"><span class="identifier">try_lexical_convert</span></code> relaxes
+        the CopyConstructible and DefaultConstructible requirements for <code class="computeroutput"><span class="identifier">Target</span></code> type. Following requirements for
+        <code class="computeroutput"><span class="identifier">Target</span></code> and <code class="computeroutput"><span class="identifier">Source</span></code> remain:
+      </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+            Source must be OutputStreamable, meaning that an <code class="computeroutput"><span class="keyword">operator</span><span class="special">&lt;&lt;</span></code> is defined that takes a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span></code> or <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">wostream</span></code>
+            object on the left hand side and an instance of the argument type on
+            the right.
+          </li>
+<li class="listitem">
+            Target must be InputStreamable, meaning that an <code class="computeroutput"><span class="keyword">operator</span><span class="special">&gt;&gt;</span></code> is defined that takes a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">istream</span></code> or <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">wistream</span></code>
+            object on the left hand side and an instance of the result type on the
+            right.
+          </li>
+</ul></div>
+</div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2000-2005 Kevlin Henney<br>Copyright &#169; 2006-2010 Alexander Nasonov<br>Copyright &#169; 2011, 2012 Antony Polukhin<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2000-2005 Kevlin Henney<br>Copyright &#169; 2006-2010 Alexander Nasonov<br>Copyright &#169; 2011-2014 Antony
+      Polukhin<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

@@ -146,18 +146,18 @@ determine whether to destructors need to be called
 [section:iter An improved Version of std::iter_swap]
 
 Demonstrates a version of `std::iter_swap` that use type traits to
-determine whether an it's arguments are proxying iterators or not,
+determine whether an it's arguments are proxy iterators or not,
 if they're not then it just does a `std::swap` of it's dereferenced 
 arguments (the
-same as `std::iter_swap` does), however if they are proxying iterators
+same as `std::iter_swap` does), however if they are proxy iterators
 then takes special care over the swap to ensure that the algorithm
-works correctly for both proxying iterators, and even iterators of
+works correctly for both proxy iterators, and even iterators of
 different types 
 (see [@../../examples/iter_swap_example.cpp iter_swap_example.cpp]):
 
    //
    // iter_swap:
-   // tests whether iterator is a proxying iterator or not, and
+   // tests whether iterator is a proxy iterator or not, and
    // uses optimal form accordingly:
    //
    namespace detail{
@@ -221,7 +221,7 @@ and enum types to double:
 An improved `std::min` function could be written like this:
 
    template <class T, class U>
-   typename __common_type<T, U>::type min(T t, T u)
+   typename __common_type<T, U>::type min(T t, U u)
    {
       return t < u ? t : u;
    }

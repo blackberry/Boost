@@ -11,7 +11,7 @@
 #define BOOST_CONTAINER_PROPAGATE_ALLOCATOR_TEST_HPP
 
 #include <boost/container/detail/config_begin.hpp>
-#include <boost/detail/lightweight_test.hpp>
+#include <boost/core/lightweight_test.hpp>
 #include "dummy_test_allocator.hpp"
 
 #include <iostream>

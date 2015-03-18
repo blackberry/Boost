@@ -11,26 +11,22 @@
 		<h2>Contents</h2>
 		<ul>
 			<li>
-				Class templates supporting the <a href="base_from_member.html">base-from-member 
-					idiom</a></li>
+				Class templates supporting the <a href="doc/html/base_from_member.html">
+					base-from-member idiom</a></li>
 			<li>
-				Function templates <a href="#checked_delete">checked_delete() and 
-					checked_array_delete()</a></li>
+				Function templates <a href="../core/doc/html/core/checked_delete.html">checked_delete() and 
+					checked_array_delete()</a> (moved to the Boost.Core library)</li>
 			<li>
 				Function templates <a href="#functions_next_prior">next() and prior()</a></li>
 			<li>
-				Class <a href="#Class_noncopyable">noncopyable</a></li>
+				Class <a href="../core/doc/html/core/noncopyable.html">noncopyable</a> (moved to the Boost.Core library)</li>
 			<li>
-				Function template <a href="#addressof">addressof()</a></li>
+				Function template <a href="../core/doc/html/core/addressof.html">addressof()</a> (moved to the Boost.Core library)</li>
                         <li>Class template <a href="#result_of">result_of</a></li>
                         <li>
 				Macro <a href="#BOOST_BINARY">BOOST_BINARY</a></li>
                         <li><a href="index.html">Other utilities not part of <code>utility.hpp</code></a></li>
 		</ul>
-		<h2>
-			Function templates <a name="checked_delete">checked_delete</a>() and 
-			checked_array_delete()</h2>
-		<p>See <a href="checked_delete.html">separate documentation</a>.</p>
 		<h2>
 			<a name="functions_next_prior">Function</a> templates next() and prior()</h2>
 		<p>Certain data types, such as the C++ Standard Library's forward and bidirectional 
@@ -71,75 +67,7 @@ const std::list&lt;T&gt;::iterator next = boost::next(prev, 2);</pre>
 			example, the iterator four iterators prior to the given iterator <code>p</code>
 			may be obtained by <code>prior(p, 4)</code>.</p>
 		<p>Contributed by <a href="http://www.boost.org/people/dave_abrahams.htm">Dave Abrahams</a>.  Two-argument versions by Daniel Walker.</p>
-		<h2><a name="Class_noncopyable">Class noncopyable</a></h2>
-		<p>Class <strong>noncopyable</strong> is a base class.&nbsp; Derive your own class 
-			from <strong>noncopyable</strong> when you want to prohibit copy construction 
-			and copy assignment.</p>
-		<p>Some objects, particularly those which hold complex resources like files or 
-			network connections, have no sensible copy semantics.&nbsp; Sometimes there are 
-			possible copy semantics, but these would be of very limited usefulness and be 
-			very difficult to implement correctly.&nbsp; Sometimes you're implementing a 
-			class that doesn't need to be copied just yet and you don't want to take the 
-			time to write the appropriate functions.&nbsp; Deriving from <b>noncopyable</b> 
-			will prevent the otherwise implicitly-generated functions (which don't have the 
-			proper semantics) from becoming a trap for other programmers.</p>
-		<p>The traditional way to deal with these is to declare a private copy constructor 
-			and copy assignment, and then document why this is done.&nbsp; But deriving 
-			from <b>noncopyable</b> is simpler and clearer, and doesn't require additional 
-			documentation.</p>
-		<p>The program <a href="noncopyable_test.cpp">noncopyable_test.cpp</a> can be used 
-			to verify class <b>noncopyable</b> works as expected. It has have been run 
-			successfully under GCC 2.95, Metrowerks CodeWarrior 5.0, and Microsoft Visual 
-			C++ 6.0 sp 3.</p>
-		<p>Contributed by <a href="http://www.boost.org/people/dave_abrahams.htm">Dave Abrahams</a>.</p>
-		<h3>Example</h3>
-		<blockquote>
-			<pre>// inside one of your own headers ...
-#include &lt;boost/utility.hpp&gt;
 
-class ResourceLadenFileSystem : boost::noncopyable {
-...</pre>
-		</blockquote>
-		<h3>Rationale</h3>
-		<p>Class noncopyable has protected constructor and destructor members to emphasize 
-			that it is to be used only as a base class.&nbsp; Dave Abrahams notes concern 
-			about the effect on compiler optimization of adding (even trivial inline) 
-			destructor declarations. He says &quot;Probably this concern is misplaced, 
-			because noncopyable will be used mostly for classes which own resources and 
-			thus have non-trivial destruction semantics.&quot;</p>
-		<h2><a name="addressof">Function template addressof()</a></h2>
-		<p>Function <strong>addressof()</strong> returns the address of an object.</p>
-		<blockquote>
-			<pre>template &lt;typename T&gt; inline T*                addressof(T& v);
-template &lt;typename T&gt; inline const T*          addressof(const T& v);
-template &lt;typename T&gt; inline volatile T*       addressof(volatile T& v);
-template &lt;typename T&gt; inline const volatile T* addressof(const volatile T& v);
-</pre>
-		</blockquote>
-		<p>C++ allows programmers to replace the unary <strong>operator&()</strong> class 
-			member used to get the address of an object. Getting the real address of an 
-			object requires ugly casting tricks to avoid invoking the overloaded <strong>operator&()</strong>. 
-			Function <strong>addressof()</strong> provides a wrapper around the necessary 
-			code to make it easy to get an object's real address.
-		</p>
-		<p>The program <a href="addressof_test.cpp">addressof_test.cpp</a> can be used to 
-			verify that <b>addressof()</b> works as expected.</p>
-		<p>Contributed by Brad King based on ideas from discussion with Doug Gregor.</p>
-		<h3>Example</h3>
-		<blockquote>
-			<pre>#include &lt;boost/utility.hpp&gt;
-
-struct useless_type {};
-class nonaddressable {
-  useless_type operator&() const;
-};
-
-void f() {
-  nonaddressable x;
-  nonaddressable* xp = boost::addressof(x);
-  // nonaddressable* xpe = &amp;x; /* error */
-}</pre>
-		</blockquote>
                 <h2><a name="result_of">Class template
                 result_of</a></h2> <p>The class template
                 <code>result_of</code> helps determine the type of a
@@ -255,6 +183,46 @@ typedef boost::result_of&lt;
                 represent the return type of
                 <code>operator()</code> given a call expression.</p>
 
+                <p>Additionally, <code>boost::result_of</code>
+                provides a third mode of operation, which some users
+                may find convenient. When
+                <code>BOOST_RESULT_OF_USE_TR1_WITH_DECLTYPE_FALLBACK</code>
+                is defined, <code>boost::result_of</code> behaves as
+                follows. If the function object has a member
+                type <code>result_type</code> or member
+                template <code>result&lt;&gt;</code>, then
+                <code>boost::result_of</code> will use the TR1
+                protocol. Otherwise,
+                <code>boost::result_of</code> will
+                use <code>decltype</code>. Using TR1 with
+                a <code>declytpe</code> fallback may workaround
+                certain problems at the cost of portability. For
+                example:
+                <ul>
+                    <li>Deficient compiler: If your code
+                    requires <code>boost::result_of</code> to work
+                    with incomplete return types but your
+                    compiler's <code>decltype</code> implementation
+                    does not support incomplete return types, then you
+                    can use the TR1 protocol as a workaround. Support
+                    for incomplete return types was added late in the
+                    C++11 standardization process
+                    (see <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2011/n3276.pdf">N3276</a>)
+                    and is not implemented by some compilers.</li>
+
+                    <li>Deficient legacy code: If your existing TR1
+                    function object advertises a different type than
+                    the actual result type deduced
+                    by <code>decltype</code>, then using TR1 with a
+                    <code>decltype</code> fallback will allow you to
+                    work with both your existing TR1 function objects
+                    and new C++11 function object. This situation
+                    could occur if your legacy function objects
+                    misused the TR1 protocol. See the documentation on
+                    known <a href="#result_of_tr1_diff">differences</a>
+                    between <code>boost::result_of</code> and TR1.</li>
+                </ul>
+
                 <a name="BOOST_NO_RESULT_OF"></a>
                 <p>This implementation of <code>result_of</code>
                 requires class template partial specialization, the
@@ -269,7 +237,7 @@ typedef boost::result_of&lt;
                 Technical Report,
                 <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1836.pdf">N1836</a>,
                 or, for motivation and design rationale,
-                the <code>result_of</code> <a href="http://anubis.dkuug.dk/jtc1/sc22/wg21/docs/papers/2003/n1454.html">proposal</a>.</p>
+                the <code>result_of</code> <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2003/n1454.html">proposal</a>.</p>
 
                 <a name="result_of_guidelines">
                 <h3>Usage guidelines for boost::result_of</h3>
@@ -587,8 +555,6 @@ BOOST_STATIC_ASSERT((
 
                 <p>Created by Doug Gregor. Contributions from Daniel Walker, Eric Niebler, Michel Morin and others</p>
 
-		<h2>Class templates for the Base-from-Member Idiom</h2>
-		<p>See <a href="base_from_member.html">separate documentation</a>.</p>
 		<h2><a name="BOOST_BINARY">Macro BOOST_BINARY</a></h2>
 
 		<p>The macro <code>BOOST_BINARY</code> is used for the

@@ -271,6 +271,12 @@ feature off.
 Causes the auto-linking code to output diagnostic messages indicating the
 name of the library that is selected for linking.
 ]]
+[[`BOOST_LIB_BUILDID`][
+If you built Boost using the `--buildid` option then set this macro to the same value
+as you passed to bjam.  For example if you built using `bjam address-model=64 --buildid=amd64` 
+then compile your code with `-DBOOST_LIB_BUILDID=amd64` to ensure the correct libraries
+are selected at link time.
+]]
 [[`BOOST_LIB_TOOLSET`][
 Overrides the name of the toolset part of the name of library being linked
 to; note if defined this must be defined to a quoted string literal, for
@@ -372,7 +378,7 @@ under the __BOOST_CONFIG_DIR__ `test/` sub-directory:
 [[`config_info.cpp`][
 Prints out a detailed description of your compiler/standard library/platform
 setup, plus your current boost configuration. The information provided by this
-program useful in setting up the boost configuration files. If you report that
+program is useful in setting up the boost configuration files. If you report that
 boost is incorrectly configured for your compiler/library/platform then please
 include the output from this program when reporting the changes required.
 ]]

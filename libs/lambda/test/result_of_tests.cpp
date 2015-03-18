@@ -299,7 +299,7 @@ int test_main(int, char *[]) {
     BOOST_CHECK(boost::lambda::bind(with_result_template_reference(), var(one), var(two), var(three), var(four), var(five), var(six), var(seven), var(eight), var(nine))() == 9);
 
     // Check using result_of with lambda functors
-    //BOOST_CHECK(apply0(constant(0)) == 0);
+    BOOST_CHECK(apply0(constant(0)) == 0);
     BOOST_CHECK(apply1<int>(_1, one) == 1);
     BOOST_CHECK(apply1<int&>(_1, one) == 1);
     BOOST_CHECK(apply1<const int&>(_1, one) == 1);

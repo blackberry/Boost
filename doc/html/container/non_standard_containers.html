@@ -3,11 +3,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Non-standard containers</title>
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../container.html" title="Chapter&#160;6.&#160;Boost.Container">
-<link rel="prev" href="containers_of_incomplete_types.html" title="Containers of Incomplete Types">
-<link rel="next" href="Cpp11_conformance.html" title="C++11 Conformance">
+<link rel="up" href="../container.html" title="Chapter&#160;8.&#160;Boost.Container">
+<link rel="prev" href="exception_handling.html" title="Boost.Container and C++ exceptions">
+<link rel="next" href="extended_functionality.html" title="Extended functionality">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table cellpadding="2" width="100%"><tr>
@@ -20,17 +20,18 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="containers_of_incomplete_types.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../container.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="Cpp11_conformance.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="exception_handling.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../container.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="extended_functionality.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="container.non_standard_containers"></a><a class="link" href="non_standard_containers.html" title="Non-standard containers">Non-standard containers</a>
 </h2></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="non_standard_containers.html#container.non_standard_containers.stable_vector"><span class="emphasis"><em>stable_vector</em></span></a></span></dt>
 <dt><span class="section"><a href="non_standard_containers.html#container.non_standard_containers.flat_xxx"><span class="emphasis"><em>flat_(multi)map/set</em></span>
       associative containers</a></span></dt>
 <dt><span class="section"><a href="non_standard_containers.html#container.non_standard_containers.slist"><span class="emphasis"><em>slist</em></span></a></span></dt>
+<dt><span class="section"><a href="non_standard_containers.html#container.non_standard_containers.static_vector"><span class="emphasis"><em>static_vector</em></span></a></span></dt>
 </dl></div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
@@ -38,9 +39,9 @@
 </h3></div></div></div>
 <p>
         This useful, fully STL-compliant stable container <a href="http://bannalia.blogspot.com/2008/09/introducing-stablevector.html" target="_top">designed
-        by by Joaqu&#237;n M. L&#243;pez Mu&#241;oz</a> is an hybrid between
-        <code class="computeroutput"><span class="identifier">vector</span></code> and <code class="computeroutput"><span class="identifier">list</span></code>, providing most of the features of
-        <code class="computeroutput"><span class="identifier">vector</span></code> except <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/lwg-defects.html#69" target="_top">element
+        by Joaqu&#237;n M. L&#243;pez Mu&#241;oz</a> is an hybrid between <code class="computeroutput"><span class="identifier">vector</span></code> and <code class="computeroutput"><span class="identifier">list</span></code>,
+        providing most of the features of <code class="computeroutput"><span class="identifier">vector</span></code>
+        except <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/lwg-defects.html#69" target="_top">element
         contiguity</a>.
       </p>
 <p>
@@ -68,7 +69,7 @@
         data structure upon which to base the design of a stable vector:
       </p>
 <p>
-        <span class="inlinemediaobject"><img src="../images/stable_vector.png" align="middle" width="50%" alt="stable_vector"></span>
+        <span class="inlinemediaobject"><img src="../../../libs/container/doc/html/images/stable_vector.png" align="middle" width="50%" alt="stable_vector"></span>
       </p>
 <p>
         Each element is stored in its own separate node. All the nodes are referenced
@@ -119,7 +120,7 @@
         exception safety guarantees than in vector:
       </p>
 <div class="table">
-<a name="container.non_standard_containers.stable_vector.stable_vector_req"></a><p class="title"><b>Table&#160;6.1.&#160;Exception safety</b></p>
+<a name="container.non_standard_containers.stable_vector.stable_vector_req"></a><p class="title"><b>Table&#160;8.1.&#160;Exception safety</b></p>
 <div class="table-contents"><table class="table" summary="Exception safety">
 <colgroup>
 <col>
@@ -311,12 +312,13 @@
         to C++, speeding up insertion and erasure times considerably. Flat associative
         containers have the following attributes:
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             Faster lookup than standard associative containers
           </li>
 <li class="listitem">
-            Much faster iteration than standard associative containers
+            Much faster iteration than standard associative containers. Random-access
+            iterators instead of bidirectional iterators.
           </li>
 <li class="listitem">
             Less memory consumption for small objects (and for big objects if <code class="computeroutput"><span class="identifier">shrink_to_fit</span></code> is used)
@@ -420,11 +422,54 @@
         complementary.
       </p>
 </div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="container.non_standard_containers.static_vector"></a><a class="link" href="non_standard_containers.html#container.non_standard_containers.static_vector" title="static_vector"><span class="emphasis"><em>static_vector</em></span></a>
+</h3></div></div></div>
+<p>
+        <code class="computeroutput"><span class="identifier">static_vector</span></code> is an hybrid
+        between <code class="computeroutput"><span class="identifier">vector</span></code> and <code class="computeroutput"><span class="identifier">array</span></code>: like <code class="computeroutput"><span class="identifier">vector</span></code>,
+        it's a sequence container with contiguous storage that can change in size,
+        along with the static allocation, low overhead, and fixed capacity of <code class="computeroutput"><span class="identifier">array</span></code>. <code class="computeroutput"><span class="identifier">static_vector</span></code>
+        is based on Adam Wulkiewicz and Andrew Hundt's high-performance <a href="https://svn.boost.org/svn/boost/sandbox/varray/doc/html/index.html" target="_top">varray</a>
+        class.
+      </p>
+<p>
+        The number of elements in a <code class="computeroutput"><span class="identifier">static_vector</span></code>
+        may vary dynamically up to a fixed capacity because elements are stored within
+        the object itself similarly to an array. However, objects are initialized
+        as they are inserted into <code class="computeroutput"><span class="identifier">static_vector</span></code>
+        unlike C arrays or <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">array</span></code> which must construct all elements
+        on instantiation. The behavior of <code class="computeroutput"><span class="identifier">static_vector</span></code>
+        enables the use of statically allocated elements in cases with complex object
+        lifetime requirements that would otherwise not be trivially possible. Some
+        other properties:
+      </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+            Random access to elements
+          </li>
+<li class="listitem">
+            Constant time insertion and removal of elements at the end
+          </li>
+<li class="listitem">
+            Linear time insertion and removal of elements at the beginning or in
+            the middle.
+          </li>
+</ul></div>
+<p>
+        <code class="computeroutput"><span class="identifier">static_vector</span></code> is well suited
+        for use in a buffer, the internal implementation of other classes, or use
+        cases where there is a fixed limit to the number of elements that must be
+        stored. Embedded and realtime applications where allocation either may not
+        be available or acceptable are a particular case where <code class="computeroutput"><span class="identifier">static_vector</span></code>
+        can be beneficial.
+      </p>
+</div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2009-2012 Ion
-      Gaztanaga<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2009-2013 Ion Gaztanaga<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
@@ -432,7 +477,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="containers_of_incomplete_types.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../container.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="Cpp11_conformance.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="exception_handling.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../container.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="extended_functionality.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

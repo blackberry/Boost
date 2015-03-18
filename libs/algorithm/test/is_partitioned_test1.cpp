@@ -11,7 +11,9 @@
 
 #include <boost/config.hpp>
 #include <boost/algorithm/cxx11/is_partitioned.hpp>
-#include <boost/test/included/test_exec_monitor.hpp>
+
+#define BOOST_TEST_MAIN
+#include <boost/test/unit_test.hpp>
 
 #include <string>
 #include <vector>
@@ -56,8 +58,7 @@ void test_sequence1 () {
     }
 
 
-int test_main( int , char* [] )
+BOOST_AUTO_TEST_CASE( test_main )
 {
   test_sequence1 ();
-  return 0;
 }

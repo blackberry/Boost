@@ -1,6 +1,6 @@
 /* Boost.MultiIndex test for capacity memfuns.
  *
- * Copyright 2003-2008 Joaquin M Lopez Munoz.
+ * Copyright 2003-2013 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -13,7 +13,7 @@
 #include <boost/config.hpp> /* keep it first to prevent nasty warns in MSVC */
 #include "pre_multi_index.hpp"
 #include "employee.hpp"
-#include <boost/test/test_tools.hpp>
+#include <boost/detail/lightweight_test.hpp>
 
 using namespace boost::multi_index;
 
@@ -27,57 +27,71 @@ void test_capacity()
   es.insert(employee(3,"Albert",20,9012));
   es.insert(employee(4,"John",57,1002));
 
-  BOOST_CHECK(!es.empty());
-  BOOST_CHECK(es.size()==5);
-  BOOST_CHECK(es.size()<=es.max_size());
+  BOOST_TEST(!es.empty());
+  BOOST_TEST(es.size()==5);
+  BOOST_TEST(es.size()<=es.max_size());
 
   es.erase(es.begin());
-  BOOST_CHECK(!get<name>(es).empty());
-  BOOST_CHECK(get<name>(es).size()==4);
-  BOOST_CHECK(get<name>(es).size()<=get<name>(es).max_size());
+  BOOST_TEST(!get<name>(es).empty());
+  BOOST_TEST(get<name>(es).size()==4);
+  BOOST_TEST(get<name>(es).size()<=get<name>(es).max_size());
 
   es.erase(es.begin());
-  BOOST_CHECK(!get<as_inserted>(es).empty());
-  BOOST_CHECK(get<as_inserted>(es).size()==3);
-  BOOST_CHECK(get<as_inserted>(es).size()<=get<as_inserted>(es).max_size());
+  BOOST_TEST(!get<as_inserted>(es).empty());
+  BOOST_TEST(get<as_inserted>(es).size()==3);
+  BOOST_TEST(get<as_inserted>(es).size()<=get<as_inserted>(es).max_size());
 
   multi_index_container<int,indexed_by<sequenced<> > > ss;
 
   ss.resize(10);
-  BOOST_CHECK(ss.size()==10);
-  BOOST_CHECK(ss.size()<=ss.max_size());
+  BOOST_TEST(ss.size()==10);
+  BOOST_TEST(ss.size()<=ss.max_size());
 
-  ss.resize(20);
-  BOOST_CHECK(ss.size()==20);
+  ss.resize(20,666);
+  BOOST_TEST(ss.size()==20);
+  BOOST_TEST(ss.back()==666);
 
-  ss.resize(5);
-  BOOST_CHECK(ss.size()==5);
+  ss.resize(5,10);
+  BOOST_TEST(ss.size()==5);
 
   ss.resize(4);
-  BOOST_CHECK(ss.size()==4);
+  BOOST_TEST(ss.size()==4);
 
   multi_index_container<int,indexed_by<random_access<> > > rs;
 
   rs.resize(10);
-  BOOST_CHECK(rs.size()==10);
-  BOOST_CHECK(rs.size()<=rs.max_size());
-  BOOST_CHECK(rs.size()<=rs.capacity());
+  BOOST_TEST(rs.size()==10);
+  BOOST_TEST(rs.size()<=rs.max_size());
+  BOOST_TEST(rs.size()<=rs.capacity());
 
-  rs.resize(20);
-  BOOST_CHECK(rs.size()==20);
-  BOOST_CHECK(rs.size()<=rs.capacity());
+  rs.resize(20,666);
+  BOOST_TEST(rs.size()==20);
+  BOOST_TEST(rs.back()==666);
+  BOOST_TEST(rs.size()<=rs.capacity());
 
   unsigned int c=rs.capacity();
+  rs.resize(10,20);
+  BOOST_TEST(rs.size()==10);
+  BOOST_TEST(rs.capacity()==c);
+
   rs.resize(5);
-  BOOST_CHECK(rs.size()==5);
-  BOOST_CHECK(rs.capacity()==c);
+  BOOST_TEST(rs.size()==5);
+  BOOST_TEST(rs.capacity()==c);
 
   rs.reserve(100);
-  BOOST_CHECK(rs.size()==5);
-  BOOST_CHECK(rs.capacity()>=100);
+  BOOST_TEST(rs.size()==5);
+  BOOST_TEST(rs.capacity()>=100);
 
   c=rs.capacity();
   rs.reserve(99);
-  BOOST_CHECK(rs.size()==5);
-  BOOST_CHECK(rs.capacity()==c);
+  BOOST_TEST(rs.size()==5);
+  BOOST_TEST(rs.capacity()==c);
+
+  rs.shrink_to_fit();
+  BOOST_TEST(rs.size()==5);
+  BOOST_TEST(rs.capacity()==rs.size());
+
+  rs.clear();
+  rs.shrink_to_fit();
+  BOOST_TEST(rs.capacity()==0);
 }

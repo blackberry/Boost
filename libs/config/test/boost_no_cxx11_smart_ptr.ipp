@@ -26,6 +26,9 @@ int test()
    std::hash<std::shared_ptr<int> > h1;
    std::hash<std::unique_ptr<int> > h2;
 
+   (void)h1;
+   (void)h2;
+
    return 0;
 }
 

@@ -16,9 +16,9 @@
 #include <cassert>
 #include <boost/scoped_ptr.hpp>
 #include <boost/iterator/iterator_traits.hpp>
+#include <boost/utility/string_ref.hpp>
 #include <stdexcept>
 #include "fwd.hpp"
-#include "string_ref.hpp"
 #include "files.hpp"
 
 namespace quickbook
@@ -51,7 +51,7 @@ namespace quickbook
 
             virtual file_ptr get_file() const;
             virtual string_iterator get_position() const;
-            virtual string_ref get_quickbook() const;
+            virtual boost::string_ref get_quickbook() const;
             virtual std::string get_encoded() const;
             virtual int get_int() const;
 
@@ -113,7 +113,7 @@ namespace quickbook
             { return value_->get_file(); }
             string_iterator get_position() const
             { return value_->get_position(); }
-            string_ref get_quickbook() const
+            boost::string_ref get_quickbook() const
             { return value_->get_quickbook(); }
             std::string get_encoded() const
             { return value_->get_encoded(); }

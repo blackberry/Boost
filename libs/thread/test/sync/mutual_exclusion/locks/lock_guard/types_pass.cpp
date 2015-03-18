@@ -25,8 +25,10 @@
 // };
 
 
+#include <boost/thread/lock_guard.hpp>
 #include <boost/thread/mutex.hpp>
 #include <boost/static_assert.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <boost/detail/lightweight_test.hpp>
 
 int main()

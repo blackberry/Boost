@@ -17,6 +17,7 @@
 #include <functional>
 #include <iostream>
 #include <algorithm>
+#include <boost/move/unique_ptr.hpp>
 
 namespace boost{
 namespace container {
@@ -25,15 +26,32 @@ namespace test{
 template< class T1, class T2>
 bool CheckEqual( const T1 &t1, const T2 &t2
                , typename boost::container::container_detail::enable_if_c
-                  <!boost::container::container_detail::is_pair<T1>::value && 
+                  <!boost::container::container_detail::is_pair<T1>::value &&
                    !boost::container::container_detail::is_pair<T2>::value
                   >::type* = 0)
 {  return t1 == t2;  }
 
+
+template<class T1, class T2, class C1, class C2>
+bool CheckEqualIt( const T1 &i1, const T2 &i2, const C1 &c1, const C2 &c2 )
+{
+   bool c1end = i1 == c1.end();
+   bool c2end = i2 == c2.end();
+   if( c1end != c2end ){
+      return false;
+   }
+   else if(c1end){
+      return true;
+   }
+   else{
+      return CheckEqual(*i1, *i2);
+   }
+}
+
 template< class Pair1, class Pair2>
 bool CheckEqual( const Pair1 &pair1, const Pair2 &pair2
                , typename boost::container::container_detail::enable_if_c
-                  <boost::container::container_detail::is_pair<Pair1>::value && 
+                  <boost::container::container_detail::is_pair<Pair1>::value &&
                    boost::container::container_detail::is_pair<Pair2>::value
                   >::type* = 0)
 {
@@ -43,17 +61,15 @@ bool CheckEqual( const Pair1 &pair1, const Pair2 &pair2
 //Function to check if both containers are equal
 template<class MyBoostCont
         ,class MyStdCont>
-bool CheckEqualContainers(const MyBoostCont *boostcont, const MyStdCont *stdcont)
+bool CheckEqualContainers(const MyBoostCont &boostcont, const MyStdCont &stdcont)
 {
-   if(boostcont->size() != stdcont->size())
+   if(boostcont.size() != stdcont.size())
       return false;
 
-   typedef typename MyBoostCont::value_type value_type;
-
-   typename MyBoostCont::const_iterator itboost(boostcont->begin()), itboostend(boostcont->end());
-   typename MyStdCont::const_iterator itstd(stdcont->begin());
+   typename MyBoostCont::const_iterator itboost(boostcont.begin()), itboostend(boostcont.end());
+   typename MyStdCont::const_iterator itstd(stdcont.begin());
    typename MyStdCont::size_type dist = (typename MyStdCont::size_type)std::distance(itboost, itboostend);
-   if(dist != boostcont->size()){
+   if(dist != boostcont.size()){
       return false;
    }
    std::size_t i = 0;
@@ -66,16 +82,16 @@ bool CheckEqualContainers(const MyBoostCont *boostcont, const MyStdCont *stdcont
 
 template<class MyBoostCont
         ,class MyStdCont>
-bool CheckEqualPairContainers(const MyBoostCont *boostcont, const MyStdCont *stdcont)
+bool CheckEqualPairContainers(const MyBoostCont &boostcont, const MyStdCont &stdcont)
 {
-   if(boostcont->size() != stdcont->size())
+   if(boostcont.size() != stdcont.size())
       return false;
 
    typedef typename MyBoostCont::key_type      key_type;
    typedef typename MyBoostCont::mapped_type   mapped_type;
 
-   typename MyBoostCont::const_iterator itboost(boostcont->begin()), itboostend(boostcont->end());
-   typename MyStdCont::const_iterator itstd(stdcont->begin());
+   typename MyBoostCont::const_iterator itboost(boostcont.begin()), itboostend(boostcont.end());
+   typename MyStdCont::const_iterator itstd(stdcont.begin());
    for(; itboost != itboostend; ++itboost, ++itstd){
       if(itboost->first != key_type(itstd->first))
          return false;

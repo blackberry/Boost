@@ -18,10 +18,12 @@
 // std
 #include <cassert>
 #include <algorithm>
+#include <iterator>
 
 #include <boost/lambda/lambda.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <boost/utility.hpp>
 
 template< class Container, class Data >
 void test_container(Container & c, const Data & d)
@@ -59,7 +61,6 @@ void test_container(Container & c, const Data & d)
     BOOST_CHECK( c.size() == 2 );
 
     BOOST_CHECK( c.begin() != c.end() );
-
 }
 
 template< class Container, class Data >
@@ -99,6 +100,58 @@ void test_sequence_container(Container & c, const Data & d)
 
     BOOST_CHECK( c.begin() != c.end() );
 
+    c.clear();
+    BOOST_CHECK( c.empty() );
+
+    // assign
+    
+    c.assign(d.begin(),d.end());
+    BOOST_CHECK( c.size() == d.size() );
+    BOOST_CHECK( std::equal( c.begin(), c.end(), d.begin() ) );
+
+    c.assign(d.size(),*d.begin());
+    BOOST_CHECK( c.size() == d.size() );
+    BOOST_CHECK( *c.begin() == *d.begin() );
+    
+    // Check insert(IterPos,InputIter,InputIter)
+    
+    c.clear();
+    c.insert( c.begin(), d.begin(), d.end() );
+    c.insert( boost::next(c.begin(),2), d.begin(), d.end() );
+                   
+    BOOST_CHECK( std::equal( boost::next(c.begin(),2)
+                           , boost::next(c.begin(),2+d.size()) , d.begin() ) );
+
+    // Check resize
+   
+    c.clear() ;
+    c.resize(4,*d.begin());
+    BOOST_CHECK( c.size() == 4 );
+    BOOST_CHECK( *c.begin() == *d.begin() ) ;
+
+    BOOST_CHECK(     c == c   );
+    BOOST_CHECK( ! ( c != c ) );
+    BOOST_CHECK( ! ( c  < c ) );
+    BOOST_CHECK(   ( c <= c ) );
+    BOOST_CHECK( ! ( c  > c ) );
+    BOOST_CHECK(   ( c >= c ) );
+}
+
+template< class Container, class Data >
+void test_vector_container(Container & c, const Data & d)
+{
+    assert( d.size() > 2 );
+
+    c.clear() ;
+    c.reserve(2) ;
+    BOOST_CHECK( c.capacity() >= 2 ) ;
+    c.assign(d.begin(),d.end());
+    BOOST_CHECK( c.capacity() >= c.size() ) ;
+    
+    BOOST_CHECK( c[0] == *d.begin() ) ;
+    BOOST_CHECK( c.at(1) == *boost::next(d.begin()) );
+    
+    test_sequence_container(c,d) ;
 }
 
 template< class Container, class Data >
@@ -234,6 +287,13 @@ void test_simple_ordered_associative_container(Container & c, const Data & d)
 
     test_simple_ordered_associative_container_equality(cr, d);
 
+    BOOST_CHECK(     c == c   );
+    BOOST_CHECK( ! ( c != c ) );
+    BOOST_CHECK( ! ( c  < c ) );
+    BOOST_CHECK(   ( c <= c ) );
+    BOOST_CHECK( ! ( c  > c ) );
+    BOOST_CHECK(   ( c >= c ) );
+    
     /*
     BOOST_CHECK( c.range( *c.begin() <= ::boost::lambda::_1,
                             ::boost::lambda::_1 <= *(++c.begin()) ).
@@ -514,6 +574,36 @@ void test_unordered_set_unordered_multiset_bimap(Bimap & b,
     // unique container so, the overall bimap is a unique one.
     test_unique_container(b.right, rd);
 }
+
+template< class Bimap, class Data>
+void test_bimap_init_copy_swap(const Data&d)
+{    
+    Bimap b1(d.begin(),d.end());
+    Bimap b2( b1 );
+    BOOST_CHECK( b1 == b2 );
+    
+    b2.clear();
+    b2 = b1;
+    BOOST_CHECK( b2 == b1 );
+
+    b2.clear();
+    b2.left = b1.left;
+    BOOST_CHECK( b2 == b1 );
+
+    b2.clear();
+    b2.right = b1.right;
+    BOOST_CHECK( b2 == b1 );
+
+    b1.clear();
+    b2.swap(b1);
+    BOOST_CHECK( b2.empty() && !b1.empty() );
+
+    b1.left.swap( b2.left );
+    BOOST_CHECK( b1.empty() && !b2.empty() );
+
+    b1.right.swap( b2.right );
+    BOOST_CHECK( b2.empty() && !b1.empty() );
+} 
 
 #endif // LIBS_BIMAP_TEST_BIMAP_TEST_HPP
 

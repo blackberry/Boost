@@ -69,7 +69,7 @@ BOOST_UBLAS_TEST_DEF( test_coordinate_vector_inplace_merge_random )
       vector_coord.sort();
 
       std::vector<size_t> entries;
-      for (int entry = 0; entry < nr_entries; ++ entry) {
+      for (size_t entry = 0; entry < nr_entries; ++ entry) {
         int x = rand() % size_vec;
         entries.push_back(x);
         vector_coord.append_element(x, 1);
@@ -87,7 +87,7 @@ BOOST_UBLAS_TEST_DEF( test_coordinate_vector_inplace_merge_random )
         BOOST_UBLAS_TEST_CHECK( mean_square(vector_coord - vector_dense) < TOL);
       }
 
-      for (int entry = 0; entry < nr_entries; ++ entry) {
+      for (size_t entry = 0; entry < nr_entries; ++ entry) {
         int x = rand() % size_vec;
         entries.push_back(x);
         vector_coord(x) += 1;

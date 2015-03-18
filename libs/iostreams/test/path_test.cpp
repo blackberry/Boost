@@ -12,9 +12,9 @@
 
 void path_test()
 {
-	boost::filesystem::path orig("a/b");
-	boost::iostreams::detail::path p(orig);
-	p = orig;
+    boost::filesystem::path orig("a/b");
+    boost::iostreams::detail::path p(orig);
+    p = orig;
 }
 
 boost::unit_test::test_suite* init_unit_test_suite(int, char* []) 

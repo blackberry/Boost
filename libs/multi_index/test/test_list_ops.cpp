@@ -1,6 +1,6 @@
 /* Boost.MultiIndex test for standard list operations.
  *
- * Copyright 2003-2010 Joaquin M Lopez Munoz.
+ * Copyright 2003-2013 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -13,6 +13,7 @@
 #include <boost/config.hpp> /* keep it first to prevent nasty warns in MSVC */
 #include <algorithm>
 #include <vector>
+#include <boost/detail/lightweight_test.hpp>
 #include "pre_multi_index.hpp"
 #include <boost/multi_index_container.hpp>
 #include <boost/multi_index/identity.hpp>
@@ -20,7 +21,6 @@
 #include <boost/multi_index/sequenced_index.hpp>
 #include <boost/multi_index/random_access_index.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
-#include <boost/test/test_tools.hpp>
 
 using namespace boost::multi_index;
 
@@ -29,12 +29,12 @@ using namespace boost::multi_index;
 {\
   int v[]={BOOST_PP_SEQ_ENUM(check_seq)};\
   std::size_t size_v=sizeof(v)/sizeof(int);\
-  BOOST_CHECK(std::size_t(std::distance((p).begin(),(p).end()))==size_v);\
-  BOOST_CHECK(std::equal((p).begin(),(p).end(),&v[0]));\
+  BOOST_TEST(std::size_t(std::distance((p).begin(),(p).end()))==size_v);\
+  BOOST_TEST(std::equal((p).begin(),(p).end(),&v[0]));\
 }
 
 #undef CHECK_VOID_RANGE
-#define CHECK_VOID_RANGE(p) BOOST_CHECK((p).first==(p).second)
+#define CHECK_VOID_RANGE(p) BOOST_TEST((p).first==(p).second)
 
 struct is_even
 {
@@ -73,7 +73,7 @@ bool is_sorted(
 #endif
 
 template<typename Sequence>
-static void test_list_ops_unique_seq(BOOST_EXPLICIT_TEMPLATE_TYPE(Sequence))
+static void test_list_ops_unique_seq()
 {
   typedef typename nth_index<Sequence,1>::type sequenced_index;
 
@@ -110,7 +110,7 @@ static void test_list_ops_unique_seq(BOOST_EXPLICIT_TEMPLATE_TYPE(Sequence))
 
   si.splice(si.end(),si2,si2.begin());
   CHECK_EQUAL(si,(5)(1)(8)(4)(0)(2)(6)(3));
-  BOOST_CHECK(si2.empty());
+  BOOST_TEST(si2.empty());
 
   si2.splice(si2.end(),si,project<1>(ss,ss.find(0)),project<1>(ss,ss.find(6)));
   CHECK_EQUAL(si,(5)(1)(8)(4)(6)(3));
@@ -124,12 +124,12 @@ static void test_list_ops_unique_seq(BOOST_EXPLICIT_TEMPLATE_TYPE(Sequence))
 
   si.sort();
   si2.sort();
-  BOOST_CHECK(is_sorted(si,std::less<int>()));
-  BOOST_CHECK(is_sorted(si2,std::less<int>()));
+  BOOST_TEST(is_sorted(si,std::less<int>()));
+  BOOST_TEST(is_sorted(si2,std::less<int>()));
 
   si.merge(si2);
-  BOOST_CHECK(is_sorted(si,std::less<int>()));
-  BOOST_CHECK(si2.empty());
+  BOOST_TEST(is_sorted(si,std::less<int>()));
+  BOOST_TEST(si2.empty());
 
   {
     Sequence         ss3(ss);
@@ -137,15 +137,15 @@ static void test_list_ops_unique_seq(BOOST_EXPLICIT_TEMPLATE_TYPE(Sequence))
 
     si3.sort(std::greater<int>());
     si.reverse();
-    BOOST_CHECK(si==si3);
+    BOOST_TEST(si==si3);
   }
 
   si2.splice(si2.end(),si,project<1>(ss,ss.find(6)),project<1>(ss,ss.find(3)));
   CHECK_EQUAL(si2,(6)(5)(4));
 
   si.merge(si2,std::greater<int>());
-  BOOST_CHECK(is_sorted(si,std::greater<int>()));
-  BOOST_CHECK(si2.empty());
+  BOOST_TEST(is_sorted(si,std::greater<int>()));
+  BOOST_TEST(si2.empty());
 
   /* testcase for bug reported at
    * https://svn.boost.org/trac/boost/ticket/3076
@@ -158,8 +158,7 @@ static void test_list_ops_unique_seq(BOOST_EXPLICIT_TEMPLATE_TYPE(Sequence))
 }
 
 template<typename Sequence>
-static void test_list_ops_non_unique_seq(
-  BOOST_EXPLICIT_TEMPLATE_TYPE(Sequence))
+static void test_list_ops_non_unique_seq()
 {
   typedef typename Sequence::iterator iterator;
 
@@ -199,37 +198,37 @@ static void test_list_ops_non_unique_seq(
    * http://lists.boost.org/boost-users/2006/09/22604.php
    */
   {
-    Sequence ss,ss2;
-    ss.push_back(0);
-    ss2.push_back(0);
-    ss.splice(ss.end(),ss2,ss2.begin());
-    CHECK_EQUAL(ss,(0)(0));
-    BOOST_CHECK(ss2.empty());
+    Sequence ss_,ss2_;
+    ss_.push_back(0);
+    ss2_.push_back(0);
+    ss_.splice(ss_.end(),ss2_,ss2_.begin());
+    CHECK_EQUAL(ss_,(0)(0));
+    BOOST_TEST(ss2_.empty());
 
-    ss.clear();
-    ss2.clear();
-    ss.push_back(0);
-    ss2.push_back(0);
-    ss.splice(ss.end(),ss2,ss2.begin(),ss2.end());
-    CHECK_EQUAL(ss,(0)(0));
-    BOOST_CHECK(ss2.empty());
+    ss_.clear();
+    ss2_.clear();
+    ss_.push_back(0);
+    ss2_.push_back(0);
+    ss_.splice(ss_.end(),ss2_,ss2_.begin(),ss2_.end());
+    CHECK_EQUAL(ss_,(0)(0));
+    BOOST_TEST(ss2_.empty());
 
-    ss.clear();
-    ss2.clear();
-    ss.push_back(0);
-    ss2.push_back(0);
-    ss.merge(ss2);
-    CHECK_EQUAL(ss,(0)(0));
-    BOOST_CHECK(ss2.empty());
+    ss_.clear();
+    ss2_.clear();
+    ss_.push_back(0);
+    ss2_.push_back(0);
+    ss_.merge(ss2_);
+    CHECK_EQUAL(ss_,(0)(0));
+    BOOST_TEST(ss2_.empty());
 
     typedef typename Sequence::value_type value_type;
-    ss.clear();
-    ss2.clear();
-    ss.push_back(0);
-    ss2.push_back(0);
-    ss.merge(ss2,std::less<value_type>());
-    CHECK_EQUAL(ss,(0)(0));
-    BOOST_CHECK(ss2.empty());
+    ss_.clear();
+    ss2_.clear();
+    ss_.push_back(0);
+    ss2_.push_back(0);
+    ss_.merge(ss2_,std::less<value_type>());
+    CHECK_EQUAL(ss_,(0)(0));
+    BOOST_TEST(ss2_.empty());
   }
 }
 
@@ -247,10 +246,6 @@ void test_list_ops()
     >
   > sequenced_set;
   
-  /* MSVC++ 6.0 chokes on test_list_ops_unique_seq without this
-   * explicit instantiation
-   */
-  sequenced_set ss;
   test_list_ops_unique_seq<sequenced_set>();
 
 
@@ -262,7 +257,6 @@ void test_list_ops()
     >
   > random_access_set;
   
-  random_access_set rs;
   test_list_ops_unique_seq<random_access_set>();
 
   typedef multi_index_container<
@@ -270,7 +264,6 @@ void test_list_ops()
     indexed_by<sequenced<> >
   > int_list;
 
-  int_list il;
   test_list_ops_non_unique_seq<int_list>();
 
   typedef multi_index_container<
@@ -278,6 +271,5 @@ void test_list_ops()
     indexed_by<random_access<> >
   > int_vector;
 
-  int_vector iv;
   test_list_ops_non_unique_seq<int_vector>();
 }

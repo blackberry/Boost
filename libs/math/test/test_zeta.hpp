@@ -6,7 +6,8 @@
 
 #include <boost/math/concepts/real_concept.hpp>
 #include <boost/math/special_functions/math_fwd.hpp>
-#include <boost/test/test_exec_monitor.hpp>
+#define BOOST_TEST_MAIN
+#include <boost/test/unit_test.hpp>
 #include <boost/test/floating_point_comparison.hpp>
 #include <boost/math/tools/stats.hpp>
 #include <boost/math/tools/test.hpp>
@@ -30,7 +31,6 @@ void do_test_zeta(const T& data, const char* type_name, const char* test_name)
    // test zeta(T) against data:
    //
    using namespace std;
-   typedef typename T::value_type row_type;
    typedef Real                   value_type;
 
    std::cout << test_name << " with type " << type_name << std::endl;
@@ -91,8 +91,12 @@ void test_spots(T, const char* t)
    // Basic sanity checks, tolerance is either 5 or 10 epsilon 
    // expressed as a percentage:
    //
+   BOOST_MATH_STD_USING
    T tolerance = boost::math::tools::epsilon<T>() * 100 *
       (boost::is_floating_point<T>::value ? 5 : 10);
+   // An extra fudge factor for real_concept which has a less accurate tgamma:
+   T tolerance_tgamma_extra = std::numeric_limits<T>::is_specialized ? 1 : 10;
+
    BOOST_CHECK_CLOSE(::boost::math::zeta(static_cast<T>(0.125)), static_cast<T>(-0.63277562349869525529352526763564627152686379131122L), tolerance);
    BOOST_CHECK_CLOSE(::boost::math::zeta(static_cast<T>(1023) / static_cast<T>(1024)), static_cast<T>(-1023.4228554489429786541032870895167448906103303056L), tolerance);
    BOOST_CHECK_CLOSE(::boost::math::zeta(static_cast<T>(1025) / static_cast<T>(1024)), static_cast<T>(1024.5772867695045940578681624248887776501597556226L), tolerance);
@@ -108,7 +112,7 @@ void test_spots(T, const char* t)
    BOOST_CHECK_CLOSE(::boost::math::zeta(static_cast<T>(8.125)), static_cast<T>(1.0037305205308161603183307711439385250181080293472L), 2 * tolerance);
    BOOST_CHECK_CLOSE(::boost::math::zeta(static_cast<T>(16.125)), static_cast<T>(1.0000140128224754088474783648500235958510030511915L), tolerance);
    BOOST_CHECK_CLOSE(::boost::math::zeta(static_cast<T>(0)), static_cast<T>(-0.5L), tolerance);
-   BOOST_CHECK_CLOSE(::boost::math::zeta(static_cast<T>(-0.125)), static_cast<T>(-0.39906966894504503550986928301421235400280637468895L), tolerance);
+   BOOST_CHECK_CLOSE(::boost::math::zeta(static_cast<T>(-0.125)), static_cast<T>(-0.39906966894504503550986928301421235400280637468895L), tolerance * tolerance_tgamma_extra);
    BOOST_CHECK_CLOSE(::boost::math::zeta(static_cast<T>(-1)), static_cast<T>(-0.083333333333333333333333333333333333333333333333333L), tolerance);
    BOOST_CHECK_CLOSE(::boost::math::zeta(static_cast<T>(-2)), static_cast<T>(0L), tolerance);
    BOOST_CHECK_CLOSE(::boost::math::zeta(static_cast<T>(-2.5)), static_cast<T>(0.0085169287778503305423585670283444869362759902200745L), tolerance * 3);
@@ -117,5 +121,60 @@ void test_spots(T, const char* t)
    BOOST_CHECK_CLOSE(::boost::math::zeta(static_cast<T>(-20)), static_cast<T>(0), tolerance * 100);
    BOOST_CHECK_CLOSE(::boost::math::zeta(static_cast<T>(-21)), static_cast<T>(-281.46014492753623188405797101449275362318840579710L), tolerance * 100);
    BOOST_CHECK_CLOSE(::boost::math::zeta(static_cast<T>(-30.125)), static_cast<T>(2.2762941726834511267740045451463455513839970804578e7L), tolerance * 100);
+   // Very small values:
+   BOOST_CHECK_CLOSE(::boost::math::zeta(ldexp(static_cast<T>(1), -20)), static_cast<T>(-0.500000876368989859479646132126454890645615288202492097957612L), tolerance);
+   BOOST_CHECK_CLOSE(::boost::math::zeta(ldexp(static_cast<T>(1), -21)), static_cast<T>(-0.500000438184266833093492063649184012943132422189989164545507L), tolerance);
+   BOOST_CHECK_CLOSE(::boost::math::zeta(ldexp(static_cast<T>(1), -22)), static_cast<T>(-0.500000219092076392425852854644256723571669269957526445270374L), tolerance);
+   BOOST_CHECK_CLOSE(::boost::math::zeta(ldexp(static_cast<T>(1), -23)), static_cast<T>(-0.500000109546023940187789325464529558825433290921168958481804L), tolerance);
+   BOOST_CHECK_CLOSE(::boost::math::zeta(ldexp(static_cast<T>(1), -24)), static_cast<T>(-0.500000054773008406088246161057525197302821575823476487961574L), tolerance);
+   BOOST_CHECK_CLOSE(::boost::math::zeta(ldexp(static_cast<T>(1), -25)), static_cast<T>(-0.500000027386503312042790426817221131071450407798601059264341L), tolerance);
+   BOOST_CHECK_CLOSE(::boost::math::zeta(ldexp(static_cast<T>(1), -26)), static_cast<T>(-0.500000013693251433271071983943082871935521396740331377486886L), tolerance);
+   BOOST_CHECK_CLOSE(::boost::math::zeta(ldexp(static_cast<T>(1), -27)), static_cast<T>(-0.500000006846625660947956426350389518286874288247134329498289L), tolerance);
+   BOOST_CHECK_CLOSE(::boost::math::zeta(ldexp(static_cast<T>(1), -28)), static_cast<T>(-0.500000003423312816552083476988056486473169377162409806781384L), tolerance);
+   BOOST_CHECK_CLOSE(::boost::math::zeta(ldexp(static_cast<T>(1), -29)), static_cast<T>(-0.500000001711656404795568073849512135664960180586820144333542L), tolerance);
+   BOOST_CHECK_CLOSE(::boost::math::zeta(ldexp(static_cast<T>(1), -30)), static_cast<T>(-0.500000000855828201527665623188910582717329375986726355164261L), tolerance);
+   BOOST_CHECK_CLOSE(::boost::math::zeta(ldexp(static_cast<T>(1), -31)), static_cast<T>(-0.500000000427914100546303208463654361814800355929815322493143L), tolerance);
+   BOOST_CHECK_CLOSE(::boost::math::zeta(ldexp(static_cast<T>(1), -32)), static_cast<T>(-0.500000000213957050218769203487022003676593508474107873788445L), tolerance);
+   BOOST_CHECK_CLOSE(::boost::math::zeta(ldexp(static_cast<T>(1), -33)), static_cast<T>(-0.500000000106978525095789001562046589421133388262409441738089L), tolerance);
+   BOOST_CHECK_CLOSE(::boost::math::zeta(ldexp(static_cast<T>(1), -34)), static_cast<T>(-0.500000000053489262544495600736249301842352101231724731340202L), tolerance);
+
+   BOOST_CHECK_CLOSE(::boost::math::zeta(-ldexp(static_cast<T>(1), -20)), static_cast<T>(-0.499999123632834911086872289657767335473025908373776645822722L), tolerance * tolerance_tgamma_extra);
+   BOOST_CHECK_CLOSE(::boost::math::zeta(-ldexp(static_cast<T>(1), -21)), static_cast<T>(-0.499999561816189359548137231641582253243376087534976981434190L), tolerance * tolerance_tgamma_extra);
+   BOOST_CHECK_CLOSE(::boost::math::zeta(-ldexp(static_cast<T>(1), -22)), static_cast<T>(-0.499999780908037655734554449793729262345041281451929584703788L), tolerance * tolerance_tgamma_extra);
+   BOOST_CHECK_CLOSE(::boost::math::zeta(-ldexp(static_cast<T>(1), -23)), static_cast<T>(-0.499999890454004571852312499433422838864632848598847415933664L), tolerance * tolerance_tgamma_extra);
+   BOOST_CHECK_CLOSE(::boost::math::zeta(-ldexp(static_cast<T>(1), -24)), static_cast<T>(-0.499999945226998721921779295091241395945379526155584220813497L), tolerance * tolerance_tgamma_extra);
+   BOOST_CHECK_CLOSE(::boost::math::zeta(-ldexp(static_cast<T>(1), -25)), static_cast<T>(-0.499999972613498469959715937215237923104705216198368099221577L), tolerance * tolerance_tgamma_extra);
+   BOOST_CHECK_CLOSE(::boost::math::zeta(-ldexp(static_cast<T>(1), -26)), static_cast<T>(-0.499999986306749012229554607064736104475024094525587925697276L), tolerance * tolerance_tgamma_extra);
+   BOOST_CHECK_CLOSE(::boost::math::zeta(-ldexp(static_cast<T>(1), -27)), static_cast<T>(-0.499999993153374450427200221401546739119918746163907954406855L), tolerance * tolerance_tgamma_extra);
+   BOOST_CHECK_CLOSE(::boost::math::zeta(-ldexp(static_cast<T>(1), -28)), static_cast<T>(-0.499999996576687211291705684949926422460038672790251466963619L), tolerance * tolerance_tgamma_extra);
+   BOOST_CHECK_CLOSE(::boost::math::zeta(-ldexp(static_cast<T>(1), -29)), static_cast<T>(-0.499999998288343602165379216634983519354686193860717726606017L), tolerance * tolerance_tgamma_extra);
+   BOOST_CHECK_CLOSE(::boost::math::zeta(-ldexp(static_cast<T>(1), -30)), static_cast<T>(-0.499999999144171800212571199432213326524228740247618955829902L), tolerance * tolerance_tgamma_extra);
+   BOOST_CHECK_CLOSE(::boost::math::zeta(-ldexp(static_cast<T>(1), -31)), static_cast<T>(-0.499999999572085899888755997191626615213504580792674808876724L), tolerance * tolerance_tgamma_extra);
+   BOOST_CHECK_CLOSE(::boost::math::zeta(-ldexp(static_cast<T>(1), -32)), static_cast<T>(-0.499999999786042949889995597926798240562852438685508646794693L), tolerance);
+   BOOST_CHECK_CLOSE(::boost::math::zeta(-ldexp(static_cast<T>(1), -33)), static_cast<T>(-0.499999999893021474931402198791408471637626205588681812641711L), tolerance);
+   BOOST_CHECK_CLOSE(::boost::math::zeta(-ldexp(static_cast<T>(1), -34)), static_cast<T>(-0.499999999946510737462302199352114463422268928922372277519378L), tolerance);
+#ifdef BOOST_MSVC
+#pragma warning(push)
+#pragma warning(disable:4127 4756)
+#endif
+   //
+   // Very large negative values need special handling in our code, test them here, due to a bug report by Rocco Romeo:
+   //
+   BOOST_CHECK_EQUAL(::boost::math::zeta(static_cast<T>(-200)), static_cast<T>(0));
+   if(std::numeric_limits<T>::max_exponent >= 1024)
+   {
+      BOOST_CHECK_CLOSE(::boost::math::zeta(static_cast<T>(-171)), static_cast<T>(1.28194898634822427378088228065956967928127061276520385040051e172L), tolerance * 200);
+      BOOST_CHECK_CLOSE(::boost::math::zeta(static_cast<T>(-171.5)), static_cast<T>(4.73930233055054501360661283732419615206017226423071857829425e172L), tolerance * 1000);
+      BOOST_CHECK_CLOSE(::boost::math::zeta(static_cast<T>(-172.5)), static_cast<T>(-1.30113885243175165293156588942160456456090687128236657847674e174L), tolerance * 100);
+      BOOST_CHECK_CLOSE(::boost::math::zeta(static_cast<T>(-173)), static_cast<T>(-9.66241211085609184243169684777934860657838245104636064505158e174L), tolerance * 100);
+   }
+   if(std::numeric_limits<T>::has_infinity)
+   {
+      BOOST_CHECK_EQUAL(::boost::math::zeta(static_cast<T>(-10007)), std::numeric_limits<T>::infinity());
+      BOOST_CHECK_EQUAL(::boost::math::zeta(static_cast<T>(-10009)), -std::numeric_limits<T>::infinity());
+   }
+#ifdef BOOST_MSVC
+#pragma warning(pop)
+#endif
 }
 

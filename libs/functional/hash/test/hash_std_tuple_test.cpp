@@ -5,8 +5,8 @@
 
 #include "./config.hpp"
 
-#ifdef TEST_EXTENSIONS
-#  ifdef TEST_STD_INCLUDES
+#ifdef BOOST_HASH_TEST_EXTENSIONS
+#  ifdef BOOST_HASH_TEST_STD_INCLUDES
 #    include <functional>
 #  else
 #    include <boost/functional/hash.hpp>
@@ -16,7 +16,7 @@
 #include <boost/config.hpp>
 #include <boost/detail/lightweight_test.hpp>
 
-#if defined(TEST_EXTENSIONS) && !defined(BOOST_NO_CXX11_HDR_TUPLE)
+#if defined(BOOST_HASH_TEST_EXTENSIONS) && !defined(BOOST_NO_CXX11_HDR_TUPLE)
 #define TEST_TUPLE
 #include <tuple>
 #include <vector>

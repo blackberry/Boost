@@ -22,7 +22,7 @@ TT_TEST_BEGIN(is_union)
    BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_union<int* const>::value, false);
    BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_union<int[2]>::value, false);
    BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_union<int&>::value, false);
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
    BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_union<int&&>::value, false);
 #endif
    BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_union<mf4>::value, false);

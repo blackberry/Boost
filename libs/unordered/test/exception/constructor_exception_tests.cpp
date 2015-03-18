@@ -159,7 +159,7 @@ struct copy_range_construct_test : public range<T>, objects
     }
 };
 
-RUN_EXCEPTION_TESTS(
+EXCEPTION_TESTS(
     (construct_test1)
     (construct_test2)
     (construct_test3)
@@ -174,3 +174,4 @@ RUN_EXCEPTION_TESTS(
     (input_range_construct_test)
     (copy_range_construct_test),
     CONTAINER_SEQ)
+RUN_TESTS()

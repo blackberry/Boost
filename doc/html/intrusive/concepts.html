@@ -3,9 +3,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Concepts explained</title>
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../intrusive.html" title="Chapter&#160;13.&#160;Boost.Intrusive">
+<link rel="up" href="../intrusive.html" title="Chapter&#160;15.&#160;Boost.Intrusive">
 <link rel="prev" href="any_hooks.html" title="Any Hooks: A single hook for any Intrusive container">
 <link rel="next" href="node_algorithms.html" title="Node algorithms with custom NodeTraits">
 </head>
@@ -30,7 +30,7 @@
       This section will expand the explanation of previously presented basic concepts
       before explaining the customization options of <span class="bold"><strong>Boost.Intrusive</strong></span>.
     </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
           <span class="bold"><strong>Node Algorithms</strong></span>: A set of static functions
           that implement basic operations on a group of nodes: initialize a node,
           link_mode_type a node to a group of nodes, unlink a node from another group
@@ -73,7 +73,7 @@
    <span class="comment">// ...</span>
 <span class="special">};</span>
 </pre>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
           <span class="bold"><strong>Node Traits</strong></span>: A class that encapsulates
           the basic information and operations on a node within a group of nodes:
           the type of the node, a function to obtain the pointer to the next node,
@@ -105,7 +105,7 @@
    <span class="special">{</span>  <span class="identifier">n</span><span class="special">-&gt;</span><span class="identifier">next_</span> <span class="special">=</span> <span class="identifier">next</span><span class="special">;</span>  <span class="special">}</span>
 <span class="special">};</span>
 </pre>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
           <span class="bold"><strong>Hook</strong></span>: A class that the user must add as
           a base class or as a member to his own class to make that class insertable
           in an intrusive container. Usually the hook contains a node object that
@@ -145,7 +145,7 @@
    <span class="keyword">int</span> <span class="identifier">value_</span><span class="special">;</span>
 <span class="special">};</span>
 </pre>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
           <span class="bold"><strong>Intrusive Container</strong></span>: A container that
           offers a STL-like interface to store user objects. An intrusive container
           can be templatized to store different value types that use different hooks.
@@ -181,7 +181,7 @@
    <span class="comment">// ...</span>
 <span class="special">};</span>
 </pre>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
           <span class="bold"><strong>Semi-Intrusive Container</strong></span>: A semi-intrusive
           container is similar to an intrusive container, but apart from the values
@@ -225,7 +225,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2005 Olaf Krzikalla<br>Copyright &#169; 2006-2012 Ion Gaztanaga<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2005 Olaf Krzikalla<br>Copyright &#169; 2006-2013 Ion Gaztanaga<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

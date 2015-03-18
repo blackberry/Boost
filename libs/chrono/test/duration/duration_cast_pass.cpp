@@ -14,11 +14,11 @@
 #include <boost/chrono/duration.hpp>
 #include <boost/type_traits.hpp>
 #include <boost/detail/lightweight_test.hpp>
-#if !defined(BOOST_NO_STATIC_ASSERT)
+#if !defined(BOOST_NO_CXX11_STATIC_ASSERT)
 #define NOTHING ""
 #endif
 
-#ifdef BOOST_NO_CONSTEXPR
+#ifdef BOOST_NO_CXX11_CONSTEXPR
 #define BOOST_CONSTEXPR_ASSERT(C) BOOST_TEST(C)
 #else
 #include <boost/static_assert.hpp>
@@ -30,7 +30,7 @@ template <class ToDuration, class FromDuration>
 void
 test(const FromDuration& f, const ToDuration& d)
 {
-//~ #if defined(BOOST_NO_DECLTYPE)
+//~ #if defined(BOOST_NO_CXX11_DECLTYPE)
     //~ typedef BOOST_TYPEOF_TPL(boost::chrono::duration_cast<ToDuration>(f)) R;
 //~ #else
     //~ typedef decltype(boost::chrono::duration_cast<ToDuration>(f)) R;

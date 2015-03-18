@@ -118,7 +118,8 @@ struct swap_test4 : swap_base<T>
     swap_test4() : swap_base<T>(10, 10, 1, 2) {}
 };
 
-RUN_EXCEPTION_TESTS(
+EXCEPTION_TESTS(
     (self_swap_test1)(self_swap_test2)
     (swap_test1)(swap_test2)(swap_test3)(swap_test4),
     CONTAINER_SEQ)
+RUN_TESTS()

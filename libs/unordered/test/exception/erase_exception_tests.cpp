@@ -49,6 +49,7 @@ struct erase_by_key_test1 : public erase_test_base<T>
     }
 };
 
-RUN_EXCEPTION_TESTS(
+EXCEPTION_TESTS(
     (erase_by_key_test1),
     CONTAINER_SEQ)
+RUN_TESTS()

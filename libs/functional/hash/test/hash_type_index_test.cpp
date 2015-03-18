@@ -5,7 +5,7 @@
 
 #include "./config.hpp"
 
-#ifdef TEST_STD_INCLUDES
+#ifdef BOOST_HASH_TEST_STD_INCLUDES
 #  include <functional>
 #else
 #  include <boost/functional/hash.hpp>
@@ -18,7 +18,7 @@
 #include <typeindex>
 
 void test_type_index() {
-    HASH_NAMESPACE::hash<std::type_index> hasher;
+    BOOST_HASH_TEST_NAMESPACE::hash<std::type_index> hasher;
 
 #if defined(BOOST_NO_TYPEID)
     std::cout<<"Unable to test std::type_index, as typeid isn't available"
@@ -31,9 +31,9 @@ void test_type_index() {
     BOOST_TEST(hasher(int_index) == int_index.hash_code());
     BOOST_TEST(hasher(int_index) == int2_index.hash_code());
     BOOST_TEST(hasher(char_index) == char_index.hash_code());
-    BOOST_TEST(HASH_NAMESPACE::hash_value(int_index) == int_index.hash_code());
-    BOOST_TEST(HASH_NAMESPACE::hash_value(int_index) == int2_index.hash_code());
-    BOOST_TEST(HASH_NAMESPACE::hash_value(char_index) == char_index.hash_code());
+    BOOST_TEST(BOOST_HASH_TEST_NAMESPACE::hash_value(int_index) == int_index.hash_code());
+    BOOST_TEST(BOOST_HASH_TEST_NAMESPACE::hash_value(int_index) == int2_index.hash_code());
+    BOOST_TEST(BOOST_HASH_TEST_NAMESPACE::hash_value(char_index) == char_index.hash_code());
 
     BOOST_TEST(hasher(int_index) == hasher(int2_index));
     BOOST_TEST(hasher(int_index) != hasher(char_index));

@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>equals</title>
 <link rel="stylesheet" href="../../../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Geometry">
 <link rel="up" href="../algorithms.html" title="Algorithms">
 <link rel="prev" href="envelope/return_envelope.html" title="return_envelope">
@@ -27,23 +27,23 @@
 <a name="geometry.reference.algorithms.equals"></a><a class="link" href="equals.html" title="equals">equals</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="id871050"></a>
+          <a class="indexterm" name="idp116065072"></a>
 Checks if a geometry are spatially equal.
         </p>
 <h6>
 <a name="geometry.reference.algorithms.equals.h0"></a>
-          <span><a name="geometry.reference.algorithms.equals.description"></a></span><a class="link" href="equals.html#geometry.reference.algorithms.equals.description">Description</a>
+          <span class="phrase"><a name="geometry.reference.algorithms.equals.description"></a></span><a class="link" href="equals.html#geometry.reference.algorithms.equals.description">Description</a>
         </h6>
 <p>
           The free function equals checks if the first geometry is spatially equal
           the second geometry. Spatially equal means that the same point set is included.
           A box can therefore be spatially equal to a ring or a polygon, or a linestring
-          can be spatially equal to a multi-linestring or a segment. This only theoretically,
-          not all combinations are implemented yet.
+          can be spatially equal to a multi-linestring or a segment. This only works
+          theoretically, not all combinations are implemented yet.
         </p>
 <h6>
 <a name="geometry.reference.algorithms.equals.h1"></a>
-          <span><a name="geometry.reference.algorithms.equals.synopsis"></a></span><a class="link" href="equals.html#geometry.reference.algorithms.equals.synopsis">Synopsis</a>
+          <span class="phrase"><a name="geometry.reference.algorithms.equals.synopsis"></a></span><a class="link" href="equals.html#geometry.reference.algorithms.equals.synopsis">Synopsis</a>
         </h6>
 <p>
 </p>
@@ -53,7 +53,7 @@ Checks if a geometry are spatially equal.
         </p>
 <h6>
 <a name="geometry.reference.algorithms.equals.h2"></a>
-          <span><a name="geometry.reference.algorithms.equals.parameters"></a></span><a class="link" href="equals.html#geometry.reference.algorithms.equals.parameters">Parameters</a>
+          <span class="phrase"><a name="geometry.reference.algorithms.equals.parameters"></a></span><a class="link" href="equals.html#geometry.reference.algorithms.equals.parameters">Parameters</a>
         </h6>
 <div class="informaltable"><table class="table">
 <colgroup>
@@ -133,20 +133,20 @@ Checks if a geometry are spatially equal.
 </table></div>
 <h6>
 <a name="geometry.reference.algorithms.equals.h3"></a>
-          <span><a name="geometry.reference.algorithms.equals.returns"></a></span><a class="link" href="equals.html#geometry.reference.algorithms.equals.returns">Returns</a>
+          <span class="phrase"><a name="geometry.reference.algorithms.equals.returns"></a></span><a class="link" href="equals.html#geometry.reference.algorithms.equals.returns">Returns</a>
         </h6>
 <p>
           Returns true if two geometries are spatially equal
         </p>
 <h6>
 <a name="geometry.reference.algorithms.equals.h4"></a>
-          <span><a name="geometry.reference.algorithms.equals.header"></a></span><a class="link" href="equals.html#geometry.reference.algorithms.equals.header">Header</a>
+          <span class="phrase"><a name="geometry.reference.algorithms.equals.header"></a></span><a class="link" href="equals.html#geometry.reference.algorithms.equals.header">Header</a>
         </h6>
 <p>
           Either
         </p>
 <p>
-          <code class="computeroutput"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>
+          <code class="computeroutput"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>
         </p>
 <p>
           Or
@@ -156,7 +156,7 @@ Checks if a geometry are spatially equal.
         </p>
 <h6>
 <a name="geometry.reference.algorithms.equals.h5"></a>
-          <span><a name="geometry.reference.algorithms.equals.conformance"></a></span><a class="link" href="equals.html#geometry.reference.algorithms.equals.conformance">Conformance</a>
+          <span class="phrase"><a name="geometry.reference.algorithms.equals.conformance"></a></span><a class="link" href="equals.html#geometry.reference.algorithms.equals.conformance">Conformance</a>
         </h6>
 <p>
           The function equals implements function Equals from the <a href="http://www.opengeospatial.org/standards/sfa" target="_top">OGC
@@ -164,11 +164,15 @@ Checks if a geometry are spatially equal.
         </p>
 <h6>
 <a name="geometry.reference.algorithms.equals.h6"></a>
-          <span><a name="geometry.reference.algorithms.equals.supported_geometries"></a></span><a class="link" href="equals.html#geometry.reference.algorithms.equals.supported_geometries">Supported
+          <span class="phrase"><a name="geometry.reference.algorithms.equals.supported_geometries"></a></span><a class="link" href="equals.html#geometry.reference.algorithms.equals.supported_geometries">Supported
           geometries</a>
         </h6>
 <div class="informaltable"><table class="table">
 <colgroup>
+<col>
+<col>
+<col>
+<col>
 <col>
 <col>
 <col>
@@ -183,6 +187,11 @@ Checks if a geometry are spatially equal.
 <th>
                   <p>
                     Point
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Segment
                   </p>
                 </th>
 <th>
@@ -207,7 +216,22 @@ Checks if a geometry are spatially equal.
                 </th>
 <th>
                   <p>
+                    MultiPoint
+                  </p>
+                </th>
+<th>
+                  <p>
+                    MultiLinestring
+                  </p>
+                </th>
+<th>
+                  <p>
                     MultiPolygon
+                  </p>
+                </th>
+<th>
+                  <p>
+                    Variant
                   </p>
                 </th>
 </tr></thead>
@@ -248,6 +272,83 @@ Checks if a geometry are spatially equal.
                     <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
                   </p>
                 </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Segment
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
 </tr>
 <tr>
 <td>
@@ -262,6 +363,11 @@ Checks if a geometry are spatially equal.
                 </td>
 <td>
                   <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
                     <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
                   </p>
                 </td>
@@ -283,6 +389,21 @@ Checks if a geometry are spatially equal.
 <td>
                   <p>
                     <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
                   </p>
                 </td>
 </tr>
@@ -304,12 +425,32 @@ Checks if a geometry are spatially equal.
                 </td>
 <td>
                   <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
                     <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
                   </p>
                 </td>
 <td>
                   <p>
                     <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
                   </p>
                 </td>
 <td>
@@ -336,6 +477,11 @@ Checks if a geometry are spatially equal.
                 </td>
 <td>
                   <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
                     <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
                   </p>
                 </td>
@@ -357,6 +503,21 @@ Checks if a geometry are spatially equal.
 <td>
                   <p>
                     <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
                   </p>
                 </td>
 </tr>
@@ -373,6 +534,11 @@ Checks if a geometry are spatially equal.
                 </td>
 <td>
                   <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
                     <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
                   </p>
                 </td>
@@ -393,7 +559,136 @@ Checks if a geometry are spatially equal.
                 </td>
 <td>
                   <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
                     <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    MultiPoint
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    MultiLinestring
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
                   </p>
                 </td>
 </tr>
@@ -425,7 +720,84 @@ Checks if a geometry are spatially equal.
                 </td>
 <td>
                   <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
                     <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+                    Variant
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/ok.png" alt="ok"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    <span class="inlinemediaobject"><img src="../../../img/nyi.png" alt="nyi"></span>
                   </p>
                 </td>
 <td>
@@ -438,14 +810,14 @@ Checks if a geometry are spatially equal.
 </table></div>
 <h6>
 <a name="geometry.reference.algorithms.equals.h7"></a>
-          <span><a name="geometry.reference.algorithms.equals.complexity"></a></span><a class="link" href="equals.html#geometry.reference.algorithms.equals.complexity">Complexity</a>
+          <span class="phrase"><a name="geometry.reference.algorithms.equals.complexity"></a></span><a class="link" href="equals.html#geometry.reference.algorithms.equals.complexity">Complexity</a>
         </h6>
 <p>
           Linear
         </p>
 <h6>
 <a name="geometry.reference.algorithms.equals.h8"></a>
-          <span><a name="geometry.reference.algorithms.equals.example"></a></span><a class="link" href="equals.html#geometry.reference.algorithms.equals.example">Example</a>
+          <span class="phrase"><a name="geometry.reference.algorithms.equals.example"></a></span><a class="link" href="equals.html#geometry.reference.algorithms.equals.example">Example</a>
         </h6>
 <p>
           Shows the predicate equals, which returns true if two geometries are spatially
@@ -501,8 +873,8 @@ polygon and box are spatially equal
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2009-2012 Barend
-      Gehrels, Bruno Lalande, Mateusz Loskot<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2009-2014 Barend Gehrels, Bruno Lalande, Mateusz Loskot, Adam
+      Wulkiewicz, Oracle and/or its affiliates<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

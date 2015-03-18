@@ -11,9 +11,12 @@
 #ifndef BOOST_MOVE_TEST_MOVABLE_HPP
 #define BOOST_MOVE_TEST_MOVABLE_HPP
 
+#include <boost/move/detail/config_begin.hpp>
+
 //[movable_definition 
 //header file "movable.hpp"
-#include <boost/move/move.hpp>
+#include <boost/move/core.hpp>
+#include <boost/move/traits.hpp>
 
 //A movable class
 class movable
@@ -32,7 +35,10 @@ class movable
    {  value_ = m.value_;   m.value_ = 0;  return *this;  }
 
    bool moved() const //Observer
-   {  return value_ == 0; }
+   {  return !value_; }
+
+   int value() const //Observer
+   {  return value_; }
 };
 
 namespace boost{
@@ -45,5 +51,7 @@ struct has_nothrow_move<movable>
 
 }  //namespace boost{
 //]
+
+#include <boost/move/detail/config_end.hpp>
 
 #endif //BOOST_MOVE_TEST_MOVABLE_HPP

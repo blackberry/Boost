@@ -13,91 +13,32 @@
 #include <boost/spirit/include/classic_symbols.hpp>
 #include <boost/spirit/include/classic_loops.hpp>
 #include "grammar.hpp"
-#include "grammar_impl.hpp" // Just for context stuff. Should move?
 #include "state.hpp"
 #include "actions.hpp"
+#include "syntax_highlight.hpp"
 #include "utils.hpp"
 #include "files.hpp"
-#include "input_path.hpp"
+#include "native_text.hpp"
+#include "phrase_tags.hpp"
 
 namespace quickbook
 {    
     namespace cl = boost::spirit::classic;
 
-    template <typename T, typename Value>
-    struct member_action_value
-    {
-        typedef void(T::*member_function)(Value);
-
-        T& l;
-        member_function mf;
-
-        member_action_value(T& l, member_function mf) : l(l), mf(mf) {}
-
-        void operator()(Value v) const {
-            (l.*mf)(v);
-        }
-    };
-
-    template <typename T>
-    struct member_action
-    {
-        typedef void(T::*member_function)(parse_iterator, parse_iterator);
-
-        T& l;
-        member_function mf;
-
-        member_action(T& l, member_function mf) : l(l), mf(mf) {}
-
-        void operator()(parse_iterator first, parse_iterator last) const {
-            (l.*mf)(first, last);
-        }
-    };
-
-    template <typename T, typename Arg1>
-    struct member_action1
-    {
-        typedef void(T::*member_function)(parse_iterator, parse_iterator, Arg1);
-
-        T& l;
-        member_function mf;
-
-        member_action1(T& l, member_function mf) : l(l), mf(mf) {}
-
-        struct impl
-        {
-            member_action1 a;
-            Arg1 value;
-
-            impl(member_action1& a, Arg1 value) :
-                a(a), value(value)
-            {}
-
-            void operator()(parse_iterator first, parse_iterator last) const {
-                (a.l.*a.mf)(first, last, value);
-            }
-        };
-
-        impl operator()(Arg1 a1) {
-            return impl(*this, a1);
-        }
-    };
-
     // Syntax Highlight Actions
 
     struct syntax_highlight_actions
     {
-        quickbook::collector out;
         quickbook::state& state;
         do_macro_action do_macro_impl;
 
         // State
         bool support_callouts;
-        string_ref marked_text;
+        boost::string_ref marked_text;
 
         syntax_highlight_actions(quickbook::state& state, bool is_block) :
-            out(), state(state),
-            do_macro_impl(out, state),
+            state(state),
+            do_macro_impl(state),
             support_callouts(is_block && (qbk_version_n >= 107u ||
                 state.current_file->is_code_snippets)),
             marked_text()
@@ -119,26 +60,26 @@ namespace quickbook
     void syntax_highlight_actions::span(parse_iterator first,
             parse_iterator last, char const* name)
     {
-        out << "<phrase role=\"" << name << "\">";
+        state.phrase << "<phrase role=\"" << name << "\">";
         while (first != last)
-            detail::print_char(*first++, out.get());
-        out << "</phrase>";
+            detail::print_char(*first++, state.phrase.get());
+        state.phrase << "</phrase>";
     }
 
     void syntax_highlight_actions::span_start(parse_iterator first,
             parse_iterator last, char const* name)
     {
-        out << "<phrase role=\"" << name << "\">";
+        state.phrase << "<phrase role=\"" << name << "\">";
         while (first != last)
-            detail::print_char(*first++, out.get());
+            detail::print_char(*first++, state.phrase.get());
     }
 
     void syntax_highlight_actions::span_end(parse_iterator first,
             parse_iterator last)
     {
         while (first != last)
-            detail::print_char(*first++, out.get());
-        out << "</phrase>";
+            detail::print_char(*first++, state.phrase.get());
+        state.phrase << "</phrase>";
     }
 
     void syntax_highlight_actions::unexpected_char(parse_iterator first,
@@ -152,30 +93,32 @@ namespace quickbook
             << "\n";
 
         // print out an unexpected character
-        out << "<phrase role=\"error\">";
+        state.phrase << "<phrase role=\"error\">";
         while (first != last)
-            detail::print_char(*first++, out.get());
-        out << "</phrase>";
+            detail::print_char(*first++, state.phrase.get());
+        state.phrase << "</phrase>";
     }
 
     void syntax_highlight_actions::plain_char(parse_iterator first,
             parse_iterator last)
     {
         while (first != last)
-            detail::print_char(*first++, out.get());
+            detail::print_char(*first++, state.phrase.get());
     }
 
     void syntax_highlight_actions::pre_escape_back(parse_iterator,
             parse_iterator)
     {
-        state.phrase.push(); // save the stream
+        state.push_output(); // save the stream
     }
 
     void syntax_highlight_actions::post_escape_back(parse_iterator,
             parse_iterator)
     {
-        out << state.phrase.str();
-        state.phrase.pop(); // restore the stream
+        std::string tmp;
+        state.phrase.swap(tmp);
+        state.pop_output(); // restore the stream
+        state.phrase << tmp;
     }
 
     void syntax_highlight_actions::do_macro(std::string const& v)
@@ -186,12 +129,12 @@ namespace quickbook
     void syntax_highlight_actions::mark_text(parse_iterator first,
             parse_iterator last)
     {
-        marked_text = string_ref(first.base(), last.base());
+        marked_text = boost::string_ref(first.base(), last.base() - first.base());
     }
 
     void syntax_highlight_actions::callout(parse_iterator, parse_iterator)
     {
-        out << state.add_callout(qbk_value(state.current_file,
+        state.phrase << state.add_callout(qbk_value(state.current_file,
             marked_text.begin(), marked_text.end()));
         marked_text.clear();
     }
@@ -205,20 +148,23 @@ namespace quickbook
         keywords_holder()
         {
             cpp
-                    =   "and_eq", "and", "asm", "auto", "bitand", "bitor",
-                        "bool", "break", "case", "catch", "char", "class",
-                        "compl", "const_cast", "const", "continue", "default",
-                        "delete", "do", "double", "dynamic_cast",  "else",
-                        "enum", "explicit", "export", "extern", "false",
-                        "float", "for", "friend", "goto", "if", "inline",
-                        "int", "long", "mutable", "namespace", "new", "not_eq",
-                        "not", "operator", "or_eq", "or", "private",
-                        "protected", "public", "register", "reinterpret_cast",
-                        "return", "short", "signed", "sizeof", "static",
+                    =   "alignas", "alignof", "and_eq", "and", "asm", "auto",
+                        "bitand", "bitor", "bool", "break", "case", "catch",
+                        "char", "char16_t", "char32_t", "class", "compl",
+                        "const", "const_cast", "constexpr", "continue",
+                        "decltype", "default", "delete", "do", "double",
+                        "dynamic_cast",  "else", "enum", "explicit", "export",
+                        "extern", "false", "float", "for", "friend", "goto",
+                        "if", "inline", "int", "long", "mutable", "namespace",
+                        "new", "noexcept", "not_eq", "not", "nullptr",
+                        "operator", "or_eq", "or", "private", "protected",
+                        "public", "register", "reinterpret_cast", "return",
+                        "short", "signed", "sizeof", "static", "static_assert",
                         "static_cast", "struct", "switch", "template", "this",
-                        "throw", "true", "try", "typedef", "typeid",
-                        "typename", "union", "unsigned", "using", "virtual",
-                        "void", "volatile", "wchar_t", "while", "xor_eq", "xor"
+                        "thread_local", "throw", "true", "try", "typedef",
+                        "typeid", "typename", "union", "unsigned", "using",
+                        "virtual", "void", "volatile", "wchar_t", "while",
+                        "xor_eq", "xor"
                     ;
 
             python
@@ -270,12 +216,21 @@ namespace quickbook
                     do_macro(self.actions, &syntax_highlight_actions::do_macro);
                 error_action error(self.actions.state);
 
-                program
-                    =
-                    *(  (+cl::space_p)                  [plain_char]
+                program =
+                    *(  (*cl::space_p)                  [plain_char]
+                    >>  (line_start | rest_of_line)
+                    >>  *rest_of_line
+                    )
+                    ;
+
+                line_start =
+                        preprocessor                    [span("preprocessor")]
+                    ;
+                
+                rest_of_line = 
+                        (+cl::blank_p)                  [plain_char]
                     |   macro
                     |   escape
-                    |   preprocessor                    [span("preprocessor")]
                     |   cl::eps_p(ph::var(self.actions.support_callouts))
                     >>  (   line_callout                [callout]
                         |   inline_callout              [callout]
@@ -287,8 +242,8 @@ namespace quickbook
                     |   string_                         [span("string")]
                     |   char_                           [span("char")]
                     |   number                          [span("number")]
-                    |   u8_codepoint_p                  [unexpected_char]
-                    )
+                    |   ~cl::eps_p(cl::eol_p)
+                    >>  u8_codepoint_p                  [unexpected_char]
                     ;
 
                 macro =
@@ -306,7 +261,7 @@ namespace quickbook
                         (
                             (
                                 (+(cl::anychar_p - "``") >> cl::eps_p("``"))
-                                & g.phrase
+                                & g.phrase_start
                             )
                             >>  cl::str_p("``")
                         )
@@ -359,7 +314,7 @@ namespace quickbook
                     ;   // make sure we recognize whole words only
 
                 special
-                    =   +cl::chset_p("~!%^&*()+={[}]:;,<.>?/|\\-")
+                    =   +cl::chset_p("~!%^&*()+={[}]:;,<.>?/|\\#-")
                     ;
 
                 string_char = ('\\' >> u8_codepoint_p) | (cl::anychar_p - '\\');
@@ -387,7 +342,7 @@ namespace quickbook
             }
 
             cl::rule<Scanner>
-                            program, macro, preprocessor,
+                            program, line_start, rest_of_line, macro, preprocessor,
                             inline_callout, line_callout, comment,
                             special, string_, 
                             char_, number, identifier, keyword, escape,
@@ -461,7 +416,7 @@ namespace quickbook
                         (
                             (
                                 (+(cl::anychar_p - "``") >> cl::eps_p("``"))
-                                & g.phrase
+                                & g.phrase_start
                             )
                             >>  cl::str_p("``")
                         )
@@ -583,7 +538,7 @@ namespace quickbook
                         (
                             (
                                 (+(cl::anychar_p - "``") >> cl::eps_p("``"))
-                                & g.phrase
+                                & g.phrase_start
                             )
                             >>  cl::str_p("``")
                         )
@@ -607,39 +562,35 @@ namespace quickbook
         syntax_highlight_actions& actions;
     };
 
-    std::string syntax_highlight(
+    void syntax_highlight(
         parse_iterator first,
         parse_iterator last,
         quickbook::state& state,
-        std::string const& source_mode,
+        source_mode_type source_mode,
         bool is_block)
     {
         syntax_highlight_actions syn_actions(state, is_block);
 
         // print the code with syntax coloring
-        if (source_mode == "c++")
+        switch(source_mode)
         {
-            cpp_highlight cpp_p(syn_actions);
-            boost::spirit::classic::parse(first, last, cpp_p);
+            case source_mode_tags::cpp: {
+                cpp_highlight cpp_p(syn_actions);
+                boost::spirit::classic::parse(first, last, cpp_p);
+                break;
+            }
+            case source_mode_tags::python: {
+                python_highlight python_p(syn_actions);
+                boost::spirit::classic::parse(first, last, python_p);
+                break;
+            }
+            case source_mode_tags::teletype: {
+                teletype_highlight teletype_p(syn_actions);
+                boost::spirit::classic::parse(first, last, teletype_p);
+                break;
+            }
+            default:
+                BOOST_ASSERT(0);
         }
-        else if (source_mode == "python")
-        {
-            python_highlight python_p(syn_actions);
-            boost::spirit::classic::parse(first, last, python_p);
-        }
-        else if (source_mode == "teletype")
-        {
-            teletype_highlight teletype_p(syn_actions);
-            boost::spirit::classic::parse(first, last, teletype_p);
-        }
-        else
-        {
-            BOOST_ASSERT(0);
-        }
-
-        std::string str;
-        syn_actions.out.swap(str);
-        
-        return str;
     }
 }

@@ -1,9 +1,14 @@
 // Boost.Geometry (aka GGL, Generic Geometry Library)
 // Unit Test
 
-// Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
-// Copyright (c) 2008-2012 Bruno Lalande, Paris, France.
-// Copyright (c) 2009-2012 Mateusz Loskot, London, UK.
+// Copyright (c) 2007-2014 Barend Gehrels, Amsterdam, the Netherlands.
+// Copyright (c) 2008-2014 Bruno Lalande, Paris, France.
+// Copyright (c) 2009-2014 Mateusz Loskot, London, UK.
+
+// This file was modified by Oracle on 2014.
+// Modifications copyright (c) 2014, Oracle and/or its affiliates.
+
+// Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 
 // Parts of Boost.Geometry are redesigned from Geodan's Geographic Library
 // (geolib/GGL), copyright (c) 1995-2010 Geodan, Amsterdam, the Netherlands.
@@ -14,6 +19,8 @@
 
 
 #include <geometry_test_common.hpp>
+
+#include <boost/core/ignore_unused.hpp>
 
 #include <boost/geometry/io/wkt/read.hpp>
 
@@ -29,35 +36,54 @@
 #include <boost/geometry/geometries/segment.hpp>
 
 
-// This test is GIS oriented. 
+// This test is GIS oriented.
 
 
 template <typename Point, typename LatitudePolicy>
 void test_distance(
-            typename bg::coordinate_type<Point>::type const& lon1, 
+            typename bg::coordinate_type<Point>::type const& lon1,
             typename bg::coordinate_type<Point>::type const& lat1,
-            typename bg::coordinate_type<Point>::type const& lon2, 
+            typename bg::coordinate_type<Point>::type const& lon2,
             typename bg::coordinate_type<Point>::type const& lat2,
-            typename bg::coordinate_type<Point>::type const& lon3, 
+            typename bg::coordinate_type<Point>::type const& lon3,
             typename bg::coordinate_type<Point>::type const& lat3,
-            typename bg::coordinate_type<Point>::type const& radius, 
-            typename bg::coordinate_type<Point>::type const& expected, 
+            typename bg::coordinate_type<Point>::type const& radius,
+            typename bg::coordinate_type<Point>::type const& expected,
             typename bg::coordinate_type<Point>::type const& tolerance)
 {
     typedef bg::strategy::distance::cross_track
         <
-            Point,
-            Point
+            typename bg::coordinate_type<Point>::type
         > strategy_type;
+
     typedef typename bg::strategy::distance::services::return_type
         <
-            strategy_type
+            strategy_type,
+            Point,
+            Point
         >::type return_type;
+
+
+    {
+        // compile-check if there is a strategy for this type
+        typedef typename bg::strategy::distance::services::default_strategy
+            <
+                bg::point_tag, bg::segment_tag, Point, Point
+            >::type cross_track_strategy_type;
+
+        typedef typename bg::strategy::distance::services::default_strategy
+            <
+                bg::segment_tag, bg::point_tag, Point, Point
+            >::type reversed_tags_cross_track_strategy_type;
+
+        boost::ignore_unused<cross_track_strategy_type,
+                             reversed_tags_cross_track_strategy_type>();
+    }
 
 
     BOOST_CONCEPT_ASSERT
         (
-            (bg::concept::PointSegmentDistanceStrategy<strategy_type>)
+            (bg::concept::PointSegmentDistanceStrategy<strategy_type, Point, Point>)
         );
 
 
@@ -70,6 +96,10 @@ void test_distance(
     strategy_type strategy;
     return_type d = strategy.apply(p1, p2, p3);
 
+    BOOST_CHECK_CLOSE(radius * d, expected, tolerance);
+
+    // The strategy should return the same result if we reverse the parameters
+    d = strategy.apply(p1, p3, p2);
     BOOST_CHECK_CLOSE(radius * d, expected, tolerance);
 
     // Test specifying radius explicitly
@@ -124,7 +154,7 @@ void test_all()
 {
     typename bg::coordinate_type<Point>::type const average_earth_radius = 6372795.0;
 
-    // distance (Paris <-> Amsterdam/Barcelona), 
+    // distance (Paris <-> Amsterdam/Barcelona),
     // with coordinates rounded as below ~87 km
     // is equal to distance (Paris <-> Barcelona/Amsterdam)
     typename bg::coordinate_type<Point>::type const p_to_ab = 86.798321 * 1000.0;

@@ -9,7 +9,8 @@
 #endif
 
 #include <boost/math/concepts/real_concept.hpp>
-#include <boost/test/test_exec_monitor.hpp>
+#define BOOST_TEST_MAIN
+#include <boost/test/unit_test.hpp>
 #include <boost/test/floating_point_comparison.hpp>
 #include <boost/math/special_functions/math_fwd.hpp>
 #include <boost/math/constants/constants.hpp>
@@ -27,7 +28,6 @@
 template <class Real, class T>
 void do_test_legendre_p(const T& data, const char* type_name, const char* test_name)
 {
-   typedef typename T::value_type row_type;
    typedef Real                   value_type;
 
    typedef value_type (*pg)(int, value_type);
@@ -94,7 +94,6 @@ void do_test_legendre_p(const T& data, const char* type_name, const char* test_n
 template <class Real, class T>
 void do_test_assoc_legendre_p(const T& data, const char* type_name, const char* test_name)
 {
-   typedef typename T::value_type row_type;
    typedef Real                   value_type;
 
    typedef value_type (*pg)(int, int, value_type);

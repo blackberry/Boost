@@ -181,7 +181,7 @@ BOOST_CHECK_INTEGRAL_CONSTANT(::tt::has_nothrow_copy<cmf>::value, true);
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::has_nothrow_copy<enum_UDT>::value, true);
 
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::has_nothrow_copy<int&>::value, false);
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::has_nothrow_copy<int&&>::value, false);
 #endif
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::has_nothrow_copy<const int&>::value, false);

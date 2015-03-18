@@ -8,7 +8,7 @@
 //
 //  File        : $RCSfile$
 //
-//  Version     : $Revision: 57992 $
+//  Version     : $Revision$
 //
 //  Description : provides execution monitor implementation for all supported
 //  configurations, including Microsoft structured exception based, unix signals
@@ -53,10 +53,15 @@ namespace std { using ::strerror; using ::strlen; using ::strncat; }
 #endif
 
 // to use vsnprintf
-#if defined(__SUNPRO_CC) || defined(__SunOS) || defined(__QNXNTO__)
+#if defined(__SUNPRO_CC) || defined(__SunOS)
 #  include <stdio.h>
 #  include <stdarg.h>
 using std::va_list;
+#endif
+
+// to use vsnprintf 
+#if defined(__QNXNTO__) 
+#  include <stdio.h> 
 #endif
 
 #if defined(_WIN32) && !defined(BOOST_DISABLE_WIN32) &&                  \

@@ -8,7 +8,8 @@
 // See http://www.boost.org/libs/move for documentation.
 //
 //////////////////////////////////////////////////////////////////////////////
-#include <boost/move/move.hpp>
+#include <boost/move/detail/config_begin.hpp>
+#include <boost/move/utility_core.hpp>
 
 //[clone_ptr_base_derived
 class Base
@@ -18,15 +19,15 @@ class Base
    public:
    Base(){}
 
-   Base(const Base &x) {/**/}             // Copy ctor
+   Base(const Base &/*x*/) {/**/}            // Copy ctor
 
-   Base(BOOST_RV_REF(Base) x) {/**/}      // Move ctor
+   Base(BOOST_RV_REF(Base) /*x*/) {/**/}     // Move ctor
 
-   Base& operator=(BOOST_RV_REF(Base) x)
-   {/**/ return *this;}                   // Move assign
+   Base& operator=(BOOST_RV_REF(Base) /*x*/)
+   {/**/ return *this;}                      // Move assign
 
-   Base& operator=(BOOST_COPY_ASSIGN_REF(Base) x)
-   {/**/ return *this;}                   // Copy assign
+   Base& operator=(BOOST_COPY_ASSIGN_REF(Base) /*x*/)
+   {/**/ return *this;}                      // Copy assign
    
    virtual Base *clone() const
    {  return new Base(*this);  }
@@ -152,3 +153,5 @@ int main()
    //]
    return 0;
 }
+
+#include <boost/move/detail/config_end.hpp>

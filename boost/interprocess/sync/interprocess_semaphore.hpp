@@ -11,9 +11,9 @@
 #ifndef BOOST_INTERPROCESS_SEMAPHORE_HPP
 #define BOOST_INTERPROCESS_SEMAPHORE_HPP
 
-/// @cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
-#if (defined _MSC_VER) && (_MSC_VER >= 1200)
+#if defined(_MSC_VER)
 #  pragma once
 #endif
 
@@ -37,7 +37,7 @@
    #define BOOST_INTERPROCESS_USE_GENERIC_EMULATION
 #endif
 
-/// @endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 //!\file
 //!Describes a interprocess_semaphore class for inter-process synchronization
@@ -49,11 +49,11 @@ namespace interprocess {
 //!shared between processes. Allows timed lock tries
 class interprocess_semaphore
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    //Non-copyable
    interprocess_semaphore(const interprocess_semaphore &);
    interprocess_semaphore &operator=(const interprocess_semaphore &);
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
    public:
    //!Creates a interprocess_semaphore with the given initial count.
    //!interprocess_exception if there is an error.*/
@@ -87,7 +87,7 @@ class interprocess_semaphore
 
    //!Returns the interprocess_semaphore count
 //   int get_count() const;
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    private:
    #if defined(BOOST_INTERPROCESS_USE_GENERIC_EMULATION)
       #undef BOOST_INTERPROCESS_USE_GENERIC_EMULATION
@@ -99,7 +99,7 @@ class interprocess_semaphore
       #undef BOOST_INTERPROCESS_USE_POSIX
       ipcdetail::posix_semaphore m_sem;
    #endif   //#if defined(BOOST_INTERPROCESS_USE_GENERIC_EMULATION)
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 };
 
 }  //namespace interprocess {

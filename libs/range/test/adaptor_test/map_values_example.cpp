@@ -8,14 +8,16 @@
 //
 // For more information, see http://www.boost.org/libs/range/
 //
+//[map_values_example
 #include <boost/range/adaptor/map.hpp>
 #include <boost/range/algorithm/copy.hpp>
 #include <boost/assign.hpp>
-#include <algorithm>
+#include <iterator>
 #include <iostream>
 #include <map>
 #include <vector>
 
+//<-
 #include <boost/test/test_tools.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -23,29 +25,33 @@
 
 namespace 
 {
-    void map_values_example_test()
-    {
-        using namespace boost::assign;
-        using namespace boost::adaptors;
+void map_values_example_test()
+//->
+//=int main(int argc, const char* argv[])
+{
+    using namespace boost::assign;
+    using namespace boost::adaptors;
 
-        std::map<int,int> input;
-        for (int i = 0; i < 10; ++i)
-            input.insert(std::make_pair(i, i * 10));
+    std::map<int,int> input;
+    for (int i = 0; i < 10; ++i)
+        input.insert(std::make_pair(i, i * 10));
 
-        boost::copy(
-            input | map_values,
-            std::ostream_iterator<int>(std::cout, ","));
+    boost::copy(
+        input | map_values,
+        std::ostream_iterator<int>(std::cout, ","));
 
-        
-        std::vector<int> reference;
-        reference += 0,10,20,30,40,50,60,70,80,90;
+//=    return 0;
+//=}
+//]
+    std::vector<int> reference;
+    reference += 0,10,20,30,40,50,60,70,80,90;
 
-        std::vector<int> test;
-        boost::push_back(test, input | map_values);
+    std::vector<int> test;
+    boost::push_back(test, input | map_values);
 
-        BOOST_CHECK_EQUAL_COLLECTIONS( reference.begin(), reference.end(),
-            test.begin(), test.end() );
-    }
+    BOOST_CHECK_EQUAL_COLLECTIONS( reference.begin(), reference.end(),
+        test.begin(), test.end() );
+}
 }
 
 boost::unit_test::test_suite*

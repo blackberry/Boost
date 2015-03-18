@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>write_at (6 of 8 overloads)</title>
 <link rel="stylesheet" href="../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../../boost_asio.html" title="Boost.Asio">
 <link rel="up" href="../write_at.html" title="write_at">
 <link rel="prev" href="overload5.html" title="write_at (5 of 8 overloads)">
@@ -35,7 +35,7 @@
     <span class="keyword">typename</span> <span class="identifier">Allocator</span><span class="special">&gt;</span>
 <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">write_at</span><span class="special">(</span>
     <span class="identifier">SyncRandomAccessWriteDevice</span> <span class="special">&amp;</span> <span class="identifier">d</span><span class="special">,</span>
-    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">uint64_t</span> <span class="identifier">offset</span><span class="special">,</span>
+    <span class="identifier">uint64_t</span> <span class="identifier">offset</span><span class="special">,</span>
     <span class="identifier">basic_streambuf</span><span class="special">&lt;</span> <span class="identifier">Allocator</span> <span class="special">&gt;</span> <span class="special">&amp;</span> <span class="identifier">b</span><span class="special">,</span>
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span> <span class="special">&amp;</span> <span class="identifier">ec</span><span class="special">);</span>
 </pre>
@@ -44,7 +44,7 @@
           access device at a specified offset. The call will block until one of the
           following conditions is true:
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               All of the data in the supplied <a class="link" href="../basic_streambuf.html" title="basic_streambuf"><code class="computeroutput"><span class="identifier">basic_streambuf</span></code></a> has been written.
             </li>
@@ -58,11 +58,11 @@
         </p>
 <h6>
 <a name="boost_asio.reference.write_at.overload6.h0"></a>
-          <span><a name="boost_asio.reference.write_at.overload6.parameters"></a></span><a class="link" href="overload6.html#boost_asio.reference.write_at.overload6.parameters">Parameters</a>
+          <span class="phrase"><a name="boost_asio.reference.write_at.overload6.parameters"></a></span><a class="link" href="overload6.html#boost_asio.reference.write_at.overload6.parameters">Parameters</a>
         </h6>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">d</span></dt>
 <dd><p>
                 The device to which the data is to be written. The type must support
@@ -85,14 +85,14 @@
 </div>
 <h6>
 <a name="boost_asio.reference.write_at.overload6.h1"></a>
-          <span><a name="boost_asio.reference.write_at.overload6.return_value"></a></span><a class="link" href="overload6.html#boost_asio.reference.write_at.overload6.return_value">Return Value</a>
+          <span class="phrase"><a name="boost_asio.reference.write_at.overload6.return_value"></a></span><a class="link" href="overload6.html#boost_asio.reference.write_at.overload6.return_value">Return Value</a>
         </h6>
 <p>
           The number of bytes transferred.
         </p>
 <h6>
 <a name="boost_asio.reference.write_at.overload6.h2"></a>
-          <span><a name="boost_asio.reference.write_at.overload6.remarks"></a></span><a class="link" href="overload6.html#boost_asio.reference.write_at.overload6.remarks">Remarks</a>
+          <span class="phrase"><a name="boost_asio.reference.write_at.overload6.remarks"></a></span><a class="link" href="overload6.html#boost_asio.reference.write_at.overload6.remarks">Remarks</a>
         </h6>
 <p>
           This overload is equivalent to calling:
@@ -104,7 +104,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2012 Christopher M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2014 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

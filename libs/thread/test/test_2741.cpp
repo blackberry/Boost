@@ -1,11 +1,12 @@
-// Copyright (C) 2008 Vicente J. Botet Escriba
-//
+//  Copyright (C) 2008 Vicente J. Botet Escriba
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
+#define BOOST_THREAD_VERSION 2
+
 #include <boost/thread/detail/config.hpp>
 
-#include <boost/thread/thread.hpp>
+#include <boost/thread/thread_only.hpp>
 #include <boost/thread/xtime.hpp>
 #include <boost/bind.hpp>
 #include <boost/ref.hpp>
@@ -58,6 +59,7 @@ void test_stack_size()
   BOOST_CHECK(attrs.get_stack_size() >= 0x4000);
 
 }
+
 void do_test_creation_with_attrs()
 {
   test_value = 0;
@@ -82,17 +84,4 @@ boost::unit_test_framework::test_suite* init_unit_test_suite(int, char*[])
   test->add(BOOST_TEST_CASE(test_creation_with_attrs));
 
   return test;
-}
-
-void remove_unused_warning()
-{
-
-  //../../../boost/test/results_collector.hpp:40:13: warning: unused function 'first_failed_assertion' [-Wunused-function]
-  //(void)first_failed_assertion;
-
-  //../../../boost/test/tools/floating_point_comparison.hpp:304:25: warning: unused variable 'check_is_close' [-Wunused-variable]
-  //../../../boost/test/tools/floating_point_comparison.hpp:326:25: warning: unused variable 'check_is_small' [-Wunused-variable]
-  (void)boost::test_tools::check_is_close;
-  (void)boost::test_tools::check_is_small;
-
 }

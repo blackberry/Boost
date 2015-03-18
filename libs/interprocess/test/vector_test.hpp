@@ -20,7 +20,7 @@
 #include <list>
 
 #include <boost/interprocess/exceptions.hpp>
-#include <boost/interprocess/detail/move.hpp>
+#include <boost/move/utility_core.hpp>
 #include <boost/interprocess/detail/mpl.hpp>
 #include "print_container.hpp"
 #include "check_equal_containers.hpp"

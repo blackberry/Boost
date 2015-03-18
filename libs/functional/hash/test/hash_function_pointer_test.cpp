@@ -5,7 +5,7 @@
 
 #include "./config.hpp"
 
-#ifdef TEST_STD_INCLUDES
+#ifdef BOOST_HASH_TEST_STD_INCLUDES
 #  include <functional>
 #else
 #  include <boost/functional/hash.hpp>
@@ -24,8 +24,8 @@ void function_pointer_tests()
     compile_time_tests((void(**)()) 0);
     compile_time_tests((int(**)(int)) 0);
 
-    HASH_NAMESPACE::hash<void(*)()> hasher_void;
-    HASH_NAMESPACE::hash<int(*)(int)> hasher_int;
+    BOOST_HASH_TEST_NAMESPACE::hash<void(*)()> hasher_void;
+    BOOST_HASH_TEST_NAMESPACE::hash<int(*)(int)> hasher_int;
 
     BOOST_TEST(&void_func1 != &void_func2);
     BOOST_TEST(&int_func1 != &int_func2);
@@ -38,11 +38,11 @@ void function_pointer_tests()
     BOOST_TEST(hasher_int(&int_func1) == hasher_int(&int_func1));
     BOOST_TEST(hasher_int(&int_func1) != hasher_int(&int_func2));
     BOOST_TEST(hasher_int(&int_func1) != hasher_int(0));
-#if defined(TEST_EXTENSIONS)
+#if defined(BOOST_HASH_TEST_EXTENSIONS)
     BOOST_TEST(hasher_void(&void_func1)
-            == HASH_NAMESPACE::hash_value(&void_func1));
+            == BOOST_HASH_TEST_NAMESPACE::hash_value(&void_func1));
     BOOST_TEST(hasher_int(&int_func1)
-            == HASH_NAMESPACE::hash_value(&int_func1));
+            == BOOST_HASH_TEST_NAMESPACE::hash_value(&int_func1));
 
     // This isn't specified in Peter's proposal:
     BOOST_TEST(hasher_void(0) == 0);

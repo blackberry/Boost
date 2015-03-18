@@ -11,6 +11,10 @@
 #ifndef BOOST_INTERPROCESS_IUNORDERED_SET_INDEX_HPP
 #define BOOST_INTERPROCESS_IUNORDERED_SET_INDEX_HPP
 
+#if defined(_MSC_VER)
+#  pragma once
+#endif
+
 #include <boost/interprocess/detail/config_begin.hpp>
 #include <boost/interprocess/detail/workaround.hpp>
 
@@ -28,7 +32,7 @@
 
 namespace boost { namespace interprocess {
 
-/// @cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
 //!Helper class to define typedefs
 //!from IndexTraits
@@ -116,7 +120,7 @@ struct iunordered_set_index_aux
       bucket_type init_bucket;
    };
 };
-/// @endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 //!Index type based in boost::intrusive::set.
 //!Just derives from boost::intrusive::set
@@ -127,7 +131,7 @@ class iunordered_set_index
    :  private iunordered_set_index_aux<MapConfig>::allocator_holder
    ,  public iunordered_set_index_aux<MapConfig>::index_t
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    typedef iunordered_set_index_aux<MapConfig>           index_aux;
    typedef typename index_aux::index_t                   index_type;
    typedef typename MapConfig::
@@ -139,7 +143,7 @@ class iunordered_set_index
       iunordered_set_index_aux<MapConfig>::allocator_type      allocator_type;
    typedef typename
       iunordered_set_index_aux<MapConfig>::allocator_holder    allocator_holder;
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public:
    typedef typename index_type::iterator                 iterator;
@@ -151,7 +155,7 @@ class iunordered_set_index
    typedef typename index_type::bucket_traits            bucket_traits;
    typedef typename index_type::size_type                size_type;
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    private:
    typedef typename index_aux::
       segment_manager_base             segment_manager_base;
@@ -236,7 +240,7 @@ class iunordered_set_index
    iunordered_set_index<MapConfig>* get_this_pointer()
    {  return this;   }
 
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public:
    //!Constructor. Takes a pointer to the
@@ -349,7 +353,7 @@ class iunordered_set_index
    }
 };
 
-/// @cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
 //!Trait class to detect if an index is an intrusive
 //!index
@@ -359,7 +363,7 @@ struct is_intrusive_index
 {
    static const bool value = true;
 };
-/// @endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 }}   //namespace boost { namespace interprocess {
 

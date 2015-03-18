@@ -7,7 +7,7 @@
 // Home at http://www.boost.org/libs/scope_exit
 
 #include <boost/config.hpp>
-#ifdef BOOST_NO_LAMBDAS
+#ifdef BOOST_NO_CXX11_LAMBDAS
 #   error "lambda functions required"
 #else
 

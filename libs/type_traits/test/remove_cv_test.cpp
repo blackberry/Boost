@@ -29,7 +29,7 @@ BOOST_DECL_TRANSFORM_TEST(remove_cv_test_14, ::tt::remove_cv, const volatile[2],
 BOOST_DECL_TRANSFORM_TEST(remove_cv_test_15, ::tt::remove_cv, [2], [2])
 BOOST_DECL_TRANSFORM_TEST(remove_cv_test_16, ::tt::remove_cv, const*, const*)
 BOOST_DECL_TRANSFORM_TEST(remove_cv_test_17, ::tt::remove_cv, const*volatile, const*)
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
 BOOST_DECL_TRANSFORM_TEST(remove_cv_test_5a, ::tt::remove_cv, const &&, const&&)
 #endif
 
@@ -52,7 +52,7 @@ TT_TEST_BEGIN(remove_cv)
    remove_cv_test_15();
    remove_cv_test_16();
    remove_cv_test_17();
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
    remove_cv_test_5a();
 #endif
 

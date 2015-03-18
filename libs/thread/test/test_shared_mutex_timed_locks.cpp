@@ -3,15 +3,17 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
+#define BOOST_THREAD_VERSION 2
+
 #include <boost/test/unit_test.hpp>
-#include <boost/thread/thread.hpp>
+#include <boost/thread/thread_only.hpp>
 #include <boost/thread/xtime.hpp>
 #include "./util.inl"
 #include "./shared_mutex_locking_thread.hpp"
 
 #define CHECK_LOCKED_VALUE_EQUAL(mutex_name,value,expected_value)    \
     {                                                                \
-        boost::mutex::scoped_lock lock(mutex_name);                  \
+        boost::unique_lock<boost::mutex> lock(mutex_name);                  \
         BOOST_CHECK_EQUAL(value,expected_value);                     \
     }
 
@@ -22,7 +24,7 @@ void test_timed_lock_shared_times_out_if_write_lock_held()
     boost::mutex finish_mutex;
     boost::mutex unblocked_mutex;
     unsigned unblocked_count=0;
-    boost::mutex::scoped_lock finish_lock(finish_mutex);
+    boost::unique_lock<boost::mutex> finish_lock(finish_mutex);
     boost::thread writer(simple_writing_thread(rw_mutex,finish_mutex,unblocked_mutex,unblocked_count));
     boost::thread::sleep(delay(1));
     CHECK_LOCKED_VALUE_EQUAL(unblocked_mutex,unblocked_count,1u);
@@ -87,7 +89,7 @@ void test_timed_lock_shared_succeeds_if_read_lock_held()
     boost::mutex finish_mutex;
     boost::mutex unblocked_mutex;
     unsigned unblocked_count=0;
-    boost::mutex::scoped_lock finish_lock(finish_mutex);
+    boost::unique_lock<boost::mutex> finish_lock(finish_mutex);
     boost::thread reader(simple_reading_thread(rw_mutex,finish_mutex,unblocked_mutex,unblocked_count));
     boost::thread::sleep(delay(1));
     CHECK_LOCKED_VALUE_EQUAL(unblocked_mutex,unblocked_count,1u);
@@ -123,7 +125,7 @@ void test_timed_lock_times_out_if_write_lock_held()
     boost::mutex finish_mutex;
     boost::mutex unblocked_mutex;
     unsigned unblocked_count=0;
-    boost::mutex::scoped_lock finish_lock(finish_mutex);
+    boost::unique_lock<boost::mutex> finish_lock(finish_mutex);
     boost::thread writer(simple_writing_thread(rw_mutex,finish_mutex,unblocked_mutex,unblocked_count));
     boost::thread::sleep(delay(1));
     CHECK_LOCKED_VALUE_EQUAL(unblocked_mutex,unblocked_count,1u);
@@ -188,7 +190,7 @@ void test_timed_lock_times_out_if_read_lock_held()
     boost::mutex finish_mutex;
     boost::mutex unblocked_mutex;
     unsigned unblocked_count=0;
-    boost::mutex::scoped_lock finish_lock(finish_mutex);
+    boost::unique_lock<boost::mutex> finish_lock(finish_mutex);
     boost::thread reader(simple_reading_thread(rw_mutex,finish_mutex,unblocked_mutex,unblocked_count));
     boost::thread::sleep(delay(1));
     CHECK_LOCKED_VALUE_EQUAL(unblocked_mutex,unblocked_count,1u);
@@ -224,7 +226,7 @@ void test_timed_lock_times_out_but_read_lock_succeeds_if_read_lock_held()
     boost::mutex finish_mutex;
     boost::mutex unblocked_mutex;
     unsigned unblocked_count=0;
-    boost::mutex::scoped_lock finish_lock(finish_mutex);
+    boost::unique_lock<boost::mutex> finish_lock(finish_mutex);
     boost::thread reader(simple_reading_thread(rw_mutex,finish_mutex,unblocked_mutex,unblocked_count));
     boost::this_thread::sleep(boost::posix_time::seconds(1));
     CHECK_LOCKED_VALUE_EQUAL(unblocked_mutex,unblocked_count,1u);
@@ -267,15 +269,4 @@ boost::unit_test::test_suite* init_unit_test_suite(int, char*[])
     return test;
 }
 
-void remove_unused_warning()
-{
 
-  //../../../boost/test/results_collector.hpp:40:13: warning: unused function 'first_failed_assertion' [-Wunused-function]
-  //(void)first_failed_assertion;
-
-  //../../../boost/test/tools/floating_point_comparison.hpp:304:25: warning: unused variable 'check_is_close' [-Wunused-variable]
-  //../../../boost/test/tools/floating_point_comparison.hpp:326:25: warning: unused variable 'check_is_small' [-Wunused-variable]
-  (void)boost::test_tools::check_is_close;
-  (void)boost::test_tools::check_is_small;
-
-}

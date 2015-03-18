@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>is_sorted</title>
 <link rel="stylesheet" href="../../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../index.html" title="The Boost Algorithm Library">
 <link rel="up" href="../../algorithm/CXX11.html" title="C++11 Algorithms">
 <link rel="prev" href="one_of.html" title="one_of">
@@ -33,7 +33,7 @@
       </p>
 <h5>
 <a name="the_boost_algorithm_library.CXX11.is_sorted.h0"></a>
-        <span><a name="the_boost_algorithm_library.CXX11.is_sorted.is_sorted"></a></span><a class="link" href="is_sorted.html#the_boost_algorithm_library.CXX11.is_sorted.is_sorted">is_sorted</a>
+        <span class="phrase"><a name="the_boost_algorithm_library.CXX11.is_sorted.is_sorted"></a></span><a class="link" href="is_sorted.html#the_boost_algorithm_library.CXX11.is_sorted.is_sorted">is_sorted</a>
       </h5>
 <p>
         The function <code class="computeroutput"><span class="identifier">is_sorted</span><span class="special">(</span><span class="identifier">sequence</span><span class="special">)</span></code>
@@ -44,11 +44,11 @@
 <p>
 </p>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span> <span class="keyword">namespace</span> <span class="identifier">algorithm</span> <span class="special">{</span>
-	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Iterator</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Pred</span><span class="special">&gt;</span>
-	<span class="keyword">bool</span> <span class="identifier">is_sorted</span> <span class="special">(</span> <span class="identifier">Iterator</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">Iterator</span> <span class="identifier">last</span><span class="special">,</span> <span class="identifier">Pred</span> <span class="identifier">p</span> <span class="special">);</span>
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">ForwardIterator</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Pred</span><span class="special">&gt;</span>
+	<span class="keyword">bool</span> <span class="identifier">is_sorted</span> <span class="special">(</span> <span class="identifier">ForwardIterator</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">ForwardIterator</span> <span class="identifier">last</span><span class="special">,</span> <span class="identifier">Pred</span> <span class="identifier">p</span> <span class="special">);</span>
 	
-	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Iterator</span><span class="special">&gt;</span>
-	<span class="keyword">bool</span> <span class="identifier">is_sorted</span> <span class="special">(</span> <span class="identifier">Iterator</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">Iterator</span> <span class="identifier">last</span> <span class="special">);</span>
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">ForwardIterator</span><span class="special">&gt;</span>
+	<span class="keyword">bool</span> <span class="identifier">is_sorted</span> <span class="special">(</span> <span class="identifier">ForwardIterator</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">ForwardIterator</span> <span class="identifier">last</span> <span class="special">);</span>
 	
 	
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Range</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Pred</span><span class="special">&gt;</span>
@@ -62,11 +62,11 @@
       </p>
 <p>
         Iterator requirements: The <code class="computeroutput"><span class="identifier">is_sorted</span></code>
-        functions will work on all kinds of iterators (except output iterators).
+        functions will work forward iterators or better.
       </p>
 <h5>
 <a name="the_boost_algorithm_library.CXX11.is_sorted.h1"></a>
-        <span><a name="the_boost_algorithm_library.CXX11.is_sorted.is_sorted_until"></a></span><a class="link" href="is_sorted.html#the_boost_algorithm_library.CXX11.is_sorted.is_sorted_until">is_sorted_until</a>
+        <span class="phrase"><a name="the_boost_algorithm_library.CXX11.is_sorted.is_sorted_until"></a></span><a class="link" href="is_sorted.html#the_boost_algorithm_library.CXX11.is_sorted.is_sorted_until">is_sorted_until</a>
       </h5>
 <p>
         If <code class="computeroutput"><span class="identifier">distance</span><span class="special">(</span><span class="identifier">first</span><span class="special">,</span> <span class="identifier">last</span><span class="special">)</span> <span class="special">&lt;</span> <span class="number">2</span></code>, then
@@ -140,7 +140,7 @@
       </p>
 <p>
         To test if a sequence is increasing (each element at least as large as the
-        preceeding one):
+        preceding one):
 </p>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span> <span class="keyword">namespace</span> <span class="identifier">algorithm</span> <span class="special">{</span>
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Iterator</span><span class="special">&gt;</span>
@@ -153,14 +153,14 @@
 <p>
       </p>
 <p>
-        To test if a sequence is decreasing (each element no larger than the preceeding
+        To test if a sequence is decreasing (each element no larger than the preceding
         one):
       </p>
 <p>
 </p>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span> <span class="keyword">namespace</span> <span class="identifier">algorithm</span> <span class="special">{</span>
-	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Iterator</span><span class="special">&gt;</span>
-	<span class="keyword">bool</span> <span class="identifier">is_decreasing</span> <span class="special">(</span> <span class="identifier">Iterator</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">Iterator</span> <span class="identifier">last</span> <span class="special">);</span>
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">ForwardIterator</span><span class="special">&gt;</span>
+	<span class="keyword">bool</span> <span class="identifier">is_decreasing</span> <span class="special">(</span> <span class="identifier">ForwardIterator</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">ForwardIterator</span> <span class="identifier">last</span> <span class="special">);</span>
 	
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">R</span><span class="special">&gt;</span>
 	<span class="keyword">bool</span> <span class="identifier">is_decreasing</span> <span class="special">(</span> <span class="keyword">const</span> <span class="identifier">R</span> <span class="special">&amp;</span><span class="identifier">range</span> <span class="special">);</span>
@@ -170,11 +170,11 @@
       </p>
 <p>
         To test if a sequence is strictly increasing (each element larger than the
-        preceeding one):
+        preceding one):
 </p>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span> <span class="keyword">namespace</span> <span class="identifier">algorithm</span> <span class="special">{</span>
-	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Iterator</span><span class="special">&gt;</span>
-	<span class="keyword">bool</span> <span class="identifier">is_strictly_increasing</span> <span class="special">(</span> <span class="identifier">Iterator</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">Iterator</span> <span class="identifier">last</span> <span class="special">);</span>
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">ForwardIterator</span><span class="special">&gt;</span>
+	<span class="keyword">bool</span> <span class="identifier">is_strictly_increasing</span> <span class="special">(</span> <span class="identifier">ForwardIterator</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">ForwardIterator</span> <span class="identifier">last</span> <span class="special">);</span>
 	
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">R</span><span class="special">&gt;</span>
 	<span class="keyword">bool</span> <span class="identifier">is_strictly_increasing</span> <span class="special">(</span> <span class="keyword">const</span> <span class="identifier">R</span> <span class="special">&amp;</span><span class="identifier">range</span> <span class="special">);</span>
@@ -184,11 +184,11 @@
       </p>
 <p>
         To test if a sequence is strictly decreasing (each element smaller than the
-        preceeding one):
+        preceding one):
 </p>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span> <span class="keyword">namespace</span> <span class="identifier">algorithm</span> <span class="special">{</span>
-	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Iterator</span><span class="special">&gt;</span>
-	<span class="keyword">bool</span> <span class="identifier">is_strictly_decreasing</span> <span class="special">(</span> <span class="identifier">Iterator</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">Iterator</span> <span class="identifier">last</span> <span class="special">);</span>
+	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">ForwardIterator</span><span class="special">&gt;</span>
+	<span class="keyword">bool</span> <span class="identifier">is_strictly_decreasing</span> <span class="special">(</span> <span class="identifier">ForwardIterator</span> <span class="identifier">first</span><span class="special">,</span> <span class="identifier">ForwardIterator</span> <span class="identifier">last</span> <span class="special">);</span>
 	
 	<span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">R</span><span class="special">&gt;</span>
 	<span class="keyword">bool</span> <span class="identifier">is_strictly_decreasing</span> <span class="special">(</span> <span class="keyword">const</span> <span class="identifier">R</span> <span class="special">&amp;</span><span class="identifier">range</span> <span class="special">);</span>
@@ -202,9 +202,9 @@
       </p>
 <h5>
 <a name="the_boost_algorithm_library.CXX11.is_sorted.h2"></a>
-        <span><a name="the_boost_algorithm_library.CXX11.is_sorted.notes"></a></span><a class="link" href="is_sorted.html#the_boost_algorithm_library.CXX11.is_sorted.notes">Notes</a>
+        <span class="phrase"><a name="the_boost_algorithm_library.CXX11.is_sorted.notes"></a></span><a class="link" href="is_sorted.html#the_boost_algorithm_library.CXX11.is_sorted.notes">Notes</a>
       </h5>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             The routines <code class="computeroutput"><span class="identifier">is_sorted</span></code>
             and <code class="computeroutput"><span class="identifier">is_sorted_until</span></code> are

@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Requirements on asynchronous operations</title>
 <link rel="stylesheet" href="../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../boost_asio.html" title="Boost.Asio">
 <link rel="up" href="../reference.html" title="Reference">
 <link rel="prev" href="../reference.html" title="Reference">
@@ -230,10 +230,71 @@
         of the handler via <code class="computeroutput"><span class="identifier">asio_handler_invoke</span></code>.
         Multiple storage blocks may be allocated for a single asynchronous operation.
       </p>
+<h5>
+<a name="boost_asio.reference.asynchronous_operations.h0"></a>
+        <span class="phrase"><a name="boost_asio.reference.asynchronous_operations.return_type_of_an_initiating_function"></a></span><a class="link" href="asynchronous_operations.html#boost_asio.reference.asynchronous_operations.return_type_of_an_initiating_function">Return
+        type of an initiating function</a>
+      </h5>
+<p>
+        By default, initiating functions return <code class="computeroutput"><span class="keyword">void</span></code>.
+        This is always the case when the handler is a function pointer, C++11 lambda,
+        or a function object produced by <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">bind</span></code>
+        or <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">bind</span></code>.
+      </p>
+<p>
+        For other types, the return type may be customised via a two-step process:
+      </p>
+<div class="orderedlist"><ol class="orderedlist" type="1">
+<li class="listitem">
+            A specialisation of the <a class="link" href="handler_type.html" title="handler_type"><code class="computeroutput"><span class="identifier">handler_type</span></code></a> template, which
+            is used to determine the true handler type based on the asynchronous
+            operation's handler's signature.
+          </li>
+<li class="listitem">
+            A specialisation of the <a class="link" href="async_result.html" title="async_result"><code class="computeroutput"><span class="identifier">async_result</span></code></a> template, which
+            is used both to determine the return type and to extract the return value
+            from the handler.
+          </li>
+</ol></div>
+<p>
+        These two templates have been specialised to provide support for <a class="link" href="../overview/core/spawn.html" title="Stackful Coroutines">stackful
+        coroutines</a> and the C++11 <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">future</span></code>
+        class.
+      </p>
+<p>
+        As an example, consider what happens when enabling <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">future</span></code>
+        support by using the <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">use_future</span></code>
+        special value, as in:
+      </p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">future</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;</span> <span class="identifier">length</span> <span class="special">=</span>
+  <span class="identifier">my_socket</span><span class="special">.</span><span class="identifier">async_read_some</span><span class="special">(</span><span class="identifier">my_buffer</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">use_future</span><span class="special">);</span>
+</pre>
+<p>
+        When a handler signature has the form:
+      </p>
+<pre class="programlisting"><span class="keyword">void</span> <span class="identifier">handler</span><span class="special">(</span><span class="identifier">error_code</span> <span class="identifier">ec</span><span class="special">,</span> <span class="identifier">result_type</span> <span class="identifier">result</span><span class="special">);</span>
+</pre>
+<p>
+        the initiating function returns a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">future</span></code>
+        templated on <code class="computeroutput"><span class="identifier">result_type</span></code>.
+        In the above <code class="computeroutput"><span class="identifier">async_read_some</span></code>
+        example, this is <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span></code>. If the asynchronous operation fails,
+        the <code class="computeroutput"><span class="identifier">error_code</span></code> is converted
+        into a <code class="computeroutput"><span class="identifier">system_error</span></code> exception
+        and passed back to the caller through the future.
+      </p>
+<p>
+        Where a handler signature has the form:
+      </p>
+<pre class="programlisting"><span class="keyword">void</span> <span class="identifier">handler</span><span class="special">(</span><span class="identifier">error_code</span> <span class="identifier">ec</span><span class="special">);</span>
+</pre>
+<p>
+        the initiating function instead returns <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">future</span><span class="special">&lt;</span><span class="keyword">void</span><span class="special">&gt;</span></code>.
+      </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2012 Christopher M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2014 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

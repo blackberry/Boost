@@ -24,7 +24,8 @@
 #endif
 
 #include <boost/math/concepts/real_concept.hpp> // for real_concept
-#include <boost/test/test_exec_monitor.hpp> // Boost.Test
+#define BOOST_TEST_MAIN
+#include <boost/test/unit_test.hpp> // Boost.Test
 #include <boost/test/floating_point_comparison.hpp>
 
 #include <boost/math/distributions/normal.hpp>
@@ -33,6 +34,7 @@
 #include "test_out_of_range.hpp"
 
 #include <iostream>
+#include <iomanip>
    using std::cout;
    using std::endl;
    using std::setprecision;
@@ -93,7 +95,7 @@ void test_spots(RealType)
    BOOST_CHECK_THROW(boost::math::normal_distribution<RealType> nbad1(0, 0), std::domain_error); // zero sd
    BOOST_CHECK_THROW(boost::math::normal_distribution<RealType> nbad1(0, -1), std::domain_error); // negative sd
 
-  // Tests on extreme values of random variate x, if has numeric_limit infinity etc.
+  // Tests on extreme values of random variate x, if has std::numeric_limits infinity etc.
     normal_distribution<RealType> N01;
   if(std::numeric_limits<RealType>::has_infinity)
   {
@@ -292,7 +294,7 @@ void test_spots(RealType)
     BOOST_CHECK_THROW(quantile(normal_distribution<RealType>(0, 1), 2), std::domain_error);
 } // template <class RealType>void test_spots(RealType)
 
-int test_main(int, char* [])
+BOOST_AUTO_TEST_CASE( test_main )
 {
     // Check that can generate normal distribution using the two convenience methods:
    boost::math::normal myf1(1., 2); // Using typedef
@@ -320,8 +322,8 @@ int test_main(int, char* [])
       "to pass.</note>" << std::cout;
 #endif
 
-   return 0;
-} // int test_main(int, char* [])
+   
+} // BOOST_AUTO_TEST_CASE( test_main )
 
 /*
 

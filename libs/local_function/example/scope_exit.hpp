@@ -34,7 +34,7 @@ private:
 
 // PUBLIC //
 
-#ifdef BOOST_NO_VARIADIC_MACROS
+#ifdef BOOST_NO_CXX11_VARIADIC_MACROS
 #   define SCOPE_EXIT(void_or_seq) \
         void BOOST_LOCAL_FUNCTION(void_or_seq)
 #else

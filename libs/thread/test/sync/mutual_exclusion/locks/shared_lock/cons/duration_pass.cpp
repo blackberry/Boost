@@ -19,7 +19,7 @@
 // template <class Rep, class Period>
 //   shared_lock(mutex_type& m, const chrono::duration<Rep, Period>& rel_time);
 
-#include <boost/thread/locks.hpp>
+#include <boost/thread/lock_types.hpp>
 #include <boost/thread/shared_mutex.hpp>
 #include <boost/thread/thread.hpp>
 #include <boost/detail/lightweight_test.hpp>

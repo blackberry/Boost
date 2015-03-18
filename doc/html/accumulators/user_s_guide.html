@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>User's Guide</title>
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
 <link rel="up" href="../accumulators.html" title="Chapter&#160;1.&#160;Boost.Accumulators">
 <link rel="prev" href="../accumulators.html" title="Chapter&#160;1.&#160;Boost.Accumulators">
@@ -26,7 +26,7 @@
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="accumulators.user_s_guide"></a><a class="link" href="user_s_guide.html" title="User's Guide">User's Guide</a>
 </h2></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="user_s_guide.html#accumulators.user_s_guide.the_accumulators_framework">The
       Accumulators Framework</a></span></dt>
 <dt><span class="section"><a href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library">The
@@ -41,7 +41,7 @@
     </p>
 <h3>
 <a name="accumulators.user_s_guide.h0"></a>
-      <span><a name="accumulators.user_s_guide.hello__world_"></a></span><a class="link" href="user_s_guide.html#accumulators.user_s_guide.hello__world_">Hello,
+      <span class="phrase"><a name="accumulators.user_s_guide.hello__world_"></a></span><a class="link" href="user_s_guide.html#accumulators.user_s_guide.hello__world_">Hello,
       World!</a>
     </h3>
 <p>
@@ -86,7 +86,7 @@ Moment: 9.635
 <a name="accumulators.user_s_guide.the_accumulators_framework"></a><a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_accumulators_framework" title="The Accumulators Framework">The
       Accumulators Framework</a>
 </h3></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="user_s_guide.html#accumulators.user_s_guide.the_accumulators_framework.using___accumulator_set___">Using
         <code class="literal">accumulator_set&lt;&gt;</code></a></span></dt>
 <dt><span class="section"><a href="user_s_guide.html#accumulators.user_s_guide.the_accumulators_framework.extracting_results">Extracting
@@ -105,7 +105,7 @@ Moment: 9.635
         The Accumulators Framework is framework for performing incremental calculations.
         Usage of the framework follows the following pattern:
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             Users build a computational object, called an <span class="emphasis"><em><code class="computeroutput"><a class="link" href="../boost/accumulators/accumulator_set.html" title="Struct template accumulator_set">accumulator_set&lt;&gt;</a></code></em></span>,
             by selecting the computations in which they are interested, or authoring
@@ -118,7 +118,7 @@ Moment: 9.635
 <li class="listitem">
             The <code class="computeroutput"><a class="link" href="../boost/accumulators/accumulator_set.html" title="Struct template accumulator_set">accumulator_set&lt;&gt;</a></code>
             computes the requested quantities in the most efficient method possible,
-            resolving dependencies between requested calculations, possibly cacheing
+            resolving dependencies between requested calculations, possibly caching
             intermediate results.
           </li>
 </ul></div>
@@ -130,14 +130,14 @@ Moment: 9.635
       </p>
 <h3>
 <a name="accumulators.user_s_guide.the_accumulators_framework.h0"></a>
-        <span><a name="accumulators.user_s_guide.the_accumulators_framework.terminology"></a></span><a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_accumulators_framework.terminology">Terminology</a>
+        <span class="phrase"><a name="accumulators.user_s_guide.the_accumulators_framework.terminology"></a></span><a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_accumulators_framework.terminology">Terminology</a>
       </h3>
 <p>
         The following terms are used in the rest of the documentation.
       </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Sample</span></dt>
 <dd><p>
               <a name="sample_type"></a>A datum that is pushed into an <code class="computeroutput"><a class="link" href="../boost/accumulators/accumulator_set.html" title="Struct template accumulator_set">accumulator_set&lt;&gt;</a></code>. The type of the
@@ -172,7 +172,7 @@ Moment: 9.635
               a sample type and a list of features. The accumulator set uses this
               information to generate an ordered set of accumulators depending on
               the feature dependency graph. An accumulator set accepts samples one
-              datum at a time, propogating them to each accumulator in order. At
+              datum at a time, propagating them to each accumulator in order. At
               any point, results can be extracted from the accumulator set.
             </p></dd>
 <dt><span class="term">Extractor</span></dt>
@@ -184,7 +184,7 @@ Moment: 9.635
 </div>
 <h3>
 <a name="accumulators.user_s_guide.the_accumulators_framework.h1"></a>
-        <span><a name="accumulators.user_s_guide.the_accumulators_framework.overview"></a></span><a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_accumulators_framework.overview">Overview</a>
+        <span class="phrase"><a name="accumulators.user_s_guide.the_accumulators_framework.overview"></a></span><a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_accumulators_framework.overview">Overview</a>
       </h3>
 <p>
         Here is a list of the important types and functions in the Accumulator Framework
@@ -331,7 +331,7 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term"><code class="computeroutput"><span class="identifier">Sample</span></code></span></dt>
 <dd><p>
                 The type of the data that will be accumulated.
@@ -692,7 +692,7 @@ Moment: 9.635
 <a name="accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework"></a><a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework" title="Extending the Accumulators Framework">Extending
         the Accumulators Framework</a>
 </h4></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="user_s_guide.html#accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.defining_a_new_accumulator">Defining
           a New Accumulator</a></span></dt>
 <dt><span class="section"><a href="user_s_guide.html#accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.defining_a_new_feature">Defining
@@ -773,7 +773,7 @@ Moment: 9.635
           </p>
 <div class="variablelist">
 <p class="title"><b>Optional Accumulator Member Functions</b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term"><code class="literal">on_drop(Args)</code></span></dt>
 <dd><p>
                   Defines an action to be taken when this accumulator is dropped.
@@ -784,7 +784,7 @@ Moment: 9.635
 </div>
 <h4>
 <a name="accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.defining_a_new_accumulator.h0"></a>
-            <span><a name="accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.defining_a_new_accumulator.accessing_other_accumulators_in_the_set"></a></span><a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.defining_a_new_accumulator.accessing_other_accumulators_in_the_set">Accessing
+            <span class="phrase"><a name="accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.defining_a_new_accumulator.accessing_other_accumulators_in_the_set"></a></span><a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.defining_a_new_accumulator.accessing_other_accumulators_in_the_set">Accessing
             Other Accumulators in the Set</a>
           </h4>
 <p>
@@ -844,7 +844,7 @@ Moment: 9.635
           </p>
 <h4>
 <a name="accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.defining_a_new_accumulator.h1"></a>
-            <span><a name="accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.defining_a_new_accumulator.infix_notation_and_the_numeric_operators_sub_library"></a></span><a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.defining_a_new_accumulator.infix_notation_and_the_numeric_operators_sub_library">Infix
+            <span class="phrase"><a name="accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.defining_a_new_accumulator.infix_notation_and_the_numeric_operators_sub_library"></a></span><a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.defining_a_new_accumulator.infix_notation_and_the_numeric_operators_sub_library">Infix
             Notation and the Numeric Operators Sub-Library</a>
           </h4>
 <p>
@@ -869,7 +869,7 @@ Moment: 9.635
           </p>
 <h4>
 <a name="accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.defining_a_new_accumulator.h2"></a>
-            <span><a name="accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.defining_a_new_accumulator.droppable_accumulators"></a></span><a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.defining_a_new_accumulator.droppable_accumulators">Droppable
+            <span class="phrase"><a name="accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.defining_a_new_accumulator.droppable_accumulators"></a></span><a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_accumulators_framework.extending_the_accumulators_framework.defining_a_new_accumulator.droppable_accumulators">Droppable
             Accumulators</a>
           </h4>
 <p>
@@ -906,7 +906,7 @@ Moment: 9.635
             <code class="computeroutput"><span class="identifier">mean</span></code> depends on <code class="computeroutput"><span class="identifier">sum</span></code> and <code class="computeroutput"><span class="identifier">count</span></code>.
             Since <code class="computeroutput"><span class="identifier">mean</span></code> is droppable,
             so too is <code class="computeroutput"><span class="identifier">count</span></code>. However,
-            we have explictitly requested that <code class="computeroutput"><span class="identifier">sum</span></code>
+            we have explicitly requested that <code class="computeroutput"><span class="identifier">sum</span></code>
             be not droppable, so it isn't. Had we left <code class="computeroutput"><span class="identifier">tag</span><span class="special">::</span><span class="identifier">sum</span></code>
             out of the above declaration, the <code class="computeroutput"><span class="identifier">sum</span></code>
             accumulator would have been implicitly droppable.
@@ -952,7 +952,7 @@ Moment: 9.635
             The following rules more precisely specify how droppable and non-droppable
             accumulators behave within an accumulator set.
           </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
                 There are two types of accumulators: droppable and non-droppable.
                 The default is non-droppable.
@@ -1010,7 +1010,7 @@ Moment: 9.635
 <p>
             And as an optimization:
           </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                 If the user specifies the non-droppable feature <code class="computeroutput"><span class="identifier">X</span></code>,
                 which depends on <code class="computeroutput"><span class="identifier">Y</span></code>
                 and <code class="computeroutput"><span class="identifier">Z</span></code>, then the accumulators
@@ -1087,7 +1087,7 @@ Moment: 9.635
             <a href="../../../libs/mpl/doc/refmanual/metafunction-class.html" target="_top">MPL
             Metafunction Class</a>, which is a kind of <a href="../../../libs/mpl/doc/refmanual/lambda-expression.html" target="_top">MPL
             Lambda Expression</a>. The nested <code class="computeroutput"><span class="identifier">apply</span><span class="special">&lt;&gt;</span></code> template is part of the metafunction
-            class protocol and tells MPL how to to build the accumulator type given
+            class protocol and tells MPL how to build the accumulator type given
             the sample and weight types.
           </p>
 <p>
@@ -1178,7 +1178,7 @@ Moment: 9.635
             that implements that feature. And every accumulator provides a nested
             <code class="computeroutput"><span class="identifier">result_type</span></code> typedef that
             tells what its return type is. The extractor simply delegates its work
-            to the <code class="computeroutput"><a class="link" href="reference.html#boost.accumulators.extract_result_id556157">extract_result()</a></code>
+            to the <code class="computeroutput"><a class="link" href="reference.html#boost.accumulators.extract_result_idp65486816">extract_result()</a></code>
             function.
           </p>
 </div>
@@ -1287,7 +1287,7 @@ Moment: 9.635
             operations. For instance, when calculating an average by dividing two
             integers, the standard integer division behavior would be mathematically
             incorrect for most statistical quantities. So rather than use <code class="computeroutput"><span class="identifier">x</span> <span class="special">/</span> <span class="identifier">y</span></code>, the Accumulators Framework uses
-            <code class="computeroutput"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">average</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">y</span><span class="special">)</span></code>,
+            <code class="computeroutput"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">y</span><span class="special">)</span></code>,
             which does floating-point division even if both <code class="computeroutput"><span class="identifier">x</span></code>
             and <code class="computeroutput"><span class="identifier">y</span></code> are integers.
           </p>
@@ -1307,8 +1307,8 @@ Moment: 9.635
             How are the numeric function object defined by the Numeric Operators
             Sub-Library made to work with types such as <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;&gt;</span></code>? The free functions in the <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">numeric</span></code> namespace are implemented in
             terms of the function objects in the <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span></code>
-            namespace, so to make <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">average</span><span class="special">()</span></code> do something sensible with a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;&gt;</span></code>,
-            for instance, we'll need to partially specialize the <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;&gt;</span></code> function object.
+            namespace, so to make <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">()</span></code> do something sensible with a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;&gt;</span></code>,
+            for instance, we'll need to partially specialize the <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;&gt;</span></code> function object.
           </p>
 <p>
             The functional objects make use of a technique known as <a href="http://www.boost.org/community/generic_programming.html#tag_dispatching" target="_top"><span class="emphasis"><em>tag
@@ -1333,14 +1333,13 @@ Moment: 9.635
       <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">LeftTag</span> <span class="special">=</span> <span class="keyword">typename</span> <span class="identifier">tag</span><span class="special">&lt;</span><span class="identifier">Left</span><span class="special">&gt;::</span><span class="identifier">type</span>
       <span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">RightTag</span> <span class="special">=</span> <span class="keyword">typename</span> <span class="identifier">tag</span><span class="special">&lt;</span><span class="identifier">Right</span><span class="special">&gt;::</span><span class="identifier">type</span>
     <span class="special">&gt;</span>
-    <span class="keyword">struct</span> <span class="identifier">average</span><span class="special">;</span>
+    <span class="keyword">struct</span> <span class="identifier">fdiv</span><span class="special">;</span>
 <span class="special">}}}</span>
 </pre>
 <p>
             If you have some user-defined type <code class="computeroutput"><span class="identifier">MyDouble</span></code>
-            for which you would like to customimze the behavior of <code class="computeroutput"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">average</span><span class="special">()</span></code>,
-            you would specialize <code class="computeroutput"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;&gt;</span></code> by first defining a tag type,
-            as shown below:
+            for which you would like to customize the behavior of <code class="computeroutput"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">()</span></code>, you would specialize <code class="computeroutput"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;&gt;</span></code>
+            by first defining a tag type, as shown below:
           </p>
 <pre class="programlisting"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span> <span class="keyword">namespace</span> <span class="identifier">numeric</span> <span class="special">{</span> <span class="keyword">namespace</span> <span class="identifier">functional</span>
 <span class="special">{</span>
@@ -1357,7 +1356,7 @@ Moment: 9.635
 
     <span class="comment">// Specify how to divide a MyDouble by an integral count</span>
     <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Left</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Right</span><span class="special">&gt;</span>
-    <span class="keyword">struct</span> <span class="identifier">average</span><span class="special">&lt;</span><span class="identifier">Left</span><span class="special">,</span> <span class="identifier">Right</span><span class="special">,</span> <span class="identifier">MyDoubleTag</span><span class="special">,</span> <span class="keyword">void</span><span class="special">&gt;</span>
+    <span class="keyword">struct</span> <span class="identifier">fdiv</span><span class="special">&lt;</span><span class="identifier">Left</span><span class="special">,</span> <span class="identifier">Right</span><span class="special">,</span> <span class="identifier">MyDoubleTag</span><span class="special">,</span> <span class="keyword">void</span><span class="special">&gt;</span>
     <span class="special">{</span>
         <span class="comment">// Define the type of the result</span>
         <span class="keyword">typedef</span> <span class="special">...</span> <span class="identifier">result_type</span><span class="special">;</span>
@@ -1370,7 +1369,7 @@ Moment: 9.635
 <span class="special">}}}</span>
 </pre>
 <p>
-            Once you have done this, <code class="computeroutput"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">average</span><span class="special">()</span></code> will use your specialization of <code class="computeroutput"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;&gt;</span></code>
+            Once you have done this, <code class="computeroutput"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">()</span></code> will use your specialization of <code class="computeroutput"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;&gt;</span></code>
             when the first argument is a <code class="computeroutput"><span class="identifier">MyDouble</span></code>
             object. All of the function objects in the Numeric Operators Sub-Library
             can be customized in a similar fashion.
@@ -1383,7 +1382,7 @@ Moment: 9.635
 </h4></div></div></div>
 <h3>
 <a name="accumulators.user_s_guide.the_accumulators_framework.concepts.h0"></a>
-          <span><a name="accumulators.user_s_guide.the_accumulators_framework.concepts.accumulator_concept"></a></span><a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_accumulators_framework.concepts.accumulator_concept">Accumulator
+          <span class="phrase"><a name="accumulators.user_s_guide.the_accumulators_framework.concepts.accumulator_concept"></a></span><a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_accumulators_framework.concepts.accumulator_concept">Accumulator
           Concept</a>
         </h3>
 <p>
@@ -1519,7 +1518,7 @@ Moment: 9.635
 </div>
 <br class="table-break"><h3>
 <a name="accumulators.user_s_guide.the_accumulators_framework.concepts.h1"></a>
-          <span><a name="accumulators.user_s_guide.the_accumulators_framework.concepts.feature_concept"></a></span><a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_accumulators_framework.concepts.feature_concept">Feature
+          <span class="phrase"><a name="accumulators.user_s_guide.the_accumulators_framework.concepts.feature_concept"></a></span><a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_accumulators_framework.concepts.feature_concept">Feature
           Concept</a>
         </h3>
 <p>
@@ -1528,8 +1527,8 @@ Moment: 9.635
           is some scalar type.
         </p>
 <div class="table">
-<a name="accumulators.user_s_guide.the_accumulators_framework.concepts.t1"></a><p class="title"><b>Table&#160;1.3.&#160;Featue Requirements</b></p>
-<div class="table-contents"><table class="table" summary="Featue Requirements">
+<a name="accumulators.user_s_guide.the_accumulators_framework.concepts.t1"></a><p class="title"><b>Table&#160;1.3.&#160;Feature Requirements</b></p>
+<div class="table-contents"><table class="table" summary="Feature Requirements">
 <colgroup>
 <col>
 <col>
@@ -1566,7 +1565,8 @@ Moment: 9.635
                 </td>
 <td>
                   <p>
-                    An MPL sequence of other features on which which <code class="computeroutput"><span class="identifier">F</span></code> depends.
+                    An MPL sequence of other features on which <code class="computeroutput"><span class="identifier">F</span></code>
+                    depends.
                   </p>
                 </td>
 </tr>
@@ -1621,7 +1621,7 @@ Moment: 9.635
 <a name="accumulators.user_s_guide.the_statistical_accumulators_library"></a><a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library" title="The Statistical Accumulators Library">The
       Statistical Accumulators Library</a>
 </h3></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library.count">count</a></span></dt>
 <dt><span class="section"><a href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library.covariance">covariance</a></span></dt>
 <dt><span class="section"><a href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library.density">density</a></span></dt>
@@ -1648,6 +1648,8 @@ Moment: 9.635
 <dt><span class="section"><a href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library.rolling_count">rolling_count</a></span></dt>
 <dt><span class="section"><a href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library.rolling_sum">rolling_sum</a></span></dt>
 <dt><span class="section"><a href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library.rolling_mean">rolling_mean</a></span></dt>
+<dt><span class="section"><a href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library.rolling_moment">rolling_moment</a></span></dt>
+<dt><span class="section"><a href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library.rolling_variance">rolling_variance</a></span></dt>
 <dt><span class="section"><a href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library.skewness">skewness</a></span></dt>
 <dt><span class="section"><a href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library.sum">sum
         <span class="emphasis"><em>and variants</em></span></a></span></dt>
@@ -1686,7 +1688,7 @@ Moment: 9.635
 </dl></div>
 <p>
         The Statistical Accumulators Library defines accumulators for incremental
-        statistial computations. It is built on top of <a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_accumulators_framework" title="The Accumulators Framework">The
+        statistical computations. It is built on top of <a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_accumulators_framework" title="The Accumulators Framework">The
         Accumulator Framework</a>.
       </p>
 <div class="section">
@@ -1700,7 +1702,7 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
@@ -1757,7 +1759,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/count_impl.html" title="Struct count_impl">count_impl</a></code>
             </li></ul></div>
 </div>
@@ -1772,14 +1774,14 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
 </p>
 <pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">outer_product</span><span class="special">&lt;</span>
-    <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
-  <span class="special">,</span> <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>variate-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
+    <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
+  <span class="special">,</span> <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>variate-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
 <span class="special">&gt;::</span><span class="identifier">result_type</span>
 </pre>
 <p>
@@ -1834,7 +1836,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/covariance_impl.html" title="Struct template covariance_impl">covariance_impl</a></code>
             </li>
@@ -1856,7 +1858,7 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
@@ -1864,8 +1866,8 @@ Moment: 9.635
 <pre class="programlisting"><span class="identifier">iterator_range</span><span class="special">&lt;</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span>
         <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span>
-            <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
-          <span class="special">,</span> <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
+            <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
+          <span class="special">,</span> <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
         <span class="special">&gt;</span>
     <span class="special">&gt;::</span><span class="identifier">iterator</span>
 <span class="special">&gt;</span>
@@ -1919,7 +1921,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/density_impl.html" title="Struct template density_impl">density_impl</a></code>
             </li>
@@ -1946,12 +1948,12 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
+<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
 </pre>
 <p>
               </p>
@@ -2004,7 +2006,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/error_of_mean_impl.html" title="Struct template error_of_mean_impl">error_of_mean_impl</a></code>
             </li>
@@ -2026,7 +2028,7 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
@@ -2096,7 +2098,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/extended_p_square_impl.html" title="Struct template extended_p_square_impl">extended_p_square_impl</a></code>
             </li>
@@ -2114,7 +2116,7 @@ Moment: 9.635
           Quantile estimation using the extended <code class="literal">P^2</code> algorithm
           for weighted and unweighted samples. By default, the calculation is linear
           and unweighted, but quadratic and weighted variants are also provided.
-          For further implementation details, see <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/extended_p_square_id559934.html" title="Struct template extended_p_square_quantile_impl">extended_p_square_quantile_impl</a></code>.
+          For further implementation details, see <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/extended_p_squ_idp66768320.html" title="Struct template extended_p_square_quantile_impl">extended_p_square_quantile_impl</a></code>.
         </p>
 <p>
           All the variants share the <code class="computeroutput"><span class="identifier">tag</span><span class="special">::</span><span class="identifier">quantile</span></code>
@@ -2122,12 +2124,12 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
+<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
 </pre>
 <p>
               </p>
@@ -2232,9 +2234,9 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/extended_p_square_id559934.html" title="Struct template extended_p_square_quantile_impl">extended_p_square_quantile_impl</a></code>
+              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/extended_p_squ_idp66768320.html" title="Struct template extended_p_square_quantile_impl">extended_p_square_quantile_impl</a></code>
             </li>
 <li class="listitem">
               <a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library.extended_p_square" title="extended_p_square"><code class="literal">extended_p_square</code></a>
@@ -2257,12 +2259,12 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <em class="replaceable"><code>sample-type</code></em><span class="special">&gt;::</span><span class="identifier">result_type</span>
+<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <em class="replaceable"><code>sample-type</code></em><span class="special">&gt;::</span><span class="identifier">result_type</span>
 </pre>
 <p>
               </p>
@@ -2324,7 +2326,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/kurtosis_impl.html" title="Struct template kurtosis_impl">kurtosis_impl</a></code>
             </li>
@@ -2345,7 +2347,7 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
@@ -2407,7 +2409,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/max_impl.html" title="Struct template max_impl">max_impl</a></code>
             </li></ul></div>
 </div>
@@ -2425,12 +2427,12 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd><p>
-                For samples, <code class="computeroutput"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span></code> <br> For weights,
-                <code class="computeroutput"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>weight-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span></code>
-                <br> For variates, <code class="computeroutput"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>variate-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span></code>
+                For samples, <code class="computeroutput"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span></code> <br> For weights,
+                <code class="computeroutput"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>weight-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span></code>
+                <br> For variates, <code class="computeroutput"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>variate-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span></code>
               </p></dd>
 <dt><span class="term">Depends On</span></dt>
 <dd><p>
@@ -2538,7 +2540,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/mean_impl.html" title="Struct template mean_impl">mean_impl</a></code>
             </li>
@@ -2563,7 +2565,7 @@ Moment: 9.635
           the density estimator, or the <code class="literal">P^2</code> cumulative distribution
           estimator. For more implementation details, see <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/median_impl.html" title="Struct template median_impl">median_impl</a></code>,
           <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/with_density_median_impl.html" title="Struct template with_density_median_impl">with_density_median_impl</a></code>,
-          and <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/with_p_square_cum_id561612.html" title="Struct template with_p_square_cumulative_distribution_median_impl">with_p_square_cumulative_distribution_median_impl</a></code>.
+          and <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/with_p_square__idp66840464.html" title="Struct template with_p_square_cumulative_distribution_median_impl">with_p_square_cumulative_distribution_median_impl</a></code>.
         </p>
 <p>
           The three median accumulators all satisfy the <code class="computeroutput"><span class="identifier">tag</span><span class="special">::</span><span class="identifier">median</span></code>
@@ -2571,12 +2573,12 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
+<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
 </pre>
 <p>
               </p>
@@ -2657,7 +2659,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/median_impl.html" title="Struct template median_impl">median_impl</a></code>
             </li>
@@ -2665,7 +2667,7 @@ Moment: 9.635
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/with_density_median_impl.html" title="Struct template with_density_median_impl">with_density_median_impl</a></code>
             </li>
 <li class="listitem">
-              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/with_p_square_cum_id561612.html" title="Struct template with_p_square_cumulative_distribution_median_impl">with_p_square_cumulative_distribution_median_impl</a></code>
+              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/with_p_square__idp66840464.html" title="Struct template with_p_square_cumulative_distribution_median_impl">with_p_square_cumulative_distribution_median_impl</a></code>
             </li>
 <li class="listitem">
               <a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library.count" title="count"><code class="literal">count</code></a>
@@ -2687,7 +2689,7 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
@@ -2749,7 +2751,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/min_impl.html" title="Struct template min_impl">min_impl</a></code>
             </li></ul></div>
 </div>
@@ -2763,12 +2765,12 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
+<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
 </pre>
 <p>
               </p>
@@ -2833,7 +2835,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/moment_impl.html" title="Struct template moment_impl">moment_impl</a></code>
             </li>
@@ -2848,11 +2850,11 @@ Moment: 9.635
 </h4></div></div></div>
 <p>
           Histogram calculation of the cumulative distribution with the <code class="literal">P^2</code>
-          algorithm. For more implementation details, see <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/p_square_cumulati_id562104.html" title="Struct template p_square_cumulative_distribution_impl">p_square_cumulative_distribution_impl</a></code>
+          algorithm. For more implementation details, see <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/p_square_cumul_idp66937936.html" title="Struct template p_square_cumulative_distribution_impl">p_square_cumulative_distribution_impl</a></code>
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
@@ -2860,8 +2862,8 @@ Moment: 9.635
 <pre class="programlisting"><span class="identifier">iterator_range</span><span class="special">&lt;</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span>
         <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span>
-            <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
-          <span class="special">,</span> <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
+            <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
+          <span class="special">,</span> <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
         <span class="special">&gt;</span>
     <span class="special">&gt;::</span><span class="identifier">iterator</span>
 <span class="special">&gt;</span>
@@ -2937,9 +2939,9 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/p_square_cumulati_id562104.html" title="Struct template p_square_cumulative_distribution_impl">p_square_cumulative_distribution_impl</a></code>
+              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/p_square_cumul_idp66937936.html" title="Struct template p_square_cumulative_distribution_impl">p_square_cumulative_distribution_impl</a></code>
             </li>
 <li class="listitem">
               <a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library.count" title="count"><code class="literal">count</code></a>
@@ -2957,12 +2959,12 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
+<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
 </pre>
 <p>
               </p>
@@ -3054,7 +3056,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/p_square_quantile_impl.html" title="Struct template p_square_quantile_impl">p_square_quantile_impl</a></code>
             </li>
@@ -3071,7 +3073,7 @@ Moment: 9.635
 <p>
           Peaks Over Threshold method for quantile and tail mean estimation. For
           implementation details, see <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/peaks_over_threshold_impl.html" title="Struct template peaks_over_threshold_impl">peaks_over_threshold_impl</a></code>
-          and <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/peaks_over_thresh_id563593.html" title="Struct template peaks_over_threshold_prob_impl">peaks_over_threshold_prob_impl</a></code>.
+          and <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/peaks_over_thr_idp66889008.html" title="Struct template peaks_over_threshold_prob_impl">peaks_over_threshold_prob_impl</a></code>.
         </p>
 <p>
           Both <code class="computeroutput"><span class="identifier">tag</span><span class="special">::</span><span class="identifier">peaks_over_threshold</span></code> and <code class="computeroutput"><span class="identifier">tag</span><span class="special">::</span><span class="identifier">peaks_over_threshold_prob</span><span class="special">&lt;&gt;</span></code>
@@ -3082,15 +3084,15 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
 </p>
 <pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">tuple</span><span class="special">&lt;</span>
-    <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span> <span class="comment">// u_bar</span>
-  <span class="special">,</span> <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span> <span class="comment">// beta_bar</span>
-  <span class="special">,</span> <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span> <span class="comment">// xi_hat</span>
+    <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span> <span class="comment">// u_bar</span>
+  <span class="special">,</span> <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span> <span class="comment">// beta_bar</span>
+  <span class="special">,</span> <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span> <span class="comment">// xi_hat</span>
 <span class="special">&gt;</span>
 </pre>
 <p>
@@ -3098,7 +3100,7 @@ Moment: 9.635
 </dd>
 <dt><span class="term">Depends On</span></dt>
 <dd><p>
-                <code class="computeroutput"><span class="identifier">count</span></code> <br> In addtion,
+                <code class="computeroutput"><span class="identifier">count</span></code> <br> In addition,
                 <code class="computeroutput"><span class="identifier">tag</span><span class="special">::</span><span class="identifier">peaks_over_threshold_prob</span><span class="special">&lt;&gt;</span></code>
                 depends on <code class="computeroutput"><span class="identifier">tail</span><span class="special">&lt;</span><em class="replaceable"><code>left-or-right</code></em><span class="special">&gt;</span></code>
               </p></dd>
@@ -3142,12 +3144,12 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/peaks_over_threshold_impl.html" title="Struct template peaks_over_threshold_impl">peaks_over_threshold_impl</a></code>
             </li>
 <li class="listitem">
-              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/peaks_over_thresh_id563593.html" title="Struct template peaks_over_threshold_prob_impl">peaks_over_threshold_prob_impl</a></code>
+              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/peaks_over_thr_idp66889008.html" title="Struct template peaks_over_threshold_prob_impl">peaks_over_threshold_prob_impl</a></code>
             </li>
 <li class="listitem">
               <a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library.count" title="count"><code class="literal">count</code></a>
@@ -3180,12 +3182,12 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
+<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
 </pre>
 <p>
               </p>
@@ -3286,7 +3288,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/pot_quantile_impl.html" title="Struct template pot_quantile_impl">pot_quantile_impl</a></code>
             </li>
@@ -3301,7 +3303,7 @@ Moment: 9.635
 </h4></div></div></div>
 <p>
           Estimation of the (coherent) tail mean based on the peaks over threshold
-          method (for both left and right tails). For inplementation details, see
+          method (for both left and right tails). For implementation details, see
           <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/pot_tail_mean_impl.html" title="Struct template pot_tail_mean_impl">pot_tail_mean_impl</a></code>.
         </p>
 <p>
@@ -3312,12 +3314,12 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
+<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
 </pre>
 <p>
               </p>
@@ -3369,7 +3371,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/pot_tail_mean_impl.html" title="Struct template pot_tail_mean_impl">pot_tail_mean_impl</a></code>
             </li>
@@ -3390,7 +3392,7 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
@@ -3459,7 +3461,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/rolling_count_impl.html" title="Struct template rolling_count_impl">rolling_count_impl</a></code>
             </li></ul></div>
 </div>
@@ -3472,7 +3474,7 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
@@ -3541,7 +3543,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/rolling_sum_impl.html" title="Struct template rolling_sum_impl">rolling_sum_impl</a></code>
             </li></ul></div>
 </div>
@@ -3553,26 +3555,40 @@ Moment: 9.635
           The rolling mean is the mean over the last <span class="emphasis"><em>N</em></span> samples.
           It is computed by dividing the rolling sum by the rolling count.
         </p>
+<p>
+          Lazy or iterative calculation of the mean over the last <span class="emphasis"><em>N</em></span>
+          samples. The lazy calculation is associated with the <code class="computeroutput"><span class="identifier">tag</span><span class="special">::</span><span class="identifier">lazy_rolling_mean</span></code>
+          feature, and the iterative calculation (which is the default) with the
+          <code class="computeroutput"><span class="identifier">tag</span><span class="special">::</span><span class="identifier">immediate_rolling_mean</span></code> feature. Both
+          can be extracted using the <code class="computeroutput"><span class="identifier">tag</span><span class="special">::</span><span class="identifier">rolling_mean</span><span class="special">()</span></code> extractor. For more implementation details,
+          see <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/lazy_rolling_mean_impl.html" title="Struct template lazy_rolling_mean_impl">lazy_rolling_mean_impl</a></code>
+          and <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/immediate_roll_idp66122208.html" title="Struct template immediate_rolling_mean_impl">immediate_rolling_mean_impl</a></code>
+        </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
+<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
 </pre>
 <p>
               </p>
 </dd>
 <dt><span class="term">Depends On</span></dt>
 <dd><p>
-                <code class="computeroutput"><span class="identifier">rolling_sum</span></code> <br>
-                <code class="computeroutput"><span class="identifier">rolling_count</span></code>
+                <code class="computeroutput"><span class="identifier">lazy_rolling_mean</span></code>
+                depends on <code class="computeroutput"><span class="identifier">rolling_sum</span></code>
+                and <code class="computeroutput"><span class="identifier">rolling_count</span></code>
+                <br> <code class="computeroutput"><span class="identifier">immediate_rolling_mean</span></code>
+                depends on <code class="computeroutput"><span class="identifier">rolling_count</span></code>
               </p></dd>
 <dt><span class="term">Variants</span></dt>
 <dd><p>
-                <span class="emphasis"><em>none</em></span>
+                <code class="computeroutput"><span class="identifier">lazy_rolling_mean</span></code>
+                (a.k.a. <code class="computeroutput"><span class="identifier">rolling_mean</span><span class="special">(</span><span class="identifier">lazy</span><span class="special">))</span></code> <br> <code class="computeroutput"><span class="identifier">immediate_rolling_mean</span></code>
+                (a.k.a. <code class="computeroutput"><span class="identifier">rolling_mean</span><span class="special">(</span><span class="identifier">immediate</span><span class="special">)</span></code>)
               </p></dd>
 <dt><span class="term">Initialization Parameters</span></dt>
 <dd><p>
@@ -3622,9 +3638,210 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
-              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/rolling_mean_impl.html" title="Struct template rolling_mean_impl">rolling_mean_impl</a></code>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/lazy_rolling_mean_impl.html" title="Struct template lazy_rolling_mean_impl">lazy_rolling_mean_impl</a></code>
+            </li>
+<li class="listitem">
+              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/immediate_roll_idp66122208.html" title="Struct template immediate_rolling_mean_impl">immediate_rolling_mean_impl</a></code>
+            </li>
+<li class="listitem">
+              <a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library.rolling_count" title="rolling_count"><code class="literal">rolling_count</code></a>
+            </li>
+<li class="listitem">
+              <a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library.rolling_sum" title="rolling_sum"><code class="literal">rolling_sum</code></a>
+            </li>
+</ul></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="accumulators.user_s_guide.the_statistical_accumulators_library.rolling_moment"></a><a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library.rolling_moment" title="rolling_moment">rolling_moment</a>
+</h4></div></div></div>
+<p>
+          rolling_moment&lt;M&gt; calculates the <span class="emphasis"><em>M</em></span>-th moment
+          of the samples, which is defined as the sum of the <span class="emphasis"><em>M</em></span>-th
+          power of the samples over the count of samples, over the last <span class="emphasis"><em>N</em></span>
+          samples.
+        </p>
+<div class="variablelist">
+<p class="title"><b></b></p>
+<dl class="variablelist">
+<dt><span class="term">Result Type</span></dt>
+<dd>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
+</pre>
+<p>
+              </p>
+</dd>
+<dt><span class="term">Depends On</span></dt>
+<dd><p>
+                <span class="emphasis"><em>none</em></span>
+              </p></dd>
+<dt><span class="term">Variants</span></dt>
+<dd><p>
+                <span class="emphasis"><em>none</em></span>
+              </p></dd>
+<dt><span class="term">Initialization Parameters</span></dt>
+<dd><p>
+                <code class="computeroutput"><span class="identifier">tag</span><span class="special">::</span><span class="identifier">rolling_window</span><span class="special">::</span><span class="identifier">window_size</span></code>
+              </p></dd>
+<dt><span class="term">Accumulator Parameters</span></dt>
+<dd><p>
+                <span class="emphasis"><em>none</em></span>
+              </p></dd>
+<dt><span class="term">Extractor Parameters</span></dt>
+<dd><p>
+                <span class="emphasis"><em>none</em></span>
+              </p></dd>
+<dt><span class="term">Accumulator Complexity</span></dt>
+<dd><p>
+                O(1)
+              </p></dd>
+<dt><span class="term">Extractor Complexity</span></dt>
+<dd><p>
+                O(1)
+              </p></dd>
+</dl>
+</div>
+<p>
+          <span class="bold"><strong>Header</strong></span>
+        </p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><code class="computeroutput"><a class="link" href="reference.html#header.boost.accumulators.statistics.rolling_moment_hpp" title="Header &lt;boost/accumulators/statistics/rolling_moment.hpp&gt;">boost/accumulators/statistics/rolling_moment.hpp</a></code><span class="special">&gt;</span>
+</pre>
+<p>
+          <span class="bold"><strong>Example</strong></span>
+        </p>
+<pre class="programlisting"><span class="identifier">accumulator_set</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="identifier">stats</span><span class="special">&lt;</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">rolling_moment</span><span class="special">&lt;</span><span class="number">2</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">acc</span><span class="special">(</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">rolling_window</span><span class="special">::</span><span class="identifier">window_size</span> <span class="special">=</span> <span class="number">3</span><span class="special">);</span>
+
+<span class="identifier">acc</span><span class="special">(</span><span class="number">2</span><span class="special">);</span>
+<span class="identifier">acc</span><span class="special">(</span><span class="number">4</span><span class="special">);</span>
+
+<span class="identifier">BOOST_CHECK_CLOSE</span><span class="special">(</span> <span class="identifier">rolling_moment</span><span class="special">&lt;</span><span class="number">2</span><span class="special">&gt;(</span><span class="identifier">acc</span><span class="special">),</span> <span class="special">(</span><span class="number">4.0</span> <span class="special">+</span> <span class="number">16.0</span><span class="special">)/</span><span class="number">2</span><span class="special">,</span> <span class="number">1e-5</span> <span class="special">);</span>
+
+<span class="identifier">acc</span><span class="special">(</span><span class="number">5</span><span class="special">);</span>
+<span class="identifier">acc</span><span class="special">(</span><span class="number">6</span><span class="special">);</span>
+
+<span class="identifier">BOOST_CHECK_CLOSE</span><span class="special">(</span> <span class="identifier">rolling_moment</span><span class="special">&lt;</span><span class="number">2</span><span class="special">&gt;(</span><span class="identifier">acc</span><span class="special">),</span> <span class="special">(</span><span class="number">16.0</span> <span class="special">+</span> <span class="number">25.0</span> <span class="special">+</span> <span class="number">36.0</span><span class="special">)/</span><span class="number">3</span><span class="special">,</span> <span class="number">1e-5</span> <span class="special">);</span>
+</pre>
+<p>
+          <span class="bold"><strong>See also</strong></span>
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/rolling_moment_impl.html" title="Struct template rolling_moment_impl">rolling_moment_impl</a></code>
             </li></ul></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="accumulators.user_s_guide.the_statistical_accumulators_library.rolling_variance"></a><a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library.rolling_variance" title="rolling_variance">rolling_variance</a>
+</h4></div></div></div>
+<p>
+          Lazy or iterative calculation of the variance over the last <span class="emphasis"><em>N</em></span>
+          samples. The lazy calculation is associated with the <code class="computeroutput"><span class="identifier">tag</span><span class="special">::</span><span class="identifier">lazy_rolling_variance</span></code>
+          feature, and the iterative calculation with the <code class="computeroutput"><span class="identifier">tag</span><span class="special">::</span><span class="identifier">immediate_rolling_variance</span></code>
+          feature. Both can be extracted using the <code class="computeroutput"><span class="identifier">tag</span><span class="special">::</span><span class="identifier">rolling_variance</span><span class="special">()</span></code> extractor. For more implementation details,
+          see <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/lazy_rolling_variance_impl.html" title="Struct template lazy_rolling_variance_impl">lazy_rolling_variance_impl</a></code>
+          and <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/immediate_roll_idp66209616.html" title="Struct template immediate_rolling_variance_impl">immediate_rolling_variance_impl</a></code>
+        </p>
+<div class="variablelist">
+<p class="title"><b></b></p>
+<dl class="variablelist">
+<dt><span class="term">Result Type</span></dt>
+<dd>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
+</pre>
+<p>
+              </p>
+</dd>
+<dt><span class="term">Depends On</span></dt>
+<dd><p>
+                <code class="computeroutput"><span class="identifier">lazy_rolling_variance</span></code>
+                depends on <code class="computeroutput"><span class="identifier">rolling_moment</span><span class="special">&lt;</span><span class="number">2</span><span class="special">&gt;</span></code>, <code class="computeroutput"><span class="identifier">rolling_count</span></code>
+                and <code class="computeroutput"><span class="identifier">rolling_mean</span></code>
+                <br> <code class="computeroutput"><span class="identifier">immediate_rolling_variance</span></code>
+                depends on <code class="computeroutput"><span class="identifier">rolling_count</span></code>
+                and <code class="computeroutput"><span class="identifier">immediate_rolling_mean</span></code>
+              </p></dd>
+<dt><span class="term">Variants</span></dt>
+<dd><p>
+                <code class="computeroutput"><span class="identifier">lazy_rolling_variance</span></code>
+                (a.k.a. <code class="computeroutput"><span class="identifier">rolling_variance</span><span class="special">(</span><span class="identifier">lazy</span><span class="special">))</span></code> <br> <code class="computeroutput"><span class="identifier">immediate_rolling_variance</span></code>
+                (a.k.a. <code class="computeroutput"><span class="identifier">rolling_variance</span><span class="special">(</span><span class="identifier">immediate</span><span class="special">)</span></code>)
+              </p></dd>
+<dt><span class="term">Initialization Parameters</span></dt>
+<dd><p>
+                <code class="computeroutput"><span class="identifier">tag</span><span class="special">::</span><span class="identifier">rolling_window</span><span class="special">::</span><span class="identifier">window_size</span></code>
+              </p></dd>
+<dt><span class="term">Accumulator Parameters</span></dt>
+<dd><p>
+                <span class="emphasis"><em>none</em></span>
+              </p></dd>
+<dt><span class="term">Extractor Parameters</span></dt>
+<dd><p>
+                <span class="emphasis"><em>none</em></span>
+              </p></dd>
+<dt><span class="term">Accumulator Complexity</span></dt>
+<dd><p>
+                O(1)
+              </p></dd>
+<dt><span class="term">Extractor Complexity</span></dt>
+<dd><p>
+                O(1)
+              </p></dd>
+</dl>
+</div>
+<p>
+          <span class="bold"><strong>Header</strong></span>
+        </p>
+<pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><code class="computeroutput"><a class="link" href="reference.html#header.boost.accumulators.statistics.rolling_variance_hpp" title="Header &lt;boost/accumulators/statistics/rolling_variance.hpp&gt;">boost/accumulators/statistics/rolling_variance.hpp</a></code><span class="special">&gt;</span>
+</pre>
+<p>
+          <span class="bold"><strong>Example</strong></span>
+        </p>
+<pre class="programlisting"><span class="identifier">accumulator_set</span><span class="special">&lt;</span><span class="keyword">double</span><span class="special">,</span> <span class="identifier">stats</span><span class="special">&lt;</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">rolling_variance</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">acc</span><span class="special">(</span><span class="identifier">tag</span><span class="special">::</span><span class="identifier">rolling_window</span><span class="special">::</span><span class="identifier">window_size</span> <span class="special">=</span> <span class="number">4</span><span class="special">);</span>
+
+<span class="identifier">acc</span><span class="special">(</span><span class="number">1.2</span><span class="special">);</span>
+
+<span class="identifier">BOOST_CHECK_CLOSE</span><span class="special">(</span> <span class="identifier">rolling_variance</span><span class="special">(</span><span class="identifier">acc</span><span class="special">),</span> <span class="number">0.0</span><span class="special">,</span> <span class="number">1e-10</span> <span class="special">);</span> <span class="comment">// variance is not defined for a single sample</span>
+
+<span class="identifier">acc</span><span class="special">(</span><span class="number">2.3</span><span class="special">);</span>
+<span class="identifier">acc</span><span class="special">(</span><span class="number">3.4</span><span class="special">);</span>
+
+<span class="identifier">BOOST_CHECK_CLOSE</span><span class="special">(</span> <span class="identifier">rolling_variance</span><span class="special">(</span><span class="identifier">acc</span><span class="special">),</span> <span class="number">1.21</span><span class="special">,</span> <span class="number">1e-10</span> <span class="special">);</span> <span class="comment">// variance over samples 1-3</span>
+
+<span class="identifier">acc</span><span class="special">(</span><span class="number">4.5</span><span class="special">);</span>
+<span class="identifier">acc</span><span class="special">(</span><span class="number">0.4</span><span class="special">);</span>
+<span class="identifier">acc</span><span class="special">(</span><span class="number">2.2</span><span class="special">);</span>
+<span class="identifier">acc</span><span class="special">(</span><span class="number">7.1</span><span class="special">);</span>
+
+<span class="identifier">BOOST_CHECK_CLOSE</span><span class="special">(</span> <span class="identifier">rolling_variance</span><span class="special">(</span><span class="identifier">acc</span><span class="special">),</span> <span class="number">8.41666666666667</span><span class="special">,</span> <span class="number">1e-10</span> <span class="special">);</span> <span class="comment">// variance over samples 4-7</span>
+</pre>
+<p>
+          <span class="bold"><strong>See also</strong></span>
+        </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/lazy_rolling_variance_impl.html" title="Struct template lazy_rolling_variance_impl">lazy_rolling_variance_impl</a></code>
+            </li>
+<li class="listitem">
+              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/immediate_roll_idp66209616.html" title="Struct template immediate_rolling_variance_impl">immediate_rolling_variance_impl</a></code>
+            </li>
+<li class="listitem">
+              <a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library.rolling_count" title="rolling_count"><code class="literal">rolling_count</code></a>
+            </li>
+<li class="listitem">
+              <a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library.rolling_mean" title="rolling_mean"><code class="literal">rolling_mean</code></a>
+            </li>
+<li class="listitem">
+              <a class="link" href="../"><code class="literal">immediate_rolling_mean</code></a>
+            </li>
+<li class="listitem">
+              <a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library.rolling_moment" title="rolling_moment"><code class="literal">rolling_moment</code></a>
+            </li>
+</ul></div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -3633,17 +3850,17 @@ Moment: 9.635
 <p>
           The skewness of a sample distribution is defined as the ratio of the 3rd
           central moment and the <code class="literal">3/2</code>-th power of the 2nd central
-          moment (the variance) of the sampless 3. For implementation details, see
+          moment (the variance) of the samples 3. For implementation details, see
           <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/skewness_impl.html" title="Struct template skewness_impl">skewness_impl</a></code>.
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <em class="replaceable"><code>sample-type</code></em><span class="special">&gt;::</span><span class="identifier">result_type</span>
+<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <em class="replaceable"><code>sample-type</code></em><span class="special">&gt;::</span><span class="identifier">result_type</span>
 </pre>
 <p>
               </p>
@@ -3703,7 +3920,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/skewness_impl.html" title="Struct template skewness_impl">skewness_impl</a></code>
             </li>
@@ -3727,7 +3944,7 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd><p>
                 <code class="computeroutput"><em class="replaceable"><code>sample-type</code></em></code> for summing samples <br> <code class="computeroutput"><em class="replaceable"><code>weight-type</code></em></code> for summing
@@ -3815,7 +4032,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/sum_impl.html" title="Struct template sum_impl">sum_impl</a></code>
             </li>
@@ -3843,7 +4060,7 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
@@ -3904,7 +4121,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/tail_impl.html" title="Struct template tail_impl">tail_impl</a></code>
             </li>
@@ -3920,18 +4137,18 @@ Moment: 9.635
 <p>
           Estimation of the coherent tail mean based on order statistics (for both
           left and right tails). The left coherent tail mean feature is <code class="computeroutput"><span class="identifier">tag</span><span class="special">::</span><span class="identifier">coherent_tail_mean</span><span class="special">&lt;</span><span class="identifier">left</span><span class="special">&gt;</span></code>,
-          and the right choherent tail mean feature is <code class="computeroutput"><span class="identifier">tag</span><span class="special">::</span><span class="identifier">coherent_tail_mean</span><span class="special">&lt;</span><span class="identifier">right</span><span class="special">&gt;</span></code>. They both share the <code class="computeroutput"><span class="identifier">tag</span><span class="special">::</span><span class="identifier">tail_mean</span></code> feature and can be extracted
+          and the right coherent tail mean feature is <code class="computeroutput"><span class="identifier">tag</span><span class="special">::</span><span class="identifier">coherent_tail_mean</span><span class="special">&lt;</span><span class="identifier">right</span><span class="special">&gt;</span></code>. They both share the <code class="computeroutput"><span class="identifier">tag</span><span class="special">::</span><span class="identifier">tail_mean</span></code> feature and can be extracted
           with the <code class="computeroutput"><span class="identifier">tail_mean</span><span class="special">()</span></code>
           extractor. For more implementation details, see <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/coherent_tail_mean_impl.html" title="Struct template coherent_tail_mean_impl">coherent_tail_mean_impl</a></code>
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
+<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
 </pre>
 <p>
               </p>
@@ -3980,7 +4197,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/coherent_tail_mean_impl.html" title="Struct template coherent_tail_mean_impl">coherent_tail_mean_impl</a></code>
             </li>
@@ -4011,16 +4228,16 @@ Moment: 9.635
           <code class="computeroutput"><span class="identifier">tag</span><span class="special">::</span><span class="identifier">non_coherent_tail_mean</span><span class="special">&lt;</span><span class="identifier">left</span><span class="special">&gt;</span></code>,
           and the right non-choherent tail mean feature is <code class="computeroutput"><span class="identifier">tag</span><span class="special">::</span><span class="identifier">non_coherent_tail_mean</span><span class="special">&lt;</span><span class="identifier">right</span><span class="special">&gt;</span></code>. They both share the <code class="computeroutput"><span class="identifier">tag</span><span class="special">::</span><span class="identifier">abstract_non_coherent_tail_mean</span></code> feature
           and can be extracted with the <code class="computeroutput"><span class="identifier">non_coherent_tail_mean</span><span class="special">()</span></code> extractor. For more implementation details,
-          see <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/non_coherent_tail_id566684.html" title="Struct template non_coherent_tail_mean_impl">non_coherent_tail_mean_impl</a></code>
+          see <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/non_coherent_t_idp67056048.html" title="Struct template non_coherent_tail_mean_impl">non_coherent_tail_mean_impl</a></code>
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
+<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
 </pre>
 <p>
               </p>
@@ -4112,9 +4329,9 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/non_coherent_tail_id566684.html" title="Struct template non_coherent_tail_mean_impl">non_coherent_tail_mean_impl</a></code>
+              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/non_coherent_t_idp67056048.html" title="Struct template non_coherent_tail_mean_impl">non_coherent_tail_mean_impl</a></code>
             </li>
 <li class="listitem">
               <a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library.count" title="count"><code class="literal">count</code></a>
@@ -4138,7 +4355,7 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
@@ -4234,7 +4451,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/tail_quantile_impl.html" title="Struct template tail_quantile_impl">tail_quantile_impl</a></code>
             </li>
@@ -4267,7 +4484,7 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
@@ -4353,7 +4570,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/tail_variate_impl.html" title="Struct template tail_variate_impl">tail_variate_impl</a></code>
             </li>
@@ -4382,14 +4599,14 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
 </p>
 <pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">iterator_range</span><span class="special">&lt;</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span>
-        <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
+        <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
     <span class="special">&gt;::</span><span class="identifier">iterator</span>
 <span class="special">&gt;</span>
 </pre>
@@ -4540,7 +4757,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/tail_variate_means_impl.html" title="Struct template tail_variate_means_impl">tail_variate_means_impl</a></code>
             </li>
@@ -4567,12 +4784,12 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
+<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
 </pre>
 <p>
               </p>
@@ -4648,7 +4865,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/lazy_variance_impl.html" title="Struct template lazy_variance_impl">lazy_variance_impl</a></code>
             </li>
@@ -4678,7 +4895,7 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
@@ -4686,11 +4903,11 @@ Moment: 9.635
 <pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">outer_product</span><span class="special">&lt;</span>
     <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">multiplies</span><span class="special">&lt;</span>
         <em class="replaceable"><code>weight-type</code></em>
-      <span class="special">,</span> <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
+      <span class="special">,</span> <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
     <span class="special">&gt;::</span><span class="identifier">result_type</span>
   <span class="special">,</span> <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">multiplies</span><span class="special">&lt;</span>
         <em class="replaceable"><code>weight-type</code></em>
-      <span class="special">,</span> <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>variate-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
+      <span class="special">,</span> <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>variate-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
     <span class="special">&gt;::</span><span class="identifier">result_type</span>
 <span class="special">&gt;</span>
 </pre>
@@ -4748,7 +4965,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_covariance_impl.html" title="Struct template weighted_covariance_impl">weighted_covariance_impl</a></code>
             </li>
@@ -4774,7 +4991,7 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
@@ -4782,8 +4999,8 @@ Moment: 9.635
 <pre class="programlisting"><span class="identifier">iterator_range</span><span class="special">&lt;</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span>
         <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span>
-            <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>weight-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
-          <span class="special">,</span> <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>weight-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
+            <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>weight-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
+          <span class="special">,</span> <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>weight-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
         <span class="special">&gt;</span>
     <span class="special">&gt;::</span><span class="identifier">iterator</span>
 <span class="special">&gt;</span>
@@ -4829,7 +5046,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_density_impl.html" title="Struct template weighted_density_impl">weighted_density_impl</a></code>
             </li>
@@ -4853,11 +5070,11 @@ Moment: 9.635
 </h4></div></div></div>
 <p>
           Multiple quantile estimation with the extended <code class="literal">P^2</code> algorithm
-          for weighted samples. For further details, see <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_extended_id569602.html" title="Struct template weighted_extended_p_square_impl">weighted_extended_p_square_impl</a></code>.
+          for weighted samples. For further details, see <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_exten_idp67370944.html" title="Struct template weighted_extended_p_square_impl">weighted_extended_p_square_impl</a></code>.
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
@@ -4966,9 +5183,9 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_extended_id569602.html" title="Struct template weighted_extended_p_square_impl">weighted_extended_p_square_impl</a></code>
+              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_exten_idp67370944.html" title="Struct template weighted_extended_p_square_impl">weighted_extended_p_square_impl</a></code>
             </li>
 <li class="listitem">
               <a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library.count" title="count"><code class="literal">count</code></a>
@@ -4991,12 +5208,12 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span>
+<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span>
     <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">multiplies</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <em class="replaceable"><code>weight-type</code></em><span class="special">&gt;::</span><span class="identifier">result_type</span>
   <span class="special">,</span> <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">multiplies</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <em class="replaceable"><code>weight-type</code></em><span class="special">&gt;::</span><span class="identifier">result_type</span>
 <span class="special">&gt;::</span><span class="identifier">result_type</span>
@@ -5061,7 +5278,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_kurtosis_impl.html" title="Struct template weighted_kurtosis_impl">weighted_kurtosis_impl</a></code>
             </li>
@@ -5083,15 +5300,15 @@ Moment: 9.635
           either lazy (in the result extractor), or immediate (in the accumulator).
           The lazy implementation is the default. For more implementation details,
           see <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_mean_impl.html" title="Struct template weighted_mean_impl">weighted_mean_impl</a></code>
-          or. <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/immediate_weighte_id570387.html" title="Struct template immediate_weighted_mean_impl">immediate_weighted_mean_impl</a></code>
+          or. <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/immediate_weig_idp67336656.html" title="Struct template immediate_weighted_mean_impl">immediate_weighted_mean_impl</a></code>
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd><p>
-                For samples, <code class="computeroutput"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">multiplies</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <em class="replaceable"><code>weight-type</code></em><span class="special">&gt;::</span><span class="identifier">result_type</span><span class="special">,</span> <em class="replaceable"><code>weight-type</code></em><span class="special">&gt;::</span><span class="identifier">result_type</span></code> <br> For variates,
-                <code class="computeroutput"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">multiplies</span><span class="special">&lt;</span><em class="replaceable"><code>variate-type</code></em><span class="special">,</span> <em class="replaceable"><code>weight-type</code></em><span class="special">&gt;::</span><span class="identifier">result_type</span><span class="special">,</span>
+                For samples, <code class="computeroutput"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">multiplies</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <em class="replaceable"><code>weight-type</code></em><span class="special">&gt;::</span><span class="identifier">result_type</span><span class="special">,</span> <em class="replaceable"><code>weight-type</code></em><span class="special">&gt;::</span><span class="identifier">result_type</span></code> <br> For variates,
+                <code class="computeroutput"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">multiplies</span><span class="special">&lt;</span><em class="replaceable"><code>variate-type</code></em><span class="special">,</span> <em class="replaceable"><code>weight-type</code></em><span class="special">&gt;::</span><span class="identifier">result_type</span><span class="special">,</span>
                 <em class="replaceable"><code>weight-type</code></em><span class="special">&gt;::</span><span class="identifier">result_type</span></code>
               </p></dd>
 <dt><span class="term">Depends On</span></dt>
@@ -5188,12 +5405,12 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_mean_impl.html" title="Struct template weighted_mean_impl">weighted_mean_impl</a></code>
             </li>
 <li class="listitem">
-              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/immediate_weighte_id570387.html" title="Struct template immediate_weighted_mean_impl">immediate_weighted_mean_impl</a></code>
+              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/immediate_weig_idp67336656.html" title="Struct template immediate_weighted_mean_impl">immediate_weighted_mean_impl</a></code>
             </li>
 <li class="listitem">
               <a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library.weighted_sum" title="weighted_sum and variants"><code class="literal">weighted_sum</code></a>
@@ -5222,12 +5439,12 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
+<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
 </pre>
 <p>
               </p>
@@ -5313,7 +5530,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_median_impl.html" title="Struct template weighted_median_impl">weighted_median_impl</a></code>
             </li>
@@ -5344,12 +5561,12 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span>
+<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span>
     <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">multiplies</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <em class="replaceable"><code>weight-type</code></em><span class="special">&gt;::</span><span class="identifier">result_type</span>
   <span class="special">,</span> <span class="identifier">weight_type</span>
 <span class="special">&gt;::</span><span class="identifier">result_type</span>
@@ -5412,7 +5629,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_moment_impl.html" title="Struct template weighted_moment_impl">weighted_moment_impl</a></code>
             </li>
@@ -5430,11 +5647,11 @@ Moment: 9.635
 </h4></div></div></div>
 <p>
           Histogram calculation of the cumulative distribution with the <code class="literal">P^2</code>
-          algorithm for weighted samples. For more implementation details, see <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_p_square_id571172.html" title="Struct template weighted_p_square_cumulative_distribution_impl">weighted_p_square_cumulative_distribution_impl</a></code>
+          algorithm for weighted samples. For more implementation details, see <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_p_squ_idp67420496.html" title="Struct template weighted_p_square_cumulative_distribution_impl">weighted_p_square_cumulative_distribution_impl</a></code>
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
@@ -5442,8 +5659,8 @@ Moment: 9.635
 <pre class="programlisting"><span class="identifier">iterator_range</span><span class="special">&lt;</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span>
         <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span>
-            <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><span class="identifier">weighted_sample</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
-          <span class="special">,</span> <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span><span class="identifier">weighted_sample</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
+            <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><span class="identifier">weighted_sample</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
+          <span class="special">,</span> <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span><span class="identifier">weighted_sample</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;::</span><span class="identifier">result_type</span>
         <span class="special">&gt;</span>
     <span class="special">&gt;::</span><span class="identifier">iterator</span>
 <span class="special">&gt;</span>
@@ -5524,7 +5741,7 @@ Moment: 9.635
 <span class="identifier">histogram_type</span> <span class="identifier">histogram_upper</span> <span class="special">=</span> <span class="identifier">weighted_p_square_cumulative_distribution</span><span class="special">(</span><span class="identifier">acc_upper</span><span class="special">);</span>
 <span class="identifier">histogram_type</span> <span class="identifier">histogram_lower</span> <span class="special">=</span> <span class="identifier">weighted_p_square_cumulative_distribution</span><span class="special">(</span><span class="identifier">acc_lower</span><span class="special">);</span>
 
-<span class="comment">// Note that applaying importance sampling results in a region of the distribution </span>
+<span class="comment">// Note that applying importance sampling results in a region of the distribution </span>
 <span class="comment">// to be estimated more accurately and another region to be estimated less accurately</span>
 <span class="comment">// than without importance sampling, i.e., with unweighted samples</span>
 
@@ -5543,9 +5760,9 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_p_square_id571172.html" title="Struct template weighted_p_square_cumulative_distribution_impl">weighted_p_square_cumulative_distribution_impl</a></code>
+              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_p_squ_idp67420496.html" title="Struct template weighted_p_square_cumulative_distribution_impl">weighted_p_square_cumulative_distribution_impl</a></code>
             </li>
 <li class="listitem">
               <a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library.count" title="count"><code class="literal">count</code></a>
@@ -5562,16 +5779,16 @@ Moment: 9.635
 </h4></div></div></div>
 <p>
           Single quantile estimation with the <code class="literal">P^2</code> algorithm. For
-          more implementation details, see <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_p_square_id571412.html" title="Struct template weighted_p_square_quantile_impl">weighted_p_square_quantile_impl</a></code>
+          more implementation details, see <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_p_squ_idp67437936.html" title="Struct template weighted_p_square_quantile_impl">weighted_p_square_quantile_impl</a></code>
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span>
+<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span>
     <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">multiplies</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <em class="replaceable"><code>weight-type</code></em><span class="special">&gt;::</span><span class="identifier">result_type</span>
   <span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span>
 <span class="special">&gt;::</span><span class="identifier">result_type</span>
@@ -5685,9 +5902,9 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_p_square_id571412.html" title="Struct template weighted_p_square_quantile_impl">weighted_p_square_quantile_impl</a></code>
+              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_p_squ_idp67437936.html" title="Struct template weighted_p_square_quantile_impl">weighted_p_square_quantile_impl</a></code>
             </li>
 <li class="listitem">
               <a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library.count" title="count"><code class="literal">count</code></a>
@@ -5704,8 +5921,8 @@ Moment: 9.635
 </h4></div></div></div>
 <p>
           Weighted peaks over threshold method for weighted quantile and weighted
-          tail mean estimation. For more implementation details, see <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_peaks_ov_id571798.html" title="Struct template weighted_peaks_over_threshold_impl">weighted_peaks_over_threshold_impl</a></code>
-          and <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_peaks_ov_id571914.html" title="Struct template weighted_peaks_over_threshold_prob_impl">weighted_peaks_over_threshold_prob_impl</a></code>.
+          tail mean estimation. For more implementation details, see <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_peaks_idp67346336.html" title="Struct template weighted_peaks_over_threshold_impl">weighted_peaks_over_threshold_impl</a></code>
+          and <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_peaks_idp67359072.html" title="Struct template weighted_peaks_over_threshold_prob_impl">weighted_peaks_over_threshold_prob_impl</a></code>.
         </p>
 <p>
           Both <code class="computeroutput"><span class="identifier">tag</span><span class="special">::</span><span class="identifier">weighted_peaks_over_threshold</span><span class="special">&lt;</span><em class="replaceable"><code>left-or-right</code></em><span class="special">&gt;</span></code> and <code class="computeroutput"><span class="identifier">tag</span><span class="special">::</span><span class="identifier">weighted_peaks_over_threshold_prob</span><span class="special">&lt;</span><em class="replaceable"><code>left-or-right</code></em><span class="special">&gt;</span></code>
@@ -5714,7 +5931,7 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
@@ -5724,7 +5941,7 @@ Moment: 9.635
                 where <code class="computeroutput"><span class="identifier">float_type</span></code>
                 is
 </p>
-<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span>
+<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span>
     <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">multiplies</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <em class="replaceable"><code>weight-type</code></em><span class="special">&gt;::</span><span class="identifier">result_type</span>
   <span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span>
 <span class="special">&gt;::</span><span class="identifier">result_type</span>
@@ -5774,12 +5991,12 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_peaks_ov_id571798.html" title="Struct template weighted_peaks_over_threshold_impl">weighted_peaks_over_threshold_impl</a></code>
+              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_peaks_idp67346336.html" title="Struct template weighted_peaks_over_threshold_impl">weighted_peaks_over_threshold_impl</a></code>
             </li>
 <li class="listitem">
-              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_peaks_ov_id571914.html" title="Struct template weighted_peaks_over_threshold_prob_impl">weighted_peaks_over_threshold_prob_impl</a></code>
+              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_peaks_idp67359072.html" title="Struct template weighted_peaks_over_threshold_prob_impl">weighted_peaks_over_threshold_prob_impl</a></code>
             </li>
 <li class="listitem">
               <a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library.sum" title="sum and variants"><code class="literal">sum</code></a>
@@ -5796,7 +6013,7 @@ Moment: 9.635
 <p>
           The skewness of a sample distribution is defined as the ratio of the 3rd
           central moment and the <code class="literal">3/2</code>-th power of the 2nd central
-          moment (the variance) of the sampless 3. The skewness estimator for weighted
+          moment (the variance) of the samples 3. The skewness estimator for weighted
           samples is formally identical to the estimator for unweighted samples,
           except that the weighted counterparts of all measures it depends on are
           to be taken.
@@ -5806,12 +6023,12 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span>
+<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span>
     <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">multiplies</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <em class="replaceable"><code>weight-type</code></em><span class="special">&gt;::</span><span class="identifier">result_type</span>
   <span class="special">,</span> <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">multiplies</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <em class="replaceable"><code>weight-type</code></em><span class="special">&gt;::</span><span class="identifier">result_type</span>
 <span class="special">&gt;::</span><span class="identifier">result_type</span>
@@ -5875,7 +6092,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_skewness_impl.html" title="Struct template weighted_skewness_impl">weighted_skewness_impl</a></code>
             </li>
@@ -5899,7 +6116,7 @@ Moment: 9.635
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd><p>
                 <code class="computeroutput"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">multiplies</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <em class="replaceable"><code>weight-type</code></em><span class="special">&gt;::</span><span class="identifier">result_type</span></code> for summing weighted
@@ -5974,7 +6191,7 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_sum_impl.html" title="Struct template weighted_sum_impl">weighted_sum_impl</a></code>
             </li>
@@ -5995,16 +6212,16 @@ Moment: 9.635
           They both share the <code class="computeroutput"><span class="identifier">tag</span><span class="special">::</span><span class="identifier">abstract_non_coherent_tail_mean</span></code>
           feature with the unweighted non-coherent tail mean accumulators and can
           be extracted with either the <code class="computeroutput"><span class="identifier">non_coherent_tail_mean</span><span class="special">()</span></code> or the <code class="computeroutput"><span class="identifier">non_coherent_weighted_tail_mean</span><span class="special">()</span></code> extractors. For more implementation details,
-          see <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/non_coherent_weig_id572725.html" title="Struct template non_coherent_weighted_tail_mean_impl">non_coherent_weighted_tail_mean_impl</a></code>.
+          see <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/non_coherent_w_idp67510560.html" title="Struct template non_coherent_weighted_tail_mean_impl">non_coherent_weighted_tail_mean_impl</a></code>.
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span>
+<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span>
     <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">multiplies</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <em class="replaceable"><code>weight-type</code></em><span class="special">&gt;::</span><span class="identifier">result_type</span>
   <span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span>
 <span class="special">&gt;::</span><span class="identifier">result_type</span>
@@ -6090,9 +6307,9 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/non_coherent_weig_id572725.html" title="Struct template non_coherent_weighted_tail_mean_impl">non_coherent_weighted_tail_mean_impl</a></code>
+              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/non_coherent_w_idp67510560.html" title="Struct template non_coherent_weighted_tail_mean_impl">non_coherent_weighted_tail_mean_impl</a></code>
             </li>
 <li class="listitem">
               <a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library.sum" title="sum and variants"><code class="literal">sum</code></a>
@@ -6113,11 +6330,11 @@ Moment: 9.635
           and the right weighted tail quantile feature is <code class="computeroutput"><span class="identifier">tag</span><span class="special">::</span><span class="identifier">weighted_tail_quantile</span><span class="special">&lt;</span><span class="identifier">right</span><span class="special">&gt;</span></code>. They both share the <code class="computeroutput"><span class="identifier">tag</span><span class="special">::</span><span class="identifier">quantile</span></code> feature with the unweighted
           tail quantile accumulators and can be extracted with either the <code class="computeroutput"><span class="identifier">quantile</span><span class="special">()</span></code>
           or the <code class="computeroutput"><span class="identifier">weighted_tail_quantile</span><span class="special">()</span></code> extractors. For more implementation details,
-          see <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_tail_qua_id573100.html" title="Struct template weighted_tail_quantile_impl">weighted_tail_quantile_impl</a></code>
+          see <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_tail__idp67546736.html" title="Struct template weighted_tail_quantile_impl">weighted_tail_quantile_impl</a></code>
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
@@ -6203,9 +6420,9 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_tail_qua_id573100.html" title="Struct template weighted_tail_quantile_impl">weighted_tail_quantile_impl</a></code>
+              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_tail__idp67546736.html" title="Struct template weighted_tail_quantile_impl">weighted_tail_quantile_impl</a></code>
             </li>
 <li class="listitem">
               <a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library.sum" title="sum and variants"><code class="literal">sum</code></a>
@@ -6235,17 +6452,17 @@ Moment: 9.635
           the <code class="computeroutput"><span class="identifier">relative_tail_variate_means</span><span class="special">()</span></code> or <code class="computeroutput"><span class="identifier">relative_weighted_tail_variate_means</span><span class="special">()</span></code> extractors.
         </p>
 <p>
-          For more implementation details, see <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_tail_var_id573509.html" title="Struct template weighted_tail_variate_means_impl">weighted_tail_variate_means_impl</a></code>
+          For more implementation details, see <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_tail__idp67579072.html" title="Struct template weighted_tail_variate_means_impl">weighted_tail_variate_means_impl</a></code>
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
 </p>
 <pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">iterator_range</span><span class="special">&lt;</span>
-    <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span>
+    <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span>
         <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">multiplies</span><span class="special">&lt;</span><em class="replaceable"><code>variate-type</code></em><span class="special">,</span> <em class="replaceable"><code>weight-type</code></em><span class="special">&gt;::</span><span class="identifier">result_type</span>
       <span class="special">,</span> <em class="replaceable"><code>weight-type</code></em>
     <span class="special">&gt;::</span><span class="identifier">result_type</span><span class="special">::</span><span class="identifier">iterator</span>
@@ -6388,9 +6605,9 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_tail_var_id573509.html" title="Struct template weighted_tail_variate_means_impl">weighted_tail_variate_means_impl</a></code>
+              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_tail__idp67579072.html" title="Struct template weighted_tail_variate_means_impl">weighted_tail_variate_means_impl</a></code>
             </li>
 <li class="listitem">
               <a class="link" href="user_s_guide.html#accumulators.user_s_guide.the_statistical_accumulators_library.non_coherent_weighted_tail_mean" title="non_coherent_weighted_tail_mean"><code class="literal">non_coherent_weighted_tail_mean</code></a>
@@ -6413,17 +6630,17 @@ Moment: 9.635
           is associated with the <code class="computeroutput"><span class="identifier">tag</span><span class="special">::</span><span class="identifier">lazy_weighted_variance</span></code>
           feature, and the iterative calculation with the <code class="computeroutput"><span class="identifier">tag</span><span class="special">::</span><span class="identifier">weighted_variance</span></code>
           feature. Both can be extracted using the <code class="computeroutput"><span class="identifier">tag</span><span class="special">::</span><span class="identifier">weighted_variance</span><span class="special">()</span></code> extractor. For more implementation details,
-          see <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/lazy_weighted_var_id574039.html" title="Struct template lazy_weighted_variance_impl">lazy_weighted_variance_impl</a></code>
+          see <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/lazy_weighted__idp67617808.html" title="Struct template lazy_weighted_variance_impl">lazy_weighted_variance_impl</a></code>
           and <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_variance_impl.html" title="Struct template weighted_variance_impl">weighted_variance_impl</a></code>
         </p>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">Result Type</span></dt>
 <dd>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span>
+<pre class="programlisting"><span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">fdiv</span><span class="special">&lt;</span>
     <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">multiplies</span><span class="special">&lt;</span><em class="replaceable"><code>sample-type</code></em><span class="special">,</span> <em class="replaceable"><code>weight-type</code></em><span class="special">&gt;::</span><span class="identifier">result_type</span>
   <span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span>
 <span class="special">&gt;::</span><span class="identifier">result_type</span>
@@ -6525,9 +6742,9 @@ Moment: 9.635
 <p>
           <span class="bold"><strong>See also</strong></span>
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/lazy_weighted_var_id574039.html" title="Struct template lazy_weighted_variance_impl">lazy_weighted_variance_impl</a></code>
+              <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/lazy_weighted__idp67617808.html" title="Struct template lazy_weighted_variance_impl">lazy_weighted_variance_impl</a></code>
             </li>
 <li class="listitem">
               <code class="computeroutput"><a class="link" href="../boost/accumulators/impl/weighted_variance_impl.html" title="Struct template weighted_variance_impl">weighted_variance_impl</a></code>

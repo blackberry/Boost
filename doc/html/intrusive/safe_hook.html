@@ -3,9 +3,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Safe hooks</title>
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../intrusive.html" title="Chapter&#160;13.&#160;Boost.Intrusive">
+<link rel="up" href="../intrusive.html" title="Chapter&#160;15.&#160;Boost.Intrusive">
 <link rel="prev" href="presenting_containers.html" title="Presenting Boost.Intrusive containers">
 <link rel="next" href="auto_unlink_hooks.html" title="Auto-unlink hooks">
 </head>
@@ -26,7 +26,7 @@
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="intrusive.safe_hook"></a><a class="link" href="safe_hook.html" title="Safe hooks">Safe hooks</a>
 </h2></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="safe_hook.html#intrusive.safe_hook.features">Features of the safe mode</a></span></dt>
 <dt><span class="section"><a href="safe_hook.html#intrusive.safe_hook.configuring">Configuring safe-mode
       assertions</a></span></dt>
@@ -49,7 +49,7 @@
         in a container without any external reference. Let's review the basic features
         of the safe mode:
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             Hook's constructor puts the hook in a well-known default state.
           </li>
@@ -92,7 +92,7 @@
         without modifying the global <code class="computeroutput"><span class="identifier">BOOST_ASSERT</span></code>.
         This can be achieved redefining the following macros:
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             <code class="computeroutput"><span class="identifier">BOOST_INTRUSIVE_SAFE_HOOK_DEFAULT_ASSERT</span></code>:
             This assertion will be used in insertion functions of the intrusive containers
@@ -119,7 +119,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2005 Olaf Krzikalla<br>Copyright &#169; 2006-2012 Ion Gaztanaga<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2005 Olaf Krzikalla<br>Copyright &#169; 2006-2013 Ion Gaztanaga<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

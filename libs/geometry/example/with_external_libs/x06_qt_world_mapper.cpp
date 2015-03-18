@@ -25,7 +25,7 @@
 #include <boost/geometry/geometry.hpp>
 
 #include <boost/geometry/geometries/geometries.hpp>
-#include <boost/geometry/multi/geometries/multi_geometries.hpp>
+#include <boost/geometry/geometries/multi_geometries.hpp>
 #include <boost/geometry/geometries/point_xy.hpp>
 
 #include <boost/geometry/geometries/register/point.hpp>
@@ -91,7 +91,7 @@ class WorldMapper : public QWidget
  private:
     typedef boost::geometry::strategy::transform::map_transformer
         <
-            point_2d, QPointF,
+            double, 2, 2,
             true, true
         > map_transformer_type;
 

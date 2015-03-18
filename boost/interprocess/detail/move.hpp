@@ -14,7 +14,11 @@
 #ifndef BOOST_INTERPROCESS_DETAIL_MOVE_HPP
 #define BOOST_INTERPROCESS_DETAIL_MOVE_HPP
 
-#include <boost/move/move.hpp>
+#if defined(_MSC_VER)
+#  pragma once
+#endif
+
+#include <boost/move/utility_core.hpp>
 
 namespace boost {
 namespace interprocess {

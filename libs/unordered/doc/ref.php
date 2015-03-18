@@ -449,10 +449,6 @@ EOL;
                 <para>Since existing <code>std::pair</code> implementations don't support
                       <code>std::piecewise_construct</code> this emulates it,
                       but using <code>boost::unordered::piecewise_construct</code>.</para>
-                <para>In version of Boost before 1.48 this emulated the variadic pair
-                      constructor from older C++0x drafts. For backwards compatability
-                      this can be enabled by defining the macro
-                      <code>BOOST_UNORDERED_DEPRECATED_PAIR_CONSTRUCT</code>.</para>
               </notes>
             </method>
             <method name="emplace_hint">
@@ -499,10 +495,6 @@ EOL;
                 <para>Since existing <code>std::pair</code> implementations don't support
                       <code>std::piecewise_construct</code> this emulates it,
                       but using <code>boost::unordered::piecewise_construct</code>.</para>
-                <para>In version of Boost before 1.48 this emulated the variadic pair
-                      constructor from older C++0x drafts. For backwards compatability
-                      this can be enabled by defining the macro
-                      <code>BOOST_UNORDERED_DEPRECATED_PAIR_CONSTRUCT</code>.</para>
               </notes>
             </method>
             <method name="insert">
@@ -1114,9 +1106,7 @@ EOL;
               </description>
               <notes>
                 <para>The behavior of this function was changed to match
-                  the C++11 standard in Boost 1.48. If you wish to use
-                  the old behaviour, define the macro
-                  <code>BOOST_UNORDERED_DEPRECATED_EQUALITY</code>.</para>
+                  the C++11 standard in Boost 1.48.</para>
                 <para>Behavior is undefined if the two containers don't have
                     equivalent equality predicates.</para>
               </notes>
@@ -1157,9 +1147,7 @@ EOL;
               </description>
               <notes>
                 <para>The behavior of this function was changed to match
-                  the C++11 standard in Boost 1.48. If you wish to use
-                  the old behaviour, define the macro
-                  <code>BOOST_UNORDERED_DEPRECATED_EQUALITY</code>.</para>
+                  the C++11 standard in Boost 1.48.</para>
                 <para>Behavior is undefined if the two containers don't have
                     equivalent equality predicates.</para>
               </notes>

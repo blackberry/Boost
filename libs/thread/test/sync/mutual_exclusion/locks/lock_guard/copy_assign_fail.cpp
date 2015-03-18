@@ -18,7 +18,7 @@
 
 // lock_guard& operator=(lock_guard const&) = delete;
 
-#include <boost/thread/locks.hpp>
+#include <boost/thread/lock_guard.hpp>
 #include <boost/thread/mutex.hpp>
 #include <boost/detail/lightweight_test.hpp>
 

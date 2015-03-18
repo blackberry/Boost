@@ -9,10 +9,10 @@ project hash-tests
     : requirements
         <warnings>all
         <toolset>intel:<warnings>on
-        <toolset>intel:<cxxflags>-strict-ansi
+        #<toolset>intel:<cxxflags>-strict-ansi
         <toolset>gcc:<cxxflags>"-pedantic -Wstrict-aliasing -fstrict-aliasing -Wextra -Wsign-promo -Wunused-parameter -Wconversion -Wfloat-equal -Wshadow"
         <toolset>darwin:<cxxflags>"-pedantic -Wstrict-aliasing -fstrict-aliasing -Wextra -Wsign-promo -Wunused-parameter -Wconversion -Wfloat-equal -Wshadow"
-        <toolset>msvc:<warnings-as-errors>on
+        #<toolset>msvc:<warnings-as-errors>on
         #<toolset>gcc:<warnings-as-errors>on
         #<toolset>darwin:<warnings-as-errors>on
     ;
@@ -52,7 +52,6 @@ test-suite functional/hash
         [ run implicit_test.cpp ]
         [ run hash_no_ext_macro_1.cpp ]
         [ run hash_no_ext_macro_2.cpp ]
-        [ compile-fail deprecated_container_fwd.cpp ]
     ;
 
 test-suite functional/hash_no_ext

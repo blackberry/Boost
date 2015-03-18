@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Class template visitor_ptr_t</title>
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
 <link rel="up" href="../variant/reference.html#header.boost.variant.visitor_ptr_hpp" title="Header &lt;boost/variant/visitor_ptr.hpp&gt;">
 <link rel="prev" href="static_visitor.html" title="Class template static_visitor">
@@ -35,26 +35,29 @@
 <span class="keyword">class</span> <a class="link" href="visitor_ptr_t.html" title="Class template visitor_ptr_t">visitor_ptr_t</a> <span class="special">:</span> <span class="keyword">public</span> <a class="link" href="static_visitor.html" title="Class template static_visitor">static_visitor</a><span class="special">&lt;</span><span class="identifier">R</span><span class="special">&gt;</span> <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
   <span class="comment">// <a class="link" href="visitor_ptr_t.html#boost.visitor_ptr_tconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <span class="keyword">explicit</span> <a class="link" href="visitor_ptr_t.html#id1921580-bb"><span class="identifier">visitor_ptr_t</span></a><span class="special">(</span><span class="identifier">R</span> <span class="special">(</span><span class="special">*</span><span class="special">)</span><span class="special">(</span><span class="identifier">T</span><span class="special">)</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">explicit</span> <a class="link" href="visitor_ptr_t.html#idp156288320-bb"><span class="identifier">visitor_ptr_t</span></a><span class="special">(</span><span class="identifier">R</span> <span class="special">(</span><span class="special">*</span><span class="special">)</span><span class="special">(</span><span class="identifier">T</span><span class="special">)</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="visitor_ptr_t.html#id1934438-bb">static visitor interfaces</a></span>
-  <span class="identifier">R</span> <a class="link" href="visitor_ptr_t.html#id1934446-bb"><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span></a><span class="special">(</span><span class="emphasis"><em><span class="identifier">unspecified</span><span class="special">-</span><span class="identifier">forwarding</span><span class="special">-</span><span class="identifier">type</span></em></span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> U<span class="special">&gt;</span> <span class="keyword">void</span> <a class="link" href="visitor_ptr_t.html#id1934461-bb"><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">U</span><span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="visitor_ptr_t.html#idp304281920-bb">static visitor interfaces</a></span>
+  <span class="identifier">R</span> <a class="link" href="visitor_ptr_t.html#idp304283056-bb"><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span></a><span class="special">(</span><span class="emphasis"><em><span class="identifier">unspecified</span><span class="special">-</span><span class="identifier">forwarding</span><span class="special">-</span><span class="identifier">type</span></em></span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> U<span class="special">&gt;</span> <span class="keyword">void</span> <a class="link" href="visitor_ptr_t.html#idp350512240-bb"><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">U</span><span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="id3911010"></a><h2>Description</h2>
+<a name="idp525233888"></a><h2>Description</h2>
 <p>Adapts the function given at construction for use as a
         <a class="link" href="../variant/reference.html#variant.concepts.static-visitor" title="StaticVisitor">static visitor</a>
         of type <code class="computeroutput">T</code> with result type <code class="computeroutput">R</code>.</p>
 <div class="refsect2">
-<a name="id3911038"></a><h3>
+<a name="idp525237152"></a><h3>
 <a name="boost.visitor_ptr_tconstruct-copy-destruct"></a><code class="computeroutput">visitor_ptr_t</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
-<pre class="literallayout"><span class="keyword">explicit</span> <a name="id1921580-bb"></a><span class="identifier">visitor_ptr_t</span><span class="special">(</span><span class="identifier">R</span> <span class="special">(</span><span class="special">*</span><span class="special">)</span><span class="special">(</span><span class="identifier">T</span><span class="special">)</span><span class="special">)</span><span class="special">;</span></pre>
-<div class="variablelist"><table border="0">
+<pre class="literallayout"><span class="keyword">explicit</span> <a name="idp156288320-bb"></a><span class="identifier">visitor_ptr_t</span><span class="special">(</span><span class="identifier">R</span> <span class="special">(</span><span class="special">*</span><span class="special">)</span><span class="special">(</span><span class="identifier">T</span><span class="special">)</span><span class="special">)</span><span class="special">;</span></pre>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody><tr>
 <td><p><span class="term">Effects:</span></p></td>
 <td>Constructs the visitor with the given function.</td>
@@ -63,13 +66,16 @@
 </li></ol></div>
 </div>
 <div class="refsect2">
-<a name="id3911137"></a><h3>
-<a name="id1934438-bb"></a><code class="computeroutput">visitor_ptr_t</code> static visitor interfaces</h3>
+<a name="idp525249040"></a><h3>
+<a name="idp304281920-bb"></a><code class="computeroutput">visitor_ptr_t</code> static visitor interfaces</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
-<pre class="literallayout"><a name="id1934442-bb"></a><span class="identifier">R</span> <a name="id1934446-bb"></a><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="emphasis"><em><span class="identifier">unspecified</span><span class="special">-</span><span class="identifier">forwarding</span><span class="special">-</span><span class="identifier">type</span></em></span> operand<span class="special">)</span><span class="special">;</span>
-<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> U<span class="special">&gt;</span> <span class="keyword">void</span> <a name="id1934461-bb"></a><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">U</span><span class="special">&amp;</span><span class="special">)</span><span class="special">;</span></pre>
-<div class="variablelist"><table border="0">
+<pre class="literallayout"><a name="idp304282496-bb"></a><span class="identifier">R</span> <a name="idp304283056-bb"></a><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="emphasis"><em><span class="identifier">unspecified</span><span class="special">-</span><span class="identifier">forwarding</span><span class="special">-</span><span class="identifier">type</span></em></span> operand<span class="special">)</span><span class="special">;</span>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> U<span class="special">&gt;</span> <span class="keyword">void</span> <a name="idp350512240-bb"></a><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">U</span><span class="special">&amp;</span><span class="special">)</span><span class="special">;</span></pre>
+<div class="variablelist"><table border="0" class="variablelist compact">
+<colgroup>
 <col align="left" valign="top">
+<col>
+</colgroup>
 <tbody>
 <tr>
 <td><p><span class="term">Effects:</span></p></td>

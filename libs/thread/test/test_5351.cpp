@@ -3,8 +3,10 @@
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
+#define BOOST_THREAD_PROVIDES_INTERRUPTIONS
+
 #include <iostream>
-#include <boost/thread.hpp>
+#include <boost/thread/thread_only.hpp>
 #include <boost/date_time/posix_time/posix_time_types.hpp>
 #include <boost/thread/future.hpp>
 

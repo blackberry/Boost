@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Struct count_impl</title>
 <link rel="stylesheet" href="../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
 <link rel="up" href="../../../accumulators/reference.html#header.boost.accumulators.statistics.count_hpp" title="Header &lt;boost/accumulators/statistics/count.hpp&gt;">
 <link rel="prev" href="../extract/count.html" title="Global count">
@@ -32,32 +32,32 @@
 <div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../../accumulators/reference.html#header.boost.accumulators.statistics.count_hpp" title="Header &lt;boost/accumulators/statistics/count.hpp&gt;">boost/accumulators/statistics/count.hpp</a>&gt;
 
 </span>
-<span class="keyword">struct</span> <a class="link" href="count_impl.html" title="Struct count_impl">count_impl</a> <span class="special">{</span>
+<span class="keyword">struct</span> <a class="link" href="count_impl.html" title="Struct count_impl">count_impl</a> <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">accumulator_base</span> <span class="special">{</span>
   <span class="comment">// types</span>
   <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <a name="boost.accumulators.impl.count_impl.result_type"></a><span class="identifier">result_type</span><span class="special">;</span>
 
   <span class="comment">// <a class="link" href="count_impl.html#boost.accumulators.impl.count_implconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="count_impl.html#id558143-bb"><span class="identifier">count_impl</span></a><span class="special">(</span><span class="identifier">dont_care</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="count_impl.html#idp65627616-bb"><span class="identifier">count_impl</span></a><span class="special">(</span><span class="identifier">dont_care</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="count_impl.html#id558113-bb">public member functions</a></span>
-  <span class="keyword">void</span> <a class="link" href="count_impl.html#id558116-bb"><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span></a><span class="special">(</span><span class="identifier">dont_care</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">result_type</span> <a class="link" href="count_impl.html#id558129-bb"><span class="identifier">result</span></a><span class="special">(</span><span class="identifier">dont_care</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="count_impl.html#idp65623552-bb">public member functions</a></span>
+  <span class="keyword">void</span> <a class="link" href="count_impl.html#idp65624112-bb"><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span></a><span class="special">(</span><span class="identifier">dont_care</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">result_type</span> <a class="link" href="count_impl.html#idp65625648-bb"><span class="identifier">result</span></a><span class="special">(</span><span class="identifier">dont_care</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="id869768"></a><h2>Description</h2>
+<a name="idp100509104"></a><h2>Description</h2>
 <div class="refsect2">
-<a name="id869771"></a><h3>
+<a name="idp100509520"></a><h3>
 <a name="boost.accumulators.impl.count_implconstruct-copy-destruct"></a><code class="computeroutput">count_impl</code> 
         public
        construct/copy/destruct</h3>
-<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><a name="id558143-bb"></a><span class="identifier">count_impl</span><span class="special">(</span><span class="identifier">dont_care</span><span class="special">)</span><span class="special">;</span></pre></li></ol></div>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><a name="idp65627616-bb"></a><span class="identifier">count_impl</span><span class="special">(</span><span class="identifier">dont_care</span><span class="special">)</span><span class="special">;</span></pre></li></ol></div>
 </div>
 <div class="refsect2">
-<a name="id869824"></a><h3>
-<a name="id558113-bb"></a><code class="computeroutput">count_impl</code> public member functions</h3>
+<a name="idp100515920"></a><h3>
+<a name="idp65623552-bb"></a><code class="computeroutput">count_impl</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
-<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="id558116-bb"></a><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="identifier">dont_care</span><span class="special">)</span><span class="special">;</span></pre></li>
-<li class="listitem"><pre class="literallayout"><span class="identifier">result_type</span> <a name="id558129-bb"></a><span class="identifier">result</span><span class="special">(</span><span class="identifier">dont_care</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <a name="idp65624112-bb"></a><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="identifier">dont_care</span><span class="special">)</span><span class="special">;</span></pre></li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">result_type</span> <a name="idp65625648-bb"></a><span class="identifier">result</span><span class="special">(</span><span class="identifier">dont_care</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li>
 </ol></div>
 </div>
 </div>

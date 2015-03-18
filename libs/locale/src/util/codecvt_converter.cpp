@@ -233,7 +233,7 @@ namespace util {
     {
     public:
         code_converter(std::auto_ptr<base_converter> cvt,size_t refs = 0) :
-            std::codecvt<CharType,char,std::mbstate_t>(refs),
+          std::codecvt<CharType,char,std::mbstate_t>(refs),
             cvt_(cvt)
         {
             max_len_ = cvt_->max_len(); 
@@ -634,7 +634,7 @@ namespace util {
     {
     public:
         code_converter(std::auto_ptr<base_converter> /*cvt*/,size_t refs = 0) : 
-            std::codecvt<char,char,std::mbstate_t>(refs)  
+          std::codecvt<char,char,std::mbstate_t>(refs)  
         {
         }
     };

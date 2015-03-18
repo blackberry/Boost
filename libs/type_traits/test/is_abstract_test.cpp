@@ -226,7 +226,7 @@ BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_abstract<volatile const TestAE>::value),
 BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_abstract<volatile const TestAF>::value), false);
 BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_abstract<volatile const TestAG>::value), false);
 
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
 BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_abstract<TestA&&>::value), false);
 #endif
 BOOST_CHECK_INTEGRAL_CONSTANT((::tt::is_abstract<TestA&>::value), false);

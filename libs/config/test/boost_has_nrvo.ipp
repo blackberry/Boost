@@ -1,7 +1,7 @@
 //  (C) Copyright Terje Slettebo 2001.
-//  (C) Copyright John Maddock 2001. 
-//  Use, modification and distribution are subject to the 
-//  Boost Software License, Version 1.0. (See accompanying file 
+//  (C) Copyright John Maddock 2001.
+//  Use, modification and distribution are subject to the
+//  Boost Software License, Version 1.0. (See accompanying file
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 //  See http://www.boost.org/libs/config for most recent version.
@@ -18,7 +18,7 @@ class test_class
 {
 public:
   test_class() {}
-  test_class(const test_class &other)
+  test_class(const test_class&)
   {
     ++copy_count;
   }

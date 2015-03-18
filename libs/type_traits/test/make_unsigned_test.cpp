@@ -95,6 +95,10 @@ BOOST_CHECK_TYPE(::tt::make_unsigned<const volatile boost::ulong_long_type>::typ
 #elif defined(BOOST_HAS_MS_INT64)
 BOOST_CHECK_TYPE(::tt::make_unsigned<const volatile unsigned __int64>::type, const volatile unsigned __int64);
 #endif
+#ifdef BOOST_HAS_INT128
+BOOST_CHECK_TYPE(::tt::make_unsigned<boost::int128_type>::type, boost::uint128_type);
+BOOST_CHECK_TYPE(::tt::make_unsigned<boost::uint128_type>::type, boost::uint128_type);
+#endif
 
 // character types:
 BOOST_CHECK_TYPE(::tt::make_unsigned<char>::type, unsigned char);

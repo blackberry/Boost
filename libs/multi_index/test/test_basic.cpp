@@ -1,6 +1,6 @@
 /* Boost.MultiIndex basic test.
  *
- * Copyright 2003-2008 Joaquin M Lopez Munoz.
+ * Copyright 2003-2013 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -15,7 +15,7 @@
 #include <vector>
 #include "pre_multi_index.hpp"
 #include "employee.hpp"
-#include <boost/test/test_tools.hpp>
+#include <boost/detail/lightweight_test.hpp>
 
 using namespace boost::multi_index;
 
@@ -60,22 +60,22 @@ void test_basic()
   {
     /* by insertion order */
 
-    BOOST_CHECK(std::equal(i3.begin(),i3.end(),v.begin()));
-    BOOST_CHECK(std::equal(i5.begin(),i5.end(),v.begin()));
+    BOOST_TEST(std::equal(i3.begin(),i3.end(),v.begin()));
+    BOOST_TEST(std::equal(i5.begin(),i5.end(),v.begin()));
   }
 
   {
     /* by id */
 
     std::sort(v.begin(),v.end());
-    BOOST_CHECK(std::equal(es.begin(),es.end(),v.begin()));
+    BOOST_TEST(std::equal(es.begin(),es.end(),v.begin()));
   }
 
   {
     /* by age */
 
     std::sort(v.begin(),v.end(),less_by_employee_age());
-    BOOST_CHECK(std::equal(i2.begin(),i2.end(),v.begin()));
+    BOOST_TEST(std::equal(i2.begin(),i2.end(),v.begin()));
   }
 
 }

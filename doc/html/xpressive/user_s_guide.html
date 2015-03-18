@@ -3,10 +3,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>User's Guide</title>
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../xpressive.html" title="Chapter&#160;35.&#160;Boost.Xpressive">
-<link rel="prev" href="../xpressive.html" title="Chapter&#160;35.&#160;Boost.Xpressive">
+<link rel="up" href="../xpressive.html" title="Chapter&#160;39.&#160;Boost.Xpressive">
+<link rel="prev" href="../xpressive.html" title="Chapter&#160;39.&#160;Boost.Xpressive">
 <link rel="next" href="reference.html" title="Reference">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -26,7 +26,7 @@
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="xpressive.user_s_guide"></a><a class="link" href="user_s_guide.html" title="User's Guide">User's Guide</a>
 </h2></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="user_s_guide.html#boost_xpressive.user_s_guide.introduction">Introduction</a></span></dt>
 <dt><span class="section"><a href="user_s_guide.html#boost_xpressive.user_s_guide.installing_xpressive">Installing
       xpressive</a></span></dt>
@@ -66,13 +66,13 @@
 </h3></div></div></div>
 <h3>
 <a name="boost_xpressive.user_s_guide.introduction.h0"></a>
-        <span><a name="boost_xpressive.user_s_guide.introduction.what_is_xpressive_"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.introduction.what_is_xpressive_">What
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.introduction.what_is_xpressive_"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.introduction.what_is_xpressive_">What
         is xpressive?</a>
       </h3>
 <p>
         xpressive is a regular expression template library. Regular expressions (regexes)
         can be written as strings that are parsed dynamically at runtime (dynamic
-        regexes), or as <span class="emphasis"><em>expression templates</em></span><sup>[<a name="boost_xpressive.user_s_guide.introduction.f0" href="#ftn.boost_xpressive.user_s_guide.introduction.f0" class="footnote">7</a>]</sup> that are parsed at compile-time (static regexes). Dynamic regexes
+        regexes), or as <span class="emphasis"><em>expression templates</em></span><a href="#ftn.boost_xpressive.user_s_guide.introduction.f0" class="footnote" name="boost_xpressive.user_s_guide.introduction.f0"><sup class="footnote">[9]</sup></a> that are parsed at compile-time (static regexes). Dynamic regexes
         have the advantage that they can be accepted from the user as input at runtime
         or read from an initialization file. Static regexes have several advantages.
         Since they are C++ expressions instead of strings, they can be syntax-checked
@@ -98,7 +98,7 @@
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.introduction.h1"></a>
-        <span><a name="boost_xpressive.user_s_guide.introduction.hello__world_"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.introduction.hello__world_">Hello,
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.introduction.hello__world_"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.introduction.hello__world_">Hello,
         world!</a>
       </h3>
 <p>
@@ -164,7 +164,7 @@ world
 </pre>
 <p>
         To create a regular expression object from a string, you must call a factory
-        method such as <code class="literal"><code class="computeroutput"><a class="link" href="../boost/xpressive/basic_regex.html#id1983180-bb">basic_regex&lt;&gt;::compile()</a></code></code>.
+        method such as <code class="literal"><code class="computeroutput"><a class="link" href="../boost/xpressive/basic_regex.html#idp356796288-bb">basic_regex&lt;&gt;::compile()</a></code></code>.
         This is another area in which xpressive differs from other object-oriented
         regular expression libraries. Other libraries encourage you to think of a
         regular expression as a kind of string on steroids. In xpressive, regular
@@ -224,7 +224,7 @@ world
 </h3></div></div></div>
 <h3>
 <a name="boost_xpressive.user_s_guide.installing_xpressive.h0"></a>
-        <span><a name="boost_xpressive.user_s_guide.installing_xpressive.getting_xpressive"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.installing_xpressive.getting_xpressive">Getting
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.installing_xpressive.getting_xpressive"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.installing_xpressive.getting_xpressive">Getting
         xpressive</a>
       </h3>
 <p>
@@ -240,7 +240,7 @@ world
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.installing_xpressive.h1"></a>
-        <span><a name="boost_xpressive.user_s_guide.installing_xpressive.building_with_xpressive"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.installing_xpressive.building_with_xpressive">Building
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.installing_xpressive.building_with_xpressive"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.installing_xpressive.building_with_xpressive">Building
         with xpressive</a>
       </h3>
 <p>
@@ -258,20 +258,20 @@ world
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.installing_xpressive.h2"></a>
-        <span><a name="boost_xpressive.user_s_guide.installing_xpressive.requirements"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.installing_xpressive.requirements">Requirements</a>
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.installing_xpressive.requirements"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.installing_xpressive.requirements">Requirements</a>
       </h3>
 <p>
         Xpressive requires Boost version 1.34.1 or higher.
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.installing_xpressive.h3"></a>
-        <span><a name="boost_xpressive.user_s_guide.installing_xpressive.supported_compilers"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.installing_xpressive.supported_compilers">Supported
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.installing_xpressive.supported_compilers"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.installing_xpressive.supported_compilers">Supported
         Compilers</a>
       </h3>
 <p>
         Currently, Boost.Xpressive is known to work on the following compilers:
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             Visual C++ 7.1 and higher
           </li>
@@ -318,7 +318,7 @@ world
         begin with the nickel tour of the types and algorithms xpressive provides.
       </p>
 <div class="table">
-<a name="boost_xpressive.user_s_guide.quick_start.t0"></a><p class="title"><b>Table&#160;35.1.&#160;xpressive's Tool-Box</b></p>
+<a name="boost_xpressive.user_s_guide.quick_start.t0"></a><p class="title"><b>Table&#160;39.1.&#160;xpressive's Tool-Box</b></p>
 <div class="table-contents"><table class="table" summary="xpressive's Tool-Box">
 <colgroup>
 <col>
@@ -494,7 +494,7 @@ world
 </ol></div>
 <h3>
 <a name="boost_xpressive.user_s_guide.quick_start.h0"></a>
-        <span><a name="boost_xpressive.user_s_guide.quick_start.know_your_iterator_type"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.quick_start.know_your_iterator_type">Know
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.quick_start.know_your_iterator_type"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.quick_start.know_your_iterator_type">Know
         Your Iterator Type</a>
       </h3>
 <p>
@@ -504,7 +504,7 @@ world
         right types based on the type of your iterator.
       </p>
 <div class="table">
-<a name="boost_xpressive.user_s_guide.quick_start.t1"></a><p class="title"><b>Table&#160;35.2.&#160;xpressive Typedefs vs. Iterator Types</b></p>
+<a name="boost_xpressive.user_s_guide.quick_start.t1"></a><p class="title"><b>Table&#160;39.2.&#160;xpressive Typedefs vs. Iterator Types</b></p>
 <div class="table-contents"><table class="table" summary="xpressive Typedefs vs. Iterator Types">
 <colgroup>
 <col>
@@ -688,7 +688,7 @@ world
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.quick_start.h1"></a>
-        <span><a name="boost_xpressive.user_s_guide.quick_start.know_your_task"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.quick_start.know_your_task">Know Your
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.quick_start.know_your_task"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.quick_start.know_your_task">Know Your
         Task</a>
       </h3>
 <p>
@@ -696,7 +696,7 @@ world
         has tools for all that and more. Below is a quick reference:
       </p>
 <div class="table">
-<a name="boost_xpressive.user_s_guide.quick_start.t2"></a><p class="title"><b>Table&#160;35.3.&#160;Tasks and Tools</b></p>
+<a name="boost_xpressive.user_s_guide.quick_start.t2"></a><p class="title"><b>Table&#160;39.3.&#160;Tasks and Tools</b></p>
 <div class="table-contents"><table class="table" summary="Tasks and Tools">
 <colgroup>
 <col>
@@ -823,7 +823,7 @@ world
 <a name="xpressive.user_s_guide.creating_a_regex_object"></a><a class="link" href="user_s_guide.html#xpressive.user_s_guide.creating_a_regex_object" title="Creating a Regex Object">Creating
       a Regex Object</a>
 </h3></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="user_s_guide.html#boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes">Static
         Regexes</a></span></dt>
 <dt><span class="section"><a href="user_s_guide.html#boost_xpressive.user_s_guide.creating_a_regex_object.dynamic_regexes">Dynamic
@@ -841,7 +841,7 @@ world
 </h4></div></div></div>
 <h3>
 <a name="boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.h0"></a>
-          <span><a name="boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.overview"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.overview">Overview</a>
+          <span class="phrase"><a name="boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.overview"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.overview">Overview</a>
         </h3>
 <p>
           The feature that really sets xpressive apart from other C/C++ regular expression
@@ -852,7 +852,7 @@ world
           have many advantages over their string-based brethren. In particular, static
           regexes:
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               are syntax-checked at compile-time; they will never fail at run-time
               due to a syntax error.
@@ -881,7 +881,7 @@ world
         </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.h1"></a>
-          <span><a name="boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.construction_and_assignment"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.construction_and_assignment">Construction
+          <span class="phrase"><a name="boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.construction_and_assignment"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.construction_and_assignment">Construction
           and Assignment</a>
         </h3>
 <p>
@@ -896,7 +896,7 @@ world
         </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.h2"></a>
-          <span><a name="boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.character_and_string_literals"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.character_and_string_literals">Character
+          <span class="phrase"><a name="boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.character_and_string_literals"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.character_and_string_literals">Character
           and String Literals</a>
         </h3>
 <p>
@@ -931,7 +931,7 @@ world
 </pre>
 <h3>
 <a name="boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.h3"></a>
-          <span><a name="boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.sequencing_and_alternation"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.sequencing_and_alternation">Sequencing
+          <span class="phrase"><a name="boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.sequencing_and_alternation"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.sequencing_and_alternation">Sequencing
           and Alternation</a>
         </h3>
 <p>
@@ -951,7 +951,7 @@ world
 </pre>
 <h3>
 <a name="boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.h4"></a>
-          <span><a name="boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.grouping_and_captures"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.grouping_and_captures">Grouping
+          <span class="phrase"><a name="boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.grouping_and_captures"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.grouping_and_captures">Grouping
           and Captures</a>
         </h3>
 <p>
@@ -993,7 +993,7 @@ world
 </table></div>
 <h3>
 <a name="boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.h5"></a>
-          <span><a name="boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.case_insensitivity_and_internationalization"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.case_insensitivity_and_internationalization">Case-Insensitivity
+          <span class="phrase"><a name="boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.case_insensitivity_and_internationalization"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.case_insensitivity_and_internationalization">Case-Insensitivity
           and Internationalization</a>
         </h3>
 <p>
@@ -1032,7 +1032,7 @@ world
         </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.h6"></a>
-          <span><a name="boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.static_xpressive_syntax_cheat_sheet"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.static_xpressive_syntax_cheat_sheet">Static
+          <span class="phrase"><a name="boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.static_xpressive_syntax_cheat_sheet"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.static_xpressive_syntax_cheat_sheet">Static
           xpressive Syntax Cheat Sheet</a>
         </h3>
 <p>
@@ -1040,7 +1040,7 @@ world
           in static xpressive.
         </p>
 <div class="table">
-<a name="boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.t0"></a><p class="title"><b>Table&#160;35.4.&#160;Perl syntax vs. Static xpressive syntax</b></p>
+<a name="boost_xpressive.user_s_guide.creating_a_regex_object.static_regexes.t0"></a><p class="title"><b>Table&#160;39.4.&#160;Perl syntax vs. Static xpressive syntax</b></p>
 <div class="table-contents"><table class="table" summary="Perl syntax vs. Static xpressive syntax">
 <colgroup>
 <col>
@@ -1229,7 +1229,7 @@ world
                 </td>
 <td>
                   <p>
-                    <code class="computeroutput"><a class="link" href="../boost/xpressive/repeat_id1991162.html" title="Function template repeat">repeat</a><span class="special">&lt;</span><span class="identifier">n</span><span class="special">,</span><span class="identifier">m</span><span class="special">&gt;(</span><span class="identifier">a</span><span class="special">)</span></code>
+                    <code class="computeroutput"><a class="link" href="../boost/xpressive/repeat.html" title="Function repeat">repeat</a><span class="special">&lt;</span><span class="identifier">n</span><span class="special">,</span><span class="identifier">m</span><span class="special">&gt;(</span><span class="identifier">a</span><span class="special">)</span></code>
                   </p>
                 </td>
 <td>
@@ -1298,7 +1298,7 @@ world
                 </td>
 <td>
                   <p>
-                    <code class="computeroutput"><span class="special">-</span><a class="link" href="../boost/xpressive/repeat_id1991162.html" title="Function template repeat">repeat</a><span class="special">&lt;</span><span class="identifier">n</span><span class="special">,</span><span class="identifier">m</span><span class="special">&gt;(</span><span class="identifier">a</span><span class="special">)</span></code>
+                    <code class="computeroutput"><span class="special">-</span><a class="link" href="../boost/xpressive/repeat.html" title="Function repeat">repeat</a><span class="special">&lt;</span><span class="identifier">n</span><span class="special">,</span><span class="identifier">m</span><span class="special">&gt;(</span><span class="identifier">a</span><span class="special">)</span></code>
                   </p>
                 </td>
 <td>
@@ -2017,7 +2017,7 @@ world
 </h4></div></div></div>
 <h3>
 <a name="boost_xpressive.user_s_guide.creating_a_regex_object.dynamic_regexes.h0"></a>
-          <span><a name="boost_xpressive.user_s_guide.creating_a_regex_object.dynamic_regexes.overview"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.creating_a_regex_object.dynamic_regexes.overview">Overview</a>
+          <span class="phrase"><a name="boost_xpressive.user_s_guide.creating_a_regex_object.dynamic_regexes.overview"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.creating_a_regex_object.dynamic_regexes.overview">Overview</a>
         </h3>
 <p>
           Static regexes are dandy, but sometimes you need something a bit more ...
@@ -2030,13 +2030,13 @@ world
         </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.creating_a_regex_object.dynamic_regexes.h1"></a>
-          <span><a name="boost_xpressive.user_s_guide.creating_a_regex_object.dynamic_regexes.construction_and_assignment"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.creating_a_regex_object.dynamic_regexes.construction_and_assignment">Construction
+          <span class="phrase"><a name="boost_xpressive.user_s_guide.creating_a_regex_object.dynamic_regexes.construction_and_assignment"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.creating_a_regex_object.dynamic_regexes.construction_and_assignment">Construction
           and Assignment</a>
         </h3>
 <p>
-          There are two ways to create a dynamic regex: with the <code class="literal"><code class="computeroutput"><a class="link" href="../boost/xpressive/basic_regex.html#id1983180-bb">basic_regex&lt;&gt;::compile()</a></code></code>
+          There are two ways to create a dynamic regex: with the <code class="literal"><code class="computeroutput"><a class="link" href="../boost/xpressive/basic_regex.html#idp356796288-bb">basic_regex&lt;&gt;::compile()</a></code></code>
           function or with the <code class="literal"><code class="computeroutput"><a class="link" href="../boost/xpressive/regex_compiler.html" title="Struct template regex_compiler">regex_compiler&lt;&gt;</a></code></code>
-          class template. Use <code class="literal"><code class="computeroutput"><a class="link" href="../boost/xpressive/basic_regex.html#id1983180-bb">basic_regex&lt;&gt;::compile()</a></code></code>
+          class template. Use <code class="literal"><code class="computeroutput"><a class="link" href="../boost/xpressive/basic_regex.html#idp356796288-bb">basic_regex&lt;&gt;::compile()</a></code></code>
           if you want the default locale. Use <code class="literal"><code class="computeroutput"><a class="link" href="../boost/xpressive/regex_compiler.html" title="Struct template regex_compiler">regex_compiler&lt;&gt;</a></code></code>
           if you need to specify a different locale. In the section on <a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.grammars_and_nested_matches" title="Grammars and Nested Matches">regex
           grammars</a>, we'll see another use for <code class="literal"><code class="computeroutput"><a class="link" href="../boost/xpressive/regex_compiler.html" title="Struct template regex_compiler">regex_compiler&lt;&gt;</a></code></code>.
@@ -2053,12 +2053,12 @@ world
 <span class="identifier">sregex</span> <span class="identifier">re</span> <span class="special">=</span> <span class="identifier">compiler</span><span class="special">.</span><span class="identifier">compile</span><span class="special">(</span> <span class="string">"this|that"</span><span class="special">,</span> <span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">icase</span> <span class="special">);</span>
 </pre>
 <p>
-          <code class="literal"><code class="computeroutput"><a class="link" href="../boost/xpressive/basic_regex.html#id1983180-bb">basic_regex&lt;&gt;::compile()</a></code></code>
+          <code class="literal"><code class="computeroutput"><a class="link" href="../boost/xpressive/basic_regex.html#idp356796288-bb">basic_regex&lt;&gt;::compile()</a></code></code>
           is implemented in terms of <code class="literal"><code class="computeroutput"><a class="link" href="../boost/xpressive/regex_compiler.html" title="Struct template regex_compiler">regex_compiler&lt;&gt;</a></code></code>.
         </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.creating_a_regex_object.dynamic_regexes.h2"></a>
-          <span><a name="boost_xpressive.user_s_guide.creating_a_regex_object.dynamic_regexes.dynamic_xpressive_syntax"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.creating_a_regex_object.dynamic_regexes.dynamic_xpressive_syntax">Dynamic
+          <span class="phrase"><a name="boost_xpressive.user_s_guide.creating_a_regex_object.dynamic_regexes.dynamic_xpressive_syntax"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.creating_a_regex_object.dynamic_regexes.dynamic_xpressive_syntax">Dynamic
           xpressive Syntax</a>
         </h3>
 <p>
@@ -2077,7 +2077,7 @@ world
         </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.creating_a_regex_object.dynamic_regexes.h3"></a>
-          <span><a name="boost_xpressive.user_s_guide.creating_a_regex_object.dynamic_regexes.internationalization"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.creating_a_regex_object.dynamic_regexes.internationalization">Internationalization</a>
+          <span class="phrase"><a name="boost_xpressive.user_s_guide.creating_a_regex_object.dynamic_regexes.internationalization"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.creating_a_regex_object.dynamic_regexes.internationalization">Internationalization</a>
         </h3>
 <p>
           As with static regexes, dynamic regexes support internationalization by
@@ -2109,7 +2109,7 @@ world
 </h3></div></div></div>
 <h3>
 <a name="boost_xpressive.user_s_guide.matching_and_searching.h0"></a>
-        <span><a name="boost_xpressive.user_s_guide.matching_and_searching.overview"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.matching_and_searching.overview">Overview</a>
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.matching_and_searching.overview"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.matching_and_searching.overview">Overview</a>
       </h3>
 <p>
         Once you have created a regex object, you can use the <code class="literal"><code class="computeroutput"><a class="link" href="../boost/xpressive/regex_match.html" title="Function regex_match">regex_match()</a></code></code>
@@ -2122,7 +2122,7 @@ world
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.matching_and_searching.h1"></a>
-        <span><a name="boost_xpressive.user_s_guide.matching_and_searching.seeing_if_a_string_matches_a_regex"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.matching_and_searching.seeing_if_a_string_matches_a_regex">Seeing
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.matching_and_searching.seeing_if_a_string_matches_a_regex"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.matching_and_searching.seeing_if_a_string_matches_a_regex">Seeing
         if a String Matches a Regex</a>
       </h3>
 <p>
@@ -2204,7 +2204,7 @@ world
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.matching_and_searching.h2"></a>
-        <span><a name="boost_xpressive.user_s_guide.matching_and_searching.searching_for_matching_sub_strings"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.matching_and_searching.searching_for_matching_sub_strings">Searching
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.matching_and_searching.searching_for_matching_sub_strings"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.matching_and_searching.searching_for_matching_sub_strings">Searching
         for Matching Sub-Strings</a>
       </h3>
 <p>
@@ -2240,7 +2240,7 @@ world
 </h3></div></div></div>
 <h3>
 <a name="boost_xpressive.user_s_guide.accessing_results.h0"></a>
-        <span><a name="boost_xpressive.user_s_guide.accessing_results.overview"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.accessing_results.overview">Overview</a>
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.accessing_results.overview"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.accessing_results.overview">Overview</a>
       </h3>
 <p>
         Sometimes, it is not enough to know simply whether a <code class="literal"><code class="computeroutput"><a class="link" href="../boost/xpressive/regex_match.html" title="Function regex_match">regex_match()</a></code></code>
@@ -2259,7 +2259,7 @@ world
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.accessing_results.h1"></a>
-        <span><a name="boost_xpressive.user_s_guide.accessing_results.match_results"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.accessing_results.match_results">match_results</a>
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.accessing_results.match_results"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.accessing_results.match_results">match_results</a>
       </h3>
 <p>
         So, you've passed a <code class="literal"><code class="computeroutput"><a class="link" href="../boost/xpressive/match_results.html" title="Struct template match_results">match_results&lt;&gt;</a></code></code>
@@ -2274,7 +2274,7 @@ world
         object named <code class="computeroutput"><span class="identifier">what</span></code>.
       </p>
 <div class="table">
-<a name="boost_xpressive.user_s_guide.accessing_results.t0"></a><p class="title"><b>Table&#160;35.5.&#160;match_results&lt;&gt; Accessors</b></p>
+<a name="boost_xpressive.user_s_guide.accessing_results.t0"></a><p class="title"><b>Table&#160;39.5.&#160;match_results&lt;&gt; Accessors</b></p>
 <div class="table-contents"><table class="table" summary="match_results&lt;&gt; Accessors">
 <colgroup>
 <col>
@@ -2412,7 +2412,7 @@ world
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.accessing_results.h2"></a>
-        <span><a name="boost_xpressive.user_s_guide.accessing_results.sub_match"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.accessing_results.sub_match">sub_match</a>
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.accessing_results.sub_match"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.accessing_results.sub_match">sub_match</a>
       </h3>
 <p>
         When you index into a <code class="literal"><code class="computeroutput"><a class="link" href="../boost/xpressive/match_results.html" title="Struct template match_results">match_results&lt;&gt;</a></code></code>
@@ -2443,7 +2443,7 @@ world
         object called <code class="computeroutput"><span class="identifier">sub</span></code>.
       </p>
 <div class="table">
-<a name="boost_xpressive.user_s_guide.accessing_results.t1"></a><p class="title"><b>Table&#160;35.6.&#160;sub_match&lt;&gt; Accessors</b></p>
+<a name="boost_xpressive.user_s_guide.accessing_results.t1"></a><p class="title"><b>Table&#160;39.6.&#160;sub_match&lt;&gt; Accessors</b></p>
 <div class="table-contents"><table class="table" summary="sub_match&lt;&gt; Accessors">
 <colgroup>
 <col>
@@ -2507,7 +2507,7 @@ world
 </div>
 <br class="table-break"><h3>
 <a name="boost_xpressive.user_s_guide.accessing_results.h3"></a>
-        <span><a name="boost_xpressive.user_s_guide.accessing_results._inlinemediaobject__imageobject__imagedata_fileref__images_caution_png____imagedata___imageobject__textobject__phrase_caution__phrase___textobject___inlinemediaobject__results_invalidation__inlinemediaobject__imageobject__imagedata_fileref__images_caution_png____imagedata___imageobject__textobject__phrase_caution__phrase___textobject___inlinemediaobject_"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.accessing_results._inlinemediaobject__imageobject__imagedata_fileref__images_caution_png____imagedata___imageobject__textobject__phrase_caution__phrase___textobject___inlinemediaobject__results_invalidation__inlinemediaobject__imageobject__imagedata_fileref__images_caution_png____imagedata___imageobject__textobject__phrase_caution__phrase___textobject___inlinemediaobject_"><span class="inlinemediaobject"><img src="../images/caution.png" alt="caution"></span> Results Invalidation <span class="inlinemediaobject"><img src="../images/caution.png" alt="caution"></span></a>
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.accessing_results._inlinemediaobject__imageobject__imagedata_fileref__images_caution_png____imagedata___imageobject__textobject__phrase_caution__phrase___textobject___inlinemediaobject__results_invalidation__inlinemediaobject__imageobject__imagedata_fileref__images_caution_png____imagedata___imageobject__textobject__phrase_caution__phrase___textobject___inlinemediaobject_"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.accessing_results._inlinemediaobject__imageobject__imagedata_fileref__images_caution_png____imagedata___imageobject__textobject__phrase_caution__phrase___textobject___inlinemediaobject__results_invalidation__inlinemediaobject__imageobject__imagedata_fileref__images_caution_png____imagedata___imageobject__textobject__phrase_caution__phrase___textobject___inlinemediaobject_"><span class="inlinemediaobject"><img src="../images/caution.png" alt="caution"></span> Results Invalidation <span class="inlinemediaobject"><img src="../images/caution.png" alt="caution"></span></a>
       </h3>
 <p>
         Results are stored as iterators into the input sequence. Anything which invalidates
@@ -2531,7 +2531,7 @@ world
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.string_substitutions.h0"></a>
-        <span><a name="boost_xpressive.user_s_guide.string_substitutions.regex_replace__"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.string_substitutions.regex_replace__">regex_replace()</a>
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.string_substitutions.regex_replace__"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.string_substitutions.regex_replace__">regex_replace()</a>
       </h3>
 <p>
         Performing search-and-replace using <code class="literal"><code class="computeroutput"><a class="link" href="../boost/xpressive/regex_replace.html" title="Function regex_replace">regex_replace()</a></code></code>
@@ -2575,7 +2575,7 @@ Ther is her face
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.string_substitutions.h1"></a>
-        <span><a name="boost_xpressive.user_s_guide.string_substitutions.replace_options"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.string_substitutions.replace_options">Replace
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.string_substitutions.replace_options"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.string_substitutions.replace_options">Replace
         Options</a>
       </h3>
 <p>
@@ -2584,7 +2584,7 @@ Ther is her face
         The possible values of the bitmask are:
       </p>
 <div class="table">
-<a name="boost_xpressive.user_s_guide.string_substitutions.t0"></a><p class="title"><b>Table&#160;35.7.&#160;Format Flags</b></p>
+<a name="boost_xpressive.user_s_guide.string_substitutions.t0"></a><p class="title"><b>Table&#160;39.7.&#160;Format Flags</b></p>
 <div class="table-contents"><table class="table" summary="Format Flags">
 <colgroup>
 <col>
@@ -2702,7 +2702,7 @@ Ther is her face
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.string_substitutions.h2"></a>
-        <span><a name="boost_xpressive.user_s_guide.string_substitutions.the_ecma_262_format_sequences"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.string_substitutions.the_ecma_262_format_sequences">The
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.string_substitutions.the_ecma_262_format_sequences"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.string_substitutions.the_ecma_262_format_sequences">The
         ECMA-262 Format Sequences</a>
       </h3>
 <p>
@@ -2712,7 +2712,7 @@ Ther is her face
         ECMA-262 mode.
       </p>
 <div class="table">
-<a name="boost_xpressive.user_s_guide.string_substitutions.t1"></a><p class="title"><b>Table&#160;35.8.&#160;Format Escape Sequences</b></p>
+<a name="boost_xpressive.user_s_guide.string_substitutions.t1"></a><p class="title"><b>Table&#160;39.8.&#160;Format Escape Sequences</b></p>
 <div class="table-contents"><table class="table" summary="Format Escape Sequences">
 <colgroup>
 <col>
@@ -2801,7 +2801,7 @@ Ther is her face
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.string_substitutions.h3"></a>
-        <span><a name="boost_xpressive.user_s_guide.string_substitutions.the_sed_format_sequences"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.string_substitutions.the_sed_format_sequences">The
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.string_substitutions.the_sed_format_sequences"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.string_substitutions.the_sed_format_sequences">The
         Sed Format Sequences</a>
       </h3>
 <p>
@@ -2810,7 +2810,7 @@ Ther is her face
         the following escape sequences are recognized:
       </p>
 <div class="table">
-<a name="boost_xpressive.user_s_guide.string_substitutions.t2"></a><p class="title"><b>Table&#160;35.9.&#160;Sed Format Escape Sequences</b></p>
+<a name="boost_xpressive.user_s_guide.string_substitutions.t2"></a><p class="title"><b>Table&#160;39.9.&#160;Sed Format Escape Sequences</b></p>
 <div class="table-contents"><table class="table" summary="Sed Format Escape Sequences">
 <colgroup>
 <col>
@@ -2980,7 +2980,7 @@ Ther is her face
 </div>
 <br class="table-break"><h3>
 <a name="boost_xpressive.user_s_guide.string_substitutions.h4"></a>
-        <span><a name="boost_xpressive.user_s_guide.string_substitutions.the_perl_format_sequences"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.string_substitutions.the_perl_format_sequences">The
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.string_substitutions.the_perl_format_sequences"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.string_substitutions.the_perl_format_sequences">The
         Perl Format Sequences</a>
       </h3>
 <p>
@@ -2989,7 +2989,7 @@ Ther is her face
         the following escape sequences are recognized:
       </p>
 <div class="table">
-<a name="boost_xpressive.user_s_guide.string_substitutions.t3"></a><p class="title"><b>Table&#160;35.10.&#160;Perl Format Escape Sequences</b></p>
+<a name="boost_xpressive.user_s_guide.string_substitutions.t3"></a><p class="title"><b>Table&#160;39.10.&#160;Perl Format Escape Sequences</b></p>
 <div class="table-contents"><table class="table" summary="Perl Format Escape Sequences">
 <colgroup>
 <col>
@@ -3279,7 +3279,7 @@ Ther is her face
 </div>
 <br class="table-break"><h3>
 <a name="boost_xpressive.user_s_guide.string_substitutions.h5"></a>
-        <span><a name="boost_xpressive.user_s_guide.string_substitutions.the_boost_specific_format_sequences"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.string_substitutions.the_boost_specific_format_sequences">The
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.string_substitutions.the_boost_specific_format_sequences"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.string_substitutions.the_boost_specific_format_sequences">The
         Boost-Specific Format Sequences</a>
       </h3>
 <p>
@@ -3299,7 +3299,7 @@ Ther is her face
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.string_substitutions.h6"></a>
-        <span><a name="boost_xpressive.user_s_guide.string_substitutions.formatter_objects"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.string_substitutions.formatter_objects">Formatter
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.string_substitutions.formatter_objects"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.string_substitutions.formatter_objects">Formatter
         Objects</a>
       </h3>
 <p>
@@ -3404,7 +3404,7 @@ Ther is her face
         <code class="computeroutput"><span class="identifier">regex_constants</span><span class="special">::</span><span class="identifier">match_flag_type</span></code>:
       </p>
 <div class="table">
-<a name="boost_xpressive.user_s_guide.string_substitutions.t4"></a><p class="title"><b>Table&#160;35.11.&#160;Formatter Signatures</b></p>
+<a name="boost_xpressive.user_s_guide.string_substitutions.t4"></a><p class="title"><b>Table&#160;39.11.&#160;Formatter Signatures</b></p>
 <div class="table-contents"><table class="table" summary="Formatter Signatures">
 <colgroup>
 <col>
@@ -3492,7 +3492,7 @@ Ther is her face
 </div>
 <br class="table-break"><h3>
 <a name="boost_xpressive.user_s_guide.string_substitutions.h7"></a>
-        <span><a name="boost_xpressive.user_s_guide.string_substitutions.formatter_expressions"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.string_substitutions.formatter_expressions">Formatter
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.string_substitutions.formatter_expressions"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.string_substitutions.formatter_expressions">Formatter
         Expressions</a>
       </h3>
 <p>
@@ -3549,7 +3549,7 @@ Ther is her face
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.string_splitting_and_tokenization.h0"></a>
-        <span><a name="boost_xpressive.user_s_guide.string_splitting_and_tokenization.overview"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.string_splitting_and_tokenization.overview">Overview</a>
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.string_splitting_and_tokenization.overview"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.string_splitting_and_tokenization.overview">Overview</a>
       </h3>
 <p>
         You initialize a <code class="literal"><code class="computeroutput"><a class="link" href="../boost/xpressive/regex_token_iterator.html" title="Struct template regex_token_iterator">regex_token_iterator&lt;&gt;</a></code></code>
@@ -3575,7 +3575,7 @@ Ther is her face
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.string_splitting_and_tokenization.h1"></a>
-        <span><a name="boost_xpressive.user_s_guide.string_splitting_and_tokenization.example_1__simple_tokenization"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.string_splitting_and_tokenization.example_1__simple_tokenization">Example
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.string_splitting_and_tokenization.example_1__simple_tokenization"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.string_splitting_and_tokenization.example_1__simple_tokenization">Example
         1: Simple Tokenization</a>
       </h3>
 <p>
@@ -3602,7 +3602,7 @@ face
 </pre>
 <h3>
 <a name="boost_xpressive.user_s_guide.string_splitting_and_tokenization.h2"></a>
-        <span><a name="boost_xpressive.user_s_guide.string_splitting_and_tokenization.example_2__simple_tokenization__reloaded"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.string_splitting_and_tokenization.example_2__simple_tokenization__reloaded">Example
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.string_splitting_and_tokenization.example_2__simple_tokenization__reloaded"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.string_splitting_and_tokenization.example_2__simple_tokenization__reloaded">Example
         2: Simple Tokenization, Reloaded</a>
       </h3>
 <p>
@@ -3632,7 +3632,7 @@ face
 </pre>
 <h3>
 <a name="boost_xpressive.user_s_guide.string_splitting_and_tokenization.h3"></a>
-        <span><a name="boost_xpressive.user_s_guide.string_splitting_and_tokenization.example_3__simple_tokenization__revolutions"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.string_splitting_and_tokenization.example_3__simple_tokenization__revolutions">Example
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.string_splitting_and_tokenization.example_3__simple_tokenization__revolutions"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.string_splitting_and_tokenization.example_3__simple_tokenization__revolutions">Example
         3: Simple Tokenization, Revolutions</a>
       </h3>
 <p>
@@ -3663,7 +3663,7 @@ face
 </pre>
 <h3>
 <a name="boost_xpressive.user_s_guide.string_splitting_and_tokenization.h4"></a>
-        <span><a name="boost_xpressive.user_s_guide.string_splitting_and_tokenization.example_4__not_so_simple_tokenization"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.string_splitting_and_tokenization.example_4__not_so_simple_tokenization">Example
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.string_splitting_and_tokenization.example_4__not_so_simple_tokenization"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.string_splitting_and_tokenization.example_4__not_so_simple_tokenization">Example
         4: Not-So-Simple Tokenization</a>
       </h3>
 <p>
@@ -3714,7 +3714,7 @@ face
 </h3></div></div></div>
 <h3>
 <a name="boost_xpressive.user_s_guide.named_captures.h0"></a>
-        <span><a name="boost_xpressive.user_s_guide.named_captures.overview"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.named_captures.overview">Overview</a>
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.named_captures.overview"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.named_captures.overview">Overview</a>
       </h3>
 <p>
         For complicated regular expressions, dealing with numbered captures can be
@@ -3731,7 +3731,7 @@ face
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.named_captures.h1"></a>
-        <span><a name="boost_xpressive.user_s_guide.named_captures.dynamic_named_captures"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.named_captures.dynamic_named_captures">Dynamic
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.named_captures.dynamic_named_captures"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.named_captures.dynamic_named_captures">Dynamic
         Named Captures</a>
       </h3>
 <p>
@@ -3787,7 +3787,7 @@ face
 </pre>
 <h3>
 <a name="boost_xpressive.user_s_guide.named_captures.h2"></a>
-        <span><a name="boost_xpressive.user_s_guide.named_captures.static_named_captures"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.named_captures.static_named_captures">Static
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.named_captures.static_named_captures"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.named_captures.static_named_captures">Static
         Named Captures</a>
       </h3>
 <p>
@@ -3853,7 +3853,7 @@ face
 </h3></div></div></div>
 <h3>
 <a name="boost_xpressive.user_s_guide.grammars_and_nested_matches.h0"></a>
-        <span><a name="boost_xpressive.user_s_guide.grammars_and_nested_matches.overview"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.grammars_and_nested_matches.overview">Overview</a>
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.grammars_and_nested_matches.overview"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.grammars_and_nested_matches.overview">Overview</a>
       </h3>
 <p>
         One of the key benefits of representing regexes as C++ expressions is the
@@ -3867,7 +3867,7 @@ face
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.grammars_and_nested_matches.h1"></a>
-        <span><a name="boost_xpressive.user_s_guide.grammars_and_nested_matches.embedding_a_regex_by_value"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.grammars_and_nested_matches.embedding_a_regex_by_value">Embedding
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.grammars_and_nested_matches.embedding_a_regex_by_value"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.grammars_and_nested_matches.embedding_a_regex_by_value">Embedding
         a Regex by Value</a>
       </h3>
 <p>
@@ -3930,7 +3930,7 @@ face
 </table></div>
 <h3>
 <a name="boost_xpressive.user_s_guide.grammars_and_nested_matches.h2"></a>
-        <span><a name="boost_xpressive.user_s_guide.grammars_and_nested_matches.embedding_a_regex_by_reference"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.grammars_and_nested_matches.embedding_a_regex_by_reference">Embedding
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.grammars_and_nested_matches.embedding_a_regex_by_reference"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.grammars_and_nested_matches.embedding_a_regex_by_reference">Embedding
         a Regex by Reference</a>
       </h3>
 <p>
@@ -3980,7 +3980,7 @@ face
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.grammars_and_nested_matches.h3"></a>
-        <span><a name="boost_xpressive.user_s_guide.grammars_and_nested_matches.building_a_grammar"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.grammars_and_nested_matches.building_a_grammar">Building
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.grammars_and_nested_matches.building_a_grammar"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.grammars_and_nested_matches.building_a_grammar">Building
         a Grammar</a>
       </h3>
 <p>
@@ -4039,7 +4039,7 @@ face
 </table></div>
 <h3>
 <a name="boost_xpressive.user_s_guide.grammars_and_nested_matches.h4"></a>
-        <span><a name="boost_xpressive.user_s_guide.grammars_and_nested_matches.dynamic_regex_grammars"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.grammars_and_nested_matches.dynamic_regex_grammars">Dynamic
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.grammars_and_nested_matches.dynamic_regex_grammars"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.grammars_and_nested_matches.dynamic_regex_grammars">Dynamic
         Regex Grammars</a>
       </h3>
 <p>
@@ -4095,7 +4095,7 @@ face
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.grammars_and_nested_matches.h5"></a>
-        <span><a name="boost_xpressive.user_s_guide.grammars_and_nested_matches.cyclic_patterns__copying_and_memory_management__oh_my_"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.grammars_and_nested_matches.cyclic_patterns__copying_and_memory_management__oh_my_">Cyclic
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.grammars_and_nested_matches.cyclic_patterns__copying_and_memory_management__oh_my_"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.grammars_and_nested_matches.cyclic_patterns__copying_and_memory_management__oh_my_">Cyclic
         Patterns, Copying and Memory Management, Oh My!</a>
       </h3>
 <p>
@@ -4122,7 +4122,7 @@ face
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.grammars_and_nested_matches.h6"></a>
-        <span><a name="boost_xpressive.user_s_guide.grammars_and_nested_matches.nested_regexes_and_sub_match_scoping"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.grammars_and_nested_matches.nested_regexes_and_sub_match_scoping">Nested
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.grammars_and_nested_matches.nested_regexes_and_sub_match_scoping"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.grammars_and_nested_matches.nested_regexes_and_sub_match_scoping">Nested
         Regexes and Sub-Match Scoping</a>
       </h3>
 <p>
@@ -4152,7 +4152,7 @@ face
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.grammars_and_nested_matches.h7"></a>
-        <span><a name="boost_xpressive.user_s_guide.grammars_and_nested_matches.nested_results"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.grammars_and_nested_matches.nested_results">Nested
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.grammars_and_nested_matches.nested_results"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.grammars_and_nested_matches.nested_results">Nested
         Results</a>
       </h3>
 <p>
@@ -4215,7 +4215,7 @@ face
 </table></div>
 <h3>
 <a name="boost_xpressive.user_s_guide.grammars_and_nested_matches.h8"></a>
-        <span><a name="boost_xpressive.user_s_guide.grammars_and_nested_matches.filtering_nested_results"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.grammars_and_nested_matches.filtering_nested_results">Filtering
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.grammars_and_nested_matches.filtering_nested_results"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.grammars_and_nested_matches.filtering_nested_results">Filtering
         Nested Results</a>
       </h3>
 <p>
@@ -4289,7 +4289,7 @@ cindy
 </h3></div></div></div>
 <h3>
 <a name="boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.h0"></a>
-        <span><a name="boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.overview"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.overview">Overview</a>
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.overview"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.overview">Overview</a>
       </h3>
 <p>
         Imagine you want to parse an input string and build a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">map</span><span class="special">&lt;&gt;</span></code>
@@ -4300,7 +4300,7 @@ cindy
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.h1"></a>
-        <span><a name="boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.semantic_actions"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.semantic_actions">Semantic
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.semantic_actions"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.semantic_actions">Semantic
         Actions</a>
       </h3>
 <p>
@@ -4412,7 +4412,7 @@ cindy
 </pre>
 <h4>
 <a name="boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.h2"></a>
-        <span><a name="boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.lazy_action_execution"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.lazy_action_execution">Lazy
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.lazy_action_execution"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.lazy_action_execution">Lazy
         Action Execution</a>
       </h4>
 <p>
@@ -4455,7 +4455,7 @@ cindy
       </p>
 <h4>
 <a name="boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.h3"></a>
-        <span><a name="boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.immediate_action_execution"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.immediate_action_execution">Immediate
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.immediate_action_execution"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.immediate_action_execution">Immediate
         Action Execution</a>
       </h4>
 <p>
@@ -4498,7 +4498,7 @@ cindy
 </table></div>
 <h4>
 <a name="boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.h4"></a>
-        <span><a name="boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.lazy_functions"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.lazy_functions">Lazy
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.lazy_functions"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.lazy_functions">Lazy
         Functions</a>
       </h4>
 <p>
@@ -4588,7 +4588,7 @@ cindy
 </pre>
 <h4>
 <a name="boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.h5"></a>
-        <span><a name="boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.referring_to_local_variables"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.referring_to_local_variables">Referring
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.referring_to_local_variables"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.referring_to_local_variables">Referring
         to Local Variables</a>
       </h4>
 <p>
@@ -4637,7 +4637,7 @@ cindy
         templates to make things easier. The following table shows the equivalencies:
       </p>
 <div class="table">
-<a name="boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.t0"></a><p class="title"><b>Table&#160;35.12.&#160;reference&lt;&gt; and value&lt;&gt;</b></p>
+<a name="boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.t0"></a><p class="title"><b>Table&#160;39.12.&#160;reference&lt;&gt; and value&lt;&gt;</b></p>
 <div class="table-contents"><table class="table" summary="reference&lt;&gt; and value&lt;&gt;">
 <colgroup>
 <col>
@@ -4705,7 +4705,7 @@ cindy
         into one using <code class="computeroutput"><span class="identifier">local</span><span class="special">&lt;&gt;</span></code>.
       </p>
 <div class="table">
-<a name="boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.t1"></a><p class="title"><b>Table&#160;35.13.&#160;local&lt;&gt; vs. reference&lt;&gt;</b></p>
+<a name="boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.t1"></a><p class="title"><b>Table&#160;39.13.&#160;local&lt;&gt; vs. reference&lt;&gt;</b></p>
 <div class="table-contents"><table class="table" summary="local&lt;&gt; vs. reference&lt;&gt;">
 <colgroup>
 <col>
@@ -4764,7 +4764,7 @@ cindy
       </p>
 <h4>
 <a name="boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.h6"></a>
-        <span><a name="boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.referring_to_non_local_variables"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.referring_to_non_local_variables">Referring
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.referring_to_non_local_variables"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.referring_to_non_local_variables">Referring
         to Non-Local Variables</a>
       </h4>
 <p>
@@ -4882,7 +4882,7 @@ cindy
 </pre>
 <h3>
 <a name="boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.h7"></a>
-        <span><a name="boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.user_defined_assertions"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.user_defined_assertions">User-Defined
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.user_defined_assertions"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.semantic_actions_and_user_defined_assertions.user_defined_assertions">User-Defined
         Assertions</a>
       </h3>
 <p>
@@ -4891,7 +4891,7 @@ cindy
         assertions, which you can use to match the beginning and end of a string,
         respectively. Xpressive lets you define your own assertions. A custom assertion
         is a contition which must be true at a point in the match in order for the
-        match to succeed. You can check a custom assertion with xpressive's <code class="literal"><code class="computeroutput">check()</code></code> function.
+        match to succeed. You can check a custom assertion with xpressive's <code class="literal"><code class="computeroutput"><a class="link" href="../boost/xpressive/check.html" title="Function template check">check()</a></code></code> function.
       </p>
 <p>
         There are a couple of ways to define a custom assertion. The simplest is
@@ -4999,7 +4999,7 @@ cindy
 </h3></div></div></div>
 <h3>
 <a name="boost_xpressive.user_s_guide.symbol_tables_and_attributes.h0"></a>
-        <span><a name="boost_xpressive.user_s_guide.symbol_tables_and_attributes.overview"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.symbol_tables_and_attributes.overview">Overview</a>
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.symbol_tables_and_attributes.overview"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.symbol_tables_and_attributes.overview">Overview</a>
       </h3>
 <p>
         Symbol tables can be built into xpressive regular expressions with just a
@@ -5012,7 +5012,7 @@ cindy
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.symbol_tables_and_attributes.h1"></a>
-        <span><a name="boost_xpressive.user_s_guide.symbol_tables_and_attributes.symbol_tables"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.symbol_tables_and_attributes.symbol_tables">Symbol
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.symbol_tables_and_attributes.symbol_tables"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.symbol_tables_and_attributes.symbol_tables">Symbol
         Tables</a>
       </h3>
 <p>
@@ -5077,7 +5077,7 @@ cindy
         makes sure the regex matches even if the symbol is not found.
       </p>
 <p>
-        A more complete version of this example can be found in <code class="literal">libs/xpressive/example/numbers.cpp</code><sup>[<a name="boost_xpressive.user_s_guide.symbol_tables_and_attributes.f0" href="#ftn.boost_xpressive.user_s_guide.symbol_tables_and_attributes.f0" class="footnote">8</a>]</sup>. It translates number names up to "nine hundred ninety nine
+        A more complete version of this example can be found in <code class="literal">libs/xpressive/example/numbers.cpp</code><a href="#ftn.boost_xpressive.user_s_guide.symbol_tables_and_attributes.f0" class="footnote" name="boost_xpressive.user_s_guide.symbol_tables_and_attributes.f0"><sup class="footnote">[10]</sup></a>. It translates number names up to "nine hundred ninety nine
         million nine hundred ninety nine thousand nine hundred ninety nine"
         along with some special number names like "dozen".
       </p>
@@ -5087,7 +5087,7 @@ cindy
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.symbol_tables_and_attributes.h2"></a>
-        <span><a name="boost_xpressive.user_s_guide.symbol_tables_and_attributes.attributes"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.symbol_tables_and_attributes.attributes">Attributes</a>
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.symbol_tables_and_attributes.attributes"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.symbol_tables_and_attributes.attributes">Attributes</a>
       </h3>
 <p>
         Up to nine attributes can be used in a regular expression. They are named
@@ -5126,7 +5126,7 @@ cindy
 </h3></div></div></div>
 <h3>
 <a name="boost_xpressive.user_s_guide.localization_and_regex_traits.h0"></a>
-        <span><a name="boost_xpressive.user_s_guide.localization_and_regex_traits.overview"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.localization_and_regex_traits.overview">Overview</a>
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.localization_and_regex_traits.overview"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.localization_and_regex_traits.overview">Overview</a>
       </h3>
 <p>
         Matching a regular expression against a string often requires locale-dependent
@@ -5140,7 +5140,7 @@ cindy
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.localization_and_regex_traits.h1"></a>
-        <span><a name="boost_xpressive.user_s_guide.localization_and_regex_traits.setting_the_default_regex_trait"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.localization_and_regex_traits.setting_the_default_regex_trait">Setting
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.localization_and_regex_traits.setting_the_default_regex_trait"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.localization_and_regex_traits.setting_the_default_regex_trait">Setting
         the Default Regex Trait</a>
       </h3>
 <p>
@@ -5151,7 +5151,7 @@ cindy
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.localization_and_regex_traits.h2"></a>
-        <span><a name="boost_xpressive.user_s_guide.localization_and_regex_traits.using_custom_traits_with_dynamic_regexes"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.localization_and_regex_traits.using_custom_traits_with_dynamic_regexes">Using
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.localization_and_regex_traits.using_custom_traits_with_dynamic_regexes"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.localization_and_regex_traits.using_custom_traits_with_dynamic_regexes">Using
         Custom Traits with Dynamic Regexes</a>
       </h3>
 <p>
@@ -5175,7 +5175,7 @@ cindy
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.localization_and_regex_traits.h3"></a>
-        <span><a name="boost_xpressive.user_s_guide.localization_and_regex_traits.using_custom_traits_with_static_regexes"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.localization_and_regex_traits.using_custom_traits_with_static_regexes">Using
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.localization_and_regex_traits.using_custom_traits_with_static_regexes"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.localization_and_regex_traits.using_custom_traits_with_static_regexes">Using
         Custom Traits with Static Regexes</a>
       </h3>
 <p>
@@ -5204,7 +5204,7 @@ cindy
 </pre>
 <h3>
 <a name="boost_xpressive.user_s_guide.localization_and_regex_traits.h4"></a>
-        <span><a name="boost_xpressive.user_s_guide.localization_and_regex_traits.searching_non_character_data_with__literal_null_regex_traits__literal_"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.localization_and_regex_traits.searching_non_character_data_with__literal_null_regex_traits__literal_">Searching
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.localization_and_regex_traits.searching_non_character_data_with__literal_null_regex_traits__literal_"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.localization_and_regex_traits.searching_non_character_data_with__literal_null_regex_traits__literal_">Searching
         Non-Character Data With <code class="literal">null_regex_traits</code></a>
       </h3>
 <p>
@@ -5247,7 +5247,7 @@ cindy
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.tips_n_tricks.h0"></a>
-        <span><a name="boost_xpressive.user_s_guide.tips_n_tricks.compile_patterns_once_and_reuse_them"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.tips_n_tricks.compile_patterns_once_and_reuse_them">Compile
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.tips_n_tricks.compile_patterns_once_and_reuse_them"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.tips_n_tricks.compile_patterns_once_and_reuse_them">Compile
         Patterns Once And Reuse Them</a>
       </h3>
 <p>
@@ -5266,8 +5266,8 @@ cindy
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.tips_n_tricks.h1"></a>
-        <span><a name="boost_xpressive.user_s_guide.tips_n_tricks.reuse__literal__classname_alt__boost__xpressive__match_results__match_results_lt__gt___classname___literal__objects"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.tips_n_tricks.reuse__literal__classname_alt__boost__xpressive__match_results__match_results_lt__gt___classname___literal__objects">Reuse
-        <code class="literal"><code class="computeroutput"><a class="link" href="../boost/xpressive/match_results.html" title="Struct template match_results">match_results&lt;&gt;</a></code></code>
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.tips_n_tricks.reuse__literal__classname_alt__boost__xpressive__match_results__match_results_lt__gt___classname___literal__objects"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.tips_n_tricks.reuse__literal__classname_alt__boost__xpressive__match_results__match_results_lt__gt___classname___literal__objects">Reuse
+        match_results&lt;&gt;
         Objects</a>
       </h3>
 <p>
@@ -5282,8 +5282,8 @@ cindy
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.tips_n_tricks.h2"></a>
-        <span><a name="boost_xpressive.user_s_guide.tips_n_tricks.prefer_algorithms_that_take_a__literal__classname_alt__boost__xpressive__match_results__match_results_lt__gt___classname___literal__object"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.tips_n_tricks.prefer_algorithms_that_take_a__literal__classname_alt__boost__xpressive__match_results__match_results_lt__gt___classname___literal__object">Prefer
-        Algorithms That Take A <code class="literal"><code class="computeroutput"><a class="link" href="../boost/xpressive/match_results.html" title="Struct template match_results">match_results&lt;&gt;</a></code></code>
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.tips_n_tricks.prefer_algorithms_that_take_a__literal__classname_alt__boost__xpressive__match_results__match_results_lt__gt___classname___literal__object"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.tips_n_tricks.prefer_algorithms_that_take_a__literal__classname_alt__boost__xpressive__match_results__match_results_lt__gt___classname___literal__object">Prefer
+        Algorithms That Take A match_results&lt;&gt;
         Object</a>
       </h3>
 <p>
@@ -5297,7 +5297,7 @@ cindy
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.tips_n_tricks.h3"></a>
-        <span><a name="boost_xpressive.user_s_guide.tips_n_tricks.prefer_algorithms_that_accept_iterator_ranges_over_null_terminated_strings"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.tips_n_tricks.prefer_algorithms_that_accept_iterator_ranges_over_null_terminated_strings">Prefer
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.tips_n_tricks.prefer_algorithms_that_accept_iterator_ranges_over_null_terminated_strings"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.tips_n_tricks.prefer_algorithms_that_accept_iterator_ranges_over_null_terminated_strings">Prefer
         Algorithms That Accept Iterator Ranges Over Null-Terminated Strings</a>
       </h3>
 <p>
@@ -5313,7 +5313,7 @@ cindy
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.tips_n_tricks.h4"></a>
-        <span><a name="boost_xpressive.user_s_guide.tips_n_tricks.use_static_regexes"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.tips_n_tricks.use_static_regexes">Use
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.tips_n_tricks.use_static_regexes"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.tips_n_tricks.use_static_regexes">Use
         Static Regexes</a>
       </h3>
 <p>
@@ -5322,7 +5322,7 @@ cindy
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.tips_n_tricks.h5"></a>
-        <span><a name="boost_xpressive.user_s_guide.tips_n_tricks.understand__literal_syntax_option_type__optimize__literal_"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.tips_n_tricks.understand__literal_syntax_option_type__optimize__literal_">Understand
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.tips_n_tricks.understand__literal_syntax_option_type__optimize__literal_"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.tips_n_tricks.understand__literal_syntax_option_type__optimize__literal_">Understand
         <code class="literal">syntax_option_type::optimize</code></a>
       </h3>
 <p>
@@ -5335,7 +5335,7 @@ cindy
       </p>
 <h2>
 <a name="boost_xpressive.user_s_guide.tips_n_tricks.h6"></a>
-        <span><a name="boost_xpressive.user_s_guide.tips_n_tricks.common_pitfalls"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.tips_n_tricks.common_pitfalls">Common
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.tips_n_tricks.common_pitfalls"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.tips_n_tricks.common_pitfalls">Common
         Pitfalls</a>
       </h2>
 <p>
@@ -5343,7 +5343,7 @@ cindy
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.tips_n_tricks.h7"></a>
-        <span><a name="boost_xpressive.user_s_guide.tips_n_tricks.create_grammars_on_a_single_thread"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.tips_n_tricks.create_grammars_on_a_single_thread">Create
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.tips_n_tricks.create_grammars_on_a_single_thread"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.tips_n_tricks.create_grammars_on_a_single_thread">Create
         Grammars On A Single Thread</a>
       </h3>
 <p>
@@ -5357,7 +5357,7 @@ cindy
       </p>
 <h3>
 <a name="boost_xpressive.user_s_guide.tips_n_tricks.h8"></a>
-        <span><a name="boost_xpressive.user_s_guide.tips_n_tricks.beware_nested_quantifiers"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.tips_n_tricks.beware_nested_quantifiers">Beware
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.tips_n_tricks.beware_nested_quantifiers"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.tips_n_tricks.beware_nested_quantifiers">Beware
         Nested Quantifiers</a>
       </h3>
 <p>
@@ -5373,7 +5373,7 @@ cindy
 </h3></div></div></div>
 <h3>
 <a name="boost_xpressive.user_s_guide.concepts.h0"></a>
-        <span><a name="boost_xpressive.user_s_guide.concepts.chart_requirements"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.concepts.chart_requirements">CharT
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.concepts.chart_requirements"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.concepts.chart_requirements">CharT
         requirements</a>
       </h3>
 <p>
@@ -5388,7 +5388,7 @@ cindy
         and <code class="computeroutput"><span class="identifier">i</span></code> of type <code class="computeroutput"><span class="keyword">int</span></code>:
       </p>
 <div class="table">
-<a name="boost_xpressive.user_s_guide.concepts.t0"></a><p class="title"><b>Table&#160;35.14.&#160;CharT Requirements</b></p>
+<a name="boost_xpressive.user_s_guide.concepts.t0"></a><p class="title"><b>Table&#160;39.14.&#160;CharT Requirements</b></p>
 <div class="table-contents"><table class="table" summary="CharT Requirements">
 <colgroup>
 <col>
@@ -5622,7 +5622,7 @@ cindy
 </div>
 <br class="table-break"><h3>
 <a name="boost_xpressive.user_s_guide.concepts.h1"></a>
-        <span><a name="boost_xpressive.user_s_guide.concepts.traits_requirements"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.concepts.traits_requirements">Traits
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.concepts.traits_requirements"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.concepts.traits_requirements">Traits
         Requirements</a>
       </h3>
 <p>
@@ -5643,7 +5643,7 @@ cindy
         is an object of <code class="computeroutput"><span class="keyword">const</span> <span class="keyword">char</span></code>.
       </p>
 <div class="table">
-<a name="boost_xpressive.user_s_guide.concepts.t1"></a><p class="title"><b>Table&#160;35.15.&#160;Traits Requirements</b></p>
+<a name="boost_xpressive.user_s_guide.concepts.t1"></a><p class="title"><b>Table&#160;39.15.&#160;Traits Requirements</b></p>
 <div class="table-contents"><table class="table" summary="Traits Requirements">
 <colgroup>
 <col>
@@ -6048,7 +6048,7 @@ cindy
 </div>
 <br class="table-break"><h3>
 <a name="boost_xpressive.user_s_guide.concepts.h2"></a>
-        <span><a name="boost_xpressive.user_s_guide.concepts.acknowledgements"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.concepts.acknowledgements">Acknowledgements</a>
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.concepts.acknowledgements"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.concepts.acknowledgements">Acknowledgements</a>
       </h3>
 <p>
         This section is adapted from the equivalent page in the <a href="../../../libs/regex" target="_top">Boost.Regex</a>
@@ -6066,7 +6066,7 @@ cindy
 <p></p>
 <h5>
 <a name="boost_xpressive.user_s_guide.examples.h0"></a>
-        <span><a name="boost_xpressive.user_s_guide.examples.see_if_a_whole_string_matches_a_regex"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.examples.see_if_a_whole_string_matches_a_regex">See
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.examples.see_if_a_whole_string_matches_a_regex"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.examples.see_if_a_whole_string_matches_a_regex">See
         if a whole string matches a regex</a>
       </h5>
 <p>
@@ -6108,7 +6108,7 @@ world
 <p></p>
 <h5>
 <a name="boost_xpressive.user_s_guide.examples.h1"></a>
-        <span><a name="boost_xpressive.user_s_guide.examples.see_if_a_string_contains_a_sub_string_that_matches_a_regex"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.examples.see_if_a_string_contains_a_sub_string_that_matches_a_regex">See
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.examples.see_if_a_string_contains_a_sub_string_that_matches_a_regex"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.examples.see_if_a_string_contains_a_sub_string_that_matches_a_regex">See
         if a string contains a sub-string that matches a regex</a>
       </h5>
 <p>
@@ -6163,7 +6163,7 @@ world
 <p></p>
 <h5>
 <a name="boost_xpressive.user_s_guide.examples.h2"></a>
-        <span><a name="boost_xpressive.user_s_guide.examples.replace_all_sub_strings_that_match_a_regex"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.examples.replace_all_sub_strings_that_match_a_regex">Replace
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.examples.replace_all_sub_strings_that_match_a_regex"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.examples.replace_all_sub_strings_that_match_a_regex">Replace
         all sub-strings that match a regex</a>
       </h5>
 <p>
@@ -6201,7 +6201,7 @@ world
 <p></p>
 <h5>
 <a name="boost_xpressive.user_s_guide.examples.h3"></a>
-        <span><a name="boost_xpressive.user_s_guide.examples.find_all_the_sub_strings_that_match_a_regex_and_step_through_them_one_at_a_time"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.examples.find_all_the_sub_strings_that_match_a_regex_and_step_through_them_one_at_a_time">Find
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.examples.find_all_the_sub_strings_that_match_a_regex_and_step_through_them_one_at_a_time"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.examples.find_all_the_sub_strings_that_match_a_regex_and_step_through_them_one_at_a_time">Find
         all the sub-strings that match a regex and step through them one at a time</a>
       </h5>
 <p>
@@ -6248,7 +6248,7 @@ face
 <p></p>
 <h5>
 <a name="boost_xpressive.user_s_guide.examples.h4"></a>
-        <span><a name="boost_xpressive.user_s_guide.examples.split_a_string_into_tokens_that_each_match_a_regex"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.examples.split_a_string_into_tokens_that_each_match_a_regex">Split
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.examples.split_a_string_into_tokens_that_each_match_a_regex"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.examples.split_a_string_into_tokens_that_each_match_a_regex">Split
         a string into tokens that each match a regex</a>
       </h5>
 <p>
@@ -6299,7 +6299,7 @@ face
 <p></p>
 <h5>
 <a name="boost_xpressive.user_s_guide.examples.h5"></a>
-        <span><a name="boost_xpressive.user_s_guide.examples.split_a_string_using_a_regex_as_a_delimiter"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.examples.split_a_string_using_a_regex_as_a_delimiter">Split
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.examples.split_a_string_using_a_regex_as_a_delimiter"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.examples.split_a_string_using_a_regex_as_a_delimiter">Split
         a string using a regex as a delimiter</a>
       </h5>
 <p>
@@ -6345,7 +6345,7 @@ face
 <p></p>
 <h5>
 <a name="boost_xpressive.user_s_guide.examples.h6"></a>
-        <span><a name="boost_xpressive.user_s_guide.examples.display_a_tree_of_nested_results"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.examples.display_a_tree_of_nested_results">Display
+        <span class="phrase"><a name="boost_xpressive.user_s_guide.examples.display_a_tree_of_nested_results"></a></span><a class="link" href="user_s_guide.html#boost_xpressive.user_s_guide.examples.display_a_tree_of_nested_results">Display
         a tree of nested results</a>
       </h5>
 <p>
@@ -6386,12 +6386,12 @@ face
       </p>
 </div>
 <div class="footnotes">
-<br><hr width="100" align="left">
-<div class="footnote"><p><sup>[<a id="ftn.boost_xpressive.user_s_guide.introduction.f0" href="#boost_xpressive.user_s_guide.introduction.f0" class="para">7</a>] </sup>
+<br><hr style="width:100; text-align:left;margin-left: 0">
+<div id="ftn.boost_xpressive.user_s_guide.introduction.f0" class="footnote"><p><a href="#boost_xpressive.user_s_guide.introduction.f0" class="para"><sup class="para">[9] </sup></a>
           See <a href="http://www.osl.iu.edu/~tveldhui/papers/Expression-Templates/exprtmpl.html" target="_top">Expression
           Templates</a>
         </p></div>
-<div class="footnote"><p><sup>[<a id="ftn.boost_xpressive.user_s_guide.symbol_tables_and_attributes.f0" href="#boost_xpressive.user_s_guide.symbol_tables_and_attributes.f0" class="para">8</a>] </sup>
+<div id="ftn.boost_xpressive.user_s_guide.symbol_tables_and_attributes.f0" class="footnote"><p><a href="#boost_xpressive.user_s_guide.symbol_tables_and_attributes.f0" class="para"><sup class="para">[10] </sup></a>
           Many thanks to David Jenkins, who contributed this example.
         </p></div>
 </div>

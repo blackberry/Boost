@@ -32,7 +32,7 @@ BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_array<const volatile int[2]>::value, true
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_array<int[2][3]>::value, true);
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_array<UDT[2]>::value, true);
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_array<int(&)[2]>::value, false);
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_array<int(&&)[2]>::value, false);
 #endif
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_array<f1>::value, false);

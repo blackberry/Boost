@@ -46,12 +46,17 @@ int main()
    int digits10 = std::numeric_limits<double>::digits10;
    std::cout << "std::numeric_limits<double>::digits10 = " << digits10 << std::endl;
 
-//#ifndef BOOST_NO_NUMERIC_LIMITS_LOWEST
-
 #ifndef BOOST_NO_CXX11_NUMERIC_LIMITS
+   // OK to use C++11 max_digits10;
    int max_digits10 = std::numeric_limits<double>::max_digits10;
    std::cout << "std::numeric_limits<double>::max_digits10 = " << max_digits10 << std::endl;
+#else
+   // No support for max_digits10; so use Kahan formula instead.
+   int max_digits10 = 2 + std::numeric_limits<double>::digits * 3010/10000;
+   std::cout << "2 + std::numeric_limits<double>::digits * 3010/10000; = " <<
+   2 + std::numeric_limits<double>::digits * 3010/10000;
 #endif
+
 
 } // int main()
 
@@ -67,6 +72,13 @@ Output:
   std::numeric_limits<double>::digits10 = 15
   std::numeric_limits<double>::max_digits10 = 17
 
+  1>  Description: Autorun "J:\Cpp\Misc\Debug\zztest_max_digits10.exe"
+  1>  Platform: Win32
+  1>  Compiler: Microsoft Visual C++ version 12.0
+  1>  STL     : Dinkumware standard library version 610
+  1>  Boost   : 1.55.0
+  1>  std::numeric_limits<double>::digits10 = 15
+  1>  std::numeric_limits<double>::max_digits10 = 17
 
 
 */

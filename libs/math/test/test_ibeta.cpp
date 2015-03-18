@@ -231,7 +231,7 @@ void expected_results()
       "[^|]*",                          // platform
       largest_type,                     // test type(s)
       "(?i).*medium.*",                     // test data group
-      ".*", 150, 50);  // test function
+      ".*", 350, 50);  // test function
    add_expected_result(
       "[^|]*",                          // compiler
       "[^|]*",                          // stdlib
@@ -278,7 +278,7 @@ void expected_results()
       << BOOST_STDLIB << ", " << BOOST_PLATFORM << std::endl;
 }
 
-int test_main(int, char* [])
+BOOST_AUTO_TEST_CASE( test_main )
 {
    expected_results();
    BOOST_MATH_CONTROL_FP;
@@ -323,7 +323,7 @@ int test_main(int, char* [])
       "not available at all, or because they are too inaccurate for these tests "
       "to pass.</note>" << std::cout;
 #endif
-   return 0;
+   
 }
 
 

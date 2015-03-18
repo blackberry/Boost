@@ -1,7 +1,8 @@
+
 /////////////////////////////////////////////////////////////////////////////
 //
 // (C) Copyright Olaf Krzikalla 2004-2006.
-// (C) Copyright Ion Gaztanaga  2006-2012.
+// (C) Copyright Ion Gaztanaga  2006-2013.
 //
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
@@ -10,7 +11,6 @@
 // See http://www.boost.org/libs/intrusive for documentation.
 //
 /////////////////////////////////////////////////////////////////////////////
-#include<boost/intrusive/detail/config_begin.hpp>
 #include<boost/intrusive/any_hook.hpp>
 #include<boost/intrusive/slist.hpp>
 #include<boost/intrusive/rbtree.hpp>
@@ -164,8 +164,8 @@ bool simple_slist_test()
 
    //Now test lists
    {
-      BaseList::iterator bit(baselist.begin()), bitend(baselist.end());
-      MemberList::iterator mit(memberlist.begin()), mitend(memberlist.end());
+      BaseList::iterator bit(baselist.begin());
+      MemberList::iterator mit(memberlist.begin());
       VectRit rit(values.rbegin()), ritend(values.rend());
       VectIt  it(values.begin()), itend(values.end());
 
@@ -187,5 +187,3 @@ int main()
    instantiation_test();
    return 0;
 }
-
-#include <boost/intrusive/detail/config_end.hpp>

@@ -16,6 +16,10 @@
 #ifndef BOOST_INTERPROCESS_SHARED_PTR_HPP_INCLUDED
 #define BOOST_INTERPROCESS_SHARED_PTR_HPP_INCLUDED
 
+#if defined(_MSC_VER)
+#  pragma once
+#endif
+
 #include <boost/interprocess/detail/config_begin.hpp>
 #include <boost/interprocess/detail/workaround.hpp>
 
@@ -24,7 +28,7 @@
 #include <boost/assert.hpp>
 #include <boost/interprocess/smart_ptr/detail/shared_count.hpp>
 #include <boost/interprocess/detail/mpl.hpp>
-#include <boost/move/move.hpp>
+#include <boost/move/utility_core.hpp>
 #include <boost/interprocess/detail/type_traits.hpp>
 #include <boost/interprocess/allocators/allocator.hpp>
 #include <boost/interprocess/smart_ptr/deleter.hpp>
@@ -88,10 +92,10 @@ inline void sp_enable_shared_from_this(shared_count<T, VoidAllocator, Deleter> c
 template<class T, class VoidAllocator, class Deleter>
 class shared_ptr
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    private:
    typedef shared_ptr<T, VoidAllocator, Deleter> this_type;
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    public:
 
@@ -171,7 +175,7 @@ class shared_ptr
       :  m_pn()
    {  this->swap(other);   }
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    template<class Y>
    shared_ptr(shared_ptr<Y, VoidAllocator, Deleter> const & r, ipcdetail::static_cast_tag)
       :  m_pn( pointer(static_cast<T*>(ipcdetail::to_raw_pointer(r.m_pn.to_raw_pointer())))
@@ -193,7 +197,7 @@ class shared_ptr
          m_pn = ipcdetail::shared_count<T, VoidAllocator, Deleter>();
       }
    }
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    //!Equivalent to shared_ptr(r).swap(*this).
    //!Never throws
@@ -263,14 +267,14 @@ class shared_ptr
    pointer get() const  // never throws
    {  return m_pn.to_raw_pointer();  }
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    // implicit conversion to "bool"
    void unspecified_bool_type_func() const {}
    typedef void (this_type::*unspecified_bool_type)() const;
 
    operator unspecified_bool_type() const // never throws
    {  return !m_pn.to_raw_pointer() ? 0 : &this_type::unspecified_bool_type_func;  }
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
    //!Not operator.
    //!Returns true if this->get() != 0, false otherwise
@@ -295,7 +299,7 @@ class shared_ptr
    void swap(shared_ptr<T, VoidAllocator, Deleter> & other) // never throws
    {  m_pn.swap(other.m_pn);   }
 
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
    template<class T2, class A2, class Deleter2>
    bool _internal_less(shared_ptr<T2, A2, Deleter2> const & rhs) const
@@ -313,7 +317,7 @@ class shared_ptr
    template<class T2, class A2, class Deleter2> friend class weak_ptr;
 
    ipcdetail::shared_count<T, VoidAllocator, Deleter>   m_pn;    // reference counter
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 };  // shared_ptr
 
 template<class T, class VoidAllocator, class Deleter, class U, class VoidAllocator2, class Deleter2> inline
@@ -404,7 +408,7 @@ inline typename managed_shared_ptr<T, ManagedMemory>::type
 
 } // namespace interprocess
 
-/// @cond
+#if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
 
 #if defined(_MSC_VER) && (_MSC_VER < 1400)
 // to_raw_pointer() enables boost::mem_fn to recognize shared_ptr
@@ -413,7 +417,7 @@ T * to_raw_pointer(boost::interprocess::shared_ptr<T, VoidAllocator, Deleter> co
 {  return p.get();   }
 #endif
 
-/// @endcond
+#endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
 
 } // namespace boost
 

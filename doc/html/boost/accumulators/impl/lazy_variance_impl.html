@@ -3,10 +3,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Struct template lazy_variance_impl</title>
 <link rel="stylesheet" href="../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../../../accumulators/reference.html#header.boost.accumulators.statistics.variance_hpp" title="Header &lt;boost/accumulators/statistics/variance.hpp&gt;">
-<link rel="prev" href="../extract/variance.html" title="Global variance">
+<link rel="up" href="../../../accumulators/reference.html#header.boost.accumulators.statistics_fwd_hpp" title="Header &lt;boost/accumulators/statistics_fwd.hpp&gt;">
+<link rel="prev" href="tail_variate_means_impl.html" title="Struct template tail_variate_means_impl">
 <link rel="next" href="variance_impl.html" title="Struct template variance_impl">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -20,7 +20,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="../extract/variance.html"><img src="../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../accumulators/reference.html#header.boost.accumulators.statistics.variance_hpp"><img src="../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="variance_impl.html"><img src="../../../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="tail_variate_means_impl.html"><img src="../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../accumulators/reference.html#header.boost.accumulators.statistics_fwd_hpp"><img src="../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="variance_impl.html"><img src="../../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 <div class="refentry">
 <a name="boost.accumulators.impl.lazy_variance_impl"></a><div class="titlepage"></div>
@@ -29,43 +29,40 @@
 <p>boost::accumulators::impl::lazy_variance_impl &#8212; Lazy calculation of variance. </p>
 </div>
 <h2 xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv-title">Synopsis</h2>
-<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../../accumulators/reference.html#header.boost.accumulators.statistics.variance_hpp" title="Header &lt;boost/accumulators/statistics/variance.hpp&gt;">boost/accumulators/statistics/variance.hpp</a>&gt;
+<div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../../accumulators/reference.html#header.boost.accumulators.statistics_fwd_hpp" title="Header &lt;boost/accumulators/statistics_fwd.hpp&gt;">boost/accumulators/statistics_fwd.hpp</a>&gt;
 
 </span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Sample<span class="special">,</span> <span class="keyword">typename</span> MeanFeature<span class="special">&gt;</span> 
-<span class="keyword">struct</span> <a class="link" href="lazy_variance_impl.html" title="Struct template lazy_variance_impl">lazy_variance_impl</a> <span class="special">{</span>
-  <span class="comment">// types</span>
-  <span class="keyword">typedef</span> <span class="identifier">numeric</span><span class="special">::</span><span class="identifier">functional</span><span class="special">::</span><span class="identifier">average</span><span class="special">&lt;</span> <span class="identifier">Sample</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">result_type</span> <a name="boost.accumulators.impl.lazy_variance_impl.result_type"></a><span class="identifier">result_type</span><span class="special">;</span>
-
+<span class="keyword">struct</span> <a class="link" href="lazy_variance_impl.html" title="Struct template lazy_variance_impl">lazy_variance_impl</a> <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">accumulator_base</span> <span class="special">{</span>
   <span class="comment">// <a class="link" href="lazy_variance_impl.html#boost.accumulators.impl.lazy_variance_implconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <a class="link" href="lazy_variance_impl.html#id568680-bb"><span class="identifier">lazy_variance_impl</span></a><span class="special">(</span><span class="identifier">dont_care</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="lazy_variance_impl.html#idp67184688-bb"><span class="identifier">lazy_variance_impl</span></a><span class="special">(</span><span class="identifier">dont_care</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="lazy_variance_impl.html#id568656-bb">public member functions</a></span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Args<span class="special">&gt;</span> <span class="identifier">result_type</span> <a class="link" href="lazy_variance_impl.html#id568660-bb"><span class="identifier">result</span></a><span class="special">(</span><span class="identifier">Args</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="lazy_variance_impl.html#idp67181312-bb">public member functions</a></span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Args<span class="special">&gt;</span> <span class="identifier">result_type</span> <a class="link" href="lazy_variance_impl.html#idp67181872-bb"><span class="identifier">result</span></a><span class="special">(</span><span class="identifier">Args</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="id948201"></a><h2>Description</h2>
-<p>Default sample variance implementation based on the second moment <span class="inlinemediaobject"><img src="../../../images/accumulators/form_72.png"></span> moment&lt;2&gt;, mean and count. </p>
+<a name="idp111205920"></a><h2>Description</h2>
+<p>Default sample variance implementation based on the second moment <span class="inlinemediaobject"><img src="../../../images/accumulators//form_58.png"></span> moment&lt;2&gt;, mean and count. </p>
 <div class="equation">
-<a name="id948229"></a><p class="title"><b>Equation&#160;1.21.&#160;</b></p>
-<div class="equation-contents"><div class="mediaobject" align="center"><img src="../../../images/accumulators/form_73.png" align="middle"></div></div>
+<a name="idp111209056"></a><p class="title"><b>Equation&#160;1.29.&#160;</b></p>
+<div class="equation-contents"><div class="mediaobject" align="center"><img src="../../../images/accumulators//form_59.png" align="middle"></div></div>
 </div>
 <p><br class="equation-break"> where </p>
 <div class="equation">
-<a name="id948252"></a><p class="title"><b>Equation&#160;1.22.&#160;</b></p>
-<div class="equation-contents"><div class="mediaobject" align="center"><img src="../../../images/accumulators/form_74.png" align="middle"></div></div>
+<a name="idp111211904"></a><p class="title"><b>Equation&#160;1.30.&#160;</b></p>
+<div class="equation-contents"><div class="mediaobject" align="center"><img src="../../../images/accumulators//form_60.png" align="middle"></div></div>
 </div>
-<p><br class="equation-break"> is the estimate of the sample mean and <span class="inlinemediaobject"><img src="../../../images/accumulators/form_60.png"></span> is the number of samples. </p>
+<p><br class="equation-break"> is the estimate of the sample mean and <span class="inlinemediaobject"><img src="../../../images/accumulators//form_47.png"></span> is the number of samples. </p>
 <div class="refsect2">
-<a name="id948296"></a><h3>
+<a name="idp111217184"></a><h3>
 <a name="boost.accumulators.impl.lazy_variance_implconstruct-copy-destruct"></a><code class="computeroutput">lazy_variance_impl</code> 
         public
        construct/copy/destruct</h3>
-<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><a name="id568680-bb"></a><span class="identifier">lazy_variance_impl</span><span class="special">(</span><span class="identifier">dont_care</span><span class="special">)</span><span class="special">;</span></pre></li></ol></div>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><a name="idp67184688-bb"></a><span class="identifier">lazy_variance_impl</span><span class="special">(</span><span class="identifier">dont_care</span><span class="special">)</span><span class="special">;</span></pre></li></ol></div>
 </div>
 <div class="refsect2">
-<a name="id948351"></a><h3>
-<a name="id568656-bb"></a><code class="computeroutput">lazy_variance_impl</code> public member functions</h3>
-<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Args<span class="special">&gt;</span> <span class="identifier">result_type</span> <a name="id568660-bb"></a><span class="identifier">result</span><span class="special">(</span><span class="identifier">Args</span> <span class="keyword">const</span> <span class="special">&amp;</span> args<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li></ol></div>
+<a name="idp111223728"></a><h3>
+<a name="idp67181312-bb"></a><code class="computeroutput">lazy_variance_impl</code> public member functions</h3>
+<div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> Args<span class="special">&gt;</span> <span class="identifier">result_type</span> <a name="idp67181872-bb"></a><span class="identifier">result</span><span class="special">(</span><span class="identifier">Args</span> <span class="keyword">const</span> <span class="special">&amp;</span> args<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre></li></ol></div>
 </div>
 </div>
 </div>
@@ -79,7 +76,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="../extract/variance.html"><img src="../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../accumulators/reference.html#header.boost.accumulators.statistics.variance_hpp"><img src="../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="variance_impl.html"><img src="../../../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="tail_variate_means_impl.html"><img src="../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../accumulators/reference.html#header.boost.accumulators.statistics_fwd_hpp"><img src="../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../../index.html"><img src="../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="variance_impl.html"><img src="../../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

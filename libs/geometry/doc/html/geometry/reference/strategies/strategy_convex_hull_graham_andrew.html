@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>strategy::convex_hull::graham_andrew</title>
 <link rel="stylesheet" href="../../../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Geometry">
 <link rel="up" href="../strategies.html" title="Strategies">
 <link rel="prev" href="strategy_centroid_bashein_detmer.html" title="strategy::centroid::bashein_detmer">
@@ -27,12 +27,12 @@
 <a name="geometry.reference.strategies.strategy_convex_hull_graham_andrew"></a><a class="link" href="strategy_convex_hull_graham_andrew.html" title="strategy::convex_hull::graham_andrew">strategy::convex_hull::graham_andrew</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="id965920"></a><a class="indexterm" name="id965925"></a><a class="indexterm" name="id965931"></a>
+          <a class="indexterm" name="idp135455296"></a><a class="indexterm" name="idp135455984"></a><a class="indexterm" name="idp135456672"></a>
 Graham scan strategy to calculate convex hull.
         </p>
 <h6>
 <a name="geometry.reference.strategies.strategy_convex_hull_graham_andrew.h0"></a>
-          <span><a name="geometry.reference.strategies.strategy_convex_hull_graham_andrew.synopsis"></a></span><a class="link" href="strategy_convex_hull_graham_andrew.html#geometry.reference.strategies.strategy_convex_hull_graham_andrew.synopsis">Synopsis</a>
+          <span class="phrase"><a name="geometry.reference.strategies.strategy_convex_hull_graham_andrew.synopsis"></a></span><a class="link" href="strategy_convex_hull_graham_andrew.html#geometry.reference.strategies.strategy_convex_hull_graham_andrew.synopsis">Synopsis</a>
         </h6>
 <p>
 </p>
@@ -46,7 +46,7 @@ Graham scan strategy to calculate convex hull.
         </p>
 <h6>
 <a name="geometry.reference.strategies.strategy_convex_hull_graham_andrew.h1"></a>
-          <span><a name="geometry.reference.strategies.strategy_convex_hull_graham_andrew.template_parameter_s_"></a></span><a class="link" href="strategy_convex_hull_graham_andrew.html#geometry.reference.strategies.strategy_convex_hull_graham_andrew.template_parameter_s_">Template
+          <span class="phrase"><a name="geometry.reference.strategies.strategy_convex_hull_graham_andrew.template_parameter_s_"></a></span><a class="link" href="strategy_convex_hull_graham_andrew.html#geometry.reference.strategies.strategy_convex_hull_graham_andrew.template_parameter_s_">Template
           parameter(s)</a>
         </h6>
 <div class="informaltable"><table class="table">
@@ -89,11 +89,12 @@ Graham scan strategy to calculate convex hull.
 </table></div>
 <h6>
 <a name="geometry.reference.strategies.strategy_convex_hull_graham_andrew.h2"></a>
-          <span><a name="geometry.reference.strategies.strategy_convex_hull_graham_andrew.member_function_s_"></a></span><a class="link" href="strategy_convex_hull_graham_andrew.html#geometry.reference.strategies.strategy_convex_hull_graham_andrew.member_function_s_">Member
+          <span class="phrase"><a name="geometry.reference.strategies.strategy_convex_hull_graham_andrew.member_function_s_"></a></span><a class="link" href="strategy_convex_hull_graham_andrew.html#geometry.reference.strategies.strategy_convex_hull_graham_andrew.member_function_s_">Member
           Function(s)</a>
         </h6>
 <div class="informaltable"><table class="table">
 <colgroup>
+<col>
 <col>
 <col>
 <col>
@@ -140,13 +141,16 @@ Graham scan strategy to calculate convex hull.
                     <span class="bold"><strong>partitions &amp;</strong></span>: <span class="emphasis"><em>state</em></span>:
                   </p>
                 </td>
+<td>
+                </td>
 </tr>
 <tr>
 <td>
                   <p>
 </p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">OutputIterator</span><span class="special">&gt;</span>
-<span class="keyword">void</span> <span class="identifier">result</span><span class="special">(</span><span class="identifier">partitions</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">state</span><span class="special">,</span> <span class="identifier">OutputIterator</span> <span class="identifier">out</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">clockwise</span><span class="special">)</span></pre>
+<span class="keyword">void</span> <span class="identifier">result</span><span class="special">(</span><span class="identifier">partitions</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">state</span><span class="special">,</span> <span class="identifier">OutputIterator</span> <span class="identifier">out</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">clockwise</span><span class="special">,</span>
+            <span class="keyword">bool</span> <span class="identifier">closed</span><span class="special">)</span></pre>
 <p>
                   </p>
                 </td>
@@ -162,13 +166,18 @@ Graham scan strategy to calculate convex hull.
                   <p>
                     <span class="bold"><strong>bool</strong></span>: <span class="emphasis"><em>clockwise</em></span>:
                   </p>
+                  <p>
+                    <span class="bold"><strong>bool</strong></span>: <span class="emphasis"><em>closed</em></span>:
+                  </p>
+                </td>
+<td>
                 </td>
 </tr>
 </tbody>
 </table></div>
 <h6>
 <a name="geometry.reference.strategies.strategy_convex_hull_graham_andrew.h3"></a>
-          <span><a name="geometry.reference.strategies.strategy_convex_hull_graham_andrew.header"></a></span><a class="link" href="strategy_convex_hull_graham_andrew.html#geometry.reference.strategies.strategy_convex_hull_graham_andrew.header">Header</a>
+          <span class="phrase"><a name="geometry.reference.strategies.strategy_convex_hull_graham_andrew.header"></a></span><a class="link" href="strategy_convex_hull_graham_andrew.html#geometry.reference.strategies.strategy_convex_hull_graham_andrew.header">Header</a>
         </h6>
 <p>
           <code class="computeroutput"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">/</span><span class="identifier">strategies</span><span class="special">/</span><span class="identifier">agnostic</span><span class="special">/</span><span class="identifier">hull_graham_andrew</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>
@@ -176,8 +185,8 @@ Graham scan strategy to calculate convex hull.
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2009-2012 Barend
-      Gehrels, Bruno Lalande, Mateusz Loskot<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2009-2014 Barend Gehrels, Bruno Lalande, Mateusz Loskot, Adam
+      Wulkiewicz, Oracle and/or its affiliates<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

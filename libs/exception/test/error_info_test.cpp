@@ -249,12 +249,41 @@ test_catch_add_info()
 void
 test_add_tuple()
     {
-    typedef boost::tuple<test_1,test_2> test_12;
-    typedef boost::tuple<test_1,test_2,test_3> test_123;
-    typedef boost::tuple<test_1,test_2,test_3,test_5> test_1235;
+    typedef boost::tuple<> tuple_test_;
+    typedef boost::tuple<test_1> tuple_test_1;
+    typedef boost::tuple<test_1,test_2> tuple_test_12;
+    typedef boost::tuple<test_1,test_2,test_3> tuple_test_123;
+    typedef boost::tuple<test_1,test_2,test_3,test_5> tuple_test_1235;
     try
         {
-        throw test_exception() << test_12(42,42u);
+        throw test_exception() << tuple_test_();
+        }
+    catch(
+    test_exception & x )
+        {
+        }
+    catch(
+    ... )
+        {
+        BOOST_TEST(false);
+        }
+    try
+        {
+        throw test_exception() << tuple_test_1(42);
+        }
+    catch(
+    test_exception & x )
+        {
+        BOOST_TEST( *boost::get_error_info<test_1>(x)==42 );
+        }
+    catch(
+    ... )
+        {
+        BOOST_TEST(false);
+        }
+    try
+        {
+        throw test_exception() << tuple_test_12(42,42u);
         }
     catch(
     test_exception & x )
@@ -269,7 +298,7 @@ test_add_tuple()
         }
     try
         {
-        throw test_exception() << test_123(42,42u,42.0f);
+        throw test_exception() << tuple_test_123(42,42u,42.0f);
         }
     catch(
     test_exception & x )
@@ -285,7 +314,7 @@ test_add_tuple()
         }
     try
         {
-        throw test_exception() << test_1235(42,42u,42.0f,std::string("42"));
+        throw test_exception() << tuple_test_1235(42,42u,42.0f,std::string("42"));
         }
     catch(
     test_exception & x )

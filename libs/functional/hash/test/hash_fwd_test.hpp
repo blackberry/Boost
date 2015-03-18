@@ -5,7 +5,7 @@
 
 #include "./config.hpp"
 
-#if defined(TEST_EXTENSIONS) && !defined(TEST_STD_INCLUDES)
+#if defined(BOOST_HASH_TEST_EXTENSIONS) && !defined(BOOST_HASH_TEST_STD_INCLUDES)
 #include <boost/functional/hash_fwd.hpp>
 
 #include <boost/config.hpp>
@@ -25,7 +25,7 @@ namespace test {
     template <class T>
     std::size_t hash_value(test_type1<T> const& x)
     {
-        HASH_NAMESPACE::hash<T> hasher;
+        BOOST_HASH_TEST_NAMESPACE::hash<T> hasher;
         return hasher(x.value);
     }
 #endif
@@ -42,8 +42,8 @@ namespace test {
     std::size_t hash_value(test_type2<T> const& x)
     {
         std::size_t seed = 0;
-        HASH_NAMESPACE::hash_combine(seed, x.value1);
-        HASH_NAMESPACE::hash_combine(seed, x.value2);
+        BOOST_HASH_TEST_NAMESPACE::hash_combine(seed, x.value1);
+        BOOST_HASH_TEST_NAMESPACE::hash_combine(seed, x.value2);
         return seed;
     }
 #endif
@@ -61,8 +61,8 @@ namespace test {
     std::size_t hash_value(test_type3<T> const& x)
     {
         std::size_t seed =
-            HASH_NAMESPACE::hash_range(x.values.begin(), x.values.end());
-        HASH_NAMESPACE::hash_range(seed, x.values.begin(), x.values.end());
+            BOOST_HASH_TEST_NAMESPACE::hash_range(x.values.begin(), x.values.end());
+        BOOST_HASH_TEST_NAMESPACE::hash_range(seed, x.values.begin(), x.values.end());
         return seed;
     }
 #endif
@@ -76,7 +76,7 @@ namespace boost
     template <class T>
     std::size_t hash_value(test::test_type1<T> const& x)
     {
-        HASH_NAMESPACE::hash<T> hasher;
+        BOOST_HASH_TEST_NAMESPACE::hash<T> hasher;
         return hasher(x.value);
     }
 
@@ -84,8 +84,8 @@ namespace boost
     std::size_t hash_value(test::test_type2<T> const& x)
     {
         std::size_t seed = 0;
-        HASH_NAMESPACE::hash_combine(seed, x.value1);
-        HASH_NAMESPACE::hash_combine(seed, x.value2);
+        BOOST_HASH_TEST_NAMESPACE::hash_combine(seed, x.value1);
+        BOOST_HASH_TEST_NAMESPACE::hash_combine(seed, x.value2);
         return seed;
     }
 
@@ -93,8 +93,8 @@ namespace boost
     std::size_t hash_value(test::test_type3<T> const& x)
     {
         std::size_t seed =
-            HASH_NAMESPACE::hash_range(x.values.begin(), x.values.end());
-        HASH_NAMESPACE::hash_range(seed, x.values.begin(), x.values.end());
+            BOOST_HASH_TEST_NAMESPACE::hash_range(x.values.begin(), x.values.end());
+        BOOST_HASH_TEST_NAMESPACE::hash_range(seed, x.values.begin(), x.values.end());
         return seed;
     }
 }

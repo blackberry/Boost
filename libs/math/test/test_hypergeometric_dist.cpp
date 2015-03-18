@@ -11,7 +11,8 @@
 #include <boost/math/concepts/real_concept.hpp> // for real_concept
 #include <boost/math/distributions/hypergeometric.hpp>
 
-#include <boost/test/test_exec_monitor.hpp> // Boost.Test
+#define BOOST_TEST_MAIN
+#include <boost/test/unit_test.hpp> // Boost.Test
 #include <boost/test/results_collector.hpp>
 #include <boost/test/unit_test.hpp>
 #include <boost/test/floating_point_comparison.hpp>
@@ -146,7 +147,6 @@ void do_test_hypergeometric(const T& data, const char* type_name, const char* te
    (void)test_name;
 
 #if !defined(TEST_QUANT) || (TEST_QUANT == 0)
-   typedef typename T::value_type row_type;
    typedef Real                   value_type;
 
    typedef value_type (*pg)(value_type, value_type, value_type, value_type);
@@ -206,7 +206,6 @@ void do_test_hypergeometric(const T& data, const char* type_name, const char* te
 template <class Real, class T>
 void do_test_hypergeometric_quantile(const T& data, const char* type_name, const char* test_name)
 {
-   typedef typename T::value_type row_type;
    typedef Real                   value_type;
 
    std::cout << "Checking quantiles with " << test_name << " with type " << type_name
@@ -460,6 +459,7 @@ void test_spots(RealType /*T*/, const char* type_name)
    test_spot(1, 13, 4, 26, static_cast<T>(0.248695652173913), static_cast<T>(0.296521739130435), static_cast<T>(1 - 0.296521739130435), tolerance);
    test_spot(2, 13, 4, 26, static_cast<T>(0.40695652173913), static_cast<T>(0.703478260869565), static_cast<T>(1 - 0.703478260869565), tolerance);
    test_spot(3, 13, 4, 26, static_cast<T>(0.248695652173913), static_cast<T>(0.952173913043478), static_cast<T>(1 - 0.952173913043478), tolerance);
+   test_spot(40, 70, 89, 170, static_cast<T>(0.0721901023798991), static_cast<T>(0.885447799131944), static_cast<T>(1 - 0.885447799131944), tolerance);
 
    boost::math::hypergeometric_distribution<RealType> d(50, 200, 500);
    BOOST_CHECK_EQUAL(range(d).first, 0u);
@@ -477,7 +477,7 @@ void test_spots(RealType /*T*/, const char* type_name)
 }
 
 
-int test_main(int, char* [])
+BOOST_AUTO_TEST_CASE( test_main )
 {
    expected_results();
    // Basic sanity-check spot values.
@@ -496,6 +496,6 @@ int test_main(int, char* [])
       "to pass.</note>" << std::cout;
 #endif
 
-   return 0;
-} // int test_main(int, char* [])
+   
+} // BOOST_AUTO_TEST_CASE( test_main )
 

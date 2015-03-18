@@ -58,6 +58,7 @@ struct Bob
 template <class Int, class Char>
 struct Bill
 {
+   BOOST_STATIC_CONSTANT(int, value = 1);
   private:  // can be in private, to avoid namespace pollution
     BOOST_STATIC_ASSERT(sizeof(Int) > sizeof(char));
     BOOST_STATIC_ASSERT_MSG(sizeof(Int) > sizeof(char), "msg9");
@@ -89,6 +90,15 @@ void test_Bill() // BOOST_STATIC_ASSERTs are not triggerred until instantiated
 int main()
 { 
    test_Bill();
+   //
+   // Test variadic macro support:
+   //
+#ifndef BOOST_NO_CXX11_VARIADIC_MACROS
+   BOOST_STATIC_ASSERT(Bill<int, char>::value);
+#ifndef BOOST_NO_CXX11_STATIC_ASSERT
+   BOOST_STATIC_ASSERT_MSG(Bill<int, char>::value, "This is a message");
+#endif
+#endif
    return 0; 
 }
 

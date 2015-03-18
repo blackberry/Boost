@@ -28,7 +28,7 @@ compiler's conformance with the 2003 standard.
 
 
 [[`BOOST_BCB_PARTIAL_SPECIALIZATION_BUG`][Compiler][
-The compiler exibits certain partial specialisation bug - probably Borland
+The compiler exhibits certain partial specialisation bug - probably Borland
 C++ Builder specific.
 ]]
 [[`BOOST_FUNCTION_SCOPE_USING_DECLARATION_BREAKS_ADL`][Compiler][
@@ -104,10 +104,6 @@ no requirement for boost libraries to honor this configuration setting -
 indeed doing so may be impossible in some cases. Those libraries that do
 honor this will typically abort if a critical error occurs - you have been
 warned!
-]]
-[[`BOOST_NO_EXPLICIT_FUNCTION_TEMPLATE_ARGUMENTS`][Compiler][
-Can only use deduced template arguments when calling function template
-instantiations.
 ]]
 [[`BOOST_NO_FUNCTION_TEMPLATE_ORDERING`][Compiler][
 The compiler does not perform function template ordering or its function
@@ -368,6 +364,9 @@ the names of the header needed to access hash_set and hash_map;
 `BOOST_STD_EXTENSION_NAMESPACE` will provide the namespace in which the two
 class templates reside.
 ]]
+[[`BOOST_HAS_INT128`][Compiler][
+The compiler has `__int128` and `unsigned __int128` as native types which are distinct
+from all the regular C++ integer types.]]
 [[`BOOST_HAS_LOG1P`][Platform][
 The platform has the functions `log1p`, `log1pf` and `log1pl` in `<math.h>`.
 ]]
@@ -394,6 +393,19 @@ See [@../../../../boost/operators.hpp `<boost/operators.hpp>`] for example.
 The standard library has a partially conforming `std::allocator` class, but
 without any of the member templates.
 ]]
+[[`BOOST_HAS_PRAGMA_ONCE`][Compiler][
+The compiler recognizes the `#pragma once` directive which tells that the
+containing header should be included only once while preprocessing the
+current translation unit. The pragma may improve compile times of large projects
+with some compilers.
+]]
+[[`BOOST_HAS_PRAGMA_DETECT_MISMATCH`][Compiler][
+The compiler recognizes the `#pragma detect_mismatch("name", "value")` directive which tells that the
+link stage should be terminated with error if values for provided `"name"` missmatch.
+This pragma may be a help in preventing ODR violations and ensuring that different modules
+are compiled with same flags.
+]]
+
 [[`BOOST_HAS_PTHREAD_DELAY_NP`][Platform][
 The platform has the POSIX API `pthread_delay_np`.
 ]]
@@ -426,7 +438,9 @@ The standard library lacks a conforming `std::use_facet`, but has a workaround
 class-version that does the job. This is primarily for the STLport std lib.
 ]]
 [[`BOOST_HAS_TR1_ARRAY`][Standard library][
-The library has a TR1 conforming version of `<array>`.
+The library has a TR1 conforming version of `<array>`.  This macro is only guaranteed
+to be defined after including one of the headers from Boost.TR1.  Further this macro
+is now deprecated in favour of BOOST_NO_CXX11_HDR_ARRAY.
 ]]
 [[`BOOST_HAS_TR1_COMPLEX_OVERLOADS`][Standard library][
 The library has a version of `<complex>` that supports passing scalars to the
@@ -437,46 +451,74 @@ The library has a version of `<complex>` that includes the new inverse trig
 functions from TR1.
 ]]
 [[`BOOST_HAS_TR1_REFERENCE_WRAPPER`][Standard library][
-The library has TR1 conforming reference wrappers in `<functional>`.
+The library has TR1 conforming reference wrappers in `<functional>`.  This macro is only guaranteed
+to be defined after including one of the headers from Boost.TR1.  Further this macro
+is now deprecated in favour of BOOST_NO_CXX11_HDR_FUNCTIONAL.
 ]]
 [[`BOOST_HAS_TR1_RESULT_OF`][Standard library][
-The library has a TR1 conforming result_of template in `<functional>`.
+The library has a TR1 conforming result_of template in `<functional>`.  This macro is only guaranteed
+to be defined after including one of the headers from Boost.TR1.  Further this macro
+is now deprecated in favour of BOOST_NO_CXX11_HDR_FUNCTIONAL.
 ]]
 [[`BOOST_HAS_TR1_MEM_FN`][Standard library][
-The library has a TR1 conforming mem_fn function template in `<functional>`.
+The library has a TR1 conforming mem_fn function template in `<functional>`.  This macro is only guaranteed
+to be defined after including one of the headers from Boost.TR1.  Further this macro
+is now deprecated in favour of BOOST_NO_CXX11_HDR_FUNCTIONAL.
 ]]
 [[`BOOST_HAS_TR1_BIND`][Standard library][
-The library has a TR1 conforming bind function template in `<functional>`.
+The library has a TR1 conforming bind function template in `<functional>`.  This macro is only guaranteed
+to be defined after including one of the headers from Boost.TR1.  Further this macro
+is now deprecated in favour of BOOST_NO_CXX11_HDR_FUNCTIONAL.
 ]]
 [[`BOOST_HAS_TR1_FUNCTION`][Standard library][
-The library has a TR1 conforming function class template in `<functional>`.
+The library has a TR1 conforming function class template in `<functional>`.  This macro is only guaranteed
+to be defined after including one of the headers from Boost.TR1.  Further this macro
+is now deprecated in favour of BOOST_NO_CXX11_HDR_FUNCTIONAL.
 ]]
 [[`BOOST_HAS_TR1_HASH`][Standard library][
-The library has a TR1 conforming hash function template in `<functional>`.
+The library has a TR1 conforming hash function template in `<functional>`.  This macro is only guaranteed
+to be defined after including one of the headers from Boost.TR1.  Further this macro
+is now deprecated in favour of BOOST_NO_CXX11_HDR_FUNCTIONAL.
 ]]
 [[`BOOST_HAS_TR1_SHARED_PTR`][Standard library][
-The library has a TR1 conforming `shared_ptr` class template in `<memory>`.
+The library has a TR1 conforming `shared_ptr` class template in `<memory>`.  This macro is only guaranteed
+to be defined after including one of the headers from Boost.TR1.  Further this macro
+is now deprecated in favour of BOOST_NO_CXX11_SMART_PTR.
 ]]
 [[`BOOST_HAS_TR1_RANDOM`][Standard library][
-The library has a TR1 conforming version of `<random>`.
+The library has a TR1 conforming version of `<random>`.  This macro is only guaranteed
+to be defined after including one of the headers from Boost.TR1.  Further this macro
+is now deprecated in favour of BOOST_NO_CXX11_HDR_RANDOM.
 ]]
 [[`BOOST_HAS_TR1_REGEX`][Standard library][
-The library has a TR1 conforming version of `<regex>`.
+The library has a TR1 conforming version of `<regex>`.  This macro is only guaranteed
+to be defined after including one of the headers from Boost.TR1.  Further this macro
+is now deprecated in favour of BOOST_NO_CXX11_HDR_REGEX.
 ]]
 [[`BOOST_HAS_TR1_TUPLE`][Standard library][
-The library has a TR1 conforming version of `<tuple>`.
+The library has a TR1 conforming version of `<tuple>`.  This macro is only guaranteed
+to be defined after including one of the headers from Boost.TR1.  Further this macro
+is now deprecated in favour of BOOST_NO_CXX11_HDR_TUPLE.
 ]]
 [[`BOOST_HAS_TR1_TYPE_TRAITS`][Standard library][
-The library has a TR1 conforming version of `<type_traits>`.
+The library has a TR1 conforming version of `<type_traits>`.  This macro is only guaranteed
+to be defined after including one of the headers from Boost.TR1.  Further this macro
+is now deprecated in favour of BOOST_NO_CXX11_HDR_TYPE_TRAITS.
 ]]
 [[`BOOST_HAS_TR1_UTILITY`][Standard library][
-The library has the TR1 additions to `<utility>` (tuple interface to `std::pair`).
+The library has the TR1 additions to `<utility>` (tuple interface to `std::pair`).  This macro is only guaranteed
+to be defined after including one of the headers from Boost.TR1.  Further this macro
+is now deprecated in favour of BOOST_NO_CXX11_HDR_TUPLE.
 ]]
 [[`BOOST_HAS_TR1_UNORDERED_MAP`][Standard library][
-The library has a TR1 conforming version of `<unordered_map>`.
+The library has a TR1 conforming version of `<unordered_map>`.  This macro is only guaranteed
+to be defined after including one of the headers from Boost.TR1.  Further this macro
+is now deprecated in favour of BOOST_NO_CXX11_HDR_UNORDERED_MAP.
 ]]
 [[`BOOST_HAS_TR1_UNORDERED_SET`][Standard library][
-The library has a TR1 conforming version of `<unordered_set>`.
+The library has a TR1 conforming version of `<unordered_set>`.  This macro is only guaranteed
+to be defined after including one of the headers from Boost.TR1.  Further this macro
+is now deprecated in favour of BOOST_NO_CXX11_HDR_UNORDERED_SET.
 ]]
 [[`BOOST_HAS_TR1`][Standard library][
 Implies all the other `BOOST_HAS_TR1_*` macros should be set.
@@ -543,8 +585,53 @@ that are not yet supported by a particular compiler or library.
 [table
 [[Macro     ][Description     ]]
 
+[[`BOOST_NO_CXX11_ADDRESSOF`][The standard library header <memory> has no working std::addressof.]]
+[[`BOOST_NO_CXX11_ALIGNAS`][The compiler does not support the `alignas` keyword.]]
 [[`BOOST_NO_CXX11_ALLOCATOR`][The standard library does not provide a C++11 version of `std::allocator` in <memory>.]]
-[[`BOOST_NO_CXX11_ATOMIC_SP`][The standard library <memory> does not support atomic smart pointer operations.]]
+[[`BOOST_NO_CXX11_ATOMIC_SMART_PTR`][The standard library <memory> does not support atomic smart pointer operations.]]
+[[`BOOST_NO_CXX11_AUTO_DECLARATIONS`][The compiler does not support
+type deduction for variables declared with the `auto` keyword (`auto var = ...;`).
+]]
+[[`BOOST_NO_CXX11_AUTO_MULTIDECLARATIONS`][The compiler does not support
+type deduction for multiple variables declared with the `auto` keyword (`auto var = ..., *ptr = ...;`).
+]]
+[[`BOOST_NO_CXX11_CHAR16_T`][The compiler does not support
+type `char16_t`. 
+]]
+[[`BOOST_NO_CXX11_CHAR32_T`][The compiler does not support 
+type `char32_t`. 
+]]
+[[`BOOST_NO_CXX11_CONSTEXPR`][The compiler does not support 
+`constexpr`. 
+]]
+[[`BOOST_NO_CXX11_DECLTYPE`][The compiler does not support 
+`decltype`. 
+]]
+[[`BOOST_NO_CXX11_DECLTYPE_N3276`][The compiler does not support the extension to
+`decltype` described in [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2011/n3276.pdf N3276],
+accepted in Madrid, March 2011.
+]]
+[[`BOOST_NO_CXX11_DELETED_FUNCTIONS`][The compiler does not support
+deleted (`= delete`) functions.
+]]
+[[`BOOST_NO_CXX11_DEFAULTED_FUNCTIONS`][The compiler does not support
+defaulted (`= default`) functions.
+]]
+[[`BOOST_NO_CXX11_EXPLICIT_CONVERSION_OPERATORS`][The compiler does not support 
+explicit conversion operators (`explicit operator T()`).
+]] 
+[[`BOOST_NO_CXX11_EXTERN_TEMPLATE`][The compiler does not support 
+explicit instantiation forward declarations for templates (`extern template ...`).
+]]
+[[`BOOST_NO_CXX11_FINAL`][The compiler does not support the C++ class-virt-specifier final.
+]]
+[[`BOOST_NO_CXX11_FIXED_LENGTH_VARIADIC_TEMPLATE_EXPANSION_PACKS`][The compiler does not support
+expanding a variadic template parameter pack into a template containing one or more
+fixed arguments]]
+[[`BOOST_NO_CXX11_FUNCTION_TEMPLATE_DEFAULT_ARGS`][The compiler does not support
+default template arguments for function templates.
+]]
+[[`BOOST_NO_CXX11_HDR_ATOMIC`][The standard library does not provide header <atomic>.]]
 [[`BOOST_NO_CXX11_HDR_ARRAY`][The standard library does not provide header <array>.]]
 [[`BOOST_NO_CXX11_HDR_CHRONO`][The standard library does not provide header <chrono>.]]
 [[`BOOST_NO_CXX11_HDR_CODECVT`][The standard library does not provide header <codecvt>.]]
@@ -564,89 +651,68 @@ that are not yet supported by a particular compiler or library.
 [[`BOOST_NO_CXX11_HDR_TYPE_TRAITS`][The standard library does not provide header <type_traits>.]]
 [[`BOOST_NO_CXX11_HDR_UNORDERED_MAP`][The standard library does not provide header <unordered_map>.]]
 [[`BOOST_NO_CXX11_HDR_UNORDERED_SET`][The standard library does not provide header <unordered_set>.]]
-[[`BOOST_NO_CXX11_SMART_PTR`][The standard library header <memory> has no shared_ptr and unique_ptr.]]
 
-[[`BOOST_NO_CXX11_AUTO_DECLARATIONS`][The compiler does not support
-type deduction for variables declared with the `auto` keyword (`auto var = ...;`).
-]]                       
-[[`BOOST_NO_CXX11_AUTO_MULTIDECLARATIONS`][The compiler does not support
-type deduction for multiple variables declared with the `auto` keyword (`auto var = ..., *ptr = ...;`).
-]]                       
-[[`BOOST_NO_CXX11_CHAR16_T`][The compiler does not support
-type `char16_t`. 
-]]                       
-[[`BOOST_NO_CXX11_CHAR32_T`][The compiler does not support 
-type `char32_t`. 
-]]                       
-[[`BOOST_NO_CXX11_TEMPLATE_ALIASES`][The compiler does not support template aliases. 
-]]                      
-[[`BOOST_NO_CXX11_CONSTEXPR`][The compiler does not support 
-`constexpr`. 
-]]                      
-[[`BOOST_NO_CXX11_DECLTYPE`][The compiler does not support 
-`decltype`. 
-]]                       
-[[`BOOST_NO_CXX11_DECLTYPE_N3276`][The compiler does not support the extension to
-`decltype` described in [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2011/n3276.pdf N3276],
-accepted in Madrid, March 2011.
-]]                       
-[[`BOOST_NO_CXX11_DEFAULTED_FUNCTIONS`][The compiler does not support 
-defaulted (`= default`) functions.  
-]]            
-[[`BOOST_NO_CXX11_DELETED_FUNCTIONS`][The compiler does not support 
-deleted (`= delete`) functions.              
-]]              
-[[`BOOST_NO_CXX11_EXPLICIT_CONVERSION_OPERATORS`][The compiler does not support 
-explicit conversion operators (`explicit operator T()`).              
-]] 
-[[`BOOST_NO_CXX11_EXTERN_TEMPLATE`][The compiler does not support 
-explicit instantiation forward declarations for templates (`extern template ...`).
-]]
-[[`BOOST_NO_CXX11_FUNCTION_TEMPLATE_DEFAULT_ARGS`][The compiler does not support
-default template arguments for function templates.
-]]
+[[`BOOST_NO_CXX11_INLINE_NAMESPACES`][The compiler does not support inline namespaces.]]
 [[`BOOST_NO_CXX11_LAMBDAS`][The compiler does not support Lambdas. 
-]]                      
+]]
 [[`BOOST_NO_CXX11_LOCAL_CLASS_TEMPLATE_PARAMETERS`][The compiler does not allow to
 pass local classes as template parameters (this macro intentionally does not
 control passing of unnamed types as template parameters, see also
 [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2657.htm N2657]).
 ]]
-[[`BOOST_NO_LONG_LONG`][The compiler does not support `long long`.
-]]                
+[[`BOOST_NO_CXX11_NON_PUBLIC_DEFAULTED_FUNCTIONS`][The compiler does not support
+defaulted (`= default`) functions in access control sections other than `public`. Public defaulted
+functions may still be supported, as indicated by `BOOST_NO_CXX11_DEFAULTED_FUNCTIONS`. Some
+compilers implementing an early draft of the C++11 standard (in particular, incorporating
+[@http://www.open-std.org/jtc1/sc22/wg21/docs/cwg_defects.html#906 DR906]) are susceptible to this problem.
+]]
 [[`BOOST_NO_CXX11_NOEXCEPT`][The compiler does not support `noexcept`. 
-]]                      
+]]
 [[`BOOST_NO_CXX11_NULLPTR`][The compiler does not support `nullptr`. 
-]]                      
+]]
 [[`BOOST_NO_CXX11_RANGE_BASED_FOR`][The compiler does not support
 range-based for statements. 
-]]                   
+]]
 [[`BOOST_NO_CXX11_RAW_LITERALS`][The compiler does not support
 raw string literals. 
-]]                   
+]]
+[[`BOOST_NO_CXX11_REF_QUALIFIERS`][The compiler does not support
+ref-qualifiers on member functions as described in 
+[@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2439.htm N2439]. 
+]]
 [[`BOOST_NO_CXX11_RVALUE_REFERENCES`][The compiler does not support
 r-value references. 
-]]              
+]]
 [[`BOOST_NO_CXX11_SCOPED_ENUMS`][The compiler does not support
 scoped enumerations (`enum class`). 
-]]                   
+]]
+[[`BOOST_NO_CXX11_SMART_PTR`][The standard library header <memory> has no shared_ptr and unique_ptr.]]
 [[`BOOST_NO_CXX11_STATIC_ASSERT`][The compiler does not support
 `static_assert`. 
-]]                  
-[[`BOOST_NO_CXX11_STD_UNORDERD`][The standard library does not support
+]]
+[[`BOOST_NO_CXX11_STD_ALIGN`][The standard library header <memory> has no working std::align.]]
+[[`BOOST_NO_CXX11_STD_UNORDERED`][The standard library does not support
 <unordered_map> and <unordered_set>. 
-]]                  
+]]
+[[`BOOST_NO_CXX11_TEMPLATE_ALIASES`][The compiler does not support template aliases. 
+]]
+[[`BOOST_NO_CXX11_TRAILING_RESULT_TYPES`][The compiler does not support the new function result type
+specification syntax (e.g. `auto foo(T) -> T;`).]]
 [[`BOOST_NO_CXX11_UNICODE_LITERALS`][The compiler does not support
 Unicode (`u8`, `u`, `U`) literals. 
-]] 
+]]
 [[`BOOST_NO_CXX11_UNIFIED_INITIALIZATION_SYNTAX`][The compiler does not support
 the [@http://en.wikipedia.org/wiki/C%2B%2B0x#Uniform_initialization C++11 Unified Initialization Syntax].
 ]]
+[[`BOOST_NO_CXX11_USER_DEFINED_LITERALS`][The compiler does not support user defined literals. 
+]]
 [[`BOOST_NO_CXX11_VARIADIC_TEMPLATES`][The compiler does not support
-variadic templates. 
+variadic templates.
 ]]
 [[`BOOST_NO_CXX11_VARIADIC_MACROS`][The compiler does not support
-variadic macros. 
+variadic macros.
+]]
+[[`BOOST_NO_LONG_LONG`][The compiler does not support `long long`.
 ]]
 ]
 
@@ -662,6 +728,21 @@ provide compliant C++11 support.
 [table
 [[Macro        ][ Description          ]]
 
+[[`BOOST_ALIGNMENT(X)`, `BOOST_NO_ALIGNMENT`][
+Some compilers don't support the `alignas` keyword but provide other means to specify alignment
+(usually, through compiler-specific attributes). The macro `BOOST_ALIGNMENT(X)` will expand to the `alignas(X)`
+keyword if the compiler supports it or to some compiler-specific attribute to achieve the specified alignment.
+If no such compiler-specific attribute is known then `BOOST_ALIGNMENT(X)` will expand to nothing and
+`BOOST_NO_ALIGNMENT` will be defined. Unlike native `alignas`, `X` must always be a compile-time integer constant.
+The macro can be used to specify alignment of types and data:
+``
+  struct BOOST_ALIGNMENT(16) my_data
+  {
+      char c[16];
+  };
+  BOOST_ALIGNMENT(8) int arr[32];
+``
+]]
 [[`BOOST_CONSTEXPR`][
 Some compilers don't support the use of `constexpr`. This macro expands to nothing on those compilers, and `constexpr`
 elsewhere. For example, when defining a constexpr function or constructor replace:
@@ -694,30 +775,142 @@ with:
   BOOST_STATIC_CONSTEXPR UIntType xor_mask = a;
 ``
 ]]
+[[`BOOST_DEFAULTED_FUNCTION(fun, body)`][
+This macro is intended to be used within a class definition in order to declare a default implementation of function `fun`.
+For the compilers that do not support C++11 defaulted functions the macro will expand into an inline function definition
+with the `body` implementation. For example:
+``
+  struct my_struct
+  {
+      BOOST_DEFAULTED_FUNCTION(my_struct(), {})
+  };
+``
+is equivalent to:
+``
+  struct my_struct
+  {
+      my_struct() = default;
+  };
+``
+or:
+``
+  struct my_struct
+  {
+      my_struct() {}
+  };
+``
+]]
+[[`BOOST_DELETED_FUNCTION(fun)`][
+This macro is intended to be used within a class definition in order to declare a deleted function `fun`.
+For the compilers that do not support C++11 deleted functions the macro will expand into a private function
+declaration with no definition. Since the macro may change the access mode, it is recommended to use this macro
+at the end of the class definition. For example:
+``
+  struct noncopyable
+  {
+      BOOST_DELETED_FUNCTION(noncopyable(noncopyable const&))
+      BOOST_DELETED_FUNCTION(noncopyable& operator= (noncopyable const&))
+  };
+``
+is equivalent to:
+``
+  struct noncopyable
+  {
+      noncopyable(noncopyable const&) = delete;
+      noncopyable& operator= (noncopyable const&) = delete;
+  };
+``
+or:
+``
+  struct noncopyable
+  {
+  private:
+      noncopyable(noncopyable const&);
+      noncopyable& operator= (noncopyable const&);
+  };
+``
+]]
 [[
 ``
   BOOST_NOEXCEPT
+  BOOST_NOEXCEPT_OR_NOTHROW
   BOOST_NOEXCEPT_IF(Predicate)
   BOOST_NOEXCEPT_EXPR(Expression)
 ``
 ][
-If `BOOST_NO_NOEXCEPT` is defined (i.e. C++03 compliant compilers) these macros are defined as:
+If `BOOST_NO_CXX11_NOEXCEPT` is defined (i.e. C++03 compliant compilers) these macros are defined as:
 [:
 ``
   #define BOOST_NOEXCEPT
+  #define BOOST_NOEXCEPT_OR_NOTHROW throw()
   #define BOOST_NOEXCEPT_IF(Predicate)
   #define BOOST_NOEXCEPT_EXPR(Expression) false
 ``
 ]
-If `BOOST_NO_NOEXCEPT` is not defined (i.e. C++11 compliant compilers) they are defined as:
+If `BOOST_NO_CXX11_NOEXCEPT` is not defined (i.e. C++11 compliant compilers) they are defined as:
 [:
 ``
   #define BOOST_NOEXCEPT noexcept
+  #define BOOST_NOEXCEPT_OR_NOTHROW noexcept
   #define BOOST_NOEXCEPT_IF(Predicate) noexcept((Predicate))
   #define BOOST_NOEXCEPT_EXPR(Expression) noexcept((Expression))
 ``
 ]
 ]]
+[[`BOOST_MSVC_ENABLE_2012_NOV_CTP`][
+For Microsoft Visual C++ 2012, enable the C++11 features supplied by the
+November 2012 Community Technology Preview. These features are not automatically
+enabled because the CTP is non-supported alpha code that is not recommended
+for production use. This macro must be defined before including any Boost headers,
+and must be defined for all translation units in the program, including Boost library builds.
+This macro will no longer have any effect once an official Microsoft
+release supports the CTP features.
+]]
+]
+
+[endsect]
+
+[section Macros that describe C++14 features not supported]
+
+The following macros describe features in the 2014 ISO C++ standard, formerly known as C++0y,
+that are not yet supported by a particular compiler or library.
+
+[table
+[[Macro ][Description ]]
+[[`BOOST_NO_CXX14_AGGREGATE_NSDMI`][The compiler does not support member initializer for aggregates as in the following example:
+[:
+``
+struct Foo
+{
+  int x, y = 42;
+};
+
+Foo foo = { 0 };
+``
+]
+]]
+[[`BOOST_NO_CXX14_BINARY_LITERALS`][The compiler does not binary literals (e.g. `0b1010`).]]
+[[`BOOST_NO_CXX14_CONSTEXPR`][The compiler does not support relaxed `constexpr`.]]
+[[`BOOST_NO_CXX14_DECLTYPE_AUTO`][The compiler does not support `decltype(auto)`.]]
+[[`BOOST_NO_CXX14_DIGIT_SEPARATORS`][The compiler does not support digit separators (e.g. `1'000'000`).]]
+[[`BOOST_NO_CXX14_GENERIC_LAMBDAS`][The compiler does not support generic lambda (e.g. `[](auto v){ }`).]]
+[[`BOOST_NO_CXX14_INITIALIZED_LAMBDA_CAPTURES`][The compiler does not support initialized lambda capture (e.g. `[foo = 42]{ }`).]]
+[[`BOOST_NO_CXX14_RETURN_TYPE_DEDUCTION`][The compiler does not support return type deduction for normal functions (e.g. `auto f() { return val; }`).]]
+[[`BOOST_NO_CXX14_VARIABLE_TEMPLATES`][The compiler does not support variable template (e.g. `template <class T> T kibi = T(1024);`).]]
+]
+
+[endsect]
+
+[#config_14_for_11]
+
+[section Macros that allow use of C++14 features with C++11 or earlier compilers]
+
+The following macros allow use of C++14 features even with compilers that do not yet
+provide compliant C++14 support.
+
+[table
+[[Macro ][ Description ]]
+[[`BOOST_CXX14_CONSTEXPR`][This macro works similar to BOOST_CONSTEXPR, but expands to `constexpr` only if the C++14 "relaxed" `constexpr` is available.]]
 ]
 
 [endsect]
@@ -817,6 +1010,41 @@ struct foo{
 Normally evaluates to nothing, but evaluates to return x; if the compiler
 requires a return, even when it can never be reached.
 ]]
+[[`BOOST_FALLTHROUGH`][ 
+The BOOST_FALLTHROUGH macro can be used to annotate implicit fall-through 
+between switch labels: 
+`` 
+ switch (x) { 
+ case 40: 
+ case 41: 
+    if (truth_is_out_there) { 
+       ++x; 
+       BOOST_FALLTHROUGH;  // Use instead of/along with annotations in 
+       // comments. 
+    } else { 
+      return x; 
+    } 
+    case 42: 
+       ... 
+`` 
+As shown in the example above, the BOOST_FALLTHROUGH macro should be 
+followed by a semicolon. It is designed to mimic control-flow statements 
+like 'break;', so it can be placed in most places where 'break;' can, but 
+only if there are no statements on the execution path between it and the 
+next switch label. 
+
+When compiled with Clang >3.2 in C++11 mode, the BOOST_FALLTHROUGH macro is 
+expanded to `[[clang::fallthrough]]` attribute, which is analysed when 
+performing switch labels fall-through diagnostic ('-Wimplicit-fallthrough'). 
+See clang [@http://clang.llvm.org/docs/LanguageExtensions.html#clang__fallthrough 
+documentation on language extensions for details.] 
+
+When used with unsupported compilers, the BOOST_FALLTHROUGH macro has no 
+effect on diagnostics. 
+
+In either case this macro has no effect on runtime behavior and performance 
+of code. 
+]] 
 [[`BOOST_EXPLICIT_TEMPLATE_TYPE(t)`
   `BOOST_EXPLICIT_TEMPLATE_NON_TYPE(t,v)`
   `BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(t)`
@@ -903,7 +1131,7 @@ used to create a mangled name in combination with a predefined macro such a
 ]]
 [[`BOOST_FORCEINLINE`][
 This macro can be used in place of the `inline` keyword to instruct the compiler
-that a function should always be inlined.
+that the function should always be inlined.
 Overuse of this macro can lead to significant bloat, while good use can increase
 performance in certain cases, such as computation-intensive code built through
 generative programming techniques.
@@ -921,6 +1149,56 @@ Note that use of this macro can lead to cryptic error messages with some compile
 Consider defining it to `inline` before including the Boost.Config header in order to be
 able to debug errors more easily.
 ]]
+[[`BOOST_NOINLINE`][
+This macro can be used in place of the `inline` keyword to instruct the compiler
+that the function should never be inlined. One should typically use this macro
+to mark functions that are unlikely to be called, such as error handling routines.
+
+Usage example:
+``
+  BOOST_NOINLINE void handle_error(const char* descr)
+  {
+      // ...
+  }
+``
+]]
+[[`BOOST_NORETURN`][
+This macro can be used before the function declaration or definition to instruct the compiler
+that the function does not return normally (i.e. with a `return` statement or by leaving
+the function scope, if the function return type is `void`). The macro can be used to mark
+functions that always throw exceptions or terminate the application. Compilers that support
+this markup may use this information to specifically organize the code surrounding calls to
+this function and suppress warnings about missing `return` statements in the functions
+enclosing such calls.
+
+Usage example:
+``
+  BOOST_NORETURN void on_error_occurred(const char* descr)
+  {
+      throw std::runtime_error(descr);
+  }
+``
+
+If the compiler does not support this markup, `BOOST_NORETURN` is defined empty and an
+additional macro `BOOST_NO_NORETURN` is defined.
+]]
+[[`BOOST_LIKELY(X)`
+  `BOOST_UNLIKELY(X)`][
+These macros communicate to the compiler that the conditional expression `X` is likely
+or unlikely to yield a positive result. The expression should result in a boolean value.
+The result of the macro is an integer or boolean value equivalent to the result of `X`.
+
+The macros are intended to be used in branching statements. The additional hint they provide
+can be used by the compiler to arrange the compiled code of the branches more effectively.
+
+Usage example:
+``
+  if (BOOST_UNLIKELY(ptr == NULL))
+    handle_error("ptr is NULL");
+``
+]]
+[[`BOOST_ATTRIBUTE_UNUSED`][Expands to `__attribute__((unused))` when this is available - 
+can be used to disable compiler warnings relating to unused types or variables.]]
 ]
 
 [endsect]
@@ -957,6 +1235,11 @@ _MSC_VER.
 Defined to a normalised 9 digit version of _MSC_FULL_VER (which sometimes only has 8 digits), 
 the macro has the form VVMMPPPPP where VV is the major version number, MM is the minor version number, and
 PPPPP is the compiler build number.
+]]
+[[`BOOST_GCC`][`<boost/config.hpp>`][
+Defined if the compiler is really GCC, as opposed to one
+of the many other compilers that also define `__GNUC__`.  Has the value:
+`__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__`.
 ]]
 [[`BOOST_INTEL`][`<boost/config.hpp>`][
 Defined if the compiler is an Intel compiler, takes the same value as the
@@ -1045,12 +1328,18 @@ They will be removed in a future version of boost.
 [[`BOOST_NO_RVALUE_REFERENCES`][`BOOST_NO_CXX11_RVALUE_REFERENCES`][Boost 1.51][]]
 [[`BOOST_NO_SCOPED_ENUMS`][`BOOST_NO_CXX11_SCOPED_ENUMS`][Boost 1.51][]]
 [[`BOOST_NO_STATIC_ASSERT`][`BOOST_NO_CXX11_STATIC_ASSERT`][Boost 1.51][]]
-[[`BOOST_NO_STD_UNORDERD`][`BOOST_NO_CXX11_STD_UNORDERD`][Boost 1.51][]]
+[[`BOOST_NO_STD_UNORDERED`][`BOOST_NO_CXX11_STD_UNORDERED`][Boost 1.51][]]
 [[`BOOST_NO_UNICODE_LITERALS`][`BOOST_NO_CXX11_UNICODE_LITERALS`][Boost 1.51][]]
 [[`BOOST_NO_UNIFIED_INITIALIZATION_SYNTAX`][`BOOST_NO_CXX11_UNIFIED_INITIALIZATION_SYNTAX`][Boost 1.51][]]
 [[`BOOST_NO_VARIADIC_TEMPLATES`][`BOOST_NO_CXX11_VARIADIC_TEMPLATES`][Boost 1.51][]]
 [[`BOOST_NO_VARIADIC_MACROS`][`BOOST_NO_CXX11_VARIADIC_MACROS`][Boost 1.51][]]
 [[`BOOST_NO_NUMERIC_LIMITS_LOWEST`][`BOOST_NO_CXX11_NUMERIC_LIMITS`][Boost 1.51][]]
+[[][][][]]
+[[`BOOST_HAS_STATIC_ASSERT`][`BOOST_NO_CXX11_STATIC_ASSERT` (negated)][Boost 1.53][]]
+[[`BOOST_HAS_VARIADIC_TMPL`][`BOOST_NO_CXX11_VARIADIC_TEMPLATES` (negated)][Boost 1.53][]]
+[[`BOOST_HAS_RVALUE_REFS`][`BOOST_NO_CXX11_RVALUE_REFERENCES` (negated)][Boost 1.53][]]
+[[`BOOST_HAS_CHAR16_T`][`BOOST_NO_CXX11_CHAR16_T` (negated)][Boost 1.53][]]
+[[`BOOST_HAS_CHAR32_T`][`BOOST_NO_CXX11_CHAR32_T` (negated)][Boost 1.53][]]
 ]
 
 [endsect]

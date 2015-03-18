@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>strategy::transform::inverse_transformer</title>
 <link rel="stylesheet" href="../../../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../../index.html" title="Chapter&#160;1.&#160;Geometry">
 <link rel="up" href="../strategies.html" title="Strategies">
 <link rel="prev" href="strategy_simplify_douglas_peucker.html" title="strategy::simplify::douglas_peucker">
@@ -27,18 +27,19 @@
 <a name="geometry.reference.strategies.strategy_transform_inverse_transformer"></a><a class="link" href="strategy_transform_inverse_transformer.html" title="strategy::transform::inverse_transformer">strategy::transform::inverse_transformer</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="id969145"></a><a class="indexterm" name="id969150"></a><a class="indexterm" name="id969155"></a>
-Transformation strategy to do an inverse ransformation in Cartesian system.
+          <a class="indexterm" name="idp135871936"></a><a class="indexterm" name="idp135872624"></a><a class="indexterm" name="idp135873312"></a>
+Transformation strategy to do an inverse transformation in a Cartesian
+          coordinate system.
         </p>
 <h6>
 <a name="geometry.reference.strategies.strategy_transform_inverse_transformer.h0"></a>
-          <span><a name="geometry.reference.strategies.strategy_transform_inverse_transformer.synopsis"></a></span><a class="link" href="strategy_transform_inverse_transformer.html#geometry.reference.strategies.strategy_transform_inverse_transformer.synopsis">Synopsis</a>
+          <span class="phrase"><a name="geometry.reference.strategies.strategy_transform_inverse_transformer.synopsis"></a></span><a class="link" href="strategy_transform_inverse_transformer.html#geometry.reference.strategies.strategy_transform_inverse_transformer.synopsis">Synopsis</a>
         </h6>
 <p>
 </p>
-<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">P1</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">P2</span><span class="special">&gt;</span>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">CalculationType</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">Dimension1</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">Dimension2</span><span class="special">&gt;</span>
 <span class="keyword">class</span> <span class="identifier">strategy</span><span class="special">::</span><span class="identifier">transform</span><span class="special">::</span><span class="identifier">inverse_transformer</span>
-      <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">strategy</span><span class="special">::</span><span class="identifier">transform</span><span class="special">::</span><span class="identifier">ublas_transformer</span><span class="special">&lt;</span> <span class="identifier">P1</span><span class="special">,</span> <span class="identifier">P2</span><span class="special">,</span> <span class="identifier">dimension</span><span class="special">&lt;</span> <span class="identifier">P1</span> <span class="special">&gt;::</span><span class="identifier">type</span><span class="special">::</span><span class="identifier">value</span><span class="special">,</span> <span class="identifier">dimension</span><span class="special">&lt;</span> <span class="identifier">P2</span> <span class="special">&gt;::</span><span class="identifier">type</span><span class="special">::</span><span class="identifier">value</span> <span class="special">&gt;</span>
+      <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">strategy</span><span class="special">::</span><span class="identifier">transform</span><span class="special">::</span><span class="identifier">ublas_transformer</span><span class="special">&lt;</span> <span class="identifier">CalculationType</span><span class="special">,</span> <span class="identifier">Dimension1</span><span class="special">,</span> <span class="identifier">Dimension2</span> <span class="special">&gt;</span>
 <span class="special">{</span>
   <span class="comment">// ...</span>
 <span class="special">};</span>
@@ -47,7 +48,7 @@ Transformation strategy to do an inverse ransformation in Cartesian system.
         </p>
 <h6>
 <a name="geometry.reference.strategies.strategy_transform_inverse_transformer.h1"></a>
-          <span><a name="geometry.reference.strategies.strategy_transform_inverse_transformer.template_parameter_s_"></a></span><a class="link" href="strategy_transform_inverse_transformer.html#geometry.reference.strategies.strategy_transform_inverse_transformer.template_parameter_s_">Template
+          <span class="phrase"><a name="geometry.reference.strategies.strategy_transform_inverse_transformer.template_parameter_s_"></a></span><a class="link" href="strategy_transform_inverse_transformer.html#geometry.reference.strategies.strategy_transform_inverse_transformer.template_parameter_s_">Template
           parameter(s)</a>
         </h6>
 <div class="informaltable"><table class="table">
@@ -71,32 +72,35 @@ Transformation strategy to do an inverse ransformation in Cartesian system.
 <tr>
 <td>
                   <p>
-                    typename P1
+                    typename CalculationType
                   </p>
                 </td>
 <td>
-                  <p>
-                    first point type
-                  </p>
                 </td>
 </tr>
 <tr>
 <td>
                   <p>
-                    typename P2
+                    std::size_t Dimension1
                   </p>
                 </td>
 <td>
+                </td>
+</tr>
+<tr>
+<td>
                   <p>
-                    second point type
+                    std::size_t Dimension2
                   </p>
+                </td>
+<td>
                 </td>
 </tr>
 </tbody>
 </table></div>
 <h6>
 <a name="geometry.reference.strategies.strategy_transform_inverse_transformer.h2"></a>
-          <span><a name="geometry.reference.strategies.strategy_transform_inverse_transformer.constructor_s_"></a></span><a class="link" href="strategy_transform_inverse_transformer.html#geometry.reference.strategies.strategy_transform_inverse_transformer.constructor_s_">Constructor(s)</a>
+          <span class="phrase"><a name="geometry.reference.strategies.strategy_transform_inverse_transformer.constructor_s_"></a></span><a class="link" href="strategy_transform_inverse_transformer.html#geometry.reference.strategies.strategy_transform_inverse_transformer.constructor_s_">Constructor(s)</a>
         </h6>
 <div class="informaltable"><table class="table">
 <colgroup>
@@ -141,7 +145,7 @@ Transformation strategy to do an inverse ransformation in Cartesian system.
 </table></div>
 <h6>
 <a name="geometry.reference.strategies.strategy_transform_inverse_transformer.h3"></a>
-          <span><a name="geometry.reference.strategies.strategy_transform_inverse_transformer.header"></a></span><a class="link" href="strategy_transform_inverse_transformer.html#geometry.reference.strategies.strategy_transform_inverse_transformer.header">Header</a>
+          <span class="phrase"><a name="geometry.reference.strategies.strategy_transform_inverse_transformer.header"></a></span><a class="link" href="strategy_transform_inverse_transformer.html#geometry.reference.strategies.strategy_transform_inverse_transformer.header">Header</a>
         </h6>
 <p>
           <code class="computeroutput"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">geometry</span><span class="special">/</span><span class="identifier">strategies</span><span class="special">/</span><span class="identifier">transform</span><span class="special">/</span><span class="identifier">inverse_transformer</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code>
@@ -149,8 +153,8 @@ Transformation strategy to do an inverse ransformation in Cartesian system.
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2009-2012 Barend
-      Gehrels, Bruno Lalande, Mateusz Loskot<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2009-2014 Barend Gehrels, Bruno Lalande, Mateusz Loskot, Adam
+      Wulkiewicz, Oracle and/or its affiliates<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

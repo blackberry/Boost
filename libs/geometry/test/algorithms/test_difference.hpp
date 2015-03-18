@@ -1,4 +1,4 @@
-// Boost.Geometry (aka GGL, Generic Geometry Library) 
+// Boost.Geometry (aka GGL, Generic Geometry Library)
 // Unit Test
 
 // Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
@@ -12,8 +12,10 @@
 #include <fstream>
 #include <iomanip>
 
-#include <boost/foreach.hpp>
 #include <geometry_test_common.hpp>
+
+#include <boost/core/ignore_unused.hpp>
+#include <boost/foreach.hpp>
 
 #include <boost/range/algorithm/copy.hpp>
 
@@ -38,13 +40,18 @@
 
 
 #if defined(TEST_WITH_SVG)
-#  include <boost/geometry/extensions/io/svg/svg_mapper.hpp>
+#  define BOOST_GEOMETRY_DEBUG_SEGMENT_IDENTIFIER
+#  define BOOST_GEOMETRY_DEBUG_IDENTIFIER
+#  include <boost/geometry/io/svg/svg_mapper.hpp>
+#  include <boost/geometry/algorithms/detail/overlay/debug_turn_info.hpp>
 #endif
 
 
 template <typename Output, typename G1, typename G2>
 void difference_output(std::string const& caseid, G1 const& g1, G2 const& g2, Output const& output)
 {
+    boost::ignore_unused(caseid, g1, g2, output);
+
 #if defined(TEST_WITH_SVG)
     {
         typedef typename bg::coordinate_type<G1>::type coordinate_type;
@@ -54,6 +61,9 @@ void difference_output(std::string const& caseid, G1 const& g1, G2 const& g2, Ou
         filename << "difference_"
             << caseid << "_"
             << string_from_type<coordinate_type>::name()
+#if defined(BOOST_GEOMETRY_NO_ROBUSTNESS)
+            << "_no_rob"
+#endif
             << ".svg";
 
         std::ofstream svg(filename.str().c_str());
@@ -79,14 +89,15 @@ void difference_output(std::string const& caseid, G1 const& g1, G2 const& g2, Ou
 
 template <typename OutputType, typename G1, typename G2>
 void test_difference(std::string const& caseid, G1 const& g1, G2 const& g2,
-        std::size_t expected_count, std::size_t expected_point_count,
+        int expected_count, int expected_point_count,
         double expected_area,
         double percentage = 0.0001,
         bool sym = false)
 {
-    std::vector<OutputType> clip;
-
     typedef typename bg::coordinate_type<G1>::type coordinate_type;
+    boost::ignore_unused<coordinate_type>();
+
+    std::vector<OutputType> clip;
 
     if (sym)
     {
@@ -103,7 +114,7 @@ void test_difference(std::string const& caseid, G1 const& g1, G2 const& g2,
             it != clip.end();
             ++it)
     {
-        if (expected_point_count > 0)
+        if (expected_point_count >= 0)
         {
             n += bg::num_points(*it);
         }
@@ -117,15 +128,26 @@ void test_difference(std::string const& caseid, G1 const& g1, G2 const& g2,
     {
         // Test inserter functionality
         // Test if inserter returns output-iterator (using Boost.Range copy)
+        typedef typename bg::point_type<G1>::type point_type;
+        typedef typename bg::rescale_policy_type<point_type>::type
+            rescale_policy_type;
+
+        rescale_policy_type rescale_policy
+                = bg::get_rescale_policy<rescale_policy_type>(g1, g2);
+
         std::vector<OutputType> inserted, array_with_one_empty_geometry;
         array_with_one_empty_geometry.push_back(OutputType());
         if (sym)
         {
-            boost::copy(array_with_one_empty_geometry, bg::detail::sym_difference::sym_difference_insert<OutputType>(g1, g2, std::back_inserter(inserted)));
+            boost::copy(array_with_one_empty_geometry,
+                bg::detail::sym_difference::sym_difference_insert<OutputType>
+                    (g1, g2, rescale_policy, std::back_inserter(inserted)));
         }
         else
         {
-            boost::copy(array_with_one_empty_geometry, bg::detail::difference::difference_insert<OutputType>(g1, g2, std::back_inserter(inserted)));
+            boost::copy(array_with_one_empty_geometry,
+                bg::detail::difference::difference_insert<OutputType>(
+                    g1, g2, rescale_policy, std::back_inserter(inserted)));
         }
 
         BOOST_CHECK_EQUAL(boost::size(clip), boost::size(inserted) - 1);
@@ -135,23 +157,23 @@ void test_difference(std::string const& caseid, G1 const& g1, G2 const& g2,
 
 
 #if ! defined(BOOST_GEOMETRY_NO_BOOST_TEST)
-    /*if (expected_point_count > 0)
+    if (expected_point_count >= 0)
     {
-        BOOST_CHECK_MESSAGE(n == expected_point_count,
+        BOOST_CHECK_MESSAGE(bg::math::abs(int(n) - expected_point_count) < 3,
                 "difference: " << caseid
                 << " #points expected: " << expected_point_count
                 << " detected: " << n
-                << " type: " << string_from_type<coordinate_type>::name()
+                << " type: " << (type_for_assert_message<G1, G2>())
                 );
-    }*/
+    }
 
-    if (expected_count > 0)
+    if (expected_count >= 0)
     {
-        BOOST_CHECK_MESSAGE(clip.size() == expected_count,
+        BOOST_CHECK_MESSAGE(int(clip.size()) == expected_count,
                 "difference: " << caseid
                 << " #outputs expected: " << expected_count
                 << " detected: " << clip.size()
-                << " type: " << string_from_type<coordinate_type>::name()
+                << " type: " << (type_for_assert_message<G1, G2>())
                 );
     }
 
@@ -170,12 +192,12 @@ static int counter = 0;
 template <typename OutputType, typename G1, typename G2>
 void test_one(std::string const& caseid,
         std::string const& wkt1, std::string const& wkt2,
-        std::size_t expected_count1,
-        std::size_t expected_point_count1,
+        int expected_count1,
+        int expected_point_count1,
         double expected_area1,
 
-        std::size_t expected_count2,
-        std::size_t expected_point_count2,
+        int expected_count2,
+        int expected_point_count2,
         double expected_area2,
 
         double percentage = 0.0001)
@@ -213,7 +235,8 @@ void test_one(std::string const& caseid,
         expected_area2, percentage);
     test_difference<OutputType>(caseid + "_s", g1, g2,
         expected_count1 + expected_count2,
-        expected_point_count1 + expected_point_count2,
+        expected_point_count1 >= 0 && expected_point_count2 >= 0
+            ? (expected_point_count1 + expected_point_count2) : -1,
         expected_area1 + expected_area2,
         percentage, true);
 
@@ -256,7 +279,7 @@ template <typename OutputType, typename G1, typename G2>
 void test_one_lp(std::string const& caseid,
         std::string const& wkt1, std::string const& wkt2,
         std::size_t expected_count,
-        std::size_t expected_point_count,
+        int expected_point_count,
         double expected_length)
 {
     G1 g1;
@@ -272,25 +295,29 @@ void test_one_lp(std::string const& caseid,
 
     typename bg::default_length_result<G1>::type length = 0;
     std::size_t n = 0;
+    std::size_t piece_count = 0;
     for (typename std::vector<OutputType>::iterator it = pieces.begin();
             it != pieces.end();
             ++it)
     {
-        if (expected_point_count > 0)
+        if (expected_point_count >= 0)
         {
             n += bg::num_points(*it);
         }
-
+        piece_count++;
         length += bg::length(*it);
     }
 
-    BOOST_CHECK_MESSAGE(pieces.size() == expected_count,
+    BOOST_CHECK_MESSAGE(piece_count == expected_count,
             "difference: " << caseid
             << " #outputs expected: " << expected_count
             << " detected: " << pieces.size()
             );
 
-    BOOST_CHECK_EQUAL(n, expected_point_count);
+    if (expected_point_count >= 0)
+    {
+        BOOST_CHECK_EQUAL(n, std::size_t(expected_point_count));
+    }
 
     BOOST_CHECK_CLOSE(length, expected_length, 0.001);
 

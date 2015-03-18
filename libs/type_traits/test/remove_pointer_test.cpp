@@ -26,7 +26,7 @@ BOOST_DECL_TRANSFORM_TEST(remove_pointer_test_10, ::tt::remove_pointer, const*, 
 BOOST_DECL_TRANSFORM_TEST(remove_pointer_test_11, ::tt::remove_pointer, volatile*, volatile)
 BOOST_DECL_TRANSFORM_TEST(remove_pointer_test_12, ::tt::remove_pointer, const[2][3], const[2][3])
 BOOST_DECL_TRANSFORM_TEST(remove_pointer_test_13, ::tt::remove_pointer, (&)[2], (&)[2])
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
 BOOST_DECL_TRANSFORM_TEST(remove_pointer_test_5a, ::tt::remove_pointer, const &&, const&&)
 BOOST_DECL_TRANSFORM_TEST(remove_pointer_test_6a, ::tt::remove_pointer, &&, &&)
 BOOST_DECL_TRANSFORM_TEST(remove_pointer_test_13a, ::tt::remove_pointer, (&&)[2], (&&)[2])
@@ -50,7 +50,7 @@ TT_TEST_BEGIN(remove_pointer)
    remove_pointer_test_11();
    remove_pointer_test_12();
    remove_pointer_test_13();
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
    remove_pointer_test_5a();
    remove_pointer_test_6a();
    remove_pointer_test_13a();

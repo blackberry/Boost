@@ -15,8 +15,10 @@
 
 #include <boost/config.hpp> /* prevents some nasty warns in MSVC */
 #include <boost/algorithm/minmax_element.hpp>
-#include <boost/test/included/test_exec_monitor.hpp>
 #include <boost/iterator/reverse_iterator.hpp>
+
+#define BOOST_TEST_MAIN
+#include <boost/test/unit_test.hpp>
 
 class custom {
   int m_x;
@@ -225,17 +227,14 @@ void test(int n BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Value))
   test_range(first, last, n);
 }
 
-int test_main( int argc, char* argv[] )
+BOOST_AUTO_TEST_CASE( test_main )
 {
 #ifndef BOOST_NO_STDC_NAMESPACE
   using std::atoi;
 #endif
 
   int n = 100;
-  if (argc > 1) n = atoi(argv[1]);
 
   test<int>(n);
   test<custom>(n);
-
-  return 0;
 }

@@ -6,9 +6,12 @@
 #include <pch.hpp>
 
 #include <boost/math/concepts/real_concept.hpp>
-#include <boost/test/test_exec_monitor.hpp>
+#define BOOST_TEST_MAIN
+#include <boost/test/unit_test.hpp>
 #include <boost/test/floating_point_comparison.hpp>
 #include <boost/math/special_functions/next.hpp>
+#include <iostream>
+#include <iomanip>
 
 #ifdef BOOST_MSVC
 #pragma warning(disable:4127)
@@ -86,7 +89,7 @@ void test_values(const T& val, const char* name)
    test_value(-boost::math::tools::epsilon<T>(), name);
    test_value(boost::math::tools::min_value<T>(), name);
    test_value(-boost::math::tools::min_value<T>(), name);
-   if(std::numeric_limits<T>::is_specialized && (std::numeric_limits<T>::has_denorm == std::denorm_present))
+   if (std::numeric_limits<T>::is_specialized && (std::numeric_limits<T>::has_denorm == std::denorm_present) && ((std::numeric_limits<T>::min)() / 2 != 0))
    {
       test_value(z, name);
       test_value(-z, name);
@@ -95,14 +98,20 @@ void test_values(const T& val, const char* name)
    test_value(-one, name);
    test_value(two, name);
    test_value(-two, name);
-   if(std::numeric_limits<T>::is_specialized && (std::numeric_limits<T>::has_denorm == std::denorm_present))
+#if defined(TEST_SSE2)
+   if((_mm_getcsr() & (_MM_FLUSH_ZERO_ON | 0x40)) == 0)
    {
-      test_value(std::numeric_limits<T>::denorm_min(), name);
-      test_value(-std::numeric_limits<T>::denorm_min(), name);
-      test_value(2 * std::numeric_limits<T>::denorm_min(), name);
-      test_value(-2 * std::numeric_limits<T>::denorm_min(), name);
+#endif
+      if(std::numeric_limits<T>::is_specialized && (std::numeric_limits<T>::has_denorm == std::denorm_present) && ((std::numeric_limits<T>::min)() / 2 != 0))
+      {
+         test_value(std::numeric_limits<T>::denorm_min(), name);
+         test_value(-std::numeric_limits<T>::denorm_min(), name);
+         test_value(2 * std::numeric_limits<T>::denorm_min(), name);
+         test_value(-2 * std::numeric_limits<T>::denorm_min(), name);
+      }
+#if defined(TEST_SSE2)
    }
-
+#endif
    static const int primes[] = {
       11,     13,     17,     19,     23,     29, 
       31,     37,     41,     43,     47,     53,     59,     61,     67,     71, 
@@ -148,7 +157,7 @@ void test_values(const T& val, const char* name)
    }
 }
 
-int test_main(int, char* [])
+BOOST_AUTO_TEST_CASE( test_main )
 {
    test_values(1.0f, "float");
    test_values(1.0, "double");
@@ -165,6 +174,8 @@ int test_main(int, char* [])
 #  pragma message "Compiling SSE2 test code"
 #endif
 
+   int mmx_flags = _mm_getcsr(); // We'll restore these later.
+
 #ifdef _WIN32
    // These tests fail pretty badly on Linux x64, especially with Intel-12.1
    _MM_SET_FLUSH_ZERO_MODE(_MM_FLUSH_ZERO_ON);
@@ -180,8 +191,11 @@ int test_main(int, char* [])
    std::cout << "SSE2 control word is: " << std::hex << _mm_getcsr() << std::endl;
    test_values(1.0f, "float");
    test_values(1.0, "double");
+
+   // Restore the MMX flags:
+   _mm_setcsr(mmx_flags);
 #endif
-   return 0;
+   
 }
 
 

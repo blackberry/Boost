@@ -14,7 +14,7 @@
 #define BOOST_CHRONO_EXTENSIONS
 #include <boost/chrono/chrono.hpp>
 #include <boost/detail/lightweight_test.hpp>
-#ifdef BOOST_NO_CONSTEXPR
+#ifdef BOOST_NO_CXX11_CONSTEXPR
 #define BOOST_CONSTEXPR_ASSERT(C) BOOST_TEST(C)
 #else
 #include <boost/static_assert.hpp>

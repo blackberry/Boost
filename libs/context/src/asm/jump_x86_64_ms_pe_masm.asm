@@ -5,168 +5,212 @@
 ;           http://www.boost.org/LICENSE_1_0.txt)
 
 ;  ----------------------------------------------------------------------------------
-;  |    0    |    1    |    2    |    3    |    4     |    5    |    6    |    7    |
+;  |    0    |    1    |                                                            |
 ;  ----------------------------------------------------------------------------------
-;  |   0x0   |   0x4   |   0x8   |   0xc   |   0x10   |   0x14  |   0x18  |   0x1c  |
+;  |   0x0   |   0x4   |                                                            |
 ;  ----------------------------------------------------------------------------------
-;  |        R12        |         R13       |         R14        |        R15        |
-;  ----------------------------------------------------------------------------------
-;  ----------------------------------------------------------------------------------
-;  |    8    |    9    |   10    |   11    |    12    |    13   |    14   |    15   |
-;  ----------------------------------------------------------------------------------
-;  |   0x20  |   0x24  |   0x28  |  0x2c   |   0x30   |   0x34  |   0x38  |   0x3c  |
-;  ----------------------------------------------------------------------------------
-;  |        RDI        |        RSI        |         RBX        |        RBP        |
+;  |    <indicator>    |                                                            |
 ;  ----------------------------------------------------------------------------------
 ;  ----------------------------------------------------------------------------------
-;  |    16   |    17   |    18   |    19   |                                        |
+;  |    2    |    3    |    4     |    5    |    6    |    7    |    8    |    9    |
 ;  ----------------------------------------------------------------------------------
-;  |   0x40  |   0x44  |   0x48  |   0x4c  |                                        |
+;  |   0x8   |   0xc   |   0x10   |   0x14  |   0x18  |   0x1c  |   0x20  |   0x24  |
 ;  ----------------------------------------------------------------------------------
-;  |        RSP        |        RIP        |                                        |
-;  ----------------------------------------------------------------------------------
-;  ----------------------------------------------------------------------------------
-;  |    20   |    21   |    22   |    23   |    24    |    25   |                   |
-;  ----------------------------------------------------------------------------------
-;  |   0x50  |   0x54  |   0x58  |   0x5c  |   0x60   |   0x64  |                   |
-;  ----------------------------------------------------------------------------------
-;  |        sp         |       size        |        limit       |                   |
+;  |                          SEE registers (XMM6-XMM15)                            |
 ;  ----------------------------------------------------------------------------------
 ;  ----------------------------------------------------------------------------------
-;  |    26   |   27    |                                                            |
+;  |   10    |   11    |    12    |    13   |    14   |    15   |    16   |    17   |
 ;  ----------------------------------------------------------------------------------
-;  |   0x68  |   0x6c  |                                                            |
+;  |   0x28  |  0x2c   |   0x30   |   0x34  |   0x38  |   0x3c  |   0x40  |   0x44  |
 ;  ----------------------------------------------------------------------------------
-;  |      fbr_strg     |                                                            |
-;  ----------------------------------------------------------------------------------
-;  ----------------------------------------------------------------------------------
-;  |    28   |   29    |    30   |    31   |                                        |
-;  ----------------------------------------------------------------------------------
-;  |   0x70  |   0x74  |   0x78  |   0x7c  |                                        |
-;  ----------------------------------------------------------------------------------
-;  | fc_mxcsr|fc_x87_cw|     <padding>     |                                        |
+;  |                          SEE registers (XMM6-XMM15)                            |
 ;  ----------------------------------------------------------------------------------
 ;  ----------------------------------------------------------------------------------
-;  |    32    |   33   |   34    |   35    |   36     |   37    |    38   |    39   |
+;  |    18   |    19   |    20   |    21    |    22   |    23   |    24   |    25   |
 ;  ----------------------------------------------------------------------------------
-;  |   0x80   |  0x84  |  0x88   |  0x8c   |   0x90   |   0x94  |   0x98  |   0x9c  |
+;  |   0x48  |   0x4c  |   0x50  |   0x54   |   0x58  |   0x5c  |  0x60   |   0x64  |
 ;  ----------------------------------------------------------------------------------
-;  |                  XMM6                 |                   XMM7                 |
-;  ----------------------------------------------------------------------------------
-;  ----------------------------------------------------------------------------------
-;  |    40    |   41   |   42    |   43    |    44    |   45    |    46   |    47   | 
-;  ----------------------------------------------------------------------------------
-;  |   0x100  |  0x104  |  0x108  |  0x10c |   0x110  |  0x114  |  0x118  |  0x11c  |
-;  ----------------------------------------------------------------------------------
-;  |                  XMM8                 |                   XMM9                 |
+;  |                          SEE registers (XMM6-XMM15)                            |
 ;  ----------------------------------------------------------------------------------
 ;  ----------------------------------------------------------------------------------
-;  |    48    |   49   |   50    |   51    |    52    |   53    |    54   |    55   |
+;  |    26   |    27   |    28    |   29    |    30   |    31   |    32   |    33   |
 ;  ----------------------------------------------------------------------------------
-;  |   0x120  |  0x124 |  0x128  |  0x12c  |   0x130  |  0x134  |   0x138 |   0x13c |
+;  |   0x68  |   0x6c  |   0x70   |   0x74  |   0x78  |   0x7c  |   0x80  |   0x84  |
 ;  ----------------------------------------------------------------------------------
-;  |                 XMM10                 |                  XMM11                 |
-;  ----------------------------------------------------------------------------------
-;  ----------------------------------------------------------------------------------
-;  |    56    |   57   |   58    |   59    |    60   |    61   |    62    |    63   |
-;  ----------------------------------------------------------------------------------
-;  |  0x140  |  0x144  |  0x148  |  0x14c  |   0x150  |  0x154 |   0x158  |   0x15c |
-;  ----------------------------------------------------------------------------------
-;  |                 XMM12                 |                  XMM13                 |
+;  |                          SEE registers (XMM6-XMM15)                            |
 ;  ----------------------------------------------------------------------------------
 ;  ----------------------------------------------------------------------------------
-;  |    64    |   65   |   66    |   67    |    68    |   69    |    70   |    71   |
+;  |    34    |   35   |    36    |    37   |    38   |    39   |    40   |    41   |
 ;  ----------------------------------------------------------------------------------
-;  |  0x160  |  0x164  |  0x168  |  0x16c  |   0x170  |  0x174  |  0x178  |   0x17c |
+;  |   0x88   |  0x8c  |   0x90   |   0x94  |   0x98  |   0x9c  |   0xa0  |   0xa4  |
 ;  ----------------------------------------------------------------------------------
-;  |                 XMM14                 |                  XMM15                 |
+;  |                          SEE registers (XMM6-XMM15)                            |
+;  ----------------------------------------------------------------------------------
+;  ----------------------------------------------------------------------------------
+;  |    42   |    43   |    44    |    45   |    46   |    47   |    48   |    49   |
+;  ----------------------------------------------------------------------------------
+;  |   0xa8  |   0xac  |   0xb0   |   0xb4  |   0xb8  |   0xbc  |   0xc0  |   0xc4  |
+;  ----------------------------------------------------------------------------------
+;  | fc_mxcsr|fc_x87_cw|     <alignment>    |      fbr_strg     |      fc_dealloc   |
+;  ----------------------------------------------------------------------------------
+;  ----------------------------------------------------------------------------------
+;  |    50   |   51    |    52    |    53   |    54   |    55   |    56   |    57   |
+;  ----------------------------------------------------------------------------------
+;  |   0xc8  |  0xcc   |   0xd0   |   0xd4  |   0xd8  |   0xdc  |   0xe0  |   0xe4  |
+;  ----------------------------------------------------------------------------------
+;  |      limit        |       base         |      R12          |        R13        |
+;  ----------------------------------------------------------------------------------
+;  ----------------------------------------------------------------------------------
+;  |    58   |    59   |    60   |    61    |    62   |    63   |    64   |    65   |
+;  ----------------------------------------------------------------------------------
+;  |   0xe8  |   0xec  |   0xf0  |   0xf4   |   0xf8  |   0xfc  |  0x100  |  0x104  |
+;  ----------------------------------------------------------------------------------
+;  |        R14        |        R15         |       RDI         |       RSI         |
+;  ----------------------------------------------------------------------------------
+;  ----------------------------------------------------------------------------------
+;  |    66   |   67    |    68    |   69    |    70   |  71     |    72   |    73   |
+;  ----------------------------------------------------------------------------------
+;  |  0x108  |  0x10c  |  0x110   |  0x114  |  0x118  |  0x11c  |  0x120  |  0x124  |
+;  ----------------------------------------------------------------------------------
+;  |        RBX        |         RBP        |        RIP        |       EXIT        |
 ;  ----------------------------------------------------------------------------------
 
-EXTERN  _exit:PROC            ; standard C library function
-EXTERN  align_stack:PROC      ; stack alignment
-EXTERN  seh_fcontext:PROC     ; exception handler
 .code
 
-jump_fcontext PROC EXPORT FRAME:seh_fcontext
+jump_fcontext PROC EXPORT FRAME
     .endprolog
 
-    mov     [rcx],       r12        ; save R12
-    mov     [rcx+08h],   r13        ; save R13
-    mov     [rcx+010h],  r14        ; save R14
-    mov     [rcx+018h],  r15        ; save R15
-    mov     [rcx+020h],  rdi        ; save RDI
-    mov     [rcx+028h],  rsi        ; save RSI
-    mov     [rcx+030h],  rbx        ; save RBX
-    mov     [rcx+038h],  rbp        ; save RBP
+    push  rbp  ; save RBP
+    push  rbx  ; save RBX
+    push  rsi  ; save RSI
+    push  rdi  ; save RDI
+    push  r15  ; save R15
+    push  r14  ; save R14
+    push  r13  ; save R13
+    push  r12  ; save R12
 
-    mov     r10,         gs:[030h]  ; load NT_TIB
-    mov     rax,         [r10+08h]  ; load current stack base
-    mov     [rcx+050h],  rax        ; save current stack base
-    mov     rax,         [r10+010h] ; load current stack limit
-    mov     [rcx+060h],  rax        ; save current stack limit
-    mov     rax,         [r10+018h] ; load fiber local storage
-    mov     [rcx+068h],  rax        ; save fiber local storage
+    ; load NT_TIB
+    mov  r10,  gs:[030h]
+    ; save current stack base
+    mov  rax,  [r10+08h]
+    push  rax
+    ; save current stack limit
+    mov  rax, [r10+010h]
+    push  rax
+    ; save current deallocation stack
+    mov  rax, [r10+01478h]
+    push  rax
+    ; save fiber local storage
+    mov  rax, [r10+018h]
+    push  rax
 
-    test    r9,          r9
-    je      nxt
+    ; prepare stack for FPU
+    lea rsp, [rsp-0a8h]
 
-    stmxcsr [rcx+070h]              ; save MMX control and status word
-    fnstcw  [rcx+074h]              ; save x87 control word
+    ; test for flag preserve_fpu
+    test  r9, r9
+    je  nxt1
+
+    ; save MMX control- and status-word
+    stmxcsr  [rsp+0a0h]
+    ; save x87 control-word
+    fnstcw  [rsp+0a4h]
+
     ; save XMM storage
-    movaps  [rcx+080h],   xmm6
-    movaps  [rcx+090h],   xmm7
-    movaps  [rcx+0100h],  xmm8
-    movaps  [rcx+0110h],  xmm9
-    movaps  [rcx+0120h],  xmm10
-    movaps  [rcx+0130h],  xmm11
-    movaps  [rcx+0140h],  xmm12
-    movaps  [rcx+0150h],  xmm13
-    movaps  [rcx+0160h],  xmm14
-    movaps  [rcx+0170h],  xmm15
+    movaps  [rsp], xmm6
+    movaps  [rsp+010h], xmm7
+    movaps  [rsp+020h], xmm8
+    movaps  [rsp+030h], xmm9
+    movaps  [rsp+040h], xmm10
+    movaps  [rsp+050h], xmm11
+    movaps  [rsp+060h], xmm12
+    movaps  [rsp+070h], xmm13
+    movaps  [rsp+080h], xmm14
+    movaps  [rsp+090h], xmm15
 
-    ldmxcsr [rdx+070h]              ; restore MMX control and status word
-    fldcw   [rdx+074h]              ; restore x87 control word
+nxt1:
+    ; set R10 to zero
+    xor  r10, r10
+    ; set indicator
+    push  r10
+
+    ; store RSP (pointing to context-data) in RCX
+    mov  [rcx], rsp
+
+    ; restore RSP (pointing to context-data) from RDX
+    mov  rsp, rdx
+
+    ; load indicator
+    pop  r10
+
+    ; test for flag preserve_fpu
+    test  r9, r9
+    je  nxt2
+
+    ; restore MMX control- and status-word
+    ldmxcsr  [rsp+0a0h]
+    ; save x87 control-word
+    fldcw   [rsp+0a4h]
+
     ; restore XMM storage
-    movaps  xmm6,        [rdx+080h]
-    movaps  xmm7,        [rdx+090h]
-    movaps  xmm8,        [rdx+0100h]
-    movaps  xmm9,        [rdx+0110h]
-    movaps  xmm10,       [rdx+0120h]
-    movaps  xmm11,       [rdx+0130h]
-    movaps  xmm12,       [rdx+0140h]
-    movaps  xmm13,       [rdx+0150h]
-    movaps  xmm14,       [rdx+0160h]
-    movaps  xmm15,       [rdx+0170h]
-nxt:
+    movaps  xmm6, [rsp]
+    movaps  xmm7, [rsp+010h]
+    movaps  xmm8, [rsp+020h]
+    movaps  xmm9, [rsp+030h]
+    movaps  xmm10, [rsp+040h]
+    movaps  xmm11, [rsp+050h]
+    movaps  xmm12, [rsp+060h]
+    movaps  xmm13, [rsp+070h]
+    movaps  xmm14, [rsp+080h]
+    movaps  xmm15, [rsp+090h]
 
-    lea     rax,         [rsp+08h]  ; exclude the return address
-    mov     [rcx+040h],  rax        ; save as stack pointer
-    mov     rax,         [rsp]      ; load return address
-    mov     [rcx+048h],  rax        ; save return address
+nxt2:
+    ; set offset of stack
+    mov  rcx, 0a8h
 
-    mov     r12,        [rdx]       ; restore R12
-    mov     r13,        [rdx+08h]   ; restore R13
-    mov     r14,        [rdx+010h]  ; restore R14
-    mov     r15,        [rdx+018h]  ; restore R15
-    mov     rdi,        [rdx+020h]  ; restore RDI
-    mov     rsi,        [rdx+028h]  ; restore RSI
-    mov     rbx,        [rdx+030h]  ; restore RBX
-    mov     rbp,        [rdx+038h]  ; restore RBP
+    ; test for indicator
+    test  r10, r10
+    je  nxt3
 
-    mov     r10,        gs:[030h]   ; load NT_TIB
-    mov     rax,        [rdx+050h]  ; load stack base
-    mov     [r10+08h],  rax         ; restore stack base
-    mov     rax,        [rdx+060h]  ; load stack limit
-    mov     [r10+010h], rax         ; restore stack limit
-    mov     rax,        [rdx+068h]  ; load fiber local storage
-    mov     [r10+018h], rax         ; restore fiber local storage
+    add  rcx, 08h
 
-    mov     rsp,        [rdx+040h]  ; restore RSP
-    mov     r10,        [rdx+048h]  ; fetch the address to returned to
+nxt3:
+    ; prepare stack for FPU
+    lea rsp, [rsp+rcx]
 
-    mov     rax,        r8          ; use third arg as return value after jump
-    mov     rcx,        r8          ; use third arg as first arg in context function
+    ; load NT_TIB
+    mov  r10, gs:[030h]
+    ; restore fiber local storage
+    pop  rax
+    mov  [r10+018h], rax
+    ; restore deallocation stack
+    pop  rax
+    mov  [r10+01478h], rax
+    ; restore stack limit
+    pop  rax
+    mov  [r10+010h], rax
+    ; restore stack base
+    pop  rax
+    mov  [r10+08h], rax
 
-    jmp     r10                     ; indirect jump to caller
+    pop  r12  ; restore R12
+    pop  r13  ; restore R13
+    pop  r14  ; restore R14
+    pop  r15  ; restore R15
+    pop  rdi  ; restore RDI
+    pop  rsi  ; restore RSI
+    pop  rbx  ; restore RBX
+    pop  rbp  ; restore RBP
+
+    ; restore return-address
+    pop  r10
+
+    ; use third arg as return-value after jump
+    mov  rax, r8
+    ; use third arg as first arg in context function
+    mov  rcx, r8
+
+    ; indirect jump to context
+    jmp  r10
 jump_fcontext ENDP
 END

@@ -11,11 +11,15 @@
 #ifndef BOOST_INTERPROCESS_DETAIL_FILE_WRAPPER_HPP
 #define BOOST_INTERPROCESS_DETAIL_FILE_WRAPPER_HPP
 
+#if defined(_MSC_VER)
+#  pragma once
+#endif
+
 #include <boost/interprocess/detail/config_begin.hpp>
 #include <boost/interprocess/detail/workaround.hpp>
 #include <boost/interprocess/detail/os_file_functions.hpp>
 #include <boost/interprocess/creation_tags.hpp>
-#include <boost/move/move.hpp>
+#include <boost/move/utility_core.hpp>
 #include <boost/interprocess/creation_tags.hpp>
 
 namespace boost {
@@ -24,9 +28,9 @@ namespace ipcdetail{
 
 class file_wrapper
 {
-   /// @cond
+   #if !defined(BOOST_INTERPROCESS_DOXYGEN_INVOKED)
    BOOST_MOVABLE_BUT_NOT_COPYABLE(file_wrapper)
-   /// @endcond
+   #endif   //#ifndef BOOST_INTERPROCESS_DOXYGEN_INVOKED
    public:
 
    //!Default constructor.
@@ -167,7 +171,8 @@ inline bool file_wrapper::priv_open_or_create
 
    //Check for error
    if(m_handle == invalid_file()){
-      throw interprocess_exception(error_info(system_error_code()));
+      error_info err = system_error_code();
+      throw interprocess_exception(err);
    }
 
    m_mode = mode;

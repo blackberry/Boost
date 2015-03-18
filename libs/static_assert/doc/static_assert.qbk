@@ -12,7 +12,7 @@
     [category template]
     [category testing]
     [category generic]
-    [last-revision $Date: 2011-04-25 10:27:05 -0700 (Mon, 25 Apr 2011) $]
+    [last-revision $Date$]
 ]
 
 This manual is also available in 
@@ -36,7 +36,7 @@ the static assertion will be evaluated at the time the template is instantiated;
 this is particularly useful for validating template parameters.
 
 If the C++0x `static_assert` feature is available, both macros will use it.
-For `BOOST_STATIC_ASSERT(x)`, the error message with be a stringized version of `x`.
+For `BOOST_STATIC_ASSERT(x)`, the error message will be a stringized version of `x`.
 For `BOOST_STATIC_ASSERT_MSG(x, msg)`, the error message will be the `msg` string.
 
 If the C++0x `static_assert` feature is not available, `BOOST_STATIC_ASSERT_MSG(x, msg)`
@@ -151,10 +151,10 @@ using something like this:
    class myclass
    {
    private:
-      BOOST_STATIC_ASSERT((std::numeric_limits<UnsignedInt>::digits >= 16)
-                           && std::numeric_limits<UnsignedInt>::is_specialized
-                           && std::numeric_limits<UnsignedInt>::is_integer
-                           && !std::numeric_limits<UnsignedInt>::is_signed);
+      BOOST_STATIC_ASSERT_MSG(std::numeric_limits<UnsignedInt>::is_specialized, "myclass can only be specialized for types with numeric_limits support.");
+      BOOST_STATIC_ASSERT_MSG(std::numeric_limits<UnsignedInt>::digits >= 16, "Template argument UnsignedInt must have at least 16 bits precision.")
+      BOOST_STATIC_ASSERT_MSG(std::numeric_limits<UnsignedInt>::is_integer, "Template argument UnsignedInt must be an integer.");
+      BOOST_STATIC_ASSERT_MSG(!std::numeric_limits<UnsignedInt>::is_signed, "Template argument UnsignedInt must not be signed.");
    public:
       /* details here */
    };

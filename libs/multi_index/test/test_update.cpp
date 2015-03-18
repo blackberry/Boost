@@ -1,6 +1,6 @@
 /* Boost.MultiIndex test for replace(), modify() and modify_key().
  *
- * Copyright 2003-2008 Joaquin M Lopez Munoz.
+ * Copyright 2003-2013 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -16,8 +16,8 @@
 #include "pre_multi_index.hpp"
 #include "employee.hpp"
 #include "pair_of_ints.hpp"
+#include <boost/detail/lightweight_test.hpp>
 #include <boost/next_prior.hpp>
-#include <boost/test/test_tools.hpp>
 
 struct do_nothing
 {
@@ -31,29 +31,57 @@ struct null_hash
   std::size_t operator()(const T&)const{return 0;}
 };
 
+struct assign_value
+{
+  assign_value(int n):n_(n){}
+
+  void operator()(int& x)const{x=n_;}
+
+  int n_;
+};
+
 template<class MultiIndexContainer>
-void test_stable_update(BOOST_EXPLICIT_TEMPLATE_TYPE(MultiIndexContainer))
+void test_stable_update()
 {
   typedef typename MultiIndexContainer::iterator  iterator;
   typedef typename MultiIndexContainer::size_type size_type;
 
   MultiIndexContainer c;
-  c.insert(0);c.insert(0);c.insert(0);c.insert(0);
-  c.insert(1);c.insert(1);c.insert(1);
-  c.insert(2);c.insert(2);
+  c.insert(0);
+  c.insert(1);c.insert(1);
+  c.insert(2);c.insert(2);c.insert(2);c.insert(2);
   c.insert(3);
+  c.insert(4);c.insert(4);c.insert(4);
+  c.insert(5);c.insert(5);
+  c.insert(6);
+  c.insert(7);
+  size_type num_elems=
+    c.count(0)+c.count(1)+c.count(2)+c.count(3)+
+    c.count(4)+c.count(5)+c.count(6)+c.count(7);
 
   for(size_type n=c.size();n--;){
     iterator it=boost::next(c.begin(),n);
 
     c.replace(it,*it);
-    BOOST_CHECK((size_type)std::distance(c.begin(),it)==n);
+    BOOST_TEST((size_type)std::distance(c.begin(),it)==n);
 
     c.modify(it,do_nothing());
-    BOOST_CHECK((size_type)std::distance(c.begin(),it)==n);
+    BOOST_TEST((size_type)std::distance(c.begin(),it)==n);
 
     c.modify(it,do_nothing(),do_nothing());
-    BOOST_CHECK((size_type)std::distance(c.begin(),it)==n);
+    BOOST_TEST((size_type)std::distance(c.begin(),it)==n);
+
+    for(int i=0;i<=8;++i){
+      MultiIndexContainer cpy(c);
+      bool b=c.modify(it,assign_value(i),assign_value(*it));
+      BOOST_TEST(b||(size_type)std::distance(c.begin(),it)==n);
+      BOOST_TEST(c.count(0)+c.count(1)+c.count(2)+c.count(3)+c.count(4)+
+                  c.count(5)+c.count(6)+c.count(7)+c.count(8)==num_elems);
+      if(b){
+        c=cpy;
+        it=boost::next(c.begin(),n);
+      }
+    }
   }
 }
 
@@ -77,12 +105,14 @@ void test_update()
   employee_set_randomly::iterator    it2=
     project<randomly>(es,get<age>(es).find(57));
 
-  BOOST_CHECK(es.replace(it,*it));
-  BOOST_CHECK(!es.replace(it,employee(3,"Joe",31,1123))&&it->id==0);
-  BOOST_CHECK(es.replace(it,employee(0,"Joe",32,1123))&&it->age==32);
-  BOOST_CHECK(i.replace(it1,employee(3,"Albert",20,9012))&&it1->name==
+  BOOST_TEST(es.replace(it,*it));
+  BOOST_TEST(i.replace(it1,*it1));
+  BOOST_TEST(r.replace(it2,*it2));
+  BOOST_TEST(!es.replace(it,employee(3,"Joe",31,1123))&&it->id==0);
+  BOOST_TEST(es.replace(it,employee(0,"Joe",32,1123))&&it->age==32);
+  BOOST_TEST(i.replace(it1,employee(3,"Albert",20,9012))&&it1->name==
                 "Albert");
-  BOOST_CHECK(!r.replace(it2,employee(4,"John",57,5601)));
+  BOOST_TEST(!r.replace(it2,employee(4,"John",57,5601)));
 
   {
     typedef multi_index_container<
@@ -100,63 +130,63 @@ void test_update()
     iis.insert(pair_of_ints(5,5));
     iis.insert(pair_of_ints(10,10));
 
-    BOOST_CHECK(!iis.replace(iis.begin(),pair_of_ints(5,0)));
-    BOOST_CHECK(!ii2.replace(ii2.begin(),pair_of_ints(0,5)));
-    BOOST_CHECK(!ii1.replace(project<1>(iis,iis.begin()),pair_of_ints(5,11)));
-    BOOST_CHECK(!iis.replace(iis.begin(),pair_of_ints(11,5)));
-    BOOST_CHECK(!iis.replace(boost::next(iis.begin()),pair_of_ints(10,5)));
-    BOOST_CHECK(!ii1.replace(
+    BOOST_TEST(!iis.replace(iis.begin(),pair_of_ints(5,0)));
+    BOOST_TEST(!ii2.replace(ii2.begin(),pair_of_ints(0,5)));
+    BOOST_TEST(!ii1.replace(project<1>(iis,iis.begin()),pair_of_ints(5,11)));
+    BOOST_TEST(!iis.replace(iis.begin(),pair_of_ints(11,5)));
+    BOOST_TEST(!iis.replace(boost::next(iis.begin()),pair_of_ints(10,5)));
+    BOOST_TEST(!ii1.replace(
       project<1>(iis,boost::next(iis.begin())),pair_of_ints(5,10)));
-    BOOST_CHECK(!iis.replace(boost::prior(iis.end()),pair_of_ints(5,10)));
-    BOOST_CHECK(!ii2.replace(boost::prior(ii2.end()),pair_of_ints(10,5)));
+    BOOST_TEST(!iis.replace(boost::prior(iis.end()),pair_of_ints(5,10)));
+    BOOST_TEST(!ii2.replace(boost::prior(ii2.end()),pair_of_ints(10,5)));
 
-    BOOST_CHECK(iis.modify(iis.begin(),increment_first));
-    BOOST_CHECK(ii2.modify(ii2.begin(),increment_first));
-    BOOST_CHECK(ii1.modify(project<1>(iis,iis.begin()),increment_first));
-    BOOST_CHECK(ii2.modify(ii2.begin(),increment_first,decrement_first));
+    BOOST_TEST(iis.modify(iis.begin(),increment_first));
+    BOOST_TEST(ii2.modify(ii2.begin(),increment_first));
+    BOOST_TEST(ii1.modify(project<1>(iis,iis.begin()),increment_first));
+    BOOST_TEST(ii2.modify(ii2.begin(),increment_first,decrement_first));
 
-    BOOST_CHECK(!iis.modify(iis.begin(),increment_first,decrement_first));
-    BOOST_CHECK(iis.size()==3);
+    BOOST_TEST(!iis.modify(iis.begin(),increment_first,decrement_first));
+    BOOST_TEST(iis.size()==3);
 
-    BOOST_CHECK(!iis.modify(iis.begin(),increment_first));
-    BOOST_CHECK(iis.size()==2);
+    BOOST_TEST(!iis.modify(iis.begin(),increment_first));
+    BOOST_TEST(iis.size()==2);
 
     iis.insert(pair_of_ints(0,0));
-    BOOST_CHECK(ii2.modify(boost::prior(ii2.end()),increment_second));
-    BOOST_CHECK(iis.modify(iis.begin(),increment_second));
-    BOOST_CHECK(ii2.modify(boost::prior(ii2.end()),increment_second));
-    BOOST_CHECK(iis.modify(iis.begin(),increment_second,decrement_second));
+    BOOST_TEST(ii2.modify(boost::prior(ii2.end()),increment_second));
+    BOOST_TEST(iis.modify(iis.begin(),increment_second));
+    BOOST_TEST(ii2.modify(boost::prior(ii2.end()),increment_second));
+    BOOST_TEST(iis.modify(iis.begin(),increment_second,decrement_second));
 
-    BOOST_CHECK(!ii2.modify(
+    BOOST_TEST(!ii2.modify(
       boost::prior(ii2.end()),increment_second,decrement_second));
-    BOOST_CHECK(ii2.size()==3);
+    BOOST_TEST(ii2.size()==3);
 
-    BOOST_CHECK(!ii2.modify(boost::prior(ii2.end()),increment_second));
-    BOOST_CHECK(ii2.size()==2);
+    BOOST_TEST(!ii2.modify(boost::prior(ii2.end()),increment_second));
+    BOOST_TEST(ii2.size()==2);
 
     iis.insert(pair_of_ints(0,0));
-    BOOST_CHECK(iis.modify_key(iis.begin(),increment_int));
-    BOOST_CHECK(iis.modify_key(iis.begin(),increment_int,decrement_int));
-    BOOST_CHECK(iis.modify_key(iis.begin(),increment_int));
-    BOOST_CHECK(iis.modify_key(iis.begin(),increment_int));
+    BOOST_TEST(iis.modify_key(iis.begin(),increment_int));
+    BOOST_TEST(iis.modify_key(iis.begin(),increment_int,decrement_int));
+    BOOST_TEST(iis.modify_key(iis.begin(),increment_int));
+    BOOST_TEST(iis.modify_key(iis.begin(),increment_int));
 
-    BOOST_CHECK(!iis.modify_key(iis.begin(),increment_int,decrement_int));
-    BOOST_CHECK(iis.size()==3);
+    BOOST_TEST(!iis.modify_key(iis.begin(),increment_int,decrement_int));
+    BOOST_TEST(iis.size()==3);
 
-    BOOST_CHECK(!iis.modify_key(iis.begin(),increment_int));
-    BOOST_CHECK(iis.size()==2);
+    BOOST_TEST(!iis.modify_key(iis.begin(),increment_int));
+    BOOST_TEST(iis.size()==2);
 
-    nth_index_iterator<int_int_set,1>::type it=ii1.find(5);
-    BOOST_CHECK(ii1.modify_key(it,increment_int));
-    BOOST_CHECK(ii1.modify_key(it,increment_int));
-    BOOST_CHECK(ii1.modify_key(it,increment_int,decrement_int));
-    BOOST_CHECK(ii1.modify_key(it,increment_int));
+    nth_index_iterator<int_int_set,1>::type it_=ii1.find(5);
+    BOOST_TEST(ii1.modify_key(it_,increment_int));
+    BOOST_TEST(ii1.modify_key(it_,increment_int));
+    BOOST_TEST(ii1.modify_key(it_,increment_int,decrement_int));
+    BOOST_TEST(ii1.modify_key(it_,increment_int));
 
-    BOOST_CHECK(!ii1.modify_key(it,increment_int,decrement_int));
-    BOOST_CHECK(ii1.size()==2);
+    BOOST_TEST(!ii1.modify_key(it_,increment_int,decrement_int));
+    BOOST_TEST(ii1.size()==2);
 
-    BOOST_CHECK(!ii1.modify_key(it,increment_int));
-    BOOST_CHECK(ii1.size()==1);
+    BOOST_TEST(!ii1.modify_key(it_,increment_int));
+    BOOST_TEST(ii1.size()==1);
   }
   {
     typedef multi_index_container<
@@ -173,38 +203,38 @@ void test_update()
     int_int_set::iterator p2=iis.insert(pair_of_ints(5,5)).first;
     int_int_set::iterator p3=iis.insert(pair_of_ints(10,10)).first;
 
-    BOOST_CHECK(!iis.replace(p1,pair_of_ints(5,0)));
-    BOOST_CHECK(!ii1.replace(ii1.begin(),pair_of_ints(0,5)));
-    BOOST_CHECK(!iis.replace(p1,pair_of_ints(5,11)));
-    BOOST_CHECK(!iis.replace(p1,pair_of_ints(11,5)));
-    BOOST_CHECK(!iis.replace(p2,pair_of_ints(10,5)));
-    BOOST_CHECK(!iis.replace(p2,pair_of_ints(5,10)));
-    BOOST_CHECK(!iis.replace(p3,pair_of_ints(5,10)));
-    BOOST_CHECK(!ii1.replace(boost::prior(ii1.end()),pair_of_ints(10,5)));
+    BOOST_TEST(!iis.replace(p1,pair_of_ints(5,0)));
+    BOOST_TEST(!ii1.replace(ii1.begin(),pair_of_ints(0,5)));
+    BOOST_TEST(!iis.replace(p1,pair_of_ints(5,11)));
+    BOOST_TEST(!iis.replace(p1,pair_of_ints(11,5)));
+    BOOST_TEST(!iis.replace(p2,pair_of_ints(10,5)));
+    BOOST_TEST(!iis.replace(p2,pair_of_ints(5,10)));
+    BOOST_TEST(!iis.replace(p3,pair_of_ints(5,10)));
+    BOOST_TEST(!ii1.replace(boost::prior(ii1.end()),pair_of_ints(10,5)));
 
-    BOOST_CHECK(iis.modify(p1,increment_first));
-    BOOST_CHECK(ii1.modify(ii1.begin(),increment_first));
-    BOOST_CHECK(iis.modify(p1,increment_first));
-    BOOST_CHECK(ii1.modify(ii1.begin(),increment_first,decrement_first));
+    BOOST_TEST(iis.modify(p1,increment_first));
+    BOOST_TEST(ii1.modify(ii1.begin(),increment_first));
+    BOOST_TEST(iis.modify(p1,increment_first));
+    BOOST_TEST(ii1.modify(ii1.begin(),increment_first,decrement_first));
 
-    BOOST_CHECK(!iis.modify(p1,increment_first,decrement_first));
-    BOOST_CHECK(iis.size()==3);
+    BOOST_TEST(!iis.modify(p1,increment_first,decrement_first));
+    BOOST_TEST(iis.size()==3);
 
-    BOOST_CHECK(!iis.modify(p1,increment_first));
-    BOOST_CHECK(iis.size()==2);
+    BOOST_TEST(!iis.modify(p1,increment_first));
+    BOOST_TEST(iis.size()==2);
 
     p1=iis.insert(pair_of_ints(0,0)).first;
-    BOOST_CHECK(ii1.modify(boost::prior(ii1.end()),increment_second));
-    BOOST_CHECK(iis.modify(p1,increment_second,decrement_second));
-    BOOST_CHECK(ii1.modify(boost::prior(ii1.end()),increment_second));
-    BOOST_CHECK(iis.modify(p1,increment_second));
+    BOOST_TEST(ii1.modify(boost::prior(ii1.end()),increment_second));
+    BOOST_TEST(iis.modify(p1,increment_second,decrement_second));
+    BOOST_TEST(ii1.modify(boost::prior(ii1.end()),increment_second));
+    BOOST_TEST(iis.modify(p1,increment_second));
 
-    BOOST_CHECK(!ii1.modify(
+    BOOST_TEST(!ii1.modify(
       boost::prior(ii1.end()),increment_second,decrement_second));
-    BOOST_CHECK(ii1.size()==3);
+    BOOST_TEST(ii1.size()==3);
 
-    BOOST_CHECK(!ii1.modify(boost::prior(ii1.end()),increment_second));
-    BOOST_CHECK(ii1.size()==2);
+    BOOST_TEST(!ii1.modify(boost::prior(ii1.end()),increment_second));
+    BOOST_TEST(ii1.size()==2);
   }
   {
     typedef multi_index_container<
@@ -212,11 +242,8 @@ void test_update()
       indexed_by<
         ordered_non_unique<identity<int> >
       >
-    > int_set;
-
-    /* MSVC++ 6.0 needs this out-of-template definition */ 
-    int_set dummy1;
-    test_stable_update<int_set>();
+    > int_multiset;
+    test_stable_update<int_multiset>();
 
     typedef multi_index_container<
       int,
@@ -224,8 +251,6 @@ void test_update()
         hashed_unique<identity<int> >
       >
     > int_hashed_set;
-
-    int_hashed_set dummy2;
     test_stable_update<int_hashed_set>();
 
     typedef multi_index_container<
@@ -234,8 +259,6 @@ void test_update()
         hashed_unique<identity<int> >
       >
     > int_hashed_multiset;
-
-    int_hashed_multiset dummy3;
     test_stable_update<int_hashed_multiset>();
 
     typedef multi_index_container<
@@ -244,8 +267,6 @@ void test_update()
         hashed_unique<identity<int>,null_hash>
       >
     > degenerate_int_hashed_set;
-
-    degenerate_int_hashed_set dummy4;
     test_stable_update<degenerate_int_hashed_set>();
 
     typedef multi_index_container<
@@ -254,8 +275,6 @@ void test_update()
         hashed_non_unique<identity<int>,null_hash>
       >
     > degenerate_int_hashed_multiset;
-
-    degenerate_int_hashed_multiset dummy5;
     test_stable_update<degenerate_int_hashed_multiset>();
   }
 }

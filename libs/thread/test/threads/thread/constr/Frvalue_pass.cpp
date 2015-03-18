@@ -19,11 +19,12 @@
 
 #define BOOST_THREAD_USES_MOVE
 
-#include <boost/thread/thread.hpp>
+#include <boost/thread/thread_only.hpp>
 #include <new>
 #include <cstdlib>
 #include <cassert>
 #include <boost/detail/lightweight_test.hpp>
+#include <boost/static_assert.hpp>
 
 class MoveOnly
 {
@@ -43,6 +44,10 @@ public:
 MoveOnly MakeMoveOnly() {
   return BOOST_THREAD_MAKE_RV_REF(MoveOnly());
 }
+
+#if defined  BOOST_NO_CXX11_RVALUE_REFERENCES && defined BOOST_THREAD_USES_MOVE
+BOOST_STATIC_ASSERT(::boost::is_function<boost::rv<boost::rv<MoveOnly> >&>::value==false);
+#endif
 
 int main()
 {

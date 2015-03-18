@@ -327,7 +327,7 @@ clas pointer may require explicit enumeration of the derived
 classes to be serialized. This is referred to as "registration" or "export"
 of derived classes.  This requirement and the methods of
 satisfying it are explained in detail
-<a href="serialization.html#derivedpointers">here</a>
+<a href="serialization.html#derivedpointers">here</a>.
 <p>
 All this is accomplished automatically by the serialization
 library.  The above code is all that is necessary to accomplish
@@ -569,7 +569,7 @@ anywhere in the program - a memory leak.
 There are couple of ways of fixing this.  One way is to explicitly manage the bus stops.
 However, a more robust and transparent is to use 
 <code style="white-space: normal">shared_ptr</code> rather than raw pointers. Along
-with serialization implemenations for the Standard Library, the serialization library
+with serialization implementations for the Standard Library, the serialization library
 includes implementation of serialization for 
 <code style="white-space: normal">boost::shared ptr</code>.  Given this, it should be
 easy to alter any of these examples to eliminate the memory leak. This is left 

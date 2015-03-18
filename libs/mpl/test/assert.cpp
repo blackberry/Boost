@@ -7,9 +7,9 @@
 //
 // See http://www.boost.org/libs/mpl for documentation.
 
-// $Id: assert.cpp 49268 2008-10-11 06:26:17Z agurtovoy $
-// $Date: 2008-10-10 23:26:17 -0700 (Fri, 10 Oct 2008) $
-// $Revision: 49268 $
+// $Id$
+// $Date$
+// $Revision$
 
 #include <boost/mpl/assert.hpp>
 
@@ -70,6 +70,17 @@ struct her
 #endif
     }
 };
+
+template<class T>
+struct nested : boost::mpl::true_ {
+    BOOST_MPL_ASSERT(( boost::is_pointer<T*> ));
+    BOOST_MPL_ASSERT_NOT(( boost::is_same<void,T> ));
+    BOOST_MPL_ASSERT_RELATION( sizeof(T*), >, 1 );
+    BOOST_MPL_ASSERT_MSG( true, GLOBAL_SCOPE_ERROR, (int,long) );
+};
+
+BOOST_MPL_ASSERT(( nested<int> ));
+BOOST_MPL_ASSERT_NOT(( boost::mpl::not_<nested<unsigned> > ));
 
 int main()
 {

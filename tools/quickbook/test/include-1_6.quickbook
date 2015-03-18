@@ -3,13 +3,13 @@
     [id include-test]
 ]
 
-[include include_sub.qbk]
-[include:foo include_sub.qbk]
+[include include-inc.quickbook]
+[include:foo include-inc.quickbook]
 
 [def __defined__]
 
-[? __undefined__ [include:foo1 include_sub.qbk] ]
-[? __undefined__ [include:foo1 not-a-file.qbk] ]
+[? __undefined__ [include:foo1 include-inc.quickbook] ]
+[? __undefined__ [include:foo1 not-a-file.quickbook] ]
 [? __defined__
-  Just trying including in a conditional macro. [include:foo2 include_sub.qbk]
+  Just trying including in a conditional macro. [include:foo2 include-inc.quickbook]
   With some text around it.]

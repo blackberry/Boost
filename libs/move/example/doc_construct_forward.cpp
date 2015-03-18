@@ -9,8 +9,10 @@
 //
 //////////////////////////////////////////////////////////////////////////////
 
+#include <boost/move/detail/config_begin.hpp>
+
 //[construct_forward_example
-#include <boost/move/move.hpp>
+#include <boost/move/utility_core.hpp>
 #include <iostream>
 
 class copyable_only_tester
@@ -103,3 +105,5 @@ int main()
    return 0;
 }
 //]
+
+#include <boost/move/detail/config_end.hpp>

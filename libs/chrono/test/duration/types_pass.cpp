@@ -19,7 +19,7 @@
 
 #include <boost/chrono/duration.hpp>
 #include <boost/type_traits.hpp>
-#if !defined(BOOST_NO_STATIC_ASSERT)
+#if !defined(BOOST_NO_CXX11_STATIC_ASSERT)
 #define NOTHING ""
 #endif
 

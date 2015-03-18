@@ -23,15 +23,17 @@
 [def __boost_function__ [@http://www.boost.org/doc/html/function.html Boost.Function]]
 [def __boost__function__ [@http://www.boost.org/doc/html/function.html `boost::function`]]
 
+[def __smart_pointer__ [@http://www.boost.org/libs/smart_ptr/index.html Smart Pointer]]
 [def __smart_pointers__ [@http://www.boost.org/libs/smart_ptr/index.html Smart Pointers]]
 [def __boost__shared_ptr__ [@http://www.boost.org/libs/smart_ptr/shared_ptr.htm `boost::shared_ptr`]]
 
 [def __std__map__ [@http://www.sgi.com/tech/stl/map.html `std::map`]]
 [def __std__string__ [@http://www.sgi.com/tech/stl/string.html `std::string`]]
+[def __allocator__ [@http://www.sgi.com/tech/stl/concepts/allocator.html Allocator]]
 [def __std_allocator__ [@http://www.sgi.com/tech/stl/concepts/allocator.html Allocator]]
 [def __std_allocators__ [@http://www.sgi.com/tech/stl/concepts/allocator.html Allocators]]
 
-[def __boost__ptr_map__ [@http://www.boost.org/libs/ptr_container/doc/ptr_map.html `__boost__ptr_map__`]]
+[def __boost__ptr_map__ [@http://www.boost.org/libs/ptr_container/doc/ptr_map.html `boost::ptr_map`]]
 
 [def __boost__factory__ `boost::factory`]
 [def __boost__value_factory__ `boost::value_factory`]
@@ -107,7 +109,7 @@ interfaces.
 
         // [...]
 
-        std::auto_ptr<an_abstract_factory> x = factories[some_name]->create();
+        std::auto_ptr<an_abstract_class> x(factories.at(some_name).create());
 
         // [...]
     }
@@ -117,30 +119,30 @@ lots of boilerplate code. In other words there is too much code to express
 a rather simple intention. We could use templates to get rid of some of it
 but the approach remains inflexible: 
 
- o We may want a factory that takes some arguments that are forwarded to
-   the constructor,
- o we will probably want to use smart pointers,
- o we may want several member functions to create different kinds of
-   objects,
- o we might not necessarily need a polymorphic base class for the objects,
- o as we will see, we do not need a factory base class at all, 
- o we might want to just call the constructor - without `new` to create
-   an object on the stack, and
- o finally we might want to use customized memory management.
+* We may want a factory that takes some arguments that are forwarded to
+  the constructor,
+* we will probably want to use smart pointers,
+* we may want several member functions to create different kinds of
+  objects,
+* we might not necessarily need a polymorphic base class for the objects,
+* as we will see, we do not need a factory base class at all, 
+* we might want to just call the constructor - without `new` to create
+  an object on the stack, and
+* finally we might want to use customized memory management.
 
 Experience has shown that using function objects and generic Boost components
-for their composition, Design Patterns that describe callback mechasisms
+for their composition, Design Patterns that describe callback mechanisms
 (typically requiring a high percentage of boilerplate code with pure Object
 Oriented methodology) become implementable with just few code lines and without
 extra classes. 
 
 Factories are callback mechanisms for constructors, so we provide two class
-templates, __boost__value_factory__ and __boost__factory__, that encasulate
+templates, __boost__value_factory__ and __boost__factory__, that encapsulate
 object construction via direct application of the constructor and the `new`
 operator, respectively. 
 
 We let the function objects forward their arguments to the construction
-expressions they encapsulate. Overthis __boost__factory__ optionally allows 
+expressions they encapsulate. Over this __boost__factory__ optionally allows
 the use of smart pointers and __std_allocators__.
 
 Compile-time polymorphism can be used where appropriate,
@@ -156,7 +158,7 @@ Compile-time polymorphism can be used where appropriate,
         // [...]
     }
 
-Now, to allow inhomogenous signaturs for the constructors of the types passed 
+Now, to allow inhomogeneous signatures for the constructors of the types passed
 in for `T` we can use __value_factory__ and __boost__bind__ to normalize between
 them. 
 
@@ -299,7 +301,7 @@ constructor, such as __boost__shared_ptr__).
 If a third template argument is `factory_passes_alloc_to_smart_pointer`,
 the allocator itself is used for the third constructor argument of `Pointer`
 (__boost__shared_ptr__ then uses the allocator to manage the memory of its
-seperately allocated reference counter).
+separately allocated reference counter).
 
 [heading Header]
     #include <boost/functional/factory.hpp>

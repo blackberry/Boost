@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>async_read_at (1 of 4 overloads)</title>
 <link rel="stylesheet" href="../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../../boost_asio.html" title="Boost.Asio">
 <link rel="up" href="../async_read_at.html" title="async_read_at">
 <link rel="prev" href="../async_read_at.html" title="async_read_at">
@@ -35,9 +35,9 @@
     <span class="keyword">typename</span> <a class="link" href="../AsyncRandomAccessReadDevice.html" title="Buffer-oriented asynchronous random-access read device requirements">AsyncRandomAccessReadDevice</a><span class="special">,</span>
     <span class="keyword">typename</span> <a class="link" href="../MutableBufferSequence.html" title="Mutable buffer sequence requirements">MutableBufferSequence</a><span class="special">,</span>
     <span class="keyword">typename</span> <a class="link" href="../ReadHandler.html" title="Read handler requirements">ReadHandler</a><span class="special">&gt;</span>
-<span class="keyword">void</span> <span class="identifier">async_read_at</span><span class="special">(</span>
+<a class="link" href="../asynchronous_operations.html#boost_asio.reference.asynchronous_operations.return_type_of_an_initiating_function"><span class="emphasis"><em>void-or-deduced</em></span></a> <span class="identifier">async_read_at</span><span class="special">(</span>
     <span class="identifier">AsyncRandomAccessReadDevice</span> <span class="special">&amp;</span> <span class="identifier">d</span><span class="special">,</span>
-    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">uint64_t</span> <span class="identifier">offset</span><span class="special">,</span>
+    <span class="identifier">uint64_t</span> <span class="identifier">offset</span><span class="special">,</span>
     <span class="keyword">const</span> <span class="identifier">MutableBufferSequence</span> <span class="special">&amp;</span> <span class="identifier">buffers</span><span class="special">,</span>
     <span class="identifier">ReadHandler</span> <span class="identifier">handler</span><span class="special">);</span>
 </pre>
@@ -47,7 +47,7 @@
           call always returns immediately. The asynchronous operation will continue
           until one of the following conditions is true:
         </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
               The supplied buffers are full. That is, the bytes transferred is equal
               to the sum of the buffer sizes.
@@ -62,11 +62,11 @@
         </p>
 <h6>
 <a name="boost_asio.reference.async_read_at.overload1.h0"></a>
-          <span><a name="boost_asio.reference.async_read_at.overload1.parameters"></a></span><a class="link" href="overload1.html#boost_asio.reference.async_read_at.overload1.parameters">Parameters</a>
+          <span class="phrase"><a name="boost_asio.reference.async_read_at.overload1.parameters"></a></span><a class="link" href="overload1.html#boost_asio.reference.async_read_at.overload1.parameters">Parameters</a>
         </h6>
 <div class="variablelist">
 <p class="title"><b></b></p>
-<dl>
+<dl class="variablelist">
 <dt><span class="term">d</span></dt>
 <dd><p>
                 The device from which the data is to be read. The type must support
@@ -113,7 +113,7 @@
 </div>
 <h6>
 <a name="boost_asio.reference.async_read_at.overload1.h1"></a>
-          <span><a name="boost_asio.reference.async_read_at.overload1.example"></a></span><a class="link" href="overload1.html#boost_asio.reference.async_read_at.overload1.example">Example</a>
+          <span class="phrase"><a name="boost_asio.reference.async_read_at.overload1.example"></a></span><a class="link" href="overload1.html#boost_asio.reference.async_read_at.overload1.example">Example</a>
         </h6>
 <p>
           To read into a single data buffer use the <a class="link" href="../buffer.html" title="buffer"><code class="computeroutput"><span class="identifier">buffer</span></code></a> function as follows:
@@ -127,7 +127,7 @@
         </p>
 <h6>
 <a name="boost_asio.reference.async_read_at.overload1.h2"></a>
-          <span><a name="boost_asio.reference.async_read_at.overload1.remarks"></a></span><a class="link" href="overload1.html#boost_asio.reference.async_read_at.overload1.remarks">Remarks</a>
+          <span class="phrase"><a name="boost_asio.reference.async_read_at.overload1.remarks"></a></span><a class="link" href="overload1.html#boost_asio.reference.async_read_at.overload1.remarks">Remarks</a>
         </h6>
 <p>
           This overload is equivalent to calling:
@@ -140,7 +140,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2012 Christopher M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2014 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

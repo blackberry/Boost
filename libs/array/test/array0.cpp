@@ -9,18 +9,15 @@
 #include <iostream>
 #include <boost/array.hpp>
 
-namespace {
-unsigned int failed_tests = 0;
+#define BOOST_TEST_MAIN
+#include <boost/test/unit_test.hpp>
 
-void    fail_test( const char * reason ) {
-    ++failed_tests;
-    std::cerr << "Test failure " << failed_tests << ": " << reason << std::endl;
-}
+namespace {
 
 template< class T >
 void    BadValue( const T &  )
 {
-    fail_test( "Unexpected value" );
+    BOOST_CHECK ( false );
 }
 
 template< class T >
@@ -36,45 +33,23 @@ void    RunTests()
 
     //  front/back and operator[] must compile, but calling them is undefined
     //  Likewise, all tests below should evaluate to false, avoiding undefined behaviour
-    if( !test_case.empty() ) {
-        BadValue( test_case.front() );
-    }
+    BOOST_CHECK (       test_case.empty());
+    BOOST_CHECK ( const_test_case.empty());
 
-    if( !const_test_case.empty() ) {
-        BadValue( const_test_case.back() );
-    }
-
-    if( test_case.size() > 0 ) {
-        BadValue( test_case[ 0 ] );
-    }
-
-    if( const_test_case.max_size() > 0 ) {
-        BadValue( const_test_case[ 0 ] );
-    }
+    BOOST_CHECK (       test_case.size() == 0 );
+    BOOST_CHECK ( const_test_case.size() == 0 );
 
     //  Assert requirements of TR1 6.2.2.4
-    if( test_case.begin() != test_case.end() ) {
-        fail_test( "Not an empty range" );
-    }
-    if( test_case.cbegin() != test_case.cend() ) {
-        fail_test( "Not an empty range" );
-    }
-    if( const_test_case.begin() != const_test_case.end() ) {
-        fail_test( "Not an empty range" );
-    }
-    if( const_test_case.cbegin() != const_test_case.cend() ) {
-        fail_test( "Not an empty range" );
-    }
+    BOOST_CHECK ( test_case.begin()  == test_case.end());
+    BOOST_CHECK ( test_case.cbegin() == test_case.cend());
+    BOOST_CHECK ( const_test_case.begin() == const_test_case.end());
+    BOOST_CHECK ( const_test_case.cbegin() == const_test_case.cend());
 
-    if( test_case.begin() == const_test_case.begin() ) {
-        fail_test( "iterators for different containers are not distinct" );
-    }
-
+    BOOST_CHECK ( test_case.begin() != const_test_case.begin() );
     if( test_case.data() == const_test_case.data() ) {
     //  Value of data is unspecified in TR1, so no requirement this test pass or fail
     //  However, it must compile!
     }
-
 
     //  Check can safely use all iterator types with std algorithms
     std::for_each( test_case.begin(), test_case.end(), BadValue< T > );
@@ -87,12 +62,12 @@ void    RunTests()
     //  Check swap is well formed
     std::swap( test_case, test_case );
 
-    //  Check assigment operator and overloads are well formed
+    //  Check assignment operator and overloads are well formed
     test_case   =   const_test_case;
 
     //  Confirm at() throws the std lib defined exception
     try {
-        BadValue( test_case.at( 0 ) );
+        BadValue( test_case.at( 0 ));
     } catch ( const std::out_of_range & ) {
     }
 
@@ -104,12 +79,11 @@ void    RunTests()
 
 }
 
-int main()
+BOOST_AUTO_TEST_CASE( test_main )
 {
     RunTests< bool >();
     RunTests< void * >();
     RunTests< long double >();
     RunTests< std::string >();
-    return failed_tests;
 }
 

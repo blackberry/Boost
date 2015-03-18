@@ -1,11 +1,258 @@
 [/
- / Copyright (c) 2003-2012 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+ / Copyright (c) 2003-2014 Christopher M. Kohlhoff (chris at kohlhoff dot com)
  /
  / Distributed under the Boost Software License, Version 1.0. (See accompanying
  / file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
  /]
 
 [section:history Revision History]
+
+[heading Asio 1.10.5 / Boost 1.57]
+
+* Fixed the [^kqueue] reactor so that it works on FreeBSD ([ticket 10606]).
+* Fixed an issue in the [^kqueue] reactor which resulted in spinning when using
+  serial ports on Mac OS ([ticket 10496]).
+* Fixed [^kqueue] reactor support for read-only file descriptors
+  ([ticket 10367]).
+* Fixed a compile error when using the [^/dev/poll] reactor ([ticket 10350],
+  [ticket 10572]).
+* Changed the Windows backend to use `WSASocketW`, as `WSASocketA` has been
+  deprecated ([ticket 10534]).
+* Fixed some warnings reported by Visual C++ 2013 ([ticket 10376]).
+* Fixed integer type used in the WinRT version of the byte-order conversion
+  functions ([ticket 10539]).
+* Changed documentation to indicate that `use_future` and `spawn()` are not
+  made available when including the `asio.hpp` convenience header ([ticket
+  10567]).
+* Explicitly marked `asio::strand` as deprecated. Use
+  `asio::io_service::strand` instead.
+
+[heading Asio 1.10.4 / Boost 1.56]
+
+* Stopped using certain Winsock functions that are marked as deprecated in the
+  latest Visual C++ and Windows SDK.
+* Fixed a shadow variable warning on Windows.
+* Fixed a regression in the [^kqueue] backend that was introduced in Asio
+  1.10.2.
+* Added a workaround for building the unit tests with [^gcc] on AIX.
+
+[heading Asio 1.10.3]
+
+* Worked around a [^gcc] problem to do with anonymous enums ([ticket 10042]).
+* Reverted the Windows `HANDLE` backend change to ignore `ERROR_MORE_DATA`.
+  Instead, the error will be propagated as with any other (i.e. in an
+  `error_code` or thrown as a `system_error`), and the number of bytes
+  transferred will be returned. For code that needs to handle partial messages,
+  the `error_code` overload should be used ([ticket 10034]).
+* Fixed an off-by-one error in the `signal_set` implementation's signal
+  number check ([ticket 9324]).
+* Changed the Windows IOCP backend to not assume that
+  `SO_UPDATE_CONNECT_CONTEXT` is defined ([ticket 10016]).
+* Fixed a Windows-specific issue, introduced in Asio 1.10.2, by using
+  `VerifyVersionInfo` rather than `GetVersionEx`, as `GetVersionEx` has been
+  deprecated.
+* Changed to use SSE2 intrinsics rather than inline assembly, to allow the
+  Cray compiler to work.
+
+[heading Asio 1.10.2]
+
+* Fixed `asio::spawn()` to work correctly with new Boost.Coroutine interface
+  ([ticket 9442], [ticket 9928]).
+* Ensured that incomplete `asio::spawn()` coroutines are correctly unwound when
+  cleaned up by the `io_service` destructor ([ticket 9731]).
+* Fixed delegation of continuation hook for handlers produced by
+  `io_service::wrap()` and `strand::wrap()` ([ticket 9741]).
+* Changed the Windows I/O completion port backend to use `ConnectEx`, if
+  available, for connection-oriented IP sockets.
+* Changed the `io_service` backend for non-Windows (and non-IOCP Windows)
+  platforms to use a single condition variable per `io_service` instance.
+  This addresses a potential race condition when `run_one()` is used from
+  multiple threads.
+* Prevented integer overflow when computing timeouts based on some
+  `boost::chrono` and `std::chrono` clocks ([ticket 9662], [ticket 9778]).
+* Made further changes to `EV_CLEAR` handling in the kqueue backend, to address
+  other cases where the `close()` system call may hang on Mac OS X.
+* Fixed infinite recursion in implementation of
+  `resolver_query_base::flags::operator~` ([ticket 9548]).
+* Made the `select` reactor more efficient on Windows for large numbers of
+  sockets ([ticket 9528]).
+* Fixed a Windows-specific type-aliasing issue reported by [^gcc] ([ticket
+  9550]).
+* Prevented execution of compile-time-only buffer test to avoid triggering an
+  address sanitiser warning ([ticket 8295]).
+* Disabled the `GetQueuedCompletionStatus` timeout workaround on recent
+  versions of Windows.
+* Added support for string-based scope IDs when using link-local multicast
+  addresses.
+* Changed IPv6 multicast group join to use the address's scope ID as the
+  interface, if an interface is not explicitly specified.
+* Fixed multicast test failure on Mac OS X and the BSDs by using a link-local
+  multicast address.
+* Various minor documentation improvements ([ticket 8295], [ticket 9605],
+  [ticket 9771]).
+
+[heading Asio 1.10.1 / Boost 1.55]
+
+* Implemented a limited port to Windows Runtime. This support requires that the
+  language extensions be enabled. Due to the restricted facilities exposed by
+  the Windows Runtime API, the port also comes with the following caveats:
+  * The core facilities such as the `io_service`, `strand`, buffers, composed
+    operations, timers, etc., should all work as normal.
+  * For sockets, only client-side TCP is supported.
+  * Explicit binding of a client-side TCP socket is not supported.
+  * The `cancel()` function is not supported for sockets. Asynchronous
+    operations may only be cancelled by closing the socket.
+  * Operations that use `null_buffers` are not supported.
+  * Only `tcp::no_delay` and `socket_base::keep_alive` options are supported.
+  * Resolvers do not support service names, only numbers. I.e. you must
+    use "80" rather than "http".
+  * Most resolver query flags have no effect.
+* Fixed a regression (introduced in Boost 1.54) where, on some platforms, errors
+  from `async_connect` were not correctly propagated through to the completion
+  handler ([ticket 8795]).
+* Fixed a Windows-specific regression (introduced in Boost 1.54) that occurs
+  when multiple threads are running an `io_service`. When the bug occurs, the
+  result of an asynchronous operation (error and bytes tranferred) is
+  incorrectly discarded and zero values used instead. For TCP sockets this
+  results in spurious end-of-file notifications ([ticket 8933]).
+* Fixed a bug in handler tracking, where it was not correctly printing out some
+  handler IDs ([ticket 8808]).
+* Fixed the comparison used to test for successful synchronous accept
+  operations so that it works correctly with unsigned socket descriptors
+  ([ticket 8752]).
+* Ensured the signal number is correctly passed to the completion handler when
+  starting an `async_wait` on a signal that is already raised ([ticket 8738]).
+* Suppressed a g++ 4.8+ warning about unused typedefs ([ticket 8980]).
+* Enabled the move optimisation for handlers that use the default invocation
+  hook ([ticket 8624]).
+* Clarified that programs must not issue overlapping `async_write_at`
+  operations ([ticket 8669]).
+* Changed the Windows `HANDLE` backend to treat `ERROR_MORE_DATA` as a
+  non-fatal error when returned by `GetOverlappedResult` for a synchronous
+  read ([ticket 8722]).
+* Visual C++ language extensions use `generic` as a keyword. Added a
+  workaround that renames the namespace to `cpp_generic` when those language
+  extensions are in effect.
+* Fixed some asynchronous operations that missed out on getting `async_result`
+  support in Boost 1.54. In particular, the buffered stream templates have been
+  updated so that they adhere to current handler patterns ([ticket 9000],
+  [ticket 9001]).
+* Enabled move support for Microsoft Visual Studio 2012 ([ticket 8959]).
+* Added `use_future` support for Microsoft Visual Studio 2012.
+* Removed a use of `std::min` in the Windows IOCP backend to avoid a
+  dependency on the `<algorithm>` header ([ticket 8758]).
+* Eliminated some unnecessary handler copies.
+* Fixed support for older versions of OpenSSL that do not provide the
+  `SSL_CTX_clear_options` function ([ticket 9273]).
+* Fixed various minor and cosmetic issues in code and documentation
+  (including [ticket 8347], [ticket 8950], [ticket 8953], [ticket 8965],
+  [ticket 8997], [ticket 9230]).
+
+[heading Asio 1.10.0 / Boost 1.54]
+
+* Added new traits classes, `handler_type` and `async_result`, that allow the
+  customisation of the return type of an initiating function.
+* Added the `asio::spawn()` function, a high-level wrapper for running
+  stackful coroutines, based on the Boost.Coroutine library. The `spawn()`
+  function enables programs to implement asynchronous logic in a synchronous
+  manner. For example: `size_t n = my_socket.async_read_some(my_buffer, yield);`.
+  For further information, see [link boost_asio.overview.core.spawn Stackful
+  Coroutines].
+* Added the `asio::use_future` special value, which provides first-class
+  support for returning a C++11 `std::future` from an asynchronous
+  operation's initiating function. For example:
+  `future<size_t> = my_socket.async_read_some(my_buffer, asio::use_future);`.
+  For further information, see [link boost_asio.overview.cpp2011.futures C++
+  2011 Support - Futures].
+* Promoted the stackless coroutine class and macros to be part of Asio's
+  documented interface, rather than part of the HTTP server 4 example.
+  For further information, see [link boost_asio.overview.core.coroutine
+  Stackless Coroutines].
+* Added a new handler hook called `asio_handler_is_continuation`.
+  Asynchronous operations may represent a continuation of the asynchronous
+  control flow associated with the current executing handler. The
+  `asio_handler_is_continuation` hook can be customised to return `true` if
+  this is the case, and Asio's implementation can use this knowledge to
+  optimise scheduling of the new handler. To cover common cases, Asio
+  customises the hook for strands, `spawn()` and composed asynchronous
+  operations.
+* Added four new generic protocol classes, `generic::datagram_protocol`,
+  `generic::raw_protocol`, `generic::seq_packet_protocol` and
+  `generic::stream_protocol`, which implement the `Protocol` type
+  requirements, but allow the user to specify the address family (e.g.
+  `AF_INET`) and protocol type (e.g. `IPPROTO_TCP`) at runtime.
+  For further information, see [link
+  boost_asio.overview.networking.other_protocols Support for Other Protocols].
+* Added C++11 move constructors that allow the conversion of a socket (or
+  acceptor) into a more generic type. For example, an `ip::tcp::socket` can
+  be converted into a `generic::stream_protocol::socket` via move
+  construction.
+  For further information, see [link
+  boost_asio.overview.networking.other_protocols Support for Other Protocols].
+* Extended the `basic_socket_acceptor<>`'s `accept()` and `async_accept()`
+  functions to allow a new connection to be accepted directly into a socket
+  of a more generic type. For example, an `ip::tcp::acceptor` can be used to
+  accept into a `generic::stream_protocol::socket` object.
+  For further information, see [link
+  boost_asio.overview.networking.other_protocols Support for Other Protocols].
+* Moved existing examples into a C++03-specific directory, and added a new
+  directory for C++11-specific examples. A limited subset of the C++03
+  examples have been converted to their C++11 equivalents.
+* Various SSL enhancements. Thanks go to Nick Jones, on whose work these changes
+  are based.
+  * Added support for SSL handshakes with re-use of data already read from
+    the wire. New overloads of the `ssl::stream<>` class's `handshake()` and
+    `async_handshake()` functions have been added. These accept a
+    `ConstBufferSequence` to be used as initial input to the ssl engine for
+    the handshake procedure.
+  * Added support for creation of TLSv1.1 and TLSv1.2 `ssl::context` objects.
+  * Added a `set_verify_depth()` function to the `ssl::context` and
+    `ssl::stream<>` classes.
+  * Added the ability to load SSL certificate and key data from memory
+    buffers. New functions, `add_certificate_authority()`,
+    `use_certificate()`, `use_certificate_chain()`, `use_private_key()`,
+    `use_rsa_private_key()` and `use_tmp_dh()`, have been added to the
+    `ssl::context` class.
+  * Changed `ssl::context` to automatically disable SSL compression by
+    default. To enable, use the new `ssl::context::clear_options()` function,
+    as in `my_context.clear_options(ssl::context::no_compression)`.
+* Fixed a potential deadlock in `signal_set` implementation.
+* Fixed an error in acceptor example in documentation [ticket 8421].
+* Fixed copy-paste errors in waitable timer documentation [ticket 8602].
+* Added assertions to satisfy some code analysis tools [ticket 7739].
+* Fixed a malformed `#warning` directive [ticket 7939].
+* Fixed a potential data race in the Linux `epoll` implementation.
+* Fixed a Windows-specific bug, where certain operations might generate an
+  `error_code` with an invalid (i.e. `NULL`) `error_category` [ticket 8613].
+* Fixed `basic_waitable_timer`'s underlying implementation so that it can
+  handle any `time_point` value without overflowing the intermediate duration
+  objects.
+* Fixed a problem with lost thread wakeups that can occur when making
+  concurrent calls to `run()` and `poll()` on the same `io_service` object
+  [ticket 8354].
+* Fixed implementation of asynchronous connect operation so that it can cope
+  with spurious readiness notifications from the reactor [ticket 7961].
+* Fixed a memory leak in the `ssl::rfc2818_verification` class.
+* Added a mechanism for disabling automatic Winsock initialisation [ticket
+  3605]. See the header file [^boost/asio/detail/winsock_init.hpp] for details.
+
+[heading Asio 1.8.3 / Boost 1.53]
+
+* Fixed some 64-to-32-bit conversion warnings ([ticket 7459]).
+* Fixed some small errors in documentation and comments ([ticket 7761]).
+* Fixed an error in the example embedded in `basic_socket::get_option`'s
+  documentation ([ticket 7562]).
+* Changed to use `long` rather than `int` for SSL_CTX options, to match OpenSSL
+  ([ticket 7209]).
+* Changed to use `_snwprintf` to address a compile error due to the changed
+  `swprintf` signature in recent versions of MinGW ([ticket 7373]).
+* Fixed a deadlock that can occur on Windows when shutting down a pool of
+  `io_service` threads due to running out of work ([ticket 7552]).
+* Enabled the `noexcept` qualifier for error categories ([ticket 7797]).
+* Changed UNIX domain socket example to treat errors from `accept` as non-fatal
+  ([ticket 7488]).
+* Added a small block recycling optimisation to improve default memory
+  allocation behaviour.
 
 [heading Asio 1.8.2 / Boost 1.51]
 

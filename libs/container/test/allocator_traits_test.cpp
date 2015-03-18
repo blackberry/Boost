@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //
-// (C) Copyright Ion Gaztanaga 2011-2012. Distributed under the Boost
+// (C) Copyright Ion Gaztanaga 2011-2013. Distributed under the Boost
 // Software License, Version 1.0. (See accompanying file
 // LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
@@ -14,7 +14,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/integral_constant.hpp>
 #include <boost/container/detail/function_detector.hpp>
-#include <boost/move/move.hpp>
+#include <boost/move/utility_core.hpp>
 #include <memory>
 
 template<class T>
@@ -24,6 +24,12 @@ class SimpleAllocator
    bool deallocate_called_;
    public:
    typedef T value_type;
+
+   template <class U>
+   SimpleAllocator(SimpleAllocator<U>)
+      : allocate_called_(false)
+      , deallocate_called_(false)
+   {}
 
    SimpleAllocator()
       : allocate_called_(false)
@@ -132,6 +138,13 @@ class ComplexAllocator
    #define BOOST_PP_LOCAL_LIMITS (0, BOOST_CONTAINER_MAX_CONSTRUCTOR_PARAMETERS)
    #include BOOST_PP_LOCAL_ITERATE()
 
+   template<class U>
+   void construct(U *p, boost::container::default_init_t)
+   {
+      construct_called_ = true;
+      ::new (p) U;
+   }
+
    //getters
    bool allocate_called() const
    {  return allocate_called_;  }
@@ -157,12 +170,12 @@ class ComplexAllocator
 
 class copymovable
 {
-   bool copymoveconstructed_;
-   bool moved_;
-
    BOOST_COPYABLE_AND_MOVABLE(copymovable)
 
    public:
+
+   bool copymoveconstructed_;
+   bool moved_;
 
    copymovable(int, int, int)
       : copymoveconstructed_(false), moved_(false)
@@ -316,6 +329,22 @@ int main()
    //construct
    {
       copymovable c;
+      c.copymoveconstructed_ = true;
+      c.copymoveconstructed_ = true;
+      CAllocTraits::construct(c_alloc, &c);
+      if(!c_alloc.construct_called() || c.copymoveconstructed() || c.moved()){
+         return 1;
+      }
+   }
+   {
+      int i = 5;
+      CAllocTraits::construct(c_alloc, &i, boost::container::default_init);
+      if(!c_alloc.construct_called() || i != 5){
+         return 1;
+      }
+   }
+   {
+      copymovable c;
       copymovable c2;
       CAllocTraits::construct(c_alloc, &c, c2);
       if(!c_alloc.construct_called() || !c.copymoveconstructed() || c.moved()){
@@ -327,6 +356,22 @@ int main()
       copymovable c2;
       CAllocTraits::construct(c_alloc, &c, ::boost::move(c2));
       if(!c_alloc.construct_called() || !c.copymoveconstructed() || !c.moved()){
+         return 1;
+      }
+   }
+   {
+      copymovable c;
+      c.copymoveconstructed_ = true;
+      c.copymoveconstructed_ = true;
+      SAllocTraits::construct(s_alloc, &c);
+      if(c.copymoveconstructed() || c.moved()){
+         return 1;
+      }
+   }
+   {
+      int i = 4;
+      SAllocTraits::construct(s_alloc, &i, boost::container::default_init);
+      if(i != 4){
          return 1;
       }
    }

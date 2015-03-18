@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>replaced</title>
 <link rel="stylesheet" href="../../../../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../../../index.html" title="Chapter&#160;1.&#160;Range 2.0">
 <link rel="up" href="../reference.html" title="Reference">
 <link rel="prev" href="map_values.html" title="map_values">
@@ -26,7 +26,7 @@
 <div class="titlepage"><div><div><h5 class="title">
 <a name="range.reference.adaptors.reference.replaced"></a><a class="link" href="replaced.html" title="replaced">replaced</a>
 </h5></div></div></div>
-<div class="toc"><dl><dt><span class="section"><a href="replaced.html#range.reference.adaptors.reference.replaced.replaced_example">replaced
+<div class="toc"><dl class="toc"><dt><span class="section"><a href="replaced.html#range.reference.adaptors.reference.replaced.replaced_example">replaced
             example</a></span></dt></dl></div>
 <div class="informaltable"><table class="table">
 <colgroup>
@@ -76,24 +76,22 @@
 </tr>
 </tbody>
 </table></div>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-<p class="simpara">
                 <span class="bold"><strong>Precondition:</strong></span>
-              </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="circle">
+                <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; ">
 <li class="listitem">
-                    <code class="computeroutput"><span class="identifier">new_value</span></code> is
-                    convertible to the <code class="computeroutput"><span class="identifier">value_type</span></code>
-                    of the range.
-                  </li>
+                      <code class="computeroutput"><span class="identifier">new_value</span></code> is
+                      convertible to the <code class="computeroutput"><span class="identifier">value_type</span></code>
+                      of the range.
+                    </li>
 <li class="listitem">
-                    <code class="computeroutput"><span class="identifier">old_value</span></code> is
-                    convertible to the <code class="computeroutput"><span class="identifier">value_type</span></code>
-                    of the range.
-                  </li>
+                      <code class="computeroutput"><span class="identifier">old_value</span></code> is
+                      convertible to the <code class="computeroutput"><span class="identifier">value_type</span></code>
+                      of the range.
+                    </li>
 </ul></div>
-</li>
+              </li>
 <li class="listitem">
                 <span class="bold"><strong>Postcondition:</strong></span> For all elements
                 <code class="computeroutput"><span class="identifier">x</span></code> in the returned
@@ -106,11 +104,11 @@
                 element in the original range.
               </li>
 <li class="listitem">
-                <span class="bold"><strong>Range Category:</strong></span> <a class="link" href="../../../concepts/forward_range.html" title="Forward Range">Forward
-                Range</a>
+                <span class="bold"><strong>Range Category:</strong></span> <a class="link" href="../../../concepts/single_pass_range.html" title="Single Pass Range">Single
+                Pass Range</a>
               </li>
 <li class="listitem">
-                <span class="bold"><strong>Range Return Type:</strong></span> <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">replaced_range</span><span class="special">&lt;</span><span class="identifier">typeof</span><span class="special">(</span><span class="identifier">rng</span><span class="special">)&gt;</span></code>
+                <span class="bold"><strong>Range Return Type:</strong></span> <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">replaced_range</span><span class="special">&lt;</span><span class="keyword">decltype</span><span class="special">(</span><span class="identifier">rng</span><span class="special">)&gt;</span></code>
               </li>
 <li class="listitem">
                 <span class="bold"><strong>Returned Range Category:</strong></span> The range
@@ -123,12 +121,11 @@
             example</a>
 </h6></div></div></div>
 <p>
-              
 </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">range</span><span class="special">/</span><span class="identifier">adaptor</span><span class="special">/</span><span class="identifier">replaced</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">range</span><span class="special">/</span><span class="identifier">algorithm</span><span class="special">/</span><span class="identifier">copy</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">assign</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
-<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">algorithm</span><span class="special">&gt;</span>
+<span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">iterator</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">iostream</span><span class="special">&gt;</span>
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">vector</span><span class="special">&gt;</span>
 
@@ -151,16 +148,17 @@
             </p>
 </div>
 <p>
-            This would produce the output: 
+            This would produce the output:
 </p>
-<pre class="programlisting"><span class="number">1</span><span class="special">,</span><span class="number">10</span><span class="special">,</span><span class="number">3</span><span class="special">,</span><span class="number">10</span><span class="special">,</span><span class="number">5</span><span class="special">,</span><span class="number">10</span><span class="special">,</span><span class="number">7</span><span class="special">,</span><span class="number">10</span><span class="special">,</span><span class="number">9</span>
+<pre class="programlisting"><span class="number">1</span><span class="special">,</span><span class="number">10</span><span class="special">,</span><span class="number">3</span><span class="special">,</span><span class="number">10</span><span class="special">,</span><span class="number">5</span><span class="special">,</span><span class="number">10</span><span class="special">,</span><span class="number">7</span><span class="special">,</span><span class="number">10</span><span class="special">,</span><span class="number">9</span><span class="special">,</span>
 </pre>
 <p>
           </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2003 -2010 Thorsten Ottosen, Neil Groves<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2010 Thorsten Ottosen,
+      Neil Groves<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

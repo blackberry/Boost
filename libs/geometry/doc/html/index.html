@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Chapter&#160;1.&#160;Geometry</title>
 <link rel="stylesheet" href="../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="index.html" title="Chapter&#160;1.&#160;Geometry">
 <link rel="next" href="geometry/introduction.html" title="Introduction">
 </head>
@@ -31,8 +31,14 @@
 <div><div class="author"><h3 class="author">
 <span class="firstname">Mateusz</span> <span class="surname">Loskot</span>
 </h3></div></div>
-<div><p class="copyright">Copyright &#169; 2009-2012 Barend
-      Gehrels, Bruno Lalande, Mateusz Loskot</p></div>
+<div><div class="author"><h3 class="author">
+<span class="firstname">Adam</span> <span class="surname">Wulkiewicz</span>
+</h3></div></div>
+<div><div class="author"><h3 class="author">
+<span class="firstname">Menelaos</span> <span class="surname">Karavelas</span>
+</h3></div></div>
+<div><p class="copyright">Copyright &#169; 2009-2014 Barend Gehrels, Bruno Lalande, Mateusz Loskot, Adam
+      Wulkiewicz, Oracle and/or its affiliates</p></div>
 <div><div class="legalnotice">
 <a name="geometry.legal"></a><p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
@@ -42,15 +48,19 @@
 </div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="section"><a href="geometry/introduction.html">Introduction</a></span></dt>
-<dt><span class="section"><a href="geometry/quickstart.html">Quick Start</a></span></dt>
-<dt><span class="section"><a href="geometry/design.html">Design Rationale</a></span></dt>
 <dt><span class="section"><a href="geometry/compilation.html">Compilation</a></span></dt>
-<dt><span class="section"><a href="geometry/indexes.html">Indexes</a></span></dt>
+<dt><span class="section"><a href="geometry/design.html">Design Rationale</a></span></dt>
+<dt><span class="section"><a href="geometry/quickstart.html">Quick Start</a></span></dt>
+<dt><span class="section"><a href="geometry/spatial_indexes.html">Spatial Indexes</a></span></dt>
 <dd><dl>
-<dt><span class="section"><a href="geometry/indexes/matrix.html">Reference matrix</a></span></dt>
-<dt><span class="section"><a href="geometry/indexes/alphabetical_index.html">Alphabetical Index</a></span></dt>
+<dt><span class="section"><a href="geometry/spatial_indexes/introduction.html">Introduction</a></span></dt>
+<dt><span class="section"><a href="geometry/spatial_indexes/rtree_quickstart.html">Quick Start</a></span></dt>
+<dt><span class="section"><a href="geometry/spatial_indexes/creation_and_modification.html">Creation
+      and Modification</a></span></dt>
+<dt><span class="section"><a href="geometry/spatial_indexes/queries.html">Queries</a></span></dt>
+<dt><span class="section"><a href="geometry/spatial_indexes/rtree_examples.html">Examples</a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="geometry/reference.html">Reference</a></span></dt>
 <dd><dl>
@@ -64,24 +74,38 @@
 <dt><span class="section"><a href="geometry/reference/core.html">Core Metafunctions</a></span></dt>
 <dt><span class="section"><a href="geometry/reference/enumerations.html">Enumerations</a></span></dt>
 <dt><span class="section"><a href="geometry/reference/exceptions.html">Exceptions</a></span></dt>
+<dt><span class="section"><a href="geometry/reference/io.html">IO (input/output)</a></span></dt>
 <dt><span class="section"><a href="geometry/reference/iterators.html">Iterators</a></span></dt>
 <dt><span class="section"><a href="geometry/reference/models.html">Models</a></span></dt>
+<dt><span class="section"><a href="geometry/reference/spatial_indexes.html">Spatial Indexes</a></span></dt>
 <dt><span class="section"><a href="geometry/reference/strategies.html">Strategies</a></span></dt>
 <dt><span class="section"><a href="geometry/reference/views.html">Views</a></span></dt>
 </dl></dd>
+<dt><span class="section"><a href="geometry/indexes.html">Indexes</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="geometry/indexes/matrix.html">Reference Matrix</a></span></dt>
+<dt><span class="section"><a href="geometry/indexes/alphabetical_index.html">Alphabetical Index</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="geometry/examples.html">Examples</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="geometry/examples/example__adapting_a_legacy_geometry_object_model.html">Example:
+      Adapting a legacy geometry object model</a></span></dt>
+<dt><span class="section"><a href="geometry/examples/example_source_code__adapting_a_legacy_geometry_object_model.html">Example
+      source code: Adapting a legacy geometry object model</a></span></dt>
+</dl></dd>
 <dt><span class="section"><a href="geometry/release_notes.html">Release Notes</a></span></dt>
-<dt><span class="section"><a href="geometry/aboutdoc.html">About this documentation</a></span></dt>
+<dt><span class="section"><a href="geometry/aboutdoc.html">About this Documentation</a></span></dt>
 <dt><span class="section"><a href="geometry/acknowledgments.html">Acknowledgments</a></span></dt>
 </dl>
 </div>
 <h3>
 <a name="geometry.h0"></a>
-    <span><a name="geometry.contributions"></a></span><a class="link" href="index.html#geometry.contributions">Contributions</a>
+    <span class="phrase"><a name="geometry.contributions"></a></span><a class="link" href="index.html#geometry.contributions">Contributions</a>
   </h3>
 <p>
     Boost.Geometry contains contributions by:
   </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
         Akira Takahashi (adaption of Boost.Fusion)
       </li>
@@ -89,27 +113,28 @@
         Alfredo Correa (adaption of Boost.Array)
       </li>
 <li class="listitem">
-        Adam Wulkiewicz (spatial indexes) <sup>[<a name="geometry.f0" href="#ftn.geometry.f0" class="footnote">1</a>]</sup>
+        Andrew Hundt (varray container, aka. static_vector)
       </li>
 <li class="listitem">
-        Federico Fern&#225;ndez (spatial indexes) <sup>[<a name="geometry.f1" href="#ftn.geometry.f1" class="footnote">2</a>]</sup>
+        Federico Fern&#225;ndez (preliminary version of R-tree spatial index)
       </li>
 <li class="listitem">
         Karsten Ahnert (patch for cross-track distance)
       </li>
+<li class="listitem">
+        Mats Taraldsvik (documentation: adapting a legacy model)
+      </li>
+<li class="listitem">
+        Matt Amos (fixes for point_on_surface)
+      </li>
+<li class="listitem">
+        Samuel Debionne (variant support for distance, assign, crosses, intersection,
+        ...)
+      </li>
 </ul></div>
-<div class="footnotes">
-<br><hr width="100" align="left">
-<div class="footnote"><p><sup>[<a id="ftn.geometry.f0" href="#geometry.f0" class="para">1</a>] </sup>
-          Currently an extension
-        </p></div>
-<div class="footnote"><p><sup>[<a id="ftn.geometry.f1" href="#geometry.f1" class="para">2</a>] </sup>
-          Currently an extension
-        </p></div>
-</div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><p><small>Last revised: October 29, 2012 at 22:31:30 GMT</small></p></td>
+<td align="left"><p><small>Last revised: October 30, 2014 at 10:10:02 GMT</small></p></td>
 <td align="right"><div class="copyright-footer"></div></td>
 </tr></table>
 <hr>

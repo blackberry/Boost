@@ -75,7 +75,7 @@ namespace boost
   namespace lib3
   {
     // lib3 has its own error_category:
-    const boost::system::error_category & get_lib3_error_category();
+    const boost::system::error_category & get_lib3_error_category() BOOST_SYSTEM_NOEXCEPT;
     const boost::system::error_category & lib3_error_category = get_lib3_error_category();
     
     enum error
@@ -112,12 +112,12 @@ namespace boost
     public:
       lib3_error_category_imp() : boost::system::error_category() { }
 
-      const char * name() const
+      const char * name() const BOOST_SYSTEM_NOEXCEPT
       {
         return "lib3";
       }
 
-      boost::system::error_condition default_error_condition( int ev ) const
+      boost::system::error_condition default_error_condition( int ev ) const BOOST_SYSTEM_NOEXCEPT
       {
         return ev == boo_boo
           ? boost::system::error_condition( boost::system::errc::io_error,
@@ -135,7 +135,7 @@ namespace boost
 
     };
 
-    const boost::system::error_category & get_lib3_error_category()
+    const boost::system::error_category & get_lib3_error_category() BOOST_SYSTEM_NOEXCEPT
     {
       static const lib3_error_category_imp l3ecat;
       return l3ecat;
@@ -156,7 +156,7 @@ namespace boost
 namespace lib4
 {
   // lib4 has its own error_category:
-  const boost::system::error_category & get_lib4_error_category();
+  const boost::system::error_category & get_lib4_error_category() BOOST_SYSTEM_NOEXCEPT;
   const boost::system::error_category & lib4_error_category = get_lib4_error_category();
   
   extern const boost::system::error_code boo_boo;
@@ -174,12 +174,12 @@ namespace lib4
   public:
     lib4_error_category_imp() : boost::system::error_category() { }
 
-    const char * name() const
+    const char * name() const BOOST_SYSTEM_NOEXCEPT
     {
       return "lib4";
     }
 
-    boost::system::error_condition default_error_condition( int ev ) const
+    boost::system::error_condition default_error_condition( int ev ) const  BOOST_SYSTEM_NOEXCEPT
     {
       return ev == boo_boo.value()
         ? boost::system::error_condition( boost::system::errc::io_error,
@@ -195,7 +195,7 @@ namespace lib4
     }
   };
 
-  const boost::system::error_category & get_lib4_error_category()
+  const boost::system::error_category & get_lib4_error_category() BOOST_SYSTEM_NOEXCEPT
   {
     static const lib4_error_category_imp l4ecat;
     return l4ecat;

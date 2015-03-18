@@ -30,7 +30,7 @@ BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_function<void>::value, false);
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_function<int>::value, false);
 #if !defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_function<int&>::value, false);
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_function<int&&>::value, false);
 #endif
 #else

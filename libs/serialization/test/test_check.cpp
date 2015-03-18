@@ -23,6 +23,7 @@
 struct check1 {
     template<class Archive>
     void serialize(Archive & ar, const unsigned int version);
+    check1(){}
 };
 
 BOOST_CLASS_IMPLEMENTATION(check1, boost::serialization::object_serializable)
@@ -33,6 +34,7 @@ BOOST_CLASS_TRACKING(check1, boost::serialization::track_selectively)
 struct check2 {
     template<class Archive>
     void serialize(Archive & ar, const unsigned int version);
+    check2(){}
 };
 
 BOOST_CLASS_IMPLEMENTATION(check2, boost::serialization::object_serializable)
@@ -45,6 +47,7 @@ BOOST_CLASS_TRACKING(check2, boost::serialization::track_always)
 struct check3 {
     template<class Archive>
     void serialize(Archive & ar, const unsigned int version);
+    check3(){}
 };
 
 BOOST_CLASS_TRACKING(check3, boost::serialization::track_never)

@@ -8,7 +8,10 @@
 [heading Prototype]
 
 ``
-template<class ForwardRange, class Value>
+template<
+    class ForwardRange, 
+    class Value
+    >
 typename range_iterator<ForwardRange>::type
 upper_bound(ForwardRange& rng, Value val);
 
@@ -19,6 +22,23 @@ template<
     >
 typename range_return<ForwardRange, re>::type
 upper_bound(ForwardRange& rng, Value val);
+
+template<
+    class ForwardRange,
+    class Value,
+    class SortPredicate
+    >
+typename range_iterator<ForwardRange>::type
+upper_bound(ForwardRange& rng, Value val, SortPredicate pred);
+
+template<
+    range_return_value re,
+    class ForwardRange,
+    class Value,
+    class SortPredicate
+    >
+typename range_return<ForwardRange,re>::type
+upper_bound(ForwardRange& rng, Value val, SortPredicate pred);
 ``
 
 [heading Description]

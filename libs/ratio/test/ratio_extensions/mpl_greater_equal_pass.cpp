@@ -14,7 +14,7 @@
 #define BOOST_RATIO_EXTENSIONS
 
 #include <boost/ratio/mpl/greater_equal.hpp>
-#if !defined(BOOST_NO_STATIC_ASSERT)
+#if !defined(BOOST_NO_CXX11_STATIC_ASSERT)
 #define NOTHING ""
 #endif
 

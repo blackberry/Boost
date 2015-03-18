@@ -33,7 +33,7 @@ namespace opt{
 
 //
 // iter_swap:
-// tests whether iterator is a proxying iterator or not, and
+// tests whether iterator is a proxy iterator or not, and
 // uses optimal form accordingly:
 //
 namespace detail{

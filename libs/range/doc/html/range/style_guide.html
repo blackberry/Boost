@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Terminology and style guidelines</title>
 <link rel="stylesheet" href="../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.75.2">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../index.html" title="Chapter&#160;1.&#160;Range 2.0">
 <link rel="up" href="../index.html" title="Chapter&#160;1.&#160;Range 2.0">
 <link rel="prev" href="reference/extending/method_3/method_3_2.html" title="Method 3.2: Implement a Range Adaptor with arguments">
@@ -37,45 +37,43 @@
       a type of range for each type of iterator. Hence we can speak of the following
       types of ranges:
     </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-<p class="simpara">
           <span class="bold"><strong><span class="emphasis"><em>Value access</em></span></strong></span> category:
-        </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="circle">
+          <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; ">
 <li class="listitem">
-              Readable Range
-            </li>
+                Readable Range
+              </li>
 <li class="listitem">
-              Writeable Range
-            </li>
+                Writeable Range
+              </li>
 <li class="listitem">
-              Swappable Range
-            </li>
+                Swappable Range
+              </li>
 <li class="listitem">
-              Lvalue Range
-            </li>
+                Lvalue Range
+              </li>
 </ul></div>
-</li>
+        </li>
 <li class="listitem">
-<p class="simpara">
           <span class="bold"><strong><span class="emphasis"><em>Traversal</em></span></strong></span> category:
-        </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="circle">
+          <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; ">
 <li class="listitem">
-              <a class="link" href="concepts/single_pass_range.html" title="Single Pass Range">Single Pass Range</a>
-            </li>
+                <a class="link" href="concepts/single_pass_range.html" title="Single Pass Range">Single Pass Range</a>
+              </li>
 <li class="listitem">
-              <a class="link" href="concepts/forward_range.html" title="Forward Range">Forward Range</a>
-            </li>
+                <a class="link" href="concepts/forward_range.html" title="Forward Range">Forward Range</a>
+              </li>
 <li class="listitem">
-              <a class="link" href="concepts/bidirectional_range.html" title="Bidirectional Range">Bidirectional Range</a>
-            </li>
+                <a class="link" href="concepts/bidirectional_range.html" title="Bidirectional Range">Bidirectional
+                Range</a>
+              </li>
 <li class="listitem">
-              <a class="link" href="concepts/random_access_range.html" title="Random Access Range">Random Access Range</a>
-            </li>
+                <a class="link" href="concepts/random_access_range.html" title="Random Access Range">Random Access
+                Range</a>
+              </li>
 </ul></div>
-</li>
+        </li>
 </ul></div>
 <p>
       Notice how we have used the categories from the <a href="../../../../../libs/iterator/doc/new-iter-concepts.html" target="_top">new
@@ -87,7 +85,7 @@
       access</em></span></strong></span> category. So in reality we will mostly talk about
       mixtures such as
     </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
           Random Access Readable Writeable Range
         </li>
@@ -117,7 +115,6 @@
       must be exactly defined. The iterator-based version looks like this:
     </p>
 <p>
-      
 </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span> <span class="keyword">class</span> <span class="identifier">RandomAccessTraversalReadableWritableIterator</span> <span class="special">&gt;</span>
 <span class="keyword">void</span> <span class="identifier">sort</span><span class="special">(</span> <span class="identifier">RandomAccessTraversalReadableWritableIterator</span> <span class="identifier">first</span><span class="special">,</span>
@@ -129,7 +126,6 @@
       For ranges the interface becomes
     </p>
 <p>
-      
 </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span> <span class="keyword">class</span> <span class="identifier">RandomAccessReadableWritableRange</span> <span class="special">&gt;</span>
 <span class="keyword">void</span> <span class="identifier">sort</span><span class="special">(</span> <span class="identifier">RandomAccessReadableWritableRange</span><span class="special">&amp;</span> <span class="identifier">r</span> <span class="special">);</span>
@@ -139,7 +135,8 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2003 -2010 Thorsten Ottosen, Neil Groves<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2010 Thorsten Ottosen,
+      Neil Groves<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

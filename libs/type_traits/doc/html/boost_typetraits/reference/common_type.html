@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>common_type</title>
 <link rel="stylesheet" href="../../../../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.TypeTraits">
 <link rel="up" href="../reference.html" title="Alphabetical Reference">
 <link rel="prev" href="conditional.html" title="conditional">
@@ -22,7 +22,7 @@
 <div class="spirit-nav">
 <a accesskey="p" href="conditional.html"><img src="../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference.html"><img src="../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="decay.html"><img src="../../../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
-<div class="section boost_typetraits_reference_common_type">
+<div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="boost_typetraits.reference.common_type"></a><a class="link" href="common_type.html" title="common_type">common_type</a>
 </h3></div></div></div>
@@ -60,7 +60,7 @@
 
 <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">,</span> <span class="keyword">class</span> <span class="identifier">U</span><span class="special">&gt;</span>
 <span class="keyword">struct</span> <span class="identifier">common_type</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">U</span><span class="special">&gt;</span> <span class="special">{</span>
-    <span class="keyword">typedef</span> <span class="identifier">decltype</span><span class="special">(</span><a href="../../../../../utility/doc/html/declval.html" target="_top">declval</a><span class="special">&lt;</span><span class="keyword">bool</span><span class="special">&gt;()</span> <span class="special">?</span> <a href="../../../../../utility/doc/html/declval.html" target="_top">declval</a><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;()</span> <span class="special">:</span> <a href="../../../../../utility/doc/html/declval.html" target="_top">declval</a><span class="special">&lt;</span><span class="identifier">U</span><span class="special">&gt;())</span> <span class="identifier">type</span><span class="special">;</span>
+    <span class="keyword">typedef</span> <span class="keyword">decltype</span><span class="special">(</span><a href="../../../../../utility/doc/html/declval.html" target="_top">declval</a><span class="special">&lt;</span><span class="keyword">bool</span><span class="special">&gt;()</span> <span class="special">?</span> <a href="../../../../../utility/doc/html/declval.html" target="_top">declval</a><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;()</span> <span class="special">:</span> <a href="../../../../../utility/doc/html/declval.html" target="_top">declval</a><span class="special">&lt;</span><span class="identifier">U</span><span class="special">&gt;())</span> <span class="identifier">type</span><span class="special">;</span>
 <span class="special">};</span>
 </pre>
 <p>
@@ -76,20 +76,20 @@
       </p>
 <h5>
 <a name="boost_typetraits.reference.common_type.h0"></a>
-        <span><a name="boost_typetraits.reference.common_type.configuration_macros"></a></span><a class="link" href="common_type.html#boost_typetraits.reference.common_type.configuration_macros">Configuration
+        <span class="phrase"><a name="boost_typetraits.reference.common_type.configuration_macros"></a></span><a class="link" href="common_type.html#boost_typetraits.reference.common_type.configuration_macros">Configuration
         macros</a>
       </h5>
 <p>
         When the compiler does not support static assertions then the user can select
         the way static assertions are reported. Define
       </p>
-<div class="itemizedlist"><ul class="itemizedlist" type="disc">
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             BOOST_COMMON_TYPE_USES_STATIC_ASSERT: define it if you want to use Boost.StaticAssert
           </li>
 <li class="listitem">
             BOOST_COMMON_TYPE_USES_MPL_ASSERT: define it if you want to use Boost.MPL
-            static asertions
+            static assertions
           </li>
 </ul></div>
 <p>
@@ -101,12 +101,12 @@
         assertion either through the symbol or through the text.
       </p>
 <p>
-        When possible common_type is implemented using <code class="computeroutput"><span class="identifier">decltype</span></code>.
+        When possible common_type is implemented using <code class="computeroutput"><span class="keyword">decltype</span></code>.
         Otherwise when BOOST_COMMON_TYPE_DONT_USE_TYPEOF is not defined it uses Boost.TypeOf.
       </p>
 <h5>
 <a name="boost_typetraits.reference.common_type.h1"></a>
-        <span><a name="boost_typetraits.reference.common_type.tutorial"></a></span><a class="link" href="common_type.html#boost_typetraits.reference.common_type.tutorial">Tutorial</a>
+        <span class="phrase"><a name="boost_typetraits.reference.common_type.tutorial"></a></span><a class="link" href="common_type.html#boost_typetraits.reference.common_type.tutorial">Tutorial</a>
       </h5>
 <p>
         In a nutshell, <a class="link" href="common_type.html" title="common_type">common_type</a>
@@ -141,7 +141,7 @@
       </p>
 <h5>
 <a name="boost_typetraits.reference.common_type.h2"></a>
-        <span><a name="boost_typetraits.reference.common_type.how_to_get_the_common_type_of_types_with_explicit_conversions_"></a></span><a class="link" href="common_type.html#boost_typetraits.reference.common_type.how_to_get_the_common_type_of_types_with_explicit_conversions_">How
+        <span class="phrase"><a name="boost_typetraits.reference.common_type.how_to_get_the_common_type_of_types_with_explicit_conversions_"></a></span><a class="link" href="common_type.html#boost_typetraits.reference.common_type.how_to_get_the_common_type_of_types_with_explicit_conversions_">How
         to get the common type of types with explicit conversions?</a>
       </h5>
 <p>
@@ -163,7 +163,7 @@
 </pre>
 <h5>
 <a name="boost_typetraits.reference.common_type.h3"></a>
-        <span><a name="boost_typetraits.reference.common_type.how_important_is_the_order_of_the_common_type_lt__gt__template_arguments_"></a></span><a class="link" href="common_type.html#boost_typetraits.reference.common_type.how_important_is_the_order_of_the_common_type_lt__gt__template_arguments_">How
+        <span class="phrase"><a name="boost_typetraits.reference.common_type.how_important_is_the_order_of_the_common_type_lt__gt__template_arguments_"></a></span><a class="link" href="common_type.html#boost_typetraits.reference.common_type.how_important_is_the_order_of_the_common_type_lt__gt__template_arguments_">How
         important is the order of the common_type&lt;&gt; template arguments?</a>
       </h5>
 <p>
@@ -243,7 +243,7 @@
       </p>
 <h5>
 <a name="boost_typetraits.reference.common_type.h4"></a>
-        <span><a name="boost_typetraits.reference.common_type.can_the_common_type_of_two_types_be_a_third_type_"></a></span><a class="link" href="common_type.html#boost_typetraits.reference.common_type.can_the_common_type_of_two_types_be_a_third_type_">Can
+        <span class="phrase"><a name="boost_typetraits.reference.common_type.can_the_common_type_of_two_types_be_a_third_type_"></a></span><a class="link" href="common_type.html#boost_typetraits.reference.common_type.can_the_common_type_of_two_types_be_a_third_type_">Can
         the common_type of two types be a third type?</a>
       </h5>
 <p>
@@ -270,7 +270,7 @@
       </p>
 <h5>
 <a name="boost_typetraits.reference.common_type.h5"></a>
-        <span><a name="boost_typetraits.reference.common_type.how_common_type_behaves_with_pointers_"></a></span><a class="link" href="common_type.html#boost_typetraits.reference.common_type.how_common_type_behaves_with_pointers_">How
+        <span class="phrase"><a name="boost_typetraits.reference.common_type.how_common_type_behaves_with_pointers_"></a></span><a class="link" href="common_type.html#boost_typetraits.reference.common_type.how_common_type_behaves_with_pointers_">How
         common_type behaves with pointers?</a>
       </h5>
 <p>
@@ -306,7 +306,7 @@
       </p>
 <h5>
 <a name="boost_typetraits.reference.common_type.h6"></a>
-        <span><a name="boost_typetraits.reference.common_type.can_you_explain_the_pros_cons_of_common_type_against_boost_typeof_"></a></span><a class="link" href="common_type.html#boost_typetraits.reference.common_type.can_you_explain_the_pros_cons_of_common_type_against_boost_typeof_">Can
+        <span class="phrase"><a name="boost_typetraits.reference.common_type.can_you_explain_the_pros_cons_of_common_type_against_boost_typeof_"></a></span><a class="link" href="common_type.html#boost_typetraits.reference.common_type.can_you_explain_the_pros_cons_of_common_type_against_boost_typeof_">Can
         you explain the pros/cons of common_type against Boost.Typeof?</a>
       </h5>
 <p>
@@ -316,8 +316,7 @@
         to get the type of an expression, while you use <a class="link" href="common_type.html" title="common_type">common_type</a>
         to set explicitly the type returned of a template function. Both are complementary,
         and indeed <a class="link" href="common_type.html" title="common_type">common_type</a>
-        is equivalent to <code class="computeroutput"><span class="identifier">decltype</span><span class="special">(</span><a href="../../../../../utility/doc/html/declval.html" target="_top">declval</a><span class="special">&lt;</span><span class="keyword">bool</span><span class="special">&gt;()</span>
-        <span class="special">?</span> <a href="../../../../../utility/doc/html/declval.html" target="_top">declval</a><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;()</span>
+        is equivalent to <code class="computeroutput"><span class="keyword">decltype</span><span class="special">(</span><a href="../../../../../utility/doc/html/declval.html" target="_top">declval</a><span class="special">&lt;</span><span class="keyword">bool</span><span class="special">&gt;()</span> <span class="special">?</span> <a href="../../../../../utility/doc/html/declval.html" target="_top">declval</a><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;()</span>
         <span class="special">:</span> <a href="../../../../../utility/doc/html/declval.html" target="_top">declval</a><span class="special">&lt;</span><span class="identifier">U</span><span class="special">&gt;())</span></code>
       </p>
 <p>

@@ -74,7 +74,7 @@ public:
     void start()
     {
         if (type != use_sleep_only) {
-            boost::mutex::scoped_lock lock(mutex); done = false;
+            boost::unique_lock<boost::mutex> lock(mutex); done = false;
         } else {
             done = false;
         }
@@ -82,7 +82,7 @@ public:
     void finish()
     {
         if (type != use_sleep_only) {
-            boost::mutex::scoped_lock lock(mutex);
+            boost::unique_lock<boost::mutex> lock(mutex);
             done = true;
             if (type == use_condition)
                 cond.notify_one();
@@ -96,7 +96,7 @@ public:
         if (type != use_condition)
             boost::thread::sleep(xt);
         if (type != use_sleep_only) {
-            boost::mutex::scoped_lock lock(mutex);
+            boost::unique_lock<boost::mutex> lock(mutex);
             while (type == use_condition && !done) {
                 if (!cond.timed_wait(lock, xt))
                     break;

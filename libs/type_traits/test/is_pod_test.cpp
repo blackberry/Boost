@@ -142,7 +142,7 @@ BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_pod<cmf>::value, true);
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_pod<enum_UDT>::value, true);
 
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_pod<int&>::value, false);
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_pod<int&&>::value, false);
 #endif
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_pod<const int&>::value, false);
@@ -169,6 +169,13 @@ BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_pod<wrap<trivial_except_copy> >::value, f
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_pod<wrap<trivial_except_assign> >::value, false);
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_pod<wrap<trivial_except_destroy> >::value, false);
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_pod<wrap<trivial_except_construct> >::value, false);
+
+#ifndef BOOST_NO_CXX11_CHAR16_T
+BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_pod<char16_t>::value, true);
+#endif
+#ifndef BOOST_NO_CXX11_CHAR32_T
+BOOST_CHECK_INTEGRAL_CONSTANT(::tt::is_pod<char32_t>::value, true);
+#endif
 
 TT_TEST_END
 

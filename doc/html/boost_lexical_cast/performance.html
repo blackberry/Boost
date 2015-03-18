@@ -3,11 +3,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Performance</title>
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
-<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../boost_lexical_cast.html" title="Chapter&#160;15.&#160;Boost.Lexical_Cast 1.0">
+<link rel="up" href="../boost_lexical_cast.html" title="Chapter&#160;17.&#160;Boost.Lexical_Cast 1.0">
 <link rel="prev" href="changes.html" title="Changes">
-<link rel="next" href="../move.html" title="Chapter&#160;16.&#160;Boost.Move">
+<link rel="next" href="../lockfree.html" title="Chapter&#160;18.&#160;Boost.Lockfree">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table cellpadding="2" width="100%"><tr>
@@ -20,13 +20,13 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="changes.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../boost_lexical_cast.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="../move.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="changes.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../boost_lexical_cast.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="../lockfree.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="boost_lexical_cast.performance"></a><a class="link" href="performance.html" title="Performance">Performance</a>
 </h2></div></div></div>
-<div class="toc"><dl>
+<div class="toc"><dl class="toc">
 <dt><span class="section"><a href="performance.html#boost_lexical_cast.performance.tests_description">Tests
       description</a></span></dt>
 <dt><span class="section"><a href="performance.html#boost_lexical_cast.performance.clang_version_3_0__tags_release_30_final_">Clang
@@ -37,6 +37,8 @@
       C++ version 4.5.3</a></span></dt>
 <dt><span class="section"><a href="performance.html#boost_lexical_cast.performance.gnu_c___version_4_4_7">GNU
       C++ version 4.4.7</a></span></dt>
+<dt><span class="section"><a href="performance.html#boost_lexical_cast.performance.microsoft_visual_c___version_11_0">Microsoft
+      Visual C++ version 11.0</a></span></dt>
 </dl></div>
 <p>
       In most cases <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lexical_cast</span></code> is faster than <code class="computeroutput"><span class="identifier">scanf</span></code>, <code class="computeroutput"><span class="identifier">printf</span></code>,
@@ -53,7 +55,7 @@
         of the following code blocks:
       </p>
 <div class="table">
-<a name="boost_lexical_cast.performance.tests_description.legend"></a><p class="title"><b>Table&#160;15.1.&#160;Tests source code</b></p>
+<a name="boost_lexical_cast.performance.tests_description.legend"></a><p class="title"><b>Table&#160;17.1.&#160;Tests source code</b></p>
 <div class="table-contents"><table class="table" summary="Tests source code">
 <colgroup>
 <col>
@@ -159,7 +161,7 @@
       version 3.0 (tags/RELEASE_30/final)</a>
 </h3></div></div></div>
 <div class="table">
-<a name="boost_lexical_cast.performance.clang_version_3_0__tags_release_30_final_.id"></a><p class="title"><b>Table&#160;15.2.&#160;Performance Table ( Clang version 3.0 (tags/RELEASE_30/final))</b></p>
+<a name="boost_lexical_cast.performance.clang_version_3_0__tags_release_30_final_.id"></a><p class="title"><b>Table&#160;17.2.&#160;Performance Table ( Clang version 3.0 (tags/RELEASE_30/final))</b></p>
 <div class="table-contents"><table class="table" summary="Performance Table ( Clang version 3.0 (tags/RELEASE_30/final))">
 <colgroup>
 <col>
@@ -3420,7 +3422,7 @@
       C++ version 4.6.3</a>
 </h3></div></div></div>
 <div class="table">
-<a name="boost_lexical_cast.performance.gnu_c___version_4_6_3.id"></a><p class="title"><b>Table&#160;15.3.&#160;Performance Table ( GNU C++ version 4.6.3)</b></p>
+<a name="boost_lexical_cast.performance.gnu_c___version_4_6_3.id"></a><p class="title"><b>Table&#160;17.3.&#160;Performance Table ( GNU C++ version 4.6.3)</b></p>
 <div class="table-contents"><table class="table" summary="Performance Table ( GNU C++ version 4.6.3)">
 <colgroup>
 <col>
@@ -6681,7 +6683,7 @@
       C++ version 4.5.3</a>
 </h3></div></div></div>
 <div class="table">
-<a name="boost_lexical_cast.performance.gnu_c___version_4_5_3.id"></a><p class="title"><b>Table&#160;15.4.&#160;Performance Table ( GNU C++ version 4.5.3)</b></p>
+<a name="boost_lexical_cast.performance.gnu_c___version_4_5_3.id"></a><p class="title"><b>Table&#160;17.4.&#160;Performance Table ( GNU C++ version 4.5.3)</b></p>
 <div class="table-contents"><table class="table" summary="Performance Table ( GNU C++ version 4.5.3)">
 <colgroup>
 <col>
@@ -9942,7 +9944,7 @@
       C++ version 4.4.7</a>
 </h3></div></div></div>
 <div class="table">
-<a name="boost_lexical_cast.performance.gnu_c___version_4_4_7.id"></a><p class="title"><b>Table&#160;15.5.&#160;Performance Table ( GNU C++ version 4.4.7)</b></p>
+<a name="boost_lexical_cast.performance.gnu_c___version_4_4_7.id"></a><p class="title"><b>Table&#160;17.5.&#160;Performance Table ( GNU C++ version 4.4.7)</b></p>
 <div class="table-contents"><table class="table" summary="Performance Table ( GNU C++ version 4.4.7)">
 <colgroup>
 <col>
@@ -13197,10 +13199,3272 @@
 </div>
 <br class="table-break">
 </div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_lexical_cast.performance.microsoft_visual_c___version_11_0"></a><a class="link" href="performance.html#boost_lexical_cast.performance.microsoft_visual_c___version_11_0" title="Microsoft Visual C++ version 11.0">Microsoft
+      Visual C++ version 11.0</a>
+</h3></div></div></div>
+<div class="table">
+<a name="boost_lexical_cast.performance.microsoft_visual_c___version_11_0.id"></a><p class="title"><b>Table&#160;17.6.&#160;Performance Table ( Microsoft Visual C++ version 11.0)</b></p>
+<div class="table-contents"><table class="table" summary="Performance Table ( Microsoft Visual C++ version 11.0)">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+                <p>
+                  From-&gt;To
+                </p>
+              </th>
+<th>
+                <p>
+                  lexical_cast
+                </p>
+              </th>
+<th>
+                <p>
+                  std::stringstream with construction
+                </p>
+              </th>
+<th>
+                <p>
+                  std::stringstream without construction
+                </p>
+              </th>
+<th>
+                <p>
+                  scanf/printf
+                </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+                <p>
+                  string-&gt;char
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>&lt;1</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  43
+                </p>
+              </td>
+<td>
+                <p>
+                  17
+                </p>
+              </td>
+<td>
+                <p>
+                  7
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  string-&gt;signed char
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>&lt;1</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  43
+                </p>
+              </td>
+<td>
+                <p>
+                  17
+                </p>
+              </td>
+<td>
+                <p>
+                  8
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  string-&gt;unsigned char
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>&lt;1</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  42
+                </p>
+              </td>
+<td>
+                <p>
+                  17
+                </p>
+              </td>
+<td>
+                <p>
+                  8
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  string-&gt;int
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  71
+                </p>
+              </td>
+<td>
+                <p>
+                  49
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  string-&gt;short
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  72
+                </p>
+              </td>
+<td>
+                <p>
+                  47
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  string-&gt;long int
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  71
+                </p>
+              </td>
+<td>
+                <p>
+                  47
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  string-&gt;long long
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  71
+                </p>
+              </td>
+<td>
+                <p>
+                  47
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  string-&gt;unsigned int
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  72
+                </p>
+              </td>
+<td>
+                <p>
+                  46
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  string-&gt;unsigned short
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  71
+                </p>
+              </td>
+<td>
+                <p>
+                  47
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  string-&gt;unsigned long int
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  70
+                </p>
+              </td>
+<td>
+                <p>
+                  45
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  string-&gt;unsigned long long
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  70
+                </p>
+              </td>
+<td>
+                <p>
+                  46
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  string-&gt;float
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>14</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  586
+                </p>
+              </td>
+<td>
+                <p>
+                  559
+                </p>
+              </td>
+<td>
+                <p>
+                  37
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  string-&gt;double
+                </p>
+              </td>
+<td>
+                <p>
+                  601
+                </p>
+              </td>
+<td>
+                <p>
+                  618
+                </p>
+              </td>
+<td>
+                <p>
+                  592
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>37</strong></span> !!!
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  string-&gt;long double
+                </p>
+              </td>
+<td>
+                <p>
+                  629
+                </p>
+              </td>
+<td>
+                <p>
+                  645
+                </p>
+              </td>
+<td>
+                <p>
+                  618
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>37</strong></span> !!!
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  string-&gt;array&lt;char, 50&gt;
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>&lt;1</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  52
+                </p>
+              </td>
+<td>
+                <p>
+                  28
+                </p>
+              </td>
+<td>
+                <p>
+                  11
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  string-&gt;string
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>1</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  59
+                </p>
+              </td>
+<td>
+                <p>
+                  34
+                </p>
+              </td>
+<td>
+                <p>
+                  ---
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  string-&gt;container::string
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>2</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  54
+                </p>
+              </td>
+<td>
+                <p>
+                  31
+                </p>
+              </td>
+<td>
+                <p>
+                  ---
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  string-&gt;char
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>2</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  50
+                </p>
+              </td>
+<td>
+                <p>
+                  24
+                </p>
+              </td>
+<td>
+                <p>
+                  9
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  string-&gt;signed char
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>2</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  50
+                </p>
+              </td>
+<td>
+                <p>
+                  24
+                </p>
+              </td>
+<td>
+                <p>
+                  13
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  string-&gt;unsigned char
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>2</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  50
+                </p>
+              </td>
+<td>
+                <p>
+                  24
+                </p>
+              </td>
+<td>
+                <p>
+                  13
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  int-&gt;string
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>9</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  86
+                </p>
+              </td>
+<td>
+                <p>
+                  59
+                </p>
+              </td>
+<td>
+                <p>
+                  13
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  short-&gt;string
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>9</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  86
+                </p>
+              </td>
+<td>
+                <p>
+                  59
+                </p>
+              </td>
+<td>
+                <p>
+                  13
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  long int-&gt;string
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>9</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  87
+                </p>
+              </td>
+<td>
+                <p>
+                  59
+                </p>
+              </td>
+<td>
+                <p>
+                  13
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  long long-&gt;string
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>9</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  88
+                </p>
+              </td>
+<td>
+                <p>
+                  62
+                </p>
+              </td>
+<td>
+                <p>
+                  13
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  unsigned int-&gt;string
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>9</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  87
+                </p>
+              </td>
+<td>
+                <p>
+                  60
+                </p>
+              </td>
+<td>
+                <p>
+                  13
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  unsigned short-&gt;string
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>9</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  91
+                </p>
+              </td>
+<td>
+                <p>
+                  63
+                </p>
+              </td>
+<td>
+                <p>
+                  13
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  unsigned long int-&gt;string
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>9</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  91
+                </p>
+              </td>
+<td>
+                <p>
+                  62
+                </p>
+              </td>
+<td>
+                <p>
+                  13
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  unsigned long long-&gt;string
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>9</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  88
+                </p>
+              </td>
+<td>
+                <p>
+                  60
+                </p>
+              </td>
+<td>
+                <p>
+                  13
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  float-&gt;string
+                </p>
+              </td>
+<td>
+                <p>
+                  73
+                </p>
+              </td>
+<td>
+                <p>
+                  167
+                </p>
+              </td>
+<td>
+                <p>
+                  137
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>56</strong></span> !!!
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  double-&gt;string
+                </p>
+              </td>
+<td>
+                <p>
+                  77
+                </p>
+              </td>
+<td>
+                <p>
+                  176
+                </p>
+              </td>
+<td>
+                <p>
+                  144
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>64</strong></span> !!!
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  long double-&gt;string
+                </p>
+              </td>
+<td>
+                <p>
+                  79
+                </p>
+              </td>
+<td>
+                <p>
+                  175
+                </p>
+              </td>
+<td>
+                <p>
+                  143
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>63</strong></span> !!!
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  char*-&gt;char
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>&lt;1</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  43
+                </p>
+              </td>
+<td>
+                <p>
+                  17
+                </p>
+              </td>
+<td>
+                <p>
+                  7
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  char*-&gt;signed char
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>&lt;1</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  43
+                </p>
+              </td>
+<td>
+                <p>
+                  17
+                </p>
+              </td>
+<td>
+                <p>
+                  8
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  char*-&gt;unsigned char
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>&lt;1</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  44
+                </p>
+              </td>
+<td>
+                <p>
+                  17
+                </p>
+              </td>
+<td>
+                <p>
+                  8
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  char*-&gt;int
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  70
+                </p>
+              </td>
+<td>
+                <p>
+                  47
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  char*-&gt;short
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  72
+                </p>
+              </td>
+<td>
+                <p>
+                  48
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  char*-&gt;long int
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  72
+                </p>
+              </td>
+<td>
+                <p>
+                  47
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  char*-&gt;long long
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  71
+                </p>
+              </td>
+<td>
+                <p>
+                  47
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  char*-&gt;unsigned int
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  72
+                </p>
+              </td>
+<td>
+                <p>
+                  46
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  char*-&gt;unsigned short
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  72
+                </p>
+              </td>
+<td>
+                <p>
+                  47
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  char*-&gt;unsigned long int
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  70
+                </p>
+              </td>
+<td>
+                <p>
+                  46
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  char*-&gt;unsigned long long
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  70
+                </p>
+              </td>
+<td>
+                <p>
+                  45
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  char*-&gt;float
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>14</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  586
+                </p>
+              </td>
+<td>
+                <p>
+                  560
+                </p>
+              </td>
+<td>
+                <p>
+                  37
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  char*-&gt;double
+                </p>
+              </td>
+<td>
+                <p>
+                  598
+                </p>
+              </td>
+<td>
+                <p>
+                  617
+                </p>
+              </td>
+<td>
+                <p>
+                  597
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>40</strong></span> !!!
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  char*-&gt;long double
+                </p>
+              </td>
+<td>
+                <p>
+                  635
+                </p>
+              </td>
+<td>
+                <p>
+                  653
+                </p>
+              </td>
+<td>
+                <p>
+                  622
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>37</strong></span> !!!
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  char*-&gt;array&lt;char, 50&gt;
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>1</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  53
+                </p>
+              </td>
+<td>
+                <p>
+                  28
+                </p>
+              </td>
+<td>
+                <p>
+                  11
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  char*-&gt;string
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>1</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  59
+                </p>
+              </td>
+<td>
+                <p>
+                  35
+                </p>
+              </td>
+<td>
+                <p>
+                  ---
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  char*-&gt;container::string
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>3</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  54
+                </p>
+              </td>
+<td>
+                <p>
+                  30
+                </p>
+              </td>
+<td>
+                <p>
+                  ---
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  unsigned char*-&gt;char
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>&lt;1</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  41
+                </p>
+              </td>
+<td>
+                <p>
+                  17
+                </p>
+              </td>
+<td>
+                <p>
+                  7
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  unsigned char*-&gt;signed char
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>&lt;1</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  42
+                </p>
+              </td>
+<td>
+                <p>
+                  17
+                </p>
+              </td>
+<td>
+                <p>
+                  8
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  unsigned char*-&gt;unsigned char
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>&lt;1</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  41
+                </p>
+              </td>
+<td>
+                <p>
+                  17
+                </p>
+              </td>
+<td>
+                <p>
+                  8
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  unsigned char*-&gt;int
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  72
+                </p>
+              </td>
+<td>
+                <p>
+                  47
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  unsigned char*-&gt;short
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  72
+                </p>
+              </td>
+<td>
+                <p>
+                  47
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  unsigned char*-&gt;long int
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  72
+                </p>
+              </td>
+<td>
+                <p>
+                  47
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  unsigned char*-&gt;long long
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  72
+                </p>
+              </td>
+<td>
+                <p>
+                  47
+                </p>
+              </td>
+<td>
+                <p>
+                  11
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  unsigned char*-&gt;unsigned int
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  70
+                </p>
+              </td>
+<td>
+                <p>
+                  46
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  unsigned char*-&gt;unsigned short
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  72
+                </p>
+              </td>
+<td>
+                <p>
+                  48
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  unsigned char*-&gt;unsigned long int
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  71
+                </p>
+              </td>
+<td>
+                <p>
+                  46
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  unsigned char*-&gt;unsigned long long
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  70
+                </p>
+              </td>
+<td>
+                <p>
+                  45
+                </p>
+              </td>
+<td>
+                <p>
+                  11
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  unsigned char*-&gt;float
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>14</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  589
+                </p>
+              </td>
+<td>
+                <p>
+                  564
+                </p>
+              </td>
+<td>
+                <p>
+                  38
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  unsigned char*-&gt;double
+                </p>
+              </td>
+<td>
+                <p>
+                  601
+                </p>
+              </td>
+<td>
+                <p>
+                  615
+                </p>
+              </td>
+<td>
+                <p>
+                  588
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>37</strong></span> !!!
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  unsigned char*-&gt;long double
+                </p>
+              </td>
+<td>
+                <p>
+                  628
+                </p>
+              </td>
+<td>
+                <p>
+                  644
+                </p>
+              </td>
+<td>
+                <p>
+                  620
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>38</strong></span> !!!
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  unsigned char*-&gt;array&lt;char, 50&gt;
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>1</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  54
+                </p>
+              </td>
+<td>
+                <p>
+                  28
+                </p>
+              </td>
+<td>
+                <p>
+                  11
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  unsigned char*-&gt;string
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>2</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  59
+                </p>
+              </td>
+<td>
+                <p>
+                  36
+                </p>
+              </td>
+<td>
+                <p>
+                  ---
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  unsigned char*-&gt;container::string
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>3</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  54
+                </p>
+              </td>
+<td>
+                <p>
+                  30
+                </p>
+              </td>
+<td>
+                <p>
+                  ---
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  signed char*-&gt;char
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>&lt;1</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  41
+                </p>
+              </td>
+<td>
+                <p>
+                  17
+                </p>
+              </td>
+<td>
+                <p>
+                  7
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  signed char*-&gt;signed char
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>&lt;1</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  43
+                </p>
+              </td>
+<td>
+                <p>
+                  17
+                </p>
+              </td>
+<td>
+                <p>
+                  8
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  signed char*-&gt;unsigned char
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>&lt;1</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  42
+                </p>
+              </td>
+<td>
+                <p>
+                  17
+                </p>
+              </td>
+<td>
+                <p>
+                  8
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  signed char*-&gt;int
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  71
+                </p>
+              </td>
+<td>
+                <p>
+                  47
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  signed char*-&gt;short
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  72
+                </p>
+              </td>
+<td>
+                <p>
+                  48
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  signed char*-&gt;long int
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  71
+                </p>
+              </td>
+<td>
+                <p>
+                  47
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  signed char*-&gt;long long
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  72
+                </p>
+              </td>
+<td>
+                <p>
+                  47
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  signed char*-&gt;unsigned int
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  70
+                </p>
+              </td>
+<td>
+                <p>
+                  46
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  signed char*-&gt;unsigned short
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  72
+                </p>
+              </td>
+<td>
+                <p>
+                  47
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  signed char*-&gt;unsigned long int
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  70
+                </p>
+              </td>
+<td>
+                <p>
+                  46
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  signed char*-&gt;unsigned long long
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  70
+                </p>
+              </td>
+<td>
+                <p>
+                  46
+                </p>
+              </td>
+<td>
+                <p>
+                  11
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  signed char*-&gt;float
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>14</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  586
+                </p>
+              </td>
+<td>
+                <p>
+                  562
+                </p>
+              </td>
+<td>
+                <p>
+                  37
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  signed char*-&gt;double
+                </p>
+              </td>
+<td>
+                <p>
+                  603
+                </p>
+              </td>
+<td>
+                <p>
+                  615
+                </p>
+              </td>
+<td>
+                <p>
+                  589
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>37</strong></span> !!!
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  signed char*-&gt;long double
+                </p>
+              </td>
+<td>
+                <p>
+                  630
+                </p>
+              </td>
+<td>
+                <p>
+                  644
+                </p>
+              </td>
+<td>
+                <p>
+                  623
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>40</strong></span> !!!
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  signed char*-&gt;array&lt;char, 50&gt;
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>1</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  54
+                </p>
+              </td>
+<td>
+                <p>
+                  28
+                </p>
+              </td>
+<td>
+                <p>
+                  11
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  signed char*-&gt;string
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>2</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  59
+                </p>
+              </td>
+<td>
+                <p>
+                  36
+                </p>
+              </td>
+<td>
+                <p>
+                  ---
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  signed char*-&gt;container::string
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>3</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  54
+                </p>
+              </td>
+<td>
+                <p>
+                  30
+                </p>
+              </td>
+<td>
+                <p>
+                  ---
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  iterator_range&lt;char*&gt;-&gt;char
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>&lt;1</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  74
+                </p>
+              </td>
+<td>
+                <p>
+                  46
+                </p>
+              </td>
+<td>
+                <p>
+                  7
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  iterator_range&lt;char*&gt;-&gt;signed char
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>&lt;1</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  75
+                </p>
+              </td>
+<td>
+                <p>
+                  46
+                </p>
+              </td>
+<td>
+                <p>
+                  8
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  iterator_range&lt;char*&gt;-&gt;unsigned char
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>&lt;1</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  74
+                </p>
+              </td>
+<td>
+                <p>
+                  46
+                </p>
+              </td>
+<td>
+                <p>
+                  8
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  iterator_range&lt;char*&gt;-&gt;int
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  98
+                </p>
+              </td>
+<td>
+                <p>
+                  70
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  iterator_range&lt;char*&gt;-&gt;short
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  103
+                </p>
+              </td>
+<td>
+                <p>
+                  72
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  iterator_range&lt;char*&gt;-&gt;long int
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  111
+                </p>
+              </td>
+<td>
+                <p>
+                  71
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  iterator_range&lt;char*&gt;-&gt;long long
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  98
+                </p>
+              </td>
+<td>
+                <p>
+                  70
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  iterator_range&lt;char*&gt;-&gt;unsigned int
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>7</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  103
+                </p>
+              </td>
+<td>
+                <p>
+                  76
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  iterator_range&lt;char*&gt;-&gt;unsigned short
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  104
+                </p>
+              </td>
+<td>
+                <p>
+                  75
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  iterator_range&lt;char*&gt;-&gt;unsigned long int
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>7</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  104
+                </p>
+              </td>
+<td>
+                <p>
+                  71
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  iterator_range&lt;char*&gt;-&gt;unsigned long long
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  99
+                </p>
+              </td>
+<td>
+                <p>
+                  71
+                </p>
+              </td>
+<td>
+                <p>
+                  11
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  iterator_range&lt;char*&gt;-&gt;float
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>13</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  123
+                </p>
+              </td>
+<td>
+                <p>
+                  93
+                </p>
+              </td>
+<td>
+                <p>
+                  37
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  iterator_range&lt;char*&gt;-&gt;double
+                </p>
+              </td>
+<td>
+                <p>
+                  603
+                </p>
+              </td>
+<td>
+                <p>
+                  111
+                </p>
+              </td>
+<td>
+                <p>
+                  82
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>38</strong></span> !!!
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  iterator_range&lt;char*&gt;-&gt;long double
+                </p>
+              </td>
+<td>
+                <p>
+                  629
+                </p>
+              </td>
+<td>
+                <p>
+                  116
+                </p>
+              </td>
+<td>
+                <p>
+                  83
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>38</strong></span> !!!
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  iterator_range&lt;char*&gt;-&gt;array&lt;char, 50&gt;
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>&lt;1</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  82
+                </p>
+              </td>
+<td>
+                <p>
+                  52
+                </p>
+              </td>
+<td>
+                <p>
+                  11
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  iterator_range&lt;char*&gt;-&gt;string
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>2</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  83
+                </p>
+              </td>
+<td>
+                <p>
+                  56
+                </p>
+              </td>
+<td>
+                <p>
+                  ---
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  iterator_range&lt;char*&gt;-&gt;container::string
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>2</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  81
+                </p>
+              </td>
+<td>
+                <p>
+                  53
+                </p>
+              </td>
+<td>
+                <p>
+                  ---
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  array&lt;char, 50&gt;-&gt;char
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>&lt;1</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  41
+                </p>
+              </td>
+<td>
+                <p>
+                  17
+                </p>
+              </td>
+<td>
+                <p>
+                  7
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  array&lt;char, 50&gt;-&gt;signed char
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>&lt;1</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  41
+                </p>
+              </td>
+<td>
+                <p>
+                  17
+                </p>
+              </td>
+<td>
+                <p>
+                  8
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  array&lt;char, 50&gt;-&gt;unsigned char
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>&lt;1</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  41
+                </p>
+              </td>
+<td>
+                <p>
+                  17
+                </p>
+              </td>
+<td>
+                <p>
+                  8
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  array&lt;char, 50&gt;-&gt;int
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  73
+                </p>
+              </td>
+<td>
+                <p>
+                  46
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  array&lt;char, 50&gt;-&gt;short
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  73
+                </p>
+              </td>
+<td>
+                <p>
+                  47
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  array&lt;char, 50&gt;-&gt;long int
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  75
+                </p>
+              </td>
+<td>
+                <p>
+                  48
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  array&lt;char, 50&gt;-&gt;long long
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  73
+                </p>
+              </td>
+<td>
+                <p>
+                  48
+                </p>
+              </td>
+<td>
+                <p>
+                  11
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  array&lt;char, 50&gt;-&gt;unsigned int
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  73
+                </p>
+              </td>
+<td>
+                <p>
+                  47
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  array&lt;char, 50&gt;-&gt;unsigned short
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  74
+                </p>
+              </td>
+<td>
+                <p>
+                  50
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  array&lt;char, 50&gt;-&gt;unsigned long int
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  71
+                </p>
+              </td>
+<td>
+                <p>
+                  46
+                </p>
+              </td>
+<td>
+                <p>
+                  10
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  array&lt;char, 50&gt;-&gt;unsigned long long
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>8</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  70
+                </p>
+              </td>
+<td>
+                <p>
+                  47
+                </p>
+              </td>
+<td>
+                <p>
+                  11
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  array&lt;char, 50&gt;-&gt;float
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>14</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  586
+                </p>
+              </td>
+<td>
+                <p>
+                  567
+                </p>
+              </td>
+<td>
+                <p>
+                  37
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  array&lt;char, 50&gt;-&gt;double
+                </p>
+              </td>
+<td>
+                <p>
+                  599
+                </p>
+              </td>
+<td>
+                <p>
+                  624
+                </p>
+              </td>
+<td>
+                <p>
+                  590
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>37</strong></span> !!!
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  array&lt;char, 50&gt;-&gt;long double
+                </p>
+              </td>
+<td>
+                <p>
+                  632
+                </p>
+              </td>
+<td>
+                <p>
+                  643
+                </p>
+              </td>
+<td>
+                <p>
+                  618
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>37</strong></span> !!!
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  array&lt;char, 50&gt;-&gt;array&lt;char, 50&gt;
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>1</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  52
+                </p>
+              </td>
+<td>
+                <p>
+                  28
+                </p>
+              </td>
+<td>
+                <p>
+                  11
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  array&lt;char, 50&gt;-&gt;string
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>2</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  59
+                </p>
+              </td>
+<td>
+                <p>
+                  34
+                </p>
+              </td>
+<td>
+                <p>
+                  ---
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  array&lt;char, 50&gt;-&gt;container::string
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>3</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  55
+                </p>
+              </td>
+<td>
+                <p>
+                  30
+                </p>
+              </td>
+<td>
+                <p>
+                  ---
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  int-&gt;int
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>&lt;1</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  105
+                </p>
+              </td>
+<td>
+                <p>
+                  79
+                </p>
+              </td>
+<td>
+                <p>
+                  ---
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  float-&gt;double
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>&lt;1</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  226
+                </p>
+              </td>
+<td>
+                <p>
+                  188
+                </p>
+              </td>
+<td>
+                <p>
+                  ---
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  char-&gt;signed char
+                </p>
+              </td>
+<td>
+                <p>
+                  !!! <span class="bold"><strong>&lt;1</strong></span> !!!
+                </p>
+              </td>
+<td>
+                <p>
+                  40
+                </p>
+              </td>
+<td>
+                <p>
+                  16
+                </p>
+              </td>
+<td>
+                <p>
+                  ---
+                </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<br class="table-break">
+</div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2000-2005 Kevlin Henney<br>Copyright &#169; 2006-2010 Alexander Nasonov<br>Copyright &#169; 2011, 2012 Antony Polukhin<p>
+<td align="right"><div class="copyright-footer">Copyright &#169; 2000-2005 Kevlin Henney<br>Copyright &#169; 2006-2010 Alexander Nasonov<br>Copyright &#169; 2011-2014 Antony
+      Polukhin<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
@@ -13208,7 +16472,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="changes.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../boost_lexical_cast.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="../move.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="changes.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../boost_lexical_cast.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="../lockfree.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

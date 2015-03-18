@@ -33,7 +33,7 @@ int main()
     cout << "str1 ends with \"123\": " << 
         (ends_with( str1, string("123") )?"true":"false") << endl; 
 
-    // Check if str1 containes 'xxx'
+    // Check if str1 contains 'xxx'
     cout << "str1 contains \"xxx\": " << 
         (contains( str1, string("xxx") )?"true":"false") << endl; 
 

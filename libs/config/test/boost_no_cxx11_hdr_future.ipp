@@ -26,7 +26,6 @@ int test()
   using std::promise;
   using std::future;
   using std::shared_future;
-  using std::atomic_future;
   using std::packaged_task; // undefined
   using std::async;
   return 0;

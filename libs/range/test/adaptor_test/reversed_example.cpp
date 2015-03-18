@@ -8,13 +8,15 @@
 //
 // For more information, see http://www.boost.org/libs/range/
 //
+//[reversed_example
 #include <boost/range/adaptor/reversed.hpp>
 #include <boost/range/algorithm/copy.hpp>
 #include <boost/assign.hpp>
-#include <algorithm>
+#include <iterator>
 #include <iostream>
 #include <vector>
 
+//<-
 #include <boost/test/test_tools.hpp>
 #include <boost/test/unit_test.hpp>
 
@@ -22,25 +24,29 @@
 
 namespace 
 {
-    void reversed_example_test()
-    {
-        using namespace boost::adaptors;
-        using namespace boost::assign;
+void reversed_example_test()
+//->
+//=int main(int argc, const char* argv[])
+{
+    using namespace boost::adaptors;
+    using namespace boost::assign;
 
-        std::vector<int> input;
-        input += 1,2,3,4,5,6,7,8,9;
-        
-        boost::copy(
-            input | reversed,
-            std::ostream_iterator<int>(std::cout, ","));
+    std::vector<int> input;
+    input += 1,2,3,4,5,6,7,8,9;
+    
+    boost::copy(
+        input | reversed,
+        std::ostream_iterator<int>(std::cout, ","));
 
+//=    return 0;
+//=}
+//]
+    std::vector<int> test;
+    boost::push_back(test, input | reversed);
 
-        std::vector<int> test;
-        boost::push_back(test, input | reversed);
-
-        BOOST_CHECK_EQUAL_COLLECTIONS( input.rbegin(), input.rend(),
-            test.begin(), test.end() );
-    }
+    BOOST_CHECK_EQUAL_COLLECTIONS( input.rbegin(), input.rend(),
+        test.begin(), test.end() );
+}
 }
 
 boost::unit_test::test_suite*

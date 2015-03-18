@@ -6,7 +6,7 @@
 // License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-#include <algorithm>
+#include <algorithm> // std::copy
 #include <vector>
 #include <cstdlib> // for rand
 #include <functional>
@@ -102,9 +102,9 @@ template<int BitsOut, int BitsIn>
 void test_transform_width(unsigned int size){
     // test transform_width
     char rawdata[8];
-    
+
     char * rptr;
-    for(rptr = rawdata + 6; rptr-- > rawdata;)
+    for(rptr = rawdata + size; rptr-- > rawdata;)
         *rptr = static_cast<char>(0xff & std::rand());
 
     // convert 8 to 6 bit characters
@@ -112,32 +112,41 @@ void test_transform_width(unsigned int size){
         char *, BitsOut, BitsIn 
     > translator1;
 
-    std::vector<char> v6;
+    std::vector<char> vout;
 
     std::copy(
         translator1(BOOST_MAKE_PFTO_WRAPPER(static_cast<char *>(rawdata))),
         translator1(BOOST_MAKE_PFTO_WRAPPER(rawdata + size)),
-        std::back_inserter(v6)
+        std::back_inserter(vout)
     );
 
     // check to see we got the expected # of characters out
     if(0 ==  size)
-        BOOST_CHECK(v6.size() == 0);
+        BOOST_CHECK(vout.size() == 0);
     else
-        BOOST_CHECK(v6.size() == (size * BitsIn - 1 ) / BitsOut + 1);
+        BOOST_CHECK(vout.size() == (size * BitsIn - 1 ) / BitsOut + 1);
 
     typedef boost::archive::iterators::transform_width<
         std::vector<char>::iterator, BitsIn, BitsOut
     > translator2;
 
+    std::vector<char> vin;
+    std::copy(
+        translator2(BOOST_MAKE_PFTO_WRAPPER(vout.begin())),
+        translator2(BOOST_MAKE_PFTO_WRAPPER(vout.end())),
+        std::back_inserter(vin)
+    );
+
+    // check to see we got the expected # of characters out
+    BOOST_CHECK(vin.size() == size);
+
     BOOST_CHECK(
         std::equal(
             rawdata,
             rawdata + size,
-            translator2(BOOST_MAKE_PFTO_WRAPPER(v6.begin()))
+            vin.begin()
         )
     );
-
 }
 
 template<class CharType>

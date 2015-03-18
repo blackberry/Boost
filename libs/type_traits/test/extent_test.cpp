@@ -34,7 +34,7 @@ BOOST_CHECK_INTEGRAL_CONSTANT((::tt::extent<int[5][10][40],3>::value), 0);
 
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::extent<int*>::value, 0);
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::extent<int&>::value, 0);
-#ifndef BOOST_NO_RVALUE_REFERENCES
+#ifndef BOOST_NO_CXX11_RVALUE_REFERENCES
 BOOST_CHECK_INTEGRAL_CONSTANT(::tt::extent<int&&>::value, 0);
 #endif
 

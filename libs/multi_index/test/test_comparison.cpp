@@ -1,6 +1,6 @@
 /* Boost.MultiIndex test for comparison functions.
  *
- * Copyright 2003-2008 Joaquin M Lopez Munoz.
+ * Copyright 2003-2013 Joaquin M Lopez Munoz.
  * Distributed under the Boost Software License, Version 1.0.
  * (See accompanying file LICENSE_1_0.txt or copy at
  * http://www.boost.org/LICENSE_1_0.txt)
@@ -13,7 +13,8 @@
 #include <boost/config.hpp> /* keep it first to prevent nasty warns in MSVC */
 #include "pre_multi_index.hpp"
 #include "employee.hpp"
-#include <boost/test/test_tools.hpp>
+#include "pair_of_ints.hpp"
+#include <boost/detail/lightweight_test.hpp>
 
 using namespace boost::multi_index;
 
@@ -42,8 +43,10 @@ struct lookup_vector{
 void test_comparison()
 {
   employee_set              es;
+  employee_set_by_name&     i1=get<1>(es);
   employee_set_by_age&      i2=get<2>(es);
   employee_set_as_inserted& i3=get<3>(es);
+  employee_set_by_ssn&      i4=get<4>(es);
   employee_set_randomly&    i5=get<5>(es);
   es.insert(employee(0,"Joe",31,1123));
   es.insert(employee(1,"Robert",27,5601));
@@ -52,22 +55,53 @@ void test_comparison()
   es.insert(employee(4,"John",57,1002));
 
   employee_set              es2;
+  employee_set_by_name&     i12=get<by_name>(es2);
   employee_set_by_age&      i22=get<age>(es2);
   employee_set_as_inserted& i32=get<3>(es2);
+  employee_set_by_ssn&      i42=get<4>(es2);
   employee_set_randomly&    i52=get<5>(es2);
   es2.insert(employee(0,"Joe",31,1123));
   es2.insert(employee(1,"Robert",27,5601));
   es2.insert(employee(2,"John",40,7889));
   es2.insert(employee(3,"Albert",20,9012));
 
-  BOOST_CHECK(es==es&&es<=es&&es>=es&&
-              i22==i22&&i22<=i22&&i22>=i22&&
-              i32==i32&&i32<=i32&&i32>=i32&&
-              i52==i52&&i52<=i52&&i52>=i52);
-  BOOST_CHECK(es!=es2&&es2<es&&es>es2&&!(es<=es2)&&!(es2>=es));
-  BOOST_CHECK(i2!=i22&&i22<i2&&i2>i22&&!(i2<=i22)&&!(i22>=i2));
-  BOOST_CHECK(i3!=i32&&i32<i3&&i3>i32&&!(i3<=i32)&&!(i32>=i3));
-  BOOST_CHECK(i5!=i52&&i52<i5&&i5>i52&&!(i5<=i52)&&!(i52>=i5));
+  BOOST_TEST(es==es&&es<=es&&es>=es&&
+             i12==i12&&  
+             i22==i22&&i22<=i22&&i22>=i22&&
+             i32==i32&&i32<=i32&&i32>=i32&&
+             i42==i42&&
+             i52==i52&&i52<=i52&&i52>=i52);
+  BOOST_TEST(es!=es2&&es2<es&&es>es2&&!(es<=es2)&&!(es2>=es));
+  BOOST_TEST(i1!=i12);
+  BOOST_TEST(i2!=i22&&i22<i2&&i2>i22&&!(i2<=i22)&&!(i22>=i2));
+  BOOST_TEST(i3!=i32&&i32<i3&&i3>i32&&!(i3<=i32)&&!(i32>=i3));
+  BOOST_TEST(i4!=i42);
+  BOOST_TEST(i5!=i52&&i52<i5&&i5>i52&&!(i5<=i52)&&!(i52>=i5));
+
+  multi_index_container<
+    pair_of_ints,
+    indexed_by<
+      hashed_non_unique<BOOST_MULTI_INDEX_MEMBER(pair_of_ints,int,first)>
+    >
+  > hc1,hc2;
+  hc1.insert(pair_of_ints(0,0));
+  hc1.insert(pair_of_ints(0,1));
+  hc1.insert(pair_of_ints(0,2));
+  hc1.insert(pair_of_ints(0,3));
+  hc1.insert(pair_of_ints(1,0));
+  hc1.insert(pair_of_ints(1,1));
+
+  hc2.insert(pair_of_ints(0,2));
+  hc2.insert(pair_of_ints(0,1));
+  hc2.insert(pair_of_ints(1,1));
+  hc2.insert(pair_of_ints(1,0));
+  hc2.insert(pair_of_ints(0,3));
+  hc2.insert(pair_of_ints(0,0));
+  BOOST_TEST(hc1==hc2);
+
+  hc1.insert(pair_of_ints(0,4));
+  hc2.insert(pair_of_ints(0,5));
+  BOOST_TEST(hc1!=hc2);
 
   lookup_list<int>::type    l1;
   lookup_list<char>::type   l2;
@@ -103,15 +137,15 @@ void test_comparison()
   l5.push_back(long(5));
   l5.push_back(long(1));
 
-  BOOST_CHECK(l1==l2&&l1<=l2&&l1>=l2);
-  BOOST_CHECK(
+  BOOST_TEST(l1==l2&&l1<=l2&&l1>=l2);
+  BOOST_TEST(
     get<1>(l1)==get<1>(l2)&&get<1>(l1)<=get<1>(l2)&&get<1>(l1)>=get<1>(l2));
-  BOOST_CHECK(
+  BOOST_TEST(
     get<1>(l1)==get<1>(l3)&&get<1>(l1)<=get<1>(l3)&&get<1>(l1)>=get<1>(l3));
-  BOOST_CHECK(l1!=l4&&l4<l1&&l1>l4);
-  BOOST_CHECK(
+  BOOST_TEST(l1!=l4&&l4<l1&&l1>l4);
+  BOOST_TEST(
     get<1>(l1)!=get<1>(l4)&&get<1>(l1)<get<1>(l4)&&get<1>(l4)>get<1>(l1));
-  BOOST_CHECK(l3!=l5&&l5<l3&&l3>l5);
-  BOOST_CHECK(
+  BOOST_TEST(l3!=l5&&l5<l3&&l3>l5);
+  BOOST_TEST(
     get<1>(l3)!=get<1>(l5)&&get<1>(l3)<get<1>(l5)&&get<1>(l5)>get<1>(l3));
 }

@@ -1,7 +1,7 @@
 // Copyright (C) 2001-2003
 // William E. Kempf
 //
-//  Distributed under the Boost Software License, Version 1.0. (See accompanying 
+//  Distributed under the Boost Software License, Version 1.0. (See accompanying
 //  file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 #include <boost/thread/recursive_mutex.hpp>
@@ -14,12 +14,12 @@ public:
     counter() : count(0) { }
 
     int add(int val) {
-        boost::recursive_mutex::scoped_lock scoped_lock(mutex);
+        boost::unique_lock<boost::recursive_mutex> scoped_lock(mutex);
         count += val;
         return count;
     }
     int increment() {
-        boost::recursive_mutex::scoped_lock scoped_lock(mutex);
+        boost::unique_lock<boost::recursive_mutex> scoped_lock(mutex);
         return add(1);
     }
 

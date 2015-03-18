@@ -44,7 +44,7 @@ thread_handle
 
     explicit
     thread_handle( boost::function<void()> const & f ):
-        t_(boost::bind(thread_wrapper,f,err_))
+        t_(boost::bind(thread_wrapper,f,boost::ref(err_)))
         {
         }
 
@@ -63,8 +63,8 @@ void
 join( thread_handle & t )
     {
     t.t_.join();
-    if( t.err_ )
-        rethrow_exception(t.err_);
+    assert(t.err_);
+    rethrow_exception(t.err_);
     }
 
 boost::detail::atomic_count exc_count(0);
@@ -79,7 +79,9 @@ exc:
         ++exc_count;
         }
 
-    exc( exc const & )
+    exc( exc const & e ):
+        boost::exception(e),
+        std::exception(e)
         {
         ++exc_count;
         }
@@ -109,6 +111,7 @@ check( boost::shared_ptr<thread_handle> const & t )
     try
         {
         join(*t);
+        BOOST_TEST(false);
         }
     catch(
     exc & e )
@@ -125,7 +128,7 @@ main()
     try
         {
         std::vector< boost::shared_ptr<thread_handle> > threads;
-        std::generate_n(std::inserter(threads,threads.end()),256,boost::bind(create_thread,thread_func));
+        std::generate_n(std::inserter(threads,threads.end()),1,boost::bind(create_thread,thread_func));
         std::for_each(threads.begin(),threads.end(),check);
         return boost::report_errors();
         }

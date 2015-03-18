@@ -8,6 +8,9 @@
 #define _HPP_TESTHELPER_
 
 #include <utility>
+#include <iostream>
+#include <boost/numeric/ublas/vector_expression.hpp>
+#include <boost/numeric/ublas/matrix_expression.hpp>
 
 static unsigned _success_counter = 0;
 static unsigned _fail_counter    = 0;
@@ -43,7 +46,7 @@ void assertEquals(const char* message, T expected, T actual) {
   }
 }
 
-static
+inline static
 std::pair<unsigned, unsigned> getResults() {
   return std::make_pair(_success_counter, _fail_counter);
 }
