@@ -279,7 +279,7 @@ boost
 
     inline
     exception::
-    ~exception() throw()
+    ~exception()
         {
         }
 
