@@ -235,7 +235,7 @@ extract( boost::exception const* ex )
 //____________________________________________________________________________//
 
 static void
-report_error( execution_exception::error_code ec, boost::exception const* be, char const* format, va_list* args )
+report_error( execution_exception::error_code ec, boost::exception const* be, char const* format, std::va_list* args )
 {
     static const int REPORT_ERROR_BUFFER_SIZE = 512;
     static char buf[REPORT_ERROR_BUFFER_SIZE];
@@ -255,7 +255,7 @@ report_error( execution_exception::error_code ec, boost::exception const* be, ch
 static void
 report_error( execution_exception::error_code ec, char const* format, ... )
 {
-    va_list args;
+    std::va_list args;
     va_start( args, format );
 
     report_error( ec, 0, format, &args );
@@ -266,7 +266,7 @@ report_error( execution_exception::error_code ec, char const* format, ... )
 static void
 report_error( execution_exception::error_code ec, boost::exception const* be, char const* format, ... )
 {
-    va_list args;
+    std::va_list args;
     va_start( args, format );
 
     report_error( ec, be, format, &args );

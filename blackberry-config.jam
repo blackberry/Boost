@@ -40,12 +40,14 @@ if ! $(QNX_TARGET) || ! $(QNX_HOST)
 # _cpp uses dinkumware, _gpp uses gnu std::
 if $(QNX_TARGET_ARCH) = x86
 {
-    dashVOpt = gcc_ntox86_cpp ;
+    dashVOpt = 4.8.3,gcc_ntox86_cpp ;
+    dashVOptLink = gcc_ntox86_cpp ;
     linkArchDir = x86 ;
 }
 else
 {
-    dashVOpt = gcc_ntoarmv7le_cpp ;
+    dashVOpt = 4.8.3,gcc_ntoarmv7le_cpp ;
+    dashVOptLink = gcc_ntoarmv7le_cpp ;
     linkArchDir = armle-v7 ;
 }
 
@@ -76,7 +78,7 @@ else
 
 using qcc
 # Version
-    :
+    : 
 
 # C++-compile-command
     : $(QNX_HOST)/usr/bin/QCC -V$(dashVOpt)
@@ -100,7 +102,11 @@ using qcc
 
     # Functions like sync_val_compare_and_swap and sync_fetch_and_add aren't available
         <compileflags>"-DBOOST_SP_NO_SYNC"
+    
+    # syslog aren't available
+        <compileflags>"-DBOOST_LOG_WITHOUT_SYSLOG"
 
+        <linkflags>-V$(dashVOptLink)
         <linkflags>"-L$(QNX_TARGET)/$(linkArchDir)/usr/lib -L$(QNX_TARGET)/$(linkArchDir)/lib"
     ;
     

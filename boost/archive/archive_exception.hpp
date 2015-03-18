@@ -83,7 +83,11 @@ public:
         const char * e1 = NULL,
         const char * e2 = NULL
     );
+#ifdef __QNX__
+    virtual ~archive_exception();
+#else
     virtual ~archive_exception() throw();
+#endif
     virtual const char *what() const throw();
 protected:
     unsigned int
